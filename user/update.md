@@ -2,7 +2,7 @@
 title: Updates
 description: How should you update your system
 published: true
-date: 2020-03-14T20:29:18.822Z
+date: 2020-03-14T20:48:47.086Z
 tags: user, tutorial, maintain, update, tuto
 ---
 
@@ -11,19 +11,19 @@ In order for you to use your system you need to know how to install software. Th
 
 # Tos package manager
 Open up a terminal (mod+Enter) and type in the following
-```sh
+```bash
 tos -Ss <query> # where query is the application to lookup
 ```
 You will get a reply containing all matches to your query. Find the correct application name and the type the following
 
-```sh
+```bash
 tos -Syu <name> # where name is the name of your application.
 ```
 
 Lets take a look at a simple example.
 We will be trying to install gimp. For those who don't know what gimp is. Its a editor for pictures much like photoshop.
 
-```sh
+```bash
 tos -Ss gimp # gimp will most likely be named gimp
 >extra/xsane-gimp 0.999-3 (248.1 KiB 772.0 KiB)
 >    XSane Gimp plugin
