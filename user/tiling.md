@@ -2,8 +2,8 @@
 title: Tiling Window Managers
 description: Short help page describing how and what tiling window managers are.
 published: true
-date: 2020-03-14T20:25:11.425Z
-tags: user, help, window manager, tiling, windo
+date: 2020-03-14T20:53:32.619Z
+tags: user, help, window manager, tiling
 ---
 
 # Understanding Tiling Window Managers
