@@ -2,8 +2,8 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-03-14T18:35:50.645Z
-tags: 
+date: 2020-03-14T19:12:41.769Z
+tags: home, welcome, wiki
 ---
 
 # TOS WIKI HOME
@@ -54,7 +54,7 @@ Below is some information to help you get started!
 
 - [**Linux** | Extend the Linux kernel](/dev/linux)
 
-- [**System Updater** | Auomatically mitigate Arch Linux manual interventions](/dev/update)
+- [**System Updater** | Automatically mitigate Arch Linux manual interventions](/dev/update)
 
 - [**Installer** | Extend the Calamares Installer](/dev/calamares)
 
