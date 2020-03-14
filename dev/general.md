@@ -2,7 +2,7 @@
 title: General
 description: General information on how to get started developing
 published: true
-date: 2020-03-14T21:31:38.050Z
+date: 2020-03-14T21:32:20.024Z
 tags: getting started, tutorial, help, dev
 ---
 
