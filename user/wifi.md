@@ -2,7 +2,7 @@
 title: Setting Up WI-FI
 description: Small tutorial on all ways you can configure wifi
 published: true
-date: 2020-03-14T20:32:34.152Z
+date: 2020-03-14T20:49:22.795Z
 tags: user, tutorial, help, wifi
 ---
 
@@ -28,13 +28,13 @@ Select the desired SSID to connect to and optionally enter the password.
 # Terminal
 This one is also pretty simple. All you need to know is your SSID and your password. Open up a terminal and type in the following
 
-```sh
+```bash
 tos network list # get a list of all detected networks
 tos network connect <ssid> # connect to a network called <ssid>
 ```
 
 If you are trying to connect to enterprise network or the connection type is not supported try the following
 
-```sh
+```bash
 nmtui # open a TUI (terminal user interface)
 ```
