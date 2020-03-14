@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-03-14T19:12:41.769Z
+date: 2020-03-14T20:36:50.133Z
 tags: home, welcome, wiki
 ---
 
@@ -38,6 +38,10 @@ Below is some information to help you get started!
 - [**Navigation** | Navigate around your system](/user/navigate)
 
 - [**TOS tool** | Use the TOS tool to make your life easier](/user/tool)
+
+- [**Tiling Window Manager** | Explain what a tiling window manager is (referenced thoughout this documentation)](/user/tiling)
+
+- [**Setting Up Wi-Fi** | Quickly describe how to configure wifi in TOS](/user/wifi)
 
 
 # Development
