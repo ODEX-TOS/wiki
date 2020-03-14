@@ -2,7 +2,7 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-03-14T20:16:51.349Z
+date: 2020-03-14T20:48:16.915Z
 tags: iso, user, download, tos, live iso, basics, getting started
 ---
 
@@ -17,7 +17,7 @@ Download the latest version of TOS GNU/Linux [here](https://tos.odex.be/download
 
 ### Find your usb stick
 
-```sh
+```bash
 lsblk # before inserting your stick
 #now insert the usb stick
 lsblk # the new entry is your usb stick
@@ -25,13 +25,13 @@ lsblk # the new entry is your usb stick
 
 ### Burn the iso to your usb stick
 
-```sh
+```bash
 dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb # where sdb is the name of your stick
 ```
 
 > Note that the above `dd` command can take a long time. If you wish to see progress use the following command
 
-```sh
+```bash
 dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb status=progress # where sdb is the name of your stick
 ```
 
