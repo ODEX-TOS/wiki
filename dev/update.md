@@ -2,7 +2,7 @@
 title: System Updater
 description: automatically mitigate Arch Linux manual Interventions
 published: true
-date: 2020-03-14T22:00:36.582Z
+date: 2020-03-14T22:04:35.324Z
 tags: tutorial, help, update, dev
 ---
 
