@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-03-14T20:37:35.793Z
+date: 2020-03-14T20:39:37.473Z
 tags: home, welcome, wiki
 ---
 
@@ -11,6 +11,8 @@ tags: home, welcome, wiki
 > New content will be added in the future.
 {.is-warning}
 
+
+# Welcome
 TOS is an operating system developed by `Tom Meyers`
 The idea has been created because of one main reason.
 Installing arch always took a lot of time.
@@ -18,6 +20,12 @@ After you installed it and had all software installed you spend an entire day of
 TOS aims to provide all benefits of arch but with next to no time spent preping everything.
 The project is very simular to `Manjaro` however they solve this problem a bit different.
 The TOS repo's follow Arch very strictly while Manjaro does not.
+
+TOS GNU/Linux is an operating system designed to be lightweight yet modern.
+This operating system is designed to be Rolling Release It supports most hardware and can run on low end systems while still retaining all functionality.
+
+> These types of operating systems get updates very fast. This means you will always have the latest versions of you software. The drawback is that you need to update frequently (you can still choose when) and that there is a small change something breaks
+{.is-info}
 
 Below is some information to help you get started!
 
