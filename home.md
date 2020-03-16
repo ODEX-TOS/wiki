@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-03-14T20:39:37.473Z
+date: 2020-03-16T19:34:54.702Z
 tags: home, welcome, wiki
 ---
 
@@ -26,6 +26,18 @@ This operating system is designed to be Rolling Release It supports most hardwar
 
 > These types of operating systems get updates very fast. This means you will always have the latest versions of you software. The drawback is that you need to update frequently (you can still choose when) and that there is a small change something breaks
 {.is-info}
+
+## Logo
+
+You have to know our logo/mascot
+
+<p align="center">
+  <a href="https://github.com/ODEX-TOS">
+    <img src="/branding/tos_logo.png" alt="Logo" width="300" height="400">
+  </a>
+</p>
+
+We also call him(or her) `Archion` as a tribute to `Arch GNU/Linux` the Operating System that `TOS` is build ontop of.
 
 Below is some information to help you get started!
 
