@@ -2,7 +2,7 @@
 title: Configuration
 description: Configur/tweak your system
 published: true
-date: 2020-03-15T16:32:36.479Z
+date: 2020-04-25T17:40:03.442Z
 tags: user, tutorial, maintain, config
 ---
 
@@ -397,3 +397,14 @@ alsa-utils
 ```
 
 For a more up to date list look [here](https://github.com/ODEX-TOS/system-updater/blob/master/packages)
+
+## Environment variables
+
+Some aspects of the operating sytem can be changed by using environment variables.
+IF you want to change/alter variables please open the `~/.profile` file and adjust theme there.
+
+Here is a list of variables that `tos` takes into consideration.
+
+- `EDITOR` - the default text editor to open defaults to `vim`
+- `BROWSER` - the browser to use when opening files/url's default to `firefox-developer-edition`
+- `TERMINAL` - the default terminal to use defaults to `st`
