@@ -2,7 +2,7 @@
 title: Configuration
 description: Configur/tweak your system
 published: true
-date: 2020-04-25T17:40:03.442Z
+date: 2020-04-27T07:08:15.393Z
 tags: user, tutorial, maintain, config
 ---
 
@@ -401,7 +401,7 @@ For a more up to date list look [here](https://github.com/ODEX-TOS/system-update
 ## Environment variables
 
 Some aspects of the operating sytem can be changed by using environment variables.
-IF you want to change/alter variables please open the `~/.profile` file and adjust theme there.
+If you want to change/alter variables please open the `~/.xprofile` file and adjust them there.
 
 Here is a list of variables that `tos` takes into consideration.
 
