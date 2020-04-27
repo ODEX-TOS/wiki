@@ -2,7 +2,7 @@
 title: Configuration
 description: Configur/tweak your system
 published: true
-date: 2020-04-27T07:08:15.393Z
+date: 2020-04-27T07:10:31.677Z
 tags: user, tutorial, maintain, config
 ---
 
@@ -408,3 +408,6 @@ Here is a list of variables that `tos` takes into consideration.
 - `EDITOR` - the default text editor to open defaults to `vim`
 - `BROWSER` - the browser to use when opening files/url's default to `firefox-developer-edition`
 - `TERMINAL` - the default terminal to use defaults to `st`
+
+> The `~/.xprofile` is used since the environment variables must be loaded on the x server level. > This way the variables are set when starting up the window manager.
+> If you want to use variables that are not exposed to the window manager you can override them in the `~/.profile` or other files such as `~/.bashrc or ~/.zshrc`
