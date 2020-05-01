@@ -2,7 +2,7 @@
 title: Configuration
 description: Configur/tweak your system
 published: true
-date: 2020-04-27T07:10:31.677Z
+date: 2020-05-01T17:07:10.197Z
 tags: user, tutorial, maintain, config
 ---
 
@@ -117,6 +117,7 @@ art="/etc/xdg/awesome/theme/icons/themes/tos/art.svg"
 # general icons used by the UI can be changed here
 menu="/etc/xdg/awesome/theme/icons/themes/tos/menu.svg"
 logo="/etc/xdg/awesome/theme/icons/themes/tos/logo.svg"
+settings="/etc/xdg/awesome/theme/icons/themes/tos/settings.svg"
 close="/etc/xdg/awesome/theme/icons/close.svg"
 logout="/etc/xdg/awesome/theme/icons/logout.svg"
 sleep="/etc/xdg/awesome/theme/icons/power-sleep.svg"
