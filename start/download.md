@@ -2,7 +2,7 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-04-18T16:56:40.410Z
+date: 2020-05-04T16:10:14.766Z
 tags: iso, user, download, tos, live iso, basics, getting started
 ---
 
@@ -20,6 +20,8 @@ Download the corresponding gpg/sha256 files to verify if your iso is legit.
 The `sha256` file verifies that no data has gone corrupt during the download.
 However it doesn't protect you against tampering.
 The `gpg` file verifies that the author of the iso is in fact `odex`
+> Try downloading the gpg key with wget, firefox/chrome/curl all tamper with the binary data in the gpg file causing a bad signature
+{.is-warning}
 
 #### Verify the checksum
 
@@ -60,6 +62,14 @@ sub   rsa4096 2019-08-22 [E]
 Verify that the iso is legit
 
 ```bash
+# Download the gpg file
+# Note: wget seems to be the only utility
+# to correctly download the signature
+# most other utilities like a webbrowser or curl
+# somehow tamper with the file which results in a bad signature
+wget https://repo.odex.be/toslive-awesome.iso.gpg -O /path/to/signature/of/iso.gpg
+
+# verify the actual file using gpg
 gpg --verify /path/to/signature/of/iso.gpg /path/to/iso
 ```
 
@@ -70,6 +80,9 @@ gpg --verify /path/to/signature/of/iso.gpg /path/to/iso &>/dev/null && echo "Val
 ```
 
 If the above is invalid it means someone is messing either our servers or with your network connection/dns.
+
+> Try downloading the gpg key with wget, firefox/chrome/curl all tamper with the binary data in the gpg file causing a bad signature
+{.is-warning}
 
 ### Find your usb stick
 
