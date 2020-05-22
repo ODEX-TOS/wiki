@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-03-16T19:34:54.702Z
+date: 2020-05-22T14:56:30.439Z
 tags: home, welcome, wiki
 ---
 
@@ -26,6 +26,15 @@ This operating system is designed to be Rolling Release It supports most hardwar
 
 > These types of operating systems get updates very fast. This means you will always have the latest versions of you software. The drawback is that you need to update frequently (you can still choose when) and that there is a small change something breaks
 {.is-info}
+
+## Default applications/features
+
+TOS uses the awesome window manager by default combined with sddm as the display manager.
+The default user shell is `zsh` combined with `oh-my-zsh` for a better user experience.
+We also install `firefox-developer-edition` and `visual-studio-code-insiders` to make your browsing and editing more plesant.
+`tlp` is installed by default to consume less energy the normal linux installations.
+We also detect things like `ssd trim support` to extend the live of your ssd's and support `amd-ucode` and `intel-ucode` for near instant zero day cpu bug fixes.
+All other default features compair to the default settings of `Arch Linux` with a boost of the tos configuration.
 
 ## Logo
 
