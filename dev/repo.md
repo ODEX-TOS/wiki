@@ -2,7 +2,7 @@
 title: Repository
 description: Everythinh needed to work on the tos repo
 published: true
-date: 2020-03-15T15:55:02.794Z
+date: 2020-05-22T14:49:46.228Z
 tags: tutorial, help, dev, repository
 ---
 
@@ -139,3 +139,108 @@ An example of this flag is in the `repo/BUILD/PKGBUILD_NVIDIA` file.
 
 You can also add additional files required by a PKGBUILD inside the BUILD directory. They will automatically be copied into your working directory.
 
+## Signing the packages
+
+Since TOS 0.6.x signing of packages is required
+There are 2 different `gpg` keys that you have to work with
+
+1. The first key if for signing the iso's and the the public key will be found on the website (since people don't have a keyring containing that information yet)
+2. The second key is for signing the repo packages and the database
+
+### iso signing
+
+The iso images are signed by a key that you have to manually create
+The key must be created using the `gpg --full-generate-key` command
+The build script reads out 2 env variables for singing the iso files with this key
+
+1. `GPG_EMAIL` The email used for this gpg key (can be found with `gpg --list-secret-key`) Set the variable in the script
+2. `GPG_PASS` The password in plain text (This way gpg doesn't ask for user permission when building through a pipeline)
+
+It will be used when executing `./build.sh -u` so make sure the variables exist.
+Otherwise do the following
+
+```bash
+GPG_PASS="your gpg password here" ./build.sh -u
+```
+
+It will create a checksum and a gpg sign file in the repo
+The format is as followed:
+```
+- *.iso
+- *.iso.sha256
+- *.iso.gpg
+```
+
+> Don't forget to change the `repo/arch/public.gpg` file to contain your public gpg key.
+> Run `gpg --export --armor your@email.address > public.gpg` to update the gpg key
+{.is-warning}
+
+### package signing
+
+You are required to have a second key used for package singing as another security measure
+
+This key should be added to the keyring
+The keyring is present in `repo/BUILD/KEYRING`
+as the keyring is present on each device the repo will be able to be downloaded and verified by the end user.
+
+When building the repo 1 ENV variable should be added.
+`GPG_REPO_KEY` which is the pub keyid of the key you wish to use to sign the repository.
+Each package will get a correcsponding `.sig` file
+And the database itself will also be signed to prevent malicious data.
+
+To get the ID of the repo key issue the following command
+`gpg --list-secret-keys`
+The key should look something like this
+`909405E97E931D926D9190321E30222AEBBEC918`
+
+### Making the variables system wide
+
+Sometimes you can't really get to the environmental variables in your ci/cd pipeline or build scripts.
+Make sure the env variables are present in the `global` environment file instead of something like your `.bashrc` or `.zshrc` file. 
+You should add the variables to `/etc/environment` or if you only want your user to access the data use `~/.profile` or `~/.xprofile` depending on your setup.
+
+### The tos keyring
+When you want to sign packages you must add your key to the keyring.
+There are 3 essential files required for the management of the keyring.
+
+Lets cover each
+
+#### tos.gpg
+This file contains `all` keys ever used. Including keys that are no longer valid.
+So when you want to add a new key add it first to this file.
+
+```bash
+## make sure you append and not override this file
+gpg --export --armor your@email.address >> tos.gpg
+```
+
+> This file is used to add keys to gpg on users system
+> This way you don't have to upload keys to a key server
+> The benefit is that the user doesn't require internet access
+
+#### tos-revoked
+
+Add a key that is no longer valid to this file
+The format is keyid per newline.
+Use this if a key got exposed or a developer no longer works on the project.
+
+#### tos-trusted
+
+Add your keyid to this file to set your trust level on a users computer.
+
+The format is `keyid:level:`
+where level is the trust level as defined by gpg
+
+Here is each level:
+
+1. Completely untrusted
+2. You don't trust the key
+3. You trust the key marginally
+4. You thust the key fully
+5. You trust it ultimately
+
+In essence pacman configures the key with this commands
+
+```bash
+gpg --edit-key <keyid> trust
+```
