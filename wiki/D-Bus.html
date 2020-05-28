@@ -1,0 +1,128 @@
+<!--
+    title: D-Bus
+    description: Migration of D-Bus from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">D-Bus</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Mention disabling of dbus services through use of <code>systemctl mask</code> and overrides in <code>/etc/dbus-1/services</code> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:D-Bus">Talk:D-Bus#</a>)</div>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/D-Bus"  title="wikipedia:D-Bus">D-Bus</a> is a message bus system that provides an easy way for inter-process communication. It consists of a daemon, which can be run both system-wide and for each user session, and a set of libraries to allow applications to use D-Bus.
+</p>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dbus">dbus</a></span> is pulled and installed as a dependency of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> and user session bus is <a rel="nofollow"  href="https://www.archlinux.org/news/d-bus-now-launches-user-buses/">started automatically</a> for each user.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Alternative_Implementations"><span >1</span> <span >Alternative Implementations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#dbus-broker"><span >1.1</span> <span >dbus-broker</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Debugging"><span >2</span> <span >Debugging</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Alternative_Implementations">Alternative Implementations</span></h2>
+<h3><span class="mw-headline" id="dbus-broker">dbus-broker</span></h3>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dbus-broker">dbus-broker</a></span> is a drop-in replacement for the libdbus reference implementation, which aims "to provide high performance and reliability, while keeping compatibility to the D-Bus reference implementation". <a rel="nofollow"  href="https://github.com/bus1/dbus-broker">[1]</a>
+</p>
+<p>To enable dbus-broker as the system bus:
+</p>
+<pre># systemctl enable dbus-broker.service
+</pre>
+<p>To enable as a user bus, run as the desired user:
+</p>
+<pre>$ systemctl --user enable dbus-broker.service
+</pre>
+<p>Or, to enable for all users, run as root:
+</p>
+<pre># systemctl --global enable dbus-broker.service
+</pre>
+<p>Reboot for these settings to take effect.
+</p>
+<h2><span class="mw-headline" id="Debugging">Debugging</span></h2>
+<ul><li>
+<b>D-Feet</b> — Easy to use D-Bus debugger GUI tool. D-Feet can be used to inspect D-Bus interfaces of running programs and invoke methods on those interfaces.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Apps/DFeet">https://wiki.gnome.org/Apps/DFeet</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=d-feet">d-feet</a></span>
+</dd></dl>
+<ul><li>
+<b>QDbusViewer</b> — GUI D-Bus debugger. Can be used to inspect D-Bus services and invoke methods on them.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://doc.qt.io/qt-5/qdbusviewer.html">https://doc.qt.io/qt-5/qdbusviewer.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qt5-tools">qt5-tools</a></span>
+</dd></dl>
+<p>You can also use <span class="plainlinks archwiki-template-man" title="$ man 1 busctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/busctl.1">busctl(1)</a></span> from <a href="../wiki/Systemd.html" title="Systemd">systemd</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow"  href="https://www.freedesktop.org/wiki/Software/dbus/">D-Bus homepage</a> – freedesktop.org</li>
+<li>
+<a rel="nofollow"  href="https://www.freedesktop.org/wiki/IntroductionToDBus/">Introduction to D-Bus</a> – freedesktop.org</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=D-Bus&amp;oldid=595084">https://wiki.archlinux.org/index.php?title=D-Bus&amp;oldid=595084</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 January 2020, at 08:27.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

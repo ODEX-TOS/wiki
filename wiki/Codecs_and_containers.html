@@ -1,0 +1,509 @@
+<!--
+    title: Codecs_and_containers
+    description: Migration of Codecs_and_containers from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Codecs and containers</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Optical_disc_drive.html#Playback" title="Optical disc drive">Optical disc drive#Playback</a></li>
+<li><a href="../wiki/GStreamer.html" title="GStreamer">GStreamer</a></li>
+<li><a href="../wiki/FFmpeg.html" class="mw-redirect" title="Ffmpeg">ffmpeg</a></li>
+</ul>
+</div>
+<p>From <a href="https://en.wikipedia.org/wiki/Codec"  title="wikipedia:Codec">Wikipedia</a>, "a codec is a device or computer program capable of encoding and/or decoding a digital data stream or signal."
+</p>
+<p>In general, codecs are utilized by multimedia applications to encode or decode audio or video streams. In order to play encoded streams, users must ensure an appropriate codec is installed.
+</p>
+<p>This article deals only with codecs and application backends; see <a href="../wiki/List_of_applications/Multimedia.html" title="List of applications/Multimedia">List of applications/Multimedia</a> for a list of media players (<a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a>, <a href="../wiki/Mpv.html" title="Mpv">mpv</a> and <a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> are popular choices).
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Requirements"><span >1</span> <span >Requirements</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#List_of_codecs"><span >2</span> <span >List of codecs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Audio"><span >2.1</span> <span >Audio</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Lossless_audio_codecs"><span >2.1.1</span> <span >Lossless audio codecs</span></a></li>
+<li class="toclevel-3 tocsection-5">
+<a href="#Lossy_audio_codecs"><span >2.1.2</span> <span >Lossy audio codecs</span></a>
+<ul>
+<li class="toclevel-4 tocsection-6"><a href="#AAC"><span >2.1.2.1</span> <span >AAC</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#Image_codecs"><span >2.2</span> <span >Image codecs</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Video_codecs"><span >2.3</span> <span >Video codecs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Container_format_tools"><span >3</span> <span >Container format tools</span></a></li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Backends"><span >4</span> <span >Backends</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#GStreamer"><span >4.1</span> <span >GStreamer</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#xine"><span >4.2</span> <span >xine</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#libavcodec"><span >4.3</span> <span >libavcodec</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Tips_and_tricks"><span >5</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#No_H264,_mpg4_or_Musepack_(.mpc)_in_Totem_Player"><span >5.1</span> <span >No H264, mpg4 or Musepack (.mpc) in Totem Player</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<p>Playing multimedia content requires two components:
+</p>
+<ul>
+<li>A capable media player</li>
+<li>The appropriate codec</li>
+</ul>
+<p>It is not always necessary to explicitly install codecs if you have installed a media player.  For example, <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a> pulls in a large number of codecs as dependencies, and also has codecs built in.
+</p>
+<h2><span class="mw-headline" id="List_of_codecs">List of codecs</span></h2>
+<h3><span class="mw-headline" id="Audio">Audio</span></h3>
+<p>See also <a href="https://en.wikipedia.org/wiki/Comparison_of_audio_coding_formats"  title="wikipedia:Comparison of audio coding formats">Wikipedia:Comparison of audio coding formats</a>.
+</p>
+<h4><span class="mw-headline" id="Lossless_audio_codecs">Lossless audio codecs</span></h4>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Apple_Lossless"  title="wikipedia:Apple Lossless">Apple Lossless</a> (ALAC)</b> — A lossless audio compression codec developed by Apple and deployed on all of its platforms and devices.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://alac.macosforge.org/">https://alac.macosforge.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/alac-git/">alac-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/FLAC"  title="wikipedia:FLAC">FLAC</a></b> — Free Lossless Audio Codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://xiph.org/flac/">https://xiph.org/flac/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flac">flac</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/WavPack"  title="wikipedia:WavPack">WavPack</a></b> — Lossless audio compression format that also has a lossy <a href="https://en.wikipedia.org/wiki/WavPack#Hybrid_mode"  title="wikipedia:WavPack">hybrid mode</a>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.wavpack.com/">http://www.wavpack.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wavpack">wavpack</a></span>
+</dd></dl>
+<h4><span class="mw-headline" id="Lossy_audio_codecs">Lossy audio codecs</span></h4>
+<table  style="text-align:center">
+<tbody>
+<tr>
+<th colspan="2">Codec</th>
+<th>Encode</th>
+<th>Decode
+</th>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/Advanced_Audio_Coding"  title="wikipedia:Advanced Audio Coding">AAC</a></td>
+<td colspan="2">
+<a href="#AAC">#AAC</a>
+</td>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/ATSC_A/52"  title="wikipedia:ATSC A/52">ATSC A/52</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/aften/">aften</a></span><sup><small>AUR</small></sup>
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=a52dec">a52dec</a></span>
+</td>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/CELT"  title="wikipedia:CELT">CELT</a></td>
+<td colspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=celt">celt</a></span>
+</td>
+</tr>
+<tr>
+<td rowspan="2"><a href="https://en.wikipedia.org/wiki/MPEG-1"  title="wikipedia:MPEG-1">MPEG-1</a></td>
+<td></td>
+<td> </td>
+<td rowspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmad">libmad</a></span>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/MP3"  title="wikipedia:MP3">MP3</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lame">lame</a></span>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<a href="https://en.wikipedia.org/wiki/Musepack"  title="wikipedia:Musepack">Musepack</a> (MPC)</td>
+<td data-sort-value="5" style="background: inherit; color: inherit; vertical-align: middle; text-align: center;">– <sup>1</sup>
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmpcdec">libmpcdec</a></span>
+</td>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/Opus_(audio_format)"  title="wikipedia:Opus (audio format)">Opus</a></td>
+<td colspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opus">opus</a></span>
+</td>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/Vorbis"  title="wikipedia:Vorbis">Vorbis</a></td>
+<td colspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libvorbis">libvorbis</a></span>
+</td>
+</tr>
+<tr>
+<th colspan="4">Speech codecs
+</th>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/Adaptive_Multi-Rate_audio_codec"  title="wikipedia:Adaptive Multi-Rate audio codec">AMR</a></td>
+<td colspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opencore-amr">opencore-amr</a></span>
+</td>
+</tr>
+<tr>
+<td colspan="2"><a href="https://en.wikipedia.org/wiki/Speex"  title="wikipedia:Speex">Speex</a></td>
+<td colspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=speex">speex</a></span>
+</td>
+</tr>
+</tbody>
+</table>
+<ol><li>mppenc is not packaged.</li></ol>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/CELT"  title="wikipedia:CELT">CELT</a></b> — Open, royalty-free lossy audio codec, optimized for low latency.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.celt-codec.org/">http://www.celt-codec.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=celt">celt</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/LAME"  title="wikipedia:LAME">LAME</a></b> — MP3 encoder and graphical frame analyzer.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://lame.sourceforge.net/">http://lame.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lame">lame</a></span>
+</dd></dl>
+<ul><li>
+<b>liba52</b> — Free library for decoding <a href="https://en.wikipedia.org/wiki/ATSC_A/52"  title="wikipedia:ATSC A/52">ATSC A/52</a> (Dolby Digital) streams (lossy).</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://liba52.sourceforge.net/">http://liba52.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=a52dec">a52dec</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/libdca"  title="wikipedia:libdca">libdca</a></b> — Free library for decoding DTS Coherent Acoustics streams.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.videolan.org/developers/libdca.html">https://www.videolan.org/developers/libdca.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libdca">libdca</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/libmad"  title="wikipedia:libmad">MAD</a></b> — High-quality MPEG audio decoder.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.underbit.com/products/mad/">https://www.underbit.com/products/mad/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmad">libmad</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Musepack"  title="wikipedia:Musepack">Musepack</a> (MPC)</b> — Open source lossy audio codec, designed for <a href="https://en.wikipedia.org/wiki/Transparency_(data_compression)"  title="wikipedia:Transparency (data compression)">transparency</a>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://musepack.net/">https://musepack.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmpcdec">libmpcdec</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Adaptive_Multi-Rate_audio_codec"  title="wikipedia:Adaptive Multi-Rate audio codec">opencore-amr</a></b> — Open source implementation of the Adaptive Multi Rate (AMR) speech codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/opencore-amr/">https://sourceforge.net/projects/opencore-amr/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opencore-amr">opencore-amr</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Opus_(audio_codec)"  title="wikipedia:Opus (audio codec)">Opus</a></b> — Open, royalty-free, lossy audio codec, designed for speech and general audio coding and low latency.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.opus-codec.org/">https://www.opus-codec.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opus">opus</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/opus-git/">opus-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Speex"  title="wikipedia:Speex">Speex</a></b> — Patent-free, lossy audio compression format designed for speech.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.speex.org/">https://www.speex.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=speex">speex</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Vorbis"  title="wikipedia:Vorbis">Vorbis</a></b> — Open, patent-free, lossy audio codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://xiph.org/vorbis/">https://xiph.org/vorbis/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libvorbis">libvorbis</a></span>
+</dd></dl>
+<h5><span class="mw-headline" id="AAC">AAC</span></h5>
+<p>From <a href="https://en.wikipedia.org/wiki/Advanced_Audio_Coding"  title="wikipedia:Advanced Audio Coding">Wikipedia</a>:
+</p>
+<dl><dd>
+<b>Advanced Audio Coding</b> (AAC) is a proprietary audio coding standard for lossy digital audio compression. Designed to be the successor of the MP3 format, AAC generally achieves better sound quality than MP3 at the same bit rate.</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/FAAC"  title="wikipedia:FAAC">FAAC</a></b> — Proprietary AAC audio encoder.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.audiocoding.com/faac.html">https://www.audiocoding.com/faac.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=faac">faac</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/FAAD2"  title="wikipedia:FAAD2">FAAD2</a></b> — ISO AAC audio decoder.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.audiocoding.com/faad2.html">http://www.audiocoding.com/faad2.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=faad2">faad2</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Fraunhofer_FDK_AAC"  title="wikipedia:Fraunhofer FDK AAC">Fraunhofer FDK AAC</a></b> — OpenCORE Framework implementation Advanced Audio Coding (AAC) encoder. Modified library of Fraunhofer AAC decoder and encoder.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/opencore-amr/">https://sourceforge.net/projects/opencore-amr/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libfdk-aac">libfdk-aac</a></span> (codec library) <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fdkaac">fdkaac</a></span> (CLI frontend for libfdk-aac)</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Nero_AAC_Codec"  title="wikipedia:Nero AAC Codec">Nero AAC</a></b> — Nero AAC reference quality MPEG-4 and 3GPP audio codec. (deprecated)</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.nero.com/">https://www.nero.com/</a> || <a rel="nofollow"  href="https://aur.archlinux.org/pkgbase/neroaac-bin/">neroaac-bin</a><sup>AUR</sup>
+</dd></dl>
+<h3><span class="mw-headline" id="Image_codecs">Image codecs</span></h3>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/JasPer"  title="wikipedia:JasPer">JasPer</a></b> — Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.ece.uvic.ca/~frodo/jasper/">http://www.ece.uvic.ca/~frodo/jasper/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jasper">jasper</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/OpenJPEG"  title="wikipedia:OpenJPEG">OpenJPEG</a></b> — Open source JPEG 2000 codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.openjpeg.org/">http://www.openjpeg.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openjpeg/">openjpeg</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/WebP"  title="wikipedia:WebP">WebP</a></b> — An image format employing both lossy and lossless compression. It is currently developed by Google.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://developers.google.com/speed/webp/">https://developers.google.com/speed/webp/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libwebp">libwebp</a></span>
+</dd></dl>
+<h3><span class="mw-headline" id="Video_codecs">Video codecs</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Add <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/davs2/">davs2</a></span><sup><small>AUR</small></sup>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Codecs_and_containers">Talk:Codecs and containers#</a>)</div>
+</div>
+<p>See also <a href="https://en.wikipedia.org/wiki/Comparison_of_video_codecs"  title="wikipedia:Comparison of video codecs">Wikipedia:Comparison of video codecs</a>.
+</p>
+<table >
+<tbody>
+<tr>
+<th>Codec</th>
+<th>Libraries
+</th>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/AV1"  title="wikipedia:AV1">AV1</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=aom">aom</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dav1d">dav1d</a></span> (decode), <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rav1e-git/">rav1e-git</a></span><sup><small>AUR</small></sup> (encode)
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Daala"  title="wikipedia:Daala">Daala</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/daala-git/">daala-git</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Dirac_(video_compression_format)"  title="wikipedia:Dirac (video compression format)">Dirac</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=schroedinger">schroedinger</a></span>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/DV"  title="wikipedia:DV">DV</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libdv">libdv</a></span>
+</td>
+</tr>
+<tr>
+<td rowspan="2"><a href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding"  title="wikipedia:High Efficiency Video Coding">H.265</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x265">x265</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/x265-hg/">x265-hg</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libde265">libde265</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libde265-git/">libde265-git</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/H.264"  title="wikipedia:H.264">H.264</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x264">x264</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/x264-git/">x264-git</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/MPEG-1"  title="wikipedia:MPEG-1">MPEG-1</a></td>
+<td rowspan="2">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmpeg2">libmpeg2</a></span> (decode)
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://en.wikipedia.org/wiki/MPEG-2"  title="wikipedia:MPEG-2">MPEG-2</a>
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/MPEG-4"  title="wikipedia:MPEG-4">MPEG-4</a></td>
+<td>
+<a href="https://en.wikipedia.org/wiki/Xvid"  title="wikipedia:Xvid">Xvid</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xvidcore">xvidcore</a></span>)
+</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Theora"  title="wikipedia:Theora">Theora</a></td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libtheora">libtheora</a></span>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://en.wikipedia.org/wiki/VP8"  title="wikipedia:VP8">VP8</a>, <a href="https://en.wikipedia.org/wiki/VP9"  title="wikipedia:VP9">VP9</a>
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libvpx">libvpx</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libvpx-git/">libvpx-git</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+</tbody>
+</table>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/AV1"  title="wikipedia:AV1">AV1</a></b> — AOMedia Video 1 (AV1) is successor codec to Google's VP9, Mozilla's Daala, Cisco's Thor. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=aom">aom</a></span> is the reference implementation of both encoding and decoding. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dav1d">dav1d</a></span> is the performance focused decoder. <a rel="nofollow"  href="https://github.com/xiph/rav1e">rav1e</a> is performance focused encoder.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://aomediacodec.github.io/av1-spec/">https://aomediacodec.github.io/av1-spec/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=aom">aom</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Daala"  title="wikipedia:Daala">Daala</a></b> — New video compression technology. The effort is a collaboration between Mozilla Foundation, Xiph.Org Foundation and other contributors. The goal of the project is to provide a free to implement, use and distribute digital media format and reference implementation with technical performance superior to h.265.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.xiph.org/daala/">https://www.xiph.org/daala/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/daala-git/">daala-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>libde265</b> — Open source implementation of the h.265 video codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/strukturag/libde265">https://github.com/strukturag/libde265</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libde265">libde265</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libde265-git/">libde265-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/DV"  title="wikipedia:DV">libdv</a></b> — The Quasar DV codec (libdv) is a software codec for DV video.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://libdv.sourceforge.net/">http://libdv.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libdv">libdv</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/libmpeg2"  title="wikipedia:libmpeg2">libmpeg2</a></b> — Library for decoding MPEG-1 and MPEG-2 video streams.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://libmpeg2.sourceforge.net/">http://libmpeg2.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmpeg2">libmpeg2</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Dirac_(video_compression_format)"  title="wikipedia:Dirac (video compression format)">Schrödinger</a></b> — Advanced royalty-free video compression format designed for a wide range of uses, from delivering low-resolution web content to broadcasting HD and beyond, to near-lossless studio editing.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://diracvideo.org/">http://diracvideo.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=schroedinger">schroedinger</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Theora"  title="wikipedia:Theora">Theora</a></b> — Open video codec developed by the Xiph.org.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.theora.org/">https://www.theora.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libtheora">libtheora</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/VP9"  title="wikipedia:VP9">VP9</a></b> — High-quality, open video format for the web that's freely available to everyone. Improved version of earlier <a href="https://en.wikipedia.org/wiki/VP8"  title="wikipedia:VP8">VP8</a> codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.webmproject.org">https://www.webmproject.org</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libvpx">libvpx</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libvpx-git/">libvpx-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/x264"  title="wikipedia:x264">x264</a></b> — Free library for encoding H264/AVC video streams.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.videolan.org/developers/x264.html">https://www.videolan.org/developers/x264.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x264">x264</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/x264-git/">x264-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/x265"  title="wikipedia:x265">x265</a></b> — Open-source project and free application library for encoding video streams into the H.265/High Efficiency Video Coding (HEVC) format.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://x265.org/">http://x265.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x265">x265</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/x265-hg/">x265-hg</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Xvid"  title="wikipedia:Xvid">Xvid</a></b> — Open source MPEG-4 video codec.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.xvid.org/">https://www.xvid.org/</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-05-25 ⓘ]</sup> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xvidcore">xvidcore</a></span>
+</dd></dl>
+<h2><span class="mw-headline" id="Container_format_tools">Container format tools</span></h2>
+<p>See also <a href="https://en.wikipedia.org/wiki/Comparison_of_video_container_formats"  title="wikipedia:Comparison of video container formats">Wikipedia:Comparison of video container formats</a>.
+</p>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/MKVToolNix"  title="wikipedia:MKVToolNix">MKVToolNix</a></b> — Set of tools to create, edit and inspect Matroska files.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://mkvtoolnix.download/">https://mkvtoolnix.download/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkvtoolnix-cli">mkvtoolnix-cli</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkvtoolnix-gui">mkvtoolnix-gui</a></span>
+</dd></dl>
+<ul><li>
+<b>OGMtools</b> — Information, extraction or creation for OGG media streams.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.bunkus.org/videotools/ogmtools">http://www.bunkus.org/videotools/ogmtools</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ogmtools">ogmtools</a></span>
+</dd></dl>
+<h2><span class="mw-headline" id="Backends">Backends</span></h2>
+<h3><span class="mw-headline" id="GStreamer">GStreamer</span></h3>
+<p>From <a rel="nofollow"  href="https://gstreamer.freedesktop.org/">https://gstreamer.freedesktop.org/</a>:
+</p>
+<dl><dd>GStreamer is a library for constructing graphs of media-handling components. The applications it supports range from simple Ogg/Vorbis playback, audio/video streaming to complex audio (mixing) and video (non-linear editing) processing.</dd></dl>
+<p>Simply, GStreamer is a <i>backend</i> or <i>framework</i> utilized by many media applications. See <a href="../wiki/GStreamer.html" title="GStreamer">GStreamer</a> article.
+</p>
+<h3><span class="mw-headline" id="xine">xine</span></h3>
+<p>From <a rel="nofollow"  href="https://sourceforge.net/projects/xine/">https://sourceforge.net/projects/xine/</a>:
+</p>
+<dl><dd>xine is a free multimedia player. It plays back CDs, DVDs, BluRays and VCDs. It also decodes multimedia files like AVI, MOV, WMV, and MP3 from local disk drives, and displays multimedia streamed over the Internet.</dd></dl>
+<p>As an alternative to GStreamer, many media players can be configured to utilize the xine backend provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xine-lib">xine-lib</a></span>.
+</p>
+<p>Note that the xine project itself provides a capable video player, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xine-ui">xine-ui</a></span>.
+</p>
+<h3><span class="mw-headline" id="libavcodec">libavcodec</span></h3>
+<p><a rel="nofollow"  href="https://ffmpeg.org/libavcodec.html">libavcodec</a> is part of the <a href="../wiki/FFmpeg.html" title="FFmpeg">FFmpeg</a> project. It includes a large number of video and audio codecs. The libavcodec codecs are included with media players such as <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a> and <a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a>, so you may not need to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ffmpeg">ffmpeg</a></span> package itself.
+</p>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3>
+<span id="No_H264.2C_mpg4_or_Musepack_.28.mpc.29_in_Totem_Player"></span><span class="mw-headline" id="No_H264,_mpg4_or_Musepack_(.mpc)_in_Totem_Player">No H264, mpg4 or Musepack (.mpc) in Totem Player</span>
+</h3>
+<p>If you see the "The H264 plugin is missing" warning with Totem media player, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-libav">gst-libav</a></span>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Multimedia.html" title="Category:Multimedia">Multimedia</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Codecs_and_containers&amp;oldid=615694">https://wiki.archlinux.org/index.php?title=Codecs_and_containers&amp;oldid=615694</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 May 2020, at 08:53.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
