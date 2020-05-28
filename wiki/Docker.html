@@ -1,0 +1,539 @@
+<!--
+    title: Docker
+    description: Migration of Docker from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Docker</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="../wiki/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+<li><a href="../wiki/Vagrant.html" title="Vagrant">Vagrant</a></li>
+</ul>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Docker_(software)"  title="wikipedia:Docker (software)">Docker</a> is a utility to pack, ship and run any application as a lightweight container.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Usage"><span >2</span> <span >Usage</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Configuration"><span >3</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Storage_driver"><span >3.1</span> <span >Storage driver</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Daemon_socket"><span >3.2</span> <span >Daemon socket</span></a></li>
+<li class="toclevel-2 tocsection-6">
+<a href="#HTTP_Proxies"><span >3.3</span> <span >HTTP Proxies</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Docker_daemon_proxy_configuration"><span >3.3.1</span> <span >Docker daemon proxy configuration</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Docker_container_proxy_configuration"><span >3.3.2</span> <span >Docker container proxy configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Configuring_DNS"><span >3.4</span> <span >Configuring DNS</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Images_location"><span >3.5</span> <span >Images location</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Insecure_registries"><span >3.6</span> <span >Insecure registries</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#User_namespace_remapping"><span >3.7</span> <span >User namespace remapping</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13">
+<a href="#Images"><span >4</span> <span >Images</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#TOS_Linux"><span >4.1</span> <span >TOS Linux</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Alpine_Linux"><span >4.2</span> <span >Alpine Linux</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#CentOS"><span >4.3</span> <span >CentOS</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Debian"><span >4.4</span> <span >Debian</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Distroless"><span >4.5</span> <span >Distroless</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Remove_Docker_and_images"><span >5</span> <span >Remove Docker and images</span></a></li>
+<li class="toclevel-1 tocsection-20">
+<a href="#Run_GPU_accelerated_Docker_containers_with_NVIDIA_GPUs"><span >6</span> <span >Run GPU accelerated Docker containers with NVIDIA GPUs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#With_NVIDIA_Container_Toolkit_(recommended)"><span >6.1</span> <span >With NVIDIA Container Toolkit (recommended)</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#With_NVIDIA_Container_Runtime"><span >6.2</span> <span >With NVIDIA Container Runtime</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#With_nvidia-docker_(deprecated)"><span >6.3</span> <span >With nvidia-docker (deprecated)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="#Useful_tips"><span >7</span> <span >Useful tips</span></a></li>
+<li class="toclevel-1 tocsection-25">
+<a href="#Troubleshooting"><span >8</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="#docker0_Bridge_gets_no_IP_/_no_internet_access_in_containers_when_using_systemd-networkd"><span >8.1</span> <span >docker0 Bridge gets no IP / no internet access in containers when using systemd-networkd</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Default_number_of_allowed_processes/threads_too_low"><span >8.2</span> <span >Default number of allowed processes/threads too low</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Error_initializing_graphdriver:_devmapper"><span >8.3</span> <span >Error initializing graphdriver: devmapper</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Failed_to_create_some/path/to/file:_No_space_left_on_device"><span >8.4</span> <span >Failed to create some/path/to/file: No space left on device</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Invalid_cross-device_link_in_kernel_4.19.1"><span >8.5</span> <span >Invalid cross-device link in kernel 4.19.1</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#CPUACCT_missing_in_docker_with_Linux-ck"><span >8.6</span> <span >CPUACCT missing in docker with Linux-ck</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Docker-machine_fails_to_create_virtual_machines_using_the_virtualbox_driver"><span >8.7</span> <span >Docker-machine fails to create virtual machines using the virtualbox driver</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Starting_Docker_breaks_KVM_bridged_networking"><span >8.8</span> <span >Starting Docker breaks KVM bridged networking</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34"><a href="#See_also"><span >9</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=docker">docker</a></span> package or, for the development version, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/docker-git/">docker-git</a></span><sup><small>AUR</small></sup> package. Next <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>docker.service</code> and verify operation:
+</p>
+<pre># docker info
+</pre>
+<p>Note that starting the docker service may fail if you have an active VPN connection due to IP conflicts between the VPN and Docker's bridge and overlay networks. If this is the case, try disconnecting the VPN before starting the docker service. You may reconnect the VPN immediately afterwards. <a rel="nofollow"  href="https://stackoverflow.com/questions/45692255/how-make-openvpn-work-with-docker">You can also try to deconflict the networks.</a>
+</p>
+<p>Next, verify that you can run containers. The following command downloads the latest <a href="#TOS_Linux">TOS Linux image</a> and uses it to run a Hello World program within a container:
+</p>
+<pre> # docker run -it --rm archlinux-tosbash -c "echo hello world"
+</pre>
+<p>If you want to be able to run the <code>docker</code> CLI command as a non-root user, add your user to the <code>docker</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Anyone added to the <code>docker</code> group is root equivalent because they can use the <code>docker run --privileged</code> command to start containers with root privileges. More information <a rel="nofollow"  href="https://github.com/docker/docker/issues/9976">here</a> and <a rel="nofollow"  href="https://docs.docker.com/engine/security/security/">here</a>.</div>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Docker consists of multiple parts:
+</p>
+<ul>
+<li>The Docker daemon (sometimes also called the Docker Engine), which is a process which runs as <code>docker.service</code>. It serves the Docker API and manages Docker containers.</li>
+<li>The <code>docker</code> CLI command, which allows users to interact with the Docker API via the command line and control the Docker daemon.</li>
+<li>Docker containers, which are namespaced processes that are started and managed by the Docker daemon as requested through the Docker API.</li>
+</ul>
+<p>Typically, users use Docker by running <code>docker</code> CLI commands, which in turn request the Docker daemon to perform actions which in turn result in management of Docker containers. Understanding the relationship between the client (<code>docker</code>), server (<code>docker.service</code>) and containers is important to successfully administering Docker.
+</p>
+<p>Note that if the Docker daemon stops or restarts, all currently running Docker containers are also stopped or restarted.
+</p>
+<p>Also note that it is possible to send requests to the Docker API and control the Docker daemon without the use of the <code>docker</code> CLI command. See <a rel="nofollow"  href="https://docs.docker.com/engine/api/">the Docker API developer documentation</a> for more information.
+</p>
+<p>See <a rel="nofollow"  href="https://docs.docker.com/get-started/">the Docker Getting Started guide</a> for more usage documentation.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The Docker daemon can be configured either through a configuration file at <code>/etc/docker/daemon.json</code> or by adding command line flags to the <code>docker.service</code> systemd unit. According to the <a rel="nofollow"  href="https://docs.docker.com/config/daemon/#configure-the-docker-daemon">Docker official documentation</a>, the configuration file approach is preferred. If you wish to use the command line flags instead, use <a href="../wiki/Systemd.html#Drop-in_files" title="Systemd">systemd drop-in files</a> to override the <code>ExecStart</code> directive in <code>docker.service</code>.
+</p>
+<p>For more information about options in <code>daemon.json</code> see <a rel="nofollow"  href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">dockerd documentation</a>.
+</p>
+<h3><span class="mw-headline" id="Storage_driver">Storage driver</span></h3>
+<p>The <a rel="nofollow"  href="https://docs.docker.com/storage/storagedriver/select-storage-driver/">storage driver</a> controls how images and containers are stored and managed on your Docker host. The default <code>overlay2</code> driver has good performance and is a good choice for all modern Linux kernels and filesystems. There are a few legacy drivers such as <code>devicemapper</code> and <code>aufs</code> which were intended for compatibility with older Linux kernels, but these have no advantages over <code>overlay2</code> on TOS Linux.
+</p>
+<p>Users of <a href="../wiki/Btrfs.html" title="Btrfs">btrfs</a> or <a href="../wiki/ZFS.html" title="ZFS">ZFS</a> may use the <code>btrfs</code> or <code>zfs</code> drivers, each of which take advantage of the unique features of these filesystems. See the <a rel="nofollow"  href="https://docs.docker.com/storage/storagedriver/btrfs-driver/">btrfs driver</a> and <a rel="nofollow"  href="https://docs.docker.com/storage/storagedriver/zfs-driver/">zfs driver</a> documentation for more information and step-by-step instructions.
+</p>
+<h3><span class="mw-headline" id="Daemon_socket">Daemon socket</span></h3>
+<p>By default, the Docker daemon serves the Docker API using a <a href="https://en.wikipedia.org/wiki/Unix_domain_socket"  title="wikipedia:Unix domain socket">Unix socket</a> at <code>/var/run/docker.sock</code>. This is an appropriate option for most use cases.
+</p>
+<p>It is possible to configure the Daemon to additionally listen on a TCP socket, which can allow remote Docker API access from other computers.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The Docker API is unencrypted and unauthenticated by default. Remote TCP access to the Docker daemon is equivalent to unsecured remote root access unless TLS encryption and authorization is also enabled, either with an authenticating HTTP reverse proxy or with the appropriate <a rel="nofollow"  href="https://docs.docker.com/engine/security/https/">additional Docker configuration</a>. In general, enabling Docker API TCP sockets should be considered a high security risk.</div>
+<p>Note that the default <code>docker.service</code> file sets the <code>-H</code> flag by default, and Docker will not start if an option is present in both the flags and <code>/etc/docker/daemon.json</code> file. Therefore, the simplest way to change the socket settings is with a drop-in file, such as the following which adds a TCP socket on port 4243:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/docker.service.d/execstart.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:4243</pre>
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> the systemd daemon and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>docker.service</code> to apply changes.
+</p>
+<h3><span class="mw-headline" id="HTTP_Proxies">HTTP Proxies</span></h3>
+<p>There are two parts to configuring Docker to use an HTTP proxy: Configuring the Docker daemon and configuring Docker containers.
+</p>
+<h4><span class="mw-headline" id="Docker_daemon_proxy_configuration">Docker daemon proxy configuration</span></h4>
+<p>See <a rel="nofollow"  href="https://docs.docker.com/config/daemon/systemd/#httphttps-proxy">Docker documentation on configuring a systemd drop-in unit to configure HTTP proxies</a>.
+</p>
+<h4><span class="mw-headline" id="Docker_container_proxy_configuration">Docker container proxy configuration</span></h4>
+<p>See <a rel="nofollow"  href="https://docs.docker.com/network/proxy/#configure-the-docker-client">Docker documentation on configuring proxies</a> for information on how to automatically configure proxies for all containers created using the <code>docker</code> CLI.
+</p>
+<h3><span class="mw-headline" id="Configuring_DNS">Configuring DNS</span></h3>
+<p>See <a rel="nofollow"  href="https://docs.docker.com/config/containers/container-networking/#dns-services">Docker's DNS documentation</a> for the documented behavior of DNS within Docker containers and information on customizing DNS configuration. In most cases, the resolvers configured on the host are also configured in the container.
+</p>
+<p>Most DNS resolvers hosted on <code>127.0.0.0/8</code> are <a rel="nofollow"  href="https://github.com/moby/moby/issues/6388#issuecomment-76124221">not supported</a> due to conflicts between the container and host network namespaces. Such resolvers are <a rel="nofollow"  href="https://github.com/moby/libnetwork/blob/master/resolvconf/resolvconf.go">removed from the container's <code>/etc/resolv.conf</code></a>. If this would result in an empty <code>/etc/resolv.conf</code>, Google DNS is used instead.
+</p>
+<p>Additionally, a special case is handled if <code>127.0.0.53</code> is the only configured nameserver. In this case, Docker assumes the resolver is <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> and uses the upstream DNS resolvers from <code>/run/systemd/resolve/resolv.conf</code>.
+</p>
+<p>If you are using a service such as <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> to provide a local resolver, consider adding a virtual interface with a link local IP address in the <code>169.254.0.0/16</code> block for dnsmasq to bind to instead of <code>127.0.0.1</code> to avoid the network namespace conflict.
+</p>
+<h3><span class="mw-headline" id="Images_location">Images location</span></h3>
+<p>By default, docker images are located at <code>/var/lib/docker</code>. They can be moved to other partitions, e.g. if you wish to use a dedicated partition or disk for your images. In this example, we will move the images to <code>/mnt/docker</code>.
+</p>
+<p>First, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> <code>docker.service</code>, which will also stop all currently running containers and unmount any running images. You may then move the images from <code>/var/lib/docker</code> to the target destination, e.g. <code>cp -r /var/lib/docker /mnt/docker</code>.
+</p>
+<p>Configure <code>data-root</code> in <code>/etc/docker/daemon.json</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/docker/daemon.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+  "data-root": "/mnt/docker"
+}</pre>
+<p>Restart <code>docker.service</code> to apply changes.
+</p>
+<h3><span class="mw-headline" id="Insecure_registries">Insecure registries</span></h3>
+<p>If you decide to use a self signed certificate for your private registries, Docker will refuse to use it until you declare that you trust it. For example, to allow images from a registry hosted at <code>myregistry.example.com:8443</code>, configure <code>insecure-registries</code> in the <code>/etc/docker/daemon.json</code> file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/docker/daemon.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+  "insecure-registries": [
+    "my.registry.example.com:8443"
+  ]
+}</pre>
+<p>Restart <code>docker.service</code> to apply changes.
+</p>
+<h3><span class="mw-headline" id="User_namespace_remapping">User namespace remapping</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <a rel="nofollow"  href="https://wiki.archlinux.org/index.php?title=Docker&amp;diff=604182&amp;oldid=604180">This edit</a> made the description inaccurate and/or ambiguous. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Docker#Root_equivalent_through_other_means_than_the_docker_group">Talk:Docker#Root equivalent through other means than the docker group</a>)</div>
+</div>
+<p>By default, containers run within the host user namespace (<span class="plainlinks archwiki-template-man" title="$ man 7 user_namespaces"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/user_namespaces.7">user_namespaces(7)</a></span>) and run as the user defined in the <code>USER</code> directive in the Dockerfile used to build the container's image. This allows the process within the container to access configured resources on the host according to <a href="../wiki/Users_and_groups.html#Permissions_and_ownership" title="Users and groups">Users and groups#Permissions and ownership</a>. This maximizes compatibility, but poses a security risk if a container privilege escalation or breakout vulnerability is discovered that allows the container to access unintended resources on the host. (<a rel="nofollow"  href="https://seclists.org/oss-sec/2019/q1/119">One such vulnerability was published and patched in February 2019.</a>)
+</p>
+<p>The impact of such a vulnerability can be reduced by enabling <a rel="nofollow"  href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>. This runs each container inside of an isolated user namespace and maps any UID and GID inside that user namespace to a different UID and GID within the host user namespace. The UIDs and GIDs in the host user namespace can be given little or no permissions.
+</p>
+<p>Note that there are some <a rel="nofollow"  href="https://docs.docker.com/engine/security/userns-remap/#user-namespace-known-limitations">limitations</a> when  enabling this feature. Notably, <a rel="nofollow"  href="https://github.com/kubernetes/enhancements/issues/127">Kubernetes currently does not work with this feature</a>.
+</p>
+<p>Configure <code>userns-remap</code> in <code>/etc/docker/daemon.json</code>. <code>default</code> is a special value that will automatically create a user and group named <code>dockremap</code> for use with remapping.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/docker/daemon.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+  "userns-remap": "default"
+}</pre>
+<p>Configure <code>/etc/subuid</code> and <code>/etc/subgid</code> with a username/group name, starting UID/GID and UID/GID range size to allocate  to the remap user and group. This example allocates a range of 4096 UIDs and GIDs starting at 165536 to the <code>dockremap</code> user and group. 
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/subuid</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">dockremap:165536:4096</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/subgid</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">dockremap:165536:4096</pre>
+<p>Restart <code>docker.service</code> to apply changes.
+</p>
+<p>After applying this change, all containers will run in an isolated user namespace by default. The remapping may be partially disabled on specific containers passsing the <code>--userns=host</code> flag to the <code>docker</code> command. See <a rel="nofollow"  href="https://docs.docker.com/engine/security/userns-remap/#disable-namespace-remapping-for-a-container">[1]</a> for details.
+</p>
+<h2><span class="mw-headline" id="Images">Images</span></h2>
+<h3><span class="mw-headline" id="TOS_Linux">TOS Linux</span></h3>
+<p>The following command pulls the <a rel="nofollow"  href="https://hub.docker.com/_/archlinux/">archlinux</a> x86_64 image. This is a stripped down version of TOS core without network, etc.
+</p>
+<pre># docker pull archlinux
+</pre>
+<p>See also <a rel="nofollow"  href="https://github.com/archlinux/archlinux-docker/blob/master/README.md">README.md</a>.
+</p>
+<p>For a full TOS base, clone the repo from above and build your own image.
+</p>
+<pre>$ git clone <a rel="nofollow"  href="https://github.com/archlinux/archlinux-docker.git">https://github.com/archlinux/archlinux-docker.git</a>
+</pre>
+<p>Make sure that the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span> package is installed.
+</p>
+<p>Edit the <code>packages</code> file so it only contains 'base'. Then run: 
+</p>
+<pre># make docker-image
+</pre>
+<h3><span class="mw-headline" id="Alpine_Linux">Alpine Linux</span></h3>
+<p><a rel="nofollow"  href="https://www.alpinelinux.org/">Alpine Linux</a> is a popular choice for small container images, especially for software compiled as static binaries. The following command pulls the latest Alpine Linux image:
+</p>
+<pre> # docker pull alpine
+</pre>
+<p>Alpine Linux uses the <a rel="nofollow"  href="https://musl.libc.org/">musl</a> libc implementation instead of the <a rel="nofollow"  href="https://www.gnu.org/software/libc/">glibc</a> libc implementation used by most Linux distributions. Because TOS Linux uses glibc, there are a number of functional differences between an TOS Linux host and an Alpine Linux container that can impact the performance and correctness of software. A list of these differences is documented <a rel="nofollow"  href="https://wiki.musl-libc.org/functional-differences-from-glibc.html">here</a>.
+</p>
+<p>Note that dynamically linked software built on TOS Linux (or any other system using glibc) may have bugs and performance problems when run on Alpine Linux (or any other system using a different libc). See <a rel="nofollow"  href="https://bugs.python.org/issue32307">[2]</a>, <a rel="nofollow"  href="https://superuser.com/questions/1219609/why-is-the-alpine-docker-image-over-50-slower-than-the-ubuntu-image">[3]</a> and <a rel="nofollow"  href="https://pythonspeed.com/articles/alpine-docker-python">[4]</a> for examples.
+</p>
+<h3><span class="mw-headline" id="CentOS">CentOS</span></h3>
+<p>The following command pulls the latest <a rel="nofollow"  href="https://hub.docker.com/_/centos">centos</a> image:
+</p>
+<pre> # docker pull centos
+</pre>
+<p>See the Docker Hub page for a full list of available tags for each CentOS release.
+</p>
+<h3><span class="mw-headline" id="Debian">Debian</span></h3>
+<p>The following command pulls the latest <a rel="nofollow"  href="https://hub.docker.com/_/debian">debian</a> image:
+</p>
+<pre># docker pull debian
+</pre>
+<p>See the Docker Hub page for a full list of available tags, including both standard and slim versions for each Debian release.
+</p>
+<h3><span class="mw-headline" id="Distroless">Distroless</span></h3>
+<p>Google maintains <a rel="nofollow"  href="https://github.com/GoogleContainerTools/distroless">distroless images</a> for several popular programming languages such as <a href="../wiki/Java.html" title="Java">Java</a>, <a href="../wiki/Python.html" title="Python">Python</a>, <a href="../wiki/Go.html" title="Go">Go</a>, <a href="../wiki/Node.js.html" title="Node.js">Node.js</a>, <a href="../wiki/.NET_Core.html" title=".NET Core">.NET Core</a> and <a href="../wiki/Rust.html" title="Rust">Rust</a>. These images contain only the programming language runtime without any OS related files, resulting in very small images for packaging software.
+</p>
+<p>See the GitHub README for a list of images and instructions on their use.
+</p>
+<h2><span class="mw-headline" id="Remove_Docker_and_images">Remove Docker and images</span></h2>
+<p>In case you want to remove Docker entirely you can do this by following  the steps below:
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Do not just copy paste those commands without making sure you know what you are doing.</div>
+<p>Check for running containers:
+</p>
+<pre># docker ps
+</pre>
+<p>List all containers running on the host for deletion:
+</p>
+<pre># docker ps -a
+</pre>
+<p>Stop a running container:
+</p>
+<pre># docker stop &lt;CONTAINER ID&gt;
+</pre>
+<p>Killing still running containers:
+</p>
+<pre># docker kill &lt;CONTAINER ID&gt;
+</pre>
+<p>Delete all containers listed by ID:
+</p>
+<pre># docker rm &lt;CONTAINER ID&gt;
+</pre>
+<p>List all Docker images:
+</p>
+<pre># docker images
+</pre>
+<p>Delete all images by ID:
+</p>
+<pre># docker rmi &lt;IMAGE ID&gt;
+</pre>
+<p>Delete all images, containers, volumes, and networks that are not associated with a container (dangling):
+</p>
+<pre># docker system prune
+</pre>
+<p>To additionally remove any stopped containers and all unused images (not just dangling ones), add the -a flag to the command:
+</p>
+<pre># docker system prune -a
+</pre>
+<p>Delete all Docker data (purge directory):
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Doing # rm -R /var/lib/docker will leave behind the btrfs subvolumes of the removed containers (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Docker">Talk:Docker#</a>)</div>
+</div>
+<pre># rm -R /var/lib/docker
+</pre>
+<h2><span class="mw-headline" id="Run_GPU_accelerated_Docker_containers_with_NVIDIA_GPUs">Run GPU accelerated Docker containers with NVIDIA GPUs</span></h2>
+<h3>
+<span id="With_NVIDIA_Container_Toolkit_.28recommended.29"></span><span class="mw-headline" id="With_NVIDIA_Container_Toolkit_(recommended)">With NVIDIA Container Toolkit (recommended)</span>
+</h3>
+<p>Starting from Docker version 19.03, NVIDIA GPUs are natively supported as Docker devices. <a rel="nofollow"  href="https://github.com/NVIDIA/nvidia-docker">NVIDIA Container Toolkit</a> is the recommended way of running containers that leverage NVIDIA GPUs.
+</p>
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-container-toolkit/">nvidia-container-toolkit</a></span><sup><small>AUR</small></sup> package. Next, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> docker. You can now run containers that make use of NVIDIA GPUs using the <code>--gpus</code> option:
+</p>
+<pre># docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>Specify how many GPUs are enabled inside a container:
+</p>
+<pre># docker run --gpus 2 nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>Specify which GPUs to use:
+</p>
+<pre># docker run --gpus '"device=1,2"' nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>or
+</p>
+<pre># docker run --gpus '"device=UUID-ABCDEF,1"' nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>Specify a capability (graphics, compute, ...) for the container (though this is rarely if ever used this way):
+</p>
+<pre># docker run --gpus all,capabilities=utility nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>For more information see <a rel="nofollow"  href="https://github.com/NVIDIA/nvidia-docker/blob/master/README.md">README.md</a> and <a rel="nofollow"  href="https://github.com/NVIDIA/nvidia-docker/wiki">Wiki</a>.
+</p>
+<h3><span class="mw-headline" id="With_NVIDIA_Container_Runtime">With NVIDIA Container Runtime</span></h3>
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-container-runtime/">nvidia-container-runtime</a></span><sup><small>AUR</small></sup> package. Next, register the NVIDIA runtime by editing <code>/etc/docker/daemon.json</code>
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/docker/daemon.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+  "runtimes": {
+    "nvidia": {
+      "path": "/usr/bin/nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
+}</pre>
+<p>and then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> docker.
+</p>
+<p>The runtime can also be registered via a command line option to <i>dockerd</i>:
+</p>
+<pre># /usr/bin/dockerd --add-runtime=nvidia=/usr/bin/nvidia-container-runtime
+</pre>
+<p>Afterwards GPU accelerated containers can be started with
+</p>
+<pre># docker run --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>or (required Docker version 19.03 or higher)
+</p>
+<pre># docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>See also <a rel="nofollow"  href="https://github.com/NVIDIA/nvidia-container-runtime/blob/master/README.md">README.md</a>.
+</p>
+<h3>
+<span id="With_nvidia-docker_.28deprecated.29"></span><span class="mw-headline" id="With_nvidia-docker_(deprecated)">With nvidia-docker (deprecated)</span>
+</h3>
+<p><a rel="nofollow"  href="https://nvidia.github.io/nvidia-docker/">nvidia-docker</a> is a wrapper around NVIDIA Container Runtime which registers the NVIDIA runtime by default and provides the <i>nvidia-docker</i> command.
+</p>
+<p>To use nvidia-docker, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-docker/">nvidia-docker</a></span><sup><small>AUR</small></sup> package and then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> docker. Containers with NVIDIA GPU support can then be run using any of the following methods:
+</p>
+<pre># docker run --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<pre># nvidia-docker run nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<p>or (required Docker version 19.03 or higher)
+</p>
+<pre># docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> nvidia-docker is a legacy method for running NVIDIA GPU accelerated containers used prior to Docker 19.03 and has been deprecated. If you are using Docker version 19.03 or higher, it is recommended to use <a href="#With_NVIDIA_Container_Toolkit_(recommended)">NVIDIA Container Toolkit</a> instead.</div>
+<h2><span class="mw-headline" id="Useful_tips">Useful tips</span></h2>
+<p>To grab the IP address of a running container:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' &lt;container-name OR id&gt; </pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">172.17.0.37</pre>
+<p>For each running container, the name and corresponding IP address can be listed for use in <code>/etc/hosts</code>:
+</p>
+<pre>#!/usr/bin/env sh
+for ID in $(docker ps -q | awk '{print $1}'); do
+    IP=$(docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" "$ID")
+    NAME=$(docker ps | grep "$ID" | awk '{print $NF}')
+    printf "%s %s\n" "$IP" "$NAME"
+done</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3>
+<span id="docker0_Bridge_gets_no_IP_.2F_no_internet_access_in_containers_when_using_systemd-networkd"></span><span class="mw-headline" id="docker0_Bridge_gets_no_IP_/_no_internet_access_in_containers_when_using_systemd-networkd">docker0 Bridge gets no IP / no internet access in containers when using systemd-networkd</span>
+</h3>
+<p>Docker attempts to enables IP forwarding globally, but by default <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> overrides the global sysctl setting for each defined network profile. Set <code>IPForward=yes</code> in the network profile. See <a href="../wiki/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">Internet sharing#Enable packet forwarding</a> for details.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>You may need to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>docker.service</code> each time you <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>systemd-networkd.service</code> or <code>iptables.service</code>.</li>
+<li>Also be aware that <a href="../wiki/Nftables.html" title="Nftables">nftables</a> may block docker connections by default. Use <code>nft list ruleset</code> to check for blocking rules. <code>nft flush chain inet filter forward</code> removes all forwarding rules temporarily. Edit <code>/etc/nftables.conf</code> to make changes permanent. Remember to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>nftables.service</code> to reload rules from the config file.</li>
+</ul>
+</div>
+<h3>
+<span id="Default_number_of_allowed_processes.2Fthreads_too_low"></span><span class="mw-headline" id="Default_number_of_allowed_processes/threads_too_low">Default number of allowed processes/threads too low</span>
+</h3>
+<p>If you run into error messages like
+</p>
+<pre># e.g. Java
+java.lang.OutOfMemoryError: unable to create new native thread
+# e.g. C, bash, ...
+fork failed: Resource temporarily unavailable
+</pre>
+<p>then you might need to adjust the number of processes allowed by systemd. The default is 500 (see <code>system.conf</code>), which is pretty small for running several docker containers. <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> the <code>docker.service</code> with the following snippet:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># systemctl edit docker.service</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
+TasksMax=infinity</pre>
+<h3><span class="mw-headline" id="Error_initializing_graphdriver:_devmapper">Error initializing graphdriver: devmapper</span></h3>
+<p>If <i>systemctl</i> fails to start docker and provides an error:
+</p>
+<pre>Error starting daemon: error initializing graphdriver: devmapper: Device docker-8:2-915035-pool is not a thin pool
+</pre>
+<p>Then, try the following steps to resolve the error. Stop the service, back up <code>/var/lib/docker/</code> (if desired), remove the contents of <code>/var/lib/docker/</code>, and try to start the service. See the open <a rel="nofollow"  href="https://github.com/docker/docker/issues/21304">GitHub issue</a> for details.
+</p>
+<h3>
+<span id="Failed_to_create_some.2Fpath.2Fto.2Ffile:_No_space_left_on_device"></span><span class="mw-headline" id="Failed_to_create_some/path/to/file:_No_space_left_on_device">Failed to create some/path/to/file: No space left on device</span>
+</h3>
+<p>If you are getting an error message like this:
+</p>
+<pre>ERROR: Failed to create some/path/to/file: No space left on device
+</pre>
+<p>when building or running a Docker image, even though you do have enough disk space available, make sure:
+</p>
+<ul>
+<li>
+<a href="../wiki/Tmpfs.html" title="Tmpfs">Tmpfs</a> is disabled or has enough memory allocation. Docker might be trying to write files into <code>/tmp</code> but fails due to restrictions in memory usage and not disk space.</li>
+<li>If you are using <a href="../wiki/XFS.html" title="XFS">XFS</a>, you might want to remove the <code>noquota</code> mount option from the relevant entries in <code>/etc/fstab</code> (usually where <code>/tmp</code> and/or <code>/var/lib/docker</code> reside). Refer to <a href="../wiki/Disk_quota.html" title="Disk quota">Disk quota</a> for more information, especially if you plan on using and resizing <code>overlay2</code> Docker storage driver.</li>
+<li>XFS quota mount options (<code>uquota</code>, <code>gquota</code>, <code>prjquota</code>, etc.) fail during re-mount of the file system. To enable quota for root file system, the mount option must be passed to initramfs as a <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>rootflags=</code>. Subsequently, it should not be listed among mount options in <code>/etc/fstab</code> for the root (<code>/</code>) filesystem.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> There are some differences of XFS Quota compared to standard Linux <a href="../wiki/Disk_quota.html" title="Disk quota">Disk quota</a>, <a rel="nofollow"  href="http://inai.de/linux/adm_quota">[5]</a> may be worth reading.</div>
+<h3><span class="mw-headline" id="Invalid_cross-device_link_in_kernel_4.19.1">Invalid cross-device link in kernel 4.19.1</span></h3>
+<p>If commands like <i>dpkg</i> fail to run in docker, e.g:
+</p>
+<pre>dpkg: error: error creating new backup file '/var/lib/dpkg/status-old': Invalid cross-device link
+</pre>
+<p>Either add a <code>overlay.metacopy=N</code> <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> or downgrade to 4.18.x until <a rel="nofollow"  href="https://github.com/docker/for-linux/issues/480">this issue</a> is resolved. More info in the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=241866">TOS forum</a>.
+</p>
+<h3><span class="mw-headline" id="CPUACCT_missing_in_docker_with_Linux-ck">CPUACCT missing in docker with Linux-ck</span></h3>
+<p>In newer versions of <a href="../wiki/Linux-ck.html" title="Linux-ck">Linux-ck</a> (<a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-ck#comment-677316">some experienced</a> with 4.19, 4.20 seems general), a change to the MuQSS was made that disables the <code>CONFIG_CGROUP_CPUACCT</code> option from the kernel, which makes <i>some</i> usage of docker (<code>run</code> or <code>build</code>) to produce the following error:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ docker run --rm hello-world</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">docker: Error response from daemon: unable to find "cpuacct" in controller set: unknown.</pre>
+<p>This error does not seem to affect the docker daemon, just containers. Read more on <a href="../wiki/Linux-ck.html#CPUACCT_missing_in_docker" title="Linux-ck">Linux-ck#CPUACCT missing in docker</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.
+</p>
+<h3><span class="mw-headline" id="Docker-machine_fails_to_create_virtual_machines_using_the_virtualbox_driver">Docker-machine fails to create virtual machines using the virtualbox driver</span></h3>
+<p>In case docker-machine fails to create the VM's using the virtualbox driver, with the following:
+</p>
+<pre>VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
+</pre>
+<p>Simply reload the virtualbox via CLI with <code>vboxreload</code>.
+</p>
+<h3><span class="mw-headline" id="Starting_Docker_breaks_KVM_bridged_networking">Starting Docker breaks KVM bridged networking</span></h3>
+<p>This is a <a rel="nofollow"  href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=865975">known issue</a>. You can use the following workaround:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/docker/daemon.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+  "iptables": false
+}</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.docker.com">Official website</a></li>
+<li><a rel="nofollow"  href="https://docs.docker.com/engine/installation/linux/archlinux/">TOS Linux on docs.docker.com</a></li>
+<li>
+<a rel="nofollow"  href="https://opensource.com/business/14/7/docker-security-selinux">Are Docker containers really secure?</a> — opensource.com</li>
+<li><a rel="nofollow"  href="https://awesome-docker.netlify.com/">Awesome Docker</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="../wiki/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Docker&amp;oldid=612779">https://wiki.archlinux.org/index.php?title=Docker&amp;oldid=612779</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 May 2020, at 12:16.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
