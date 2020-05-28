@@ -61,8 +61,8 @@ It only contains the following tos tools
 - pacman
 - tos repo
 
-This image can be used as a base to install other software ontop of.
-All dependencies you need should still be put ontop of this image
+This image can be used as a base to install other software on top of.
+All dependencies you need should still be put on top of this image
 
 ### Build the image
 To build the image we depend on you having docker installed and the repo cloned
@@ -85,7 +85,7 @@ docker run -it tos-base:latest
 
 ## GUI Image
 
-The `tos-gui` image is an extention ontop of `tos-base`
+The `tos-gui` image is an extension on top of `tos-base`
 
 This image does not contain a user. Instead it all runs as root
 It only contains the following tos tools 
@@ -96,9 +96,9 @@ It only contains the following tos tools
 
 This image is used to test/play with the gui environment.
 However is does not contain everything that is present in a full install of `tos`
-Things such as `fonts`, `compositor`, `icons` and other asthetics are missing.
+Things such as `fonts`, `compositor`, `icons` and other aesthetics are missing.
 This is done to keep the image as small as possible.
-All dependencies you need should still be put ontop of this image.
+All dependencies you need should still be put on top of this image.
 
 ### Build the image
 To build the image we depend on you having docker, the repo cloned and Xephyr installed (xorg-Xephyr)

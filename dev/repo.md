@@ -31,7 +31,6 @@ You will see the following entry:
 
 ```bash
 [tos]
-SigLevel = Optional TrustAll
 Server = https://repo.odex.be
 ```
 
@@ -185,7 +184,7 @@ as the keyring is present on each device the repo will be able to be downloaded 
 
 When building the repo 1 ENV variable should be added.
 `GPG_REPO_KEY` which is the pub keyid of the key you wish to use to sign the repository.
-Each package will get a correcsponding `.sig` file
+Each package will get a corresponding `.sig` file
 And the database itself will also be signed to prevent malicious data.
 
 To get the ID of the repo key issue the following command
@@ -195,8 +194,8 @@ The key should look something like this
 
 ### Making the variables system wide
 
-Sometimes you can't really get to the environmental variables in your ci/cd pipeline or build scripts.
-Make sure the env variables are present in the `global` environment file instead of something like your `.bashrc` or `.zshrc` file. 
+Sometimes you can't really get to the environmental variables in your CI/CD pipeline or build scripts.
+Make sure the ENV variables are present in the `global` environment file instead of something like your `.bashrc` or `.zshrc` file. 
 You should add the variables to `/etc/environment` or if you only want your user to access the data use `~/.profile` or `~/.xprofile` depending on your setup.
 
 ### The tos keyring
@@ -236,7 +235,7 @@ Here is each level:
 1. Completely untrusted
 2. You don't trust the key
 3. You trust the key marginally
-4. You thust the key fully
+4. You trust the key fully
 5. You trust it ultimately
 
 In essence pacman configures the key with this commands

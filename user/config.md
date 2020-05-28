@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Configur/tweak your system
+description: Configure/tweak your system
 published: true
 date: 2020-05-01T17:23:39.562Z
 tags: user, tutorial, maintain, config
@@ -8,7 +8,7 @@ tags: user, tutorial, maintain, config
 
 # Configuration
 
-Lets talk about configurating your environment.
+Lets talk about configuration your environment.
 
 Tos has several tools and packages that you can configure independently.
 Each section is described below.
@@ -88,14 +88,14 @@ tooltip_bg="232323"
 taglist_occupied="ffffff"
 ```
 
-Each seperate item in the file denotes another color of the window manager.
+Each separate item in the file denotes another color of the window manager.
 Play around with it.
 To reload the configuration use `mod4+Ctrl+r`
 
 ### Icons
 
 The same configuration can be done for icons. What do we mean about icons?
-Well you can change the logo, workspace icons, Even icons in the topbar.
+Well you can change the logo, workspace icons, Even icons in the top bar.
 
 All you need to do is edit `.config/tos/icons.conf`
 
@@ -225,7 +225,7 @@ float_2 = "Gimp-2.10"
 ```
 
 ### Autostart Applications
-The last configuration 'file' is called the autostarted.
+The last configuration 'file' is called the autostart.
 It is basically a directory that you can create. Each shell script that is in there will be executed on start.
 
 The location of said directory is `.config/tos/autostart/`
@@ -257,7 +257,7 @@ If you wish to enable/disable bluetooth you can use the following command
 `tos bluetooth set on`
 `tos bluetooth set off`
 
-Alternativly you can edit `.config/tos/theme` and change the line containing `bluetooth=.*` to either `true` or `false`
+Alternatively you can edit `.config/tos/theme` and change the line containing `bluetooth=.*` to either `true` or `false`
 
 ### theme
 
@@ -268,7 +268,7 @@ If you wish to enable random theme selection you can add multiple pictures using
 But don't forget to enable random mode
 `tos theme random on` or `tos theme random off`
 
-Alternativly you can enable/disable random mode in `.config/tos/theme`
+Alternatively you can enable/disable random mode in `.config/tos/theme`
 You should edit
 ```bash
 off # to on
@@ -401,7 +401,7 @@ For a more up to date list look [here](https://github.com/ODEX-TOS/system-update
 
 ## Environment variables
 
-Some aspects of the operating sytem can be changed by using environment variables.
+Some aspects of the operating system can be changed by using environment variables.
 If you want to change/alter variables please open the `~/.xprofile` file and adjust them there.
 
 Here is a list of variables that `tos` takes into consideration.

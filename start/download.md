@@ -114,9 +114,9 @@ Reboot your system and enter the bios. If you don't know how to use the bios or 
 {.is-info}
 
 When you are booting into tos you will see a bootloader. Just select the first option (boot into TOS).
-This will start the bootup sequence. After a few seconds/minutes you will be presented with the TOS environment.
+This will start the boot up sequence. After a few seconds/minutes you will be presented with the TOS environment.
 
-> Depending on the type of usb port/key the bootup sequence can take longer. Since older usb's are rather slow.
+> Depending on the type of usb port/key the boot up sequence can take longer. Since older usb's are rather slow.
 {.is-info}
 
 When using the awesome edition you will be presented with a tutorial. It is recommended that you follow this tutorial to the letter. For more information about our awesome edition please visit the navigation section.

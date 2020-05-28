@@ -19,7 +19,7 @@ Lets look at the desktop
 ![desktop.png](/images/basic-setup/desktop.png)
 
 By design you can't place icons/application in this desktop.
-It is purely astetic.
+It is purely aesthetic.
 You can however use the right mouse button to show a menu containing your application.
 
 It looks like this ![apps.png](/images/basic-setup/apps.png)
@@ -28,7 +28,7 @@ Their isn't much to see on the desktop except for the top bar
 
 ![topbar.png](/images/basic-setup/topbar.png)
 
-Feel free to see what each `widget` in the topbar does.
+Feel free to see what each `widget` in the top bar does.
 Most should be self explanatory.
 
 
@@ -50,7 +50,7 @@ It looks like the following
 
 ![action-center-rofi.png](/images/basic-setup/action-center-rofi.png)
 
-It informs you about the most basic information about yur system.
+It informs you about the most basic information about your system.
 
 You can do the following:
 
@@ -103,7 +103,7 @@ Try and test them out!
 
 Since `tos` is keyboard driven, we recommend you get familiar with its keyboard layout.
 
-If you want to get a more specific describtion read the following [link](/user/navigate)
+If you want to get a more specific description read the following [link](/user/navigate)
 
 All you need to know for now is that most shortcuts use `mod4`
 
@@ -142,7 +142,7 @@ Bash is the most used shell. However we use `zsh` as it provides a bit more comf
 
 Finally you have to keep your system up to date.
 
-> unlike windows we ofer the choice when you want to update your system (we don't enforce it, but we do recommend it)
+> unlike windows we offer the choice when you want to update your system (we don't enforce it, but we do recommend it)
 {.is-info}
 
 For a detailed describtion to keep your system up to date read

@@ -155,7 +155,7 @@ tos t time 1d-2h-3m-4s
 ```
 
 As you can guess 1d is one day, 2h is 2 hours etc.
-This effectively says that every 1 day and 2 hours 3minutes and 4 seconds the theme will change. But thats not all. You can also do this
+This effectively says that every 1 day and 2 hours 3minutes and 4 seconds the theme will change. But that's not all. You can also do this
 
 ```bash
 tos theme time 0.5h

@@ -59,7 +59,7 @@ As you can see we have the following options to supply to `tbs`
 - repo
 - upload
 
-Most subsections speak for themselfs.
+Most subsections speak for themself.
 
 But if you want to know more you can supply the following options
 
@@ -93,7 +93,7 @@ optional arguments:
 
 As you can see it manages all the dependencies required to have install for a specific section.
 
-> Each section automatically pulls the needed dependencies. You should normally never need to manually install dependencies using the above commands. However it is usefull if you want to debug errors happening in the dependency install procedure.
+> Each section automatically pulls the needed dependencies. You should normally never need to manually install dependencies using the above commands. However it is useful if you want to debug errors happening in the dependency install procedure.
 {.is-warning}
 
 You can choose which dependencies you want to install
@@ -179,12 +179,12 @@ As you can see we only have a few options.
 
 `--build` simply builds the latest tos kernel version.
 
-`--cores <number>` specifies howmany cores should be used to build the kernel (higher results in faster compilation, however it could render your system useless)
+`--cores <number>` specifies how many cores should be used to build the kernel (higher results in faster compilation, however it could render your system useless)
 
 > Never use more cores than the number of your system as this could render your system unstable
 {.is-danger}
 
-`--auto` automatically detects howmany cores your system has and uses the optimal number for compilation time
+`--auto` automatically detects how many cores your system has and uses the optimal number for compilation time
 
 ### launcher
 

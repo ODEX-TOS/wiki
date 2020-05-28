@@ -13,7 +13,7 @@ This page is here to help you fix certain things.
 
 > This will cover how to recover broken system
 > It requires you to reboot the system in an advanced mode
-> Shell knowledge is highly recommened to not further destroy your system
+> Shell knowledge is highly recommend to not further destroy your system
 {.is-warning}
 
 ## Password recovery
@@ -101,4 +101,4 @@ This section is similar to the password recovery
 If updating packages if the issue you can do the following
 
 - Revert to an older package version `pacman -U /var/cache/pacman/pkg/<Older File Version>`
-- Installing a new package conflicts with existsing files/directories `pacman <package> --overwrite <conflicting file>`
+- Installing a new package conflicts with existing files/directories `pacman <package> --overwrite <conflicting file>`

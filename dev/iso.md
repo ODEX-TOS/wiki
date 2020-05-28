@@ -43,7 +43,6 @@ You will see the following entry:
 
 ```bash
 [tos]
-SigLevel = Optional TrustAll
 Server = https://repo.odex.be
 ```
 

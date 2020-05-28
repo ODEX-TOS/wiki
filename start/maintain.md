@@ -1,5 +1,5 @@
 ---
-title: Maintanance
+title: Maintenance
 description: What should you do if you wish to maintain your TOS environment
 published: true
 date: 2020-03-16T19:18:26.611Z
@@ -17,7 +17,7 @@ Below is a list of 'things' you can use/do to maintain your system.
 As most of you know each system has quite a bit of software.
 The backend responsible for managing your software is called `pacman`
 
-> We don't recommend to use pacman directly as tos has mechanisms ontop of it to help you with maintaining your system.
+> We don't recommend to use pacman directly as tos has mechanisms on top of it to help you with maintaining your system.
 {.is-warning}
 
 If you wish to know more about updates read [this](/user/update)
@@ -25,7 +25,7 @@ If you wish to know more about updates read [this](/user/update)
 ### Cleanup data
 
 Our package manager keeps data of outdated packages in case you ever wish to do a rollback.
-However when your system is low on diskspace you can issue this command
+However when your system is low on disks pace you can issue this command
 
 ```bash
 tos -Sc # sync clear removes old cache data

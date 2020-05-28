@@ -10,13 +10,13 @@ tags: help, dev, installer
 
 The git repository for this section can be found [here](https://github.com/ODEX-TOS/installer)
 
-To get more information abou the used framework look [here](https://calamares.io/about/)
+To get more information about the used framework look [here](https://calamares.io/about/)
 
 To give you a short description:
 Calamares is a distribution independent installer framework that makes it easy and simple to extend and customize for your distribution.
 
 What does that mean for us?
-We use calamares to provide an easy installation.
+We use Calamares to provide an easy installation.
 
 However other ways of installing `tos` exist.
 
@@ -56,13 +56,13 @@ pacman -Rns installer
 ### pacstrap-tos
 
 The default pacstrap command (provided by arch) errors out when `/proc` is already mounted in the `chrooted` environment.
-However `calamares` does this when mounting your harddrive.
+However `calamares` does this when mounting your hard drive.
 
 This custom `pacstrap` command takes the actions of `calamares` into consideration.
 
 ### settings.conf
 
-This file describes the default behaviour of calamares.
+This file describes the default behaviour of Calamares.
 It describes to flow of the program in a `yaml` configuration.
 IF you are adding new modules you shouldn't forget to add then to this file or otherwise they will not be executed.
 

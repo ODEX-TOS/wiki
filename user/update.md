@@ -29,7 +29,7 @@ tos -Syu "<name>" # where name is the name of your application.
 ```
 
 Lets take a look at a simple example.
-We will be trying to install gimp. For those who don't know what gimp is. Its a editor for pictures much like photoshop.
+We will be trying to install gimp. For those who don't know what gimp is. Its a editor for pictures much like Photoshop.
 
 ```bash
 tos -Ss "gimp" # gimp will most likely be named gimp
@@ -78,7 +78,7 @@ tos -Rns "<package>" # R must be capital!
 
 ## Cleaning up the cache
 
-Every time an update happens tos downloads all new packages but keeps a compressed package of your old version. This however requires extra diskspace. You can however get that extra diskspace back by removing all the old cached data.
+Every time an update happens tos downloads all new packages but keeps a compressed package of your old version. This however requires extra disk space. You can however get that extra disk space back by removing all the old cached data.
 
 ```bash
 tos -Sc # clear the cache

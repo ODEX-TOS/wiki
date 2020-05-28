@@ -29,9 +29,9 @@ The mod key equals your windows key.
 ## Keybindings - good to know
 
 - To open up a cheatsheet use `mod+f1`
-- To move a application to another workscape use `mod+shift+number` where number is a number between 0 and 7
+- To move a application to another workspace use `mod+shift+number` where number is a number between 0 and 7
 - Move the current focus to the next window using `mod+arrow_key`
-- Move the current window to a directorion using `mod+shift+arrow_key`
+- Move the current window to a direction using `mod+shift+arrow_key`
 
 ## Toggle floating mode
 Floating mode is the mode where applications are "free" from the tiling paradigm. The can have the resolution they want and you can move them freely. Much like the traditional window managers do.
