@@ -2,7 +2,7 @@
     title: BIND
     description: Migration of BIND from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Numerous style and content issues. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:BIND">Talk:BIND#</a>)</div>
 </div>
@@ -81,17 +81,17 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> package.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>named.service</code> systemd unit.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>named.service</code> systemd unit.
 </p>
-<p>To use the DNS server locally, use the <code>127.0.0.1</code> nameserver (meaning clients like firefox resolve via 127.0.0.1), see <a href="../Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>.
+<p>To use the DNS server locally, use the <code>127.0.0.1</code> nameserver (meaning clients like firefox resolve via 127.0.0.1), see <a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>.
 This will however require you to <a href="#Allow_recursion">#Allow recursion</a> while a firewall might block outside queries to your local named.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>BIND is configured in <code>/etc/named.conf</code>. The available options are documented in <span class="plainlinks archwiki-template-man" title="$ man 5 named.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/named.conf.5">named.conf(5)</a></span>.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> the <code>named.service</code> unit to apply configuration changes.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> the <code>named.service</code> unit to apply configuration changes.
 </p>
 <h3><span class="mw-headline" id="Restrict_access_to_localhost">Restrict access to localhost</span></h3>
 <p>BIND by defaults listens on port 53 of all interfaces and IP addresses. To only allow connections from localhost add the following line to the options section in <code>/etc/named.conf</code>:
@@ -148,7 +148,7 @@ mail            IN      A       0.0.0.0
         notify no;
 };
 </pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> the <code>named.service</code> unit to apply the configuration change.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> the <code>named.service</code> unit to apply the configuration change.
 </p>
 <h2><span class="mw-headline" id="Allow_recursion">Allow recursion</span></h2>
 <p>If you are running your own DNS server, you might as well use it for all DNS lookups, or even locally serve the root-zone yourself following <a href="https://tools.ietf.org/html/rfc7706"  title="rfc:7706">RFC:7706</a>. The former will require the ability to do <i>recursive</i> lookups.  In order to prevent <a rel="nofollow"  href="https://www.us-cert.gov/ncas/alerts/TA13-088A">DNS Amplification Attacks</a>, recursion is turned off by default for most resolvers.  The default TOS <code>/etc/named.conf</code> file allows for recursion only on the loopback interface:
@@ -217,7 +217,7 @@ You can disable this feature by setting its value to 0.
 <p>Then restart the service.
 </p>
 <h2><span class="mw-headline" id="Running_BIND_in_a_chrooted_environment">Running BIND in a chrooted environment</span></h2>
-<p>Running in a <a href="../Chroot.html" title="Chroot">chroot</a> environment is not required but improves security.
+<p>Running in a <a href="../wiki/Chroot.html" title="Chroot">chroot</a> environment is not required but improves security.
 </p>
 <h3><span class="mw-headline" id="Creating_the_Jail_House">Creating the Jail House</span></h3>
 <p>In order to do this, we first need to create a place to keep the jail, we shall use <code>/srv/named</code>, and then put the required files into the jail.
@@ -267,12 +267,12 @@ You can disable this feature by setting its value to 0.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -291,9 +291,9 @@ You can disable this feature by setting its value to 0.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

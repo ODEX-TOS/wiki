@@ -2,7 +2,7 @@
     title: Music_Player_Daemon
     description: Migration of Music_Player_Daemon from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Music_Player_Daemon/Tips_and_tricks.html" class="mw-redirect" title="MPD/Tips and Tricks">MPD/Tips and Tricks</a></li>
-<li><a href="../Music_Player_Daemon/Troubleshooting.html" class="mw-redirect" title="MPD/Troubleshooting">MPD/Troubleshooting</a></li>
+<li><a href="../wiki/Music_Player_Daemon/Tips_and_tricks.html" class="mw-redirect" title="MPD/Tips and Tricks">MPD/Tips and Tricks</a></li>
+<li><a href="../wiki/Music_Player_Daemon/Troubleshooting.html" class="mw-redirect" title="MPD/Troubleshooting">MPD/Troubleshooting</a></li>
 </ul>
 </div>
 <p><b><a rel="nofollow"  href="http://www.musicpd.org/">MPD</a></b> (music player daemon) is an audio player that has a server-client architecture.  It plays audio files, organizes playlists and maintains a music database, all while using  very few resources. In order to interface with it, a separate <a href="#Clients">client</a> is needed.
@@ -88,13 +88,13 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mpd">mpd</a></span> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mpd-git/">mpd-git</a></span><sup><small>AUR</small></sup> for the development version.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mpd">mpd</a></span> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mpd-git/">mpd-git</a></span><sup><small>AUR</small></sup> for the development version.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>MPD is able to run in <a href="#Per-user_configuration">#Per-user configuration</a> or <a href="#System-wide_configuration">#System-wide configuration</a> mode (settings apply to all users). Also it is possible to run multiple instances of MPD in a <a href="#Multi-MPD_setup">#Multi-MPD setup</a>.
 The way of setting up MPD depends on the way it is intended to be used: a local per-user configuration is easier to setup and may prove more adapted on a desktop system. The system-wide setup might be better suited for a always-on audio server with multiple users but a shared MPD instance.
 </p>
-<p>In order for MPD to be able to playback audio, <a href="../Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>, optionally with <a href="../PulseAudio.html" title="PulseAudio">PulseAudio</a>, must be setup and working. The <a href="#Audio_configuration">#Audio configuration</a> section thereafter describes the parameters needed for <i>ALSA</i> or <i>PulseAudio</i>.
+<p>In order for MPD to be able to playback audio, <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>, optionally with <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a>, must be setup and working. The <a href="#Audio_configuration">#Audio configuration</a> section thereafter describes the parameters needed for <i>ALSA</i> or <i>PulseAudio</i>.
 </p>
 <p>MPD is configured in the file <span class="plainlinks archwiki-template-man" title="$ man 5 mpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mpd.conf.5">mpd.conf(5)</a></span> which can be located in various paths depending on the setup chosen (system-wide or per-user). In short, the two common locations used are:
 </p>
@@ -174,7 +174,7 @@ log_file           "syslog"
 <p>or alternatively one can set the option <code>auto_update</code> to <code>"yes"</code> in the configuration to refresh the database whenever files are changed in <code>music_directory</code>.
 </p>
 <h4><span class="mw-headline" id="Audio_configuration">Audio configuration</span></h4>
-<p>If <a href="../Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> is used, <b>autodetection</b> of the default device should work out of the box without any particular setting. If not, the syntax for ALSA audio output definition is provided thereafter; the required <code>name</code> parameter specifies a unique name for the audio output.
+<p>If <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> is used, <b>autodetection</b> of the default device should work out of the box without any particular setting. If not, the syntax for ALSA audio output definition is provided thereafter; the required <code>name</code> parameter specifies a unique name for the audio output.
 The exact device as displayed using <code>aplay --list-pcm</code> from the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-utils">alsa-utils</a></span> can optionally be indicated with the <code>device</code> option.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/mpd/mpd.conf</pre>
@@ -185,7 +185,7 @@ The exact device as displayed using <code>aplay --list-pcm</code> from the packa
         #device        "<i>iec958:CARD=Intel,DEV=0</i>"
         #mixer_control "PCM"
 }</pre>
-<p>Users of <a href="../PulseAudio.html" title="PulseAudio">PulseAudio</a> will need to make the following modification:
+<p>Users of <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> will need to make the following modification:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/mpd/mpd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">audio_output {
@@ -193,14 +193,14 @@ The exact device as displayed using <code>aplay --list-pcm</code> from the packa
         name            "<i>pulse audio</i>"
 }</pre>
 <h4><span class="mw-headline" id="Autostart_with_systemd">Autostart with systemd</span></h4>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mpd">mpd</a></span> package provides a <a href="../Systemd/User.html" title="Systemd/User">user service</a> file. The service starts the process as user, there is no need to change permission nor use the <code>user</code> and <code>group</code> variables in the MPD configuration file.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mpd">mpd</a></span> package provides a <a href="../wiki/Systemd/User.html" title="Systemd/User">user service</a> file. The service starts the process as user, there is no need to change permission nor use the <code>user</code> and <code>group</code> variables in the MPD configuration file.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the user unit <code>mpd.service</code> (i.e. with the <code>--user</code> flag).
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the user unit <code>mpd.service</code> (i.e. with the <code>--user</code> flag).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The configuration file is read from <code>~/.config/mpd/mpd.conf</code>, see <a href="../Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a> if you would like to indicate a custom configuration file path.</div>
+<strong>Note:</strong> The configuration file is read from <code>~/.config/mpd/mpd.conf</code>, see <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a> if you would like to indicate a custom configuration file path.</div>
 <h4><span class="mw-headline" id="Autostart_on_tty_login">Autostart on tty login</span></h4>
-<p>To start MPD on login add the following to <code>~/.profile</code> or another <a href="../Autostarting.html" title="Autostarting">autostart file</a>:
+<p>To start MPD on login add the following to <code>~/.profile</code> or another <a href="../wiki/Autostarting.html" title="Autostarting">autostart file</a>:
 </p>
 <pre># MPD daemon start (if no other user instance exists)
 [ ! -s ~/.config/mpd/pid ] &amp;&amp; mpd
@@ -215,7 +215,7 @@ The exact device as displayed using <code>aplay --list-pcm</code> from the packa
 </dd></dl>
 <h3><span class="mw-headline" id="System-wide_configuration">System-wide configuration</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Users of PulseAudio with a system-wide MPD configuration have to implement a <a href="../Music_Player_Daemon/Tips_and_tricks.html#Local_(with_separate_mpd_user)" title="Music Player Daemon/Tips and tricks">workaround</a> in order to run MPD as its own user!</div>
+<strong>Note:</strong> Users of PulseAudio with a system-wide MPD configuration have to implement a <a href="../wiki/Music_Player_Daemon/Tips_and_tricks.html#Local_(with_separate_mpd_user)" title="Music Player Daemon/Tips and tricks">workaround</a> in order to run MPD as its own user!</div>
 <p>The default <code>/etc/mpd.conf</code> keeps the setup in <code>/var/lib/mpd</code> which is assigned to user as well as primary group MPD.
 </p>
 <h4><span class="mw-headline" id="Music_directory">Music directory</span></h4>
@@ -236,20 +236,20 @@ $ chmod 710 /home/<i>user_directory</i>
 <ul>
 <li>by moving it entirely,</li>
 <li>with a bind mount,</li>
-<li>or with <a href="../Btrfs.html#Subvolumes" title="Btrfs">Btrfs#Subvolumes</a> (you should make this change persistent with an entry to <code>/etc/fstab</code> ).</li>
+<li>or with <a href="../wiki/Btrfs.html#Subvolumes" title="Btrfs">Btrfs#Subvolumes</a> (you should make this change persistent with an entry to <code>/etc/fstab</code> ).</li>
 </ul>
 </li></ul>
 <p>The MPD configuration file must define only one music directory. If the music collection is contained under multiple directories, create symbolic links under the main music directory in <code>/var/lib/mpd</code>. Remember to set permissions accordingly on the directories being linked.
 </p>
 <h4><span class="mw-headline" id="Start_with_systemd">Start with systemd</span></h4>
-<p>MPD can be controlled with <code>mpd.service</code> <a href="../Systemd.html#Using_units" title="Systemd">using systemd</a>. The first startup can take some time as MPD will scan your music directory.
+<p>MPD can be controlled with <code>mpd.service</code> <a href="../wiki/Systemd.html#Using_units" title="Systemd">using systemd</a>. The first startup can take some time as MPD will scan your music directory.
 </p>
 <p>Test everything by starting a client application (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ncmpc">ncmpc</a></span> is a light and easy to use client), and play some music!
 </p>
 <h5><span class="mw-headline" id="Socket_activation">Socket activation</span></h5>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mpd">mpd</a></span> provides a <code>mpd.socket</code> unit. If <code>mpd.socket</code> is enabled (and <code>mpd.service</code> is disabled), systemd will not start MPD immediately, it will just listen to the appropriate sockets. Then, whenever an MPD client attempts to connect to one of these sockets, systemd will start <code>mpd.service</code> and transparently hand over control of these ports to the MPD process.
 </p>
-<p>If you prefer to listen to different UNIX sockets or network ports (even multiple sockets of each type), or if you prefer not to listen to network ports at all, <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the <code>mpd.socket</code> unit appropriately <b>and</b> modify <code>/etc/mpd.conf</code> to match the configuration (see <span class="plainlinks archwiki-template-man" title="$ man 5 mpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mpd.conf.5">mpd.conf(5)</a></span> for details).
+<p>If you prefer to listen to different UNIX sockets or network ports (even multiple sockets of each type), or if you prefer not to listen to network ports at all, <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the <code>mpd.socket</code> unit appropriately <b>and</b> modify <code>/etc/mpd.conf</code> to match the configuration (see <span class="plainlinks archwiki-template-man" title="$ man 5 mpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mpd.conf.5">mpd.conf(5)</a></span> for details).
 </p>
 <h4><span class="mw-headline" id="User_id_startup_workflow">User id startup workflow</span></h4>
 <p>MPD should never run as <i>root</i>, you may use the <code>user</code> option in the configuration to make MPD change its user id after initialization. Do not use this option if you start MPD as an unprivileged user.
@@ -262,7 +262,7 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 </ol>
 <h3><span class="mw-headline" id="Multi-MPD_setup">Multi-MPD setup</span></h3>
 <h4><span class="mw-headline" id="Running_an_Icecast_server">Running an Icecast server</span></h4>
-<p>For a second MPD (e.g. with <a href="../Icecast.html" title="Icecast">Icecast</a> output to share music over the network) using the same music and playlist as the one above, simply copy the above configuration file and make a new file (e.g., <code>/home/username/.mpd/config-icecast</code>), and only change the <code>log_file</code>, <code>error_file</code>, <code>pid_file</code>, and <code>state_file</code> parameters (e.g. <code>mpd-icecast.log</code>, <code>mpd-icecast.error</code>, and so on). Using the same directory paths for the music and playlist directories would ensure that this second MPD uses the same music collection as the first one, e.g. creating and editing a playlist under the first daemon would affect the second daemon as well. Users do not have to create the same playlists all over again for the second daemon. Call this second daemon the same way from <code>~/.xinitrc</code> above - but be sure to have a different port number, avoiding a conflict with the first MPD daemon.
+<p>For a second MPD (e.g. with <a href="../wiki/Icecast.html" title="Icecast">Icecast</a> output to share music over the network) using the same music and playlist as the one above, simply copy the above configuration file and make a new file (e.g., <code>/home/username/.mpd/config-icecast</code>), and only change the <code>log_file</code>, <code>error_file</code>, <code>pid_file</code>, and <code>state_file</code> parameters (e.g. <code>mpd-icecast.log</code>, <code>mpd-icecast.error</code>, and so on). Using the same directory paths for the music and playlist directories would ensure that this second MPD uses the same music collection as the first one, e.g. creating and editing a playlist under the first daemon would affect the second daemon as well. Users do not have to create the same playlists all over again for the second daemon. Call this second daemon the same way from <code>~/.xinitrc</code> above - but be sure to have a different port number, avoiding a conflict with the first MPD daemon.
 </p>
 <h4><span class="mw-headline" id="Satellite_setup">Satellite setup</span></h4>
 <p>The method described in <a href="#Running_an_Icecast_server">#Running an Icecast server</a> works, but at least in theory could lead to issues with the database, when both MPD instances try to write to the same database file concurrently. MPD has a <a rel="nofollow"  href="http://www.musicpd.org/doc/user/advanced_config.html#satellite">satellite mode</a> where one instance can receive the database from an already running MPD instance.
@@ -286,12 +286,12 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 </dd></dl>
 <h3><span class="mw-headline" id="Console">Console</span></h3>
 <ul><li>
-<b>clerk</b> — MPD client using <a href="../Rofi.html" title="Rofi">Rofi</a>.</li></ul>
+<b>clerk</b> — MPD client using <a href="../wiki/Rofi.html" title="Rofi">Rofi</a>.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="https://github.com/carnager/clerk">https://github.com/carnager/clerk</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/clerk-git/">clerk-git</a></span><sup><small>AUR</small></sup>
 </dd></dl>
 <ul><li>
-<b>FMUI</b> — Console user interface created with <a href="../Fzf.html" title="Fzf">fzf</a> and mpc.</li></ul>
+<b>FMUI</b> — Console user interface created with <a href="../wiki/Fzf.html" title="Fzf">fzf</a> and mpc.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="https://github.com/seebye/fmui">https://github.com/seebye/fmui</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fmui-git/">fmui-git</a></span><sup><small>AUR</small></sup>
 </dd></dl>
@@ -301,7 +301,7 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 <a rel="nofollow"  href="http://www.musicpd.org/clients/ncmpc/">http://www.musicpd.org/clients/ncmpc/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ncmpc">ncmpc</a></span>
 </dd></dl>
 <ul><li>
-<b><a href="../Ncmpcpp.html" title="Ncmpcpp">ncmpcpp</a></b> — Almost exact clone of <i>ncmpc</i>, written in C++ with some additional features (tag editor, search engine).</li></ul>
+<b><a href="../wiki/Ncmpcpp.html" title="Ncmpcpp">ncmpcpp</a></b> — Almost exact clone of <i>ncmpc</i>, written in C++ with some additional features (tag editor, search engine).</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://ncmpcpp.rybczak.net/">http://ncmpcpp.rybczak.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ncmpcpp">ncmpcpp</a></span>
 </dd></dl>
@@ -327,7 +327,7 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 </dd></dl>
 <h3><span class="mw-headline" id="Graphical">Graphical</span></h3>
 <ul><li>
-<b>Ario</b> — Very feature-rich GTK3 GUI client for MPD, inspired by <a href="../Rhythmbox.html" title="Rhythmbox">Rhythmbox</a>.</li></ul>
+<b>Ario</b> — Very feature-rich GTK3 GUI client for MPD, inspired by <a href="../wiki/Rhythmbox.html" title="Rhythmbox">Rhythmbox</a>.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://ario-player.sourceforge.net/">http://ario-player.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ario">ario</a></span>
 </dd></dl>
@@ -382,7 +382,7 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 <a rel="nofollow"  href="http://www.nongnu.org/sonata/">http://www.nongnu.org/sonata/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sonata/">sonata</a></span><sup><small>AUR</small></sup>
 </dd></dl>
 <ul><li>
-<b>Xfce MPD Panel Plugin</b> — MPD plugin for <a href="../Xfce.html" title="Xfce">Xfce</a>4 panel.</li></ul>
+<b>Xfce MPD Panel Plugin</b> — MPD plugin for <a href="../wiki/Xfce.html" title="Xfce">Xfce</a>4 panel.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://goodies.xfce.org/projects/panel-plugins/xfce4-mpc-plugin">http://goodies.xfce.org/projects/panel-plugins/xfce4-mpc-plugin</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfce4-mpc-plugin">xfce4-mpc-plugin</a></span>
 </dd></dl>
@@ -410,11 +410,11 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Music.html" title="Category:Music">Music</a></li>
-<li><a href="../Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="../wiki/Category:Music.html" title="Category:Music">Music</a></li>
+<li><a href="../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_missing_package_links.html" title="Category:Pages with missing package links">Pages with missing package links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_missing_package_links.html" title="Category:Pages with missing package links">Pages with missing package links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -432,9 +432,9 @@ To describe how MPD drops its superuser privileges and switch to those of the us
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

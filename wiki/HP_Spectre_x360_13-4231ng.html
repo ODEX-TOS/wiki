@@ -2,7 +2,7 @@
     title: HP_Spectre_x360_13-4231ng
     description: Migration of HP_Spectre_x360_13-4231ng from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -97,7 +97,7 @@
 </table>
 <p>This article covers hardware specific configuration of this laptop, some minor issues remain after customization. These can be performed after an installation of TOS Linux has been finished and the machine rebooted into it. 
 </p>
-<p>For a general overview of laptop-related articles and recommendations, see <a href="../Laptop.html" title="Laptop">Laptop</a>.
+<p>For a general overview of laptop-related articles and recommendations, see <a href="../wiki/Laptop.html" title="Laptop">Laptop</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -140,7 +140,7 @@
 <li>500 GB M.2 SDD</li>
 <li>8 GB RAM</li>
 </ul>
-<p>This model has now been succeeded by the <a href="../HP_Spectre_x360_13-w023dx.html" title="HP Spectre x360 13-w023dx">HP Spectre x360 13-w023dx</a>.
+<p>This model has now been succeeded by the <a href="../wiki/HP_Spectre_x360_13-w023dx.html" title="HP Spectre x360 13-w023dx">HP Spectre x360 13-w023dx</a>.
 </p>
 <h3><span class="mw-headline" id="lspci_on_a_4231">lspci on a 4231</span></h3>
 <pre>00:00.0 Host bridge: Intel Corporation Skylake Host Bridge/DRAM Registers (rev 09)
@@ -167,13 +167,13 @@
 <h3>
 <span id="Brightness_.2F_backlight"></span><span class="mw-headline" id="Brightness_/_backlight">Brightness / backlight</span>
 </h3>
-<p><code>/sys/class/backlight/intel_backlight</code> exists but is not working as of kernel 4.6 and 4.7rc6. Proposed kernel parameters (such as <code>acpi_os</code>) do not remedy the issue. It may be helpful to know that OLED displays by their nature do not have backlight. xrandr offers some neat feature to change brightness of your screen. Depending on your driver (modesetting driver included in Xorg or xf86-video-intel, see <a href="../Intel_graphics.html" title="Intel graphics">Intel graphics</a>) your screen is named eDP-1 or eDP1. Use <code>xrandr</code> to determine the correct name if in doubt. The following statement changes brightness to 50%.
+<p><code>/sys/class/backlight/intel_backlight</code> exists but is not working as of kernel 4.6 and 4.7rc6. Proposed kernel parameters (such as <code>acpi_os</code>) do not remedy the issue. It may be helpful to know that OLED displays by their nature do not have backlight. xrandr offers some neat feature to change brightness of your screen. Depending on your driver (modesetting driver included in Xorg or xf86-video-intel, see <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a>) your screen is named eDP-1 or eDP1. Use <code>xrandr</code> to determine the correct name if in doubt. The following statement changes brightness to 50%.
 </p>
 <pre>$ xrandr --output eDP1 --brightness .5
 </pre>
 <p>While this may probably work on non-OLED displays as well, it won't reduce power consumption on non-OLED displays at all. Without in-depth tests and measurements done, it seems like lowering brightness from the default 100% to something more regular 50% extends battery life by some hours.
 <br>
-Since the hotkeys are performing updates on <code>/sys/class/backlight/intel_backlight</code> you may use <code>inotify</code> to enable brightness adjustment using the hotkeys (see <a href="../Backlight.html#sysfs_modified_but_no_brightness_change" title="Backlight">Backlight#sysfs modified but no brightness change</a>). The following script does the job:
+Since the hotkeys are performing updates on <code>/sys/class/backlight/intel_backlight</code> you may use <code>inotify</code> to enable brightness adjustment using the hotkeys (see <a href="../wiki/Backlight.html#sysfs_modified_but_no_brightness_change" title="Backlight">Backlight#sysfs modified but no brightness change</a>). The following script does the job:
 </p>
 <pre>#!/bin/sh
 
@@ -192,7 +192,7 @@ inotifywait -me modify --format '' "$path"/actual_brightness | while read; do
     xrandr --output eDP1 --brightness "$(luminance)"
 done
 </pre>
-<p>The script requires package <code>bc</code> to actually calculate the brightness factor. If you store the script at <code>/usr/share/bin/brightness</code> (see <a href="../Frequently_asked_questions.html#Does_TOS_follow_the_Linux_Foundation.27s_Filesystem_Hierarchy_Standard_.28FHS.29.3F" class="mw-redirect" title="TOS filesystem hierarchy">TOS filesystem hierarchy</a>), you may use the following file at <code>~/.config/autostart/brightness.desktop</code> to run the script at login to gnome:
+<p>The script requires package <code>bc</code> to actually calculate the brightness factor. If you store the script at <code>/usr/share/bin/brightness</code> (see <a href="../wiki/Frequently_asked_questions.html#Does_TOS_follow_the_Linux_Foundation.27s_Filesystem_Hierarchy_Standard_.28FHS.29.3F" class="mw-redirect" title="TOS filesystem hierarchy">TOS filesystem hierarchy</a>), you may use the following file at <code>~/.config/autostart/brightness.desktop</code> to run the script at login to gnome:
 </p>
 <pre>[Desktop Entry]
 Name=brightness
@@ -220,13 +220,13 @@ xrandr --output eDP1 --panning 3200x1800
 <h3>
 <span id="ICC_screen_calibration_.28enhanced_brightness.29"></span><span class="mw-headline" id="ICC_screen_calibration_(enhanced_brightness)">ICC screen calibration (enhanced brightness)</span>
 </h3>
-<p>By default the screen colors are well balanced. Default brightness is a major issue: it equals the enormous bright maximum. The scripts described in chapter Brightness / backlight provide some basic brightness control. Unfortunately there is still some brightness reset to maximum on certain events. This can be circumvented by applying an appropriate <a href="../ICC_profiles.html" title="ICC profiles">ICC calibration profile</a>.<br>
+<p>By default the screen colors are well balanced. Default brightness is a major issue: it equals the enormous bright maximum. The scripts described in chapter Brightness / backlight provide some basic brightness control. Unfortunately there is still some brightness reset to maximum on certain events. This can be circumvented by applying an appropriate <a href="../wiki/ICC_profiles.html" title="ICC profiles">ICC calibration profile</a>.<br>
 Generating such profile requires a colorimeter and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=displaycal">displaycal</a></span> (which is based on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=argyllcms">argyllcms</a></span>). Gnome offers some color calibration <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-color-manager">gnome-color-manager</a></span> as well. Unfortunately Gnome color calibration crashes when using a x-rite Colormunki Display.<br>
-<a href="../ICC_profiles.html" title="ICC profiles">ICC profiles</a> can be obtained from AUR: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/icc-x360-qhd/">icc-x360-qhd</a></span><sup><small>AUR</small></sup>. Those profiles have been created on a 4231 model (see hardware options for details). Since there are only a few screen manufacturers those ICC profiles should be valid for all QHD (2560x1440) screen models. Be advised to not apply those profiles on any other (incompatible) screen.<br>
+<a href="../wiki/ICC_profiles.html" title="ICC profiles">ICC profiles</a> can be obtained from AUR: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/icc-x360-qhd/">icc-x360-qhd</a></span><sup><small>AUR</small></sup>. Those profiles have been created on a 4231 model (see hardware options for details). Since there are only a few screen manufacturers those ICC profiles should be valid for all QHD (2560x1440) screen models. Be advised to not apply those profiles on any other (incompatible) screen.<br>
 The profile is currently based on 406 patches only. Improved profiles will be made available in a later update. Main advantage of applying such profile is the default brightness used. The 120 cdm² profil is best for regular enviroments. Use system settings to apply the profiles.
 </p>
 <h3><span class="mw-headline" id="Video_driver">Video driver</span></h3>
-<p>As mentioned in <a href="../Intel_graphics.html" title="Intel graphics">Intel graphics</a> some people recommend to stay with the modesetting driver included in Xorg. As of Xorg 1.18.2, Mesa before 12.0 the performance of this driver is inacceptable when it comes to simple tasks like web browsing, scrolling documents or anything alike. On this machine installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> improves performance a lot.
+<p>As mentioned in <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a> some people recommend to stay with the modesetting driver included in Xorg. As of Xorg 1.18.2, Mesa before 12.0 the performance of this driver is inacceptable when it comes to simple tasks like web browsing, scrolling documents or anything alike. On this machine installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> improves performance a lot.
 </p>
 <h2><span class="mw-headline" id="Issue:_Airplane_mode_after_login">Issue: Airplane mode after login</span></h2>
 <ul><li>Wifi is working. The hotkey for the airplane mode works. Although something strange is going on with the hotkey:
@@ -241,7 +241,7 @@ The profile is currently based on 406 patches only. Improved profiles will be ma
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -258,9 +258,9 @@ The profile is currently based on 406 patches only. Improved profiles will be ma
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

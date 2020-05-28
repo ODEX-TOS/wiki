@@ -2,7 +2,7 @@
     title: Timers
     description: Migration of Timers from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Systemd.html" title="Systemd">Systemd</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Systemd.html" title="Systemd">Systemd</a></span></div>
 		
 		
 		
@@ -29,13 +29,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../../Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="../../Systemd/User.html" title="Systemd/User">systemd/User</a></li>
-<li><a href="../../Systemd/FAQ.html" class="mw-redirect" title="Systemd FAQ">systemd FAQ</a></li>
-<li><a href="../../Cron.html" title="Cron">cron</a></li>
+<li><a href="../../wiki/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="../../wiki/Systemd/User.html" title="Systemd/User">systemd/User</a></li>
+<li><a href="../../wiki/Systemd/FAQ.html" class="mw-redirect" title="Systemd FAQ">systemd FAQ</a></li>
+<li><a href="../../wiki/Cron.html" title="Cron">cron</a></li>
 </ul>
 </div>
-<p>Timers are <a href="../../Systemd.html" title="Systemd">systemd</a> unit files whose name ends in <code>.timer</code> that control <code>.service</code> files or events.  Timers can be used as an alternative to <a href="../../Cron.html" title="Cron">cron</a> (read <a href="#As_a_cron_replacement">#As a cron replacement</a>).  Timers have built-in support for calendar time events, monotonic time events, and can be run asynchronously.
+<p>Timers are <a href="../../wiki/Systemd.html" title="Systemd">systemd</a> unit files whose name ends in <code>.timer</code> that control <code>.service</code> files or events.  Timers can be used as an alternative to <a href="../../wiki/Cron.html" title="Cron">cron</a> (read <a href="#As_a_cron_replacement">#As a cron replacement</a>).  Timers have built-in support for calendar time events, monotonic time events, and can be run asynchronously.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -68,7 +68,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Timer_units">Timer units</span></h2>
-<p>Timers are <i>systemd</i> unit files with a suffix of <code>.timer</code>. Timers are like other <a href="../../Systemd.html#Writing_unit_files" title="Systemd">unit configuration files</a> and are loaded from the same paths but include a <code>[Timer]</code> section which defines when and how the timer activates. Timers are defined as one of two types:
+<p>Timers are <i>systemd</i> unit files with a suffix of <code>.timer</code>. Timers are like other <a href="../../wiki/Systemd.html#Writing_unit_files" title="Systemd">unit configuration files</a> and are loaded from the same paths but include a <code>[Timer]</code> section which defines when and how the timer activates. Timers are defined as one of two types:
 </p>
 <ul>
 <li>
@@ -82,7 +82,7 @@
 <p>For each <code>.timer</code> file, a matching <code>.service</code> file exists (e.g. <code>foo.timer</code> and <code>foo.service</code>).  The <code>.timer</code> file activates and controls the <code>.service</code> file.  The <code>.service</code> does not require an <code>[Install]</code> section as it is the <i>timer</i> units that are enabled.  If necessary, it is possible to control a differently-named unit using the <code>Unit=</code> option in the timer's <code>[Timer]</code> section.
 </p>
 <h2><span class="mw-headline" id="Management">Management</span></h2>
-<p>To use a <i>timer</i> unit <a href="../../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> it like any other unit (remember to add the <code>.timer</code> suffix).  To view all started timers, run:
+<p>To use a <i>timer</i> unit <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> it like any other unit (remember to add the <code>.timer</code> suffix).  To view all started timers, run:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ systemctl list-timers</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">NEXT                          LEFT        LAST                          PASSED     UNIT                         ACTIVATES
@@ -174,7 +174,7 @@ WantedBy=timers.target</pre>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 1 systemd-run"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-run.1">systemd-run(1)</a></span> for more information and examples.
 </p>
 <h2><span class="mw-headline" id="As_a_cron_replacement">As a cron replacement</span></h2>
-<p>Although <a href="../../Cron.html" title="Cron">cron</a> is arguably the most well-known job scheduler, <i>systemd</i> timers can be an alternative.
+<p>Although <a href="../../wiki/Cron.html" title="Cron">cron</a> is arguably the most well-known job scheduler, <i>systemd</i> timers can be an alternative.
 </p>
 <h3><span class="mw-headline" id="Benefits">Benefits</span></h3>
 <p>The main benefits of using timers come from each job having its own <i>systemd</i> service. Some of these benefits are:
@@ -182,7 +182,7 @@ WantedBy=timers.target</pre>
 <ul>
 <li>Jobs can be easily started independently of their timers. This simplifies debugging.</li>
 <li>Each job can be configured to run in a specific environment (see <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.exec"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.exec.5">systemd.exec(5)</a></span>).</li>
-<li>Jobs can be attached to <a href="../../Cgroups.html" title="Cgroups">cgroups</a>.</li>
+<li>Jobs can be attached to <a href="../../wiki/Cgroups.html" title="Cgroups">cgroups</a>.</li>
 <li>Jobs can be set up to depend on other <i>systemd</i> units.</li>
 <li>Jobs are logged in the <i>systemd</i> journal for easy debugging.</li>
 </ul>
@@ -193,7 +193,7 @@ WantedBy=timers.target</pre>
 <li>Creation: to set up a timed job with <i>systemd</i> you need to create two files and run <code>systemctl</code> commands, compared to adding a single line to a crontab.</li>
 <li>Emails: there is no built-in equivalent to cron's <code>MAILTO</code> for sending emails on job failure. See the next section for an example of setting up a similar functionality using <code>OnFailure=</code>.</li>
 </ul>
-<p>Also note that <a href="../../Systemd/User.html" title="Systemd/User">user</a> timer units will only run during an active user login session by default. However, <a href="../../Systemd/User.html#Automatic_start-up_of_systemd_user_instances" title="Systemd/User">lingering</a> can enable services to run at boot even when the user has no active login session.
+<p>Also note that <a href="../../wiki/Systemd/User.html" title="Systemd/User">user</a> timer units will only run during an active user login session by default. However, <a href="../../wiki/Systemd/User.html#Automatic_start-up_of_systemd_user_instances" title="Systemd/User">lingering</a> can enable services to run at boot even when the user has no active login session.
 </p>
 <h3><span class="mw-headline" id="MAILTO">MAILTO</span></h3>
 <p>You can set up systemd to send an e-mail when a unit fails. Cron sends mail to <code>MAILTO</code> if the job outputs to stdout or stderr, but many jobs are setup to only output on error. First you need two files: an executable for sending the mail and a <i>.service</i> for starting the executable. For this example, the executable is just a shell script using <code>sendmail</code>, which is in packages that provide <code>smtp-forwarder</code>.
@@ -221,14 +221,14 @@ Type=oneshot
 ExecStart=/usr/local/bin/systemd-email <i>address</i> %i
 User=nobody
 Group=systemd-journal</pre>
-<p>Where <code><i>user</i></code> is the user being emailed and <code><i>address</i></code> is that user's email address. Although the recipient is hard-coded, the unit file to report on is passed as an instance parameter, so this one service can send email for many other units. At this point you can <a href="../../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>status_email_<i>user</i>@dbus.service</code> to verify that you can receive the emails.
+<p>Where <code><i>user</i></code> is the user being emailed and <code><i>address</i></code> is that user's email address. Although the recipient is hard-coded, the unit file to report on is passed as an instance parameter, so this one service can send email for many other units. At this point you can <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>status_email_<i>user</i>@dbus.service</code> to verify that you can receive the emails.
 </p>
-<p>Then simply <a href="../../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service you want emails for and add <code>OnFailure=status_email_<i>user</i>@%n.service</code> to the <code>[Unit]</code> section. <code>%n</code> passes the unit's name to the template.
+<p>Then simply <a href="../../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service you want emails for and add <code>OnFailure=status_email_<i>user</i>@%n.service</code> to the <code>[Unit]</code> section. <code>%n</code> passes the unit's name to the template.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>If you set up SSMTP security according to <a href="../../SSMTP.html#Security" title="SSMTP">SSMTP#Security</a> the user <code>nobody</code> will not have access to <code>/etc/ssmtp/ssmtp.conf</code>, and the <code>systemctl start status_email_<i>user</i>@dbus.service</code> command will fail. One solution is to use <code>root</code> as the User in the <code>status_email_<i>user</i>@.service</code> unit.</li>
+<li>If you set up SSMTP security according to <a href="../../wiki/SSMTP.html#Security" title="SSMTP">SSMTP#Security</a> the user <code>nobody</code> will not have access to <code>/etc/ssmtp/ssmtp.conf</code>, and the <code>systemctl start status_email_<i>user</i>@dbus.service</code> command will fail. One solution is to use <code>root</code> as the User in the <code>status_email_<i>user</i>@.service</code> unit.</li>
 <li>If you try to use <code>mail -s somelogs <i>address</i></code> in your email script, <code>mail</code> will fork and systemd will kill the mail process when it sees your script exit. Make the mail non-forking by doing <code>mail -Ssendwait -s somelogs <i>address</i></code>.</li>
 </ul>
 </div>
@@ -259,8 +259,8 @@ Group=systemd-journal</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../../Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
-<li><a href="../../Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="../../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="../../wiki/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -278,9 +278,9 @@ Group=systemd-journal</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

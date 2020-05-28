@@ -2,7 +2,7 @@
     title: Scanner-specific_problems
     description: Migration of Scanner-specific_problems from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../SANE.html" title="SANE">SANE</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/SANE.html" title="SANE">SANE</a></span></div>
 		
 		
 		
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This article contains scanner or manufacturer-specific instructions for <a href="../../SANE.html" title="SANE">SANE</a>.
+<p>This article contains scanner or manufacturer-specific instructions for <a href="../../wiki/SANE.html" title="SANE">SANE</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -113,7 +113,7 @@
 <h3><span class="mw-headline" id="Snapscan_e40">Snapscan e40</span></h3>
 <p>Firmware <code>Snape40.bin</code> from <a rel="nofollow"  href="https://sites.google.com/site/rameyarnaud/media/books/agfa-scanners-with-linux">here</a> is required.
 </p>
-<p>If USB autosuspend is enabled, the printer may need to be turned off and on again before each scan. USB autosuspend can be disabled using <a href="../../Powertop.html" title="Powertop">powertop</a>.
+<p>If USB autosuspend is enabled, the printer may need to be turned off and on again before each scan. USB autosuspend can be disabled using <a href="../../wiki/Powertop.html" title="Powertop">powertop</a>.
 </p>
 <h2>
 <span id="BenQ.2FAcer"></span><span class="mw-headline" id="BenQ/Acer">BenQ/Acer</span>
@@ -132,7 +132,7 @@
 /dev/usb/scanner0 bus=usb
 </pre>
 <h2><span class="mw-headline" id="Brother">Brother</span></h2>
-<p>In order to install a Brother scanner or printer/scanner combo you need the right driver. To find the right one, search for your model at the <a rel="nofollow"  href="http://support.brother.com/g/s/id/linux/download_scn.html">Brother Linux scanner page</a>. That list is not exhaustive. You can also search the web. Or see the information below for more scanners. Or extract each of the <a href="../../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> packages below. Each package seems to contain an exhaustive list of the models it is suitable to.
+<p>In order to install a Brother scanner or printer/scanner combo you need the right driver. To find the right one, search for your model at the <a rel="nofollow"  href="http://support.brother.com/g/s/id/linux/wiki/download_scn.html">Brother Linux scanner page</a>. That list is not exhaustive. You can also search the web. Or see the information below for more scanners. Or extract each of the <a href="../../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> packages below. Each package seems to contain an exhaustive list of the models it is suitable to.
 </p>
 <p>Then, install the appropriate package:
 </p>
@@ -162,7 +162,7 @@
 </p>
 <pre># brsaneconfig2 -a name=SCANNER_DCP770CW model=DCP-770CW ip=192.168.0.110
 </pre>
-<p>To get the IP and node name of your scanner, you can use <a href="../../Nmap.html" title="Nmap">Nmap</a>:
+<p>To get the IP and node name of your scanner, you can use <a href="../../wiki/Nmap.html" title="Nmap">Nmap</a>:
 </p>
 <pre>$ nmap -sP 10.0.0.0/24
 </pre>
@@ -183,7 +183,7 @@
 <p>The output should narrow down the problem. Most likely the connection isn't set up correctly. In case of a network scanner, check if the IP address is right by opening <code>/etc/opt/brother/scanner/brscan4//brsanenetdevice4.cfg</code> with an editor. In case of a USB connection, check if the path to the scanner in the configuration file is set up correctly. For that, compare the values of the <code>lsusb</code> command with your configuration file and change them if necessary. You might also try to follow the <code>brother<i>X</i></code> suggestion from <a href="#Network_Scanning">Network Scanning above</a> even for non-network scanners.
 </p>
 <h3><span class="mw-headline" id="Scan-key-tool">Scan-key-tool</span></h3>
-<p>Brother has released a tool to enable scanning to be triggered by user interaction with the scanner itself (e.g., by selecting one of "Scan to email", "Scan to image", etc. on the scanner's keypad) rather than by an attached computer. This can be set up by installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brscan-skey/">brscan-skey</a></span><sup><small>AUR</small></sup> package and starting <code>brscan-skey.service</code> <a href="../../Systemd.html#Using_units" title="Systemd">using systemd</a>. Note that by default this service runs as the <b>brscan-skey</b> user which is created by the package, whose home directory is located at <code>/srv/brscan-skey</code>.
+<p>Brother has released a tool to enable scanning to be triggered by user interaction with the scanner itself (e.g., by selecting one of "Scan to email", "Scan to image", etc. on the scanner's keypad) rather than by an attached computer. This can be set up by installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brscan-skey/">brscan-skey</a></span><sup><small>AUR</small></sup> package and starting <code>brscan-skey.service</code> <a href="../../wiki/Systemd.html#Using_units" title="Systemd">using systemd</a>. Note that by default this service runs as the <b>brscan-skey</b> user which is created by the package, whose home directory is located at <code>/srv/brscan-skey</code>.
 </p>
 <p>Brother supplies some default scripts that are executed when a scan type is selected on the keypad. These may require the installation of some optional dependencies of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brscan-skey/">brscan-skey</a></span><sup><small>AUR</small></sup> package. For all options apart from "Scan to email" the resulting output can be found inside <code>$HOME/brscan</code>, with <code>$HOME</code> the home directory of the user running this tool (so <code>/srv/brscan-skey</code> if started via systemd as a systemwide process).
 </p>
@@ -211,14 +211,14 @@
 <span id="Scanning_over_the_network_with_Canon_Pixma_all-in-one_printer.2Fscanners"></span><span class="mw-headline" id="Scanning_over_the_network_with_Canon_Pixma_all-in-one_printer/scanners">Scanning over the network with Canon Pixma all-in-one printer/scanners</span>
 </h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../../SANE.html#Network_attached_scanners" title="SANE">SANE#Network attached scanners</a>.</b><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../../wiki/SANE.html#Network_attached_scanners" title="SANE">SANE#Network attached scanners</a>.</b><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> This section does not describe a problem, but has setup instructions instead. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:SANE/Scanner-specific_problems">Talk:SANE/Scanner-specific problems#</a>)</div>
 </div>
 <p>Find out your printer/scanner's IP address, and add it on a new line to <code>/etc/sane.d/pixma.conf</code> in the format <code>bjnp://10.0.0.20</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Instead of a IP address you can use the <a href="../../Avahi.html" class="mw-redirect" title="MDNS">mDNS</a> <code>.local</code> address, e.g. <code>bjnp://<i>MyPixmaPrinter</i>.local</code>.</div>
+<strong>Tip:</strong> Instead of a IP address you can use the <a href="../../wiki/Avahi.html" class="mw-redirect" title="MDNS">mDNS</a> <code>.local</code> address, e.g. <code>bjnp://<i>MyPixmaPrinter</i>.local</code>.</div>
 <p>Sane should now find your device. For more details refer to <span class="plainlinks archwiki-template-man" title="$ man 5 sane-pixma"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sane-pixma.5">sane-pixma(5)</a></span>.
 </p>
 <p>Alternative: for some Canon Pixma all-in-one printer/scanners, which are not detected over network, can be used <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/scangearmp2/">scangearmp2</a></span><sup><small>AUR</small></sup> package from AUR.
@@ -243,7 +243,7 @@ Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="
 </p>
 <pre>net {IP_OF_SCANNER}
 </pre>
-<p>Upstream version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iscan">iscan</a></span> does not support 16bpc color depth scanning. Choosing any bit depth other than 8 makes iscan stop without warning, leaving the scanner stuck until restarted. To enable 16bpc scanning, iscan requires to be patched. Use <a href="../../TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and apply patch found in  <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1841337#p1841337">this forum thread</a> to enable 16bpc depth mode.
+<p>Upstream version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iscan">iscan</a></span> does not support 16bpc color depth scanning. Choosing any bit depth other than 8 makes iscan stop without warning, leaving the scanner stuck until restarted. To enable 16bpc scanning, iscan requires to be patched. Use <a href="../../wiki/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and apply patch found in  <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1841337#p1841337">this forum thread</a> to enable 16bpc depth mode.
 </p>
 <h4><span class="mw-headline" id="Image_Scan_v3">Image Scan v3</span></h4>
 <p>If you have to use Image Scan v3-backend you can install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=imagescan">imagescan</a></span>. It should detect supported USB scanners automatically by default. If you want to make use of a network scanner you also have to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/imagescan-plugin-networkscan/">imagescan-plugin-networkscan</a></span><sup><small>AUR</small></sup>. Then edit <code>/etc/utsushi/utsushi.conf</code> and enter the ip address of your scanner to it.
@@ -309,7 +309,7 @@ libusbscanner 0x0003 0x04b8 0x0120 0x0000 0x0000 0x00 0x00 0x00 0x00 0x00 0x00 0
 # firmware upload is needed by the scanner
 firmware /usr/share/sane/snapscan/esfw52.bin
 </pre>
-<p>Other modifications were not needed for the Epson Perfection 3590 and might not be for other models as well. If you still have problems it can also help if you <a href="../../SANE.html#Multiple_backends_claim_scanner" title="SANE">completely remove</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iscan">iscan</a></span> package.
+<p>Other modifications were not needed for the Epson Perfection 3590 and might not be for other models as well. If you still have problems it can also help if you <a href="../../wiki/SANE.html#Multiple_backends_claim_scanner" title="SANE">completely remove</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iscan">iscan</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Fujitsu">Fujitsu</span></h2>
 <h3>
@@ -318,7 +318,7 @@ firmware /usr/share/sane/snapscan/esfw52.bin
 <p>For the operation of the ScanSnap scanners S300 and S300M a firmware file <code>/usr/share/sane/epjitsu/300M_0C00.nal</code> is required, which can be downloaded <a rel="nofollow"  href="http://sange.fi/~atehwa/cgi-bin/piki.cgi/fujitsu%20scansnap%20s300%20firmware">here</a> or extracted from the Windows driver.  The <code>300M_0C00.nal</code> and <code>300_0C00.nal</code> files are interchangeable; the S300 device can use the <code>300M_0C00.nal</code> file and the S300M device can use the <code>300_0C00.nal</code> file.  The file can be renamed to fit the entry in <code>/etc/sane.d/epjitsu.conf</code>, or that entry can be edited to match the file name.
 </p>
 <h2><span class="mw-headline" id="HP">HP</span></h2>
-<p>If your HP device <a rel="nofollow"  href="http://hplipopensource.com/hplip-web/supported_devices/index.html">is supported by hplip</a>, <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hplip">hplip</a></span> package.
+<p>If your HP device <a rel="nofollow"  href="http://hplipopensource.com/hplip-web/supported_devices/index.html">is supported by hplip</a>, <a href="../../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hplip">hplip</a></span> package.
 </p>
 <p>The latter comes with 3 tools:
 </p>
@@ -349,7 +349,7 @@ firmware /usr/share/sane/snapscan/esfw52.bin
 $ scanimage --device "hpaio:/net/DeskJet_3630_series?ip=10.12.129.6" --format=png --resolution 300 &gt;scan01.png
 </pre>
 <h2><span class="mw-headline" id="Lexmark">Lexmark</span></h2>
-<p>For Lexmark devices printing issues, please read <a href="../../CUPS/Printer-specific_problems.html#Lexmark" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems#Lexmark</a>.
+<p>For Lexmark devices printing issues, please read <a href="../../wiki/CUPS/Printer-specific_problems.html#Lexmark" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems#Lexmark</a>.
 </p>
 <p>Most Lexmark scanners are still (2019) not supported by SANE, and thus cannot be detected either by <code>sane-find-scanner</code> or by <code>scanimage -L</code>. Lexmark provides a non-free driver for GNU/Linux, which is supposed to support <i>all</i> its scanners. Nevertheless, the driver is only distributed for Debian, OpenSUSE, Fedora and RedHat, but not for TOS. Here is a way to install it.
 </p>
@@ -364,11 +364,11 @@ $ scanimage --device "hpaio:/net/DeskJet_3630_series?ip=10.12.129.6" --format=pn
 </ul>
 <h3><span class="mw-headline" id="Process">Process</span></h3>
 <ol>
-<li>Ensure <a href="../../Java.html" title="Java">Java</a> is installed.</li>
+<li>Ensure <a href="../../wiki/Java.html" title="Java">Java</a> is installed.</li>
 <li>Download the <a rel="nofollow"  href="https://downloads.lexmark.com/downloads/drivers/lexmark_network-scan-linux-glibc2_04082019_x86_64.deb"><code>.deb</code> file</a> containing the driver and save it (eg at <code>~/lexmark.deb</code>).</li>
 </ol>
 <h4><span class="mw-headline" id="Option_1_:_using_DPKG">Option 1 : using DPKG</span></h4>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dpkg">dpkg</a></span> is the standard package-manager for <a href="../../TOS_compared_to_other_distributions.html" class="mw-redirect" title="Debian">Debian</a>-based distributions. <b>It should not be used to replace <code><a href="../../Pacman.html" title="Pacman">pacman</a></code></b> unless you precisely know what you’re doing.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dpkg">dpkg</a></span> is the standard package-manager for <a href="../../wiki/TOS_compared_to_other_distributions.html" class="mw-redirect" title="Debian">Debian</a>-based distributions. <b>It should not be used to replace <code><a href="../../wiki/Pacman.html" title="Pacman">pacman</a></code></b> unless you precisely know what you’re doing.
 Simply run as root
 </p>
 <pre># dpkg -i lexmark.deb
@@ -444,11 +444,11 @@ tcp xx.xx.xx.xx
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
 </ul>
 </div>
 </div>
@@ -467,9 +467,9 @@ tcp xx.xx.xx.xx
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

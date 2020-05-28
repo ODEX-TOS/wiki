@@ -2,7 +2,7 @@
     title: Samsung_NP740U3L-L02US
     description: Migration of Samsung_NP740U3L-L02US from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Overall this 2-in-1 <a href="../Laptop/Samsung.html" title="Laptop/Samsung">Samsung notebook</a> worked very well out of the box with the July 1, 2016, release of TOS Linux.  It comes with Windows 10 preinstalled.  
+<p>Overall this 2-in-1 <a href="../wiki/Laptop/Samsung.html" title="Laptop/Samsung">Samsung notebook</a> worked very well out of the box with the July 1, 2016, release of TOS Linux.  It comes with Windows 10 preinstalled.  
 </p>
 <p><i>Branding note</i>: Variously branded as Samsung Notebook 7 Spin, Samsung NP740U3L-L02US|NP740U3L-L02US, or just plain 740U3L.  These appear to all refer to the same or similar units. Reviews and market information is scant right now. 
 </p>
@@ -47,7 +47,7 @@
 <h2><span class="mw-headline" id="Dual_Booting">Dual Booting</span></h2>
 <p>This is a UEFI laptop.  Dual booting required disabling secure boot in BIOS.  Hit F2 immediately when machine powers up to get into setup.  Select "Boot" and make relevant changes.  You may need to change some other settings too. Save your settings and shut down.  You should now be able to plug in some kind of USB-based install media, go back into setup, and select it from the boot order menu. 
 </p>
-<p><b>To keep Windows 10</b>: This unit has a 1TB hard drive. Windows 10 and some recovery partitions consume most of it. It was resized pretty painlessly with <a href="../Parted.html" class="mw-redirect" title="GParted">GParted</a> using a live CD distro installed on a USB drive. Shrink the Windows 10 partition to a reasonable size with a live CD, move the recovery partitions to the right side of the disk, and create your Linux partitions.  You probably minimally want a system partition and a swap partition larger than your system's RAM.  Here is a sample configuration that worked (gave Linux almost 700GiB):</p>
+<p><b>To keep Windows 10</b>: This unit has a 1TB hard drive. Windows 10 and some recovery partitions consume most of it. It was resized pretty painlessly with <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> using a live CD distro installed on a USB drive. Shrink the Windows 10 partition to a reasonable size with a live CD, move the recovery partitions to the right side of the disk, and create your Linux partitions.  You probably minimally want a system partition and a swap partition larger than your system's RAM.  Here is a sample configuration that worked (gave Linux almost 700GiB):</p>
 <pre>NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 931.5G  0 disk 
 ├─sda1   8:1    0   100M  0 part /boot
@@ -61,11 +61,11 @@ sda      8:0    0 931.5G  0 disk
 </pre>
 <p><b>Warning</b>: no Windows 10 install media came with this unit.  All recovery data is on the hard drive. <i>Windows still booted but did not test recovery partitions after doing the above; do this at your own risk</i>.
 </p>
-<p>Following this example, when installing TOS Linix, /dev/sda1 became boot and /dev/sda7 became the Linux root partition.  Mount /dev/sda7 in /mnt/boot/ before you do arch-chroot. You will need to do your grub-install here. UEFI configuration more or less matches that described in <a href="../Dual_boot_with_Windows.html#UEFI_systems" title="Dual boot with Windows">Windows/TOS Linux dual boot UEFI configuration section</a>.
+<p>Following this example, when installing TOS Linix, /dev/sda1 became boot and /dev/sda7 became the Linux root partition.  Mount /dev/sda7 in /mnt/boot/ before you do arch-chroot. You will need to do your grub-install here. UEFI configuration more or less matches that described in <a href="../wiki/Dual_boot_with_Windows.html#UEFI_systems" title="Dual boot with Windows">Windows/TOS Linux dual boot UEFI configuration section</a>.
 </p>
 <p>Grub was configured with: <i>grub-mkconfig -o /boot/grub/grub.cfg</i>
 </p>
-<p>Per <a href="../GRUB.html#Installation_2" title="GRUB">this</a>, GRUB installed with a command like: <i>grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub</i>
+<p>Per <a href="../wiki/GRUB.html#Installation_2" title="GRUB">this</a>, GRUB installed with a command like: <i>grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub</i>
 </p>
 <h2>
 <span id="Network.2FWifi"></span><span class="mw-headline" id="Network/Wifi">Network/Wifi</span>
@@ -77,13 +77,13 @@ sda      8:0    0 931.5G  0 disk
 <p>Note: wifi-menu throws a warning or error but appears to work.
 </p>
 <h2><span class="mw-headline" id="Sound">Sound</span></h2>
-<p>Worked out of the box with <a href="../PulseAudio.html" title="PulseAudio">PulseAudio</a>; have not tested extensively though.
+<p>Worked out of the box with <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a>; have not tested extensively though.
 </p>
 <h2><span class="mw-headline" id="Graphics">Graphics</span></h2>
 <p>Intel HD Graphics 520 works out of the box. 
 </p>
 <h2><span class="mw-headline" id="Webcam">Webcam</span></h2>
-<p>Webcam uses module <a href="../Webcam_setup.html#linux-uvc" title="Webcam setup">uvcvideo</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; works out of box, tested with guvcview
+<p>Webcam uses module <a href="../wiki/Webcam_setup.html#linux-uvc" title="Webcam setup">uvcvideo</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; works out of box, tested with guvcview
 </p>
 <h2>
 <span id="Possible_quirks.2Ftodo"></span><span class="mw-headline" id="Possible_quirks/todo">Possible quirks/todo</span>
@@ -103,11 +103,11 @@ sda      8:0    0 931.5G  0 disk
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Samsung.html" title="Category:Samsung">Samsung</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Samsung.html" title="Category:Samsung">Samsung</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -126,9 +126,9 @@ sda      8:0    0 931.5G  0 disk
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

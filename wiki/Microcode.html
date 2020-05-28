@@ -2,7 +2,7 @@
     title: Microcode
     description: Migration of Microcode from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -86,20 +86,20 @@
 </div>
 
 <h2><span class="mw-headline" id="Early_loading">Early loading</span></h2>
-<p>Microcode must be loaded by the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>. Because of the wide variability in users' early-boot configuration, microcode updates may not be triggered automatically by TOS's default configuration. Many AUR kernels have followed the path of the official TOS <a href="../Kernel.html" class="mw-redirect" title="Kernels">kernels</a> in this regard.
+<p>Microcode must be loaded by the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>. Because of the wide variability in users' early-boot configuration, microcode updates may not be triggered automatically by TOS's default configuration. Many AUR kernels have followed the path of the official TOS <a href="../wiki/Kernel.html" class="mw-redirect" title="Kernels">kernels</a> in this regard.
 </p>
 <p>These updates must be enabled by adding <code>/boot/amd-ucode.img</code> or <code>/boot/intel-ucode.img</code> as the <b>first initrd in the bootloader config file</b>. This is in addition to the normal initrd file. See below for instructions for common bootloaders.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> In the following sections replace <code><i>cpu_manufacturer</i></code> with your CPU manufacturer, i.e. <code>amd</code> or <code>intel</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> For <a href="../Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">TOS Linux on a removable drive</a> add both microcode files as <code>initrd</code> to the boot loader configuration. Their order does not matter as long as they both are specified before the real initramfs image.</div>
+<strong>Tip:</strong> For <a href="../wiki/Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">TOS Linux on a removable drive</a> add both microcode files as <code>initrd</code> to the boot loader configuration. Their order does not matter as long as they both are specified before the real initramfs image.</div>
 <h3><span class="mw-headline" id="Installation">Installation</span></h3>
-<p>For AMD processors, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amd-ucode">amd-ucode</a></span> package.
+<p>For AMD processors, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amd-ucode">amd-ucode</a></span> package.
 </p>
-<p>For Intel processors, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> package.
+<p>For Intel processors, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> package.
 </p>
-<p>If your TOS installation is <a href="../Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">on a removable drive</a> that needs to have microcode for both manufacturer processors, install both packages.
+<p>If your TOS installation is <a href="../wiki/Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">on a removable drive</a> that needs to have microcode for both manufacturer processors, install both packages.
 </p>
 <h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
 <h4><span class="mw-headline" id="Enabling_early_microcode_loading_in_custom_kernels">Enabling early microcode loading in custom kernels</span></h4>
@@ -111,7 +111,7 @@ CONFIG_MICROCODE_INTEL=Y
 CONFIG_MICROCODE_AMD=y
 </pre>
 <h4><span class="mw-headline" id="GRUB">GRUB</span></h4>
-<p><i>grub-mkconfig</i> will automatically detect the microcode update and configure <a href="../GRUB.html" title="GRUB">GRUB</a> appropriately. After installing the microcode package, regenerate the GRUB config to activate loading the microcode update by running:
+<p><i>grub-mkconfig</i> will automatically detect the microcode update and configure <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> appropriately. After installing the microcode package, regenerate the GRUB config to activate loading the microcode update by running:
 </p>
 <pre># grub-mkconfig -o /boot/grub/grub.cfg
 </pre>
@@ -137,10 +137,10 @@ linux-tos  /vmlinuz-linux
 initrd  /initramfs-linux.img
 ...
 </pre>
-<p>The latest microcode <code><i>cpu_manufacturer</i>-ucode.img</code> must be available at boot time in your <a href="../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP). The ESP must be mounted as <code>/boot</code> in order to have the microcode updated every time <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amd-ucode">amd-ucode</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> is updated. Otherwise, copy <code>/boot/<i>cpu_manufacturer</i>-ucode.img</code> to your ESP at every update of the microcode package.
+<p>The latest microcode <code><i>cpu_manufacturer</i>-ucode.img</code> must be available at boot time in your <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP). The ESP must be mounted as <code>/boot</code> in order to have the microcode updated every time <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amd-ucode">amd-ucode</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> is updated. Otherwise, copy <code>/boot/<i>cpu_manufacturer</i>-ucode.img</code> to your ESP at every update of the microcode package.
 </p>
 <h5><span class="mw-headline" id="Unified_kernel_images">Unified kernel images</span></h5>
-<p>For <a href="../Systemd-boot.html#Preparing_a_unified_kernel_image" title="Systemd-boot">unified kernel images</a>, first generate the initrd to integrate by creating a new one as follows: 
+<p>For <a href="../wiki/Systemd-boot.html#Preparing_a_unified_kernel_image" title="Systemd-boot">unified kernel images</a>, first generate the initrd to integrate by creating a new one as follows: 
 </p>
 <pre>$ cat /boot/<i>cpu_manufacturer</i>-ucode.img /boot/initramfs-linux.img &gt; my_new_initrd.img
 $ objcopy ... --add-section .initrd=my_new_initrd .img
@@ -156,8 +156,8 @@ $ objcopy ... --add-section .initrd=my_new_initrd .img
 <pre>"Boot using default options"     "root=PARTUUID=<i>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</i> rw add_efi_memmap <b>initrd=boot\<i>cpu_manufacturer</i>-ucode.img</b> initrd=boot\initramfs-%v.img"
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Users who previously did not specify an <code>initrd</code> kernel parameter will need to follow the steps described in <a href="../REFInd.html#Configuration" title="REFInd">rEFInd#Configuration</a> to enable passing of multiple <code>initrd</code> parameters.</div>
-<p>Users employing <a href="../REFInd.html#Manual_boot_stanzas" title="REFInd">manual stanzas</a> in <code><i>esp</i>/EFI/refind/refind.conf</code> to define the kernels should simply add <code>initrd=boot\<i>cpu_manufacturer</i>-ucode.img</code> (or <code>initrd=<i>cpu_manufacturer</i>-ucode.img</code> if <code>/boot</code> is a separate partition)  as required to the options line, and not in the main part of the stanza. E.g.:
+<strong>Tip:</strong> Users who previously did not specify an <code>initrd</code> kernel parameter will need to follow the steps described in <a href="../wiki/REFInd.html#Configuration" title="REFInd">rEFInd#Configuration</a> to enable passing of multiple <code>initrd</code> parameters.</div>
+<p>Users employing <a href="../wiki/REFInd.html#Manual_boot_stanzas" title="REFInd">manual stanzas</a> in <code><i>esp</i>/EFI/refind/refind.conf</code> to define the kernels should simply add <code>initrd=boot\<i>cpu_manufacturer</i>-ucode.img</code> (or <code>initrd=<i>cpu_manufacturer</i>-ucode.img</code> if <code>/boot</code> is a separate partition)  as required to the options line, and not in the main part of the stanza. E.g.:
 </p>
 <pre>options  "root=PARTUUID=<i>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</i> rw add_efi_memmap <b>initrd=boot\<i>cpu_manufacturer</i>-ucode.img</b>"
 </pre>
@@ -173,7 +173,7 @@ $ objcopy ... --add-section .initrd=my_new_initrd .img
 ...
 </pre>
 <h4><span class="mw-headline" id="LILO">LILO</span></h4>
-<p><a href="../LILO.html" title="LILO">LILO</a> and potentially other old bootloaders do not support multiple initrd images. In that case, <code><i>cpu_manufacturer</i>-ucode.img</code> and <code>initramfs-linux.img</code> will have to be merged into one image.
+<p><a href="../wiki/LILO.html" title="LILO">LILO</a> and potentially other old bootloaders do not support multiple initrd images. In that case, <code><i>cpu_manufacturer</i>-ucode.img</code> and <code>initramfs-linux.img</code> will have to be merged into one image.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The merged image must be recreated after each kernel update!</div>
@@ -207,7 +207,7 @@ initrd=/boot/initramfs-merged.img
 </p>
 <pre># echo 1 &gt; /sys/devices/system/cpu/microcode/reload
 </pre>
-<p>This allows to apply newer microcode updates without rebooting the system. For <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span> you can automate it with a <a href="../Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>, e.g.:
+<p>This allows to apply newer microcode updates without rebooting the system. For <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span> you can automate it with a <a href="../wiki/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>, e.g.:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/microcode_reload.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -223,7 +223,7 @@ Exec = /bin/sh -c 'echo 1 &gt; /sys/devices/system/cpu/microcode/reload'</pre>
 <h3><span class="mw-headline" id="Disabling_late_microcode_updates">Disabling late microcode updates</span></h3>
 <p>For AMD systems the CPU microcode will get updated even if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amd-ucode">amd-ucode</a></span> is not installed since the files in <code>/usr/lib/firmware/amd-ucode/</code> are provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span> package (<a rel="nofollow"  href="https://bugs.archlinux.org/task/59840">FS#59840</a>).
 </p>
-<p>For <a href="../Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machines</a> and <a href="https://en.wikipedia.org/wiki/Container_(virtualization)"  title="wikipedia:Container (virtualization)">containers</a> (<a rel="nofollow"  href="https://bugs.archlinux.org/task/46591">FS#46591</a>) it is not possible to update the CPU microcode, so you may want to disable microcode updates. To do so, you must override the <a href="../Systemd.html#Temporary_files" class="mw-redirect" title="Tmpfile">tmpfile</a> <code>/usr/lib/tmpfiles.d/linux-firmware.conf</code> that is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span>. It can be done by creating a file with the same filename in <code>/etc/tmpfiles.d/</code>:
+<p>For <a href="../wiki/Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machines</a> and <a href="https://en.wikipedia.org/wiki/Container_(virtualization)"  title="wikipedia:Container (virtualization)">containers</a> (<a rel="nofollow"  href="https://bugs.archlinux.org/task/46591">FS#46591</a>) it is not possible to update the CPU microcode, so you may want to disable microcode updates. To do so, you must override the <a href="../wiki/Systemd.html#Temporary_files" class="mw-redirect" title="Tmpfile">tmpfile</a> <code>/usr/lib/tmpfiles.d/linux-firmware.conf</code> that is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span>. It can be done by creating a file with the same filename in <code>/etc/tmpfiles.d/</code>:
 </p>
 <pre># ln -s /dev/null /etc/tmpfiles.d/linux-firmware.conf
 </pre>
@@ -299,9 +299,9 @@ Exec = /bin/sh -c 'echo 1 &gt; /sys/devices/system/cpu/microcode/reload'</pre>
 </p>
 <ol>
 <li>
-<a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> (changing initrd is not required for detection)</li>
+<a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span> (changing initrd is not required for detection)</li>
 <li>
-<a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iucode-tool">iucode-tool</a></span>
+<a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iucode-tool">iucode-tool</a></span>
 </li>
 <li>Load the <code>cpuid</code> kernel module: <pre># modprobe cpuid</pre>
 </li>
@@ -325,13 +325,13 @@ Exec = /bin/sh -c 'echo 1 &gt; /sys/devices/system/cpu/microcode/reload'</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:CPU.html" title="Category:CPU">CPU</a></li>
-<li><a href="../Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="../wiki/Category:CPU.html" title="Category:CPU">CPU</a></li>
+<li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -350,9 +350,9 @@ Exec = /bin/sh -c 'echo 1 &gt; /sys/devices/system/cpu/microcode/reload'</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

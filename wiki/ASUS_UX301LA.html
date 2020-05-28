@@ -2,7 +2,7 @@
     title: ASUS_UX301LA
     description: Migration of ASUS_UX301LA from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page contains information specific to the ASUS Zenbook UX301LA. Some of it may also be applicable to similar models, depending on the specific configuration. You might also want to look at <a href="../ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a>.
+<p>This page contains information specific to the ASUS Zenbook UX301LA. Some of it may also be applicable to similar models, depending on the specific configuration. You might also want to look at <a href="../wiki/ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -53,22 +53,22 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>The UX301LA and similar models come with Windows 8 pre-installed, using <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> and a <a href="../Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a> scheme. 
+<p>The UX301LA and similar models come with Windows 8 pre-installed, using <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> and a <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a> scheme. 
 </p>
 <h3><span class="mw-headline" id="Booting_from_USB">Booting from USB</span></h3>
 <p>Boot the machine with the USB medium plugged in. You can try pressing <code>Escape</code> to get a boot menu and select your USB device. If it's not showing, then try booting while pressing <code>F2</code>. You will be booted into a BIOS menu. Go to <code>Boot &gt; Create a boot device</code> and select your USB medium. You'll have to choose a specific <code>.efi</code> file - for an TOS bootable USB it's <code>/EFI/boot/bootx64.efi</code>. Then under the Boot tab, change the boot device you just made to be higher priority than Windows Boot Manager. Make sure to save your changes on exit, and the system should reboot into the device.
 </p>
 <h3><span class="mw-headline" id="Partitioning">Partitioning</span></h3>
-<p>Whatever partition scheme you desire, make sure to use <code>parted</code> if you want to keep any of the other existing partitions since <code>fdisk</code> does not support the GPT scheme already on the machine. If you want to use a <a href="../Parted.html" class="mw-redirect" title="GParted">GParted</a> live CD/USB, you will need to run <code>kpartx -a /dev/mapper/xxx_ASUS_OS</code> as root where the <code>xxx_ASUS_OS</code> is the node in <code>/dev/mapper</code> other than <code>control</code> before you start the <a href="../Parted.html" class="mw-redirect" title="GParted">GParted</a> application. 
+<p>Whatever partition scheme you desire, make sure to use <code>parted</code> if you want to keep any of the other existing partitions since <code>fdisk</code> does not support the GPT scheme already on the machine. If you want to use a <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> live CD/USB, you will need to run <code>kpartx -a /dev/mapper/xxx_ASUS_OS</code> as root where the <code>xxx_ASUS_OS</code> is the node in <code>/dev/mapper</code> other than <code>control</code> before you start the <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> application. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> In TOS, if you have RAID 0 your hard drive device will look something like <code>/dev/md126</code> and the partitions will look like <code>/dev/md126p1</code>.</div>
 <h3><span class="mw-headline" id="Installing_TOS">Installing TOS</span></h3>
-<p>See <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>. 
+<p>See <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>. 
 </p>
 <p>If your machine comes with RAID 0 then add <code>mdadm_udev</code> to your HOOKS in <code>mkinitcpio.conf</code> and rerun <code>mkinitcpio -p linux</code>.
 </p>
-<p>When you install <a href="../GRUB.html" title="GRUB">GRUB</a>, follow the instructions for UEFI Systems. Your ESP (<a href="../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>) should be the first partition in your scheme.
+<p>When you install <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>, follow the instructions for UEFI Systems. Your ESP (<a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>) should be the first partition in your scheme.
 </p>
 <h2><span class="mw-headline" id="Function_Keys">Function Keys</span></h2>
 <p>All function keys except the backlight seem to work out of the box (as of TOS default kernel 3.12.7). To fix the backlight keys, add <code>acpi_osi=</code> as a kernel parameter. Example line from <code>/etc/default/grub</code>:
@@ -80,13 +80,13 @@
 <pre>qdbus org.kde.kded /kded unloadModule powerdevil
 qdbus org.kde.kded /kded loadModule powerdevil</pre>
 <h2><span class="mw-headline" id="Display">Display</span></h2>
-<p>Check <a href="../HiDPI.html" title="HiDPI">HiDPI</a>.
+<p>Check <a href="../wiki/HiDPI.html" title="HiDPI">HiDPI</a>.
 </p>
 <h2><span class="mw-headline" id="Touchpad">Touchpad</span></h2>
-<p>xinput lists it as "ETPS/2 Elantech Touchpad" but it works with a xf86-input-synaptics driver. See <a href="../Touchpad_Synaptics.html" title="Touchpad Synaptics">Touchpad Synaptics</a> for detail.
+<p>xinput lists it as "ETPS/2 Elantech Touchpad" but it works with a xf86-input-synaptics driver. See <a href="../wiki/Touchpad_Synaptics.html" title="Touchpad Synaptics">Touchpad Synaptics</a> for detail.
 </p>
 <h2><span class="mw-headline" id="Wi-Fi">Wi-Fi</span></h2>
-<p>See <a href="../Network_configuration/Wireless.html#iwlwifi" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#iwlwifi</a>
+<p>See <a href="../wiki/Network_configuration/Wireless.html#iwlwifi" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#iwlwifi</a>
 </p>
 <h2><span class="mw-headline" id="Battery_Issues">Battery Issues</span></h2>
 <p>Many have been experiencing an issue with the battery not properly charging under Linux. There is a thread about this on the <a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=2195607">Ubuntu Forums</a>. Holding down the power button to do a clean reboot seems to be a workaround, but the issue hasn't been resolved yet, and those who have sent their laptops in for repair have reported that it didn't resolve the issue.
@@ -117,14 +117,14 @@ qdbus org.kde.kded /kded loadModule powerdevil</pre>
 * 02:00.0 Network controller [0280]: Intel Corporation Wireless 7260 [8086:08b1] (rev 6b)
 </pre>
 <h2><span class="mw-headline" id="Heat">Heat</span></h2>
-<p>As you have probably noticed, the UX301 family of laptops will reach 80° Celsius doing the most remedial of tasks, and upwards of 90° while watching videos. You may want to consider installing and configuring <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/thermald/">thermald</a></span><sup><small>AUR</small></sup> from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<p>As you have probably noticed, the UX301 family of laptops will reach 80° Celsius doing the most remedial of tasks, and upwards of 90° while watching videos. You may want to consider installing and configuring <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/thermald/">thermald</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <h2><span class="mw-headline" id="Helpful_Links">Helpful Links</span></h2>
 <ul>
-<li><a href="../ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a></li>
-<li><a href="../RAID.html" title="RAID">RAID</a></li>
+<li><a href="../wiki/ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a></li>
+<li><a href="../wiki/RAID.html" title="RAID">RAID</a></li>
 <li>
-<a href="../TLP.html" title="TLP">TLP</a> (Pre-configured power saving)</li>
+<a href="../wiki/TLP.html" title="TLP">TLP</a> (Pre-configured power saving)</li>
 <li><a rel="nofollow"  href="https://help.ubuntu.com/community/AsusZenbookUX302">Ubuntu UX302 Page</a></li>
 <li><a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=2205704&amp;page=3">Ubuntu Forums UX302 thread</a></li>
 <li><a rel="nofollow"  href="http://www.insanelymac.com/forum/topic/295153-asus-ux301la-haswell-dev-guide-1091-newer/">InsanelyMac(OSX86) thread with hardware info, etc.</a></li>
@@ -132,7 +132,7 @@ qdbus org.kde.kded /kded loadModule powerdevil</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:ASUS.html" title="Category:ASUS">ASUS</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:ASUS.html" title="Category:ASUS">ASUS</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -149,9 +149,9 @@ qdbus org.kde.kded /kded loadModule powerdevil</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

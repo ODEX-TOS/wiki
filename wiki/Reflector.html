@@ -2,7 +2,7 @@
     title: Reflector
     description: Migration of Reflector from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Mirrors.html" title="Mirrors">Mirrors</a></li>
-<li><a href="../Pacman.html" title="Pacman">Pacman</a></li>
+<li><a href="../wiki/Mirrors.html" title="Mirrors">Mirrors</a></li>
+<li><a href="../wiki/Pacman.html" title="Pacman">Pacman</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="http://xyne.archlinux.ca/projects/reflector/">Reflector</a> is a script which can retrieve the latest mirror list from the <a rel="nofollow"  href="https://www.archlinux.org/mirrors/status/">MirrorStatus</a> page, filter the most up-to-date mirrors, sort them by speed and overwrite the file <code>/etc/pacman.d/mirrorlist</code>. 
@@ -60,14 +60,14 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=reflector">reflector</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=reflector">reflector</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
 <ul>
 <li>In the following examples, <code>/etc/pacman.d/mirrorlist</code> will be overwritten. Make a backup before proceeding.</li>
-<li>Make sure the resulting <code>/etc/pacman.d/mirrorlist</code> does not contain entries that you consider untrustworthy before syncing or updating with <a href="../Pacman.html" title="Pacman">Pacman</a>.</li>
+<li>Make sure the resulting <code>/etc/pacman.d/mirrorlist</code> does not contain entries that you consider untrustworthy before syncing or updating with <a href="../wiki/Pacman.html" title="Pacman">Pacman</a>.</li>
 </ul>
 </div>
 <p>To see all of the available commands, run the following command:
@@ -89,7 +89,7 @@
 </pre>
 <h2><span class="mw-headline" id="Automation">Automation</span></h2>
 <h3><span class="mw-headline" id="Pacman_hook">Pacman hook</span></h3>
-<p>You can create a <a href="../Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a> that will run <i>reflector</i> and remove the <i>.pacnew</i> file created every time <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman-mirrorlist">pacman-mirrorlist</a></span> gets an upgrade.
+<p>You can create a <a href="../wiki/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a> that will run <i>reflector</i> and remove the <i>.pacnew</i> file created every time <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman-mirrorlist">pacman-mirrorlist</a></span> gets an upgrade.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/mirrorupgrade.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -121,10 +121,10 @@ ExecStart=/usr/bin/reflector --protocol https --latest 30 --number 20 --sort rat
 
 [Install]
 RequiredBy=multi-user.target</pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> <code>reflector.service</code> will update the mirrorlist. To update the mirrorlist every time the computer boots, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the service.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> <code>reflector.service</code> will update the mirrorlist. To update the mirrorlist every time the computer boots, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the service.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For more information on the implementation of the network dependency, see <a href="../Systemd.html#Running_services_after_the_network_is_up" title="Systemd">Systemd#Running services after the network is up</a>.</div>
+<strong>Note:</strong> For more information on the implementation of the network dependency, see <a href="../wiki/Systemd.html#Running_services_after_the_network_is_up" title="Systemd">Systemd#Running services after the network is up</a>.</div>
 <h3><span class="mw-headline" id="Systemd_timer">Systemd timer</span></h3>
 <p>If you want to run <code>reflector.service</code> on a weekly basis, create an associated <i>.timer</i>. For example:
 </p>
@@ -139,10 +139,10 @@ Persistent=true
 
 [Install]
 WantedBy=timers.target</pre>
-<p>And then just <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>reflector.timer</code>.
+<p>And then just <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>reflector.timer</code>.
 </p>
 <h3><span class="mw-headline" id="Reflector-timer_package">Reflector-timer package</span></h3>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/reflector-timer/">reflector-timer</a></span><sup><small>AUR</small></sup> to run <i>reflector</i> weekly.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/reflector-timer/">reflector-timer</a></span><sup><small>AUR</small></sup> to run <i>reflector</i> weekly.
 </p>
 <p>The default configuration, which can be edited to fit one's needs, is:
 </p>
@@ -156,7 +156,7 @@ SORT=rate
 PROTOCOL1='-p http'
 PROTOCOL2='-p https'
 PROTOCOL3='-p ftp'</pre>
-<p>Be sure to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>reflector.timer</code>.
+<p>Be sure to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>reflector.timer</code>.
 </p>
 <h3><span class="mw-headline" id="Cron_task">Cron task</span></h3>
 <p>To update the mirrorlist daily, consider the following:
@@ -172,7 +172,7 @@ PROTOCOL3='-p ftp'</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -189,9 +189,9 @@ PROTOCOL3='-p ftp'</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

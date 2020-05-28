@@ -2,7 +2,7 @@
     title: Kernel_module_(Bosanski)
     description: Migration of Kernel_module_(Bosanski) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../General_troubleshooting.html#Boot_problems" class="mw-redirect" title="Boot debugging">Boot debugging</a></li>
-<li><a href="../Kernel.html" class="mw-redirect" title="Kernels">Kernels</a></li>
-<li><a href="../Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a></li>
-<li><a href="../Compile_kernel_module_(Bosanski).html" title="Compile kernel module (Bosanski)">Compile kernel module (Bosanski)</a></li>
+<li><a href="../wiki/General_troubleshooting.html#Boot_problems" class="mw-redirect" title="Boot debugging">Boot debugging</a></li>
+<li><a href="../wiki/Kernel.html" class="mw-redirect" title="Kernels">Kernels</a></li>
+<li><a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a></li>
+<li><a href="../wiki/Compile_kernel_module_(Bosanski).html" title="Compile kernel module (Bosanski)">Compile kernel module (Bosanski)</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Loadable_kernel_module"  title="wikipedia:Loadable kernel module">Kernel moduli</a> su dio koda koji može se loadati i unloadati iz kernela na zahtjev. Oni produžuju funkcionalnost kernela bez rebootanja sistema.
@@ -104,7 +104,7 @@
 <pre>$ modprobe --show-depends <i>module_name</i>
 </pre>
 <h2><span class="mw-headline" id="Automatsko_loadanje_module_sa_systemd">Automatsko loadanje module sa systemd</span></h2>
-<p>Danas, svo potrebno loadanje module automatski radi <a href="../Udev.html" title="Udev">udev</a>, tako da ukoliko ne koristite out-of-tree kernel modul, nema potrebe da stavljate module koji će se bootati u bootu u konfiguracijski fajl. Ipak, postoje slučajevu gdje možda želite loadati dodatni modul tokom boot procesa ili blacklistati drugi za ispravno funkcionisanje računara.
+<p>Danas, svo potrebno loadanje module automatski radi <a href="../wiki/Udev.html" title="Udev">udev</a>, tako da ukoliko ne koristite out-of-tree kernel modul, nema potrebe da stavljate module koji će se bootati u bootu u konfiguracijski fajl. Ipak, postoje slučajevu gdje možda želite loadati dodatni modul tokom boot procesa ili blacklistati drugi za ispravno funkcionisanje računara.
 </p>
 <p>Kernel moduli se mogu eksplicitino izlistati u fajlovima pod <code>/etc/modules-load.d/</code> za systemd da ih loada tokom boot-a. Svaki konfiguracijski fajl ja imenovan kao <code>/etc/modules-load.d/&lt;program&gt;.conf</code>. Konfiguracijski fajlovi jednostavno sadrže listu kernel modula koji će se loadati, odvojeni novom linijom. Prazne linije i linije čiji prvo non-whitespace karakter je <code>#</code> ili <code>;</code> su ignorisane.
 </p>
@@ -149,7 +149,7 @@ virtio_net</pre>
 <h3>
 <span id="Koriste.C4.87i_fajlove_u_.2Fetc.2Fmodprobe.d.2F"></span><span class="mw-headline" id="Koristeći_fajlove_u_/etc/modprobe.d/">Koristeći fajlove u /etc/modprobe.d/</span>
 </h3>
-<p>Fajlovi u <code>/etc/modprobe.d/</code> folderu mogu biti korišteni da se postave podešavanja za modul za <a href="../Udev.html" title="Udev">udev</a>, koji će koristiti <code>modprobe</code> da upravlja loadanjem module tokom bootanja. Konfiguracijski fajlovi u ovom folderu mogu imati bilo kakvo ime, ali moraju završavati sa <code>.conf</code> ekstenzijom. Sintaksa je:
+<p>Fajlovi u <code>/etc/modprobe.d/</code> folderu mogu biti korišteni da se postave podešavanja za modul za <a href="../wiki/Udev.html" title="Udev">udev</a>, koji će koristiti <code>modprobe</code> da upravlja loadanjem module tokom bootanja. Konfiguracijski fajlovi u ovom folderu mogu imati bilo kakvo ime, ali moraju završavati sa <code>.conf</code> ekstenzijom. Sintaksa je:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/myfilename.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options <i>module_name parameter_name=parameter_value</i></pre>
@@ -159,7 +159,7 @@ virtio_net</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Na ThinkPadima, ovo omogućava 'thinkfan' daemon da kontroliše brzinu ventilatora
 options thinkpad_acpi fan_control=1</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Ukoliko je bilo koji od zahvaćenih modula učitan iz initramfs-a, onda se mora dodati odgovarajući {{ic}.conf}} u <code>FILES</code> u <a href="../Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> ili koristiti <code>modconf</code> <a href="../Mkinitcpio.html#HOOKS" class="mw-redirect" title="Mkinitcpio.conf">hook</a> tako da bude uključen u initramfs. Da vidite sadržaj initramfs-a, koristite <code>lsinitcpio /boot/initramfs-linux.img</code>.</div>
+<strong>Note:</strong> Ukoliko je bilo koji od zahvaćenih modula učitan iz initramfs-a, onda se mora dodati odgovarajući {{ic}.conf}} u <code>FILES</code> u <a href="../wiki/Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> ili koristiti <code>modconf</code> <a href="../wiki/Mkinitcpio.html#HOOKS" class="mw-redirect" title="Mkinitcpio.conf">hook</a> tako da bude uključen u initramfs. Da vidite sadržaj initramfs-a, koristite <code>lsinitcpio /boot/initramfs-linux.img</code>.</div>
 <h3>
 <span id="Koriste.C4.87i_kernel_command_line"></span><span class="mw-headline" id="Koristeći_kernel_command_line">Koristeći kernel command line</span>
 </h3>
@@ -171,7 +171,7 @@ options thinkpad_acpi fan_control=1</pre>
 </p>
 <pre>thinkpad_acpi.fan_control=1
 </pre>
-<p>Jednostavno dodate ovo u bootloader kernel liniju, ako što je opisano u <a href="../Kernel_parameters.html" title="Kernel parameters">Kernel parametrima</a>.
+<p>Jednostavno dodate ovo u bootloader kernel liniju, ako što je opisano u <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parametrima</a>.
 </p>
 <h2>
 <span id="Pode.C5.A1avanja_aliasa"></span><span class="mw-headline" id="Podešavanja_aliasa">Podešavanja aliasa</span>
@@ -190,7 +190,7 @@ alias net-pf-31 off</pre>
 <h2><span class="mw-headline" id="Blacklistanje">Blacklistanje</span></h2>
 <p>Blacklistanje, u kontekstu kernel modula, je mehanizam spriječavanja kernel modula da se automatski loadaju. Ovo može biti korisno ako npr. asocirani hardware nije potreban ili ako loadanje tog modula izaziva probleme: npr mogu biti dva kernel modula koja pokušavaju da kontrolišu isti dio hardware-a i loadanje oba može prouzrokovati konflikt.
 </p>
-<p>Neki module su loadani kao dio <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>-a. <code>mkinitcpio -M</code> će ispisati sve automatski detektovane module: da spriječite initramfs da ne loada automatski neke od tih, blacklistajte ih u <i>.conf</i> fajlu unutar <code>/etc/modprobe.d</code> i bit će dodano tokom <code>modconf</code> hookanja tokom generisanja image-a. Pokretanjem <code>mkinitcpio -v</code> će izlistati sve pullane module za različitim hookovima (npr. <code>filesystems</code> hook, <code>block</code> hook itd.). Zapamtite da dodate <i>.conf</i> fajl u <code>FILES</code> niz u <code>/etc/mkinitcpio.conf</code> ako nemate <code>modconf</code> hook u vašem <code>HOOKS</code> nizu (npr. odudarate od defaultne konfiguracije), i nakon što ste blacklistali module, <a href="/index.php?title=Regenereate_the_initramfs&amp;action=edit&amp;redlink=1"  title="Regenereate the initramfs (page does not exist)">regenerišite initramfs</a> i rebootajte iza toga.
+<p>Neki module su loadani kao dio <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>-a. <code>mkinitcpio -M</code> će ispisati sve automatski detektovane module: da spriječite initramfs da ne loada automatski neke od tih, blacklistajte ih u <i>.conf</i> fajlu unutar <code>/etc/modprobe.d</code> i bit će dodano tokom <code>modconf</code> hookanja tokom generisanja image-a. Pokretanjem <code>mkinitcpio -v</code> će izlistati sve pullane module za različitim hookovima (npr. <code>filesystems</code> hook, <code>block</code> hook itd.). Zapamtite da dodate <i>.conf</i> fajl u <code>FILES</code> niz u <code>/etc/mkinitcpio.conf</code> ako nemate <code>modconf</code> hook u vašem <code>HOOKS</code> nizu (npr. odudarate od defaultne konfiguracije), i nakon što ste blacklistali module, <a href="/index.php?title=Regenereate_the_initramfs&amp;action=edit&amp;redlink=1"  title="Regenereate the initramfs (page does not exist)">regenerišite initramfs</a> i rebootajte iza toga.
 </p>
 <h3>
 <span id="Kori.C5.A1tenje_fajlova_u_.2Fetc.2Fmodprobe.d.2F"></span><span class="mw-headline" id="Korištenje_fajlova_u_/etc/modprobe.d/">Korištenje fajlova u /etc/modprobe.d/</span>
@@ -216,7 +216,7 @@ Ovo će efikasno blacklistati taj modul i bilo koji drugi koji ovisi o njemu.</d
 <strong>Tip:</strong> Ovo može biti korisno ukoliko broken modul onemogućava bootanje sistema.</div>
 <p>Mozete također blacklistati module iz bootloadera.
 </p>
-<p>Jednostavno dodajte <code>module_blacklist=modname1,modname2,modname3</code> u kernel line bootloadera, kao što je opisano u <a href="../Kernel_parameters.html" title="Kernel parameters">Kernel parametrima</a>.
+<p>Jednostavno dodajte <code>module_blacklist=modname1,modname2,modname3</code> u kernel line bootloadera, kao što je opisano u <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parametrima</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Kada blacklistati više od jednog modula, uzmite u obzir da se razdvajaju zarezom. Razmak ili bilo koji drugi sistem može breakati sintaksu.</div>
@@ -230,16 +230,16 @@ Ovo će efikasno blacklistati taj modul i bilo koji drugi koji ovisi o njemu.</d
 <strong>Warning:</strong> Ignorisanje provjere verzije za kernel modul može prouzrokovati da se kernel crasha ili da sistem ima nedefinisano ponašanje zbog nekompatibilnosti. Koristite <code>--force-vermagic</code> sa maksimalnom dozom opreza.</div>
 <h2><span class="mw-headline" id="Vidi_i">Vidi i</span></h2>
 <ul>
-<li><a href="../PC_speaker.html" class="mw-redirect" title="Disable PC speaker beep">Disable PC speaker beep</a></li>
+<li><a href="../wiki/PC_speaker.html" class="mw-redirect" title="Disable PC speaker beep">Disable PC speaker beep</a></li>
 <li><a rel="nofollow"  href="https://lwn.net/Articles/391230/">Pisanje WMI drivera</a></li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Kernel_(Bosanski).html" title="Category:Kernel (Bosanski)">Kernel (Bosanski)</a></li>
-<li><a href="../Category:Hardware_detection_and_troubleshooting_(Bosanski).html" title="Category:Hardware detection and troubleshooting (Bosanski)">Hardware detection and troubleshooting (Bosanski)</a></li>
-<li><a href="../Category:Boot_process_(Bosanski).html" title="Category:Boot process (Bosanski)">Boot process (Bosanski)</a></li>
+<li><a href="../wiki/Category:Kernel_(Bosanski).html" title="Category:Kernel (Bosanski)">Kernel (Bosanski)</a></li>
+<li><a href="../wiki/Category:Hardware_detection_and_troubleshooting_(Bosanski).html" title="Category:Hardware detection and troubleshooting (Bosanski)">Hardware detection and troubleshooting (Bosanski)</a></li>
+<li><a href="../wiki/Category:Boot_process_(Bosanski).html" title="Category:Boot process (Bosanski)">Boot process (Bosanski)</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -257,9 +257,9 @@ Ovo će efikasno blacklistati taj modul i bilo koji drugi koji ovisi o njemu.</d
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

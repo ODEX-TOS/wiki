@@ -2,7 +2,7 @@
     title: Swap_encryption
     description: Migration of Swap_encryption from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Dm-crypt.html" title="Dm-crypt">Dm-crypt</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Dm-crypt.html" title="Dm-crypt">Dm-crypt</a></span></div>
 		
 		
 		
@@ -25,7 +25,7 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><span></span>
-Depending on requirements, different methods may be used to encrypt the <a href="../../Swap.html" title="Swap">swap</a> partition which are described in the following. A setup where the swap encryption is re-initialised on reboot (with a new encryption) provides higher data protection, because it avoids sensitive file fragments which may have been swapped out a long time ago without being overwritten. However, re-encrypting swap also forbids using a suspend-to-disk feature generally.
+Depending on requirements, different methods may be used to encrypt the <a href="../../wiki/Swap.html" title="Swap">swap</a> partition which are described in the following. A setup where the swap encryption is re-initialised on reboot (with a new encryption) provides higher data protection, because it avoids sensitive file fragments which may have been swapped out a long time ago without being overwritten. However, re-encrypting swap also forbids using a suspend-to-disk feature generally.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -64,14 +64,14 @@ Depending on requirements, different methods may be used to encrypt the <a href=
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/crypttab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;name&gt;  &lt;device&gt;     &lt;password&gt;     &lt;options&gt;
 swap      /dev/sd<i>X#</i>    /dev/urandom   swap,cipher=aes-xts-plain64,size=256</pre>
-<p>This will map <code>/dev/sd<i>X#</i></code> to <code>/dev/mapper/swap</code> as a swap partition that can be added in <code>/etc/fstab</code> like a normal swap. If you had a non-encrypted swap partition before, do not forget to disable it - or re-use its <a href="../../Fstab.html" title="Fstab">fstab</a> entry by changing the device to <code>/dev/mapper/swap</code>. The default options should be sufficient for most usage. For other options and an explanation of each column, see <span class="plainlinks archwiki-template-man" title="$ man 5 crypttab"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/crypttab.5">crypttab(5)</a></span> as well as <a rel="nofollow"  href="https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#2-setup">point cryptsetup FAQ 2.3</a>.
+<p>This will map <code>/dev/sd<i>X#</i></code> to <code>/dev/mapper/swap</code> as a swap partition that can be added in <code>/etc/fstab</code> like a normal swap. If you had a non-encrypted swap partition before, do not forget to disable it - or re-use its <a href="../../wiki/Fstab.html" title="Fstab">fstab</a> entry by changing the device to <code>/dev/mapper/swap</code>. The default options should be sufficient for most usage. For other options and an explanation of each column, see <span class="plainlinks archwiki-template-man" title="$ man 5 crypttab"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/crypttab.5">crypttab(5)</a></span> as well as <a rel="nofollow"  href="https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#2-setup">point cryptsetup FAQ 2.3</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> All contents of the named device will be permanently <b>deleted</b>. It is dangerous to use the kernel's simple naming for a swap device, since their naming order (<i>e.g.</i> <code>/dev/sda</code>, <code>/dev/sdb</code>) changes upon each boot. Options are:
 <ul>
-<li>Use <code>by-id</code> and <code>by-path</code> paths. However, these are both are susceptible to hardware changes. See <a href="../../Persistent_block_device_naming.html#by-id_and_by-path" title="Persistent block device naming">Persistent block device naming#by-id and by-path</a>.</li>
-<li>Use an <a href="../../LVM.html" title="LVM">LVM</a> logical volume's name.</li>
-<li>Use the method described in <a href="#UUID_and_LABEL">#UUID and LABEL</a>. Labels and <a href="../../Persistent_block_device_naming.html#by-uuid" title="Persistent block device naming">UUIDS</a> <b>cannot</b> be used directly because of the recreation and re-encryption of the swap device on every boot with <code>mkswap</code>, see <a rel="nofollow"  href="https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#2-setup">cryptsetup FAQ</a>.</li>
+<li>Use <code>by-id</code> and <code>by-path</code> paths. However, these are both are susceptible to hardware changes. See <a href="../../wiki/Persistent_block_device_naming.html#by-id_and_by-path" title="Persistent block device naming">Persistent block device naming#by-id and by-path</a>.</li>
+<li>Use an <a href="../../wiki/LVM.html" title="LVM">LVM</a> logical volume's name.</li>
+<li>Use the method described in <a href="#UUID_and_LABEL">#UUID and LABEL</a>. Labels and <a href="../../wiki/Persistent_block_device_naming.html#by-uuid" title="Persistent block device naming">UUIDS</a> <b>cannot</b> be used directly because of the recreation and re-encryption of the swap device on every boot with <code>mkswap</code>, see <a rel="nofollow"  href="https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#2-setup">cryptsetup FAQ</a>.</li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -90,13 +90,13 @@ swap      /dev/disk/by-id/ata-WDC_WD2500BEVT-22ZCT0_WD-WXE908VF0470-partX  /dev/
 <p>After a reboot to activate the encrypted swap, you will note that running <code>swapon -s</code> shows an arbitrary device mapper entry (e.g. <code>/dev/dm-1</code>) for it, while the <code>lsblk</code> command shows <b>crypt</b> in the <code>FSTYPE</code> column. Due to fresh encryption each boot, the UUID for <code>/dev/mapper/swap</code> will change every time. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If the partition chosen for swap was previously a LUKS partition, crypttab will not overwrite the partition to create a swap partition. This is a safety measure to prevent data loss from accidental mis-identification of the swap partition in crypttab. In order to use such a partition the <a href="../../Dm-crypt/Drive_preparation.html#Wipe_LUKS_header" title="Dm-crypt/Drive preparation">LUKS header must be overwritten</a> once.</div>
+<strong>Note:</strong> If the partition chosen for swap was previously a LUKS partition, crypttab will not overwrite the partition to create a swap partition. This is a safety measure to prevent data loss from accidental mis-identification of the swap partition in crypttab. In order to use such a partition the <a href="../../wiki/Dm-crypt/Drive_preparation.html#Wipe_LUKS_header" title="Dm-crypt/Drive preparation">LUKS header must be overwritten</a> once.</div>
 <h3><span class="mw-headline" id="UUID_and_LABEL">UUID and LABEL</span></h3>
 <p>It's dangerous to use crypttab swap with simple kernel device names like <code>/dev/sdX#</code> or even <code>/dev/disk/by-id/ata-SERIAL-partX</code>. A small change in your device names or partitioning layout and <code>/etc/crypttab</code> will see your valuable data formatted on the next boot. Same if you use PARTUUID and then decide to use that partition for something else without removing the crypttab entry first.
 </p>
 <p>It is more reliable to identify the correct partition by giving it a genuine UUID or LABEL. By default that does not work because dm-crypt and <code>mkswap</code> would simply overwrite any content on that partition which would remove the UUID and LABEL too; however, it is possible to specify a swap offset. This allows you to create a very small, empty, bogus filesystem with no other purpose than providing a persistent UUID or LABEL for the swap encryption.
 </p>
-<p>Create a <a href="../../File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> with label of your choice:
+<p>Create a <a href="../../wiki/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> with label of your choice:
 </p>
 <pre># mkfs.ext2 -L <i>cryptswap</i> /dev/sd<i>X#</i> 1M
 </pre>
@@ -122,23 +122,23 @@ swap     LABEL=<i>cryptswap</i>  /dev/urandom  swap,offset=2048,cipher=aes-xts-p
 <p>The following three methods are alternatives for setting up an encrypted swap for suspend-to-disk. If you apply any of them, be aware that critical data swapped out by the system may potentially stay in the swap over a long period (i.e. until it is overwritten). To reduce this risk consider setting up a system job which re-encrypts swap, e.g. each time the system is going into a regular shut-down, along with the method of your choice.
 </p>
 <h3><span class="mw-headline" id="LVM_on_LUKS">LVM on LUKS</span></h3>
-<p>If the swap volume is in a volume group that gets activated in initramfs, simply follow the instructions in <a href="../../Power_management/Suspend_and_hibernate.html#Hibernation" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation</a>.
+<p>If the swap volume is in a volume group that gets activated in initramfs, simply follow the instructions in <a href="../../wiki/Power_management/Suspend_and_hibernate.html#Hibernation" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation</a>.
 </p>
 <h3><span class="mw-headline" id="Using_a_swap_partition">Using a swap partition</span></h3>
 <p>To resume from a encrypted swap partition, the encrypted partition must be unlocked in the initramfs.
 </p>
 <ul>
-<li>When using the default busybox-based initramfs with the <a href="../../Dm-crypt/System_configuration.html#Using_encrypt_hook" title="Dm-crypt/System configuration">encrypt</a> hook, follow the instructions in <a href="#mkinitcpio_hook">#mkinitcpio hook</a>.</li>
-<li>When using the systemd-based initramfs with the <a href="../../Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" class="mw-redirect" title="Sd-encrypt">sd-encrypt</a> mkinitcpio hook, simply specify additional <code>rd.luks</code> kernel parameters to unlock the swap partition.</li>
+<li>When using the default busybox-based initramfs with the <a href="../../wiki/Dm-crypt/System_configuration.html#Using_encrypt_hook" title="Dm-crypt/System configuration">encrypt</a> hook, follow the instructions in <a href="#mkinitcpio_hook">#mkinitcpio hook</a>.</li>
+<li>When using the systemd-based initramfs with the <a href="../../wiki/Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" class="mw-redirect" title="Sd-encrypt">sd-encrypt</a> mkinitcpio hook, simply specify additional <code>rd.luks</code> kernel parameters to unlock the swap partition.</li>
 </ul>
 <h4><span class="mw-headline" id="mkinitcpio_hook">mkinitcpio hook</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../../Dm-crypt/Specialties.html#Multiple_non-root_partitions" title="Dm-crypt/Specialties">dm-crypt/Specialties#Multiple non-root partitions</a>.</b><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../../wiki/Dm-crypt/Specialties.html#Multiple_non-root_partitions" title="Dm-crypt/Specialties">dm-crypt/Specialties#Multiple non-root partitions</a>.</b><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Same use case. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dm-crypt/Swap_encryption">Talk:Dm-crypt/Swap encryption#</a>)</div>
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This section is only applicable when using the <code>encrypt</code> hook, which can only unlock a single device (<a rel="nofollow"  href="https://bugs.archlinux.org/task/23182">FS#23182</a>). With <code>sd-encrypt</code> multiple devices may be unlocked, see <a href="../../Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" title="Dm-crypt/System configuration">dm-crypt/System configuration#Using sd-encrypt hook</a>.</div>
+<strong>Note:</strong> This section is only applicable when using the <code>encrypt</code> hook, which can only unlock a single device (<a rel="nofollow"  href="https://bugs.archlinux.org/task/23182">FS#23182</a>). With <code>sd-encrypt</code> multiple devices may be unlocked, see <a href="../../wiki/Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" title="Dm-crypt/System configuration">dm-crypt/System configuration#Using sd-encrypt hook</a>.</div>
 <p>If the swap device is on a different device from that of the root file system, it will not be opened by the <code>encrypt</code> hook, i.e. the resume will take place before <code>/etc/crypttab</code> can be used, therefore it is required to create a hook in <code>/etc/mkinitcpio.conf</code> to open the swap LUKS device before resuming. 
 </p>
 <p>If you want to use a partition which is currently used by the system, you have to disable it first:
@@ -147,7 +147,7 @@ swap     LABEL=<i>cryptswap</i>  /dev/urandom  swap,offset=2048,cipher=aes-xts-p
 </pre>
 <p>Also make sure you remove any line in <code>/etc/crypttab</code> pointing to this device.
 </p>
-<p>If you are reusing an existing swap <a href="../../Partitioning.html" class="mw-redirect" title="Partition">partition</a>, and if the partition is on a GPT partition table, you will need use <a href="../../GPT_fdisk.html" class="mw-redirect" title="Gdisk">gdisk</a> to set the <a href="../../GPT_fdisk.html#Prevent_GPT_partition_automounting" class="mw-redirect" title="Gdisk">partition attribute 63 "do not automount"</a> on it. This will prevent systemd-gpt-auto-generator from discovering and enabling the partition at boot.
+<p>If you are reusing an existing swap <a href="../../wiki/Partitioning.html" class="mw-redirect" title="Partition">partition</a>, and if the partition is on a GPT partition table, you will need use <a href="../../wiki/GPT_fdisk.html" class="mw-redirect" title="Gdisk">gdisk</a> to set the <a href="../../wiki/GPT_fdisk.html#Prevent_GPT_partition_automounting" class="mw-redirect" title="Gdisk">partition attribute 63 "do not automount"</a> on it. This will prevent systemd-gpt-auto-generator from discovering and enabling the partition at boot.
 </p>
 <p>The following setup has the disadvantage of having to insert an additional passphrase for the swap partition manually on every boot.
 </p>
@@ -166,7 +166,7 @@ swap     LABEL=<i>cryptswap</i>  /dev/urandom  swap,offset=2048,cipher=aes-xts-p
 </p>
 <pre># mkswap /dev/mapper/swapDevice
 </pre>
-<p>Now you have to create a hook to open the swap at boot time. You can either <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> and configure <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkinitcpio-openswap/">mkinitcpio-openswap</a></span><sup><small>AUR</small></sup>, or follow the following instructions. Create a hook file containing the open command:
+<p>Now you have to create a hook to open the swap at boot time. You can either <a href="../../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> and configure <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkinitcpio-openswap/">mkinitcpio-openswap</a></span><sup><small>AUR</small></sup>, or follow the following instructions. Create a hook file containing the open command:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/initcpio/hooks/openswap</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">run_hook ()
@@ -205,7 +205,7 @@ swap     LABEL=<i>cryptswap</i>  /dev/urandom  swap,offset=2048,cipher=aes-xts-p
 <p>On some computers race conditions may occur when mkinitcpio tries to mount the device before the decryption process and device enumeration is completed. The commented <i>Optional</i> block will delay the boot process up to 2 seconds until the root device is ready to mount.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If swap is on a Solid State Disk (SSD) and Discard/TRIM is desired the option <code>--allow-discards</code> has to get added to the cryptsetup line in the openswap hook above. See <a href="../../Dm-crypt/Specialties.html#Discard/TRIM_support_for_solid_state_drives_(SSD)" title="Dm-crypt/Specialties">Dm-crypt/Specialties#Discard/TRIM support for solid state drives (SSD)</a> or <a href="../../Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> for more information on discard. Additionally you have to add the mount option 'discard' to your fstab entry for the swap device.</div>
+<strong>Note:</strong> If swap is on a Solid State Disk (SSD) and Discard/TRIM is desired the option <code>--allow-discards</code> has to get added to the cryptsetup line in the openswap hook above. See <a href="../../wiki/Dm-crypt/Specialties.html#Discard/TRIM_support_for_solid_state_drives_(SSD)" title="Dm-crypt/Specialties">Dm-crypt/Specialties#Discard/TRIM support for solid state drives (SSD)</a> or <a href="../../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> for more information on discard. Additionally you have to add the mount option 'discard' to your fstab entry for the swap device.</div>
 <p>Then create and edit the hook setup file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/initcpio/install/openswap</pre>
@@ -224,13 +224,13 @@ HELPEOF
 </p>
 <pre>HOOKS=(... encrypt openswap resume filesystems ...)
 </pre>
-<p><a href="../../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
+<p><a href="../../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
 </p>
 <p>Add the mapped partition to <code>/etc/fstab</code> by adding the following line:
 </p>
 <pre>/dev/mapper/swapDevice swap swap defaults 0 0
 </pre>
-<p>Set up your system to resume from <code>/dev/mapper/swapDevice</code>. For example, if you use <a href="../../GRUB.html" title="GRUB">GRUB</a> with kernel hibernation support, add the kernel parameter <code>resume=/dev/mapper/swapDevice</code> to GRUB by appending it to the <code>GRUB_CMDLINE_LINUX_DEFAULT</code> variable in <code>/etc/default/grub</code>. A kernel line with encrypted root and swap partitions can look like this:
+<p>Set up your system to resume from <code>/dev/mapper/swapDevice</code>. For example, if you use <a href="../../wiki/GRUB.html" title="GRUB">GRUB</a> with kernel hibernation support, add the kernel parameter <code>resume=/dev/mapper/swapDevice</code> to GRUB by appending it to the <code>GRUB_CMDLINE_LINUX_DEFAULT</code> variable in <code>/etc/default/grub</code>. A kernel line with encrypted root and swap partitions can look like this:
 </p>
 <pre>kernel /vmlinuz-linux-toscryptdevice=/dev/sda2:rootDevice root=/dev/mapper/rootDevice resume=/dev/mapper/swapDevice ro
 </pre>
@@ -239,7 +239,7 @@ HELPEOF
 <h3><span class="mw-headline" id="Using_a_swap_file">Using a swap file</span></h3>
 <p>A swap file can be used to reserve swap-space within an existing partition and may also be setup inside an encrypted blockdevice's partition.
 </p>
-<p>Follow swap file creation instructions in <a href="../../Swap.html#Swap_file" title="Swap">Swap#Swap file</a> and set up hibernation according to <a href="../../Power_management/Suspend_and_hibernate.html#Hibernation_into_swap_file" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation into swap file</a>.
+<p>Follow swap file creation instructions in <a href="../../wiki/Swap.html#Swap_file" title="Swap">Swap#Swap file</a> and set up hibernation according to <a href="../../wiki/Power_management/Suspend_and_hibernate.html#Hibernation_into_swap_file" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation into swap file</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> When resuming from a swapfile the <code>resume</code> parameter must point to the unlocked/mapped device that contains the file system with the swap file.</div>
@@ -250,11 +250,11 @@ HELPEOF
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -273,9 +273,9 @@ HELPEOF
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

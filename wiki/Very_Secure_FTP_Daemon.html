@@ -2,7 +2,7 @@
     title: Very_Secure_FTP_Daemon
     description: Migration of Very_Secure_FTP_Daemon from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -76,7 +76,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vsftpd">vsftpd</a></span> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>vsftpd.service</code> daemon.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vsftpd">vsftpd</a></span> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>vsftpd.service</code> daemon.
 </p>
 <p>To use <a href="https://en.wikipedia.org/wiki/xinetd"  title="wikipedia:xinetd">xinetd</a> for monitoring and controlling vsftpd connections, see <a href="#Using_xinetd">#Using xinetd</a>.
 </p>
@@ -191,15 +191,15 @@ max_per_ip=2           # Maximum connections per IP
 </p>
 <pre>500 OOPS: could not bind listening IPv4 socket
 </pre>
-<p>Instead of starting the vsftpd daemon start and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>xinetd.service</code>.
+<p>Instead of starting the vsftpd daemon start and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>xinetd.service</code>.
 </p>
 <h3>
 <span id="Using_SSL.2FTLS_to_secure_FTP"></span><span class="mw-headline" id="Using_SSL/TLS_to_secure_FTP">Using SSL/TLS to secure FTP</span>
 </h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Do not duplicate <a href="../OpenSSL.html#Certificates" title="OpenSSL">OpenSSL#Certificates</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Very_Secure_FTP_Daemon">Talk:Very Secure FTP Daemon#</a>)</div>
+<b>Reason:</b> Do not duplicate <a href="../wiki/OpenSSL.html#Certificates" title="OpenSSL">OpenSSL#Certificates</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Very_Secure_FTP_Daemon">Talk:Very Secure FTP Daemon#</a>)</div>
 </div>
 <p>First, you need a <i>X.509 SSL/TLS</i> certificate to use TLS. If you do not have one, you can easily generate a self-signed certificate as follows: 
 </p>
@@ -207,7 +207,7 @@ max_per_ip=2           # Maximum connections per IP
 # openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout vsftpd.pem -out vsftpd.pem
 # chmod 600 vsftpd.pem
 </pre>
-<p>You will be asked questions about your company, etc. As your certificate is not a trusted one, it does not really matter what is filled in, it will just be used for encryption. To use a trusted certificate, you can get one from a certificate authority like <a href="../Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. 
+<p>You will be asked questions about your company, etc. As your certificate is not a trusted one, it does not really matter what is filled in, it will just be used for encryption. To use a trusted certificate, you can get one from a certificate authority like <a href="../wiki/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. 
 </p>
 <p>Then, edit the configuration file:
 </p>
@@ -263,11 +263,11 @@ pasv_address=<i>yourdomain.org</i>
 pasv_min_port=5000
 pasv_max_port=5003</pre>
 <h3><span class="mw-headline" id="Configuring_iptables">Configuring iptables</span></h3>
-<p>Often the server running the FTP daemon is protected by an <a href="../Iptables.html" title="Iptables">iptables</a> firewall. To allow access to the FTP server the corresponding port needs to be opened using something like
+<p>Often the server running the FTP daemon is protected by an <a href="../wiki/Iptables.html" title="Iptables">iptables</a> firewall. To allow access to the FTP server the corresponding port needs to be opened using something like
 </p>
 <pre># iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
 </pre>
-<p>This article will not provide any instruction on how to set up iptables but here is an example: <a href="../Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a>.
+<p>This article will not provide any instruction on how to set up iptables but here is an example: <a href="../wiki/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a>.
 </p>
 <p>There are some kernel modules needed for proper FTP connection handling by iptables that should be referenced here. Among those especially <i>nf_conntrack_ftp</i>. It is needed as FTP uses the given <i>listen_port</i> (21 by default) for commands only; all the data transfer is done over different ports. These ports are chosen by the FTP daemon at random and for each session (also depending on whether active or passive mode is used). To tell iptables that packets on ports should be accepted, <i>nf_conntrack_ftp</i> is required. To load it automatically on boot create a new file in <code>/etc/modules-load.d</code> e.g.:
 </p>
@@ -283,7 +283,7 @@ pasv_max_port=5003</pre>
 </pre>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="PAM_with_virtual_users">PAM with virtual users</span></h3>
-<p>Since <a href="../PAM.html" title="PAM">PAM</a> no longer provides <code>pam_userdb.so</code> another easy method is to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libpam_pwdfile/">libpam_pwdfile</a></span><sup><small>AUR</small></sup>.  This section is however limited to explain how to configure a chroot environment and authentication by <code>pam_pwdfile.so</code>.
+<p>Since <a href="../wiki/PAM.html" title="PAM">PAM</a> no longer provides <code>pam_userdb.so</code> another easy method is to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libpam_pwdfile/">libpam_pwdfile</a></span><sup><small>AUR</small></sup>.  This section is however limited to explain how to configure a chroot environment and authentication by <code>pam_pwdfile.so</code>.
 </p>
 <p>In this example we create the directory <code>vsftpd</code>:
 </p>
@@ -340,7 +340,7 @@ virtual_use_local_privs=YES
 </pre>
 <p>Otherwise vsftpd because of default security settings will complain if it detects that chroot is writable.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>vsftpd.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>vsftpd.service</code>.
 </p>
 <p>You should now be able to login from a ftp-client with any of the users and passwords stored in <code>/etc/vsftpd/.passwd</code>.
 </p>
@@ -447,11 +447,11 @@ may be interfering with any module that needs to use the network to perform oper
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:FTP_servers.html" title="Category:FTP servers">FTP servers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:FTP_servers.html" title="Category:FTP servers">FTP servers</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
 </ul>
 </div>
 </div>
@@ -470,9 +470,9 @@ may be interfering with any module that needs to use the network to perform oper
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

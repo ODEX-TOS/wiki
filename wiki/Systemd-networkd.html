@@ -2,7 +2,7 @@
     title: Systemd-networkd
     description: Migration of Systemd-networkd from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,16 +29,16 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a></li>
-<li><a href="../Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
-<li><a href="../Network_bridge.html" title="Network bridge">Network bridge</a></li>
-<li><a href="../Network_configuration.html" title="Network configuration">Network configuration</a></li>
-<li><a href="../Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
-<li><a href="../Category:Network_configuration.html" title="Category:Network configuration">Category:Network configuration</a></li>
+<li><a href="../wiki/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a></li>
+<li><a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="../wiki/Network_bridge.html" title="Network bridge">Network bridge</a></li>
+<li><a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
+<li><a href="../wiki/Category:Network_configuration.html" title="Category:Network configuration">Category:Network configuration</a></li>
 </ul>
 </div>
-<p><i>systemd-networkd</i> is a system daemon that manages network configurations. It detects and configures network devices as they appear; it can also create virtual network devices. This service can be especially useful to set up complex network configurations for a container managed by <a href="../Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a> or for virtual machines. It also works fine on simple connections.
+<p><i>systemd-networkd</i> is a system daemon that manages network configurations. It detects and configures network devices as they appear; it can also create virtual network devices. This service can be especially useful to set up complex network configurations for a container managed by <a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a> or for virtual machines. It also works fine on simple connections.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -132,17 +132,17 @@
 </div>
 
 <h2><span class="mw-headline" id="Basic_usage">Basic usage</span></h2>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package is part of the default TOS installation and contains all needed files to operate a wired network.  Wireless adapters, covered later in this article, can be set up by services, such as <a href="../Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a> or <a href="../Iwd.html" title="Iwd">iwd</a>.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package is part of the default TOS installation and contains all needed files to operate a wired network.  Wireless adapters, covered later in this article, can be set up by services, such as <a href="../wiki/Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a> or <a href="../wiki/Iwd.html" title="Iwd">iwd</a>.
 </p>
 <h3><span class="mw-headline" id="Required_services_and_setup">Required services and setup</span></h3>
-<p>To use <i>systemd-networkd</i>, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-networkd.service</code>.
+<p>To use <i>systemd-networkd</i>, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-networkd.service</code>.
 </p>
-<p>It is optional to also <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-resolved.service</code>, which is a network name resolution service to local applications, considering the following points:
+<p>It is optional to also <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-resolved.service</code>, which is a network name resolution service to local applications, considering the following points:
 </p>
 <ul>
-<li>The <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> service is required if DNS entries are specified in <i>.network</i> files,</li>
+<li>The <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> service is required if DNS entries are specified in <i>.network</i> files,</li>
 <li>It can be used to automatically obtain DNS addresses from the network DHCP client,</li>
-<li>It is important to understand how <a href="../Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> and <i>systemd-resolved</i> interact to properly configure the DNS that will be used, some explanations are provided in <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>.</li>
+<li>It is important to understand how <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> and <i>systemd-resolved</i> interact to properly configure the DNS that will be used, some explanations are provided in <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>.</li>
 <li>Note that <i>systemd-resolved</i> can also be used without <i>systemd-networkd</i>.</li>
 </ul>
 <h3><span class="mw-headline" id="Configuration_examples">Configuration examples</span></h3>
@@ -150,14 +150,14 @@
 </p>
 <p>Systemd/udev automatically assigns predictable, stable network interface names for all local Ethernet, WLAN, and WWAN interfaces. Use <code>networkctl list</code> to list the devices on the system.
 </p>
-<p>After making changes to a configuration file, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>systemd-networkd.service</code>.
+<p>After making changes to a configuration file, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>systemd-networkd.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>The options specified in the configuration files are case sensitive.</li>
 <li>In the examples below, <code>enp1s0</code> is the wired adapter and <code>wlp2s0</code> is the wireless adapter. These names can be different on different systems. It is also possible to use a wildcard, e.g. <code>Name=en*</code>.</li>
-<li>If you want to disable IPv6, see <a href="../IPv6.html#systemd-networkd_3" title="IPv6">IPv6#systemd-networkd</a>.</li>
+<li>If you want to disable IPv6, see <a href="../wiki/IPv6.html#systemd-networkd_3" title="IPv6">IPv6#systemd-networkd</a>.</li>
 <li>Set <code>DHCP=yes</code> to accept an IPv4 <b>and</b> IPv6 DHCP request to the <code>[Network]</code> section.</li>
 </ul>
 </div>
@@ -181,7 +181,7 @@ DNS=10.1.10.1
 <p><code>Address=</code> can be used more than once to configure multiple IPv4 or IPv6 addresses. See <a href="#network_files">#network files</a> or <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span> for more options.
 </p>
 <h4><span class="mw-headline" id="Wireless_adapter">Wireless adapter</span></h4>
-<p>In order to connect to a wireless network with <i>systemd-networkd</i>, a wireless adapter configured with another application such as <a href="../Wpa_supplicant.html" class="mw-redirect" title="WPA supplicant">WPA supplicant</a> or <a href="../Iwd.html" title="Iwd">Iwd</a> is required.
+<p>In order to connect to a wireless network with <i>systemd-networkd</i>, a wireless adapter configured with another application such as <a href="../wiki/Wpa_supplicant.html" class="mw-redirect" title="WPA supplicant">WPA supplicant</a> or <a href="../wiki/Iwd.html" title="Iwd">Iwd</a> is required.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/25-wireless.network</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Match]
@@ -218,7 +218,7 @@ DHCP=ipv4
 [DHCP]
 RouteMetric=20</pre>
 <h4><span class="mw-headline" id="Renaming_an_interface">Renaming an interface</span></h4>
-<p>Instead of <a href="../Network_configuration.html#Change_interface_name" title="Network configuration">editing udev rules</a>, a <i>.link</i> file can be used to rename an interface. A useful example is to set a predictable interface name for a USB-to-Ethernet adapter based on its MAC address, as those adapters are usually given different names depending on which USB port they are plugged into.
+<p>Instead of <a href="../wiki/Network_configuration.html#Change_interface_name" title="Network configuration">editing udev rules</a>, a <i>.link</i> file can be used to rename an interface. A useful example is to set a predictable interface name for a USB-to-Ethernet adapter based on its MAC address, as those adapters are usually given different names depending on which USB port they are plugged into.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/10-ethusb0.link</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Match]
@@ -232,7 +232,7 @@ Name=ethusb0</pre>
 <h2><span class="mw-headline" id="Configuration_files">Configuration files</span></h2>
 <p>Configuration files are located in <code>/usr/lib/systemd/network/</code>, the volatile runtime network directory <code>/run/systemd/network/</code> and the local administration network directory <code>/etc/systemd/network/</code>. Files in <code>/etc/systemd/network/</code> have the highest priority.
 </p>
-<p>There are three types of configuration files. They all use a format similar to <a href="../Systemd.html#Writing_unit_files" title="Systemd">systemd unit files</a>. 
+<p>There are three types of configuration files. They all use a format similar to <a href="../wiki/Systemd.html#Writing_unit_files" title="Systemd">systemd unit files</a>. 
 </p>
 <ul>
 <li>
@@ -240,7 +240,7 @@ Name=ethusb0</pre>
 <li>
 <i><b>.netdev</b></i> files. They will create a <i>virtual network device</i> for a <i>matching</i> environment</li>
 <li>
-<i><b>.link</b></i> files. When a network device appears, <a href="../Udev.html" title="Udev">udev</a> will look for the first <i>matching</i> <i>.link</i> file</li>
+<i><b>.link</b></i> files. When a network device appears, <a href="../wiki/Udev.html" title="Udev">udev</a> will look for the first <i>matching</i> <i>.link</i> file</li>
 </ul>
 <p>They all follow the same rules: 
 </p>
@@ -314,10 +314,10 @@ Name=ethusb0</pre>
 </h4>
 <ul>
 <li>
-<code>MACAddress=</code> useful for <a href="../MAC_address_spoofing.html#systemd-networkd" title="MAC address spoofing">MAC address spoofing</a>
+<code>MACAddress=</code> useful for <a href="../wiki/MAC_address_spoofing.html#systemd-networkd" title="MAC address spoofing">MAC address spoofing</a>
 </li>
 <li>
-<code>MTUBytes=</code> setting a larger MTU value (e.g. when using <a href="../Jumbo_frames.html" title="Jumbo frames">jumbo frames</a>) can significantly speed up your network transfers</li>
+<code>MTUBytes=</code> setting a larger MTU value (e.g. when using <a href="../wiki/Jumbo_frames.html" title="Jumbo frames">jumbo frames</a>) can significantly speed up your network transfers</li>
 <li>
 <code>Multicast</code> allow the usage of <a href="https://en.wikipedia.org/wiki/Multicast_address"  title="wikipedia:Multicast address">multicast</a> on interface(s)</li>
 </ul>
@@ -370,7 +370,7 @@ Name=ethusb0</pre>
 </tr>
 <tr>
 <td><code>DNS=</code></td>
-<td>Configure static <a href="../Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> addresses. May be specified more than once.</td>
+<td>Configure static <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> addresses. May be specified more than once.</td>
 <td><a rel="nofollow"  href="http://man7.org/linux/man-pages/man3/inet_pton.3.html"><code>inet_pton</code></a></td>
 <td>
 </td>
@@ -459,7 +459,7 @@ Name=ethusb0</pre>
 </tr>
 <tr>
 <td><code>UseDomains=</code></td>
-<td>controls whether the domain name received from the DHCP server will be used as DNS search domain. If set to <code>route</code>, the domain name received from the DHCP server will be used for routing DNS queries only, but not for searching. This option can sometimes fix local name resolving when using <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>
+<td>controls whether the domain name received from the DHCP server will be used as DNS search domain. If set to <code>route</code>, the domain name received from the DHCP server will be used for routing DNS queries only, but not for searching. This option can sometimes fix local name resolving when using <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>
 </td>
 <td>boolean, <code>route</code>
 </td>
@@ -472,7 +472,7 @@ Name=ethusb0</pre>
 <h4>
 <span id=".5BDHCPServer.5D"></span><span class="mw-headline" id="[DHCPServer]">[DHCPServer]</span>
 </h4>
-<p>This is an example of a DHCP server configuration which works well with <a href="../Software_access_point.html#Wi-Fi_link_layer" class="mw-redirect" title="Hostapd">hostapd</a> to create a wireless hotspot. <code>IPMasquerade</code> adds the firewall rules for <a href="../Internet_sharing.html#Enable_NAT" title="Internet sharing">NAT</a> and <code>IPForward</code> enables <a href="../Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">packet forwarding</a>.
+<p>This is an example of a DHCP server configuration which works well with <a href="../wiki/Software_access_point.html#Wi-Fi_link_layer" class="mw-redirect" title="Hostapd">hostapd</a> to create a wireless hotspot. <code>IPMasquerade</code> adds the firewall rules for <a href="../wiki/Internet_sharing.html#Enable_NAT" title="Internet sharing">NAT</a> and <code>IPForward</code> enables <a href="../wiki/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">packet forwarding</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/<i>wlan0</i>.network</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Match]
@@ -516,7 +516,7 @@ DNS=9.9.9.9
 </li>
 </ul>
 <h3><span class="mw-headline" id="link_files">link files</span></h3>
-<p>These files are an alternative to custom udev rules and will be applied by <a href="../Udev.html" title="Udev">udev</a> as the device appears. They have two sections: <code>[Match]</code> and <code>[Link]</code>. Below are commonly configured keys for each section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.link"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.link.5">systemd.link(5)</a></span> for more information and examples.
+<p>These files are an alternative to custom udev rules and will be applied by <a href="../wiki/Udev.html" title="Udev">udev</a> as the device appears. They have two sections: <code>[Match]</code> and <code>[Link]</code>. Below are commonly configured keys for each section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.link"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.link.5">systemd.link(5)</a></span> for more information and examples.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Use <code>udevadm test-builtin net_setup_link /sys/path/to/network/device</code> as the root user to diagnose problems with <i>.link</i> files.</div>
@@ -544,20 +544,20 @@ DNS=9.9.9.9
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> the system <code>/usr/lib/systemd/network/99-default.link</code> is generally sufficient for most of the basic cases.</div>
 <h2><span class="mw-headline" id="Usage_with_containers">Usage with containers</span></h2>
-<p>The service is available with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>. You will want to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>systemd-networkd.service</code> unit on the host and container.
+<p>The service is available with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>. You will want to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>systemd-networkd.service</code> unit on the host and container.
 </p>
-<p>For debugging purposes, it is strongly advised to <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> packages.
+<p>For debugging purposes, it is strongly advised to <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> packages.
 </p>
-<p>If you are using <a href="../Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a>, you may need to <a href="../Systemd.html#Editing_provided_units" title="Systemd">modify</a> the <code>systemd-nspawn@.service</code> and append boot options to the <code>ExecStart</code> line. Please refer to <span class="plainlinks archwiki-template-man" title="$ man 1 systemd-nspawn"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-nspawn.1">systemd-nspawn(1)</a></span> for an exhaustive list of options.
+<p>If you are using <a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a>, you may need to <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">modify</a> the <code>systemd-nspawn@.service</code> and append boot options to the <code>ExecStart</code> line. Please refer to <span class="plainlinks archwiki-template-man" title="$ man 1 systemd-nspawn"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-nspawn.1">systemd-nspawn(1)</a></span> for an exhaustive list of options.
 </p>
 <p>Note that if you want to take advantage of automatic DNS configuration from DHCP, you need to enable <code>systemd-resolved</code> and symlink <code>/run/systemd/resolve/resolv.conf</code> to <code>/etc/resolv.conf</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-resolved.service"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-resolved.service.8">systemd-resolved.service(8)</a></span> for more details.
 </p>
 <p>Before you start to configure your container network, it is useful to:
 </p>
 <ul>
-<li>disable all your <a href="../Netctl.html" title="Netctl">netctl</a> (host and container), <a href="../Dhcpcd.html" title="Dhcpcd">dhcpcd</a> (host and container), <a class="mw-selflink selflink">systemd-networkd</a> (container only) and <code>systemd-nspawn@.service</code> (host only) services to avoid potential conflicts and to ease debugging</li>
-<li>make sure <a href="../Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">packet forwarding</a> is enabled if you want to let containers access the internet. Make sure that your <i>.network</i> file does not accidentally turn off forwarding because if you do not have a <code>IPForward=1</code> setting in it, <code>systemd-networkd</code> will turn off forwarding on this interface, even if you have it enabled globally.</li>
-<li>make sure you do not have any <a href="../Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> rules which can block traffic.</li>
+<li>disable all your <a href="../wiki/Netctl.html" title="Netctl">netctl</a> (host and container), <a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> (host and container), <a class="mw-selflink selflink">systemd-networkd</a> (container only) and <code>systemd-nspawn@.service</code> (host only) services to avoid potential conflicts and to ease debugging</li>
+<li>make sure <a href="../wiki/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">packet forwarding</a> is enabled if you want to let containers access the internet. Make sure that your <i>.network</i> file does not accidentally turn off forwarding because if you do not have a <code>IPForward=1</code> setting in it, <code>systemd-networkd</code> will turn off forwarding on this interface, even if you have it enabled globally.</li>
+<li>make sure you do not have any <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> rules which can block traffic.</li>
 <li>when the daemon is started the systemd <code>networkctl</code> command displays the status of network interfaces.</li>
 </ul>
 <p>For the set-up described below, 
@@ -577,7 +577,7 @@ Name=en*
 [Network]
 DHCP=ipv4
 </pre>
-<p>Then, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and start <code>systemd-networkd.service</code> on your container.
+<p>Then, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and start <code>systemd-networkd.service</code> on your container.
 </p>
 <p>You can of course replace <code>en*</code> by the full name of your ethernet device given by the output of the <code>ip link</code> command.
 </p>
@@ -598,7 +598,7 @@ DHCP=ipv4
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[DHCPv4]
 UseHostname=false
 </pre>
-<p>If you did not want to configure a DNS in <code>/etc/resolv.conf</code> and want to rely on DHCP for setting it up, you need to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-resolved.service</code> and symlink <code>/run/systemd/resolve/resolv.conf</code> to <code>/etc/resolv.conf</code>
+<p>If you did not want to configure a DNS in <code>/etc/resolv.conf</code> and want to rely on DHCP for setting it up, you need to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-resolved.service</code> and symlink <code>/run/systemd/resolve/resolv.conf</code> to <code>/etc/resolv.conf</code>
 </p>
 <pre># ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 </pre>
@@ -608,13 +608,13 @@ UseHostname=false
 <strong>Note:</strong> Users accessing a system partition via <code>/usr/bin/arch-chroot</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>, will need to create the symlink outside of the chroot, on the mounted partition.  This is due to arch-chroot linking the file to the live environment.</div>
 <h3><span class="mw-headline" id="DHCP_with_two_distinct_IP">DHCP with two distinct IP</span></h3>
 <h4><span class="mw-headline" id="Bridge_interface">Bridge interface</span></h4>
-<p>First, create a virtual <a href="../Network_bridge.html" class="mw-redirect" title="Bridge">bridge</a> interface. We tell systemd to create a device named <i>br0</i> that functions as an ethernet bridge.
+<p>First, create a virtual <a href="../wiki/Network_bridge.html" class="mw-redirect" title="Bridge">bridge</a> interface. We tell systemd to create a device named <i>br0</i> that functions as an ethernet bridge.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/<i>MyBridge</i>.netdev</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[NetDev]
 Name=br0
 Kind=bridge</pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>systemd-networkd.service</code> to have systemd create the bridge.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>systemd-networkd.service</code> to have systemd create the bridge.
 </p>
 <p>On host and container:
 </p>
@@ -728,7 +728,7 @@ Gateway=192.168.1.254
 </p>
 <pre># ln -sf /dev/null /etc/systemd/network/80-container-host0.network
 </pre>
-<p>Then, configure an static IP for the default <code>host0</code> network interface and <a href="../Systemd.html#Basic_systemctl_usage" title="Systemd">enable and start</a> <code>systemd-networkd.service</code> on your container. An example configuration is provided below:
+<p>Then, configure an static IP for the default <code>host0</code> network interface and <a href="../wiki/Systemd.html#Basic_systemctl_usage" title="Systemd">enable and start</a> <code>systemd-networkd.service</code> on your container. An example configuration is provided below:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/<i>MyVeth</i>.network</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Match]
@@ -741,14 +741,14 @@ Gateway=192.168.1.254
 </pre>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Interface_and_desktop_integration">Interface and desktop integration</span></h3>
-<p><i>systemd-networkd</i> does not have a proper interactive management interface neither via <a href="../Command-line_shell.html" title="Command-line shell">command-line shell</a> nor graphical.
+<p><i>systemd-networkd</i> does not have a proper interactive management interface neither via <a href="../wiki/Command-line_shell.html" title="Command-line shell">command-line shell</a> nor graphical.
 </p>
 <p>Still, some tools are available to either display the current state of the network, receive notifications or interact with the wireless configuration:
 </p>
 <ul>
 <li>
 <i>networkctl</i> (via CLI) offers a simple dump of the network interface states.</li>
-<li>When <i>networkd</i> is configured with <a href="../Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>, both <i>wpa_cli</i> and <i>wpa_gui</i> offer the ability to associate and configure WLAN interfaces dynamically.</li>
+<li>When <i>networkd</i> is configured with <a href="../wiki/Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>, both <i>wpa_cli</i> and <i>wpa_gui</i> offer the ability to associate and configure WLAN interfaces dynamically.</li>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/networkd-notify-git/">networkd-notify-git</a></span><sup><small>AUR</small></sup> can generate simple notifications in response to network interface state changes (such as connection/disconnection and re-association).</li>
 <li>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/networkd-dispatcher/">networkd-dispatcher</a></span><sup><small>AUR</small></sup> daemon allows executing scripts in response to network interface state changes, similar to <i>NetworkManager-dispatcher</i>.</li>
@@ -783,7 +783,7 @@ Name=wlp2s0
 DHCP=ipv4
 </pre>
 <h3><span class="mw-headline" id="Bonding_a_wired_and_wireless_interface">Bonding a wired and wireless interface</span></h3>
-<p>See also <a href="../Wireless_bonding.html" title="Wireless bonding">Wireless bonding</a>.
+<p>See also <a href="../wiki/Wireless_bonding.html" title="Wireless bonding">Wireless bonding</a>.
 </p>
 <p>Bonding allows connection sharing through multiple interfaces, so if e.g. the wired interface is unplugged, the wireless is still connected and the network connectivity remains up seamlessly.
 </p>
@@ -842,20 +842,20 @@ DHCP=ipv4
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Mount_services_at_boot_fail">Mount services at boot fail</span></h3>
-<p>If running services like <a href="../Samba.html" title="Samba">Samba</a>/<a href="../NFS.html" title="NFS">NFS</a> which fail if they are started before the network is up, you may want to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>systemd-networkd-wait-online.service</code>. This is, however, rarely necessary because most networked daemons start up okay, even if the network has not been configured yet.
+<p>If running services like <a href="../wiki/Samba.html" title="Samba">Samba</a>/<a href="../wiki/NFS.html" title="NFS">NFS</a> which fail if they are started before the network is up, you may want to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>systemd-networkd-wait-online.service</code>. This is, however, rarely necessary because most networked daemons start up okay, even if the network has not been configured yet.
 </p>
 <h3><span class="mw-headline" id="systemd-resolve_not_searching_the_local_domain">systemd-resolve not searching the local domain</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Notes:</b> The problem is with <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Systemd-networkd">Talk:Systemd-networkd#</a>)</div>
+<b>Notes:</b> The problem is with <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Systemd-networkd">Talk:Systemd-networkd#</a>)</div>
 </div>
-<p><a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> may not search the local domain when given just the hostname, even when <code>UseDomains=yes</code> or <code>Domains=[domain-list]</code> is present in the appropriate <i>.network</i> file, and that file produces the expected <code>search [domain-list]</code> in <code>resolv.conf</code>. You can run <code>networkctl status</code> or <code>resolvectl status</code> to check if the search domains are actually being picked up.
+<p><a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> may not search the local domain when given just the hostname, even when <code>UseDomains=yes</code> or <code>Domains=[domain-list]</code> is present in the appropriate <i>.network</i> file, and that file produces the expected <code>search [domain-list]</code> in <code>resolv.conf</code>. You can run <code>networkctl status</code> or <code>resolvectl status</code> to check if the search domains are actually being picked up.
 </p>
 <p>Possible workarounds:
 </p>
 <ul>
-<li>Disable <a href="../Systemd-resolved.html#LLMNR" title="Systemd-resolved">LLMNR</a> to let <i>systemd-resolved</i> immediately continue with appending the DNS suffixes</li>
+<li>Disable <a href="../wiki/Systemd-resolved.html#LLMNR" title="Systemd-resolved">LLMNR</a> to let <i>systemd-resolved</i> immediately continue with appending the DNS suffixes</li>
 <li>Trim <code>/etc/nsswitch.conf</code>'s <code>hosts</code> database (e.g., by removing <code>[!UNAVAIL=return]</code> option after <code>resolve</code> service)</li>
 <li>Switch to using fully-qualified domain names</li>
 <li>Use <code>/etc/hosts</code> to resolve hostnames</li>
@@ -864,7 +864,7 @@ DHCP=ipv4
 </ul>
 <h3><span class="mw-headline" id="Connected_second_PC_unable_to_use_bridged_LAN">Connected second PC unable to use bridged LAN</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../Network_configuration.html" title="Network configuration">Network configuration</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Not specific to systemd-networkd. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Systemd-networkd">Talk:Systemd-networkd#</a>)</div>
 </div>
@@ -893,13 +893,13 @@ DHCP=ipv4
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Network_managers.html" title="Category:Network managers">Network managers</a></li>
-<li><a href="../Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="../wiki/Category:Network_managers.html" title="Category:Network managers">Network managers</a></li>
+<li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -918,9 +918,9 @@ DHCP=ipv4
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: IMac_(21.5-inch,_Mid_2010)
     description: Migration of IMac_(21.5-inch,_Mid_2010) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -28,7 +28,7 @@
 Despite having Radeon rather than nVidia graphics, <a rel="nofollow"  href="https://support.apple.com/kb/sp588?locale=en_US">this</a> iMac model suffers from a number of graphics-related problems. The problems I have encountered are:
 </p>
 <ul>
-<li>The screen becomes disabled/turned off when <a href="../Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a> kicks in.</li>
+<li>The screen becomes disabled/turned off when <a href="../wiki/Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a> kicks in.</li>
 <li>After resuming from suspend-to-RAM, the screen cannot be re-enabled even with the fix described below.</li>
 <li>The system produces an interface for controlling a nonexistent backlight in <code>/sys/class/backlight/acpi_video0</code>.</li>
 </ul>
@@ -46,7 +46,7 @@ Despite having Radeon rather than nVidia graphics, <a rel="nofollow"  href="http
 </div>
 
 <h2><span class="mw-headline" id="Workaround_for_the_KMS_bug">Workaround for the KMS bug</span></h2>
-<p>During the initial installation process, it is simplest to add <code>modprobe.blacklist=radeon</code> to your <a href="../Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a> when booting from the installation media. I did not attempt to boot in BIOS mode, though I doubt it would make much difference with regards to the black screen. You will need to keep this parameter in your kernel command line until after you have installed a graphical environment, so when you install your desktop environment, be sure to also install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-fbdev">xf86-video-fbdev</a></span>. This will allow you to use software rendering and the high-resolution EFI framebuffer until you get the radeon problem sorted out. When you've gotten your graphical environment the way you want, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xrandr">xorg-xrandr</a></span>, and create the following script:
+<p>During the initial installation process, it is simplest to add <code>modprobe.blacklist=radeon</code> to your <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a> when booting from the installation media. I did not attempt to boot in BIOS mode, though I doubt it would make much difference with regards to the black screen. You will need to keep this parameter in your kernel command line until after you have installed a graphical environment, so when you install your desktop environment, be sure to also install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-fbdev">xf86-video-fbdev</a></span>. This will allow you to use software rendering and the high-resolution EFI framebuffer until you get the radeon problem sorted out. When you've gotten your graphical environment the way you want, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xrandr">xorg-xrandr</a></span>, and create the following script:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/local/bin/fix_display</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/usr/bin/bash
@@ -55,7 +55,7 @@ Despite having Radeon rather than nVidia graphics, <a rel="nofollow"  href="http
 <p>Make it executable:
 </p>
 <pre>sudo chmod +x /usr/local/bin/fix_display</pre>
-<p>Edit your <a href="../Display_manager.html" title="Display manager">display manager</a>'s configuration so that the script runs while the greeter is starting up. I use <a href="../SDDM.html" title="SDDM">SDDM</a>, so I configured it like this:
+<p>Edit your <a href="../wiki/Display_manager.html" title="Display manager">display manager</a>'s configuration so that the script runs while the greeter is starting up. I use <a href="../wiki/SDDM.html" title="SDDM">SDDM</a>, so I configured it like this:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sddm.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[X11]
@@ -68,10 +68,10 @@ DisplayCommand=/usr/local/bin/fix_display</pre>
 <p>I do not know of any workaround for the suspend-and-resume issue at this time.
 </p>
 <h2><span class="mw-headline" id="Workaround_for_the_fake_backlight_control">Workaround for the fake backlight control</span></h2>
-<p>Add <code>acpi_backlight=none</code> to your <a href="../Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a> and reboot. Your desktop environment should now be able to adjust the screen brightness properly. (Note that you'll have to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdevil">powerdevil</a></span> package if you wish to adjust the brightness in <a href="../KDE.html#Plasma" class="mw-redirect" title="Plasma">Plasma</a>.)
+<p>Add <code>acpi_backlight=none</code> to your <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a> and reboot. Your desktop environment should now be able to adjust the screen brightness properly. (Note that you'll have to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdevil">powerdevil</a></span> package if you wish to adjust the brightness in <a href="../wiki/KDE.html#Plasma" class="mw-redirect" title="Plasma">Plasma</a>.)
 </p>
 <h2><span class="mw-headline" id="Suggestions_about_the_bootloader">Suggestions about the bootloader</span></h2>
-<p>Because Mac computers do not have a normal <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, I advise making your bootloader follow Apple's conventions as much as possible. This will allow you to make the TOS entry in the Option-key boot menu nice and pretty, as well as allowing you to set TOS as the default OS instead of macOS. Here are the rough steps to do this. Consider these instructions a supplement to—not a replacement for—the <a href="../Installation_guide.html" title="Installation guide">installation guide</a>. They only detail the steps that deviate from the normal install process.
+<p>Because Mac computers do not have a normal <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, I advise making your bootloader follow Apple's conventions as much as possible. This will allow you to make the TOS entry in the Option-key boot menu nice and pretty, as well as allowing you to set TOS as the default OS instead of macOS. Here are the rough steps to do this. Consider these instructions a supplement to—not a replacement for—the <a href="../wiki/Installation_guide.html" title="Installation guide">installation guide</a>. They only detail the steps that deviate from the normal install process.
 </p>
 <ol>
 <li>Before installing TOS, create a 1 GiB partition in Disk Utility formatted as MacOS Extended (Journaled). Name it "TOSLinux-Boot".</li>
@@ -80,7 +80,7 @@ DisplayCommand=/usr/local/bin/fix_display</pre>
 <li>Boot into the install media (don't forget the workaround for graphics above)</li>
 <li>Use <code>gdisk</code> to change the partition type codes on the root and swap partitions to the proper codes for Linux Filesystem (8300) and Linux Swap (8200).</li>
 <li>
-<a href="../File_systems.html#Create_a_file_system" class="mw-redirect" title="Format">Format</a> the partitions with your choice of filesystem.</li>
+<a href="../wiki/File_systems.html#Create_a_file_system" class="mw-redirect" title="Format">Format</a> the partitions with your choice of filesystem.</li>
 <li>Mount your newly-formatted root filesystem on <code>/mnt</code>. Create the directories <code>/mnt/esp</code>, <code>/mnt/applebootpartition</code>, and <code>/mnt/boot</code>.</li>
 <li>Mount the EFI system partition under <code>/mnt/esp</code>
 </li>
@@ -90,14 +90,14 @@ DisplayCommand=/usr/local/bin/fix_display</pre>
 </li>
 <li>Generate the fstab file. You'll probably need to correct the bind-mount fstab entries to use directories that make sense for the installed system rather than the live environment.</li>
 <li>Run <code>pacstrap</code> as specified in the main installation guide and chroot into the new system.</li>
-<li>Copy <code>/usr/lib/systemd/boot/efi/systemd-bootx64.efi</code> to <code>/applebootpartition/System/Library/CoreServices/boot.efi</code> and from there configure <a href="../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> as though <code>/applebootpartition</code> were the EFI system partition. <code>/applebootpartition/kernel</code> should contain your vmlinuz and <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> images.</li>
+<li>Copy <code>/usr/lib/systemd/boot/efi/systemd-bootx64.efi</code> to <code>/applebootpartition/System/Library/CoreServices/boot.efi</code> and from there configure <a href="../wiki/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> as though <code>/applebootpartition</code> were the EFI system partition. <code>/applebootpartition/kernel</code> should contain your vmlinuz and <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> images.</li>
 <li>Create the file <code>/applebootpartition/mach_kernel</code> (it should be an empty file). I'm not sure whether this is actually necessary for the firmware to detect the partition as bootable.</li>
 <li>Perform any other needed installation steps, then reboot into the installed system by holding down the option key when the iMac boots.</li>
 </ol>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Apple.html" title="Category:Apple">Apple</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Apple.html" title="Category:Apple">Apple</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -114,9 +114,9 @@ DisplayCommand=/usr/local/bin/fix_display</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

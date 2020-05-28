@@ -2,7 +2,7 @@
     title: Hybrid_graphics
     description: Migration of Hybrid_graphics from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -84,12 +84,12 @@
 At startup, the Linux kernel starts using a video mode and setting up low-level graphic drivers which will be used by the applications. Most of the Linux distributions then use X.org to create a graphical environment. Finally, a few other softwares are launched, first a login manager and then a window manager, and so on. This hierarchical system has been designed to be used in most of cases on a single graphic card.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Read <a href="../NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a> and <a href="../Bumblebee.html" title="Bumblebee">Bumblebee</a> for details about NVidia using hybrid graphics with NVidia’s proprietary driver. Read <a href="../PRIME.html" title="PRIME">PRIME</a> for basically everything else (like AMD Radeon and NVidia GPUs with Nouveau driver).</div>
+<strong>Note:</strong> Read <a href="../wiki/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a> and <a href="../wiki/Bumblebee.html" title="Bumblebee">Bumblebee</a> for details about NVidia using hybrid graphics with NVidia’s proprietary driver. Read <a href="../wiki/PRIME.html" title="PRIME">PRIME</a> for basically everything else (like AMD Radeon and NVidia GPUs with Nouveau driver).</div>
 <h3><span class="mw-headline" id="Fully_Power_Down_Discrete_GPU">Fully Power Down Discrete GPU</span></h3>
 <p>You may want to turn off the high-performance graphics processor to save battery power.
 </p>
 <h4><span class="mw-headline" id="Using_bbswitch">Using bbswitch</span></h4>
-<p>With a NVidia GPU, this can be more safely done using <a href="../Bumblebee.html#Power_management" class="mw-redirect" title="Bbswitch">bbswitch</a>,
+<p>With a NVidia GPU, this can be more safely done using <a href="../wiki/Bumblebee.html#Power_management" class="mw-redirect" title="Bbswitch">bbswitch</a>,
 which consists of a kernel package that automatically issues the correct
 ACPI calls to disable the discrete GPU when not needed, or automatically at boot.
 </p>
@@ -97,7 +97,7 @@ ACPI calls to disable the discrete GPU when not needed, or automatically at boot
 <p>Otherwise, and for GPUs not supported by bbswitch, the same can be done manually installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi_call">acpi_call</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> For kernels not in the <a href="../Official_repositories.html" title="Official repositories">Official repositories</a>, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi_call-dkms">acpi_call-dkms</a></span> is an alternative. See also <a href="../Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a>.</div> 
+<strong>Tip:</strong> For kernels not in the <a href="../wiki/Official_repositories.html" title="Official repositories">Official repositories</a>, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi_call-dkms">acpi_call-dkms</a></span> is an alternative. See also <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a>.</div> 
 <p>Once installed load the kernel module:
 </p>
 <pre># modprobe acpi_call
@@ -137,7 +137,7 @@ Trying \_SB_.PCI0.VGA.PX02: failed
 <p>See the "works"? This means the script found a bus which your GPU sits on and it has now turned off the chip. To confirm this, your battery time remaining should have increased.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong>  If you are experiencing trouble hibernating or suspending the system after disabling the GPU, try to enable it again by sending the corresponding acpi_call. See also <a href="../Power_management.html#Suspend.2Fresume_service_files" title="Power management">Suspend/resume service files</a>.</div>
+<strong>Tip:</strong>  If you are experiencing trouble hibernating or suspending the system after disabling the GPU, try to enable it again by sending the corresponding acpi_call. See also <a href="../wiki/Power_management.html#Suspend.2Fresume_service_files" title="Power management">Suspend/resume service files</a>.</div>
 <h5><span class="mw-headline" id="Turning_off_the_GPU_automatically">Turning off the GPU automatically</span></h5>
 <p>Currently, the chip will turn back on with the next reboot. To get around this, add the kernel module to the array of modules to load at boot:
 </p>
@@ -146,7 +146,7 @@ Trying \_SB_.PCI0.VGA.PX02: failed
 
 acpi_call</pre>
 <h6><span class="mw-headline" id="At_boot">At boot</span></h6>
-<p>To turn off the GPU at boot it is possible to use <a href="../Systemd.html#Temporary_files" title="Systemd">systemd-tmpfiles</a>. 
+<p>To turn off the GPU at boot it is possible to use <a href="../wiki/Systemd.html#Temporary_files" title="Systemd">systemd-tmpfiles</a>. 
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/acpi_call.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">
@@ -155,12 +155,12 @@ w /proc/acpi/call - - - - <i>\\_SB.PCI0.PEG0.PEGP._OFF</i></pre>
 <p>The above config will be loaded at boot by systemd. What it does is write the specific OFF signal to the <code>/proc/acpi/call</code> file. Obviously, replace the <code>\_SB.PCI0.PEG0.PEGP._OFF</code> with the one which works on your system (please note that you need to escape the backslash).
 </p>
 <h6><span class="mw-headline" id="After_X_server_initialization">After X server initialization</span></h6>
-<p>On some systems, turning off the discrete GPU before the X server is initialized may hang the system. In such cases, it may be better to disable the GPU after X server initialization, which is possible with some display managers. In <a href="../LightDM.html" title="LightDM">LightDM</a>, for instance, the <i>display-setup-script</i> seat configuration parameter could be used to execute a script as root that disables the GPU.
+<p>On some systems, turning off the discrete GPU before the X server is initialized may hang the system. In such cases, it may be better to disable the GPU after X server initialization, which is possible with some display managers. In <a href="../wiki/LightDM.html" title="LightDM">LightDM</a>, for instance, the <i>display-setup-script</i> seat configuration parameter could be used to execute a script as root that disables the GPU.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -177,9 +177,9 @@ w /proc/acpi/call - - - - <i>\\_SB.PCI0.PEG0.PEGP._OFF</i></pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

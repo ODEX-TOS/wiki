@@ -2,7 +2,7 @@
     title: Traditional_compilation
     description: Migration of Traditional_compilation from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Kernel.html" title="Kernel">Kernel</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Kernel.html" title="Kernel">Kernel</a></span></div>
 		
 		
 		
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This article is an introduction to building custom kernels from <b>kernel.org sources</b>.  This method of compiling kernels is the traditional method common to all distributions.  It can be, depending on your background, more complicated than using the <a href="../../Kernel/TOS_Build_System.html" class="mw-redirect" title="Kernels/TOS Build System">Kernels/TOS Build System</a>. Consider the <a href="../../TOS_Build_System.html" title="TOS Build System">TOS Build System</a> tools are developed and maintained to make repeatable compilation tasks efficient and safe.
+<p>This article is an introduction to building custom kernels from <b>kernel.org sources</b>.  This method of compiling kernels is the traditional method common to all distributions.  It can be, depending on your background, more complicated than using the <a href="../../wiki/Kernel/TOS_Build_System.html" class="mw-redirect" title="Kernels/TOS Build System">Kernels/TOS Build System</a>. Consider the <a href="../../wiki/TOS_Build_System.html" title="TOS Build System">TOS Build System</a> tools are developed and maintained to make repeatable compilation tasks efficient and safe.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -76,7 +76,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<p>It is not necessary (or recommended) to use the root account or root privileges (i.e. via <a href="../../Sudo.html" title="Sudo">Sudo</a>) for kernel preparation.
+<p>It is not necessary (or recommended) to use the root account or root privileges (i.e. via <a href="../../wiki/Sudo.html" title="Sudo">Sudo</a>) for kernel preparation.
 </p>
 <h3><span class="mw-headline" id="Install_the_core_packages">Install the core packages</span></h3>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/base-devel/">base-devel</a></span> package group, which contains necessary packages such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=make">make</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcc">gcc</a></span>. It is also recommended to install the following packages, as listed in the default TOS kernel <a rel="nofollow"  href="https://projects.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/linux">PKGBUILD</a>: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xmlto">xmlto</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kmod">kmod</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=inetutils">inetutils</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bc">bc</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libelf">libelf</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=git">git</a></span>
@@ -88,10 +88,10 @@
 </pre>
 <h3><span class="mw-headline" id="Download_the_kernel_source">Download the kernel source</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong>  <a href="../../Systemd.html" title="Systemd">systemd</a> requires kernel version 3.12 at least (4.2 or greater for unified <a href="../../Cgroups.html" title="Cgroups">cgroups</a> hierarchy support). See <code>/usr/share/doc/systemd/README</code> for more information.</div>
+<strong>Warning:</strong>  <a href="../../wiki/Systemd.html" title="Systemd">systemd</a> requires kernel version 3.12 at least (4.2 or greater for unified <a href="../../wiki/Cgroups.html" title="Cgroups">cgroups</a> hierarchy support). See <code>/usr/share/doc/systemd/README</code> for more information.</div>
 <p>Download the kernel source from <a rel="nofollow"  href="https://www.kernel.org">https://www.kernel.org</a>. This should be the <a href="https://en.wikipedia.org/wiki/Tar_(computing)"  title="wikipedia:Tar (computing)">tarball</a> (<code>tar.xz</code>) file for your chosen kernel. 
 </p>
-<p>It can be downloaded by simply right-clicking the <code>tar.xz</code> link in your browser and selecting <code>Save Link As...</code>, or any other number of ways via alternative graphical or command-line tools that utilise HTTP, <a href="../../TFTP.html" title="TFTP">TFTP</a>, <a href="../../Rsync.html" title="Rsync">Rsync</a>, or <a href="../../Git.html" title="Git">Git</a>. 
+<p>It can be downloaded by simply right-clicking the <code>tar.xz</code> link in your browser and selecting <code>Save Link As...</code>, or any other number of ways via alternative graphical or command-line tools that utilise HTTP, <a href="../../wiki/TFTP.html" title="TFTP">TFTP</a>, <a href="../../wiki/Rsync.html" title="Rsync">Rsync</a>, or <a href="../../wiki/Git.html" title="Git">Git</a>. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  It is a good idea to verify the PGP signature of any downloaded kernel tarball. This ensures that it is legitimate and helps to build the Web of Trust. See <a rel="nofollow"  href="https://kernel.org/signature.html#using-gnupg-to-verify-kernel-signatures">kernel.org/signature</a>.</div>
@@ -130,7 +130,7 @@ $ make mrproper
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The <code>mrproper</code> Make target depends on the <code>clean</code> target, and thus, it is not necessary to execute both. See <a rel="nofollow"  href="https://unix.stackexchange.com/q/387640">[1]</a> for reference.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>This is the most crucial step in customizing the default kernel to reflect your computer's precise specifications. Kernel configuration is set in its <code>.config</code> file, which includes the use of <a href="../../Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>. 
+<p>This is the most crucial step in customizing the default kernel to reflect your computer's precise specifications. Kernel configuration is set in its <code>.config</code> file, which includes the use of <a href="../../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  It is not necessary to use the root account or root privileges at this stage.</div>
@@ -193,7 +193,7 @@ $ make mrproper
 </p>
 <p>If unsure, only change a few options between compilations.  If you cannot boot your newly built kernel, see the list of necessary config items <a rel="nofollow"  href="https://www.archlinux.org/news/users-of-unofficial-kernels-must-enable-devtmpfs-support/">here</a>. 
 </p>
-<p>Running <code>$ lspci -k #</code>  from liveCD lists names of kernel modules in use.  Most importantly, you must maintain CGROUPS support.  This is necessary for <a href="../../Systemd.html" title="Systemd">systemd</a>.
+<p>Running <code>$ lspci -k #</code>  from liveCD lists names of kernel modules in use.  Most importantly, you must maintain CGROUPS support.  This is necessary for <a href="../../wiki/Systemd.html" title="Systemd">systemd</a>.
 </p>
 <h2><span class="mw-headline" id="Compilation">Compilation</span></h2>
 <div class="archwiki-template-box archwiki-template-box-tip">
@@ -210,7 +210,7 @@ $ make mrproper
 <pre>$ make
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> To compile faster, <i>make</i> can be run with the <code>-jX</code> argument, where <code>X</code> is an integer number of parallel jobs. The best results are often achieved using the number of CPU cores in the machine; for example, with a 2-core processor run <code>make -j2</code>. See <a href="../../Makepkg.html#Improving_compile_times" title="Makepkg">Makepkg#Improving compile times</a> for more information.</div>
+<strong>Tip:</strong> To compile faster, <i>make</i> can be run with the <code>-jX</code> argument, where <code>X</code> is an integer number of parallel jobs. The best results are often achieved using the number of CPU cores in the machine; for example, with a 2-core processor run <code>make -j2</code>. See <a href="../../wiki/Makepkg.html#Improving_compile_times" title="Makepkg">Makepkg#Improving compile times</a> for more information.</div>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> From this step onwards, commands must be either run as root or with root privileges. If not, they will fail.</div>
@@ -222,7 +222,7 @@ $ make mrproper
 <p>This will copy the compiled modules into <code>/lib/modules/&lt;kernel version&gt;-&lt;config local version&gt;</code>. For example, for kernel version 4.8 installed above, they would be copied to <code>/lib/modules/4.8.6-ARCH</code>. This keeps the modules for individual kernels used separated.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If your system requires modules which are not distributed with the regular Linux kernel, you need to compile them for your custom kernel when it is finished. Such modules are typically those which you explicitly installed separately for your running system. See <a href="../../NVIDIA.html#Custom_kernel" title="NVIDIA">NVIDIA#Custom kernel</a> for an example.</div>
+<strong>Tip:</strong> If your system requires modules which are not distributed with the regular Linux kernel, you need to compile them for your custom kernel when it is finished. Such modules are typically those which you explicitly installed separately for your running system. See <a href="../../wiki/NVIDIA.html#Custom_kernel" title="NVIDIA">NVIDIA#Custom kernel</a> for an example.</div>
 <h3>
 <span id="Copy_the_kernel_to_.2Fboot_directory"></span><span class="mw-headline" id="Copy_the_kernel_to_/boot_directory">Copy the kernel to /boot directory</span>
 </h3>
@@ -241,10 +241,10 @@ $ make mrproper
 <strong>Note:</strong> You are free to name the initramfs image file whatever you wish when generating it. However, it is recommended to use the <code>linux&lt;major revision&gt;&lt;minor revision&gt;</code> convention. For example, the name 'linux48' was given as '4' is the major revision and '8' is the minor revision of the 4.8 kernel. This convention will make it easier to maintain multiple kernels, regularly use mkinitcpio, and build third-party modules.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you are using the LILO bootloader and it cannot communicate with the kernel device-mapper driver, you have to run <code>modprobe dm-mod</code> first.</div>
-<p>If you do not know what making an initial RAM disk is, see <a href="https://en.wikipedia.org/wiki/Initrd"  title="wikipedia:Initrd">Initramfs on Wikipedia</a> and <a href="../../Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>. 
+<p>If you do not know what making an initial RAM disk is, see <a href="https://en.wikipedia.org/wiki/Initrd"  title="wikipedia:Initrd">Initramfs on Wikipedia</a> and <a href="../../wiki/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>. 
 </p>
 <h4><span class="mw-headline" id="Automated_preset_method">Automated preset method</span></h4>
-<p>An existing <a href="../../Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">mkinitcpio preset</a> can be copied and modified so that the custom kernel initramfs images can be generated in the same way as for an official kernel. This is useful where intending to recompile the kernel (e.g. where updated). In the example below, the preset file for the stock TOS kernel will be copied and modified for kernel 4.8, installed above.
+<p>An existing <a href="../../wiki/Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">mkinitcpio preset</a> can be copied and modified so that the custom kernel initramfs images can be generated in the same way as for an official kernel. This is useful where intending to recompile the kernel (e.g. where updated). In the example below, the preset file for the stock TOS kernel will be copied and modified for kernel 4.8, installed above.
 </p>
 <p>First, copy the existing preset file, renaming it to match the name of the custom kernel specified as a suffix to <code>/boot/vmlinuz-</code> when copying the <code>bzImage</code> (in this case, <code>linux48</code>):
 </p>
@@ -286,7 +286,7 @@ fallback_image="/boot/initramfs-linux48-fallback.img"</pre>
 <li>By OOPS handler when information has to be dumped to the screen during a kernel crash (i.e info like in which function it has crashed).</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong>  <a href="../../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> partitions are formatted using FAT32, which does not support symlinks.</div>
+<strong>Tip:</strong>  <a href="../../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> partitions are formatted using FAT32, which does not support symlinks.</div>
 <p>If your <code>/boot</code> is on a filesystem which supports symlinks (i.e., not FAT32), copy <code>System.map</code> to <code>/boot</code>, appending your kernel's name to the destination file.  Then create a symlink from <code>/boot/System.map</code> to point to <code>/boot/System.map-YourKernelName</code>:
 </p>
 <pre># cp System.map /boot/System.map-YourKernelName
@@ -304,17 +304,17 @@ fallback_image="/boot/initramfs-linux48-fallback.img"</pre>
 <li>System Map kernel symlink</li>
 </ul>
 <h2><span class="mw-headline" id="Bootloader_configuration">Bootloader configuration</span></h2>
-<p>Add an entry for your new kernel in your bootloader's configuration file. See <a href="../../TOS_boot_process.html#Feature_comparison" title="TOS boot process">TOS boot process#Feature comparison</a> for possible boot loaders, their wiki articles and other information.
+<p>Add an entry for your new kernel in your bootloader's configuration file. See <a href="../../wiki/TOS_boot_process.html#Feature_comparison" title="TOS boot process">TOS boot process#Feature comparison</a> for possible boot loaders, their wiki articles and other information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong>  Kernel sources include a script to automate the process for <a href="../../LILO.html" title="LILO">LILO</a>: <code>$ arch/x86/boot/install.sh</code>. Remember to type <code>lilo</code> as root at the prompt to update it.</div>
+<strong>Tip:</strong>  Kernel sources include a script to automate the process for <a href="../../wiki/LILO.html" title="LILO">LILO</a>: <code>$ arch/x86/boot/install.sh</code>. Remember to type <code>lilo</code> as root at the prompt to update it.</div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li>
 <a rel="nofollow"  href="https://cateee.net/lkddb/web-lkddb/">https://cateee.net/lkddb/web-lkddb/</a> includes a comprehensive list of the kernel configuration strings and accompanying text, sorted alphabetically.</li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -331,9 +331,9 @@ fallback_image="/boot/initramfs-linux48-fallback.img"</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Active_Directory_integration
     description: Migration of Active_Directory_integration from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Samba.html" title="Samba">Samba</a></li>
-<li><a href="../Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a></li>
-<li><a href="../SOGo.html" title="SOGo">SOGo</a></li>
+<li><a href="../wiki/Samba.html" title="Samba">Samba</a></li>
+<li><a href="../wiki/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a></li>
+<li><a href="../wiki/SOGo.html" title="SOGo">SOGo</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
@@ -40,7 +40,7 @@
 <p>From <a href="https://en.wikipedia.org/wiki/Active_Directory"  title="w:Active Directory">Wikipedia</a>:
 </p>
 <dl><dd>Active Directory (AD) is a <a href="https://en.wikipedia.org/wiki/directory_service"  title="wikipedia:directory service">directory service</a> that Microsoft developed for <a href="https://en.wikipedia.org/wiki/Windows_domain"  title="wikipedia:Windows domain">Windows domain</a> networks.</dd></dl>
-<p>This article describes how to integrate an TOS Linux system with an existing Windows domain network using <a href="../Samba.html" title="Samba">Samba</a>.
+<p>This article describes how to integrate an TOS Linux system with an existing Windows domain network using <a href="../wiki/Samba.html" title="Samba">Samba</a>.
 </p>
 <p>Before continuing, you must have an existing Active Directory domain, and have a user with the appropriate rights within the domain to: query users and add computer accounts (Domain Join). 
 </p>
@@ -410,7 +410,7 @@ echo $0 | grep "^-" || export KRB5CCNAME=/run/user/$UID/krb5cc</pre>
 <h2><span class="mw-headline" id="Old_Wiki_Article">Old Wiki Article</span></h2>
 <p>Active Directory serves as a central location for network administration and security. It is responsible for authenticating and authorizing all users and computers within a Windows domain network, assigning and enforcing security policies for all computers in a network and installing or updating software on network computers. For example, when a user logs into a computer that is part of a Windows domain, it is Active Directory that verifies his or her password and specifies whether he or she is a system administrator or normal user. Server computers on which Active Directory is running are called domain controllers.
 </p>
-<p>Active Directory uses <a href="https://en.wikipedia.org/wiki/Ldap"  title="wikipedia:Ldap">Lightweight Directory Access Protocol (LDAP)</a> versions 2 and 3, Microsoft's version of <a href="../Kerberos.html" title="Kerberos">Kerberos</a> and DNS.
+<p>Active Directory uses <a href="https://en.wikipedia.org/wiki/Ldap"  title="wikipedia:Ldap">Lightweight Directory Access Protocol (LDAP)</a> versions 2 and 3, Microsoft's version of <a href="../wiki/Kerberos.html" title="Kerberos">Kerberos</a> and DNS.
 </p>
 <h3><span class="mw-headline" id="Terminology">Terminology</span></h3>
 <p>If you are not familiar with Active Directory, there are a few keywords that are helpful to know.
@@ -450,15 +450,15 @@ server signing = auto
 <p>The next few steps will begin the process of configuring the Host. You will need root or sudo access to complete these steps.
 </p>
 <h4><span class="mw-headline" id="Installation"><s>Installation</s></span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the following packages:
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the following packages:
 </p>
 <ul>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span>, see also <a href="../Samba.html" title="Samba">Samba</a>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span>, see also <a href="../wiki/Samba.html" title="Samba">Samba</a>
 </li>
 <li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pam-krb5">pam-krb5</a></span></li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openntpd">openntpd</a></span>, see also <a href="../Network_Time_Protocol_daemon.html" class="mw-redirect" title="NTPd">NTPd</a> or <a href="../OpenNTPD.html" title="OpenNTPD">OpenNTPD</a>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openntpd">openntpd</a></span>, see also <a href="../wiki/Network_Time_Protocol_daemon.html" class="mw-redirect" title="NTPd">NTPd</a> or <a href="../wiki/OpenNTPD.html" title="OpenNTPD">OpenNTPD</a>
 </li>
 </ul>
 <h4><span class="mw-headline" id="Updating_DNS"><s>Updating DNS</s></span></h4>
@@ -473,7 +473,7 @@ nameserver &lt;IP2&gt;
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If your machine dual boots Windows and Linux, you should use a different DNS hostname and netbios name for the linux-tosconfiguration if both operating systems will be members of the same domain.</div>
 <h4><span class="mw-headline" id="Configuring_NTP"><s>Configuring NTP</s></span></h4>
-<p>Read <a href="../System_time.html#Time_synchronization" title="System time">System time#Time synchronization</a> to configure an NTP service.
+<p>Read <a href="../wiki/System_time.html#Time_synchronization" title="System time">System time#Time synchronization</a> to configure an NTP service.
 </p>
 <p>On the NTP servers configuration, use the IP addresses for the AD servers, as they typically run NTP as a service. Alternatively, you can use other known NTP servers provided the Active directory servers sync to the same stratum.
 </p>
@@ -1057,7 +1057,7 @@ GSSAPICleanupCredentials yes
 <pre>ssh -v myarchlinux.example.com </pre>
 <p>to see which authentication method it actually uses.
 </p>
-<p>For debugging you can enable DEBUG3 on the server and look into the journal using <a href="../Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a>.
+<p>For debugging you can enable DEBUG3 on the server and look into the journal using <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a>.
 </p>
 <h4><span class="mw-headline" id="Nifty_fine-tuning_for_complete_password-free_kerberos_handling.">Nifty fine-tuning for complete password-free kerberos handling.</span></h4>
 <p>In case your clients are not using domain accounts on their local machines (for whatever reason) it can be hard to actually teach them to kinit before ssh to the workstation. Therefore I came up with a nice workaround:
@@ -1105,11 +1105,11 @@ q
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Directory_services.html" title="Category:Directory services">Directory services</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Directory_services.html" title="Category:Directory services">Directory services</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -1128,9 +1128,9 @@ q
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

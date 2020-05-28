@@ -2,7 +2,7 @@
     title: Activating_numlock_on_bootup
     description: Migration of Activating_numlock_on_bootup from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -61,7 +61,7 @@
 <h2><span class="mw-headline" id="Console">Console</span></h2>
 <h3><span class="mw-headline" id="Using_a_separate_service">Using a separate service</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> These steps can be automated by <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/systemd-numlockontty/">systemd-numlockontty</a></span><sup><small>AUR</small></sup> package and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> the <code>numLockOnTty</code> service.</div>
+<strong>Tip:</strong> These steps can be automated by <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/systemd-numlockontty/">systemd-numlockontty</a></span><sup><small>AUR</small></sup> package and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> the <code>numLockOnTty</code> service.</div>
 <p>First create a script to set the numlock on relevant TTYs:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/local/bin/numlock</pre>
@@ -72,9 +72,9 @@ do
     /usr/bin/setleds -D +num &lt; "$tty";
 done
 </pre>
-<p>Once the script is created, you will need to make it <a href="../Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. Otherwise the script cannot run.
+<p>Once the script is created, you will need to make it <a href="../wiki/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. Otherwise the script cannot run.
 </p>
-<p>Then create and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> a systemd service:
+<p>Then create and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> a systemd service:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/numlock.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -90,14 +90,14 @@ WantedBy=multi-user.target</pre>
 <h3>
 <span id="Extending_getty.40.service"></span><span class="mw-headline" id="Extending_getty@.service">Extending getty@.service</span>
 </h3>
-<p>This is simpler than using a separate service and does not hardcode the number of VTs in a script. Create a <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>getty@.service</code> which are applied on top of the original unit:
+<p>This is simpler than using a separate service and does not hardcode the number of VTs in a script. Create a <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>getty@.service</code> which are applied on top of the original unit:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/getty@.service.d/activate-numlock.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
 ExecStartPre=/bin/sh -c 'setleds -D +num &lt; /dev/%I'</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If you experience any problems, try replacing <code>ExecStartPre</code> with <code>ExecStartPost</code>, and/or disabling the hint as described below.</div>
-<p>To disable the numlock activation hint displaying on the login screen, <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> <code>getty@tty1.service</code> and add <code>--nohints</code> to <i>agetty</i> options:
+<p>To disable the numlock activation hint displaying on the login screen, <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> <code>getty@tty1.service</code> and add <code>--nohints</code> to <i>agetty</i> options:
 </p>
 <pre>[Service]
 ExecStart=
@@ -135,7 +135,7 @@ dconf write org.mate.peripherals-keyboard numlock-state 'on'
 <h3><span class="mw-headline" id="GDM">GDM</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> GDM does not execute scripts in <code>/etc/gdm/Init</code> anymore.</div>
-<p>Make sure that you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=numlockx">numlockx</a></span> installed then add the following code to <a href="../Xprofile.html" title="Xprofile">~/.xprofile</a>:
+<p>Make sure that you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=numlockx">numlockx</a></span> installed then add the following code to <a href="../wiki/Xprofile.html" title="Xprofile">~/.xprofile</a>:
 </p>
 <pre>if [ -x /usr/bin/numlockx ]; then
       /usr/bin/numlockx on
@@ -153,7 +153,7 @@ fi
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The key <code>numlock-state</code> was moved from <code>org.gnome.settings-daemon.peripherals.keyboard</code> since GNOME 3.34<a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/gnome-settings-daemon/merge_requests/107">[1]</a>
 </div>
-<p>Alternatively, you can use add <code>numlockx on</code> (from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=numlockx">numlockx</a></span> to a startup script, like <code>~/.bashrc</code> (if using <a href="../Bash.html" title="Bash">Bash</a>) or <code>~/.profile</code>.
+<p>Alternatively, you can use add <code>numlockx on</code> (from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=numlockx">numlockx</a></span> to a startup script, like <code>~/.bashrc</code> (if using <a href="../wiki/Bash.html" title="Bash">Bash</a>) or <code>~/.profile</code>.
 </p>
 <h3><span class="mw-headline" id="Xfce">Xfce</span></h3>
 <p>In the file <code>~/.config/xfce4/xfconf/xfce-perchannel-xml/keyboards.xml</code>, make sure the following values are set to true:
@@ -183,7 +183,7 @@ Numlock=on
 <p>And then save the file.
 </p>
 <h3><span class="mw-headline" id="LightDM">LightDM</span></h3>
-<p>See <a href="../LightDM.html#NumLock_on_by_default" title="LightDM">LightDM#NumLock on by default</a>.
+<p>See <a href="../wiki/LightDM.html#NumLock_on_by_default" title="LightDM">LightDM#NumLock on by default</a>.
 </p>
 <h3><span class="mw-headline" id="LXDM">LXDM</span></h3>
 <p>Set the option in <code>/etc/lxdm/lxdm.conf</code>:
@@ -200,8 +200,8 @@ numlock=true
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
-<li><a href="../Category:Keyboards.html" title="Category:Keyboards">Keyboards</a></li>
+<li><a href="../wiki/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="../wiki/Category:Keyboards.html" title="Category:Keyboards">Keyboards</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -219,9 +219,9 @@ numlock=true
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

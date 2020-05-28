@@ -2,7 +2,7 @@
     title: Amavis
     description: Migration of Amavis from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../ClamAV.html" title="ClamAV">ClamAV</a></li>
-<li><a href="../Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="../Dovecot.html" title="Dovecot">Dovecot</a></li>
+<li><a href="../wiki/ClamAV.html" title="ClamAV">ClamAV</a></li>
+<li><a href="../wiki/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="../wiki/Dovecot.html" title="Dovecot">Dovecot</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="http://www.ijs.si/software/amavisd/">Amavis's site</a>:
@@ -61,7 +61,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation_and_setup">Installation and setup</span></h2>
-<p>In this setup it is assumed that you are using <a href="../ClamAV.html" title="ClamAV">ClamAV</a> as anti-virus scanner.
+<p>In this setup it is assumed that you are using <a href="../wiki/ClamAV.html" title="ClamAV">ClamAV</a> as anti-virus scanner.
 </p>
 <ul>
 <li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amavisd-new">amavisd-new</a></span>. You would be wise to also install optdepends such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=p7zip">p7zip</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unrar">unrar</a></span> so your filters can actually see inside compressed files.</li>
@@ -70,7 +70,7 @@
 <h3><span class="mw-headline" id="Basic_configuration">Basic configuration</span></h3>
 <p>If your hostname is not a FQDN, you must set <code>$myhostname</code> and <code>$mydomain</code> accordingly in <code>/etc/amavisd/amavisd.conf</code>.
 </p>
-<p>You can enable <a href="../ClamAV.html" title="ClamAV">ClamAV</a> support by commenting out the following lines (do not forget to put the same <code>clamd.sock</code> as in <code>/etc/clamav/clamd.conf</code>):
+<p>You can enable <a href="../wiki/ClamAV.html" title="ClamAV">ClamAV</a> support by commenting out the following lines (do not forget to put the same <code>clamd.sock</code> as in <code>/etc/clamav/clamd.conf</code>):
 </p>
 <pre># ### http://www.clamav.net/
 ['ClamAV-clamd',
@@ -97,9 +97,9 @@
 </p>
 <ul>
 <li>
-<a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>clamav-daemon.service</code>.</li>
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>clamav-daemon.service</code>.</li>
 <li>
-<a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>amavisd.service</code> and possibly <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.</li>
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>amavisd.service</code> and possibly <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.</li>
 </ul>
 <p>Check for errors with these commands:
 </p>
@@ -134,7 +134,7 @@ Escape character is '^]'
 </p>
 <h2><span class="mw-headline" id="Integration_with_Postfix">Integration with Postfix</span></h2>
 <h3><span class="mw-headline" id="Quick_start">Quick start</span></h3>
-<p>To configure amavis for <a href="../Postfix.html" title="Postfix">Postfix</a> add the following to <code>/etc/postfix/master.cf</code>:
+<p>To configure amavis for <a href="../wiki/Postfix.html" title="Postfix">Postfix</a> add the following to <code>/etc/postfix/master.cf</code>:
 </p>
 <pre>#
 # anti spam &amp; anti virus section
@@ -172,7 +172,7 @@ amavisfeed      unix  -    -       n       -       2       smtp
 </pre>
 <p>Using this options implies that Postfix will send emails to Amavis on port <code>10024</code>, so that these can be checked. If mail passes the control then these are sent to port <code>10025</code>, as explained before.
 </p>
-<p>We can now <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postfix.service</code> and <code>amavisd.service</code>.
+<p>We can now <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postfix.service</code> and <code>amavisd.service</code>.
 </p>
 <p>To check that Postfix is listening on port <code>10025</code> do the same operations as the port <code>10024</code> case.
 </p>
@@ -198,7 +198,7 @@ $sa_dsn_cutoff_level = 8;   # spam level beyond which a DSN is not sent
 # $sa_quarantine_cutoff_level = 25; # spam level beyond which quarantine is off
 $penpals_threshold_high = $sa_kill_level_deflt;  # do not waste time on hi spam
 $bounce_killer_score = 100;  # spam score points to add for joe-jobbed bounces</pre>
-<p>Before you <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>amavisd</code> service, run <code>sa-update</code>.
+<p>Before you <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>amavisd</code> service, run <code>sa-update</code>.
 </p>
 <h2><span class="mw-headline" id="Final_test">Final test</span></h2>
 <div class="noprint archwiki-template-message">
@@ -224,11 +224,11 @@ $bounce_killer_score = 100;  # spam score points to add for joe-jobbed bounces</
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -247,9 +247,9 @@ $bounce_killer_score = 100;  # spam score points to add for joe-jobbed bounces</
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

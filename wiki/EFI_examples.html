@@ -2,7 +2,7 @@
     title: EFI_examples
     description: Migration of EFI_examples from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../GRUB.html" title="GRUB">GRUB</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/GRUB.html" title="GRUB">GRUB</a></span></div>
 		
 		
 		
@@ -27,12 +27,12 @@
 <div class="noprint archwiki-template-message">
 <p><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Many of the examples below indicate that the GRUB EFI binary (<code>grubx64.efi</code>) needs to be copied to a special location (e.g, <code><i>esp</i>/EFI/BOOT/bootx64.efi</code>). Although this may work, this is the <i>fallback</i> filename. Other options may also work, like using <a href="../../Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> or <a href="../../Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">UEFI shell</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:GRUB/EFI_examples">Talk:GRUB/EFI examples#</a>)</div>
+<b>Reason:</b> Many of the examples below indicate that the GRUB EFI binary (<code>grubx64.efi</code>) needs to be copied to a special location (e.g, <code><i>esp</i>/EFI/BOOT/bootx64.efi</code>). Although this may work, this is the <i>fallback</i> filename. Other options may also work, like using <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> or <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">UEFI shell</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:GRUB/EFI_examples">Talk:GRUB/EFI examples#</a>)</div>
 </div>
 <p>It is well known that different motherboard manufactures implement UEFI differently. The purpose of this page is to show hardware-specific methods known to work when installing/restoring GRUB in EFI mode.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> In the entire article <code><i>esp</i></code> denotes the mountpoint of the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> aka ESP.</div>
+<strong>Note:</strong> In the entire article <code><i>esp</i></code> denotes the mountpoint of the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> aka ESP.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -93,7 +93,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Apple_Macs">Apple Macs</span></h2>
-<p>Use bless command from within macOS to set <code>grubx64.efi</code> as the default boot option. You can also boot from the macOS install disc and launch a Terminal there if you only have Linux installed. In the Terminal, create a directory and mount the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>:
+<p>Use bless command from within macOS to set <code>grubx64.efi</code> as the default boot option. You can also boot from the macOS install disc and launch a Terminal there if you only have Linux installed. In the Terminal, create a directory and mount the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>:
 </p>
 <pre># cd /Volumes
 # mkdir efi
@@ -117,39 +117,39 @@
 <h3><span class="mw-headline" id="Z68_Family_and_U47_Family">Z68 Family and U47 Family</span></h3>
 <pre># cp <i>esp</i>/EFI/GRUB/grubx64.efi <i>esp</i>/shellx64.efi
 </pre>
-<p>After this launch the UEFI Shell from the UEFI setup/menu (in ASUS UEFI BIOS, switch to advanced mode, press <i>Exit</i> in the top right corner and choose "Launch EFI shell from filesystem device"). The GRUB menu will show up and you can boot into your system. Afterwards you can use <a href="../../Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> to setup a menu entry, for example if you have the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> on <code>/dev/sda1</code>:
+<p>After this launch the UEFI Shell from the UEFI setup/menu (in ASUS UEFI BIOS, switch to advanced mode, press <i>Exit</i> in the top right corner and choose "Launch EFI shell from filesystem device"). The GRUB menu will show up and you can boot into your system. Afterwards you can use <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> to setup a menu entry, for example if you have the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> on <code>/dev/sda1</code>:
 </p>
 <pre># efibootmgr --create --disk /dev/sda --part 1 --write-signature --loader /EFI/GRUB/grubx64.efi --label "GRUB" --verbose
 </pre>
-<p>If your motherboard has no such option (or even if it does), you can use <a href="../../Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a> to create a UEFI boot option for the TOS partition temporarily.
+<p>If your motherboard has no such option (or even if it does), you can use <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a> to create a UEFI boot option for the TOS partition temporarily.
 </p>
 <p>Once you boot into the UEFI shell, add a UEFI boot menu entry:
 </p>
 <pre>Shell&gt; bcfg boot add 0 FS0:\EFI\GRUB\grubx64.efi "GRUB"
 </pre>
-<p>where <code>FS0:</code> is the mapping corresponding to the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and <code>\EFI\GRUB\grubx64.efi</code> is the the from the <code>--bootloader-id</code> from the <code>grub-install</code> command above.
+<p>where <code>FS0:</code> is the mapping corresponding to the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and <code>\EFI\GRUB\grubx64.efi</code> is the the from the <code>--bootloader-id</code> from the <code>grub-install</code> command above.
 </p>
-<p>This will temporarily add a UEFI boot option for the next boot to get into TOS. Once in TOS, <code>modprobe efivars</code> and confirm that <code>efibootmgr</code> creates no errors (no errors meaning you successfully booted in UEFI mode). Then <a href="../../GRUB.html#Installation_2" title="GRUB">GRUB installation</a> can be performed again and should successfully permanently add a boot entry in the UEFI menu.
+<p>This will temporarily add a UEFI boot option for the next boot to get into TOS. Once in TOS, <code>modprobe efivars</code> and confirm that <code>efibootmgr</code> creates no errors (no errors meaning you successfully booted in UEFI mode). Then <a href="../../wiki/GRUB.html#Installation_2" title="GRUB">GRUB installation</a> can be performed again and should successfully permanently add a boot entry in the UEFI menu.
 </p>
 <h3><span class="mw-headline" id="ux32vd">ux32vd</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The BIOS does not allow computer to boot from GPT disk if there is no properly set-up UEFI boot entry. The disk even may not be seen in BIOS in this case. The fix is to make a proper UEFI boot entry.</div>
-<p>There is a caveat. If the machine was booted from MBR then <code>grub-install</code> (or <a href="../../Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>) will fail to create the UEFI boot entry with the following error:
+<p>There is a caveat. If the machine was booted from MBR then <code>grub-install</code> (or <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>) will fail to create the UEFI boot entry with the following error:
 </p>
 <pre>EFI variables are not supported on this system
 </pre>
 <p>You first need to boot the machine with EFI and then create the boot entry. This can be done the way described for Z68 Family: by copying <code><i>esp</i>/EFI/GRUB/grubx64.efi</code> into <code><i>esp</i>/shellx64.efi</code> and selecting "Launch EFI shell from filesystem device".
-After successful boot it is possible to create a boot entry using <a href="../../GRUB.html#Installation_2" title="GRUB">grub-install</a> or <a href="../../Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>.
+After successful boot it is possible to create a boot entry using <a href="../../wiki/GRUB.html#Installation_2" title="GRUB">grub-install</a> or <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>.
 </p>
 <h3><span class="mw-headline" id="P8Z77_Family">P8Z77 Family</span></h3>
 <div class="noprint archwiki-template-message">
 <p><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> This procedure is most likely no longer necessary and you can just create the entry via <a href="../../Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:GRUB/EFI_examples">Talk:GRUB/EFI examples#</a>)</div>
+<b>Reason:</b> This procedure is most likely no longer necessary and you can just create the entry via <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:GRUB/EFI_examples">Talk:GRUB/EFI examples#</a>)</div>
 </div>
-<p><a href="../../GRUB.html#Installation_2" title="GRUB">Install GRUB</a> and copy the <a href="../../Unified_Extensible_Firmware_Interface.html#Obtaining_UEFI_Shell" title="Unified Extensible Firmware Interface">modified UEFI Shell binary</a> to <a href="../../EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
+<p><a href="../../wiki/GRUB.html#Installation_2" title="GRUB">Install GRUB</a> and copy the <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#Obtaining_UEFI_Shell" title="Unified Extensible Firmware Interface">modified UEFI Shell binary</a> to <a href="../../wiki/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
 </p>
-<p>The <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> should contain just two files:
+<p>The <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> should contain just two files:
 </p>
 <pre>/Shell.efi
 /EFI/GRUB/grubx64.efi
@@ -157,7 +157,7 @@ After successful boot it is possible to create a boot entry using <a href="../..
 <ul>
 <li>Reboot and enter the BIOS (the <code>Delete</code> key will do this).</li>
 <li>Using the arrow keys, move to the <i>exit</i> menu and drop down to the <i>EFI shell</i>.</li>
-<li>Add an entry for TOS to the menu. Below is an example, see the <a href="../../Unified_Extensible_Firmware_Interface.html#Launching_UEFI_Shell" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Launching UEFI Shell</a> article for more.</li>
+<li>Add an entry for TOS to the menu. Below is an example, see the <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#Launching_UEFI_Shell" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Launching UEFI Shell</a> article for more.</li>
 </ul>
 <p><b>Within UEFI shell</b>
 </p>
@@ -173,7 +173,7 @@ Shell&gt; exit
 <h3><span class="mw-headline" id="M5A97">M5A97</span></h3>
 <p>Finish the standard TOS install procedures, making sure that you partition your boot hard disk as GPT.
 </p>
-<p><a href="../../GRUB.html#Installation_2" title="GRUB">Install GRUB</a> and copy the <a href="../../Unified_Extensible_Firmware_Interface.html#Obtaining_UEFI_Shell" title="Unified Extensible Firmware Interface">modified UEFI Shell binary</a> to <a href="../../EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
+<p><a href="../../wiki/GRUB.html#Installation_2" title="GRUB">Install GRUB</a> and copy the <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#Obtaining_UEFI_Shell" title="Unified Extensible Firmware Interface">modified UEFI Shell binary</a> to <a href="../../wiki/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
 </p>
 <p>The reason that we need this shell application is that the <code>efibootmgr</code> command will fail silently during <code>grub-install</code>.
 </p>
@@ -181,10 +181,10 @@ Shell&gt; exit
 </p>
 <pre>Shell&gt; bcfg boot add 3 FS0:\EFI\GRUB\grubx64.efi "GRUB"
 </pre>
-<p>where <code>FS0:</code> is the mapping corresponding to the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and <code>3</code> is the zero based boot entry index.
+<p>where <code>FS0:</code> is the mapping corresponding to the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and <code>3</code> is the zero based boot entry index.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> UEFI Shell commands usually support <code>-b</code> option which makes output pause after each page. <code>map</code> lists recognized filesystems (<code>fs0</code>, ...) and data storage devices (<code>blk0</code>, ...). Run <code>help -b</code> to list available commands. See <a href="../../Unified_Extensible_Firmware_Interface.html#Important_UEFI_Shell_commands" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Important UEFI Shell commands</a> for more information.</div>
+<strong>Tip:</strong> UEFI Shell commands usually support <code>-b</code> option which makes output pause after each page. <code>map</code> lists recognized filesystems (<code>fs0</code>, ...) and data storage devices (<code>blk0</code>, ...). Run <code>help -b</code> to list available commands. See <a href="../../wiki/Unified_Extensible_Firmware_Interface.html#Important_UEFI_Shell_commands" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Important UEFI Shell commands</a> for more information.</div>
 <p>To list the current boot entries you can run:
 </p>
 <pre>Shell&gt; bcfg boot dump -v
@@ -200,19 +200,19 @@ Shell&gt; exit
 </p>
 <pre># cp <i>esp</i>/EFI/GRUB/grubx64.efi <i>esp</i>/shellx64.efi
 </pre>
-<p>After this launch the UEFI Shell from the UEFI setup/menu (in ASROCK UEFI BIOS, goto <i>Exit</i> tab and choose "Launch EFI Shell From Filesystem Device"). The GRUB menu will show up and you can boot into your system. Afterwards you can use <i>efibootmgr</i> to setup a menu entry, for example if you have the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> on <code>/dev/sda1</code>:
+<p>After this launch the UEFI Shell from the UEFI setup/menu (in ASROCK UEFI BIOS, goto <i>Exit</i> tab and choose "Launch EFI Shell From Filesystem Device"). The GRUB menu will show up and you can boot into your system. Afterwards you can use <i>efibootmgr</i> to setup a menu entry, for example if you have the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> on <code>/dev/sda1</code>:
 </p>
 <pre># efibootmgr --create --disk /dev/sda --part 1 --write-signature --loader /EFI/GRUB/grubx64.efi --label "GRUB" --verbose
 </pre>
 <h2><span class="mw-headline" id="Dell">Dell</span></h2>
 <h3><span class="mw-headline" id="PowerEdge_T30">PowerEdge T30</span></h3>
-<p>The Dell UEFI implementation needs the <a href="../../GRUB/Tips_and_tricks.html#UEFI_firmware_workaround" title="GRUB/Tips and tricks">UEFI firmware workaround</a> to load grub. Otherwise it will drop into a "no OS found" screen.
+<p>The Dell UEFI implementation needs the <a href="../../wiki/GRUB/Tips_and_tricks.html#UEFI_firmware_workaround" title="GRUB/Tips and tricks">UEFI firmware workaround</a> to load grub. Otherwise it will drop into a "no OS found" screen.
 </p>
 <h3><span class="mw-headline" id="Latitude_E7450">Latitude E7450</span></h3>
-<p>In addition to the <a href="../../GRUB/Tips_and_tricks.html#UEFI_firmware_workaround" title="GRUB/Tips and tricks">UEFI firmware workaround</a> (without which GRUB isn't launched), the Dell Latitude seems to require to have the EFI system partition mounted on <code>/boot</code>. When ESP is mounted on <code>/efi</code>, GRUB fails to find the configuration files and launches the rescue console.
+<p>In addition to the <a href="../../wiki/GRUB/Tips_and_tricks.html#UEFI_firmware_workaround" title="GRUB/Tips and tricks">UEFI firmware workaround</a> (without which GRUB isn't launched), the Dell Latitude seems to require to have the EFI system partition mounted on <code>/boot</code>. When ESP is mounted on <code>/efi</code>, GRUB fails to find the configuration files and launches the rescue console.
 </p>
 <h2><span class="mw-headline" id="MSI">MSI</span></h2>
-<p>These MSI motherboards seem to want the EFI program to exist in a different location from where GRUB installs it.  Do one of the following after following the instructions for installing <a href="../../GRUB.html" title="GRUB">GRUB</a>:
+<p>These MSI motherboards seem to want the EFI program to exist in a different location from where GRUB installs it.  Do one of the following after following the instructions for installing <a href="../../wiki/GRUB.html" title="GRUB">GRUB</a>:
 </p>
 <h3><span class="mw-headline" id="B250M_PRO-VH">B250M PRO-VH</span></h3>
 <pre># mkdir <i>esp</i>/EFI/BOOT
@@ -221,13 +221,13 @@ Shell&gt; exit
 <h3>
 <span id="B150_PC_MATE_.2F_B250_PC_MATE_.2F_H110I_PRO_.2F_Z370_GAMING_PLUS"></span><span class="mw-headline" id="B150_PC_MATE_/_B250_PC_MATE_/_H110I_PRO_/_Z370_GAMING_PLUS">B150 PC MATE / B250 PC MATE / H110I PRO / Z370 GAMING PLUS</span>
 </h3>
-<p>Install GRUB to the <a href="../../GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
+<p>Install GRUB to the <a href="../../wiki/GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The procedures above probably also work for other MSI motherboards.</div>
 <h2><span class="mw-headline" id="HP">HP</span></h2>
 <h3><span class="mw-headline" id="EliteBook_840_G1">EliteBook 840 G1</span></h3>
-<p>See <a href="../../HP_EliteBook_840_G1.html#UEFI_Setup" title="HP EliteBook 840 G1">HP EliteBook 840 G1#UEFI Setup</a> for details.
+<p>See <a href="../../wiki/HP_EliteBook_840_G1.html#UEFI_Setup" title="HP EliteBook 840 G1">HP EliteBook 840 G1#UEFI Setup</a> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The procedures in the link above probably also work for a range of other HP models.</div>
@@ -242,14 +242,14 @@ Shell&gt; exit
 </p>
 <ul>
 <li>Instead of using the <code>grub-efi-x86_64</code> target, <code>grub-efi-i386</code> has to be used</li>
-<li>The <code>bcfg</code> command is not available for pre-UEFI (v2.0) firmware. A <code>startup.nsh</code> file can be used on the root of the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> containing the path to the bootloader. For example: <code>FS0:\EFI\GRUB\grubia32.efi</code> has to be placed in the <code>startup.nsh</code> file on the root of the EFI system partition.</li>
+<li>The <code>bcfg</code> command is not available for pre-UEFI (v2.0) firmware. A <code>startup.nsh</code> file can be used on the root of the <a href="../../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> containing the path to the bootloader. For example: <code>FS0:\EFI\GRUB\grubia32.efi</code> has to be placed in the <code>startup.nsh</code> file on the root of the EFI system partition.</li>
 <li>The <code>grub.cfg</code> file has to be placed in the same directory as the grub EFI binary, otherwise GRUB will not find it and enter the interactive shell.</li>
 </ul>
 <h2><span class="mw-headline" id="Lenovo">Lenovo</span></h2>
 <h3><span class="mw-headline" id="K450_IdeaCentre">K450 IdeaCentre</span></h3>
 <p>The EFI system partition requires the file <code>\EFI\BOOT\BOOTx64.efi</code> to be present in order to boot, otherwise you will receive "Error 1962: No operating system found. Boot sequence will automatically repeat."
 </p>
-<p>Install GRUB to the <a href="../../GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
+<p>Install GRUB to the <a href="../../wiki/GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
 </p>
 <p>This is a workaround for what is likely a bug in the UEFI implementation.
 </p>
@@ -264,18 +264,18 @@ Shell&gt; exit
 <div>
 <b>Reason:</b> There's no need to do anything special for UEFI booting on this laptop. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:GRUB/EFI_examples#X270">Talk:GRUB/EFI examples#X270</a>)</div>
 </div>
-<p>Install GRUB to the <a href="../../GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
+<p>Install GRUB to the <a href="../../wiki/GRUB.html#Default/fallback_boot_path" title="GRUB">default/fallback boot path</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -294,9 +294,9 @@ Shell&gt; exit
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

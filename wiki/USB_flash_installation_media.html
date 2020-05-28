@@ -2,7 +2,7 @@
     title: USB_flash_installation_media
     description: Migration of USB_flash_installation_media from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Optical_disc_drive.html#Burning" class="mw-redirect" title="CD Burning">CD Burning</a></li>
-<li><a href="../TOSiso.html" title="TOSiso">TOSiso</a></li>
-<li><a href="../Multiboot_USB_drive.html" title="Multiboot USB drive">Multiboot USB drive</a></li>
+<li><a href="../wiki/Optical_disc_drive.html#Burning" class="mw-redirect" title="CD Burning">CD Burning</a></li>
+<li><a href="../wiki/TOSiso.html" title="TOSiso">TOSiso</a></li>
+<li><a href="../wiki/Multiboot_USB_drive.html" title="Multiboot USB drive">Multiboot USB drive</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
@@ -39,7 +39,7 @@
 </div>
 <p>This page discusses various multi-platform methods on how to create an TOS Linux Installer USB drive (also referred to as <i>"flash drive", "USB stick", "USB key"</i>, etc) for booting in BIOS and UEFI systems. The result will be a LiveUSB (LiveCD-like) system that can be used for installing TOS Linux, system maintenance or for recovery purposes, and that, because of the nature of <a href="https://en.wikipedia.org/wiki/SquashFS"  title="wikipedia:SquashFS">SquashFS</a>, will discard all changes once the computer shuts down.
 </p>
-<p>If you would like to run a full install of TOS Linux from a USB drive (i.e. with persistent settings), see <a href="../Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">Installing TOS Linux on a USB key</a>. If you would like to use your bootable TOS Linux USB stick as a rescue USB, see <a href="../Chroot.html" class="mw-redirect" title="Change root">Change root</a>.
+<p>If you would like to run a full install of TOS Linux from a USB drive (i.e. with persistent settings), see <a href="../wiki/Install_TOS_Linux_on_a_removable_medium.html" class="mw-redirect" title="Installing TOS Linux on a USB key">Installing TOS Linux on a USB key</a>. If you would like to use your bootable TOS Linux USB stick as a rescue USB, see <a href="../wiki/Chroot.html" class="mw-redirect" title="Change root">Change root</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -133,17 +133,17 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This method is recommended due to its simplicity. If it does not work, switch to the alternative method <a href="#Using_manual_formatting">#Using manual formatting</a> below.</div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> This will irrevocably destroy all data on <code>/dev/<b>sdx</b></code>. To restore the USB drive as an empty, usable storage device after using the TOS ISO image, the ISO 9660 filesystem signature needs to be removed by running <code>wipefs --all /dev/<b>sdx</b></code> as root, before <a href="../Partitioning.html" class="mw-redirect" title="Repartition">repartitioning</a> and <a href="../File_systems.html#Create_a_file_system" class="mw-redirect" title="Reformat">reformatting</a> the USB drive.</div>
+<strong>Warning:</strong> This will irrevocably destroy all data on <code>/dev/<b>sdx</b></code>. To restore the USB drive as an empty, usable storage device after using the TOS ISO image, the ISO 9660 filesystem signature needs to be removed by running <code>wipefs --all /dev/<b>sdx</b></code> as root, before <a href="../wiki/Partitioning.html" class="mw-redirect" title="Repartition">repartitioning</a> and <a href="../wiki/File_systems.html#Create_a_file_system" class="mw-redirect" title="Reformat">reformatting</a> the USB drive.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Find out the name of your USB drive with <code>lsblk</code>. Make sure that it is <b>not</b> mounted.</div>
 <p>Run the following command, replacing <code>/dev/<b>sdx</b></code> with your drive, e.g. <code>/dev/sdb</code>. (Do <b>not</b> append a partition number, so do <b>not</b> use something like <code>/dev/sdb<b>1</b></code>)
 </p>
 <pre># dd bs=4M if=path/to/archlinux.iso of=/dev/<b>sdx</b> status=progress oflag=sync
 </pre>
-<p>See <span class="plainlinks archwiki-template-man" title="$ man 1 dd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dd.1">dd(1)</a></span> for more information about <a href="../Dd.html" title="Dd">dd</a>. See <span class="plainlinks archwiki-template-man" title="$ man 1 dd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dd.1#DESCRIPTION">dd(1)</a></span> for more information about <code>oflag=sync</code>.
+<p>See <span class="plainlinks archwiki-template-man" title="$ man 1 dd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dd.1">dd(1)</a></span> for more information about <a href="../wiki/Dd.html" title="Dd">dd</a>. See <span class="plainlinks archwiki-template-man" title="$ man 1 dd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dd.1#DESCRIPTION">dd(1)</a></span> for more information about <code>oflag=sync</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If the UEFI version of the USB's TOS ISO hangs or is unable to load, try repeating the <a href="../Dd.html" title="Dd">dd</a> medium creation process on the same USB drive one or more times.</div>
+<strong>Tip:</strong> If the UEFI version of the USB's TOS ISO hangs or is unable to load, try repeating the <a href="../wiki/Dd.html" title="Dd">dd</a> medium creation process on the same USB drive one or more times.</div>
 <h5><span class="mw-headline" id="Using_MultiWriter">Using MultiWriter</span></h5>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-multi-writer">gnome-multi-writer</a></span> is a simple gtk3 based graphical tool to write an ISO file to one or multiple USB devices at once.
 </p>
@@ -260,13 +260,13 @@ Any Explorer window must be closed or dd will report an error.</div>
 <h4>
 <span id="In_GNU.2FLinux_2"></span><span class="mw-headline" id="In_GNU/Linux_2">In GNU/Linux</span>
 </h4>
-<p>This method is more complicated than writing the image directly with <code>dd</code>, but it does keep the flash drive usable for data storage (that is, the ISO is installed in a specific partition within the already <a href="../Partitioning.html" title="Partitioning">partitioned device</a> without altering other partitions).
+<p>This method is more complicated than writing the image directly with <code>dd</code>, but it does keep the flash drive usable for data storage (that is, the ISO is installed in a specific partition within the already <a href="../wiki/Partitioning.html" title="Partitioning">partitioned device</a> without altering other partitions).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Here, we will denote the targeted partition as <code>/dev/sd<b>Xn</b></code>. In any of the following commands, adjust <b>X</b> and <b>n</b> according to your system.</div>
 <ul>
-<li>If not done yet, create a <a href="../Partitioning.html#Partition_table" class="mw-redirect" title="Partition table">partition table</a> on <code>/dev/sd<b>X</b></code>.</li>
-<li>If not done yet, create a partition on the device. The partition <code>/dev/sd<b>Xn</b></code> must be formatted to <a href="../FAT.html" class="mw-redirect" title="FAT32">FAT32</a>.</li>
+<li>If not done yet, create a <a href="../wiki/Partitioning.html#Partition_table" class="mw-redirect" title="Partition table">partition table</a> on <code>/dev/sd<b>X</b></code>.</li>
+<li>If not done yet, create a partition on the device. The partition <code>/dev/sd<b>Xn</b></code> must be formatted to <a href="../wiki/FAT.html" class="mw-redirect" title="FAT32">FAT32</a>.</li>
 <li>Mount the ISO image, mount the FAT32 filesystem located in the USB flash device, and copy the contents of the ISO image to it. Then unmount the ISO image, but keep the FAT32 partition mounted (this may be used in subsequent steps). For example:</li>
 </ul>
 <pre># mkdir -p /mnt/{iso,usb}
@@ -276,11 +276,11 @@ Any Explorer window must be closed or dd will report an error.</div>
 # sync
 # umount /mnt/iso
 </pre>
-<p>To boot either a label or an <a href="../Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> to select the partition to boot from is required. By default the label <code>ARCH_<i>YYYYMM</i></code> (with the appropriate release year and month) is used. Thus, the <a href="../Persistent_block_device_naming.html#by-label" title="Persistent block device naming">file system’s label</a> has to be set accordingly, for example using <i>gparted</i>. Alternatively, you can change this behaviour by altering the lines ending by <code>archisolabel=ARCH_<i>YYYYMM</i></code> in the file <code>/mnt/usb/arch/boot/syslinux/archiso_sys.cfg</code> (for BIOS boot), and in <code>/mnt/usb/loader/entries/archiso-x86_64.conf</code> (for UEFI boot). To use an UUID instead, replace those portions of lines with <code>archiso<i>device</i>=/dev/disk/by-uuid/<b>YOUR-UUID</b></code>. The UUID can be retrieved with <code>blkid -o value -s UUID /dev/sd<b>Xn</b></code>.
+<p>To boot either a label or an <a href="../wiki/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> to select the partition to boot from is required. By default the label <code>ARCH_<i>YYYYMM</i></code> (with the appropriate release year and month) is used. Thus, the <a href="../wiki/Persistent_block_device_naming.html#by-label" title="Persistent block device naming">file system’s label</a> has to be set accordingly, for example using <i>gparted</i>. Alternatively, you can change this behaviour by altering the lines ending by <code>archisolabel=ARCH_<i>YYYYMM</i></code> in the file <code>/mnt/usb/arch/boot/syslinux/archiso_sys.cfg</code> (for BIOS boot), and in <code>/mnt/usb/loader/entries/archiso-x86_64.conf</code> (for UEFI boot). To use an UUID instead, replace those portions of lines with <code>archiso<i>device</i>=/dev/disk/by-uuid/<b>YOUR-UUID</b></code>. The UUID can be retrieved with <code>blkid -o value -s UUID /dev/sd<b>Xn</b></code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Mismatching labels or wrong UUID prevents booting from the created medium.</div>
-<p>Syslinux-tosfiles for BIOS systems are already copied to <code>/mnt/usb/arch/boot/syslinux</code>. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package and follow <a href="../Syslinux.html#Manual_install" title="Syslinux">Syslinux#Manual install</a> instructions to make the partition bootable.
+<p>Syslinux-tosfiles for BIOS systems are already copied to <code>/mnt/usb/arch/boot/syslinux</code>. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package and follow <a href="../wiki/Syslinux.html#Manual_install" title="Syslinux">Syslinux#Manual install</a> instructions to make the partition bootable.
 </p>
 <h4><span class="mw-headline" id="In_Windows_2">In Windows</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -296,7 +296,7 @@ Any Explorer window must be closed or dd will report an error.</div>
 </div>
 <ul>
 <li>Partition and format the USB drive using <a rel="nofollow"  href="https://rufus.akeo.ie/">Rufus USB partitioner</a>. Select partition scheme option as <b>MBR for BIOS and UEFI</b> and File system as <b>FAT32</b>. Uncheck "Create a bootable disk using ISO image" and "Create extended label and icon files" options.</li>
-<li>Change the <b>Volume Label</b> of the USB flash drive <code>X:</code> to match the LABEL mentioned in the <code>archisolabel=</code> part in <code>&lt;ISO&gt;\loader\entries\archiso-x86_64.conf</code>. This step is required for Official ISO (<a href="../TOSiso.html" title="TOSiso">TOSiso</a>). This step can be also performed using Rufus, during the prior "partition and format" step.</li>
+<li>Change the <b>Volume Label</b> of the USB flash drive <code>X:</code> to match the LABEL mentioned in the <code>archisolabel=</code> part in <code>&lt;ISO&gt;\loader\entries\archiso-x86_64.conf</code>. This step is required for Official ISO (<a href="../wiki/TOSiso.html" title="TOSiso">TOSiso</a>). This step can be also performed using Rufus, during the prior "partition and format" step.</li>
 <li>Extract the ISO (similar to extracting ZIP archive) to the USB flash drive using <a rel="nofollow"  href="https://www.7-zip.org/">7-Zip</a>.</li>
 <li>Download official Syslinux-tos6.xx binaries (zip file) from <a rel="nofollow"  href="https://www.kernel.org/pub/linux/utils/boot/syslinux/">https://www.kernel.org/pub/linux/utils/boot/syslinux/</a>  and extract it. The version of Syslinux should be the same version used in the ISO image.</li>
 </ul>
@@ -321,7 +321,7 @@ Any Explorer window must be closed or dd will report an error.</div>
 <span id="In_GNU.2FLinux_3"></span><span class="mw-headline" id="In_GNU/Linux_3">In GNU/Linux</span>
 </h3>
 <h4><span class="mw-headline" id="Using_a_multiboot_USB_drive">Using a multiboot USB drive</span></h4>
-<p>This allows booting multiple ISOs from a single USB device, including the archiso. Updating an existing USB drive to a more recent ISO is simpler than for most other methods. See <a href="../Multiboot_USB_drive.html" title="Multiboot USB drive">Multiboot USB drive</a>.
+<p>This allows booting multiple ISOs from a single USB device, including the archiso. Updating an existing USB drive to a more recent ISO is simpler than for most other methods. See <a href="../wiki/Multiboot_USB_drive.html" title="Multiboot USB drive">Multiboot USB drive</a>.
 </p>
 <h4><span class="mw-headline" id="Using_GNOME_Disk_Utility">Using GNOME Disk Utility</span></h4>
 <p>Linux distributions running GNOME can easily make a live CD through <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nautilus">nautilus</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-disk-utility">gnome-disk-utility</a></span>.  Simply right-click on the <i>.iso</i> file, and select <i>Open With Disk Image Writer</i>.  When GNOME Disk Utility opens, specify the flash drive from the <i>Destination</i> drop-down menu and click <i>Start Restoring</i>.
@@ -384,13 +384,13 @@ E:\
 <strong>Note:</strong> Confirmed that you need to use drive letter as opposed to number. flashnul 1rc1, Windows 7 x64.</div>
 <h4><span class="mw-headline" id="Loading_the_installation_medium_from_RAM">Loading the installation medium from RAM</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../Multiboot_USB_drive.html#Using_Syslinux_and_memdisk" title="Multiboot USB drive">Multiboot USB drive#Using Syslinux-tosand memdisk</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Multiboot_USB_drive.html#Using_Syslinux_and_memdisk" title="Multiboot USB drive">Multiboot USB drive#Using Syslinux-tosand memdisk</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Notes:</b> This is the same method, only Syslinux-tosis installed from Windows. Considering that <a href="../Multiboot_USB_drive.html" title="Multiboot USB drive">multiboot USB drive</a> can be used to boot an installation medium and it is already linked from the Related articles box at the top, maybe this section should be merged there? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:USB_flash_installation_media">Talk:USB flash installation media#</a>)</div>
+<b>Notes:</b> This is the same method, only Syslinux-tosis installed from Windows. Considering that <a href="../wiki/Multiboot_USB_drive.html" title="Multiboot USB drive">multiboot USB drive</a> can be used to boot an installation medium and it is already linked from the Related articles box at the top, maybe this section should be merged there? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:USB_flash_installation_media">Talk:USB flash installation media#</a>)</div>
 </div>
-<p>This method uses <a href="../Syslinux.html" title="Syslinux">Syslinux</a> and a <a href="../Tmpfs.html" class="mw-redirect" title="Ramdisk">Ramdisk</a> (<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/MEMDISK">MEMDISK</a>) to load the entire TOS Linux ISO image into RAM. Since this will be running entirely from system memory, you will need to make sure the system you will be installing this on has an adequate amount. A minimum amount of RAM between 500 MB and 1 GB should suffice for a MEMDISK based, TOS Linux install.
+<p>This method uses <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> and a <a href="../wiki/Tmpfs.html" class="mw-redirect" title="Ramdisk">Ramdisk</a> (<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/MEMDISK">MEMDISK</a>) to load the entire TOS Linux ISO image into RAM. Since this will be running entirely from system memory, you will need to make sure the system you will be installing this on has an adequate amount. A minimum amount of RAM between 500 MB and 1 GB should suffice for a MEMDISK based, TOS Linux install.
 </p>
-<p>For more information on TOS Linux system requirements as well as those for MEMDISK see the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a> and <a rel="nofollow"  href="http://www.etherboot.org/wiki/bootingmemdisk#preliminaries">here</a>. For reference, here is the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=135266">preceding forum thread</a>.
+<p>For more information on TOS Linux system requirements as well as those for MEMDISK see the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a> and <a rel="nofollow"  href="http://www.etherboot.org/wiki/bootingmemdisk#preliminaries">here</a>. For reference, here is the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=135266">preceding forum thread</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Once the installer has completed loading you can simply remove the USB stick and even use it on a different machine to start the process all over again. Utilizing MEMDISK also allows booting and installing TOS Linux to and from the same USB flash drive.</div>
@@ -426,7 +426,7 @@ LABEL arch_iso
         LINUX memdisk
         INITRD /Boot/ISOs/archlinux-<i>version</i>-x86_64.iso
         APPEND iso</pre>
-<p>For more information on Syslinux-tossee the <a href="../Syslinux.html" title="Syslinux">TOS Wiki article</a>.
+<p>For more information on Syslinux-tossee the <a href="../wiki/Syslinux.html" title="Syslinux">TOS Wiki article</a>.
 </p>
 <h5><span class="mw-headline" id="Final_steps">Final steps</span></h5>
 <p>Finally, create a <code>*.bat</code> file where <code>syslinux.exe</code> is located and run it ("Run as administrator" if you are on Vista or Windows 7):
@@ -450,12 +450,12 @@ syslinux.exe -m -a -d /Boot/Settings X:
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -474,9 +474,9 @@ syslinux.exe -m -a -d /Boot/Settings X:
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

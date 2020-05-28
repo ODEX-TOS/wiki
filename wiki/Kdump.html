@@ -2,7 +2,7 @@
     title: Kdump
     description: Migration of Kdump from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Kexec.html" title="Kexec">Kexec</a></li>
+<li><a href="../wiki/Kexec.html" title="Kexec">Kexec</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kdump/kdump.html">Kdump</a> is a standard Linux mechanism to dump machine memory content on kernel crash. Kdump is based on <a href="../Kexec.html" title="Kexec">Kexec</a>. Kdump utilizes two kernels: system kernel and dump capture kernel. System kernel is a normal kernel that is booted with special kdump-specific flags. We need to tell the system kernel to reserve some amount of physical memory where dump-capture kernel will be loaded. We need to load the dump capture kernel in advance because at the moment crash happens there is no way to read any data from disk because kernel is broken.
+<p><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kdump/kdump.html">Kdump</a> is a standard Linux mechanism to dump machine memory content on kernel crash. Kdump is based on <a href="../wiki/Kexec.html" title="Kexec">Kexec</a>. Kdump utilizes two kernels: system kernel and dump capture kernel. System kernel is a normal kernel that is booted with special kdump-specific flags. We need to tell the system kernel to reserve some amount of physical memory where dump-capture kernel will be loaded. We need to load the dump capture kernel in advance because at the moment crash happens there is no way to read any data from disk because kernel is broken.
 </p>
-<p>Once kernel crash happens the kernel crash handler uses <a href="../Kexec.html" title="Kexec">Kexec</a> mechanism to boot dump capture kernel. Please note that memory with system kernel is untouched and accessible from dump capture kernel as seen at the moment of crash. Once dump capture kernel is booted, the user can use the file <code>/proc/vmcore</code> to get access to memory of crashed system kernel. The dump can be saved to disk or copied over network to some other machine for further investigation.
+<p>Once kernel crash happens the kernel crash handler uses <a href="../wiki/Kexec.html" title="Kexec">Kexec</a> mechanism to boot dump capture kernel. Please note that memory with system kernel is untouched and accessible from dump capture kernel as seen at the moment of crash. Once dump capture kernel is booted, the user can use the file <code>/proc/vmcore</code> to get access to memory of crashed system kernel. The dump can be saved to disk or copied over network to some other machine for further investigation.
 </p>
 <p>In real production environments system and dump capture kernel will be different - system kernel needs a lot of features and compiled with a many kernel flags/drivers. While dump capture kernel goal is to be minimalistic and take as small amount of memory as possible, e.g. dump capture kernel can be compiled without network support if we store memory dump to disk only. But in this article we will simplify things and use the same kernel both as system and dump capture one. It means we will load the same kernel code twice - one as normal system kernel, another one to reserved memory area.
 </p>
@@ -52,7 +52,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Compiling_kernel">Compiling kernel</span></h2>
-<p>System/dump capture kernel requires some configuration flags that are not set by default. Please consult <a href="../Kernel.html#Compilation" class="mw-redirect" title="Kernel Compilation">Kernel Compilation</a> article for more information about compiling a custom kernel in TOS. Here we will emphasize on Kdump specific configuration.
+<p>System/dump capture kernel requires some configuration flags that are not set by default. Please consult <a href="../wiki/Kernel.html#Compilation" class="mw-redirect" title="Kernel Compilation">Kernel Compilation</a> article for more information about compiling a custom kernel in TOS. Here we will emphasize on Kdump specific configuration.
 </p>
 <p>To create a kernel you need to edit kernel config (or config.x86_64) file and enable following configuration options:
 </p>
@@ -66,7 +66,7 @@ CONFIG_PROC_VMCORE=y
 <p>In case if you have a separate kernel for the system and dump capture then it is recommended to consult <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kdump/kdump.html">Kdump</a> documentation. It has several recommendations how to make dump capture kernel smaller.
 </p>
 <h2><span class="mw-headline" id="Setup_kdump_kernel">Setup kdump kernel</span></h2>
-<p>First, you need to reserve memory for dump capture kernel. Edit you bootloader configuration and add <code>crashkernel=64M</code> boot option to the system kernel you just installed. For example <a href="../Syslinux.html" title="Syslinux">Syslinux</a> boot entry would look like:
+<p>First, you need to reserve memory for dump capture kernel. Edit you bootloader configuration and add <code>crashkernel=64M</code> boot option to the system kernel you just installed. For example <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> boot entry would look like:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/boot/syslinux/syslinux.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">LABEL arch-kdump
@@ -79,7 +79,7 @@ CONFIG_PROC_VMCORE=y
 </p>
 <p>Reboot into your system kernel.  To make sure that the kernel is booted with correct options please check the <code>/proc/cmdline</code> file.
 </p>
-<p>Next you need to tell <a href="../Kexec.html" title="Kexec">Kexec</a> that you want to use your dump capture kernel. Specify your kernel, initramfs file, root device and other parameters if needed:
+<p>Next you need to tell <a href="../wiki/Kexec.html" title="Kexec">Kexec</a> that you want to use your dump capture kernel. Specify your kernel, initramfs file, root device and other parameters if needed:
 </p>
 <pre># kexec -p [/boot/vmlinuz-linux-kdump] --initrd=[/boot/initramfs-linux-kdump.img] --append="root=[root-device] single irqpoll maxcpus=1 reset_devices"
 </pre>
@@ -87,7 +87,7 @@ CONFIG_PROC_VMCORE=y
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> For a loaded kernel <code>cat /sys/devices/system/cpu/online</code> shows the active CPU cores. The <code>maxcpus=1</code> kernel parameter should <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/core-api/cpu_hotplug.html">limit</a> it to one. If it has no effect or your SMP-enabled kernel <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1424049#p1424049">does not boot</a>, try using <code>nr_cpus=1</code> instead.</div>
-<p>Instead of running <i>kexec</i> manually you might want to setup <a href="../Systemd.html" title="Systemd">Systemd</a> service that will run kexec on boot:
+<p>Instead of running <i>kexec</i> manually you might want to setup <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> service that will run kexec on boot:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/kdump.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -182,8 +182,8 @@ WantedBy=multi-user.target</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
-<li><a href="../Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="../wiki/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -201,9 +201,9 @@ WantedBy=multi-user.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

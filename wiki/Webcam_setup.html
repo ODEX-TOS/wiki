@@ -2,7 +2,7 @@
     title: Webcam_setup
     description: Migration of Webcam_setup from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -26,7 +26,7 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p>This is a guide to setting up your webcam in TOS Linux.
 </p>
-<p>Most probably your webcam will work out of the box. Permissions to access video devices (e.g. <code>/dev/video0</code>) are handled by <a href="../Udev.html" title="Udev">udev</a>, there is no configuration necessary.
+<p>Most probably your webcam will work out of the box. Permissions to access video devices (e.g. <code>/dev/video0</code>) are handled by <a href="../wiki/Udev.html" title="Udev">udev</a>, there is no configuration necessary.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -79,12 +79,12 @@ usb 1-1: Optional device control through 'sysfs' interface ready
 usbcore: registered new driver sn9c102</pre>
 <p>Some pre-UVC webcams are also supported via the <i>gspca</i> kernel driver module. See the <a rel="nofollow"  href="https://www.linuxtv.org/wiki/index.php/Gspca_devices">gspca devices</a> for a non-exhaustive list of supported devices under this framework.
 </p>
-<p>Otherwise, if your webcam is not supported by the kernel's drivers, an external driver is necessary. The first step is to identify the name of the webcam, using for example <code>lsusb</code>. Then you can check <a rel="nofollow"  href="https://www.linuxtv.org/wiki/index.php/Webcam_devices">webcam devices</a> for information and resources about webcams. Once you find a driver compatible with the webcam, you have to add the corresponding <a href="../Kernel_module.html" title="Kernel module">kernel module</a> in <code>/etc/modules-load.d/webcam.conf</code> so it will be loaded into the kernel during init stage bootstrapping.
+<p>Otherwise, if your webcam is not supported by the kernel's drivers, an external driver is necessary. The first step is to identify the name of the webcam, using for example <code>lsusb</code>. Then you can check <a rel="nofollow"  href="https://www.linuxtv.org/wiki/index.php/Webcam_devices">webcam devices</a> for information and resources about webcams. Once you find a driver compatible with the webcam, you have to add the corresponding <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a> in <code>/etc/modules-load.d/webcam.conf</code> so it will be loaded into the kernel during init stage bootstrapping.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The Linux kernel to userspace API used to control webcams is named <i>Video4Linux2</i>, <b>v4l2</b> for short. All applications which support v4l2 will work with the kernel's drivers.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>If you want to configure brightness, color and other webcam parameters (e.g. in the case when out-of-the-box colors are too bluish/reddish/greenish) you may use <i>Qt V4L2 Test Bench</i>. To run it, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=v4l-utils">v4l-utils</a></span> and launch <code>qv4l2</code>, and it will present you a list of configurable settings. Changing these settings will affect all applications.
+<p>If you want to configure brightness, color and other webcam parameters (e.g. in the case when out-of-the-box colors are too bluish/reddish/greenish) you may use <i>Qt V4L2 Test Bench</i>. To run it, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=v4l-utils">v4l-utils</a></span> and launch <code>qv4l2</code>, and it will present you a list of configurable settings. Changing these settings will affect all applications.
 </p>
 <h3><span class="mw-headline" id="Command_Line">Command Line</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=v4l-utils">v4l-utils</a></span> also installs an equivalent command line tool, <code>v4l2-ctl</code>. To list all video devices:
@@ -96,28 +96,28 @@ usbcore: registered new driver sn9c102</pre>
 <pre>$ v4l2-ctl -d /dev/video0 --list-ctrls
 </pre>
 <h3><span class="mw-headline" id="Persisting_configuration_changes">Persisting configuration changes</span></h3>
-<p>Configuration made via V4L2 does not persist after the webcam is disconnected and reconnected. It's possible to use <code>v4l2-ctl</code> with <a href="../Udev.html" title="Udev">Udev</a> rules in order to set some configuration each time a particular camera is connected.
+<p>Configuration made via V4L2 does not persist after the webcam is disconnected and reconnected. It's possible to use <code>v4l2-ctl</code> with <a href="../wiki/Udev.html" title="Udev">Udev</a> rules in order to set some configuration each time a particular camera is connected.
 </p>
-<p>For example, to set a default zoom setting on a particular Logitech webcam each time it is connected, add a <a href="../Udev.html#udev_rule_example" title="Udev">udev rule</a> like this:
+<p>For example, to set a default zoom setting on a particular Logitech webcam each time it is connected, add a <a href="../wiki/Udev.html#udev_rule_example" title="Udev">udev rule</a> like this:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/99-logitech-default-zoom.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", ATTRS{product}=="HD Pro Webcam C920", ATTRS{serial}=="BBBBFFFF", RUN="/usr/bin/v4l2-ctl -d $devnode --set-ctrl=zoom_absolute=170"</pre>
-<p>To find udev attributes like the product name and serial, see <a href="../Udev.html#List_the_attributes_of_a_device" title="Udev">Udev#List the attributes of a device</a>. It also possible to <a href="../Udev.html#Setting_static_device_names" title="Udev">set a static name for a video device</a>).
+<p>To find udev attributes like the product name and serial, see <a href="../wiki/Udev.html#List_the_attributes_of_a_device" title="Udev">Udev#List the attributes of a device</a>. It also possible to <a href="../wiki/Udev.html#Setting_static_device_names" title="Udev">set a static name for a video device</a>).
 </p>
 <h2><span class="mw-headline" id="Applications">Applications</span></h2>
-<p>See also <a href="../List_of_applications/Multimedia.html#Webcam" title="List of applications/Multimedia">List of applications/Multimedia#Webcam</a>.
+<p>See also <a href="../wiki/List_of_applications/Multimedia.html#Webcam" title="List of applications/Multimedia">List of applications/Multimedia#Webcam</a>.
 </p>
 <h3><span class="mw-headline" id="xawtv">xawtv</span></h3>
 <p>This is a basic <i>Video4Linux2</i> device viewer, and although it is intended for use with TV tuner cards, it works well with webcams. It will display what your webcam sees in a window.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xawtv">xawtv</a></span> and run it with:
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xawtv">xawtv</a></span> and run it with:
 </p>
 <pre>$ xawtv -c /dev/video0
 </pre>
 <p>In case of error see <a href="#xawtv_with_nvidia_card">#xawtv with nvidia card</a>.
 </p>
 <h3><span class="mw-headline" id="VLC">VLC</span></h3>
-<p><a href="../VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> can also be used to view and record your webcam. In VLC's "Media" menu, open the 'Capture Device...' dialog and enter the video and audio device files. Or from the command line, do:
+<p><a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> can also be used to view and record your webcam. In VLC's "Media" menu, open the 'Capture Device...' dialog and enter the video and audio device files. Or from the command line, do:
 </p>
 <pre>$ vlc v4l2:// :input-slave=alsa:// :v4l-vdev="/dev/video0"
 </pre>
@@ -136,7 +136,7 @@ usbcore: registered new driver sn9c102</pre>
 <p>If VLC does not detect webcams, ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zvbi">zvbi</a></span> package is installed.
 </p>
 <h3><span class="mw-headline" id="MPlayer">MPlayer</span></h3>
-<p>To use <a href="../MPlayer.html" title="MPlayer">MPlayer</a> to take snapshots from your webcam run this command from the terminal:
+<p>To use <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a> to take snapshots from your webcam run this command from the terminal:
 </p>
 <pre>$ mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot
 </pre>
@@ -148,7 +148,7 @@ If you want to record video continuous:
 <p>Press <code>Ctrl+c</code> to end the recording.
 </p>
 <h3><span class="mw-headline" id="mpv">mpv</span></h3>
-<p>To use <a href="../Mpv.html" title="Mpv">mpv</a> to take snapshots from your webcam, run this command from the terminal:
+<p>To use <a href="../wiki/Mpv.html" title="Mpv">mpv</a> to take snapshots from your webcam, run this command from the terminal:
 </p>
 <pre>$ mpv av://v4l2:/dev/video0
 </pre>
@@ -161,7 +161,7 @@ If you want to record video continuous:
 <p>In some cases this can lead to drastic improvements in quality and performance (5FPS -&gt; 30FPS for example).
 </p>
 <h3><span class="mw-headline" id="FFmpeg">FFmpeg</span></h3>
-<p>See <a href="../FFmpeg.html#Recording_webcam" title="FFmpeg">FFmpeg#Recording webcam</a>.
+<p>See <a href="../wiki/FFmpeg.html#Recording_webcam" title="FFmpeg">FFmpeg#Recording webcam</a>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="V4L1_support">V4L1 support</span></h3>
@@ -178,10 +178,10 @@ If you want to record video continuous:
 <pre>LD_PRELOAD=/usr/lib/libv4l/v4l1compat.so application
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> You also might want to put a line like the following into <code>/etc/profile</code> or <a href="../Xprofile.html" title="Xprofile">xprofile</a> so you do not have to type that long command all the time:
+<strong>Tip:</strong> You also might want to put a line like the following into <code>/etc/profile</code> or <a href="../wiki/Xprofile.html" title="Xprofile">xprofile</a> so you do not have to type that long command all the time:
  <code>export LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so</code> or <code>export LD_PRELOAD=/usr/lib/libv4l/v4l1compat.so</code>
 </div>
-<p>For 32-bit <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> applications, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-v4l-utils">lib32-v4l-utils</a></span> package and replace <code>/usr/lib/libv4l/</code> by <code>/usr/lib32/libv4l/</code> in the above commands.
+<p>For 32-bit <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> applications, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-v4l-utils">lib32-v4l-utils</a></span> package and replace <code>/usr/lib/libv4l/</code> by <code>/usr/lib32/libv4l/</code> in the above commands.
 </p>
 <h3><span class="mw-headline" id="xawtv_with_nvidia_card">xawtv with nvidia card</span></h3>
 <p>If you are using an nvidia graphic card, and get an error like
@@ -215,7 +215,7 @@ options uvcvideo quirks=0x80</pre>
 <p>When running multiple webcams on a single USB bus, they may saturate the bandwidth of the USB bus and not work properly. You can diagnose this with the <i>usbtop</i> tool from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/usbtop/">usbtop</a></span><sup><small>AUR</small></sup> package.
 </p>
 <h3><span class="mw-headline" id="Invert_the_video_stream">Invert the video stream</span></h3>
-<p>If your video stream is inverted, you can make a new virtual video camera which inverts the inverted video. You need to <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=v4l-utils">v4l-utils</a></span> and also <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/v4l2loopback-dkms/">v4l2loopback-dkms</a></span><sup><small>AUR</small></sup>. Create the virtual video camera:
+<p>If your video stream is inverted, you can make a new virtual video camera which inverts the inverted video. You need to <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=v4l-utils">v4l-utils</a></span> and also <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/v4l2loopback-dkms/">v4l2loopback-dkms</a></span><sup><small>AUR</small></sup>. Create the virtual video camera:
 </p>
 <pre># modprobe v4l2loopback
 </pre>
@@ -234,7 +234,7 @@ Dummy video device (0x0000) (platform:v4l2loopback-000):
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -251,9 +251,9 @@ Dummy video device (0x0000) (platform:v4l2loopback-000):
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Xpra
     description: Migration of Xpra from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -26,7 +26,7 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p>From the <a rel="nofollow"  href="http://xpra.org/">Xpra website</a>:
 </p>
-<p>Xpra is '<a href="../GNU_Screen.html" title="GNU Screen">GNU Screen</a> for X': it allows you to run X programs, usually on a remote host, direct their display to your local machine, and then to disconnect from these programs and reconnect from the same or another machine, without losing any state. It gives you remote access to individual applications. 
+<p>Xpra is '<a href="../wiki/GNU_Screen.html" title="GNU Screen">GNU Screen</a> for X': it allows you to run X programs, usually on a remote host, direct their display to your local machine, and then to disconnect from these programs and reconnect from the same or another machine, without losing any state. It gives you remote access to individual applications. 
 </p>
 <ul>
 <li>Xpra is "rootless" or "seamless": programs you run under it show up on your desktop as regular programs, managed by your regular window manager.</li>
@@ -83,7 +83,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xpra">xpra</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xpra-svn/">xpra-svn</a></span><sup><small>AUR</small></sup>, on the server and the clients.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xpra">xpra</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xpra-svn/">xpra-svn</a></span><sup><small>AUR</small></sup>, on the server and the clients.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you intend to run Xpra locally under a existing Xorg session with graphic drivers such as <code>nvidia</code> or <code>ATi</code> you will need to modify the default xpra config. Xpra fetches <code>-configdir</code> from <code>xorg-server-xvfb</code> which will be <code>/etc/X11/xorg.conf.d</code>, therefore you need to change this by following the three bottom steps of <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1333056#p1333056">1333056#p1333056</a> in order to run xpra locally.</div>
@@ -151,7 +151,7 @@ $ firefox</pre>
 </p>
 <pre>$ xpra detach :7</pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Screen resolution can be changed with <a href="../Xrandr.html" title="Xrandr">xrandr</a>.</div>
+<strong>Tip:</strong> Screen resolution can be changed with <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a>.</div>
 <h3><span class="mw-headline" id="shadow_remote_desktop">shadow remote desktop</span></h3>
 <p>To clone:
 </p>
@@ -163,7 +163,7 @@ $ firefox</pre>
 </p>
 <pre>$ xpra shadow ssh:DISPLAY_user@example.com:DISPLAY_number</pre>
 <h3><span class="mw-headline" id="as_xorg_sandbox">as xorg sandbox</span></h3>
-<p>Sandox can be achieved with <a href="../Firejail.html" title="Firejail">firejail</a>:
+<p>Sandox can be achieved with <a href="../wiki/Firejail.html" title="Firejail">firejail</a>:
 </p>
 <ul><li>for application sandbox (change <code>eth0</code> to your interface name or to <code>none</code>):</li></ul>
 <pre>$ firejail --x11=xpra --net=eth0 firefox</pre>
@@ -177,7 +177,7 @@ $ firefox</pre>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Start_at_boot">Start at boot</span></h3>
 <h4><span class="mw-headline" id="Server">Server</span></h4>
-<p>It is possible to start the xpra server at boot using a <a href="../Systemd.html" title="Systemd">systemd</a> unit.
+<p>It is possible to start the xpra server at boot using a <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit.
 </p>
 <p>Create the unit file:
 </p>
@@ -199,11 +199,11 @@ WantedBy=multi-user.target
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/conf.d/xpra</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">myusername=:7
 </pre>
-<p><a href="../Daemons.html" title="Daemons">Enable the service</a> for each username that owns a display. In this example, the service would be <code>xpra@myusername.service</code>.
+<p><a href="../wiki/Daemons.html" title="Daemons">Enable the service</a> for each username that owns a display. In this example, the service would be <code>xpra@myusername.service</code>.
 </p>
 <h4><span class="mw-headline" id="Client">Client</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If the client is a remote machine, first of all use SSH keys to be able to connect to the server without typing a password. Read <a href="../SSH_keys.html" title="SSH keys">SSH keys</a> for more details.</div>
+<strong>Note:</strong> If the client is a remote machine, first of all use SSH keys to be able to connect to the server without typing a password. Read <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a> for more details.</div>
 <h5><span class="mw-headline" id="Method_1:_.xinitrc">Method 1: .xinitrc</span></h5>
 <p>Add to your <code>~/.xinitrc</code> file the line necessary to start the connection, adding an <b>&amp;</b> at the end of the line.
 </p>
@@ -215,10 +215,10 @@ WantedBy=multi-user.target
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">xpra attach ssh:user@example.com:7 &amp;
 </pre>
 <h5><span class="mw-headline" id="Method_2:_systemd_user_session">Method 2: systemd user session</span></h5>
-<p>Configure your session to use <b>systemd user session</b>. Read <a href="../Systemd/User.html" title="Systemd/User">Systemd/User</a> for details.
+<p>Configure your session to use <b>systemd user session</b>. Read <a href="../wiki/Systemd/User.html" title="Systemd/User">Systemd/User</a> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Make sure you understand the difference between <b>systemd user session</b> services, and regular <b>systemd</b> services. Again, read the <a href="../Systemd/User.html" title="Systemd/User">Systemd/User</a> for details.</div>
+<strong>Note:</strong> Make sure you understand the difference between <b>systemd user session</b> services, and regular <b>systemd</b> services. Again, read the <a href="../wiki/Systemd/User.html" title="Systemd/User">Systemd/User</a> for details.</div>
 <p>Create the following service unit:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$HOME/.config/systemd/user/xpra-client@.service</pre>
@@ -243,7 +243,7 @@ WantedBy=default.target
 <p>Example:
 </p>
 <pre>xpra-client@ssh:myuser@example.com:7.service</pre>
-<p><a href="../Daemons.html" title="Daemons">Enable that service</a>, and remember to use the <code>--user</code> flag on <code>systemctl</code>.
+<p><a href="../wiki/Daemons.html" title="Daemons">Enable that service</a>, and remember to use the <code>--user</code> flag on <code>systemctl</code>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Error:_Only_console_users_are_allowed_to_run_the_X_server">Error: Only console users are allowed to run the X server</span></h3>
@@ -282,8 +282,8 @@ WantedBy=default.target
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:X_server.html" title="Category:X server">X server</a></li>
-<li><a href="../Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li>
+<li><a href="../wiki/Category:X_server.html" title="Category:X server">X server</a></li>
+<li><a href="../wiki/Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -301,9 +301,9 @@ WantedBy=default.target
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Fail2ban
     description: Migration of Fail2ban from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Sshguard.html" title="Sshguard">sshguard</a></li>
-<li><a href="../Security.html" title="Security">Security</a></li>
+<li><a href="../wiki/Sshguard.html" title="Sshguard">sshguard</a></li>
+<li><a href="../wiki/Security.html" title="Security">Security</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.fail2ban.org/wiki/index.php/Main_Page">Fail2ban</a> scans log files (e.g. <code>/var/log/httpd/error_log</code>) and bans IPs that show the malicious signs like too many password failures, seeking for exploits, etc. Generally Fail2ban is then used to update <a href="../Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> rules to reject the IP addresses for a specified amount of time, although any other arbitrary action (e.g. sending an email) could also be configured. 
+<p><a rel="nofollow"  href="https://www.fail2ban.org/wiki/index.php/Main_Page">Fail2ban</a> scans log files (e.g. <code>/var/log/httpd/error_log</code>) and bans IPs that show the malicious signs like too many password failures, seeking for exploits, etc. Generally Fail2ban is then used to update <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> rules to reject the IP addresses for a specified amount of time, although any other arbitrary action (e.g. sending an email) could also be configured. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Using an IP banning software will stop trivial attacks but it relies on an additional daemon and successful logging. Additionally, if the attacker knows your IP address, they can send packets with a spoofed source header and get your IP address banned. Make sure to specify your IP in <code>ignoreip</code>.</div>
@@ -68,10 +68,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fail2ban">fail2ban</a></span>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fail2ban">fail2ban</a></span>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p><a href="#Configuration">Configure</a> Fail2ban and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a>/<a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>fail2ban.service</code>.
+<p><a href="#Configuration">Configure</a> Fail2ban and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>fail2ban.service</code>.
 </p>
 <h3><span class="mw-headline" id="fail2ban-client">fail2ban-client</span></h3>
 <p>The fail2ban-client allows monitoring jails (reload, restart, status, etc.), to view all available commands:
@@ -96,7 +96,7 @@
    `- Banned IP list:   0.0.0.0
 </pre>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>Due to the possibility of the <code>/etc/fail2ban/jail.conf</code> file being overwritten or improved during a distribution update, it is recommended to <a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">create</a> a <code>/etc/fail2ban/jail.local</code> file. For example to change the default ban time to 1 day:
+<p>Due to the possibility of the <code>/etc/fail2ban/jail.conf</code> file being overwritten or improved during a distribution update, it is recommended to <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">create</a> a <code>/etc/fail2ban/jail.local</code> file. For example to change the default ban time to 1 day:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fail2ban/jail.local</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[DEFAULT]
@@ -104,10 +104,10 @@ bantime = 1d
 </pre>
 <p>Or create separate <i>name.local</i> files under the <code>/etc/fail2ban/jail.d</code> directory, e.g. <code>/etc/fail2ban/jail.d/sshd.local</code>.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>fail2ban.service</code> to apply the configuration changes.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>fail2ban.service</code> to apply the configuration changes.
 </p>
 <h3><span class="mw-headline" id="Enabling_jails">Enabling jails</span></h3>
-<p>By default all jails are disabled. <a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>enabled = true</code> to the jail you want to use, e.g. to enable the <a href="../OpenSSH.html" title="OpenSSH">OpenSSH</a> jail:
+<p>By default all jails are disabled. <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>enabled = true</code> to the jail you want to use, e.g. to enable the <a href="../wiki/OpenSSH.html" title="OpenSSH">OpenSSH</a> jail:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fail2ban/jail.local</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[sshd]
@@ -115,7 +115,7 @@ enabled = true</pre>
 <p>See <a href="#Custom_SSH_jail">#Custom SSH jail</a>.
 </p>
 <h3><span class="mw-headline" id="Receive_an_alert_e-mail">Receive an alert e-mail</span></h3>
-<p>If you want to receive an e-mail when someone has been banned, you have to configure an SMTP client (e.g. <a href="../Msmtp.html" title="Msmtp">msmtp</a>) and change default action, as given below.
+<p>If you want to receive an e-mail when someone has been banned, you have to configure an SMTP client (e.g. <a href="../wiki/Msmtp.html" title="Msmtp">msmtp</a>) and change default action, as given below.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fail2ban/jail.local</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[DEFAULT]
@@ -129,7 +129,7 @@ action = %(action_mw)s
 #action = %(action_mwl)s
 </pre>
 <h3><span class="mw-headline" id="Firewall_and_services">Firewall and services</span></h3>
-<p>By default, Fail2ban uses <a href="../Iptables.html" title="Iptables">Iptables</a>. However, configuration of most <a href="../Category:Firewalls.html" class="mw-redirect" title="Firewalls">firewalls</a> and services is straightforward. For example, to use <a href="../Nftables.html" title="Nftables">Nftables</a>:
+<p>By default, Fail2ban uses <a href="../wiki/Iptables.html" title="Iptables">Iptables</a>. However, configuration of most <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewalls">firewalls</a> and services is straightforward. For example, to use <a href="../wiki/Nftables.html" title="Nftables">Nftables</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fail2ban/jail.local</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[DEFAULT]
@@ -140,7 +140,7 @@ banaction = nftables
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Custom_SSH_jail">Custom SSH jail</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If the attacker knows your IP address, they can send packets with a spoofed source header and get your IP address locked out of the server. <a href="../SSH_keys.html" title="SSH keys">SSH keys</a> provide an elegant solution to the problem of brute forcing without these problems.</div>
+<strong>Warning:</strong> If the attacker knows your IP address, they can send packets with a spoofed source header and get your IP address locked out of the server. <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a> provide an elegant solution to the problem of brute forcing without these problems.</div>
 <p>Edit <code>/etc/fail2ban/jail.d/sshd.local</code>, add this section and update the list of trusted IP addresses in <code>ignoreip</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fail2ban/jail.d/sshd.local</pre>
@@ -157,20 +157,20 @@ ignoreip  = 127.0.0.1/8</pre>
 <strong>Note:</strong> 
 <ul>
 <li>It may be necessary to set <code>LogLevel VERBOSE</code> in <code>/etc/ssh/sshd_config</code> to allow full fail2ban monitoring as otherwise password failures may not be logged correctly.</li>
-<li>Fail2ban has IPv6 support since version 0.10. Adapt your <a href="../Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> accordingly, e.g. <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ip6tables.service</code>.</li>
+<li>Fail2ban has IPv6 support since version 0.10. Adapt your <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> accordingly, e.g. <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ip6tables.service</code>.</li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
-<li>If using <a href="../Iptables.html" title="Iptables">iptables</a> front-ends like <a href="../Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a>, one can use <code>banaction = ufw</code> instead of using iptables.</li>
-<li>When using <a href="../Shorewall.html" title="Shorewall">Shorewall</a>, one can use <code>banaction = shorewall</code> and also set <code>BLACKLIST</code> to <code>ALL</code> in <code>/etc/shorewall/shorewall.conf</code>, otherwise the rule added to ban an IP address will affect only new connections.</li>
+<li>If using <a href="../wiki/Iptables.html" title="Iptables">iptables</a> front-ends like <a href="../wiki/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a>, one can use <code>banaction = ufw</code> instead of using iptables.</li>
+<li>When using <a href="../wiki/Shorewall.html" title="Shorewall">Shorewall</a>, one can use <code>banaction = shorewall</code> and also set <code>BLACKLIST</code> to <code>ALL</code> in <code>/etc/shorewall/shorewall.conf</code>, otherwise the rule added to ban an IP address will affect only new connections.</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="Service_hardening">Service hardening</span></h3>
-<p>Currently, Fail2ban must be run as <i>root</i>. Therefore, you may wish to consider hardening the process with <a href="../Systemd.html" title="Systemd">systemd</a>.
+<p>Currently, Fail2ban must be run as <i>root</i>. Therefore, you may wish to consider hardening the process with <a href="../wiki/Systemd.html" title="Systemd">systemd</a>.
 </p>
-<p><a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">Create</a> a <a href="../Systemd.html#Drop-in_files" title="Systemd">drop-in</a> configuration file for <code>fail2ban.service</code>:
+<p><a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">Create</a> a <a href="../wiki/Systemd.html#Drop-in_files" title="Systemd">drop-in</a> configuration file for <code>fail2ban.service</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/fail2ban.service.d/override.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -185,9 +185,9 @@ ReadWritePaths=-/var/log/fail2ban
 ReadWritePaths=-/var/spool/postfix/maildrop
 ReadWritePaths=-/run/xtables.lock
 CapabilityBoundingSet=CAP_AUDIT_READ CAP_DAC_READ_SEARCH CAP_NET_ADMIN CAP_NET_RAW</pre>
-<p>The <code>CapabilityBoundingSet</code> parameters <code>CAP_DAC_READ_SEARCH</code> will allow Fail2ban full read access to every directory and file. <code>CAP_NET_ADMIN</code> and <code>CAP_NET_RAW</code> allow Fail2ban to operate on any firewall that has <a href="../Command-line_shell.html" title="Command-line shell">command-line shell</a> interface. See <span class="plainlinks archwiki-template-man" title="$ man 7 capabilities"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/capabilities.7">capabilities(7)</a></span> for more info.
+<p>The <code>CapabilityBoundingSet</code> parameters <code>CAP_DAC_READ_SEARCH</code> will allow Fail2ban full read access to every directory and file. <code>CAP_NET_ADMIN</code> and <code>CAP_NET_RAW</code> allow Fail2ban to operate on any firewall that has <a href="../wiki/Command-line_shell.html" title="Command-line shell">command-line shell</a> interface. See <span class="plainlinks archwiki-template-man" title="$ man 7 capabilities"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/capabilities.7">capabilities(7)</a></span> for more info.
 </p>
-<p>By using <code>ProtectSystem=strict</code> the <a href="../File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> hierarchy will only be read-only, <code>ReadWritePaths</code> allows Fail2ban to have write access on required paths.
+<p>By using <code>ProtectSystem=strict</code> the <a href="../wiki/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> hierarchy will only be read-only, <code>ReadWritePaths</code> allows Fail2ban to have write access on required paths.
 </p>
 <p>Create <code>/etc/fail2ban/fail2ban.local</code> with the correct <code>logtarget</code> path:
 </p>
@@ -197,7 +197,7 @@ logtarget = /var/log/fail2ban/fail2ban.log
 </pre>
 <p>Create the <code>/var/log/fail2ban/</code> directory as root.
 </p>
-<p>Finally, <a href="../Systemd.html#Using_units" title="Systemd">reload systemd daemon</a> to apply the changes of the unit and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>fail2ban.service</code>.
+<p>Finally, <a href="../wiki/Systemd.html#Using_units" title="Systemd">reload systemd daemon</a> to apply the changes of the unit and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>fail2ban.service</code>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -212,8 +212,8 @@ logtarget = /var/log/fail2ban/fail2ban.log
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li>
-<li><a href="../Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
+<li><a href="../wiki/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li>
+<li><a href="../wiki/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -231,9 +231,9 @@ logtarget = /var/log/fail2ban/fail2ban.log
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

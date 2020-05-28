@@ -2,7 +2,7 @@
     title: Dotfiles
     description: Migration of Dotfiles from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../XDG_Base_Directory.html" class="mw-redirect" title="XDG Base Directory support">XDG Base Directory support</a></li>
-<li><a href="../X_resources.html" title="X resources">X resources</a></li>
+<li><a href="../wiki/XDG_Base_Directory.html" class="mw-redirect" title="XDG Base Directory support">XDG Base Directory support</a></li>
+<li><a href="../wiki/X_resources.html" title="X resources">X resources</a></li>
 </ul>
 </div>
-<p>User-specific application configuration is traditionally stored in so called <a href="https://en.wikipedia.org/wiki/dotfile"  title="wikipedia:dotfile">dotfiles</a> (files whose filename starts with a dot). It is common practice to track dotfiles with a <a href="../Category:Version_Control_System.html" class="mw-redirect" title="Version control system">version control system</a> such as <a href="../Git.html" title="Git">Git</a> to keep track of changes and synchronize dotfiles across various hosts. There are various approaches to managing your dotfiles (e.g. directly tracking dotfiles in the home directory v.s. storing them in a subdirectory and symlinking/copying/generating files with a <a href="../Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> script or <a href="#Tools">a dedicated tool</a>). Apart from explaining how to manage your dotfiles this article also contains <a href="#User_repositories">a list of dotfile repositories</a> from TOS Linux users.
+<p>User-specific application configuration is traditionally stored in so called <a href="https://en.wikipedia.org/wiki/dotfile"  title="wikipedia:dotfile">dotfiles</a> (files whose filename starts with a dot). It is common practice to track dotfiles with a <a href="../wiki/Category:Version_Control_System.html" class="mw-redirect" title="Version control system">version control system</a> such as <a href="../wiki/Git.html" title="Git">Git</a> to keep track of changes and synchronize dotfiles across various hosts. There are various approaches to managing your dotfiles (e.g. directly tracking dotfiles in the home directory v.s. storing them in a subdirectory and symlinking/copying/generating files with a <a href="../wiki/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> script or <a href="#Tools">a dedicated tool</a>). Apart from explaining how to manage your dotfiles this article also contains <a href="#User_repositories">a list of dotfile repositories</a> from TOS Linux users.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -53,9 +53,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Tracking_dotfiles_directly_with_Git">Tracking dotfiles directly with Git</span></h2>
-<p>The benefit of tracking dotfiles directly with Git is that it only requires <a href="../Git.html" title="Git">Git</a> and does not involve symlinks. The disadvantage is that <a href="#Host-specific_configuration">host-specific configuration</a> generally requires merging changes into multiple <a href="../Git.html#Branching" title="Git">branches</a>.
+<p>The benefit of tracking dotfiles directly with Git is that it only requires <a href="../wiki/Git.html" title="Git">Git</a> and does not involve symlinks. The disadvantage is that <a href="#Host-specific_configuration">host-specific configuration</a> generally requires merging changes into multiple <a href="../wiki/Git.html#Branching" title="Git">branches</a>.
 </p>
-<p>The simplest way to achieve this approach is to initialize a <a href="../Git.html" title="Git">Git</a> repository directly in your home directory and ignoring all files by default with a <span class="plainlinks archwiki-template-man" title="$ man 5 gitignore"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gitignore.5">gitignore(5)</a></span> pattern of <code>*</code>. This method however comes with two drawbacks: it can become confusing when you have other Git repositories in your home directory (e.g. if you forget to initialize a repository you suddenly operate on your dotfile repository) and you can no longer easily see which files in the current directory are untracked (because they are ignored).
+<p>The simplest way to achieve this approach is to initialize a <a href="../wiki/Git.html" title="Git">Git</a> repository directly in your home directory and ignoring all files by default with a <span class="plainlinks archwiki-template-man" title="$ man 5 gitignore"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gitignore.5">gitignore(5)</a></span> pattern of <code>*</code>. This method however comes with two drawbacks: it can become confusing when you have other Git repositories in your home directory (e.g. if you forget to initialize a repository you suddenly operate on your dotfile repository) and you can no longer easily see which files in the current directory are untracked (because they are ignored).
 </p>
 <p>An alternative method without these drawbacks is the "bare repository and alias method" popularized by <a rel="nofollow"  href="https://news.ycombinator.com/item?id=11070797">this Hacker News comment</a>, which just takes three commands to set up:
 </p>
@@ -63,16 +63,16 @@
 $ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 $ config config status.showUntrackedFiles no
 </pre>
-<p>You can then manage your dotfiles with the created <a href="../Bash.html#Aliases" class="mw-redirect" title="Alias">alias</a>.
+<p>You can then manage your dotfiles with the created <a href="../wiki/Bash.html#Aliases" class="mw-redirect" title="Alias">alias</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> To avoid accidentally commiting confidential information, see <a href="../Git.html#Filtering_confidential_information" title="Git">Git#Filtering confidential information</a>.</div>
+<strong>Tip:</strong> To avoid accidentally commiting confidential information, see <a href="../wiki/Git.html#Filtering_confidential_information" title="Git">Git#Filtering confidential information</a>.</div>
 <h2><span class="mw-headline" id="Host-specific_configuration">Host-specific configuration</span></h2>
 <p>A common problem with synchronizing dotfiles across various machines is host-specific configuration.
 </p>
-<p>With <a href="../Git.html" title="Git">Git</a> this can be solved by maintaining a master branch for all shared configuration, while each individual machine has a machine-specific branch checked out. Host-specific configuration can be committed to the machine-specific branch; when shared configuration is modified in the master branch, the per-machine branches need to be rebased on top of the updated master.
+<p>With <a href="../wiki/Git.html" title="Git">Git</a> this can be solved by maintaining a master branch for all shared configuration, while each individual machine has a machine-specific branch checked out. Host-specific configuration can be committed to the machine-specific branch; when shared configuration is modified in the master branch, the per-machine branches need to be rebased on top of the updated master.
 </p>
-<p>In configuration scripts like <a href="../Command-line_shell.html#Configuration_files" title="Command-line shell">shell configuration files</a> conditional logic can be used. For example, <a href="../Bash.html" title="Bash">Bash</a> scripts (i.e. <code>.bashrc</code>) can apply different configuration depending on the machine name (or type, custom variable, etc.):
+<p>In configuration scripts like <a href="../wiki/Command-line_shell.html#Configuration_files" title="Command-line shell">shell configuration files</a> conditional logic can be used. For example, <a href="../wiki/Bash.html" title="Bash">Bash</a> scripts (i.e. <code>.bashrc</code>) can apply different configuration depending on the machine name (or type, custom variable, etc.):
 </p>
 <pre>if [[ "$(hostname)" == "archlaptop" ]]; then
     # laptop specific commands here
@@ -80,7 +80,7 @@ else
     # desktop or server machine commands
 fi
 </pre>
-<p>Similar can also be achieved with <a href="../X_resources.html" class="mw-redirect" title=".Xresources">.Xresources</a>.<a rel="nofollow"  href="https://jnrowe.github.io/articles/tips/Sharing_Xresources_between_systems.html">[1]</a>
+<p>Similar can also be achieved with <a href="../wiki/X_resources.html" class="mw-redirect" title=".Xresources">.Xresources</a>.<a rel="nofollow"  href="https://jnrowe.github.io/articles/tips/Sharing_Xresources_between_systems.html">[1]</a>
 </p>
 <p>If you find rebasing Git branches too cumbersome, you may want to use a <a href="#Tools">tool</a> that supports <i>file grouping</i>, or if even greater flexibility is desired, a tool that does <i>processing</i>.
 </p>
@@ -209,7 +209,7 @@ fi
 </tbody>
 </table>
 <h3><span class="mw-headline" id="Tools_wrapping_Git">Tools wrapping Git</span></h3>
-<p>If you are uncomfortable with <a href="../Git.html" title="Git">Git</a>, you may want to use one of these tools, which abstract the version control system away (more or less).
+<p>If you are uncomfortable with <a href="../wiki/Git.html" title="Git">Git</a>, you may want to use one of these tools, which abstract the version control system away (more or less).
 </p>
 <table  style="text-align:center;">
 <tbody>
@@ -296,7 +296,7 @@ fi
 </tr>
 </tbody>
 </table>
-<ol><li>Supports encryption of confidential files with <a href="../GnuPG.html" class="mw-redirect" title="GPG">GPG</a>.<a rel="nofollow"  href="https://thelocehiliosan.github.io/yadm/docs/encryption">[5]</a>
+<ol><li>Supports encryption of confidential files with <a href="../wiki/GnuPG.html" class="mw-redirect" title="GPG">GPG</a>.<a rel="nofollow"  href="https://thelocehiliosan.github.io/yadm/docs/encryption">[5]</a>
 </li></ol>
 <h2><span class="mw-headline" id="User_repositories">User repositories</span></h2>
 <table  style="text-align:center">
@@ -939,8 +939,8 @@ fi
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Configuration_files.html" title="Category:Configuration files">Configuration files</a></li>
-<li><a href="../Category:Configuration_management.html" title="Category:Configuration management">Configuration management</a></li>
+<li><a href="../wiki/Category:Configuration_files.html" title="Category:Configuration files">Configuration files</a></li>
+<li><a href="../wiki/Category:Configuration_management.html" title="Category:Configuration management">Configuration management</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -958,9 +958,9 @@ fi
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

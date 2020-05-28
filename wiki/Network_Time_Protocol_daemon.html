@@ -2,7 +2,7 @@
     title: Network_Time_Protocol_daemon
     description: Migration of Network_Time_Protocol_daemon from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,16 +27,16 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../NTPSec.html" title="NTPSec">NTPSec</a></li>
-<li><a href="../Chrony.html" title="Chrony">Chrony</a></li>
-<li><a href="../System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">Time synchronization</a></li>
+<li><a href="../wiki/NTPSec.html" title="NTPSec">NTPSec</a></li>
+<li><a href="../wiki/Chrony.html" title="Chrony">Chrony</a></li>
+<li><a href="../wiki/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">Time synchronization</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/Network_Time_Protocol"  title="wikipedia:Network Time Protocol">Network Time Protocol</a> is the most common method to synchronize the <a href="../System_time.html" title="System time">software clock</a> of a GNU/Linux system with internet time servers. It is designed to mitigate the effects of variable network latency and can usually maintain time to within tens of milliseconds over the public Internet. The accuracy on local area networks is even better, up to one millisecond.
+<p><a href="https://en.wikipedia.org/wiki/Network_Time_Protocol"  title="wikipedia:Network Time Protocol">Network Time Protocol</a> is the most common method to synchronize the <a href="../wiki/System_time.html" title="System time">software clock</a> of a GNU/Linux system with internet time servers. It is designed to mitigate the effects of variable network latency and can usually maintain time to within tens of milliseconds over the public Internet. The accuracy on local area networks is even better, up to one millisecond.
 </p>
 <p><a rel="nofollow"  href="http://support.ntp.org/bin/view/Main/WebHome#The_NTP_Project">The NTP Project</a> provides a reference implementation of the protocol called simply NTP. This article further describes how to set up and run the NTP daemon, both as a client and as a server.
 </p>
-<p>See <a href="../System_time.html#Time_synchronization" title="System time">System time#Time synchronization</a> for other NTP implementations.
+<p>See <a href="../wiki/System_time.html#Time_synchronization" title="System time">System time#Time synchronization</a> for other NTP implementations.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -73,7 +73,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span> package. By default, <i>ntpd</i> works in client mode without further configuration. You can skip to <a href="#Usage">#Usage</a>, if you want to use the TOS Linux default configuration file for it. For server configuration, see <a href="#NTP_server_mode">#NTP server mode</a>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span> package. By default, <i>ntpd</i> works in client mode without further configuration. You can skip to <a href="#Usage">#Usage</a>, if you want to use the TOS Linux default configuration file for it. For server configuration, see <a href="#NTP_server_mode">#NTP server mode</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>The main daemon is <i>ntpd</i>, which is configured in <code>/etc/ntp.conf</code>. Refer to <span class="plainlinks archwiki-template-man" title="$ man 5 ntp.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ntp.conf.5">ntp.conf(5)</a></span> for detail.
@@ -158,10 +158,10 @@ logfile /var/log/ntp.log
 <p>Both services are tied to the system's resolver, and will start synchronizing when an active network connection is detected.
 </p>
 <h3><span class="mw-headline" id="Start_ntpd_at_boot">Start ntpd at boot</span></h3>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the daemon with <code>ntpd.service</code>. See also <a href="#Running_in_a_chroot">#Running in a chroot</a>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the daemon with <code>ntpd.service</code>. See also <a href="#Running_in_a_chroot">#Running in a chroot</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The systemd command <i>timedatectl</i> can only be used to control <a href="../Systemd-timesyncd.html" title="Systemd-timesyncd">systemd-timesyncd</a>. Executing <code>timedatectl set-ntp 1</code> as root will inadvertedly stop a running <code>ntpd.service</code>.<a rel="nofollow"  href="http://lists.freedesktop.org/archives/systemd-devel/2015-April/030277.html">[1]</a>
+<strong>Note:</strong> The systemd command <i>timedatectl</i> can only be used to control <a href="../wiki/Systemd-timesyncd.html" title="Systemd-timesyncd">systemd-timesyncd</a>. Executing <code>timedatectl set-ntp 1</code> as root will inadvertedly stop a running <code>ntpd.service</code>.<a rel="nofollow"  href="http://lists.freedesktop.org/archives/systemd-devel/2015-April/030277.html">[1]</a>
 </div>
 <p>Use <i>ntpq</i> to see the list of configured peers and status of synchronization:
 </p>
@@ -170,9 +170,9 @@ logfile /var/log/ntp.log
 <p>The delay, offset and jitter columns should be non-zero. The servers <i>ntpd</i> is synchronizing with are prefixed by an asterisk. It can take several minutes before <i>ntpd</i> selects a server to synchronize with; try checking after 17 minutes (1024 seconds).
 </p>
 <h3><span class="mw-headline" id="Synchronize_time_once_per_boot">Synchronize time once per boot</span></h3>
-<p>Alternatively, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ntpdate.service</code> to synchronize time once (option <code>-q</code>) and non-forking (option <code>-n</code>) per boot, instead of running the daemon in the background. This method is discouraged on servers, and in general on machines that run without rebooting for more than a few days.
+<p>Alternatively, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ntpdate.service</code> to synchronize time once (option <code>-q</code>) and non-forking (option <code>-n</code>) per boot, instead of running the daemon in the background. This method is discouraged on servers, and in general on machines that run without rebooting for more than a few days.
 </p>
-<p>If the synchronized time should be written to the hardware clock as well, configure the provided unit as described in <a href="../Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a> before starting it:
+<p>If the synchronized time should be written to the hardware clock as well, configure the provided unit as described in <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a> before starting it:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/ntpdate.service.d/hwclock.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -183,20 +183,20 @@ ExecStart=/usr/bin/hwclock -w</pre>
 </p>
 <dl><dt>Netctl</dt></dl>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> add <code>-u</code> and optionally refer to <a href="#Usage">#Usage</a>, or use systemctl if possible (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Network_Time_Protocol_daemon">Talk:Network Time Protocol daemon#</a>)</div>
 </div>
-<p>Append the following lines to your <a href="../Netctl.html" title="Netctl">netctl</a> profile:
+<p>Append the following lines to your <a href="../wiki/Netctl.html" title="Netctl">netctl</a> profile:
 </p>
 <pre>ExecUpPost='/usr/bin/ntpd || true'
 ExecDownPre='killall ntpd || true'
 </pre>
 <dl><dt>NetworkManager</dt></dl>
-<p>The <i>ntpd</i> daemon can be brought up/down along with a network connection through the use of NetworkManager's <a href="../NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">dispatcher</a> scripts. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-dispatcher-ntpd">networkmanager-dispatcher-ntpd</a></span> package installs one, pre-configured to start and stop the <a href="#Start_ntpd_at_boot">ntpd service</a> with a connection.
+<p>The <i>ntpd</i> daemon can be brought up/down along with a network connection through the use of NetworkManager's <a href="../wiki/NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">dispatcher</a> scripts. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-dispatcher-ntpd">networkmanager-dispatcher-ntpd</a></span> package installs one, pre-configured to start and stop the <a href="#Start_ntpd_at_boot">ntpd service</a> with a connection.
 </p>
 <dl><dt>Wicd</dt></dl>
-<p>For <a href="../Wicd.html" title="Wicd">Wicd</a>, create a start script in the <code>postconnect</code> directory and a stop script in the <code>predisconnect</code> directory. Remember to make them executable:
+<p>For <a href="../wiki/Wicd.html" title="Wicd">Wicd</a>, create a start script in the <code>postconnect</code> directory and a stop script in the <code>predisconnect</code> directory. Remember to make them executable:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/wicd/scripts/postconnect/ntpd</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
@@ -208,10 +208,10 @@ systemctl stop ntpd &amp;
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You are advised to customize the options for the <i>ntpd</i> command as explained in <a href="#Usage">#Usage</a>.</div>
-<p>See also <a href="../Wicd.html#Scripts" title="Wicd">Wicd#Scripts</a>.
+<p>See also <a href="../wiki/Wicd.html#Scripts" title="Wicd">Wicd#Scripts</a>.
 </p>
 <dl><dt>KDE</dt></dl>
-<p>KDE can use NTP (ntp must be installed) by right clicking the clock and selecting <i>Adjust date/time</i>. However, this requires the ntp daemon to be <a href="../Systemd.html#Using_units" class="mw-redirect" title="Disable">disabled</a> before configuring KDE to use NTP. <a rel="nofollow"  href="https://bugs.kde.org/show_bug.cgi?id=178968">[2]</a>
+<p>KDE can use NTP (ntp must be installed) by right clicking the clock and selecting <i>Adjust date/time</i>. However, this requires the ntp daemon to be <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Disable">disabled</a> before configuring KDE to use NTP. <a rel="nofollow"  href="https://bugs.kde.org/show_bug.cgi?id=178968">[2]</a>
 </p>
 <h3><span class="mw-headline" id="Using_ntpd_with_GPS">Using ntpd with GPS</span></h3>
 <p>Most of the articles online about configuring <i>ntpd</i> to receive time from a GPS suggest to use the SHM (shared memory) method. However, at least since <i>ntpd</i> version 4.2.8 a <i>much better</i> method is available. It connects directly to <i>gpsd</i>, so <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gpsd">gpsd</a></span> needs to be installed.
@@ -310,9 +310,9 @@ interface ignore enp5s0</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Network_Time_Protocol.html" title="Category:Network Time Protocol">Network Time Protocol</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Network_Time_Protocol.html" title="Category:Network Time Protocol">Network Time Protocol</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -330,9 +330,9 @@ interface ignore enp5s0</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

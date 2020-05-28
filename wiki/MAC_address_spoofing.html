@@ -2,7 +2,7 @@
     title: MAC_address_spoofing
     description: Migration of MAC_address_spoofing from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -74,14 +74,14 @@
 </div>
 
 <h2><span class="mw-headline" id="Manually">Manually</span></h2>
-<p>There are two methods for spoofing a MAC address: <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> and configuring either <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span>. Both of them are outlined below.
+<p>There are two methods for spoofing a MAC address: <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> and configuring either <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span>. Both of them are outlined below.
 </p>
 <h3><span class="mw-headline" id="iproute2">iproute2</span></h3>
 <p>First, you can check your current MAC address with the command:
 </p>
 <pre># ip link show <i>interface</i>
 </pre>
-<p>where <code><i>interface</i></code> is the name of your <a href="../Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>.
+<p>where <code><i>interface</i></code> is the name of your <a href="../wiki/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>.
 </p>
 <p>The section that interests us at the moment is the one that has "link/ether" followed by a 6-byte number. It will probably look something like this:
 </p>
@@ -108,9 +108,9 @@
 <h3><span class="mw-headline" id="macchanger">macchanger</span></h3>
 <p>Another method uses <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span> (a.k.a., the GNU MAC Changer). It provides a variety of features such as changing the address to match a certain vendor or completely randomizing it.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span>.
 </p>
-<p>The spoofing is done on per-interface basis, specify <a href="../Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a> name as <code><i>interface</i></code> in each of the following commands.
+<p>The spoofing is done on per-interface basis, specify <a href="../wiki/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a> name as <code><i>interface</i></code> in each of the following commands.
 </p>
 <p>The MAC address can be spoofed with a fully random address:
 </p>
@@ -134,7 +134,7 @@
 <strong>Note:</strong> A device cannot be in use (connected in any way or with its interface up) while the MAC address is being changed.</div>
 <h2><span class="mw-headline" id="Automatically">Automatically</span></h2>
 <h3><span class="mw-headline" id="systemd-networkd">systemd-networkd</span></h3>
-<p><a href="../Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> supports MAC address spoofing via <a href="../Systemd-networkd.html#link_files" title="Systemd-networkd">link files</a> (see <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.link"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.link.5">systemd.link(5)</a></span> for details).
+<p><a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> supports MAC address spoofing via <a href="../wiki/Systemd-networkd.html#link_files" title="Systemd-networkd">link files</a> (see <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.link"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.link.5">systemd.link(5)</a></span> for details).
 </p>
 <p>To set a static spoofed MAC address:
 </p>
@@ -148,7 +148,7 @@ NamePolicy=kernel database onboard slot path</pre>
 <p>To randomize the MAC address on every boot, set <code>MACAddressPolicy=random</code> instead of <code>MACAddress=<i>spoofed MAC</i></code>.
 </p>
 <h3><span class="mw-headline" id="systemd-udevd">systemd-udevd</span></h3>
-<p><a href="../Udev.html" title="Udev">Udev</a> allows you to perform MAC address spoofing by creating udev rules. Use <code>address</code> attribute to match the correct device by its original MAC address and change it using the <i>ip</i> command:
+<p><a href="../wiki/Udev.html" title="Udev">Udev</a> allows you to perform MAC address spoofing by creating udev rules. Use <code>address</code> attribute to match the correct device by its original MAC address and change it using the <i>ip</i> command:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/75-mac-spoof.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="XX:XX:XX:XX:XX:XX", RUN+="/usr/bin/ip link set dev $name address YY:YY:YY:YY:YY:YY"</pre>
@@ -156,10 +156,10 @@ NamePolicy=kernel database onboard slot path</pre>
 </p>
 <h3><span class="mw-headline" id="systemd_unit">systemd unit</span></h3>
 <h4><span class="mw-headline" id="Creating_unit">Creating unit</span></h4>
-<p>Below you find two examples of <a href="../Systemd.html" title="Systemd">systemd</a> units to change a MAC address at boot, one sets a static MAC using <i>ip</i> and one uses <i>macchanger</i> to assign a random MAC address. The systemd <code>network-pre.target</code> is used to ensure the MAC is changed before a network manager like <a href="../Netctl.html" title="Netctl">Netctl</a> or <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a>, <a href="../Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="../Dhcpcd.html" title="Dhcpcd">dhcpcd</a> service starts. 
+<p>Below you find two examples of <a href="../wiki/Systemd.html" title="Systemd">systemd</a> units to change a MAC address at boot, one sets a static MAC using <i>ip</i> and one uses <i>macchanger</i> to assign a random MAC address. The systemd <code>network-pre.target</code> is used to ensure the MAC is changed before a network manager like <a href="../wiki/Netctl.html" title="Netctl">Netctl</a> or <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a>, <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> service starts. 
 </p>
 <h5><span class="mw-headline" id="iproute2_2">iproute2</span></h5>
-<p><a href="../Systemd.html" title="Systemd">systemd</a> unit setting a predefined MAC address:
+<p><a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit setting a predefined MAC address:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/macspoof@.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -178,7 +178,7 @@ ExecStart=/usr/bin/ip link set dev %i up
 WantedBy=multi-user.target
 </pre>
 <h5><span class="mw-headline" id="macchanger_2">macchanger</span></h5>
-<p><a href="../Systemd.html" title="Systemd">systemd</a> unit setting a random address while preserving the original NIC vendor bytes. Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span> is <a href="../Pacman.html#Installing_specific_packages" title="Pacman">installed</a>:
+<p><a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit setting a random address while preserving the original NIC vendor bytes. Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=macchanger">macchanger</a></span> is <a href="../wiki/Pacman.html#Installing_specific_packages" title="Pacman">installed</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/macspoof@.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -198,12 +198,12 @@ WantedBy=multi-user.target
 <p>A full random address can be set using the <code>-r</code> option, see <a href="#macchanger">#macchanger</a>.
 </p>
 <h4><span class="mw-headline" id="Enabling_service">Enabling service</span></h4>
-<p>Append the desired network interface to the service name (e.g. <code>eth0</code>) and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the service (e.g. <code>macspoof@eth0.service</code>).
+<p>Append the desired network interface to the service name (e.g. <code>eth0</code>) and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the service (e.g. <code>macspoof@eth0.service</code>).
 </p>
 <p>Reboot, or stop and start the prerequisite and requisite services in the proper order. If you are in control of your network, verify that the spoofed MAC has been picked up by your router by examining the static, or DHCP address tables within the router.
 </p>
 <h3><span class="mw-headline" id="netctl_interfaces">netctl interfaces</span></h3>
-<p>You can use a <a href="../Netctl.html#Using_hooks" title="Netctl">netctl hook</a> to run a command each time a netctl profile is re-/started for a specific network interface. Replace <code><i>interface</i></code> accordingly: 
+<p>You can use a <a href="../wiki/Netctl.html#Using_hooks" title="Netctl">netctl hook</a> to run a command each time a netctl profile is re-/started for a specific network interface. Replace <code><i>interface</i></code> accordingly: 
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/netctl/interfaces/<i>interface</i></pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/usr/bin/env sh
@@ -215,7 +215,7 @@ WantedBy=multi-user.target
 <p>Source: <a rel="nofollow"  href="https://blog.akendo.eu/archlinuxrandom-mac-address-for-new-wireless-connections/">akendo.eu</a>
 </p>
 <h3><span class="mw-headline" id="NetworkManager">NetworkManager</span></h3>
-<p>See <a href="../NetworkManager.html#Configuring_MAC_address_randomization" title="NetworkManager">NetworkManager#Configuring MAC address randomization</a>.
+<p>See <a href="../wiki/NetworkManager.html#Configuring_MAC_address_randomization" title="NetworkManager">NetworkManager#Configuring MAC address randomization</a>.
 </p>
 <h3><span class="mw-headline" id="wpa_supplicant">wpa_supplicant</span></h3>
 <p>wpa_supplicant can use random MAC address for each ESS connection(AP) (see <a rel="nofollow"  href="https://w1.fi/cgit/hostap/plain/wpa_supplicant/wpa_supplicant.conf">[1]</a> for details).
@@ -237,7 +237,7 @@ AddressRandomizationRange=nic</pre>
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Connection_to_DHCPv4_network_fails">Connection to DHCPv4 network fails</span></h3>
-<p>If you cannot connect to a DHCPv4 network and you are using dhcpcd, which is the default for NetworkManager, you might need to <a href="../Dhcpcd.html#Client_ID" title="Dhcpcd">modify the dhcpcd configuration</a> to obtain a lease.
+<p>If you cannot connect to a DHCPv4 network and you are using dhcpcd, which is the default for NetworkManager, you might need to <a href="../wiki/Dhcpcd.html#Client_ID" title="Dhcpcd">modify the dhcpcd configuration</a> to obtain a lease.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -250,8 +250,8 @@ AddressRandomizationRange=nic</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li>
-<li><a href="../Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="../wiki/Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -269,9 +269,9 @@ AddressRandomizationRange=nic</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

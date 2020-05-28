@@ -2,7 +2,7 @@
     title: Direct_modem_connection
     description: Migration of Direct_modem_connection from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Network_configuration.html" title="Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a></li>
 </ul>
 </div>
 <p>This article describes how one can connect directly to the Internet from an TOS Linux box using an internal modem or external modem in bridge mode.
@@ -69,7 +69,7 @@
 <li>Add settings for your ISP.</li>
 </ol>
 <h3><span class="mw-headline" id="Install_and_configure_hardware">Install and configure hardware</span></h3>
-<p>The current TOS stock kernels include the necessary ISDN modules, meaning that you will not need to recompile your kernel unless you are about to use odd ISDN hardware. After physically installing your ISDN card in your machine or plugging in your USB ISDN-Box, you can try loading the <a href="../Kernel_module.html" title="Kernel module">kernel module</a>. Nearly all passive ISDN PCI cards are handled by the hisax module, which needs two parameters: type and protocol. You must set protocol to:
+<p>The current TOS stock kernels include the necessary ISDN modules, meaning that you will not need to recompile your kernel unless you are about to use odd ISDN hardware. After physically installing your ISDN card in your machine or plugging in your USB ISDN-Box, you can try loading the <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a>. Nearly all passive ISDN PCI cards are handled by the hisax module, which needs two parameters: type and protocol. You must set protocol to:
 </p>
 <ul>
 <li>'1' if your country uses the 1TR6 standard.</li>
@@ -77,13 +77,13 @@
 <li>'3' if you are hooked to a so-called leased-line without D-channel.</li>
 <li>'4' for US NI1.</li>
 </ul>
-<p>Details on all those settings and how to set them is included in the kernel documentation, more specifically in the isdn subdirectory, and available online. The type parameter depends on your card; a list of all possible types can be found in the <code>README.HiSax</code> kernel documentation. Choose your card and load the <a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">module</a> with <code>modprobe</code>, using appropriate options like this:
+<p>Details on all those settings and how to set them is included in the kernel documentation, more specifically in the isdn subdirectory, and available online. The type parameter depends on your card; a list of all possible types can be found in the <code>README.HiSax</code> kernel documentation. Choose your card and load the <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">module</a> with <code>modprobe</code>, using appropriate options like this:
 </p>
 <pre># modprobe hisax type=18 protocol=2
 </pre>
 <p>This will load the <code>hisax</code> module for my ELSA Quickstep 1000PCI, being used in Germany with the EDSS1 protocol. You should find helpful debugging output in your <code>/var/log/everything.log</code> file, in which you should see your card being prepared for action. Please note that you will probably need to load some USB modules before you can work with an external USB ISDN Adapter.
 </p>
-<p>Once you have confirmed that your card works with certain settings, you can add the <a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">module</a> to <code>/etc/modprobe.d/</code> so it will be loaded at startup:
+<p>Once you have confirmed that your card works with certain settings, you can add the <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">module</a> to <code>/etc/modprobe.d/</code> so it will be loaded at startup:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/isdn.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">alias ippp0 hisax
@@ -91,7 +91,7 @@ options hisax type=18 protocol=2</pre>
 <p>That being done, you should have working, supported hardware. Now you need the basic utilities to actually use it!
 </p>
 <h3><span class="mw-headline" id="Install_and_configure_the_ISDN_utilities">Install and configure the ISDN utilities</span></h3>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=isdn4k-utils">isdn4k-utils</a></span><sup>[<a href="../Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> package, and read the manpage to <code>isdnctrl</code>, it will get you started. Further down in the manpage you will find explanations on how to create a configuration file that can be parsed by <code>isdnctrl</code>, as well as some helpful setup examples. Please note that you have to add your SPID to your MSN setting separated by a colon if you use US NI1.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=isdn4k-utils">isdn4k-utils</a></span><sup>[<a href="../wiki/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> package, and read the manpage to <code>isdnctrl</code>, it will get you started. Further down in the manpage you will find explanations on how to create a configuration file that can be parsed by <code>isdnctrl</code>, as well as some helpful setup examples. Please note that you have to add your SPID to your MSN setting separated by a colon if you use US NI1.
 </p>
 <p>After you have configured your ISDN card with the <code>isdnctrl</code> utility, you should be able to dial into the machine you specified with the PHONE_OUT parameter, but fail the username and password authentication. To make this work add your username and password to <code>/etc/ppp/pap-secrets</code> or <code>/etc/ppp/chap-secrets</code> as if you were configuring a normal analogous PPP link, depending on which protocol your ISP uses for authentication. If in doubt, put your data into both files.
 </p>
@@ -106,9 +106,9 @@ options hisax type=18 protocol=2</pre>
 </h2>
 <p>These instructions are relevant to you only if your PC itself is supposed to manage the connection to your ISP. You do not need to do anything but define a correct default gateway if you are using a separate router of some sort to do the grunt work.
 </p>
-<p>Before you can use your DSL online connection, you will have to physically install the network card that is supposed to be connected to the DSL-Modem into your computer. After loading the appropiate <a href="../Kernel_module.html" title="Kernel module">kernel module</a> for your newly installed network card, you should install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rp-pppoe">rp-pppoe</a></span> package and run the <code>pppoe-setup</code> script to configure your connection. After you have entered all the data, you can connect and disconnect your line by <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> or <a href="../Systemd.html#Using_units" class="mw-redirect" title="Stop">stoping</a> the <code>adsl.service</code>, respectively. The setup is usually easy and straightforward, but feel free to read the manpages for hints. 
+<p>Before you can use your DSL online connection, you will have to physically install the network card that is supposed to be connected to the DSL-Modem into your computer. After loading the appropiate <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a> for your newly installed network card, you should install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rp-pppoe">rp-pppoe</a></span> package and run the <code>pppoe-setup</code> script to configure your connection. After you have entered all the data, you can connect and disconnect your line by <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> or <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Stop">stoping</a> the <code>adsl.service</code>, respectively. The setup is usually easy and straightforward, but feel free to read the manpages for hints. 
 </p>
-<p>If you want to automatically 'dial in' at boot, issue command <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>adsl.service</code>.
+<p>If you want to automatically 'dial in' at boot, issue command <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>adsl.service</code>.
 </p>
 <h2><span class="mw-headline" id="Dial-up_without_a_dialer">Dial-up without a dialer</span></h2>
 <p>This page tells you how you can execute <i>pppd</i> directly without using dialer software such as <i>pon</i>, <i>poff</i>, <i>wvdial</i>, <i>kppp</i>, etc. It stays connected throughout X server shutdowns and is extremely simple.
@@ -173,11 +173,11 @@ alias hang='sudo killall pppd'
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Modems.html" title="Category:Modems">Modems</a></li>
-<li><a href="../Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Category:Modems.html" title="Category:Modems">Modems</a></li>
+<li><a href="../wiki/Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -195,9 +195,9 @@ alias hang='sudo killall pppd'
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

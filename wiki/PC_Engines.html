@@ -2,7 +2,7 @@
     title: PC_Engines
     description: Migration of PC_Engines from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -69,7 +69,7 @@
 <ul>
 <li>You need a serial (RS-232) connection to the apu to control it.</li>
 <li>Add your user to uucp</li>
-<li>Install picocom or something similar, see <a href="../Working_with_the_serial_console.html#Making_Connections" title="Working with the serial console">Working with the serial console#Making Connections</a>
+<li>Install picocom or something similar, see <a href="../wiki/Working_with_the_serial_console.html#Making_Connections" title="Working with the serial console">Working with the serial console#Making Connections</a>
 </li>
 <li>Download and verify the <a rel="nofollow"  href="https://www.archlinux.org/download/">arch-dualboot.iso</a>
 </li>
@@ -100,7 +100,7 @@ Then close picocom with "Ctl+A" "Ctl+Q"
 Finally wait for about 30 seconds and you will get a colorful boot prompt.
 </p>
 <h3><span class="mw-headline" id="Install_the_system">Install the system</span></h3>
-<p>The most comfortable way to install TOS now is to start the sshd and use <a href="../Installation_guide.html" class="mw-redirect" title="Install guide">Install guide</a>
+<p>The most comfortable way to install TOS now is to start the sshd and use <a href="../wiki/Installation_guide.html" class="mw-redirect" title="Install guide">Install guide</a>
 </p>
 <p>You may need to get a new IP with dhclient and start sshd
 </p>
@@ -112,12 +112,12 @@ Finally wait for about 30 seconds and you will get a colorful boot prompt.
  /dev/sda2         264192 25430015 25165824   12G 83 Linux
  /dev/sda3       25430016 31277231  5847216  2.8G 82 Linux swap / Solaris
 </pre>
-<p>It is a good idea to use a MBR layout with <a href="../GRUB.html" title="GRUB">GRUB</a>:
+<p>It is a good idea to use a MBR layout with <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>:
 </p>
 <pre>grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 </pre>
-<p>If using <a href="../Syslinux.html" title="Syslinux">Syslinux</a>, make sure to provide a <code>console</code> option in the boot menu:
+<p>If using <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a>, make sure to provide a <code>console</code> option in the boot menu:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/boot/syslinux/syslinux.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">LABEL arch
@@ -125,12 +125,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
     LINUX ../vmlinuz-linux
     APPEND root=UUID=1ef5a2eb-1908-4929-9b91-f6c4183695ac rw console=ttyS0,115200
     INITRD ../initramfs-linux.img</pre>
-<p>Also you should read <a href="../Working_with_the_serial_console.html#Configure_console_access_on_the_target_machine" title="Working with the serial console">Working with the serial console#Configure console access on the target machine</a>
+<p>Also you should read <a href="../wiki/Working_with_the_serial_console.html#Configure_console_access_on_the_target_machine" title="Working with the serial console">Working with the serial console#Configure console access on the target machine</a>
 </p>
 <p>Remember to remove the SD card or USB flash drive after you finished your setup.
 </p>
 <h3><span class="mw-headline" id="LED_Control">LED Control</span></h3>
-<p>As of kernel <a rel="nofollow"  href="https://github.com/torvalds/linux/commit/f8eb0235f65989fc5521c40c78d1261e7f25cdbe">5.1</a> the <code>pcengines-apuv2</code> driver can be used on top of the generic gpio <a href="../Kernel_module.html" title="Kernel module">kernel modules</a>: <code>amd-fch-gpio</code> and <code>leds-gpio</code> and in conjunction with the <code>ledtrig_netdev</code> (<a rel="nofollow"  href="https://github.com/torvalds/linux/commit/50081e437872e68300750068754f21d0faac5d86">4.16+</a>) module to control the APU's 3 front LEDs through the following sysfs entries:
+<p>As of kernel <a rel="nofollow"  href="https://github.com/torvalds/linux/commit/f8eb0235f65989fc5521c40c78d1261e7f25cdbe">5.1</a> the <code>pcengines-apuv2</code> driver can be used on top of the generic gpio <a href="../wiki/Kernel_module.html" title="Kernel module">kernel modules</a>: <code>amd-fch-gpio</code> and <code>leds-gpio</code> and in conjunction with the <code>ledtrig_netdev</code> (<a rel="nofollow"  href="https://github.com/torvalds/linux/commit/50081e437872e68300750068754f21d0faac5d86">4.16+</a>) module to control the APU's 3 front LEDs through the following sysfs entries:
 </p>
 <pre>/sys/class/leds/apu:green:1
 /sys/class/leds/apu:green:2
@@ -139,10 +139,10 @@ grub-mkconfig -o /boot/grub/grub.cfg
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  4.14 &lt; kernel &lt; 5.1 users can use the <a rel="nofollow"  href="https://github.com/torvalds/linux/commit/3faee9423ce07186fc9dcec2981d4eb8af8872bb">leds_apu</a> driver instead. The sysfs entries are <code>../leds/apu2:green:*</code> in this case.</div>
 <h4><span class="mw-headline" id="Module_Handling">Module Handling</span></h4>
-<p>The required drivers should automatically load on boot, but you may need to <a href="../Kernel_module.html#Manual_module_handling" title="Kernel module">manually load</a> <code>ledtrig_netdev</code>. You may also want to <a href="../Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> <code>leds_apu</code>.
+<p>The required drivers should automatically load on boot, but you may need to <a href="../wiki/Kernel_module.html#Manual_module_handling" title="Kernel module">manually load</a> <code>ledtrig_netdev</code>. You may also want to <a href="../wiki/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> <code>leds_apu</code>.
 </p>
 <h4><span class="mw-headline" id="Example_Configuration">Example Configuration</span></h4>
-<p>A common use case is to use the APU as a wireless <a href="../Router.html" title="Router">router</a>. In this scenario, one wired NIC (wan0) is connected upstream to an ISP and the remaining wired &amp; wireless NICs are <a href="../Network_bridge.html" title="Network bridge">bridged</a> (br0) together as the LAN. A typical LED configuration using the <i>netdev</i> trigger might be:
+<p>A common use case is to use the APU as a wireless <a href="../wiki/Router.html" title="Router">router</a>. In this scenario, one wired NIC (wan0) is connected upstream to an ISP and the remaining wired &amp; wireless NICs are <a href="../wiki/Network_bridge.html" title="Network bridge">bridged</a> (br0) together as the LAN. A typical LED configuration using the <i>netdev</i> trigger might be:
 </p>
 <pre>LED1: power on / power off indicator
 LED2: upstream network (wan0) traffic indicator
@@ -167,7 +167,7 @@ echo "1" &gt; /sys/class/leds/apu:green:3/rx
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Additional trigger modules are available here: <code>/lib/modules/$(uname -r)/kernel/drivers/leds/trigger</code>.</div>
 <h4><span class="mw-headline" id="Persist_Configuration">Persist Configuration</span></h4>
-<p>Systemd <a href="../Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">automatic module loading</a> and <a href="../Systemd.html#Temporary_files" title="Systemd">tmpfiles.d</a> can be used to persist this configuration across restarts.
+<p>Systemd <a href="../wiki/Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">automatic module loading</a> and <a href="../wiki/Systemd.html#Temporary_files" title="Systemd">tmpfiles.d</a> can be used to persist this configuration across restarts.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modules-load.d/ledtrig-netdev.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ledtrig_netdev</pre>
@@ -197,7 +197,7 @@ w /sys/class/leds/apu:green:3/rx - - - - 1</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -214,9 +214,9 @@ w /sys/class/leds/apu:green:3/rx - - - - 1</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

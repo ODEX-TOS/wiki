@@ -2,7 +2,7 @@
     title: CUPS
     description: Migration of CUPS from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../CUPS/Printer_sharing.html" title="CUPS/Printer sharing">CUPS/Printer sharing</a></li>
-<li><a href="../CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a></li>
-<li><a href="../CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a></li>
-<li><a href="../Samba.html" title="Samba">Samba</a></li>
-<li><a href="../LPRng.html" title="LPRng">LPRng</a></li>
+<li><a href="../wiki/CUPS/Printer_sharing.html" title="CUPS/Printer sharing">CUPS/Printer sharing</a></li>
+<li><a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a></li>
+<li><a href="../wiki/CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a></li>
+<li><a href="../wiki/Samba.html" title="Samba">Samba</a></li>
+<li><a href="../wiki/LPRng.html" title="LPRng">LPRng</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.cups.org/">CUPS</a> is the standards-based, open source printing system currently developed by Apple Inc. for macOS® and other UNIX®-like operating systems.
@@ -97,14 +97,14 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> package.
 </p>
 <p>If you intend to "print" into a PDF document, also install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups-pdf">cups-pdf</a></span> package. By default, pdf files are stored in <code>/var/spool/cups-pdf/<i>username</i>/</code>. The location can be changed in <code>/etc/cups/cups-pdf.conf</code>.
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>org.cups.cupsd.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>org.cups.cupsd.service</code>.
 </p>
 <h3><span class="mw-headline" id="Socket_activation">Socket activation</span></h3>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> provides a <code>org.cups.cupsd.socket</code> unit. If <code>org.cups.cupsd.socket</code> is <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> (and <code>org.cups.cupsd.service</code> is <a href="../Systemd.html#Using_units" class="mw-redirect" title="Disable">disabled</a>), systemd will not start CUPS immediately, it will just listen to the appropriate sockets. Then, whenever a program attempts to connect to one of these CUPS sockets, systemd will start <code>org.cups.cupsd.service</code> and transparently hand over control of these ports to the CUPS process.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> provides a <code>org.cups.cupsd.socket</code> unit. If <code>org.cups.cupsd.socket</code> is <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> (and <code>org.cups.cupsd.service</code> is <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Disable">disabled</a>), systemd will not start CUPS immediately, it will just listen to the appropriate sockets. Then, whenever a program attempts to connect to one of these CUPS sockets, systemd will start <code>org.cups.cupsd.service</code> and transparently hand over control of these ports to the CUPS process.
 </p>
 <p>This way, CUPS is only started once a program wants to make use of the service.
 </p>
@@ -126,18 +126,18 @@
 Bus 001 Device 007: ID 03f0:1004 Hewlett-Packard DeskJet 970c/970cse
 </pre>
 <h3><span class="mw-headline" id="Parallel_port">Parallel port</span></h3>
-<p>To use a parallel port printer, the <code>lp</code>, <code>parport</code> and <code>parport_pc</code> <a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> are required.
+<p>To use a parallel port printer, the <code>lp</code>, <code>parport</code> and <code>parport_pc</code> <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> are required.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ dmesg | grep -i parport</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> parport0: Printer, Hewlett-Packard HP LaserJet 2100 Series
  lp0: using parport0 (polling)
 </pre>
 <h3><span class="mw-headline" id="Network">Network</span></h3>
-<p>To discover or share printers using DNS-SD/mDNS, setup <a href="../Avahi.html#Hostname_resolution" title="Avahi">.local hostname resolution</a> with <a href="../Avahi.html" title="Avahi">Avahi</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
+<p>To discover or share printers using DNS-SD/mDNS, setup <a href="../wiki/Avahi.html#Hostname_resolution" title="Avahi">.local hostname resolution</a> with <a href="../wiki/Avahi.html" title="Avahi">Avahi</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> DNS-SD is only supported when using <a href="../Avahi.html" title="Avahi">Avahi</a>. CUPS does not support using <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> for DNS-SD, see <a rel="nofollow"  href="https://github.com/apple/cups/issues/5452">CUPS issue 5452</a>.</div>
-<p>To share printers with <a href="../Samba.html" title="Samba">Samba</a>, e.g. if the system is to be a print server for Windows clients, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> package will be required.
+<strong>Note:</strong> DNS-SD is only supported when using <a href="../wiki/Avahi.html" title="Avahi">Avahi</a>. CUPS does not support using <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> for DNS-SD, see <a rel="nofollow"  href="https://github.com/apple/cups/issues/5452">CUPS issue 5452</a>.</div>
+<p>To share printers with <a href="../wiki/Samba.html" title="Samba">Samba</a>, e.g. if the system is to be a print server for Windows clients, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> package will be required.
 </p>
 <h2><span class="mw-headline" id="Printer_Drivers">Printer Drivers</span></h2>
 <div class="noprint archwiki-template-message">
@@ -146,7 +146,7 @@ Bus 001 Device 007: ID 03f0:1004 Hewlett-Packard DeskJet 970c/970cse
 <b>Reason:</b> CUPS is planning to drop PPD and driver support (<a rel="nofollow"  href="https://github.com/apple/cups/issues/5271">CUPS issue 5271</a>), instead relying entirely on IPP Everywhere. Explain what is/will be handled by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> and what by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups-filters">cups-filters</a></span> and/or other software. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:CUPS#CUPS_printer_drivers_and_backends_are_deprecated">Talk:CUPS#CUPS printer drivers and backends are deprecated</a>)</div>
 </div>
 <p><br>
-The drivers for a printer may come from any of the sources shown below. See <a href="../CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a> for an incomplete list of drivers that others have managed to get working.
+The drivers for a printer may come from any of the sources shown below. See <a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a> for an incomplete list of drivers that others have managed to get working.
 </p>
 <p>To drive a printer, CUPS needs a PPD file and, for most printers, some <a rel="nofollow"  href="https://www.cups.org/doc/man-filter.html">filters</a>.
 For details on how CUPS uses PPDs and filters, see <a rel="nofollow"  href="https://www.cups.org/doc/postscript-driver.html">[1]</a>.
@@ -181,36 +181,36 @@ For details on how CUPS uses PPDs and filters, see <a rel="nofollow"  href="http
 <p>The foomatic PPDs may require additional filters, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/min12xxw/">min12xxw</a></span><sup><small>AUR</small></sup>.
 </p>
 <h3><span class="mw-headline" id="Gutenprint">Gutenprint</span></h3>
-<p>The <a rel="nofollow"  href="http://gimp-print.sourceforge.net/">Gutenprint project</a> provides drivers for Canon, Epson, Lexmark, Sony, Olympus, and PCL printers for use with CUPS and <a href="../GIMP.html" title="GIMP">GIMP</a>.
+<p>The <a rel="nofollow"  href="http://gimp-print.sourceforge.net/">Gutenprint project</a> provides drivers for Canon, Epson, Lexmark, Sony, Olympus, and PCL printers for use with CUPS and <a href="../wiki/GIMP.html" title="GIMP">GIMP</a>.
 </p>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gutenprint">gutenprint</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=foomatic-db-gutenprint-ppds">foomatic-db-gutenprint-ppds</a></span>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> When the Gutenprint packages get updated, the printers using Gutenprint drivers will stop working until you run <code>cups-genppdupdate</code> as root and restart CUPS. <i>cups-genppdupdate</i> will update the PPD files of the configured printers, see <span class="plainlinks archwiki-template-man" title="$ man 8 cups-genppdupdate"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cups-genppdupdate.8">cups-genppdupdate(8)</a></span> for more details.</div>
 <h3><span class="mw-headline" id="Manufacturer-specific_drivers">Manufacturer-specific drivers</span></h3>
-<p>Many printer manufacturers supply their own Linux drivers. These are often available in the official TOS repositories or in the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<p>Many printer manufacturers supply their own Linux drivers. These are often available in the official TOS repositories or in the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
-<p>Some of those drivers are described in more detail in <a href="../CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
+<p>Some of those drivers are described in more detail in <a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
 </p>
 <h2><span class="mw-headline" id="Printer_URI">Printer URI</span></h2>
-<p>Listed below are additional steps to manually generate the URI if required. Some printers or drivers may need a special URI as described in <a href="../CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
+<p>Listed below are additional steps to manually generate the URI if required. Some printers or drivers may need a special URI as described in <a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
 </p>
 <h3><span class="mw-headline" id="USB_2">USB</span></h3>
 <p>CUPS should be able to automatically generate a URI for USB printers, for example <code>usb://HP/DESKJET%20940C?serial=CN16E6C364BH</code>.
 </p>
-<p>If it does not, see <a href="../CUPS/Troubleshooting.html#USB_printers" title="CUPS/Troubleshooting">CUPS/Troubleshooting#USB printers</a> for troubleshooting steps.
+<p>If it does not, see <a href="../wiki/CUPS/Troubleshooting.html#USB_printers" title="CUPS/Troubleshooting">CUPS/Troubleshooting#USB printers</a> for troubleshooting steps.
 </p>
 <h3><span class="mw-headline" id="Parallel_port_2">Parallel port</span></h3>
 <p>The URI should be of the form <code>parallel:<i>device</i></code>. For instance, if the printer is connected on <code>/dev/lp0</code>, use <code>parallel:/dev/lp0</code>.
 If you are using a USB to parallel port adapter, use <code>parallel:/dev/usb/lp0</code> as the printer URI.
 </p>
 <h3><span class="mw-headline" id="Network_2">Network</span></h3>
-<p>If you have set up <a href="../Avahi.html" title="Avahi">Avahi</a> as in <a href="#Network">#Network</a>, CUPS should detect the printer URI. You can also use <code>avahi-discover</code> to find the name of your printer and its address (for instance, <code>BRN30055C6B4C7A.local/10.10.0.155:631</code>).
+<p>If you have set up <a href="../wiki/Avahi.html" title="Avahi">Avahi</a> as in <a href="#Network">#Network</a>, CUPS should detect the printer URI. You can also use <code>avahi-discover</code> to find the name of your printer and its address (for instance, <code>BRN30055C6B4C7A.local/10.10.0.155:631</code>).
 </p>
-<p>The URI can also be generated manually, without using <a href="../Avahi.html" title="Avahi">Avahi</a>.
-A list of the available URI schemes for networked printers is available in the <a rel="nofollow"  href="https://www.cups.org/doc/network.html#PROTOCOLS">CUPS documentation</a>. As exact details of the URIs differ between printers, check either the manual of the printer or <a href="../CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
+<p>The URI can also be generated manually, without using <a href="../wiki/Avahi.html" title="Avahi">Avahi</a>.
+A list of the available URI schemes for networked printers is available in the <a rel="nofollow"  href="https://www.cups.org/doc/network.html#PROTOCOLS">CUPS documentation</a>. As exact details of the URIs differ between printers, check either the manual of the printer or <a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a>.
 </p>
-<p>The URI for printers on <a href="../Samba.html" class="mw-redirect" title="SMB">SMB</a> shares is described in the <span class="plainlinks archwiki-template-man" title="$ man 8 smbspool"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smbspool.8">smbspool(8)</a></span> man page.
+<p>The URI for printers on <a href="../wiki/Samba.html" class="mw-redirect" title="SMB">SMB</a> shares is described in the <span class="plainlinks archwiki-template-man" title="$ man 8 smbspool"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smbspool.8">smbspool(8)</a></span> man page.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Any special characters in the printer URIs need to be appropriately quoted, or, if your Windows printer name or user passwords have spaces, CUPS will throw a <code>lpadmin: Bad device-uri</code> error.
@@ -221,9 +221,9 @@ A list of the available URI schemes for networked printers is available in the <
 <pre>$ python -c 'from urllib.parse import quote; print("smb://" + quote("BEN-DESKTOP/HP Color LaserJet CP1510 series PCL6"))'
 </pre>
 </div>
-<p>Remote CUPS print servers can be accessed through a URI of the form <code>ipp://<i>hostname</i>:631/printers/<i>queue_name</i></code>. See <a href="../CUPS/Printer_sharing.html#Printer_sharing" title="CUPS/Printer sharing">CUPS/Printer sharing#Printer sharing</a> for details on setting up the remote print server.
+<p>Remote CUPS print servers can be accessed through a URI of the form <code>ipp://<i>hostname</i>:631/printers/<i>queue_name</i></code>. See <a href="../wiki/CUPS/Printer_sharing.html#Printer_sharing" title="CUPS/Printer sharing">CUPS/Printer sharing#Printer sharing</a> for details on setting up the remote print server.
 </p>
-<p>See <a href="../CUPS/Troubleshooting.html#Networking_issues" title="CUPS/Troubleshooting">CUPS/Troubleshooting#Networking issues</a> for additional issues and solutions.
+<p>See <a href="../wiki/CUPS/Troubleshooting.html#Networking_issues" title="CUPS/Troubleshooting">CUPS/Troubleshooting#Networking issues</a> for additional issues and solutions.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Avoid configuring both the server and the client with a printer filter - either the print queue on the client or the server should be 'raw'. This avoids sending a print job through the filters for a printer twice, which can cause problems (for instance, <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1589908#p1589908">[2]</a>). See <a href="#Usage">#Usage</a> for an example of setting a print queue to 'raw'.</div>
@@ -242,7 +242,7 @@ Alternatively, the <a href="#Web_interface">#Web interface</a> or one of several
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Command-line switches cannot be grouped</div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Nonstandard use of definition lists, comments in command line. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:CUPS">Talk:CUPS#</a>)</div>
 </div>
@@ -319,7 +319,7 @@ $ lpq -a # on all queues
 <dl><dt>View ink levels</dt></dl>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ink/">ink</a></span><sup><small>AUR</small></sup>.
 </p>
-<p>Add your user to the <code>lp</code> <a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
+<p>Add your user to the <code>lp</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
 </p>
 <pre># usermod -aG lp &lt;user&gt;
 </pre>
@@ -354,7 +354,7 @@ $ lpq -a # on all queues
 <a rel="nofollow"  href="https://gtklp.sirtobi.com/index.shtml">https://gtklp.sirtobi.com/index.shtml</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gtklp/">gtklp</a></span><sup><small>AUR</small></sup>
 </dd></dl>
 <ul><li>
-<b>print-manager</b> — Tool for managing print jobs and printers (<a href="../KDE.html" title="KDE">KDE</a>).</li></ul>
+<b>print-manager</b> — Tool for managing print jobs and printers (<a href="../wiki/KDE.html" title="KDE">KDE</a>).</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="https://cgit.kde.org/print-manager.git">https://cgit.kde.org/print-manager.git</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=print-manager">print-manager</a></span>
 </dd></dl>
@@ -364,13 +364,13 @@ $ lpq -a # on all queues
 <a rel="nofollow"  href="http://cyberelk.net/tim/software/system-config-printer/">http://cyberelk.net/tim/software/system-config-printer/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=system-config-printer">system-config-printer</a></span>
 </dd></dl>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>The CUPS server configuration is located in <code>/etc/cups/cupsd.conf</code> and <code>/etc/cups/cups-files.conf</code> (see <span class="plainlinks archwiki-template-man" title="$ man 5 cupsd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cupsd.conf.5">cupsd.conf(5)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 5 cups-files.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cups-files.conf.5">cups-files.conf(5)</a></span>). After editing either file, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code> to apply any changes. The default configuration is sufficient for most users.
+<p>The CUPS server configuration is located in <code>/etc/cups/cupsd.conf</code> and <code>/etc/cups/cups-files.conf</code> (see <span class="plainlinks archwiki-template-man" title="$ man 5 cupsd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cupsd.conf.5">cupsd.conf(5)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 5 cups-files.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cups-files.conf.5">cups-files.conf(5)</a></span>). After editing either file, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code> to apply any changes. The default configuration is sufficient for most users.
 </p>
-<p><a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="User group">User groups</a> with printer administration privileges are defined in <code>SystemGroup</code> in the <code>/etc/cups/cups-files.conf</code>. The <code>sys</code> and <code>root</code> and <code>wheel</code> <a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="Groups">groups</a> are used by default.
+<p><a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">User groups</a> with printer administration privileges are defined in <code>SystemGroup</code> in the <code>/etc/cups/cups-files.conf</code>. The <code>sys</code> and <code>root</code> and <code>wheel</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="Groups">groups</a> are used by default.
 </p>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> is built with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libpaper">libpaper</a></span> support and libpaper defaults to the <b>Letter</b> paper size. To avoid having to change the paper size for each print queue you add, edit <code>/etc/papersize</code> and set your system default paper size. See <span class="plainlinks archwiki-template-man" title="$ man 5 papersize"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/papersize.5">papersize(5)</a></span>.
 </p>
-<p>By default, all logs are sent to files in <code>/var/log/cups/</code>. By changing the values of the <code>AccessLog</code>, <code>ErrorLog</code>, and <code>PageLog</code> directives in <code>/etc/cups/cups-files.conf</code> to <code>syslog</code>, CUPS can be made to log to the <a href="../Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> instead. See <a rel="nofollow"  href="https://fedoraproject.org/wiki/Changes/CupsJournalLogging">the fedora wiki page</a> for information on the original proposed change.
+<p>By default, all logs are sent to files in <code>/var/log/cups/</code>. By changing the values of the <code>AccessLog</code>, <code>ErrorLog</code>, and <code>PageLog</code> directives in <code>/etc/cups/cups-files.conf</code> to <code>syslog</code>, CUPS can be made to log to the <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> instead. See <a rel="nofollow"  href="https://fedoraproject.org/wiki/Changes/CupsJournalLogging">the fedora wiki page</a> for information on the original proposed change.
 </p>
 <h3><span class="mw-headline" id="cups-browsed">cups-browsed</span></h3>
 <div class="noprint archwiki-template-message">
@@ -378,7 +378,7 @@ $ lpq -a # on all queues
 <div>
 <b>Reason:</b> <code>cups-browsed.service</code> is not required to discover printers advertised over DNS-SD, that is done by <code>org.cups.cupsd.service</code>. The service is only required to discover printers on an LDAP server and those using the legacy CUPS protocol (CUPS servers ≤ 1.5). (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:CUPS">Talk:CUPS#</a>)</div>
 </div>
-<p>CUPS can use <a href="../Avahi.html" title="Avahi">Avahi</a> browsing to discover unknown shared printers in your network. This can be useful in large setups where the server is unknown. To use this feature, set up <a href="../Avahi.html#Hostname_resolution" title="Avahi">.local hostname resolution</a>, and start both <code>avahi-daemon.service</code> and <code>cups-browsed.service</code>. Jobs are sent directly to the printer without any processing so the created queues may not work, however driverless printers such as those supporting <a rel="nofollow"  href="http://www.pwg.org/ipp/everywhere.html">IPP Everywhere</a> or <a href="https://en.wikipedia.org/wiki/AirPrint"  title="wikipedia:AirPrint">AirPrint</a> should work out of the box.
+<p>CUPS can use <a href="../wiki/Avahi.html" title="Avahi">Avahi</a> browsing to discover unknown shared printers in your network. This can be useful in large setups where the server is unknown. To use this feature, set up <a href="../wiki/Avahi.html#Hostname_resolution" title="Avahi">.local hostname resolution</a>, and start both <code>avahi-daemon.service</code> and <code>cups-browsed.service</code>. Jobs are sent directly to the printer without any processing so the created queues may not work, however driverless printers such as those supporting <a rel="nofollow"  href="http://www.pwg.org/ipp/everywhere.html">IPP Everywhere</a> or <a href="https://en.wikipedia.org/wiki/AirPrint"  title="wikipedia:AirPrint">AirPrint</a> should work out of the box.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -389,14 +389,14 @@ $ lpq -a # on all queues
 </ul>
 </div>
 <h3><span class="mw-headline" id="Print_servers_and_remote_administration">Print servers and remote administration</span></h3>
-<p>See <a href="../CUPS/Printer_sharing.html" title="CUPS/Printer sharing">CUPS/Printer sharing</a> and <a href="../CUPS/Printer_sharing.html#Remote_administration" title="CUPS/Printer sharing">CUPS/Printer sharing#Remote administration</a>.
+<p>See <a href="../wiki/CUPS/Printer_sharing.html" title="CUPS/Printer sharing">CUPS/Printer sharing</a> and <a href="../wiki/CUPS/Printer_sharing.html#Remote_administration" title="CUPS/Printer sharing">CUPS/Printer sharing#Remote administration</a>.
 </p>
 <h3><span class="mw-headline" id="Allowing_admin_authentication_through_PolicyKit">Allowing admin authentication through PolicyKit</span></h3>
-<p><a href="../Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a> can be configured to allow users to configure printers using a GUI without the admin password.
+<p><a href="../wiki/Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a> can be configured to allow users to configure printers using a GUI without the admin password.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You may need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups-pk-helper">cups-pk-helper</a></span> for working this rules.</div>
-<p>Here is an example that allows members of the wheel <a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to administer printers without a password:
+<p>Here is an example that allows members of the wheel <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to administer printers without a password:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/polkit-1/rules.d/49-allow-passwordless-printer-admin.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">polkit.addRule(function(action, subject) { 
@@ -407,17 +407,17 @@ $ lpq -a # on all queues
 });
 </pre>
 <h3><span class="mw-headline" id="Without_a_local_CUPS_server">Without a local CUPS server</span></h3>
-<p>CUPS can be configured to directly connect to remote printer servers instead of running a local print server. This requires <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installation</a> of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libcups">libcups</a></span> package. Some applications will still require the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> package for printing.
+<p>CUPS can be configured to directly connect to remote printer servers instead of running a local print server. This requires <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installation</a> of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libcups">libcups</a></span> package. Some applications will still require the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> package for printing.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Accessing remote printers without a local CUPS server is not recommended by the developers. <a rel="nofollow"  href="https://lists.cups.org/pipermail/cups/2015-October/027229.html">[3]</a>
 </div>
-<p>To use a remote CUPS server, set the <code>CUPS_SERVER</code> <a href="../Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to <code>printerserver.mydomain:port</code>. For instance, if you want to use a different print server for a single <a href="../Firefox.html" title="Firefox">Firefox</a> instance (substitute <code>printserver.mydomain:port</code> with your print server name/port):
+<p>To use a remote CUPS server, set the <code>CUPS_SERVER</code> <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to <code>printerserver.mydomain:port</code>. For instance, if you want to use a different print server for a single <a href="../wiki/Firefox.html" title="Firefox">Firefox</a> instance (substitute <code>printserver.mydomain:port</code> with your print server name/port):
 </p>
 <pre>$ CUPS_SERVER=printserver.mydomain:port firefox
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>See <a href="../CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a>.
+<p>See <a href="../wiki/CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -437,14 +437,14 @@ $ lpq -a # on all queues
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Printers.html" title="Category:Printers">Printers</a></li>
-<li><a href="../Category:Servers.html" title="Category:Servers">Servers</a></li>
+<li><a href="../wiki/Category:Printers.html" title="Category:Printers">Printers</a></li>
+<li><a href="../wiki/Category:Servers.html" title="Category:Servers">Servers</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
 </ul>
 </div>
 </div>
@@ -463,9 +463,9 @@ $ lpq -a # on all queues
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

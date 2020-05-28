@@ -2,7 +2,7 @@
     title: Apple_Keyboard
     description: Migration of Apple_Keyboard from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a></li>
+<li><a href="../wiki/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a></li>
 </ul>
 </div>
 <p>Some Apple keyboard models may have swapped keys or missing functionality. This article describes how to change the settings for the keyboard so that it behaves as expected.
@@ -67,7 +67,7 @@
 <h2><span class="mw-headline" id="Numlock_is_on">Numlock is on</span></h2>
 <p>You may find that the numlock is on. The symptoms are that only the physical keys <code>7</code>,<code>8</code>,<code>9</code>,<code>u</code>,<code>i</code>,<code>o</code>,<code>j</code>,<code>k</code>,<code>l</code> and surrounding keys work and output numbers. To fix this hit <code>Fn+F6</code> twice.
 </p>
-<p>Alternatively, set the keycodes manually using <a href="../Xmodmap.html" title="Xmodmap">xmodmap</a> to avoid use Numlock:
+<p>Alternatively, set the keycodes manually using <a href="../wiki/Xmodmap.html" title="Xmodmap">xmodmap</a> to avoid use Numlock:
 </p>
 <pre>keycode  90 = KP_0 KP_0 KP_0 KP_0 KP_0 KP_0
 keycode  87 = KP_1 KP_1 KP_1 KP_1 KP_1 KP_1
@@ -84,15 +84,15 @@ keycode  81 = KP_9 KP_9 KP_9 KP_9 KP_9 KP_9
 <p>Unpair the keyboard and then re-pair it. The trick is to hold down the power button throughout the entire pairing process.
 </p>
 <h2><span class="mw-headline" id="Function_keys_do_not_work">Function keys do not work</span></h2>
-<p>If your <code>F&lt;num&gt;</code> keys do not work, this is probably because the kernel driver for the keyboard has defaulted to using the media keys and requiring you to use the <code>Fn</code> key to get to the <code>F&lt;num&gt;</code> keys. To change the behavior temporarily, <a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>2</code> to <code>/sys/module/hid_apple/parameters/fnmode</code>.
+<p>If your <code>F&lt;num&gt;</code> keys do not work, this is probably because the kernel driver for the keyboard has defaulted to using the media keys and requiring you to use the <code>Fn</code> key to get to the <code>F&lt;num&gt;</code> keys. To change the behavior temporarily, <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>2</code> to <code>/sys/module/hid_apple/parameters/fnmode</code>.
 </p>
 <pre># echo 2 &gt;&gt; /sys/module/hid_apple/parameters/fnmode
 </pre>
-<p>To make the change permanent, <a href="../Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">set</a> the <code>hid_apple</code> <code>fnmode</code> option to 2:
+<p>To make the change permanent, <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">set</a> the <code>hid_apple</code> <code>fnmode</code> option to 2:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/hid_apple.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options hid_apple fnmode=2</pre>
-<p>To apply the change to your initial ramdisk, in your <a href="../Mkinitcpio.html#Configuration" title="Mkinitcpio">mkinitcpio configuration</a> (usually <code>/etc/mkinitcpio.conf</code>), make sure you either have <code>modconf</code> included in the <code>HOOKS</code> variable or <code>/etc/modprobe.d/hid_apple.conf</code> in the <code>FILES</code> variable. You would then need to <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>To apply the change to your initial ramdisk, in your <a href="../wiki/Mkinitcpio.html#Configuration" title="Mkinitcpio">mkinitcpio configuration</a> (usually <code>/etc/mkinitcpio.conf</code>), make sure you either have <code>modconf</code> included in the <code>HOOKS</code> variable or <code>/etc/modprobe.d/hid_apple.conf</code> in the <code>FILES</code> variable. You would then need to <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <h2>
 <span id="Switching_Cmd_and_Alt.2FAltGr"></span><span class="mw-headline" id="Switching_Cmd_and_Alt/AltGr">Switching Cmd and Alt/AltGr</span>
@@ -107,16 +107,16 @@ keycode  81 = KP_9 KP_9 KP_9 KP_9 KP_9 KP_9
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/hid_apple.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options hid_apple swap_opt_cmd=1</pre>
-<p>You then need to <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>You then need to <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <h2>
 <span id=".3C_and_.3E_have_changed_place_with_.C2.A7_and_.C2.BD"></span><span class="mw-headline" id="&lt;_and_&gt;_have_changed_place_with_§_and_½">&lt; and &gt; have changed place with § and ½</span>
 </h2>
-<p>If the <b>&lt;</b> and <b>&gt;</b> are switched with the <b>§</b> and <b>½</b> keys, <a href="../Xorg/Keyboard_configuration.html" class="mw-redirect" title="Keyboard configuration in Xorg">set the xkb option</a> <code>apple:badmap</code>, for instance by running the following command in your graphical environment:
+<p>If the <b>&lt;</b> and <b>&gt;</b> are switched with the <b>§</b> and <b>½</b> keys, <a href="../wiki/Xorg/Keyboard_configuration.html" class="mw-redirect" title="Keyboard configuration in Xorg">set the xkb option</a> <code>apple:badmap</code>, for instance by running the following command in your graphical environment:
 </p>
 <pre>$ setxkbmap -option apple:badmap
 </pre>
-<p>Alternatively, set the keycodes manually using <a href="../Xmodmap.html" title="Xmodmap">xmodmap</a>:
+<p>Alternatively, set the keycodes manually using <a href="../wiki/Xmodmap.html" title="Xmodmap">xmodmap</a>:
 </p>
 <pre>keycode  49 = less greater less greater bar brokenbar
 keycode  94 = section degree section degree notsign notsign
@@ -131,28 +131,28 @@ keycode  49 = ugrave Ugrave ugrave Ugrave notsign notsign
 </h2>
 <p>With German layout, circumflex/degree symbol and &lt;/&gt; are exchanged. With French layout, @/# are exchanged. With the US layout, `/~ and &lt;/&gt; are exchanged.
 </p>
-<p>To change the behavior temporarily, <a href="../Help:Reading.html#Append,_add,_create,_edit" title="Help:Reading">overwrite</a> <code>/sys/module/hid_apple/parameters/iso_layout</code> with <code>0</code>:
+<p>To change the behavior temporarily, <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" title="Help:Reading">overwrite</a> <code>/sys/module/hid_apple/parameters/iso_layout</code> with <code>0</code>:
 </p>
 <pre># echo "0" &gt; /sys/module/hid_apple/parameters/iso_layout
 </pre>
-<p>To make the change permanent, <a href="../Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">set</a> the <code>hid_apple</code> <code>iso_layout</code> option to 0:
+<p>To make the change permanent, <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">set</a> the <code>hid_apple</code> <code>iso_layout</code> option to 0:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/hid_apple.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options hid_apple iso_layout=0</pre>
-<p>You then need to <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>You then need to <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <h2><span class="mw-headline" id="PrintScreen_and_SysRq">PrintScreen and SysRq</span></h2>
-<p>Apple Keyboards have an <code>F13</code> key instead of a <code>PrintScreen</code>/<code>SysRq</code> key. This means that <a href="../Keyboard_shortcuts.html#Kernel" title="Keyboard shortcuts">Alt+SysRq sequences</a> do not work, and application actions associated with <code>PrintScreen</code> (such as taking screenshots in many games that work under <a href="../Wine.html" title="Wine">Wine</a>) do not work. To fix this, you can add <code>setxkbmap -option "apple:alupckeys"</code> to your <code>.xinitrc</code>. This will map <code>PrintScreen</code>/<code>SysRq</code> to <code>F13</code>, as well as <code>Scroll lock</code> to <code>F14</code> and <code>Pause</code> to <code>F15</code>.
+<p>Apple Keyboards have an <code>F13</code> key instead of a <code>PrintScreen</code>/<code>SysRq</code> key. This means that <a href="../wiki/Keyboard_shortcuts.html#Kernel" title="Keyboard shortcuts">Alt+SysRq sequences</a> do not work, and application actions associated with <code>PrintScreen</code> (such as taking screenshots in many games that work under <a href="../wiki/Wine.html" title="Wine">Wine</a>) do not work. To fix this, you can add <code>setxkbmap -option "apple:alupckeys"</code> to your <code>.xinitrc</code>. This will map <code>PrintScreen</code>/<code>SysRq</code> to <code>F13</code>, as well as <code>Scroll lock</code> to <code>F14</code> and <code>Pause</code> to <code>F15</code>.
 </p>
-<p>Alternatively, follow the <a href="../Map_scancodes_to_keycodes.html" title="Map scancodes to keycodes">Map scancodes to keycodes</a> article to map the <code>F13</code> scancode to the <code>PrintScreen</code>/<code>SysRq</code> keycode, where 458856 (0x0<b>70068</b>) is the scancode of <code>F13</code>, and <code>sysrq</code> is the keycode of <code>PrintScreen</code>/<code>SysRq</code>.
+<p>Alternatively, follow the <a href="../wiki/Map_scancodes_to_keycodes.html" title="Map scancodes to keycodes">Map scancodes to keycodes</a> article to map the <code>F13</code> scancode to the <code>PrintScreen</code>/<code>SysRq</code> keycode, where 458856 (0x0<b>70068</b>) is the scancode of <code>F13</code>, and <code>sysrq</code> is the keycode of <code>PrintScreen</code>/<code>SysRq</code>.
 </p>
 <h2><span class="mw-headline" id="Treating_Apple_keyboards_like_regular_keyboards">Treating Apple keyboards like regular keyboards</span></h2>
 <p>Depending on the customisations you want to accomplish, there are two solutions available. You need to choose one of the other.
 </p>
 <h3><span class="mw-headline" id="Use_a_patch_to_hid-apple">Use a patch to hid-apple</span></h3>
-<p>While the original <code>hid-apple</code> module does not have options to further customize the keyboard, like swapping <code>Fn</code> and left <code>Ctrl</code> keys or having <code>Alt</code> on the left side of <code>Super</code>, there is a <a rel="nofollow"  href="https://github.com/free5lot/hid-apple-patched">patched version</a> adding this functionality to the module. To use it, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hid-apple-patched-git-dkms/">hid-apple-patched-git-dkms</a></span><sup><small>AUR</small></sup> package. This will install the patched <code>hid-apple</code> and mask out the original one.
+<p>While the original <code>hid-apple</code> module does not have options to further customize the keyboard, like swapping <code>Fn</code> and left <code>Ctrl</code> keys or having <code>Alt</code> on the left side of <code>Super</code>, there is a <a rel="nofollow"  href="https://github.com/free5lot/hid-apple-patched">patched version</a> adding this functionality to the module. To use it, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hid-apple-patched-git-dkms/">hid-apple-patched-git-dkms</a></span><sup><small>AUR</small></sup> package. This will install the patched <code>hid-apple</code> and mask out the original one.
 </p>
-<p>The package uses <a href="../Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> to automatically recompile the module during kernel upgrades. While the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> will be pulled in by dependency. You still need to install an appropriate kernel header package manually. See the DKMS page for more info.
+<p>The package uses <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> to automatically recompile the module during kernel upgrades. While the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> will be pulled in by dependency. You still need to install an appropriate kernel header package manually. See the DKMS page for more info.
 </p>
 <p>In addition to the patched kernel module, a configuration file is also provided by the package at <code>/usr/lib/modprobe.d/hid_apple.conf</code>, which enables PC-like layout by default:
 </p>
@@ -172,7 +172,7 @@ keycode  49 = ugrave Ugrave ugrave Ugrave notsign notsign
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Do not forget to update <i>initramfs</i> after manual changes to configuration files.</div>
-<p>Please refer to the project <a rel="nofollow"  href="https://github.com/free5lot/hid-apple-patched#configuration">README</a> for the exact meaning of each configuration option and tweaking the configuration file to suit your needs. Learn more about <code>modprobe.d</code> at <a href="../Kernel_module.html#Using_files_in_/etc/modprobe.d/" title="Kernel module">Kernel module#Using files in /etc/modprobe.d/</a>.
+<p>Please refer to the project <a rel="nofollow"  href="https://github.com/free5lot/hid-apple-patched#configuration">README</a> for the exact meaning of each configuration option and tweaking the configuration file to suit your needs. Learn more about <code>modprobe.d</code> at <a href="../wiki/Kernel_module.html#Using_files_in_/etc/modprobe.d/" title="Kernel module">Kernel module#Using files in /etc/modprobe.d/</a>.
 </p>
 <p>After installation, reboot for the change to take effect, or <a href="#Change_the_Behavior_Without_Reboot">#Change the Behavior Without Reboot</a>.
 </p>
@@ -194,7 +194,7 @@ be a <code>modconf</code> hook that automatically include those files, if not, a
 </p>
 <pre>FILES=(/usr/lib/modprobe.d/hid_apple.conf)
 </pre>
-<p>Refer to <a href="../Mkinitcpio.html#BINARIES_and_FILES" title="Mkinitcpio">Mkinitcpio#BINARIES and FILES</a> and <a href="../Mkinitcpio.html#HOOKS" title="Mkinitcpio">Mkinitcpio#HOOKS</a> for more explanation on what this means.
+<p>Refer to <a href="../wiki/Mkinitcpio.html#BINARIES_and_FILES" title="Mkinitcpio">Mkinitcpio#BINARIES and FILES</a> and <a href="../wiki/Mkinitcpio.html#HOOKS" title="Mkinitcpio">Mkinitcpio#HOOKS</a> for more explanation on what this means.
 </p>
 <p>Finally, rebuild the <i>initramfs</i> and reboot.
 </p>
@@ -245,7 +245,7 @@ echo "setxkbmap -v 10 -layout us -variant dvp" &gt;&gt; .xprofile
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Keyboards.html" title="Category:Keyboards">Keyboards</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Keyboards.html" title="Category:Keyboards">Keyboards</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -262,9 +262,9 @@ echo "setxkbmap -v 10 -layout us -variant dvp" &gt;&gt; .xprofile
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

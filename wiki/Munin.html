@@ -2,7 +2,7 @@
     title: Munin
     description: Migration of Munin from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -109,7 +109,7 @@ A default installation provides a lot of graphs with almost no work and new grap
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=munin">munin</a></span> package on the master machine and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=munin-node">munin-node</a></span> on the devices that you whish to monitor.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=munin">munin</a></span> package on the master machine and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=munin-node">munin-node</a></span> on the devices that you whish to monitor.
 </p>
 <p>You can also install them both on the same machine so that the master machine monitors itself.
 </p>
@@ -250,10 +250,10 @@ This needs to be done from root shell, since the <code>munin</code> user does no
 </p>
 <pre># munin-run <i>plugin</i>
 </pre>
-<p>And <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>munin-node.service</code>. Finally, refresh the web page.
+<p>And <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>munin-node.service</code>. Finally, refresh the web page.
 </p>
 <h5><span class="mw-headline" id="Additional_plugins">Additional plugins</span></h5>
-<p>There are many Munin plugins out there just waiting to be installed. The <a rel="nofollow"  href="http://muninexchange.projects.linpro.no/">MuninExchange</a> is an excellent place to start looking, and if you cannot find a plugin that does what you want it is easy to write your own. Have a look at <a rel="nofollow"  href="http://guide.munin-monitoring.org/latest/develop/plugins/">Developing Plugins</a> at the Munin documentation wiki to learn how.
+<p>There are many Munin plugins out there just waiting to be installed. The <a rel="nofollow"  href="http://muninexchange.projects.linpro.no/">MuninExchange</a> is an excellent place to start looking, and if you cannot find a plugin that does what you want it is easy to write your own. Have a look at <a rel="nofollow"  href="http://guide.munin-monitoring.org/wiki/latest/develop/plugins/">Developing Plugins</a> at the Munin documentation wiki to learn how.
 </p>
 <h5><span class="mw-headline" id="Removing">Removing</span></h5>
 <p>If you want to remove a plugin, simply delete the linked file in <code>/etc/munin/plugins</code> - there is no need to remove the plugin from <code>/usr/lib/munin/plugins</code>.
@@ -269,10 +269,10 @@ This needs to be done from root shell, since the <code>munin</code> user does no
 </p>
 <pre>LWP::UserAgent not found at /etc/munin/plugins/apache_accesses line 86.
 </pre>
-<p>indicates that a perl function could not be found. To resolve the problem, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the missing library, in this case, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-libwww">perl-libwww</a></span>.
+<p>indicates that a perl function could not be found. To resolve the problem, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the missing library, in this case, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-libwww">perl-libwww</a></span>.
 </p>
 <h4><span class="mw-headline" id="Permissions_2">Permissions</span></h4>
-<p>Because many plugins read log files, it is useful to <a href="../Users_and_groups.html#Example_adding_a_user" title="Users and groups">add</a> <code>munin</code> user into <code>log</code> group:
+<p>Because many plugins read log files, it is useful to <a href="../wiki/Users_and_groups.html#Example_adding_a_user" title="Users and groups">add</a> <code>munin</code> user into <code>log</code> group:
 </p>
 <pre># usermod -a -G log munin
 </pre>
@@ -282,24 +282,24 @@ This needs to be done from root shell, since the <code>munin</code> user does no
 <p>This guide sets up Munin to generate static HTML and graph images and write them in a directory of your choosing. You can view these generated files locally with any web browser. If you want to view the generated files from a remote machine, then you will need to install and configure one of the following web servers:
 </p>
 <ul>
-<li><a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
-<li><a href="../Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
-<li><a href="../Nginx.html" title="Nginx">Nginx</a></li>
+<li><a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
+<li><a href="../wiki/Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
+<li><a href="../wiki/Nginx.html" title="Nginx">Nginx</a></li>
 </ul>
-<p>Or one of the other servers found in the <a href="../List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> category.
+<p>Or one of the other servers found in the <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> category.
 </p>
 <h3><span class="mw-headline" id="Apache">Apache</span></h3>
 <h4><span class="mw-headline" id="Apache_VirtualHost_examples">Apache VirtualHost examples</span></h4>
 <p>Based on information found here:
 </p>
 <ul>
-<li><a rel="nofollow"  href="http://guide.munin-monitoring.org/stable-2.0/example/webserver/apache-virtualhost.html">http://guide.munin-monitoring.org/stable-2.0/example/webserver/apache-virtualhost.html</a></li>
+<li><a rel="nofollow"  href="http://guide.munin-monitoring.org/wiki/stable-2.0/example/webserver/apache-virtualhost.html">http://guide.munin-monitoring.org/wiki/stable-2.0/example/webserver/apache-virtualhost.html</a></li>
 <li><a rel="nofollow"  href="http://munin-monitoring.org/wiki/MuninConfigurationMasterCGI">http://munin-monitoring.org/wiki/MuninConfigurationMasterCGI</a></li>
 </ul>
 <p>In the next major release of Munin, things will be much simpler. Check it out:
 </p>
 <ul><li>
-<a rel="nofollow"  href="http://guide.munin-monitoring.org/latest/example/webserver/apache-virtualhost.html">http://guide.munin-monitoring.org/latest/example/webserver/apache-virtualhost.html</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup>
+<a rel="nofollow"  href="http://guide.munin-monitoring.org/wiki/latest/example/webserver/apache-virtualhost.html">http://guide.munin-monitoring.org/wiki/latest/example/webserver/apache-virtualhost.html</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup>
 </li></ul>
 <h4><span class="mw-headline" id="Basic_static_HTML">Basic static HTML</span></h4>
 <pre>&lt;VirtualHost *:80&gt;
@@ -417,7 +417,7 @@ This needs to be done from root shell, since the <code>munin</code> user does no
 <h4><span class="mw-headline" id="Munin_2.0.x">Munin 2.0.x</span></h4>
 <p>This example Nginx setup is based on a Munin 2.0.x <code>munin</code> master installation. It requires FastCGI and uses the <code>html_strategy cgi</code> and <code>graph_strategy cgi</code> in the <code>munin.conf</code> configuration.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx">nginx</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-cgi-fast">perl-cgi-fast</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-html-template-expr">perl-html-template-expr</a></span> packages on the Munin-Master.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx">nginx</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-cgi-fast">perl-cgi-fast</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-html-template-expr">perl-html-template-expr</a></span> packages on the Munin-Master.
 </p>
 <p>As we will be using the <i>cgi</i> strategy the systemd socket files need to be enabled. So the <code>/run/munin/fcgi-graph.sock</code> and <code>/run/munin/fcgi-html.sock</code> sockets are created for the Nginx FastCGI configuration to hook into.
 </p>
@@ -456,14 +456,14 @@ This needs to be done from root shell, since the <code>munin</code> user does no
 <p>If all goes well, point your browser to your host <b><a rel="nofollow"  href="http://yourhost.example.com/munin/">http://yourhost.example.com/munin/</a></b> and you should see the Munin Overview page.
 </p>
 <h4><span class="mw-headline" id="Munin_2.1.x">Munin 2.1.x</span></h4>
-<p>Although Munin 2.1.x versions are not yet available in the TOS repository. It is worth mentioning that the 2.1.x series will no longer use FastCGI and will be replaced with <a rel="nofollow"  href="http://guide.munin-monitoring.org/latest/reference/munin-httpd.html#munin-httpd">munin-httpd</a>
-This <a rel="nofollow"  href="http://guide.munin-monitoring.org/latest/example/webserver/nginx.html">page</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup> already contains an example configuration.
+<p>Although Munin 2.1.x versions are not yet available in the TOS repository. It is worth mentioning that the 2.1.x series will no longer use FastCGI and will be replaced with <a rel="nofollow"  href="http://guide.munin-monitoring.org/wiki/latest/reference/munin-httpd.html#munin-httpd">munin-httpd</a>
+This <a rel="nofollow"  href="http://guide.munin-monitoring.org/wiki/latest/example/webserver/nginx.html">page</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup> already contains an example configuration.
 </p>
 <h2><span class="mw-headline" id="Tips_and_Tricks">Tips and Tricks</span></h2>
 <h3><span class="mw-headline" id="MySQL">MySQL</span></h3>
 <p>The MySQL plugin has extra dependencies available in the AUR: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-dbi">perl-dbi</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-dbd-mysql">perl-dbd-mysql</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/perl-cache-cache/">perl-cache-cache</a></span><sup><small>AUR</small></sup>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/perl-ipc-sharelite/">perl-ipc-sharelite</a></span><sup><small>AUR</small></sup>
 </p>
-<p>Additionally it is recommended to access the database through a separate <a href="../MySQL.html" title="MySQL">MySQL</a> user. To make another user via the following MySQL commands:
+<p>Additionally it is recommended to access the database through a separate <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> user. To make another user via the following MySQL commands:
 </p>
 <pre>MariaDB&gt; CREATE USER 'muninuser'@'localhost' IDENTIFIED BY 'muninpassword';
 MariaDB&gt; GRANT SUPER,PROCESS ON *.* TO 'muninuser'@'localhost';
@@ -487,7 +487,7 @@ MariaDB&gt; FLUSH PRIVILEGES; </pre>
 Then create the appropriate symlink for each disk to be monitored. As an example for <code>sda</code>: </p>
 <pre># ln -s /usr/lib/munin/plugins/smart_ /etc/munin/plugins/smart_<b>sda</b></pre>
 <h3><span class="mw-headline" id="lm_sensors">lm_sensors</span></h3>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lm_sensors">lm_sensors</a></span> and configure according to <a href="../Lm_sensors.html#Setup" title="Lm sensors">lm_sensors#Setup</a>. Assuming all goes correctly, create some symlinks:
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lm_sensors">lm_sensors</a></span> and configure according to <a href="../wiki/Lm_sensors.html#Setup" title="Lm sensors">lm_sensors#Setup</a>. Assuming all goes correctly, create some symlinks:
 </p>
 <pre># ln -s /usr/lib/munin/plugins/sensors_ /etc/munin/plugins/sensors_fan 
 # ln -s /usr/lib/munin/plugins/sensors_ /etc/munin/plugins/sensors_temp
@@ -496,9 +496,9 @@ Then create the appropriate symlink for each disk to be monitored. As an example
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:System_monitors.html" title="Category:System monitors">System monitors</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:System_monitors.html" title="Category:System monitors">System monitors</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -516,9 +516,9 @@ Then create the appropriate symlink for each disk to be monitored. As an example
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

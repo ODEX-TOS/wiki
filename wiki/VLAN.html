@@ -2,7 +2,7 @@
     title: VLAN
     description: Migration of VLAN from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Network_configuration.html" class="mw-redirect" title="Network Configuration">Network Configuration</a></li>
-<li><a href="../Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a></li>
-<li><a href="../Netctl.html" title="Netctl">Netctl</a></li>
+<li><a href="../wiki/Network_configuration.html" class="mw-redirect" title="Network Configuration">Network Configuration</a></li>
+<li><a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a></li>
+<li><a href="../wiki/Netctl.html" title="Netctl">Netctl</a></li>
 </ul>
 </div>
 <p>Virtual LANs give you the ability to sub-divide a LAN. Linux can accept <b>VLAN</b> tagged traffic and presents each <b>VLAN ID</b> as a different network interface (eg: <code>eth0.100</code> for <b>VLAN ID</b> <code>100</code>)
 </p>
-<p>This article explains how to configure a VLAN using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> and <a href="../Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="../Netctl.html" title="Netctl">netctl</a>.
+<p>This article explains how to configure a VLAN using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iproute2">iproute2</a></span> and <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="../wiki/Netctl.html" title="Netctl">netctl</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -174,7 +174,7 @@ DHCP=yes
 [DHCP]
 UseRoutes=false
 </pre>
-<p>Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-networkd.service</code>. See <a href="../Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> for details.
+<p>Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-networkd.service</code>. See <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> for details.
 </p>
 <h4><span class="mw-headline" id="Single_interface_with_multiple_VLANs_each_with_its_own_gateway">Single interface with multiple VLANs each with its own gateway</span></h4>
 <p>Each vlan gets its own routing table and a RoutingPolicyRule that specifies which source ip addresses this routing applies to.
@@ -259,7 +259,7 @@ Table=11
 <strong>Tip:</strong> To prevent the <code>bonding</code> module to create an initial <code>bond0</code> interface, set the <code>max_bonds</code> option of the bonding module to <code>0</code> (default value is <code>1</code>):
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/bonding.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options bonding max_bonds=0</pre>
-See <a href="../Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a> and <a rel="nofollow"  href="https://www.kernel.org/doc/Documentation/networking/bonding.txt">Linux Ethernet Bonding Driver HOWTO (Kernel Documentation)</a>for details.</div>
+See <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a> and <a rel="nofollow"  href="https://www.kernel.org/doc/Documentation/networking/bonding.txt">Linux Ethernet Bonding Driver HOWTO (Kernel Documentation)</a>for details.</div>
 <p>For the purposes of this write up, we are going to use <code><i>bondname</i></code> and you can make the choice yourself.
 </p>
 <p>First, we create the bond device:
@@ -372,7 +372,7 @@ Gateway=10.10.30.1</pre>
 <p>Note that the Destination on <code>vlan10</code> is set to <code>0.0.0.0/0</code>, which will match all outbound, becoming the default route.
 </p>
 <h3><span class="mw-headline" id="netctl">netctl</span></h3>
-<p>You can use <a href="../Netctl.html" title="Netctl">netctl</a> for this purpose, see the self-explanatory example profiles in {{ic|/etc/netctl/examples/vlan-{dhcp,static} }}.
+<p>You can use <a href="../wiki/Netctl.html" title="Netctl">netctl</a> for this purpose, see the self-explanatory example profiles in {{ic|/etc/netctl/examples/vlan-{dhcp,static} }}.
 </p>
 <p><br>
 </p>
@@ -385,7 +385,7 @@ Gateway=10.10.30.1</pre>
 }</pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="udev_renames_the_virtual_devices">udev renames the virtual devices</span></h3>
-<p>An annoyance is that <a href="../Udev.html" title="Udev">udev</a> may try to rename virtual devices as they are added, thus ignoring the <b>name</b> configured for them (in this case <code>eth0.100</code>).
+<p>An annoyance is that <a href="../wiki/Udev.html" title="Udev">udev</a> may try to rename virtual devices as they are added, thus ignoring the <b>name</b> configured for them (in this case <code>eth0.100</code>).
 </p>
 <p>For instance, if the following commands are issued: 
 </p>
@@ -416,9 +416,9 @@ Gateway=10.10.30.1</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -436,9 +436,9 @@ Gateway=10.10.30.1</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

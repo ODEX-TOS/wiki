@@ -2,7 +2,7 @@
     title: Dovecot
     description: Migration of Dovecot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="../Courier_Mail_Server.html" class="mw-redirect" title="Courier MTA">Courier MTA</a></li>
-<li><a href="../OpenSMTPD.html" title="OpenSMTPD">OpenSMTPD</a></li>
-<li><a href="../Fail2ban.html" title="Fail2ban">Fail2ban</a></li>
-<li><a href="../SOGo.html" title="SOGo">SOGo</a></li>
-<li><a href="../Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
+<li><a href="../wiki/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="../wiki/Courier_Mail_Server.html" class="mw-redirect" title="Courier MTA">Courier MTA</a></li>
+<li><a href="../wiki/OpenSMTPD.html" title="OpenSMTPD">OpenSMTPD</a></li>
+<li><a href="../wiki/Fail2ban.html" title="Fail2ban">Fail2ban</a></li>
+<li><a href="../wiki/SOGo.html" title="SOGo">SOGo</a></li>
+<li><a href="../wiki/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="http://www.dovecot.org/">Dovecot</a> is an open source <a href="https://en.wikipedia.org/wiki/IMAP"  title="wikipedia:IMAP">IMAP</a> and <a href="https://en.wikipedia.org/wiki/POP3"  title="wikipedia:POP3">POP3</a> server for Linux/UNIX-like systems, written primarily with security in mind. Dovecot primarily aims to be a lightweight, fast and easy to set up open source mailserver.  For more detailed information, please see the official <a rel="nofollow"  href="http://wiki2.dovecot.org/">Dovecot Wiki</a>.
@@ -75,18 +75,18 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dovecot">dovecot</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dovecot">dovecot</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Assumptions">Assumptions</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Don't make arbitrary assumptions. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dovecot">Talk:Dovecot#</a>)</div>
 </div>
 <ul>
 <li>Each mail account served by Dovecot, has a local user account defined on the server.</li>
-<li>The server uses <a href="../PAM.html" title="PAM">PAM</a> to authenticate the user against the local user database (/etc/passwd).</li>
+<li>The server uses <a href="../wiki/PAM.html" title="PAM">PAM</a> to authenticate the user against the local user database (/etc/passwd).</li>
 <li>
 <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security"  title="wikipedia:Transport Layer Security">TLS</a> is used to encrypt the authentication password.</li>
 <li>The common <a href="https://en.wikipedia.org/wiki/Maildir"  title="wikipedia:Maildir">Maildir</a> format is used to store the mail in the user's home directory.</li>
@@ -94,8 +94,8 @@
 </ul>
 <h3><span class="mw-headline" id="Create_the_TLS_certificate">Create the TLS certificate</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> to prevent vulnerabilities. <code>ssl_min_protocol</code> defaults to TLSv1. For more information see <a href="../Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
-<p>To obtain a certificate, see <a href="../OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
+<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> to prevent vulnerabilities. <code>ssl_min_protocol</code> defaults to TLSv1. For more information see <a href="../wiki/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
+<p>To obtain a certificate, see <a href="../wiki/OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
 </p>
 <p>Alternatively you can generate the certificate using a script that comes with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dovecot">dovecot</a></span> package:
 </p>
@@ -128,7 +128,7 @@ changed your certificate.
 <pre>ssl_dh = &lt;/etc/dovecot/dh.pem
 </pre>
 <h3><span class="mw-headline" id="PAM_Authentication_with_LDAP">PAM Authentication with LDAP</span></h3>
-<ul><li>If you are using an <a href="../OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> server for authentication instead, be sure to be able to login with your LDAP users first, as described in <a href="../LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a>.</li></ul>
+<ul><li>If you are using an <a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> server for authentication instead, be sure to be able to login with your LDAP users first, as described in <a href="../wiki/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a>.</li></ul>
 <p>You can then write the following in <code>/etc/pam.d/dovecot</code> remembering that the entries order is very important:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/dovecot</pre>
@@ -152,7 +152,7 @@ session sufficient      pam_ldap.so</pre>
 <p><a href="https://en.wikipedia.org/wiki/Sieve_(mail_filtering_language)"  title="wikipedia:Sieve (mail filtering language)">Sieve</a> is a programming language that can be used to create filters for email on mail server.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  You must be using Dovecot as a local delivery agent (through LMTP or LDA) for plugins like Sieve to work. If you are following the <a href="../Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a> guide, this is most likely not the case and you will need to modify your Postfix configuration. A guide can be found in the <a rel="nofollow"  href="https://wiki2.dovecot.org/HowTo/PostfixDovecotLMTP">Dovecot Wiki</a>.</div>
+<strong>Note:</strong>  You must be using Dovecot as a local delivery agent (through LMTP or LDA) for plugins like Sieve to work. If you are following the <a href="../wiki/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a> guide, this is most likely not the case and you will need to modify your Postfix configuration. A guide can be found in the <a rel="nofollow"  href="https://wiki2.dovecot.org/HowTo/PostfixDovecotLMTP">Dovecot Wiki</a>.</div>
 <h4><span class="mw-headline" id="Sieve_Interpreter_Plugin">Sieve Interpreter Plugin</span></h4>
 <p>This facilitates the actual Sieve filtering upon delivery. 
 </p>
@@ -182,7 +182,7 @@ session sufficient      pam_ldap.so</pre>
 </pre>
 </li></ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  Configuration files in <code>/etc/dovecot/conf.d/</code> will not be read without a line in <code>/etc/dovecot/dovecot.conf</code> like <code>!include /etc/dovecot/conf.d/*.conf</code>. If you are following the <a href="../Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a> guide, you may need to add this line.</div>
+<strong>Note:</strong>  Configuration files in <code>/etc/dovecot/conf.d/</code> will not be read without a line in <code>/etc/dovecot/dovecot.conf</code> like <code>!include /etc/dovecot/conf.d/*.conf</code>. If you are following the <a href="../wiki/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a> guide, you may need to add this line.</div>
 <h6>
 <span id="Example:_SpamAssassin_-_move_spam_to_.22Junk.22_folder"></span><span class="mw-headline" id='Example:_SpamAssassin_-_move_spam_to_"Junk"_folder'>Example: SpamAssassin - move spam to "Junk" folder</span>
 </h6>
@@ -240,7 +240,7 @@ protocol sieve {
 <p>Dovecot needs a plugin for the chosen search backend. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=solr">solr</a></span> plugin is included in the TOSlinux-tosdovecot package but solr itself is not the easiest to set up. There are AUR packages for <a href="https://en.wikipedia.org/wiki/Xapian"  title="wikipedia:Xapian">Xapian</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dovecot-fts-xapian/">dovecot-fts-xapian</a></span><sup><small>AUR</small></sup>) and <a href="https://en.wikipedia.org/wiki/Elasticsearch"  title="wikipedia:Elasticsearch">Elasticsearch</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dovecot-fts-elastic/">dovecot-fts-elastic</a></span><sup><small>AUR</small></sup>).
 </p>
 <h2><span class="mw-headline" id="Starting_the_server">Starting the server</span></h2>
-<p>Use the standard <a href="../Systemd.html" title="Systemd">systemd</a> syntax to control the <code>dovecot.service</code> <a href="../Daemons.html" class="mw-redirect" title="Daemon">daemon</a>.
+<p>Use the standard <a href="../wiki/Systemd.html" title="Systemd">systemd</a> syntax to control the <code>dovecot.service</code> <a href="../wiki/Daemons.html" class="mw-redirect" title="Daemon">daemon</a>.
 </p>
 <h2><span class="mw-headline" id="Tricks">Tricks</span></h2>
 <p>Generate hashes with non-default hash functions.
@@ -257,9 +257,9 @@ protocol sieve {
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -277,9 +277,9 @@ protocol sieve {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

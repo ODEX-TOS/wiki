@@ -2,7 +2,7 @@
     title: Gamepad
     description: Migration of Gamepad from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -249,7 +249,7 @@ If you already have an option with a specific axis just type in the <code>deadzo
 <pre>$ jscal -p /dev/input/jsX &gt; jscal.sh # replace X with your joystick's number 
 $ chmod +x jscal.sh
 </pre>
-<p>Now you need to make a <a href="../Udev.html" title="Udev">udev</a> rule (for example <code>/etc/udev/rules.d and name it 85-jscal.rules</code>) so the script will automatically run when you connect the controller:
+<p>Now you need to make a <a href="../wiki/Udev.html" title="Udev">udev</a> rule (for example <code>/etc/udev/rules.d and name it 85-jscal.rules</code>) so the script will automatically run when you connect the controller:
 </p>
 <pre>SUBSYSTEM=="input", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="c268", ACTION=="add", RUN+="/usr/bin/bash /usr/bin/jscal.sh"
 </pre>
@@ -334,9 +334,9 @@ EndSection</pre>
 <p>A couple joystick to keystroke programs exist like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/qjoypad/">qjoypad</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/antimicrox-git/">antimicrox-git</a></span><sup><small>AUR</small></sup>, all work well without the need for X.org configuration.
 </p>
 <h3><span class="mw-headline" id="Xorg_configuration_example">Xorg configuration example</span></h3>
-<p>This is a good solution for systems where restarting Xorg is a rare event because it is a static configuration loaded only on X startup. The example runs on a <a href="../Kodi.html" title="Kodi">Kodi</a> media PC, controlled with a Logitech Cordless RumblePad 2. Due to a problem with the d-pad (a.k.a. "hat") being recognized as another axis, <a href="../Gamepad.html" class="mw-redirect" title="Joy2key">Joy2key</a> was used as a workaround. Since upgrade to Kodi version 11.0 and joy2key 1.6.3-1, this setup no longer worked and the following was created for letting Xorg handle joystick events.
+<p>This is a good solution for systems where restarting Xorg is a rare event because it is a static configuration loaded only on X startup. The example runs on a <a href="../wiki/Kodi.html" title="Kodi">Kodi</a> media PC, controlled with a Logitech Cordless RumblePad 2. Due to a problem with the d-pad (a.k.a. "hat") being recognized as another axis, <a href="../wiki/Gamepad.html" class="mw-redirect" title="Joy2key">Joy2key</a> was used as a workaround. Since upgrade to Kodi version 11.0 and joy2key 1.6.3-1, this setup no longer worked and the following was created for letting Xorg handle joystick events.
 </p>
-<p>First, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xf86-input-joystick/">xf86-input-joystick</a></span><sup><small>AUR</small></sup> package. Then, create <code>/etc/X11/xorg.conf.d/51-joystick.conf</code> like so:
+<p>First, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xf86-input-joystick/">xf86-input-joystick</a></span><sup><small>AUR</small></sup> package. Then, create <code>/etc/X11/xorg.conf.d/51-joystick.conf</code> like so:
 </p>
 <pre> Section "InputClass"
   Identifier "Joystick hat mapping"
@@ -365,7 +365,7 @@ EndSection</pre>
 <h3><span class="mw-headline" id="Nintendo_Gamecube_Controller">Nintendo Gamecube Controller</span></h3>
 <p>Dolphin Emulator has a <a rel="nofollow"  href="https://wiki.dolphin-emu.org/index.php?title=How_to_use_the_Official_GameCube_Controller_Adapter_for_Wii_U_in_Dolphin">page on their wiki</a> that explains how to use the official Nintendo USB adapter with a Gamecube controller. This configuration also works with the Mayflash Controller Adapter if the switch is set to "Wii U".
 </p>
-<p>By default, the controller will register with <a href="../Udev.html" title="Udev">udev</a>, but will only be readable by the root user. You can fix this by adding a udev device rule, like the below. 
+<p>By default, the controller will register with <a href="../wiki/Udev.html" title="Udev">udev</a>, but will only be readable by the root user. You can fix this by adding a udev device rule, like the below. 
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/51-gcadapter.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"</pre>
@@ -433,7 +433,7 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="20d6", ATTRS{idProduct}=="a711", MODE="0660
 <p>Steam properly recognizes it as a PS3 pad and Big Picture can be launched with the PS button. Big Picture and some games may act as if it was a 360 controller.  Gamepad control over mouse is on by default.  You may want to turn it off before playing games, see <a href="#Joystick_moving_mouse">#Joystick moving mouse</a>.
 </p>
 <h5><span class="mw-headline" id="Connecting_via_Bluetooth">Connecting via Bluetooth</span></h5>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez">bluez</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez-plugins">bluez-plugins</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez-utils">bluez-utils</a></span> packages, which includes the <i>sixaxis</i> plugin. Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <a href="../Bluetooth.html" title="Bluetooth">bluetooth</a> service and ensure bluetooth is powered on. If using <i>bluetoothctl</i> start it in a terminal and then plug the controller in via USB. You should be prompted to trust the controller in bluetoothctl. A graphical bluetooth front-end may program your PC's bluetooth address into the controller automatically. Hit the PlayStation button and check that the controller works while plugged in.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez">bluez</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez-plugins">bluez-plugins</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez-utils">bluez-utils</a></span> packages, which includes the <i>sixaxis</i> plugin. Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <a href="../wiki/Bluetooth.html" title="Bluetooth">bluetooth</a> service and ensure bluetooth is powered on. If using <i>bluetoothctl</i> start it in a terminal and then plug the controller in via USB. You should be prompted to trust the controller in bluetoothctl. A graphical bluetooth front-end may program your PC's bluetooth address into the controller automatically. Hit the PlayStation button and check that the controller works while plugged in.
 </p>
 <p>You can now disconnect your controller. The next time you hit the PlayStation button it will connect without asking anything else.
 </p>
@@ -444,7 +444,7 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="20d6", ATTRS{idProduct}=="a711", MODE="0660
 <p>Remember to disconnect the controller when you are done as the controller will stay on when connected and drain the battery.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If the controller does not connect, make sure the bluetooth interface is turned on and the controllers have been trusted. (See <a href="../Bluetooth.html" title="Bluetooth">Bluetooth</a>)</div>
+<strong>Note:</strong> If the controller does not connect, make sure the bluetooth interface is turned on and the controllers have been trusted. (See <a href="../wiki/Bluetooth.html" title="Bluetooth">Bluetooth</a>)</div>
 <h5><span class="mw-headline" id="Using_Playstation_3_controllers_with_Steam">Using Playstation 3 controllers with Steam</span></h5>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
@@ -566,8 +566,8 @@ BTN_SELECT=back
 BTN_MODE = guide</pre>
 <h3><span class="mw-headline" id="Steam_Controller">Steam Controller</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Kernel 4.18 <a rel="nofollow"  href="https://lkml.org/lkml/2018/4/16/380">provides a kernel driver</a> for wired/wireless use of the steam controller as a controller input device without <a href="../Steam.html" title="Steam">Steam</a>.</div>
-<p>The <a href="../Steam.html" title="Steam">Steam</a> client will recognize the controller and provide keyboard/mouse/gamepad emulation while Steam is running. The in-game Steam overlay needs to be enabled and working in order for gamepad emulation to work. You may need to run <code>udevadm trigger</code> with root privileges or plug the dongle out and in again, if the controller doesn't work immediately after installing and running Steam. If all else fails, try restarting the computer while the dongle is plugged in.
+<strong>Note:</strong> Kernel 4.18 <a rel="nofollow"  href="https://lkml.org/lkml/2018/4/16/380">provides a kernel driver</a> for wired/wireless use of the steam controller as a controller input device without <a href="../wiki/Steam.html" title="Steam">Steam</a>.</div>
+<p>The <a href="../wiki/Steam.html" title="Steam">Steam</a> client will recognize the controller and provide keyboard/mouse/gamepad emulation while Steam is running. The in-game Steam overlay needs to be enabled and working in order for gamepad emulation to work. You may need to run <code>udevadm trigger</code> with root privileges or plug the dongle out and in again, if the controller doesn't work immediately after installing and running Steam. If all else fails, try restarting the computer while the dongle is plugged in.
 </p>
 <p>For Steam client to be able to emulate other gamepads in games, you will need to follow this <a rel="nofollow"  href="https://steamcommunity.com/app/353370/discussions/2/1735465524711324558/">post</a> from Valve. Note that name of the file with udev rules may be different, for example <code>/usr/lib/udev/rules.d/70-steam-input.rules</code>. A reboot may be required after making changes.
 </p>
@@ -580,10 +580,10 @@ BTN_MODE = guide</pre>
 <div>
 <b>Reason:</b> As of September 17, 2019 beta release, Steam has fixed the on screen keyboard from taking focus. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Gamepad">Talk:Gamepad#</a>)</div>
 </div>
-<p>On some desktop environments the on-screen keyboard might freeze when trying to input text after one or two characters. This is a problem with window focus. Check the settings for your <a href="../Window_manager.html" title="Window manager">window manager</a> to see if it is possible to have focus follow the mouse or automatically focus new windows. Preventing the keyboard from receiving focus will fix the issue in <a href="../Awesome.html" title="Awesome">Awesome</a>, see <a href="../Awesome.html#Steam_Keyboard" title="Awesome">Awesome#Steam Keyboard</a>.
+<p>On some desktop environments the on-screen keyboard might freeze when trying to input text after one or two characters. This is a problem with window focus. Check the settings for your <a href="../wiki/Window_manager.html" title="Window manager">window manager</a> to see if it is possible to have focus follow the mouse or automatically focus new windows. Preventing the keyboard from receiving focus will fix the issue in <a href="../wiki/Awesome.html" title="Awesome">Awesome</a>, see <a href="../wiki/Awesome.html#Steam_Keyboard" title="Awesome">Awesome#Steam Keyboard</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you do not use the <a href="../Steam/Troubleshooting.html#Steam_runtime" class="mw-redirect" title="Steam runtime">Steam runtime</a>, you might actually need to disable the overlay for the controller to work in certain games (Rocket Wars, Rocket League, Binding of Isaac, etc.). Right click on a game in your library, select "Properties", and uncheck "Enable Steam Overlay".</div>
+<strong>Note:</strong> If you do not use the <a href="../wiki/Steam/Troubleshooting.html#Steam_runtime" class="mw-redirect" title="Steam runtime">Steam runtime</a>, you might actually need to disable the overlay for the controller to work in certain games (Rocket Wars, Rocket League, Binding of Isaac, etc.). Right click on a game in your library, select "Properties", and uncheck "Enable Steam Overlay".</div>
 <h4><span class="mw-headline" id="Wine">Wine</span></h4>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/python-steamcontroller-git/">python-steamcontroller-git</a></span><sup><small>AUR</small></sup> can also be used to make the Steam Controller work for games running under Wine. You need to find and download the application <code>xbox360cemu.v.3.0</code> (e.g. from <a rel="nofollow"  href="https://github.com/jacobmischka/ds4-in-wine/tree/master/xbox360cemu.v.3.0">here</a>). Then copy the files <code>dinput8.dll</code>, <code>xbox360cemu.ini</code>, <code>xinput1_3.dll</code> and <code>xinput_9_1_0.dll</code> to the directory that contains your game executable. Edit <code>xbox360cemu.ini</code> and only change the following values under <code>[PAD1]</code> to remap the Steam Controller correctly to a XBox controller.
 </p>
@@ -618,13 +618,13 @@ Right Trigger=a6</pre>
 <p>If you wish to use the controller for controlling the mouse, or mapping buttons to keys, etc. you should use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xf86-input-joystick/">xf86-input-joystick</a></span><sup><small>AUR</small></sup> package (configuration help can be found using <span class="plainlinks archwiki-template-man" title="$ man 4 joystick">joystick(4)</span>). If the mouse locks itself in a corner, it might help changing the <code>MatchDevicePath</code> in <code>/etc/X11/xorg.conf.d/50-joystick.conf</code> from <code>/dev/input/event*</code> to <code>/dev/input/js*</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If you use the <a href="../TLP.html" title="TLP">TLP</a> power management tool, you may experience connection issues with your Microsoft wireless adapter (e.g. the indicator LED will go out after the adapter has been connected for a few seconds, and controller connection attempts fail). This is due to TLP's USB autosuspend functionality, and the solution is to add the Microsoft wireless adapter's device ID to this feature's blacklist (USB_BLACKLIST, check <a rel="nofollow"  href="http://linrunner.de/tlp/docs/tlp-configuration.html#usb">TLP configuration</a> for more details).</div>
-<p>In order to connect via Bluetooth using KDE, add the following <a href="../Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>bluetooth.disable_ertm=1</code>.
+<strong>Tip:</strong> If you use the <a href="../wiki/TLP.html" title="TLP">TLP</a> power management tool, you may experience connection issues with your Microsoft wireless adapter (e.g. the indicator LED will go out after the adapter has been connected for a few seconds, and controller connection attempts fail). This is due to TLP's USB autosuspend functionality, and the solution is to add the Microsoft wireless adapter's device ID to this feature's blacklist (USB_BLACKLIST, check <a rel="nofollow"  href="http://linrunner.de/wiki/tlp/docs/tlp-configuration.html#usb">TLP configuration</a> for more details).</div>
+<p>In order to connect via Bluetooth using KDE, add the following <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>bluetooth.disable_ertm=1</code>.
 </p>
 <h4><span class="mw-headline" id="SteamOS_xpad">SteamOS xpad</span></h4>
 <p>If you have issues with the default <code>xpad</code> kernel module, you can install the SteamOS version. There is still a known issue with compatibility between wireless Xbox360 controllers and games made in GameMaker Studio. If you encounter this problem, the only known workaround is to use xboxdrv. YoYo Games has refused to acknowledge this as a bug with their product and it is unlikely to ever be fixed.
 </p>
-<p>First make sure you have <a href="../Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> installed and running, then install the modified kernel module <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/steamos-xpad-dkms/">steamos-xpad-dkms</a></span><sup><small>AUR</small></sup>. During the installation you'll see that new xpad kernel module is strapped to your current kernel:
+<p>First make sure you have <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> installed and running, then install the modified kernel module <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/steamos-xpad-dkms/">steamos-xpad-dkms</a></span><sup><small>AUR</small></sup>. During the installation you'll see that new xpad kernel module is strapped to your current kernel:
 </p>
 <pre>Creating symlink /var/lib/dkms/steamos-xpad-dkms/0.1/source -&gt;
                  /usr/src/steamos-xpad-dkms-0.1
@@ -648,7 +648,7 @@ cleaning build area....
 <h4><span class="mw-headline" id="xboxdrv">xboxdrv</span></h4>
 <p>xboxdrv is an alternative to <code>xpad</code> which provides more functionality and might work better with certain controllers. It works in userspace and can be launched as system service. 
 </p>
-<p>Install it with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xboxdrv/">xboxdrv</a></span><sup><small>AUR</small></sup> package. Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>xboxdrv.service</code>.
+<p>Install it with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xboxdrv/">xboxdrv</a></span><sup><small>AUR</small></sup> package. Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>xboxdrv.service</code>.
 </p>
 <p>If you have issues with the controller being recognized but not working in steam games or working but with incorrect mappings, it may be required to modify you config as such:
 </p>
@@ -661,7 +661,7 @@ deadzone = 4000
 
 [xboxdrv-daemon]
 dbus = disabled</pre>
-<p>Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>xboxdrv.service</code>.
+<p>Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>xboxdrv.service</code>.
 </p>
 <h5><span class="mw-headline" id="Multiple_controllers">Multiple controllers</span></h5>
 <p>xboxdrv supports a multitude of controllers, but they need to be set up in <code>/etc/default/xboxdrv</code>. For each extra controller, add an <code>next-controller = true</code> line. For example, when using 4 controllers, add it 3 times:
@@ -674,7 +674,7 @@ dbus = disabled</pre>
  [xboxdrv-daemon]
  dbus = disabled
 </pre>
-<p>Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>xboxdrv.service</code>.
+<p>Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>xboxdrv.service</code>.
 </p>
 <h5><span class="mw-headline" id="Mimic_Xbox_360_controller_with_other_controllers">Mimic Xbox 360 controller with other controllers</span></h5>
 <p>xboxdrv can be used to make any controller register as an Xbox 360 controller with the <code>--mimic-xpad</code> switch. This may be desirable for games that support Xbox 360 controllers out of the box, but have trouble detecting or working with other gamepads.
@@ -903,13 +903,13 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Input_devices.html" title="Category:Input devices">Input devices</a></li>
-<li><a href="../Category:Gaming.html" title="Category:Gaming">Gaming</a></li>
+<li><a href="../wiki/Category:Input_devices.html" title="Category:Input devices">Input devices</a></li>
+<li><a href="../wiki/Category:Gaming.html" title="Category:Gaming">Gaming</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -928,9 +928,9 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

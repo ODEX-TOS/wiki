@@ -2,7 +2,7 @@
     title: DAViCal
     description: Migration of DAViCal from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,24 +27,24 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../AgenDAV.html" title="AgenDAV">AgenDAV</a></li>
-<li><a href="../Radicale.html" title="Radicale">Radicale</a></li>
+<li><a href="../wiki/AgenDAV.html" title="AgenDAV">AgenDAV</a></li>
+<li><a href="../wiki/Radicale.html" title="Radicale">Radicale</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.davical.org/">DAViCal</a> is a server implementing the CalDAV and CardDAV protocol. It's solely a server, with minimal direct user interaction, instead relying on using CalDav clients, such as Apple's iCal.app, iOS (iPhone, iPad, iPod), Thunderbird with Sunbird, or Evolution.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="Installing_pre-requisites">Installing pre-requisites</span></h3>
-<p>DAViCal is written in <a href="../PHP.html" title="PHP">PHP</a> and uses the <a href="../PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> database as its backend to store the calendar information. Currently it only supports PostgreSQL, but there is work to support other databases as well.
+<p>DAViCal is written in <a href="../wiki/PHP.html" title="PHP">PHP</a> and uses the <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> database as its backend to store the calendar information. Currently it only supports PostgreSQL, but there is work to support other databases as well.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/davical/">davical</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php">php</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-pgsql">php-pgsql</a></span>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/davical/">davical</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php">php</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-pgsql">php-pgsql</a></span>.
 </p>
-<p>The installation directories are defined by <a href="../Web_application_package_guidelines.html" title="Web application package guidelines">Web application package guidelines</a> and are slightly different than upstream documentation (<code>/usr/share/webapps/davical</code> and <code>/etc/webapps/davical</code>).
+<p>The installation directories are defined by <a href="../wiki/Web_application_package_guidelines.html" title="Web application package guidelines">Web application package guidelines</a> and are slightly different than upstream documentation (<code>/usr/share/webapps/davical</code> and <code>/etc/webapps/davical</code>).
 </p>
-<p>DAViCal is a web application, and therefore you need a web server set up as well. Here <a href="../Nginx.html" title="Nginx">Nginx</a> will be assumed, but DAViCal can run on nearly any web server (some may stop processing requests when they see the CalDAV HTTP headers, and therefore DAViCal will not be able to see them).
+<p>DAViCal is a web application, and therefore you need a web server set up as well. Here <a href="../wiki/Nginx.html" title="Nginx">Nginx</a> will be assumed, but DAViCal can run on nearly any web server (some may stop processing requests when they see the CalDAV HTTP headers, and therefore DAViCal will not be able to see them).
 </p>
 <h3><span class="mw-headline" id="Preparing_PostgreSQL">Preparing PostgreSQL</span></h3>
-<p>First of all, you should set up PostgreSQL so it can start up by following <a href="../PostgreSQL.html#Installation" title="PostgreSQL">PostgreSQL#Installation</a>.
+<p>First of all, you should set up PostgreSQL so it can start up by following <a href="../wiki/PostgreSQL.html#Installation" title="PostgreSQL">PostgreSQL#Installation</a>.
 </p>
 <p>DAViCal requires two independent accounts to be set up, one for accessing the database from the web application, which will be limited in power, and another that will be used for administrating the DAViCal related tables.
 </p>
@@ -55,7 +55,7 @@
 <pre>   local   davical         davical_app                             trust
    local   davical         davical_dba                             trust
 </pre>
-<p>Make sure that you have a 'root' role in your database. If you don't, create it by becoming the postgres user as described on <a href="../PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> page and execute the following:
+<p>Make sure that you have a 'root' role in your database. If you don't, create it by becoming the postgres user as described on <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> page and execute the following:
 </p>
 <pre>$ createuser -s -U postgres --interactive
 $ Enter name of role to add: root
@@ -73,7 +73,7 @@ $ Enter name of role to add: root
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -90,9 +90,9 @@ $ Enter name of role to add: root
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

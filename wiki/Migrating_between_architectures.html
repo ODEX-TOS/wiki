@@ -2,7 +2,7 @@
     title: Migrating_between_architectures
     description: Migration of Migrating_between_architectures from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -102,7 +102,7 @@
 <h3><span class="mw-headline" id="Disk_space">Disk space</span></h3>
 <p>You should be prepared for <code>/var/cache/pacman/pkg</code> to grow approximately twice its current size during the migration. This is assumes only packages that are currently installed are in the cache, as if “pacman -Sc” (clean) was recently run. The disk space increase is due to duplication between the i686 and x86_64 versions of each package.
 </p>
-<p>If you have not enough disk, please use <a href="../Parted.html" class="mw-redirect" title="GParted">GParted</a> to resize the relevant partition, or mount another partition to <code>/var/cache/pacman</code>.
+<p>If you have not enough disk, please use <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> to resize the relevant partition, or mount another partition to <code>/var/cache/pacman</code>.
 </p>
 <p>Please do not remove packages of the old architecture from the cache until the system is fully operating in the new architecture. Removing the packages too early may leave you unable to fall back and revert changes.
 </p>
@@ -114,7 +114,7 @@
 </p>
 <p>One package is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=busybox">busybox</a></span>, which can be used to revert changes. It is statically linked and does not depend on any libraries. The 32-bit (i686) version should be installed.
 </p>
-<p>Another package is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span>, from the <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> x86_64 repository.  It is probably only useful when migrating <i>away</i> from 32 bits; in any case you may safely skip this package.  You can use the package to run 32 bit programs by explicitly calling <code>/lib/ld-linux.so.2</code>.
+<p>Another package is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span>, from the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> x86_64 repository.  It is probably only useful when migrating <i>away</i> from 32 bits; in any case you may safely skip this package.  You can use the package to run 32 bit programs by explicitly calling <code>/lib/ld-linux.so.2</code>.
 </p>
 <h2><span class="mw-headline" id="Method_1:_using_the_TOS_LiveCD">Method 1: using the TOS LiveCD</span></h2>
 <ol>
@@ -144,7 +144,7 @@
 <dl><dd>10. Also, see if your boot loader needs to be migrated.  For instance:</dd></dl>
 <pre> # grub-install --recheck /dev/sda
 </pre>
-<dl><dd>11. After rebooting to your new 64-bit system, edit and then move <code>/etc/makepkg.conf.pacnew</code> to <code>/etc/makepkg.conf</code>, to migrate the CPU architecture. Then rebuild the "foreign" packages, which will include packages from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.</dd></dl>
+<dl><dd>11. After rebooting to your new 64-bit system, edit and then move <code>/etc/makepkg.conf.pacnew</code> to <code>/etc/makepkg.conf</code>, to migrate the CPU architecture. Then rebuild the "foreign" packages, which will include packages from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.</dd></dl>
 <dl><dd>You might first want to remove certain orphaned foreign packages before trying to rebuild them.  Run this command to find out what 32-bit binaries you still have and reinstall them:</dd></dl>
 <pre> $ LC_ALL=C pacman -Qo `find /usr/bin -type f -exec bash -c 'file "{}" | grep 32-bit' \; | cut -d':' -f1` | cut -d' ' -f5 | sort | uniq | tee list
 </pre>
@@ -156,7 +156,7 @@
 <h3><span class="mw-headline" id="Package_preparation">Package preparation</span></h3>
 <h4><span class="mw-headline" id="Cache_old_packages">Cache old packages</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you have any packages installed from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> or third-party repositories without new architecture availability, pacman will let you know it cannot find a suitable replacement.  Make a list of these packages so you may re-install them after the update process and then remove them using <code>pacman -Rsn package_name</code>.</div>
+<strong>Note:</strong> If you have any packages installed from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> or third-party repositories without new architecture availability, pacman will let you know it cannot find a suitable replacement.  Make a list of these packages so you may re-install them after the update process and then remove them using <code>pacman -Rsn package_name</code>.</div>
 <p>If you do not have all your installed packages in your cache, download them (for the old architecture) for fallback purposes.
 </p>
 <pre># pacman -Qqn | pacman -Sw -
@@ -191,7 +191,7 @@
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> package.
 </p>
 <h4><span class="mw-headline" id="Install_lib32-glibc">Install lib32-glibc</span></h4>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span> fallback together with the 64-bit version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glibc">glibc</a></span>. You will need to add the <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository in <code>/etc/pacman.conf</code> if you have not done so already.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span> fallback together with the 64-bit version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glibc">glibc</a></span>. You will need to add the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository in <code>/etc/pacman.conf</code> if you have not done so already.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> If you do not install the 64-bit version of glibc at the same time as lib32-glibc, the lib32-glibc install will not be able to function. However, pacman will not warn you about this, as the 32-bit glibc package also satisfies the dependency.</div>
@@ -216,7 +216,7 @@
 <p>Errors may be printed but they will not cause a problem as long as Pacman works.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> You must not reboot your system until the following commands have been completed. If you failed to do so, you should continue installing by <a href="../Chroot.html" title="Chroot">chrooting</a> from another linux-tosenvironment(e.g. from live install medium)</div>
+<strong>Warning:</strong> You must not reboot your system until the following commands have been completed. If you failed to do so, you should continue installing by <a href="../wiki/Chroot.html" title="Chroot">chrooting</a> from another linux-tosenvironment(e.g. from live install medium)</div>
 <h4><span class="mw-headline" id="Install_remaining_packages">Install remaining packages</span></h4>
 <p>Install all of the previously downloaded replacements for the new architecture. (Go get a drink and make a sandwich; this could take a while.)
 </p>
@@ -234,7 +234,7 @@
 <p>You are now free to remove <b>busybox</b> and <i>lib32-glibc</i>.
 </p>
 <h4><span class="mw-headline" id="Makepkg_compiler_flags">Makepkg compiler flags</span></h4>
-<p>During the upgrade the new version of <code>/etc/makepkg.conf</code> may be stored as <code>/etc/makepkg.conf.pacnew</code>. If so, you will have to replace the old version or modify it in order to compile anything with <a href="../Makepkg.html" title="Makepkg">makepkg</a> in the future.
+<p>During the upgrade the new version of <code>/etc/makepkg.conf</code> may be stored as <code>/etc/makepkg.conf.pacnew</code>. If so, you will have to replace the old version or modify it in order to compile anything with <a href="../wiki/Makepkg.html" title="Makepkg">makepkg</a> in the future.
 </p>
 <pre># mv /etc/makepkg.conf /etc/makepkg.conf.backup &amp;&amp; mv /etc/makepkg.conf.pacnew /etc/makepkg.conf
 </pre>
@@ -256,7 +256,7 @@
 <pre># /lib/ld-linux.so.2 /bin/ls
 </pre>
 <h3><span class="mw-headline" id="Migrating_from_old_system_2017_and_before">Migrating from old system 2017 and before</span></h3>
-<p>You might face issue with updating old 32-bit system since in 2017 TOSLinux dropped support for i686. To make that update safe you may want use <a href="../TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>. I.e. fix repo snapshot, then update current system and then switch to 64-bit flavor of packages corresponding to <b>same version</b>.
+<p>You might face issue with updating old 32-bit system since in 2017 TOSLinux dropped support for i686. To make that update safe you may want use <a href="../wiki/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>. I.e. fix repo snapshot, then update current system and then switch to 64-bit flavor of packages corresponding to <b>same version</b>.
 </p>
 <p>Note that you may need to downgrade required trust level in <code>pacman.conf</code> (like <code>PackageTrustAll</code> to include marginal trust) since not all GPG keys which were used to sign package are still valid. Though you may want to ensure that you use HTTPS to at least ensure that packages comes from <code>archlinux.org</code> domain.
 </p>
@@ -269,11 +269,11 @@
 <p>If, after completion, you find that mutt hangs on opening mail folders, try renaming the cache directory. If this works, the renamed one can be deleted as mutt will have recreated a new one.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li><a href="../Migrate_installation_to_new_hardware.html" title="Migrate installation to new hardware">Migrate installation to new hardware</a></li></ul>
+<ul><li><a href="../wiki/Migrate_installation_to_new_hardware.html" title="Migrate installation to new hardware">Migrate installation to new hardware</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -290,9 +290,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

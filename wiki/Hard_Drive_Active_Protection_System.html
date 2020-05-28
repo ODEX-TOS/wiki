@@ -2,7 +2,7 @@
     title: Hard_Drive_Active_Protection_System
     description: Migration of Hard_Drive_Active_Protection_System from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <p>Hard Drive Active Protection System (<b>HDAPS</b>) protects your hard drive from sudden shocks (such as dropping or banging your laptop on a desk). It does this by parking the disk heads, so that shocks do not cause them to crash into the drive's platters. Hopefully, this will prevent catastrophic failure.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="../Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> drives do not need HDAPS as they lack any mechanical components.</div>
+<strong>Note:</strong> <a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> drives do not need HDAPS as they lack any mechanical components.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -56,11 +56,11 @@
 <p>Your hardware needs to support some kind of shock detection.  This is usually in the form of an accelerometer built into your laptop's motherboard.  If you have the hardware, you also need a way to communicate what the hardware is detecting to your operating system.  This section describes drivers to communicate the accelerometer's state to the OS so it can detect and protect against shocks.
 </p>
 <h3><span class="mw-headline" id="tp_smapi">tp_smapi</span></h3>
-<p><a href="../Tp_smapi.html" title="Tp smapi">tp_smapi</a> is a set of drivers for many ThinkPad laptops.  It is highly recommended if you have a supported ThinkPad, even if you do not plan to use HDAPS.  Among a plethora of other useful things, tp_smapi represents the accelerometer output as joystick devices <code>/dev/input/js#</code> (Note! This could interfere with other joystick devices on your system).  
+<p><a href="../wiki/Tp_smapi.html" title="Tp smapi">tp_smapi</a> is a set of drivers for many ThinkPad laptops.  It is highly recommended if you have a supported ThinkPad, even if you do not plan to use HDAPS.  Among a plethora of other useful things, tp_smapi represents the accelerometer output as joystick devices <code>/dev/input/js#</code> (Note! This could interfere with other joystick devices on your system).  
 </p>
 <p>Install tp_smapi from the community repository. After a reboot, this will activate most of the drivers, represented through the <code>/sys/devices/platform/smapi</code> filesystem.
 </p>
-<p>The kernel provides its own HDAPS drivers.  Previously, it was necessary to manually <code>insmod</code> the module via <code>/etc/rc.local</code> to prevent the default drivers from being loaded.  The <a href="../Tp_smapi.html" title="Tp smapi">tp_smapi</a> package from community now installs <code>hdaps.ko</code> to <a rel="nofollow"  href="http://www.mail-archive.com/arch-dev-public@archlinux.org/msg01995.html">/lib/modules/$(uname -r)/updates</a>, which will let it supercede the built-in module.  Thus, you can simply add <code>hdaps</code> to your <code>MODULES</code> array.
+<p>The kernel provides its own HDAPS drivers.  Previously, it was necessary to manually <code>insmod</code> the module via <code>/etc/rc.local</code> to prevent the default drivers from being loaded.  The <a href="../wiki/Tp_smapi.html" title="Tp smapi">tp_smapi</a> package from community now installs <code>hdaps.ko</code> to <a rel="nofollow"  href="http://www.mail-archive.com/arch-dev-public@archlinux.org/msg01995.html">/lib/modules/$(uname -r)/updates</a>, which will let it supercede the built-in module.  Thus, you can simply add <code>hdaps</code> to your <code>MODULES</code> array.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> According to <a rel="nofollow"  href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=628829">this bug report</a>, certain ThinkPad laptops use different firmware which tp_smapi does not support and is unlikely to support in the near future. This includes the following series: Edge, SL, L, X1xxe. Only one of these is listed in the "unsupported hardware" page for the project, however, and that listing suggests that the x121e should mostly work. I get the same error with the x121e listed at the bottom of the bug report as a different and more fundamental problem, though, so it may be that some models of the x121e are mostly supported and others are entirely unsupported.</div>
@@ -86,14 +86,14 @@
 <h3><span class="mw-headline" id="hdapsd">hdapsd</span></h3>
 <p>hdapsd monitors the output of the HDAPS joystick devices to determine if a shock is about to occur, then tells the kernel to park the disk heads.
 </p>
-<p>You should check your "Load cycle count" in <a href="../S.M.A.R.T..html" class="mw-redirect" title="SMART">SMART</a> when setting up hdaps, if it is too sensitive the head would park too often and load cycle count would rise too rapidly.
+<p>You should check your "Load cycle count" in <a href="../wiki/S.M.A.R.T..html" class="mw-redirect" title="SMART">SMART</a> when setting up hdaps, if it is too sensitive the head would park too often and load cycle count would rise too rapidly.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hdapsd">hdapsd</a></span>. You can <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the hdapsd daemon with <code>hdapsd@device.service</code>, however you don't need to enable it.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hdapsd">hdapsd</a></span>. You can <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the hdapsd daemon with <code>hdapsd@device.service</code>, however you don't need to enable it.
 </p>
 <p>The package installs udev rules. Udev will start one hdapsd instance for each rotational, non-removable disk it finds.
 For more information, see the <a rel="nofollow"  href="https://github.com/evgeni/hdapsd#systemd-and-udev-integration:Link">hdapsd github page</a>
 </p>
-<p>You can adjust the parameters, with which hdapsd is run by providing your own unit file as explained in the <a href="../Systemd.html#Editing_provided_units" title="Systemd">systemd article</a>, for example the following file will adjust sensitivity and logging behaviour of the hdaps daemon:
+<p>You can adjust the parameters, with which hdapsd is run by providing your own unit file as explained in the <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">systemd article</a>, for example the following file will adjust sensitivity and logging behaviour of the hdaps daemon:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/hdapsd.service.d/sensitivity.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -133,7 +133,7 @@ ExecStart=/usr/bin/hdapsd --sensitivity=40 -blp
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Laptops.html" title="Category:Laptops">Laptops</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Laptops.html" title="Category:Laptops">Laptops</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -150,9 +150,9 @@ ExecStart=/usr/bin/hdapsd --sensitivity=40 -blp
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Btrfs
     description: Migration of Btrfs from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../File_systems.html" title="File systems">File systems</a></li>
-<li><a href="../Snapper.html" title="Snapper">Snapper</a></li>
-<li><a href="../Dm-crypt/Encrypting_an_entire_system.html#Btrfs_subvolumes_with_swap" title="Dm-crypt/Encrypting an entire system">dm-crypt/Encrypting an entire system#Btrfs subvolumes with swap</a></li>
+<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="../wiki/Snapper.html" title="Snapper">Snapper</a></li>
+<li><a href="../wiki/Dm-crypt/Encrypting_an_entire_system.html#Btrfs_subvolumes_with_swap" title="Dm-crypt/Encrypting an entire system">dm-crypt/Encrypting an entire system#Btrfs subvolumes with swap</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs Wiki</a>:
@@ -141,12 +141,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<p>For user space utilities <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=btrfs-progs">btrfs-progs</a></span> package, which is required for basic operations.
+<p>For user space utilities <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=btrfs-progs">btrfs-progs</a></span> package, which is required for basic operations.
 </p>
-<p>If you need to boot from a Btrfs file system (i.e., your kernel and initramfs reside on a Btrfs partition), check if your <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> supports Btrfs.
+<p>If you need to boot from a Btrfs file system (i.e., your kernel and initramfs reside on a Btrfs partition), check if your <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> supports Btrfs.
 </p>
 <h2><span class="mw-headline" id="File_system_creation">File system creation</span></h2>
-<p>The following shows how to create a new Btrfs <a href="../File_systems.html" class="mw-redirect" title="File system">file system</a>. To convert an ext3/4 partition to Btrfs, see <a href="#Ext3/4_to_Btrfs_conversion">#Ext3/4 to Btrfs conversion</a>. To use a partitionless setup, see <a href="#Partitionless_Btrfs_disk">#Partitionless Btrfs disk</a>.
+<p>The following shows how to create a new Btrfs <a href="../wiki/File_systems.html" class="mw-redirect" title="File system">file system</a>. To convert an ext3/4 partition to Btrfs, see <a href="#Ext3/4_to_Btrfs_conversion">#Ext3/4 to Btrfs conversion</a>. To use a partitionless setup, see <a href="#Partitionless_Btrfs_disk">#Partitionless Btrfs disk</a>.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 8 mkfs.btrfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mkfs.btrfs.8">mkfs.btrfs(8)</a></span> for more information.
 </p>
@@ -168,14 +168,14 @@
 </pre>
 <p>You can create a <a href="https://en.wikipedia.org/wiki/JBOD"  title="w:JBOD">JBOD configuration</a>, where disks are seen as one filesystem, but files are not duplicated, using <code>-d single -m raid1</code>.
 </p>
-<p>You must include either the <code>udev</code> hook or the <code>btrfs</code> hook in <code>/etc/mkinitcpio.conf</code> in order to use multiple Btrfs devices in a pool. See the <a href="../Mkinitcpio.html#Common_hooks" title="Mkinitcpio">Mkinitcpio#Common hooks</a> article for more information.
+<p>You must include either the <code>udev</code> hook or the <code>btrfs</code> hook in <code>/etc/mkinitcpio.conf</code> in order to use multiple Btrfs devices in a pool. See the <a href="../wiki/Mkinitcpio.html#Common_hooks" title="Mkinitcpio">Mkinitcpio#Common hooks</a> article for more information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>It is possible to add devices to a multiple-device filesystem later on. See the <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices">Btrfs wiki article</a> for more information.</li>
 <li>Devices can be of different sizes. However, if one drive in a RAID configuration is bigger than the others, this extra space will not be used.</li>
-<li>Some <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loaders</a> such as <a href="../Syslinux.html" title="Syslinux">Syslinux</a> do not support multi-device file systems.</li>
+<li>Some <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loaders</a> such as <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> do not support multi-device file systems.</li>
 </ul>
 </div>
 <p>See <a href="#RAID">#RAID</a> for advice on maintenance specific to multi-device Btrfs file systems.
@@ -230,7 +230,7 @@ $ rm -rf <i>/path/to/dir</i>_old
 </p>
 <pre># btrfs filesystem defragment -r -v -czstd /
 </pre>
-<p>To enable compression when installing TOS to an empty Btrfs partition, use the <code>compress</code> option when <a href="../File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mounting">mounting</a> the file system: <code>mount -o compress=zstd /dev/sd<i>xY</i> /mnt/</code>. During configuration, add <code>compress=zstd</code> to the mount options of the root file system in <a href="../Fstab.html" title="Fstab">fstab</a>.
+<p>To enable compression when installing TOS to an empty Btrfs partition, use the <code>compress</code> option when <a href="../wiki/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mounting">mounting</a> the file system: <code>mount -o compress=zstd /dev/sd<i>xY</i> /mnt/</code>. During configuration, add <code>compress=zstd</code> to the mount options of the root file system in <a href="../wiki/Fstab.html" title="Fstab">fstab</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Compression can also be enabled per-file without using the <code>compress</code> mount option; to do so apply <code>chattr +c</code> to the file. When applied to directories, it will cause new files to be automatically compressed as they come.</div>
@@ -239,9 +239,9 @@ $ rm -rf <i>/path/to/dir</i>_old
 <ul>
 <li>Systems using older kernels or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=btrfs-progs">btrfs-progs</a></span> without <code>zstd</code> support may be unable to read or repair your filesystem if you use this option.</li>
 <li>
-<a href="../GRUB.html" title="GRUB">GRUB</a> introduced <i>zstd</i> support in 2.04.  Make sure you have actually upgraded the bootloader installed in your MBR/ESP since then, by running <code>grub-install</code> with the appropriate options for your BIOS/UEFI setup, since that is not done automatically. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/63235">FS#63235</a>.</li>
+<a href="../wiki/GRUB.html" title="GRUB">GRUB</a> introduced <i>zstd</i> support in 2.04.  Make sure you have actually upgraded the bootloader installed in your MBR/ESP since then, by running <code>grub-install</code> with the appropriate options for your BIOS/UEFI setup, since that is not done automatically. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/63235">FS#63235</a>.</li>
 <li>
-<a href="../REFInd.html" title="REFInd">rEFInd</a> before version 0.11.4 lacks support for <i>zstd</i>, either switch to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/refind-git/">refind-git</a></span><sup><small>AUR</small></sup>, use a separate boot partition without <i>zstd</i>, or reset compression of boot files to something supported using for example the command: <pre>$ btrfs filesystem defragment -v -clzo /boot/*</pre>
+<a href="../wiki/REFInd.html" title="REFInd">rEFInd</a> before version 0.11.4 lacks support for <i>zstd</i>, either switch to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/refind-git/">refind-git</a></span><sup><small>AUR</small></sup>, use a separate boot partition without <i>zstd</i>, or reset compression of boot files to something supported using for example the command: <pre>$ btrfs filesystem defragment -v -clzo /boot/*</pre>
 </li>
 </ul>
 </div>
@@ -284,12 +284,12 @@ $ rm -rf <i>/path/to/dir</i>_old
 <strong>Tip:</strong> Changing subvolume layouts is made simpler by not using the toplevel subvolume (ID=5) as <code>/</code> (which is done by default). Instead, consider creating a subvolume to house your actual data and mounting it as <code>/</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> From <span class="plainlinks archwiki-template-man" title="$ man 5 btrfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/btrfs.5#MOUNT_OPTIONS">btrfs(5)</a></span>: "Most mount options apply to the <b>whole filesystem</b>, and only the options for the first subvolume to be mounted will take effect. This is due to lack of implementation and may change in the future.". See the <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/FAQ#Can_I_mount_subvolumes_with_different_mount_options.3F">Btrfs Wiki FAQ</a> for which mount options can be used per subvolume.</div>
-<p>See <a href="../Snapper.html#Suggested_filesystem_layout" title="Snapper">Snapper#Suggested filesystem layout</a>, <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Managing_Snapshots">Btrfs SysadminGuide#Managing Snapshots</a>, and <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Layout">Btrfs SysadminGuide#Layout</a> for example file system layouts using subvolumes.
+<p>See <a href="../wiki/Snapper.html#Suggested_filesystem_layout" title="Snapper">Snapper#Suggested filesystem layout</a>, <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Managing_Snapshots">Btrfs SysadminGuide#Managing Snapshots</a>, and <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Layout">Btrfs SysadminGuide#Layout</a> for example file system layouts using subvolumes.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 5 btrfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/btrfs.5">btrfs(5)</a></span> for a full list of btrfs-specific mount options.
 </p>
 <h4><span class="mw-headline" id="Mounting_subvolume_as_root">Mounting subvolume as root</span></h4>
-<p>To use a subvolume as the root mountpoint specify the subvolume via a <a href="../Kernel_parameters.html#Configuration" title="Kernel parameters">kernel parameter</a> using <code>rootflags=subvol=<i>/path/to/subvolume</i></code>. Edit the root mountpoint in <code>/etc/fstab</code> and specify the mount option <code>subvol=</code>. Alternatively the subvolume can be specified with its id, <code>rootflags=subvolid=<i>objectid</i></code> as kernel parameter and <code>subvolid=<i>objectid</i></code> as mount option in <code>/etc/fstab</code>.
+<p>To use a subvolume as the root mountpoint specify the subvolume via a <a href="../wiki/Kernel_parameters.html#Configuration" title="Kernel parameters">kernel parameter</a> using <code>rootflags=subvol=<i>/path/to/subvolume</i></code>. Edit the root mountpoint in <code>/etc/fstab</code> and specify the mount option <code>subvol=</code>. Alternatively the subvolume can be specified with its id, <code>rootflags=subvolid=<i>objectid</i></code> as kernel parameter and <code>subvolid=<i>objectid</i></code> as mount option in <code>/etc/fstab</code>.
 </p>
 <h4><span class="mw-headline" id="Changing_the_default_sub-volume">Changing the default sub-volume</span></h4>
 <p>The default sub-volume is mounted if no <code>subvol=</code> mount option is provided. To change the default subvolume, do:
@@ -299,7 +299,7 @@ $ rm -rf <i>/path/to/dir</i>_old
 <p>where <i>subvolume-id</i> can be found by <a href="#Listing_subvolumes">listing</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> After changing the default subvolume on a system with <a href="../GRUB.html" title="GRUB">GRUB</a>, you should run <code>grub-install</code> again to notify the bootloader of the changes. See <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1615373">this forum thread</a>.</div>
+<strong>Note:</strong> After changing the default subvolume on a system with <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>, you should run <code>grub-install</code> again to notify the bootloader of the changes. See <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1615373">this forum thread</a>.</div>
 <p>Changing the default subvolume with <code>btrfs subvolume set-default</code> will make the top level of the filesystem inaccessible, except by use of the <code>subvol=/</code> or <code>subvolid=5</code> mount options <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide">[3]</a>.
 </p>
 <h3><span class="mw-headline" id="Quota">Quota</span></h3>
@@ -336,11 +336,11 @@ To show usage and limits for a given path within a filesystem use
 <h3><span class="mw-headline" id="SSD_TRIM">SSD TRIM</span></h3>
 <p>A Btrfs filesystem is able to free unused blocks from an SSD drive supporting the TRIM command. Starting with kernel version 5.6 there is asynchronous discard support, enabled with mount option <code>discard=async</code>. Freed extents are not discarded immediately, but grouped together and trimmed later by a separate worker thread, improving commit latency.
 </p>
-<p>More information about enabling and using TRIM can be found in <a href="../Solid_state_drive.html#TRIM" class="mw-redirect" title="Solid State Drives">Solid State Drives#TRIM</a>.
+<p>More information about enabling and using TRIM can be found in <a href="../wiki/Solid_state_drive.html#TRIM" class="mw-redirect" title="Solid State Drives">Solid State Drives#TRIM</a>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <h3><span class="mw-headline" id="Swap_file">Swap file</span></h3>
-<p><a href="../Swap.html#Swap_file" class="mw-redirect" title="Swap file">Swap files</a> in Btrfs are supported since Linux kernel 5.0.<a rel="nofollow"  href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ed46ff3d423780fa5173b38a844bf0fdb210a2a7">[4]</a> The proper way to initialize a swap file is described in <a href="../Swap.html#Swap_file_creation" class="mw-redirect" title="Swap file">Swap file#Swap file creation</a>. Configuring hibernation to a swap file is described in <a href="../Power_management/Suspend_and_hibernate.html#Hibernation_into_swap_file_on_Btrfs" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation into swap file on Btrfs</a>.
+<p><a href="../wiki/Swap.html#Swap_file" class="mw-redirect" title="Swap file">Swap files</a> in Btrfs are supported since Linux kernel 5.0.<a rel="nofollow"  href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ed46ff3d423780fa5173b38a844bf0fdb210a2a7">[4]</a> The proper way to initialize a swap file is described in <a href="../wiki/Swap.html#Swap_file_creation" class="mw-redirect" title="Swap file">Swap file#Swap file creation</a>. Configuring hibernation to a swap file is described in <a href="../wiki/Power_management/Suspend_and_hibernate.html#Hibernation_into_swap_file_on_Btrfs" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate#Hibernation into swap file on Btrfs</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> For kernels version 5.0+, Btfrs has native swap file support with some limitations:
@@ -372,7 +372,7 @@ To show usage and limits for a given path within a filesystem use
 <p>Defragmenting a file which has a COW copy (either a snapshot copy or one made with <code>cp --reflink</code> or bcp) plus using the <code>-c</code> switch with a compression algorithm may result in two unrelated files effectively increasing the disk usage.
 </p>
 <h3><span class="mw-headline" id="RAID">RAID</span></h3>
-<p>Btrfs offers native "RAID" for <a href="#Multi-device_file_system">#Multi-device file systems</a>. Notable features which set btrfs RAID apart from <a href="../RAID.html" class="mw-redirect" title="Mdadm">mdadm</a> are self-healing redundant arrays and online balancing. See <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices">the Btrfs wiki page</a> for more information. The Btrfs sysadmin page also <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#RAID_and_data_replication">has a section</a> with some more technical background.
+<p>Btrfs offers native "RAID" for <a href="#Multi-device_file_system">#Multi-device file systems</a>. Notable features which set btrfs RAID apart from <a href="../wiki/RAID.html" class="mw-redirect" title="Mdadm">mdadm</a> are self-healing redundant arrays and online balancing. See <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices">the Btrfs wiki page</a> for more information. The Btrfs sysadmin page also <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#RAID_and_data_replication">has a section</a> with some more technical background.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  Parity RAID (RAID 5/6) code has multiple serious data-loss bugs in it. See the Btrfs Wiki's <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/RAID56">RAID5/6 page</a> and a bug report on <a rel="nofollow"  href="https://www.mail-archive.com/linux-btrfs@vger.kernel.org/msg55161.html">linux-btrfs mailing list</a> for more detailed information.</div>
@@ -391,9 +391,9 @@ To show usage and limits for a given path within a filesystem use
 <pre># btrfs scrub status /
 </pre>
 <h4><span class="mw-headline" id="Start_with_a_service_or_timer">Start with a service or timer</span></h4>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=btrfs-progs">btrfs-progs</a></span> package brings the <code>btrfs-scrub@.timer</code> unit for monthly scrubbing the specified mountpoint. <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the timer with an escaped path, e.g. <code>btrfs-scrub@-.timer</code> for <code>/</code> and <code>btrfs-scrub@home.timer</code> for <code>/home</code>. You can use <code>systemd-escape -p <i>/path/to/mountpoint</i></code> to escape the path, see <span class="plainlinks archwiki-template-man" title="$ man 1 systemd-escape"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-escape.1">systemd-escape(1)</a></span> for details.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=btrfs-progs">btrfs-progs</a></span> package brings the <code>btrfs-scrub@.timer</code> unit for monthly scrubbing the specified mountpoint. <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the timer with an escaped path, e.g. <code>btrfs-scrub@-.timer</code> for <code>/</code> and <code>btrfs-scrub@home.timer</code> for <code>/home</code>. You can use <code>systemd-escape -p <i>/path/to/mountpoint</i></code> to escape the path, see <span class="plainlinks archwiki-template-man" title="$ man 1 systemd-escape"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-escape.1">systemd-escape(1)</a></span> for details.
 </p>
-<p>You can also run the scrub by <a href="../Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>btrfs-scrub@.service</code> (with the same encoded path). The advantage of this over <code>btrfs scrub</code> (as the root user) is that the results of the scrub will be logged in the <a href="../Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a>.
+<p>You can also run the scrub by <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>btrfs-scrub@.service</code> (with the same encoded path). The advantage of this over <code>btrfs scrub</code> (as the root user) is that the results of the scrub will be logged in the <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a>.
 </p>
 <h3><span class="mw-headline" id="Balance">Balance</span></h3>
 <p>"A balance passes all data in the filesystem through the allocator again. It is primarily intended to rebalance the data in the filesystem across the devices when a device is added or removed. A balance will regenerate missing copies for the redundant RAID levels, if a device has failed." <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Glossary">[6]</a> See <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/FAQ#What_does_.22balance.22_do.3F">Upstream FAQ page</a>.
@@ -442,12 +442,12 @@ To show usage and limits for a given path within a filesystem use
 <p>A few limitations should be known before trying.
 </p>
 <h3><span class="mw-headline" id="Encryption">Encryption</span></h3>
-<p>Btrfs has no built-in encryption support, but this <a rel="nofollow"  href="https://lwn.net/Articles/700487/">may</a> come in the future. Users can encrypt the partition before running <code>mkfs.btrfs</code>. See <a href="../Dm-crypt/Encrypting_an_entire_system.html#Btrfs_subvolumes_with_swap" title="Dm-crypt/Encrypting an entire system">dm-crypt/Encrypting an entire system#Btrfs subvolumes with swap</a>. 
+<p>Btrfs has no built-in encryption support, but this <a rel="nofollow"  href="https://lwn.net/Articles/700487/">may</a> come in the future. Users can encrypt the partition before running <code>mkfs.btrfs</code>. See <a href="../wiki/Dm-crypt/Encrypting_an_entire_system.html#Btrfs_subvolumes_with_swap" title="Dm-crypt/Encrypting an entire system">dm-crypt/Encrypting an entire system#Btrfs subvolumes with swap</a>. 
 </p>
-<p>Existing Btrfs file systems can use something like <a href="../EncFS.html" title="EncFS">EncFS</a> or <a href="../TrueCrypt.html" title="TrueCrypt">TrueCrypt</a>, though perhaps without some of Btrfs' features.
+<p>Existing Btrfs file systems can use something like <a href="../wiki/EncFS.html" title="EncFS">EncFS</a> or <a href="../wiki/TrueCrypt.html" title="TrueCrypt">TrueCrypt</a>, though perhaps without some of Btrfs' features.
 </p>
 <h3><span class="mw-headline" id="TLP">TLP</span></h3>
-<p>Using TLP requires special precautions in order to avoid filesystem corruption. Refer to the <a href="../TLP.html#Btrfs" title="TLP">according TLP section</a> for more information.
+<p>Using TLP requires special precautions in order to avoid filesystem corruption. Refer to the <a href="../wiki/TLP.html#Btrfs" title="TLP">according TLP section</a> for more information.
 </p>
 <h3><span class="mw-headline" id="btrfs_check_issues">btrfs check issues</span></h3>
 <p>The tool <code>btrfs check</code> has known issues and should not be run without further reading, see section <a href="#btrfs_check">#btrfs check</a>.
@@ -456,21 +456,21 @@ To show usage and limits for a given path within a filesystem use
 <h3><span class="mw-headline" id="Partitionless_Btrfs_disk">Partitionless Btrfs disk</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Most users do not want this type of setup and instead should install Btrfs on a regular partition. Furthermore, GRUB strongly discourages installation to a partitionless disk. Consider using <code>--alloc-start</code> for mkfs.btrfs to give larger space to GRUB. </div>
-<p>Btrfs can occupy an entire data storage device, replacing the <a href="../Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> or <a href="../Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> partitioning schemes, using <a href="#Subvolumes">subvolumes</a> to simulate partitions. However, using a partitionless setup is not required to simply <a href="#File_system_creation">create a Btrfs filesystem</a> on an existing <a href="../Partitioning.html" class="mw-redirect" title="Partition">partition</a> that was created using another method. There are some limitations to partitionless single disk setups:
+<p>Btrfs can occupy an entire data storage device, replacing the <a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> or <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> partitioning schemes, using <a href="#Subvolumes">subvolumes</a> to simulate partitions. However, using a partitionless setup is not required to simply <a href="#File_system_creation">create a Btrfs filesystem</a> on an existing <a href="../wiki/Partitioning.html" class="mw-redirect" title="Partition">partition</a> that was created using another method. There are some limitations to partitionless single disk setups:
 </p>
 <ul>
-<li>Cannot place other <a href="../File_systems.html" title="File systems">file systems</a> on another partition on the same disk.</li>
-<li>If using a Linux kernel version before 5.0, you cannot use <a href="../Swap.html" title="Swap">swap area</a> as Btrfs did not support <a href="../Swap.html#Swap_file" title="Swap">swap files</a> pre-5.0 and there is no place to create <a href="../Swap.html#Swap_partition" title="Swap">swap partition</a>
+<li>Cannot place other <a href="../wiki/File_systems.html" title="File systems">file systems</a> on another partition on the same disk.</li>
+<li>If using a Linux kernel version before 5.0, you cannot use <a href="../wiki/Swap.html" title="Swap">swap area</a> as Btrfs did not support <a href="../wiki/Swap.html#Swap_file" title="Swap">swap files</a> pre-5.0 and there is no place to create <a href="../wiki/Swap.html#Swap_partition" title="Swap">swap partition</a>
 </li>
-<li>Cannot use <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to boot.</li>
+<li>Cannot use <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to boot.</li>
 </ul>
 <p>To overwrite the existing partition table with Btrfs, run the following command:
 </p>
 <pre># mkfs.btrfs /dev/sd<i>X</i>
 </pre>
-<p>For example, use <code>/dev/sda</code> rather than <code>/dev/sda1</code>. The latter would format an existing partition instead of replacing the entire partitioning scheme. Because the root partition is Btrfs, make sure <code>btrfs</code> is compiled into the kernel, or put <code>btrfs</code> into <a href="../Mkinitcpio.html#MODULES" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf#MODULES</a> and <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>For example, use <code>/dev/sda</code> rather than <code>/dev/sda1</code>. The latter would format an existing partition instead of replacing the entire partitioning scheme. Because the root partition is Btrfs, make sure <code>btrfs</code> is compiled into the kernel, or put <code>btrfs</code> into <a href="../wiki/Mkinitcpio.html#MODULES" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf#MODULES</a> and <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
-<p>Install the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> like you would for a data storage device with a <a href="../Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a>. See <a href="../Syslinux.html#Manual_install" title="Syslinux">Syslinux#Manual install</a> or  <a href="../GRUB/Tips_and_tricks.html#Install_to_partition_or_partitionless_disk" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Install to partition or partitionless disk</a>. If your kernel does not boot due to <code>Failed to mount /sysroot.</code>, please add <code>GRUB_PRELOAD_MODULES="btrfs"</code> in <code>/etc/default/grub</code> and generate the grub configuration (<a href="../GRUB.html#Generate_the_main_configuration_file" title="GRUB">GRUB#Generate the main configuration file</a>).
+<p>Install the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> like you would for a data storage device with a <a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a>. See <a href="../wiki/Syslinux.html#Manual_install" title="Syslinux">Syslinux#Manual install</a> or  <a href="../wiki/GRUB/Tips_and_tricks.html#Install_to_partition_or_partitionless_disk" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Install to partition or partitionless disk</a>. If your kernel does not boot due to <code>Failed to mount /sysroot.</code>, please add <code>GRUB_PRELOAD_MODULES="btrfs"</code> in <code>/etc/default/grub</code> and generate the grub configuration (<a href="../wiki/GRUB.html#Generate_the_main_configuration_file" title="GRUB">GRUB#Generate the main configuration file</a>).
 </p>
 <h3>
 <span id="Ext3.2F4_to_Btrfs_conversion"></span><span class="mw-headline" id="Ext3/4_to_Btrfs_conversion">Ext3/4 to Btrfs conversion</span>
@@ -481,7 +481,7 @@ To show usage and limits for a given path within a filesystem use
 </p>
 <pre># btrfs-convert /dev/<i>partition</i>
 </pre>
-<p>Mount the partion and test the conversion by checking the files.  Be sure to change the <code>/etc/fstab</code> to reflect the change (<b>type</b> to <code>btrfs</code> and <b>fs_passno</b> [the last field] to <code>0</code> as Btrfs does not do a file system check on boot). Also note that the UUID of the partition will have changed, so update fstab accordingly when using UUIDs. <code>chroot</code> into the system and rebuild the GRUB menu list (see <a href="../Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a> and <a href="../GRUB.html" title="GRUB">GRUB</a> articles). If converting a root filesystem, while still chrooted run <code>mkinitcpio -p linux</code> to regenerate the initramfs or the system will not successfully boot. If you get stuck in grub with 'unknown filesystem' try reinstalling grub with <code>grub-install /dev/<i>partition</i></code> and regenerate the config as well <code>grub-mkconfig -o /boot/grub/grub.cfg</code>.
+<p>Mount the partion and test the conversion by checking the files.  Be sure to change the <code>/etc/fstab</code> to reflect the change (<b>type</b> to <code>btrfs</code> and <b>fs_passno</b> [the last field] to <code>0</code> as Btrfs does not do a file system check on boot). Also note that the UUID of the partition will have changed, so update fstab accordingly when using UUIDs. <code>chroot</code> into the system and rebuild the GRUB menu list (see <a href="../wiki/Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a> and <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> articles). If converting a root filesystem, while still chrooted run <code>mkinitcpio -p linux</code> to regenerate the initramfs or the system will not successfully boot. If you get stuck in grub with 'unknown filesystem' try reinstalling grub with <code>grub-install /dev/<i>partition</i></code> and regenerate the config as well <code>grub-mkconfig -o /boot/grub/grub.cfg</code>.
 </p>
 <p>After confirming that there are no problems, complete the conversion by deleting the backup <code>ext2_saved</code> sub-volume. Note that you cannot revert back to ext3/4 without it.
 </p>
@@ -489,14 +489,14 @@ To show usage and limits for a given path within a filesystem use
 </pre>
 <p>Finally <a href="#Balance">balance</a> the file system to reclaim the space.
 </p>
-<p>Remember that some applications which were installed prior have to be adapted to Btrfs. Notably <a href="../TLP.html#Btrfs" title="TLP">TLP#Btrfs</a> needs special care to avoid filesystem corruption but other applications may profit from certain features as well.
+<p>Remember that some applications which were installed prior have to be adapted to Btrfs. Notably <a href="../wiki/TLP.html#Btrfs" title="TLP">TLP#Btrfs</a> needs special care to avoid filesystem corruption but other applications may profit from certain features as well.
 </p>
 <h3><span class="mw-headline" id="Checksum_hardware_acceleration">Checksum hardware acceleration</span></h3>
 <p>CRC32 is a new instruction in Intel SSE4.2. To verify if Btrfs checksum is hardware accelerated:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ dmesg | grep crc32c</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Btrfs loaded, crc32c=crc32c-intel</pre>
-<p>If you see <code>crc32c=crc32c-generic</code>, it is probably because your root partition is Btrfs, and you will have to compile <code>crc32c-intel</code> into the kernel to make it work. Putting <code>crc32c-intel</code> into <a href="../Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> does <i>not</i> work.
+<p>If you see <code>crc32c=crc32c-generic</code>, it is probably because your root partition is Btrfs, and you will have to compile <code>crc32c-intel</code> into the kernel to make it work. Putting <code>crc32c-intel</code> into <a href="../wiki/Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> does <i>not</i> work.
 </p>
 <h3><span class="mw-headline" id="Corruption_recovery">Corruption recovery</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -506,7 +506,7 @@ To show usage and limits for a given path within a filesystem use
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">BINARIES=("/usr/bin/btrfs")</pre>
-<p><a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
+<p><a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
 </p>
 <p>Then if there is a problem booting, the utility is available for repair.
 </p>
@@ -519,7 +519,7 @@ To show usage and limits for a given path within a filesystem use
 If using GRUB you can automatically populate your boot menu with btrfs snapshots when regenerating the configuration file with the help of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=grub-btrfs">grub-btrfs</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/grub-btrfs-git/">grub-btrfs-git</a></span><sup><small>AUR</small></sup>.
 </p>
 <h3><span class="mw-headline" id="Use_Btrfs_subvolumes_with_systemd-nspawn">Use Btrfs subvolumes with systemd-nspawn</span></h3>
-<p>See the <a href="../Systemd-nspawn.html#Use_Btrfs_subvolume_as_container_root" title="Systemd-nspawn">Systemd-nspawn#Use Btrfs subvolume as container root</a> and <a href="../Systemd-nspawn.html#Use_temporary_Btrfs_snapshot_of_container" title="Systemd-nspawn">Systemd-nspawn#Use temporary Btrfs snapshot of container</a> articles.
+<p>See the <a href="../wiki/Systemd-nspawn.html#Use_Btrfs_subvolume_as_container_root" title="Systemd-nspawn">Systemd-nspawn#Use Btrfs subvolume as container root</a> and <a href="../wiki/Systemd-nspawn.html#Use_temporary_Btrfs_snapshot_of_container" title="Systemd-nspawn">Systemd-nspawn#Use temporary Btrfs snapshot of container</a> articles.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <p>See the <a rel="nofollow"  href="https://btrfs.wiki.kernel.org/index.php/Problem_FAQ">Btrfs Problem FAQ</a> for general troubleshooting.
@@ -528,7 +528,7 @@ If using GRUB you can automatically populate your boot menu with btrfs snapshots
 <h4><span class="mw-headline" id="Partition_offset">Partition offset</span></h4>
 <p>The offset problem may happen when you try to embed <code>core.img</code> into a partitioned disk. It means that <a rel="nofollow"  href="https://wiki.archlinux.org/index.php?title=Talk:Btrfs&amp;diff=319474&amp;oldid=292530">it is OK</a> to embed grub's <code>core.img</code> into a Btrfs pool on a partitionless disk (e.g. <code>/dev/sd<i>X</i></code>) directly.
 </p>
-<p><a href="../GRUB.html" title="GRUB">GRUB</a> can boot Btrfs partitions, however the module may be larger than other <a href="../File_systems.html" title="File systems">file systems</a>. And the <code>core.img</code> file made by <code>grub-install</code> may not fit in the first 63 sectors (31.5KiB) of the drive between the MBR and the first partition. Up-to-date partitioning tools such as <code>fdisk</code> and <code>gdisk</code> avoid this issue by offsetting the first partition by roughly 1MiB or 2MiB.
+<p><a href="../wiki/GRUB.html" title="GRUB">GRUB</a> can boot Btrfs partitions, however the module may be larger than other <a href="../wiki/File_systems.html" title="File systems">file systems</a>. And the <code>core.img</code> file made by <code>grub-install</code> may not fit in the first 63 sectors (31.5KiB) of the drive between the MBR and the first partition. Up-to-date partitioning tools such as <code>fdisk</code> and <code>gdisk</code> avoid this issue by offsetting the first partition by roughly 1MiB or 2MiB.
 </p>
 <h4><span class="mw-headline" id="Missing_root">Missing root</span></h4>
 <div class="noprint archwiki-template-message">
@@ -539,7 +539,7 @@ If using GRUB you can automatically populate your boot menu with btrfs snapshots
 <p>Users experiencing the following: <code>error no such device: root</code> when booting from a RAID style setup then edit /usr/share/grub/grub-mkconfig_lib and remove both quotes from the line <code>echo "  search --no-floppy --fs-uuid --set=root ${hints} ${fs_uuid}"</code>. Regenerate the config for grub and the system should boot without an error.
 </p>
 <h3><span class="mw-headline" id="BTRFS:_open_ctree_failed">BTRFS: open_ctree failed</span></h3>
-<p>As of November 2014 there seems to be a bug in <a href="../Systemd.html" title="Systemd">systemd</a> or <a href="../Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> causing the following error on systems with multi-device Btrfs filesystem using the <code>btrfs</code> hook in <code>mkinitcpio.conf</code>:
+<p>As of November 2014 there seems to be a bug in <a href="../wiki/Systemd.html" title="Systemd">systemd</a> or <a href="../wiki/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> causing the following error on systems with multi-device Btrfs filesystem using the <code>btrfs</code> hook in <code>mkinitcpio.conf</code>:
 </p>
 <pre>BTRFS: open_ctree failed
 mount: wrong fs type, bad option, bad superblock on /dev/sdb2, missing codepage or helper program, or other error
@@ -548,13 +548,13 @@ In some cases useful info is found in syslog - try dmesg|tail or so.
 
 You are now being dropped into an emergency shell.
 </pre>
-<p>A workaround is to remove <code>btrfs</code> from the <code>HOOKS</code> array in <code>/etc/mkinitcpio.conf</code> and instead add <code>btrfs</code> to the <code>MODULES</code> array. Then <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a> and reboot.
+<p>A workaround is to remove <code>btrfs</code> from the <code>HOOKS</code> array in <code>/etc/mkinitcpio.conf</code> and instead add <code>btrfs</code> to the <code>MODULES</code> array. Then <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a> and reboot.
 </p>
-<p>You will get the same error if you try to mount a raid array without one of the devices. In that case you must add the <code>degraded</code> mount option to <code>/etc/fstab</code>. If your root resides on the array, you must also add <code>rootflags=degraded</code> to your <a href="../Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+<p>You will get the same error if you try to mount a raid array without one of the devices. In that case you must add the <code>degraded</code> mount option to <code>/etc/fstab</code>. If your root resides on the array, you must also add <code>rootflags=degraded</code> to your <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
 </p>
 <p>As of August 2016, a potential workaround for this bug is to mount the array by a single drive only in <code>/etc/fstab</code>, and allow btrfs to discover and append the other drives automatically. Group-based identifiers such as UUID and LABEL appear to contribute to the failure. For example, a two-device RAID1 array consisting of 'disk1' and disk2' will have a UUID allocated to it, but instead of using the UUID, use only <code>/dev/mapper/disk1</code> in <code>/etc/fstab</code>. For a more detailed explanation, see the following <a rel="nofollow"  href="https://blog.samcater.com/fix-for-btrfs-open_ctree-failed-when-running-root-fs-on-raid-1-or-raid10-arch-linux/">blog post</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-05-24 ⓘ]</sup>.
 </p>
-<p>Another possible workaround is to remove the <code>udev</code> hook in <a href="../Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> and replace it with the <code>systemd</code> hook. In this case, <code>btrfs</code> should <i>not</i> be in the <code>HOOKS</code> or <code>MODULES</code> arrays.
+<p>Another possible workaround is to remove the <code>udev</code> hook in <a href="../wiki/Mkinitcpio.html" class="mw-redirect" title="Mkinitcpio.conf">mkinitcpio.conf</a> and replace it with the <code>systemd</code> hook. In this case, <code>btrfs</code> should <i>not</i> be in the <code>HOOKS</code> or <code>MODULES</code> arrays.
 </p>
 <p>See the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=189845">original forums thread</a> and <a rel="nofollow"  href="https://bugs.archlinux.org/task/42884">FS#42884</a> for further information and discussion.
 </p>
@@ -610,11 +610,11 @@ You are now being dropped into an emergency shell.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -633,9 +633,9 @@ You are now being dropped into an emergency shell.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

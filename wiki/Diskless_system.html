@@ -2,7 +2,7 @@
     title: Diskless_system
     description: Migration of Diskless_system from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../NFS.html" title="NFS">NFS</a></li>
-<li><a href="../NFS/Troubleshooting.html" class="mw-redirect" title="NFS Troubleshooting">NFS Troubleshooting</a></li>
-<li><a href="../Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a></li>
-<li><a href="../Mkinitcpio.html#Using_net" title="Mkinitcpio">Mkinitcpio#Using_net</a></li>
-<li><a href="../ISCSI/Boot.html" class="mw-redirect" title="ISCSI Boot">iSCSI Boot</a></li>
+<li><a href="../wiki/NFS.html" title="NFS">NFS</a></li>
+<li><a href="../wiki/NFS/Troubleshooting.html" class="mw-redirect" title="NFS Troubleshooting">NFS Troubleshooting</a></li>
+<li><a href="../wiki/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a></li>
+<li><a href="../wiki/Mkinitcpio.html#Using_net" title="Mkinitcpio">Mkinitcpio#Using_net</a></li>
+<li><a href="../wiki/ISCSI/Boot.html" class="mw-redirect" title="ISCSI Boot">iSCSI Boot</a></li>
 </ul>
 </div>
 <p>From <a href="https://en.wikipedia.org/wiki/Diskless_node"  title="wikipedia:Diskless node">Wikipedia:Diskless node</a>
@@ -103,12 +103,12 @@
 <p>First of all, we must install the following components:
 </p>
 <ul>
-<li>A <a href="../Dhcpd.html" title="Dhcpd">DHCP</a> server to assign IP addresses to our diskless nodes.</li>
-<li>A <a href="../TFTP.html" title="TFTP">TFTP</a> server to transfer the boot image (a requirement of all PXE option roms).</li>
-<li>A form of network storage (<a href="../NFS.html" title="NFS">NFS</a> or NBD) to export the TOS installation to the diskless node.</li>
+<li>A <a href="../wiki/Dhcpd.html" title="Dhcpd">DHCP</a> server to assign IP addresses to our diskless nodes.</li>
+<li>A <a href="../wiki/TFTP.html" title="TFTP">TFTP</a> server to transfer the boot image (a requirement of all PXE option roms).</li>
+<li>A form of network storage (<a href="../wiki/NFS.html" title="NFS">NFS</a> or NBD) to export the TOS installation to the diskless node.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> is capable of simultaneously acting as both DHCP and TFTP server. For more information, see the <a href="../Dnsmasq.html" title="Dnsmasq">dnsmasq</a> article.</div>
+<strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> is capable of simultaneously acting as both DHCP and TFTP server. For more information, see the <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> article.</div>
 <h3><span class="mw-headline" id="DHCP">DHCP</span></h3>
 <p>Install ISC <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhcp">dhcp</a></span> and configure it:
 </p>
@@ -140,12 +140,12 @@ group {
 <strong>Note:</strong> <code>next-server</code> should be the address of the TFTP server; everything else should be changed to match your network</div>
 <p>RFC 4578 defines the "Client System TOSitecture Type" dhcp option. In the above configuration, if the PXE client requests an x86_64-efi binary (type 0x7), we appropriately give them one, otherwise falling back to the legacy binary. This allows both UEFI and legacy BIOS clients to boot simultaneously on the same network segment.
 </p>
-<p>Start ISC DHCP <a href="../Systemd.html" title="Systemd">systemd</a> service.
+<p>Start ISC DHCP <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service.
 </p>
 <h3><span class="mw-headline" id="TFTP">TFTP</span></h3>
 <p>The TFTP server will be used to transfer the bootloader, kernel, and initramfs to the client.
 </p>
-<p>Set the TFTP root to <code>/srv/arch/boot</code>. See <a href="../TFTP.html" class="mw-redirect" title="Tftpd server">Tftpd server</a> for installation and configuration.
+<p>Set the TFTP root to <code>/srv/arch/boot</code>. See <a href="../wiki/TFTP.html" class="mw-redirect" title="Tftpd server">Tftpd server</a> for installation and configuration.
 </p>
 <h3><span class="mw-headline" id="Network_storage">Network storage</span></h3>
 <p>The primary difference between using NFS and NBD is while with both you can in fact have multiple clients using the same installation, with NBD (by the nature of manipulating a filesystem directly) you will need to use the <code>copyonwrite</code> mode to do so, which ends up discarding all writes on client disconnect. In some situations however, this might be highly desirable.
@@ -153,7 +153,7 @@ group {
 <h4><span class="mw-headline" id="NFS">NFS</span></h4>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nfs-utils">nfs-utils</a></span> on the server.
 </p>
-<p>You will need to add the root of your TOS installation to your <a href="../NFS.html" title="NFS">NFS</a> exports:
+<p>You will need to add the root of your TOS installation to your <a href="../wiki/NFS.html" title="NFS">NFS</a> exports:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/exports</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/srv       *(rw,fsid=0,no_root_squash,no_subtree_check)
@@ -171,14 +171,14 @@ group {
     exportname = /srv/arch.img
     copyonwrite = false</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Set <code>copyonwrite</code> to true if you want to have multiple clients using the same NBD share simultaneously; refer to <span class="plainlinks archwiki-template-man" title="$ man 5 nbd-server"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nbd-server.5">nbd-server(5)</a></span> for more details. Also use <a href="../File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> to change the ownership of the exportname directory to the user <code>nbd</code>.</div>
+<strong>Note:</strong> Set <code>copyonwrite</code> to true if you want to have multiple clients using the same NBD share simultaneously; refer to <span class="plainlinks archwiki-template-man" title="$ man 5 nbd-server"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nbd-server.5">nbd-server(5)</a></span> for more details. Also use <a href="../wiki/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> to change the ownership of the exportname directory to the user <code>nbd</code>.</div>
 <p>Start <code>nbd</code> systemd service.
 </p>
 <h2><span class="mw-headline" id="Client_installation">Client installation</span></h2>
 <p>Next we will create a full TOS Linux installation in a subdirectory on the server. During boot, the diskless client will get an IP address from the DHCP server, then boot from the host using PXE and mount this installation as its root.
 </p>
 <h3><span class="mw-headline" id="Directory_setup">Directory setup</span></h3>
-<p>Create a <a href="https://en.wikipedia.org/wiki/Sparse_file"  title="wikipedia:Sparse file">sparse file</a> of at least 1 gigabyte, and create a btrfs filesystem on it (you can of course also use a real block device or <a href="../LVM.html" title="LVM">LVM</a> if you so desire).
+<p>Create a <a href="https://en.wikipedia.org/wiki/Sparse_file"  title="wikipedia:Sparse file">sparse file</a> of at least 1 gigabyte, and create a btrfs filesystem on it (you can of course also use a real block device or <a href="../wiki/LVM.html" title="LVM">LVM</a> if you so desire).
 </p>
 <pre># truncate -s 1G /srv/arch.img
 # mkfs.btrfs /srv/arch.img
@@ -189,7 +189,7 @@ group {
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Creating a separate filesystem is required for NBD but optional for NFS and can be skipped/ignored.</div>
 <h3><span class="mw-headline" id="Bootstrapping_installation">Bootstrapping installation</span></h3>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>, and run <i>pacstrap</i> to install the <a href="../Installation_guide.html#Install_essential_packages" title="Installation guide">essential packages</a> for the client:
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>, and run <i>pacstrap</i> to install the <a href="../wiki/Installation_guide.html#Install_essential_packages" title="Installation guide">essential packages</a> for the client:
 </p>
 <pre># pacstrap -d "$root" base linux-toslinux-firmware mkinitcpio-nfs-utils nfs-utils
 </pre>
@@ -207,24 +207,24 @@ group {
 </p>
 <p>Edit <code>$root/etc/mkinitcpio.conf</code> and add <code>nfsv4</code> to <code>MODULES</code>, <code>netnfs4</code> to <code>HOOKS</code>, and <code>/usr/bin/mount.nfs4</code> to <code>BINARIES</code>.
 </p>
-<p>Next, we <a href="../Chroot.html" title="Chroot">chroot</a> our installation and run <i>mkinitcpio</i>:
+<p>Next, we <a href="../wiki/Chroot.html" title="Chroot">chroot</a> our installation and run <i>mkinitcpio</i>:
 </p>
 <pre># arch-chroot "$root" mkinitcpio -p linux
 </pre>
 <h4><span class="mw-headline" id="NBD_2">NBD</span></h4>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkinitcpio-nbd/">mkinitcpio-nbd</a></span><sup><small>AUR</small></sup> package needs to be installed on the client. Build it with <a href="../Makepkg.html" title="Makepkg">makepkg</a> and install it:
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkinitcpio-nbd/">mkinitcpio-nbd</a></span><sup><small>AUR</small></sup> package needs to be installed on the client. Build it with <a href="../wiki/Makepkg.html" title="Makepkg">makepkg</a> and install it:
 </p>
 <pre># pacman --root "$root" --dbpath "$root/var/lib/pacman" -U mkinitcpio-nbd-0.4-1-any.pkg.tar.xz
 </pre>
 <p>You will then need to append <code>nbd</code> to your <code>HOOKS</code> array after <code>net</code>; <code>net</code> will configure your networking for you, but not attempt a NFS mount if <code>nfsroot</code> is not specified in the kernel line.
 </p>
 <h2><span class="mw-headline" id="Client_configuration">Client configuration</span></h2>
-<p>In addition to the setup mentioned here, you should also set up your <a href="../Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a>, <a href="../System_time.html#Time_zone" class="mw-redirect" title="Timezone">timezone</a>, <a href="../Locale.html#Setting_the_system_locale" title="Locale">locale</a>, and <a href="../Linux_console/Keyboard_configuration.html" class="mw-redirect" title="Keymap">keymap</a>, and follow any other relevant parts of the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>.
+<p>In addition to the setup mentioned here, you should also set up your <a href="../wiki/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a>, <a href="../wiki/System_time.html#Time_zone" class="mw-redirect" title="Timezone">timezone</a>, <a href="../wiki/Locale.html#Setting_the_system_locale" title="Locale">locale</a>, and <a href="../wiki/Linux_console/Keyboard_configuration.html" class="mw-redirect" title="Keymap">keymap</a>, and follow any other relevant parts of the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>.
 </p>
 <h3><span class="mw-headline" id="Bootloader">Bootloader</span></h3>
 <h4><span class="mw-headline" id="GRUB">GRUB</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../GRUB.html" title="GRUB">GRUB</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b>  (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Diskless_system">Talk:Diskless system#</a>)</div>
 </div>
@@ -245,16 +245,16 @@ group {
     linux-tos/vmlinuz-linux quiet add_efi_memmap ip=:::::eth0:dhcp nfsroot=10.0.0.1:/arch
     initrd /initramfs-linux.img
 }</pre>
-<p><a href="../GRUB.html" title="GRUB">GRUB</a> dark-magic will <code>set root=(tftp,10.0.0.1)</code> automatically, so that the kernel and initramfs are transferred via TFTP without any additional configuration, though you might want to set it explicitly if you have any other non-tftp menuentries.
+<p><a href="../wiki/GRUB.html" title="GRUB">GRUB</a> dark-magic will <code>set root=(tftp,10.0.0.1)</code> automatically, so that the kernel and initramfs are transferred via TFTP without any additional configuration, though you might want to set it explicitly if you have any other non-tftp menuentries.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Modify your kernel line as-necessary, refer to <a href="../Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a> for NBD-related options</div>
+<strong>Note:</strong> Modify your kernel line as-necessary, refer to <a href="../wiki/Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a> for NBD-related options</div>
 <h4><span class="mw-headline" id="PXELINUX">PXELINUX</span></h4>
-<p>PXELINUX is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span>, see <a href="../Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a> for details.
+<p>PXELINUX is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span>, see <a href="../wiki/Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a> for details.
 </p>
 <h3><span class="mw-headline" id="Additional_mountpoints">Additional mountpoints</span></h3>
 <h4><span class="mw-headline" id="NBD_root">NBD root</span></h4>
-<p>In late boot, you will want to switch your root filesystem mount to both <code>rw</code>, and enable <code>compress=lzo</code>, for much improved disk performance in comparison to <a href="../NFS.html" title="NFS">NFS</a>.
+<p>In late boot, you will want to switch your root filesystem mount to both <code>rw</code>, and enable <code>compress=lzo</code>, for much improved disk performance in comparison to <a href="../wiki/NFS.html" title="NFS">NFS</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># vim "$root/etc/fstab"</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/dev/nbd0  /  btrfs  rw,noatime,compress=lzo  0 0</pre>
@@ -309,7 +309,7 @@ WantedBy=multi-user.target</pre>
 <pre># umount "$root"
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> To update the kernel in this setup, you either need to mount <code>/srv/boot</code> using <a href="../NFS.html" title="NFS">NFS</a> in <a href="../Fstab.html" title="Fstab">fstab</a> on the client (prior to doing the kernel update) or mount your client filesystem after the client has disconnected from NBD</div>
+<strong>Note:</strong> To update the kernel in this setup, you either need to mount <code>/srv/boot</code> using <a href="../wiki/NFS.html" title="NFS">NFS</a> in <a href="../wiki/Fstab.html" title="Fstab">fstab</a> on the client (prior to doing the kernel update) or mount your client filesystem after the client has disconnected from NBD</div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/nfs/nfsroot.html">kernel.org: Mounting the root filesystem via NFS (nfsroot)</a></li>
@@ -319,11 +319,11 @@ WantedBy=multi-user.target</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -342,9 +342,9 @@ WantedBy=multi-user.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

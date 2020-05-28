@@ -2,7 +2,7 @@
     title: LDAP_authentication
     description: Migration of LDAP_authentication from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../OpenLDAP.html" title="OpenLDAP">OpenLDAP</a></li>
-<li><a href="../LDAP_Hosts.html" title="LDAP Hosts">LDAP Hosts</a></li>
+<li><a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a></li>
+<li><a href="../wiki/LDAP_Hosts.html" title="LDAP Hosts">LDAP Hosts</a></li>
 </ul>
 </div>
 <div id="toc" >
@@ -93,18 +93,18 @@
 <h2><span class="mw-headline" id="Introduction_and_Concepts">Introduction and Concepts</span></h2>
 <p>This is a guide on how to configure an TOS Linux installation to authenticate against an LDAP directory. This LDAP directory can be either local (installed on the same computer) or network (e.g. in a lab environment where central authentication is desired).
 </p>
-<p>The guide is divided into two parts. The first part deals with how to setup an <a href="../OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> server that hosts the authentication directory. The second part deals with how to setup the NSS and PAM modules that are required for the authentication scheme to work on the client computers. If you just want to configure TOS to authenticate against an already existing LDAP server, you can skip to the <a href="#Client_Setup">second part</a>.
+<p>The guide is divided into two parts. The first part deals with how to setup an <a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> server that hosts the authentication directory. The second part deals with how to setup the NSS and PAM modules that are required for the authentication scheme to work on the client computers. If you just want to configure TOS to authenticate against an already existing LDAP server, you can skip to the <a href="#Client_Setup">second part</a>.
 </p>
 <h3><span class="mw-headline" id="NSS_and_PAM">NSS and PAM</span></h3>
 <p>NSS (which stands for Name Service Switch) is a system mechanism to configure different sources for common configuration databases. For example, <code>/etc/passwd</code> is a <code>file</code> type source for the <code>passwd</code> database.
 </p>
-<p><a href="../PAM.html" title="PAM">PAM</a> (which stands for Pluggable Authentication Modules) is a mechanism used by Linux (and most *nixes) to extend its authentication schemes based on different plugins.
+<p><a href="../wiki/PAM.html" title="PAM">PAM</a> (which stands for Pluggable Authentication Modules) is a mechanism used by Linux (and most *nixes) to extend its authentication schemes based on different plugins.
 </p>
 <p>So to summarize, we need to configure NSS to use the OpenLDAP server as a source for the <code>passwd</code>, <code>shadow</code> and other configuration databases and then configure PAM to use these sources to authenticate its users.
 </p>
 <h2><span class="mw-headline" id="LDAP_Server_Setup">LDAP Server Setup</span></h2>
 <h3><span class="mw-headline" id="Installation">Installation</span></h3>
-<p>You can read about installation and basic configuration in the <a href="../OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> article. After you have completed that, return here.
+<p>You can read about installation and basic configuration in the <a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a> article. After you have completed that, return here.
 </p>
 <h3><span class="mw-headline" id="Include_required_schemas">Include required schemas</span></h3>
 <p>To be able to use the <code>posixAccount</code> object class used for storing users in LDAP, make sure to include the following schemas in <code>/etc/openldap/slapd.conf</code>.
@@ -202,7 +202,7 @@ description: This is an example user
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You can automatically migrate all of your local accounts (and groups, etc.) to the LDAP directory using PADL Software's <a rel="nofollow"  href="https://www.padl.com/OSS/MigrationTools.html">Migration Tools</a>.</div>
 <h2><span class="mw-headline" id="Client_Setup">Client Setup</span></h2>
-<p>Install the OpenLDAP client as described in <a href="../OpenLDAP.html" title="OpenLDAP">OpenLDAP</a>. Make sure you can query the server with <code>ldapsearch</code>.
+<p>Install the OpenLDAP client as described in <a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a>. Make sure you can query the server with <code>ldapsearch</code>.
 </p>
 <p>Depending on your target, choose either <a href="#Online_Authentication">online-only</a> or <a href="#Online_and_Offline_Authentication_with_SSSD">online and offline</a> authentication.
 </p>
@@ -210,7 +210,7 @@ description: This is an example user
 <h4><span class="mw-headline" id="NSS_Configuration">NSS Configuration</span></h4>
 <p>NSS is a system facility which manages different sources as configuration databases. For example, <code>/etc/passwd</code> is a <code>file</code> type source for the <code>passwd</code> database, which stores the user accounts.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss-pam-ldapd">nss-pam-ldapd</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss-pam-ldapd">nss-pam-ldapd</a></span> package.
 </p>
 <p>Edit <code>/etc/nsswitch.conf</code> which is the central configuration file for NSS. It tells NSS which sources to use for which system databases. We need to add the <code>ldap</code> directive to the <code>passwd</code>, <code>group</code> and <code>shadow</code> databases, so be sure your file looks like this:
 </p>
@@ -318,7 +318,7 @@ auth      required      pam_nologin.so
 <h3><span class="mw-headline" id="Online_and_Offline_Authentication_with_SSSD">Online and Offline Authentication with SSSD</span></h3>
 <p>SSSD is a system daemon. Its primary function is to provide access to identity and authentication remote resource through a common framework that can provide caching and offline support to the system. It provides PAM and NSS modules, and in the future will D-BUS based interfaces for extended user information. It provides also a better database to store local users as well as extended user data.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sssd">sssd</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sssd">sssd</a></span> package.
 </p>
 <h4><span class="mw-headline" id="SSSD_Configuration">SSSD Configuration</span></h4>
 <p>If it does not exist create <code>/etc/sssd/sssd.conf</code>.
@@ -427,7 +427,7 @@ session required pam_unix.so
 <b>session optional pam_sss.so</b>
 session optional pam_permit.so</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you happen to use <a href="../GNOME/Keyring.html" title="GNOME/Keyring">GNOME/Keyring</a>: adding 'sufficient' in the beginning of the PAM stack results in Gnome Keyring not being unlocked. For a solution, look at <a rel="nofollow"  href="https://wiki.gnome.org/Projects/GnomeKeyring/Pam#Advanced_configuration">Advanced PAM Configuration</a>.</div>
+<strong>Note:</strong> If you happen to use <a href="../wiki/GNOME/Keyring.html" title="GNOME/Keyring">GNOME/Keyring</a>: adding 'sufficient' in the beginning of the PAM stack results in Gnome Keyring not being unlocked. For a solution, look at <a rel="nofollow"  href="https://wiki.gnome.org/Projects/GnomeKeyring/Pam#Advanced_configuration">Advanced PAM Configuration</a>.</div>
 <p>These PAM changes will apply to fresh login. To also allow the <code>su</code> command to authenticate through SSSD, edit <code>/etc/pam.d/su</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/su</pre>
@@ -472,7 +472,7 @@ ldap_sudo_search_base = ou=sudoers,dc=example,dc=org
 #password       required        pam_cracklib.so difok=2 minlen=8 dcredit=2 ocredit=2 retry=3
 #password       required        pam_unix.so sha512 shadow use_authtok
 password        required        pam_unix.so sha512 shadow nullok</pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>sssd.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>sssd.service</code>.
 </p>
 <p>You should now be able to see details of your ldap users with <code>getent passwd &lt;username&gt;</code> or <code>id &lt;username&gt;</code>.
 </p>
@@ -495,11 +495,11 @@ password        required        pam_unix.so sha512 shadow nullok</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Networking.html" title="Category:Networking">Networking</a></li>
-<li><a href="../Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
+<li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li>
+<li><a href="../wiki/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -517,9 +517,9 @@ password        required        pam_unix.so sha512 shadow nullok</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Silent_boot
     description: Migration of Silent_boot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Plymouth.html" title="Plymouth">Plymouth</a></li>
+<li><a href="../wiki/Plymouth.html" title="Plymouth">Plymouth</a></li>
 </ul>
 </div>
 <p>This page is for those who prefer to limit the verbosity of their system to a strict minimum, either for aesthetics or other reasons. Following this guide will remove all text from the bootup process. <a rel="nofollow"  href="http://www.youtube.com/watch?v=tuqhsqrhXk0">Video demonstration</a>
@@ -58,9 +58,9 @@
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> The <code>vga</code> kernel parameters should be omitted if using <a href="../Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Silent_boot">Talk:Silent boot#</a>)</div>
+<b>Reason:</b> The <code>vga</code> kernel parameters should be omitted if using <a href="../wiki/Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Silent_boot">Talk:Silent boot#</a>)</div>
 </div>
-<p>Change the <a href="../Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> using the configuration options of your boot loader, to include the following parameters:
+<p>Change the <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> using the configuration options of your boot loader, to include the following parameters:
 </p>
 <pre>quiet vga=current
 </pre>
@@ -72,9 +72,9 @@
 </pre>
 <p>Note that this only seems to work if both <code>quiet</code> and <code>loglevel=&lt;level&gt;</code> are both used, and they must be in that order (quiet first). The loglevel parameter will only change that which is printed to the console, the levels of dmesg itself will not be affected and will still be available through the journal as well as the <code>dmesg</code> command. For more information, see the <code>Documentation/kernel-parameters.txt</code> file of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-docs">linux-docs</a></span> package.
 </p>
-<p>If you also want to stop systemd from printing its version number when booting, you should also append <code>udev.log_priority=3</code> to your kernel commandline (<a rel="nofollow"  href="http://www.freedesktop.org/software/systemd/man/systemd-udevd.service.html#Kernel%20command%20line">source</a>). If systemd is used in an <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>, append <code>rd.udev.log_priority=3</code> instead.
+<p>If you also want to stop systemd from printing its version number when booting, you should also append <code>udev.log_priority=3</code> to your kernel commandline (<a rel="nofollow"  href="http://www.freedesktop.org/software/systemd/man/systemd-udevd.service.html#Kernel%20command%20line">source</a>). If systemd is used in an <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>, append <code>rd.udev.log_priority=3</code> instead.
 </p>
-<p>If you are using the <code>systemd</code> hook in the <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>, you may get systemd messages during initramfs initialization. You can pass <code>rd.systemd.show_status=false</code> to disable them, or <code>rd.systemd.show_status=auto</code> to only suppress successful messages (so in case of errors you can still see them). Actually, <code>auto</code> is already passed to <code>systemd.show_status=auto</code> when <code>quiet</code> is used, however for some motive sometimes systemd inside initramfs does not get it. Below are the parameters that you need to pass to your kernel to get a completely clean boot with systemd in your <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>:
+<p>If you are using the <code>systemd</code> hook in the <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>, you may get systemd messages during initramfs initialization. You can pass <code>rd.systemd.show_status=false</code> to disable them, or <code>rd.systemd.show_status=auto</code> to only suppress successful messages (so in case of errors you can still see them). Actually, <code>auto</code> is already passed to <code>systemd.show_status=auto</code> when <code>quiet</code> is used, however for some motive sometimes systemd inside initramfs does not get it. Below are the parameters that you need to pass to your kernel to get a completely clean boot with systemd in your <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a>:
 </p>
 <pre> quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log_priority=3
 </pre>
@@ -93,7 +93,7 @@
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/20-quiet-printk.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">kernel.printk = 3 3 3 3</pre>
 <h2><span class="mw-headline" id="agetty">agetty</span></h2>
-<p>To hide agetty printed issue and "login:" prompt line from the console<a rel="nofollow"  href="https://github.com/karelzak/util-linux/commit/933956cb499e12d0d0e5228b6de34ffa5c9a9e08">[3]</a>, create a <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>getty@tty1.service</code>.
+<p>To hide agetty printed issue and "login:" prompt line from the console<a rel="nofollow"  href="https://github.com/karelzak/util-linux/commit/933956cb499e12d0d0e5228b6de34ffa5c9a9e08">[3]</a>, create a <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>getty@tty1.service</code>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/getty@tty1.service.d/skip-prompt.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -103,7 +103,7 @@ ExecStart=-/usr/bin/agetty <b>--skip-login</b> --nonewline --noissue --autologin
 <p>To hide <code>startx</code> messages, you could redirect its output to <code>/dev/null</code>, in your <a rel="nofollow"  href="https://github.com/kaihendry/Kai-s--HOME/blob/master/.bash_profile">.bash_profile</a> like so:
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Redirection is broken with rootless login. See <a href="../Xorg.html#Broken_redirection" title="Xorg">Xorg#Broken redirection</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.</div>
+<strong>Note:</strong> Redirection is broken with rootless login. See <a href="../wiki/Xorg.html#Broken_redirection" title="Xorg">Xorg#Broken redirection</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.</div>
 <pre>$ [[ $(fgconsole 2&gt;/dev/null) == 1 ]] &amp;&amp; exec startx -- vt1 &amp;&gt; /dev/null
 </pre>
 <h2><span class="mw-headline" id="fsck">fsck</span></h2>
@@ -111,7 +111,7 @@ ExecStart=-/usr/bin/agetty <b>--skip-login</b> --nonewline --noissue --autologin
 </p>
 <pre>HOOKS=( base systemd fsck ...) 
 </pre>
-<p>in <code>/etc/mkinitcpio.conf</code> and <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>in <code>/etc/mkinitcpio.conf</code> and <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <p>Now edit <code>systemd-fsck-root.service</code> and <code>systemd-fsck@.service</code>:
 </p>
@@ -135,7 +135,7 @@ TimeoutSec=0
 <h2><span class="mw-headline" id="Make_GRUB_silent">Make GRUB silent</span></h2>
 <p>To hide GRUB welcome and boot messages, you may install unofficial <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/grub-silent/">grub-silent</a></span><sup><small>AUR</small></sup> package.
 </p>
-<p>After the installation, it is required to reinstall <a href="../GRUB.html" title="GRUB">GRUB</a> to necessary partition first.
+<p>After the installation, it is required to reinstall <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> to necessary partition first.
 </p>
 <p>Then, take an example as <code>/etc/default/grub.silent</code>, and make necessary changes to <code>/etc/default/grub</code>.
 </p>
@@ -154,13 +154,13 @@ GRUB_RECORDFAIL_TIMEOUT=$GRUB_TIMEOUT
 </p>
 <p>To prevent the kernel from blanking the vendor logo, Linux 4.19 introduced a new configuration option <code>FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER</code> that retains the contents of the framebuffer until text needs to be printed on the framebuffer console. As of November 2018 (Linux 4.19.1), the official TOS Linux kernels are compiled with <code>CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER=y</code>.
 </p>
-<p>When combined with a low loglevel (to prevent text from being printed), the vendor logo can be retained while the system is initialized. Note that GRUB in the standard configuration blanks the screen; consider using <a href="../EFISTUB.html" title="EFISTUB">EFISTUB</a> booting instead to boot directly into the kernel and thus leverage deferred takeover.
+<p>When combined with a low loglevel (to prevent text from being printed), the vendor logo can be retained while the system is initialized. Note that GRUB in the standard configuration blanks the screen; consider using <a href="../wiki/EFISTUB.html" title="EFISTUB">EFISTUB</a> booting instead to boot directly into the kernel and thus leverage deferred takeover.
 </p>
 <p><a rel="nofollow"  href="https://www.youtube.com/watch?v=5DW2JgJmsuY">Video demonstration</a>
 </p>
 <p>The kernel command line should use <code>loglevel=3</code> or <code>rd.udev.log_priority=3</code> as mentioned above. Note that if you often receive <code>Core temperature above threshold, cpu clock throttled</code> messages in the kernel log, you need to use log level 2 to silence these at boot time. Alternatively, if you compile your own kernel, adjust the log level of the message in <code>arch/x86/kernel/cpu/mcheck/therm_throt.c</code>.
 </p>
-<p>If you use <a href="../Intel_graphics.html" title="Intel graphics">Intel graphics</a>, set <code>i915.fastboot=1</code> in the kernel command line to avoid unnecessary modesetting (and screen blanking) on boot.
+<p>If you use <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a>, set <code>i915.fastboot=1</code> in the kernel command line to avoid unnecessary modesetting (and screen blanking) on boot.
 </p>
 <p>Further reading:
 </p>
@@ -169,17 +169,17 @@ GRUB_RECORDFAIL_TIMEOUT=$GRUB_TIMEOUT
 <li><a rel="nofollow"  href="https://lists.fedoraproject.org/archives/list/kernel@lists.fedoraproject.org/thread/3MWCKJ2DVJPC4INXPKB4ECFZLA7X5RTI/">Hans de Goede: Adding deferred fbcon console takeover to the Fedora kernels</a></li>
 </ul>
 <h3><span class="mw-headline" id="Disabling_deferred_takeover">Disabling deferred takeover</span></h3>
-<p>If the new behavior leads to issues, you can disable deferred takeover by using the <code>fbcon=nodefer</code> <a href="../Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
+<p>If the new behavior leads to issues, you can disable deferred takeover by using the <code>fbcon=nodefer</code> <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
 </ul>
 </div>
 </div>
@@ -198,9 +198,9 @@ GRUB_RECORDFAIL_TIMEOUT=$GRUB_TIMEOUT
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

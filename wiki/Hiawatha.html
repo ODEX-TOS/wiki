@@ -2,7 +2,7 @@
     title: Hiawatha
     description: Migration of Hiawatha from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -76,7 +76,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hiawatha">hiawatha</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hiawatha">hiawatha</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Directory_structure">Directory structure</span></h3>
@@ -105,7 +105,7 @@
 </p>
 <p>Then, the working webservers are defined with <code>VirtualHost</code> sections. Hiawatha can serve more than one webserver and each of these sections describes a different one. For initial testing purpose, you can create one <code>VirtualHost</code> for <i>my-domain</i> and save in its root directory <code>/srv/http/<i>my-domain</i>/public</code> a dummy <code>index.html</code> start file.
 </p>
-<p>Next, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>hiawatha.service</code> and point your browser to <code>http://<i>my-domain</i></code>. At that stage you should be able to load the website start page.
+<p>Next, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>hiawatha.service</code> and point your browser to <code>http://<i>my-domain</i></code>. At that stage you should be able to load the website start page.
 </p>
 <p>For further details see the official <a rel="nofollow"  href="https://www.hiawatha-webserver.org/howto">how to</a> and the <span class="plainlinks archwiki-template-man" title="$ man 1 hiawatha"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/hiawatha.1">hiawatha(1)</a></span> manual page.
 </p>
@@ -131,7 +131,7 @@ CGIhandler = /usr/bin/python:py
 <p>For further details see the official <a rel="nofollow"  href="https://www.hiawatha-webserver.org/howto/cgi_and_fastcgi">HowTo</a>.
 </p>
 <h3><span class="mw-headline" id="FastCGI">FastCGI</span></h3>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fcgi">fcgi</a></span>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fcgi">fcgi</a></span>.
 </p>
 <p>Hiawatha supports two different methods to send information to the FastCGI process: the webserver can communicate over either a <i>Unix domain socket</i> or a <i>TCP connection</i>. The communication type is defined in the <code>FastCGIServer</code> section via the field <code>ConnectTo</code>.
 </p>
@@ -162,7 +162,7 @@ CGIhandler = /usr/bin/python:py
     Port = 443
     TLScertFile = /etc/hiawatha/tls/serverkey.pem
 }</pre>
-<p>Once it is done, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>hiawatha.service</code>.
+<p>Once it is done, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>hiawatha.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Hiawatha supports <a href="https://en.wikipedia.org/wiki/Server_Name_Indication"  title="wikipedia:Server Name Indication">Server Name Indication</a>, which allows to serve multiple certificates on the same IP address and hence multiple secure websites. To use this functionality, add a <code>TLScertFile</code> setting inside the <code>VirtualHost</code> block for each virtual host that has its own SSL/TLS certificate. The certificate specified in the <code>Binding</code> section is used whenever no virtual host has been defined for a website.
@@ -198,7 +198,7 @@ CGIhandler = /usr/bin/python:py
 </pre>
 <h2><span class="mw-headline" id="Certificates">Certificates</span></h2>
 <h3><span class="mw-headline" id="Self-signed_certificate">Self-signed certificate</span></h3>
-<p>To get a local self-signed certificate for personal use, testing or web development, the procedure in <a href="../OpenSSL.html#Generate_a_self-signed_certificate" title="OpenSSL">OpenSSL#Generate a self-signed certificate</a> to create both a private key and a self-signed certificate can be followed.
+<p>To get a local self-signed certificate for personal use, testing or web development, the procedure in <a href="../wiki/OpenSSL.html#Generate_a_self-signed_certificate" title="OpenSSL">OpenSSL#Generate a self-signed certificate</a> to create both a private key and a self-signed certificate can be followed.
 </p>
 <p>Make sure you did add the SSL bundle path to your <code>hiawatha.conf</code> as stated in <a href="#Enable_SSL/TLS">#Enable SSL/TLS</a>.
 </p>
@@ -208,7 +208,7 @@ CGIhandler = /usr/bin/python:py
 <span id="Let.27s_Encrypt_certificate"></span><span class="mw-headline" id="Let's_Encrypt_certificate">Let's Encrypt certificate</span>
 </h3>
 <h4><span class="mw-headline" id="Configure">Configure</span></h4>
-<p>Hiawatha provides a script to obtain a <a href="../Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a> certificate in an automated fashion using the <a href="https://en.wikipedia.org/wiki/Automated_Certificate_Management_Environment"  title="wikipedia:Automated Certificate Management Environment">ACME</a> v2 protocol.
+<p>Hiawatha provides a script to obtain a <a href="../wiki/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a> certificate in an automated fashion using the <a href="https://en.wikipedia.org/wiki/Automated_Certificate_Management_Environment"  title="wikipedia:Automated Certificate Management Environment">ACME</a> v2 protocol.
 </p>
 <p>A configuration file example <code>letsencrypt.conf</code> is provided in the directory <code>/usr/lib/hiawatha/letsencrypt</code>. Two steps are needed to setup <i>lefh</i>:
 </p>
@@ -237,13 +237,13 @@ CGIhandler = /usr/bin/python:py
 <p>By default, the certificate will be renewed whenever it has less than 7 days to go and it will be written in the directory indicated in <code>HIAWATHA_CERT_DIR</code>. The number of days before renewal can be controlled via the <code>RENEWAL_EXPIRE_THRESHOLD</code> setting.
 </p>
 <p>A daily schedule of this script is appropriate as no action will be taken anyway before the threshold is reached.
-This daily automation can be achieved using either <a href="../Cron.html" title="Cron">cron</a> or <a href="../Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a>:
+This daily automation can be achieved using either <a href="../wiki/Cron.html" title="Cron">cron</a> or <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a>:
 </p>
 <h5><span class="mw-headline" id="Automation_with_cron">Automation with cron</span></h5>
 <p>In order to automate the renewal of the certificate, schedule a cronjob for the root user to run the command line above.
 </p>
 <h5><span class="mw-headline" id="Automation_with_a_systemd_timer">Automation with a systemd timer</span></h5>
-<p>A <a href="../Systemd/Timers.html" title="Systemd/Timers">systemd timer</a> can be used for the repetition of the renewal process:
+<p>A <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd timer</a> can be used for the repetition of the renewal process:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/lefh-renew.service </pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -268,16 +268,16 @@ Persistent=true
 
 [Install]
 WantedBy=timers.target</pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>lefh-renew.timer</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>lefh-renew.timer</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The service waits for the network to be up and online, for more information on the implementation of the network dependency, see <a href="../Systemd.html#Running_services_after_the_network_is_up" title="Systemd">Systemd#Running services after the network is up</a>.</div>
+<strong>Note:</strong> The service waits for the network to be up and online, for more information on the implementation of the network dependency, see <a href="../wiki/Systemd.html#Running_services_after_the_network_is_up" title="Systemd">Systemd#Running services after the network is up</a>.</div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li><a rel="nofollow"  href="https://www.hiawatha-webserver.org/support">Hiawatha Support page</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -294,9 +294,9 @@ WantedBy=timers.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

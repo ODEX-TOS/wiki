@@ -2,7 +2,7 @@
     title: KVM
     description: Migration of KVM from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,15 +27,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Category:Hypervisors.html" title="Category:Hypervisors">Category:Hypervisors</a></li>
-<li><a href="../Libvirt.html" title="Libvirt">Libvirt</a></li>
+<li><a href="../wiki/Category:Hypervisors.html" title="Category:Hypervisors">Category:Hypervisors</a></li>
+<li><a href="../wiki/Libvirt.html" title="Libvirt">Libvirt</a></li>
 </ul>
 </div>
-<p><b>KVM</b>, <a href="https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine"  title="wikipedia:Kernel-based Virtual Machine">Kernel-based Virtual Machine</a>, is a <a href="https://en.wikipedia.org/wiki/hypervisor"  title="wikipedia:hypervisor">hypervisor</a> built into the Linux kernel. It is similar to <a href="../Xen.html" title="Xen">Xen</a> in purpose but much simpler to get running. Unlike native <a href="../QEMU.html" title="QEMU">QEMU</a>, which uses emulation, KVM is a special operating mode of QEMU that uses CPU extensions (<a href="https://en.wikipedia.org/wiki/Hardware-assisted_virtualization"  title="wikipedia:Hardware-assisted virtualization">HVM</a>) for virtualization via a kernel module.
+<p><b>KVM</b>, <a href="https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine"  title="wikipedia:Kernel-based Virtual Machine">Kernel-based Virtual Machine</a>, is a <a href="https://en.wikipedia.org/wiki/hypervisor"  title="wikipedia:hypervisor">hypervisor</a> built into the Linux kernel. It is similar to <a href="../wiki/Xen.html" title="Xen">Xen</a> in purpose but much simpler to get running. Unlike native <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>, which uses emulation, KVM is a special operating mode of QEMU that uses CPU extensions (<a href="https://en.wikipedia.org/wiki/Hardware-assisted_virtualization"  title="wikipedia:Hardware-assisted virtualization">HVM</a>) for virtualization via a kernel module.
 </p>
 <p>Using KVM, one can run multiple virtual machines running unmodified GNU/Linux, Windows, or any other operating system. (See <a rel="nofollow"  href="http://www.linux-kvm.org/page/Guest_Support_Status">Guest Support Status</a> for more information.) Each virtual machine has private virtualized hardware: a network card, disk, graphics card, etc.
 </p>
-<p>Differences between KVM and <a href="../Xen.html" title="Xen">Xen</a>, <a href="../VMware.html" title="VMware">VMware</a>, or QEMU can be found at the <a rel="nofollow"  href="http://www.linux-kvm.org/page/FAQ#General_KVM_information">KVM FAQ</a>.
+<p>Differences between KVM and <a href="../wiki/Xen.html" title="Xen">Xen</a>, <a href="../wiki/VMware.html" title="VMware">VMware</a>, or QEMU can be found at the <a rel="nofollow"  href="http://www.linux-kvm.org/page/FAQ#General_KVM_information">KVM FAQ</a>.
 </p>
 <p>This article does not cover features common to multiple emulators using KVM as a backend. You should see related articles for such information.
 </p>
@@ -86,7 +86,7 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You may need to enable virtualization support in your BIOS.  All x86_64 processors manufactured by AMD and Intel in the last 10 years support virtualization.  If it looks like your processor does not support virtualization, it's almost certainly turned off in the BIOS.</div>
 <h3><span class="mw-headline" id="Kernel_support">Kernel support</span></h3>
-<p>TOS Linux kernels provide the required <a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> to support KVM.
+<p>TOS Linux kernels provide the required <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> to support KVM.
 </p>
 <ul><li>One can check if the necessary modules, <code>kvm</code> and either <code>kvm_amd</code> or <code>kvm_intel</code>, are available in the kernel with the following command:</li></ul>
 <pre>$ zgrep CONFIG_KVM /proc/config.gz
@@ -102,7 +102,7 @@ vfio                   32768  3 kvmgt,vfio_mdev,vfio_iommu_type1
 kvm                   737280  2 kvmgt,kvm_intel
 irqbypass              16384  1 kvm
 </pre>
-<p>If the command returns nothing, the module needs to be loaded manually, see <a href="../Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Kernel modules#Manual module handling</a>.
+<p>If the command returns nothing, the module needs to be loaded manually, see <a href="../wiki/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Kernel modules#Manual module handling</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If modprobing <code>kvm_intel</code> or <code>kvm_amd</code> fails but modprobing <code>kvm</code> succeeds, and <code>lscpu</code> claims that hardware acceleration is supported, check the BIOS settings. Some vendors, especially laptop vendors, disable these processor extensions by default. To determine whether there is no hardware support or whether the extensions are disabled in BIOS, the output from <code>dmesg</code> after having failed to modprobe will tell.</div>
@@ -118,7 +118,7 @@ irqbypass              16384  1 kvm
 <li>Then, check if the kernel modules are automatically loaded with the command: <pre>$ lsmod | grep virtio</pre>
 </li>
 </ul>
-<p>In case the above commands return nothing, you need to <a href="../Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Kernel modules#Manual module handling</a> kernel modules.
+<p>In case the above commands return nothing, you need to <a href="../wiki/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Kernel modules#Manual module handling</a> kernel modules.
 </p>
 <h3><span class="mw-headline" id="List_of_para-virtualized_devices">List of para-virtualized devices</span></h3>
 <ul>
@@ -129,11 +129,11 @@ irqbypass              16384  1 kvm
 <li>balloon device (virtio-balloon)</li>
 </ul>
 <h2><span class="mw-headline" id="How_to_use_KVM">How to use KVM</span></h2>
-<p>See the main article: <a href="../QEMU.html" title="QEMU">QEMU</a>.
+<p>See the main article: <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> See <a href="../QEMU.html#Tips_and_tricks" title="QEMU">QEMU#Tips and tricks</a> and <a href="../QEMU.html#Troubleshooting" title="QEMU">QEMU#Troubleshooting</a> for general tips and tricks.</div>
+<strong>Note:</strong> See <a href="../wiki/QEMU.html#Tips_and_tricks" title="QEMU">QEMU#Tips and tricks</a> and <a href="../wiki/QEMU.html#Troubleshooting" title="QEMU">QEMU#Troubleshooting</a> for general tips and tricks.</div>
 <h3><span class="mw-headline" id="Nested_virtualization">Nested virtualization</span></h3>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
@@ -147,7 +147,7 @@ irqbypass              16384  1 kvm
 <pre># modprobe -r kvm_intel
 # modprobe kvm_intel nested=1
 </pre>
-<p>To make it permanent (see <a href="../Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>):
+<p>To make it permanent (see <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/kvm_intel.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options kvm_intel nested=1</pre>
@@ -158,7 +158,7 @@ irqbypass              16384  1 kvm
 <p>Enable the "host passthrough" mode to forward all CPU features to the guest system:
 </p>
 <ol>
-<li>If using <a href="../QEMU.html" title="QEMU">QEMU</a>, run the guest virtual machine with the following command: <code>qemu-system-x86_64 -enable-kvm -cpu host</code>.</li>
+<li>If using <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>, run the guest virtual machine with the following command: <code>qemu-system-x86_64 -enable-kvm -cpu host</code>.</li>
 <li>If using <i>virt-manager</i>, change the CPU model to <code>host-passthrough</code> (it will not be in the list, just write it in the box).</li>
 <li>If using <i>virsh</i>, use <code>virsh edit <i>vm-name</i></code> and change the CPU line to <code>&lt;cpu mode='host-passthrough' check='partial'/&gt;</code>
 </li>
@@ -169,9 +169,9 @@ irqbypass              16384  1 kvm
 </pre>
 <h3><span class="mw-headline" id="Enabling_huge_pages">Enabling huge pages</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../QEMU.html" title="QEMU">QEMU</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Notes:</b> qemu-kvm no longer exists as all of its features have been merged into <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qemu">qemu</a></span>. After the above issue is cleared, I suggest merging this section into <a href="../QEMU.html" title="QEMU">QEMU</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:KVM">Talk:KVM#</a>)</div>
+<b>Notes:</b> qemu-kvm no longer exists as all of its features have been merged into <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qemu">qemu</a></span>. After the above issue is cleared, I suggest merging this section into <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:KVM">Talk:KVM#</a>)</div>
 </div>
 <p>You may also want to enable hugepages to improve the performance of your virtual machine.
 With an up to date TOS Linux and a running KVM you probably already have everything you need. Check if you have the directory <code>/dev/hugepages</code>. If not, create it. 
@@ -234,13 +234,13 @@ HugePages_Surp:        0
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Hypervisors.html" title="Category:Hypervisors">Hypervisors</a></li>
-<li><a href="../Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="../wiki/Category:Hypervisors.html" title="Category:Hypervisors">Hypervisors</a></li>
+<li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -259,9 +259,9 @@ HugePages_Surp:        0
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

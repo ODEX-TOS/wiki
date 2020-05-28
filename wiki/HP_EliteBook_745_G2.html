@@ -2,7 +2,7 @@
     title: HP_EliteBook_745_G2
     description: Migration of HP_EliteBook_745_G2 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -150,14 +150,14 @@
 </table>
 <h3><span class="mw-headline" id="UEFI_Setup">UEFI Setup</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Make sure you have the latest HP <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware installed.</div>
-<p>Even if <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="../TOS_Linux.html" title="TOS Linux">TOS Linux</a> and (e.g.) <a href="../GRUB.html" title="GRUB">GRUB</a> are correctly configured and with the correct UEFI NVRAM variables set, the system will not boot from the HDD/SSD. The problem is that HP hard coded the paths for the OS boot manager in their UEFI boot manager to <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> to boot Microsoft Windows, regardless of how the UEFI NVRAM variables are changed. There are two workarounds:
+<strong>Note:</strong> Make sure you have the latest HP <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware installed.</div>
+<p>Even if <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="../wiki/TOS_Linux.html" title="TOS Linux">TOS Linux</a> and (e.g.) <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> are correctly configured and with the correct UEFI NVRAM variables set, the system will not boot from the HDD/SSD. The problem is that HP hard coded the paths for the OS boot manager in their UEFI boot manager to <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> to boot Microsoft Windows, regardless of how the UEFI NVRAM variables are changed. There are two workarounds:
 </p>
 <h4>
 <span id="Using_the_.22Customized_Boot.22_path_option_.28recommended.29"></span><span class="mw-headline" id='Using_the_"Customized_Boot"_path_option_(recommended)'>Using the "Customized Boot" path option (recommended)</span>
 </h4>
 <p>The latest HP firmware allows defining a “Customized Boot” path in the UEFI pre-boot graphical environment.
-Select the “Customized Boot” option in the UEFI pre-boot graphical environment under “Boot Options” and set the path to your OS boot loader on the ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>), e.g.:
+Select the “Customized Boot” option in the UEFI pre-boot graphical environment under “Boot Options” and set the path to your OS boot loader on the ESP (see <a href="../wiki/Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>), e.g.:
 </p>
 <p><code>\EFI\grub\grubx64.efi</code>
 </p>
@@ -167,7 +167,7 @@ Select the “Customized Boot” option in the UEFI pre-boot graphical environme
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> This method is not recommended, as it will create conflicts in a dual boot setup with Microsoft Windows. Also, everytime you install GRUB, you have to remember to copy it to the hard coded path.</div>
 <p>Change the UEFI application path of the OS boot loader to that hard coded path.
-On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; e.g. with the $MOUNTPOINT <code>/boot/efi</code>), do (e.g. with <a href="../GRUB.html" title="GRUB">GRUB</a> entry <code>grub_archlinux</code>):
+On your ESP (see <a href="../wiki/Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; e.g. with the $MOUNTPOINT <code>/boot/efi</code>), do (e.g. with <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> entry <code>grub_archlinux</code>):
 </p>
 <pre> # mkdir -p $MOUNTPOINT/EFI/Microsoft/Boot
  # cp $MOUNTPOINT/EFI/grub/grubx64.efi $MOUNTPOINT/EFI/Microsoft/Boot/bootmgfw.efi
@@ -180,10 +180,10 @@ On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_Syst
 <h3><span class="mw-headline" id="Encryption">Encryption</span></h3>
 <p>This notebook supports <a href="https://en.wikipedia.org/wiki/Hardware-based_full_disk_encryption#Hard_disk_drive_FDE"  title="wikipedia:Hardware-based full disk encryption">HDD FDE (SED)</a>. The HDD/SSD can be locked by setting a password in the UEFI pre-boot graphical environment under the option "DriveLock" (this requires setting a password for the UEFI pre-boot graphical environment first). If you replace the HDD/SSD, make sure to get a compatible one to make use of this feature.
 </p>
-<p>Otherwise, see <a href="../Data-at-rest_encryption.html" class="mw-redirect" title="Disk encryption">Disk encryption</a> for software-based encryption.
+<p>Otherwise, see <a href="../wiki/Data-at-rest_encryption.html" class="mw-redirect" title="Disk encryption">Disk encryption</a> for software-based encryption.
 </p>
 <h3><span class="mw-headline" id="AMD_Graphics">AMD Graphics</span></h3>
-<p>Use <a href="../AMDGPU.html" title="AMDGPU">AMDGPU</a>.
+<p>Use <a href="../wiki/AMDGPU.html" title="AMDGPU">AMDGPU</a>.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
 <p>Speakers work flawlessly.
@@ -209,11 +209,11 @@ On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_Syst
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -232,9 +232,9 @@ On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_Syst
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

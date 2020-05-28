@@ -2,7 +2,7 @@
     title: Offline_installation
     description: Migration of Offline_installation from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Offline_installation_of_packages.html" title="Offline installation of packages">Offline installation of packages</a></li>
-<li><a href="../TOSiso_offline.html" title="TOSiso offline">TOSiso offline</a></li>
+<li><a href="../wiki/Offline_installation_of_packages.html" title="Offline installation of packages">Offline installation of packages</a></li>
+<li><a href="../wiki/TOSiso_offline.html" title="TOSiso offline">TOSiso offline</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
@@ -36,9 +36,9 @@
 <div>
 <b>Reason:</b> Instead of copying the files from the archiso, the "bootstrap" images available on the TOS mirrors can be extracted directly to the target disk. You will get a minimal system without the need to deal with the archiso modifications. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Offline_installation">Talk:Offline installation#</a>)</div>
 </div>
-<p>If you wish to install the <a href="../TOSiso.html" title="TOSiso">TOSiso</a> (e.g. <a rel="nofollow"  href="https://www.archlinux.org/download/">the official monthly release</a>) as it is without an Internet connection, or, if you do not want to download the packages you want again:
+<p>If you wish to install the <a href="../wiki/TOSiso.html" title="TOSiso">TOSiso</a> (e.g. <a rel="nofollow"  href="https://www.archlinux.org/download/">the official monthly release</a>) as it is without an Internet connection, or, if you do not want to download the packages you want again:
 </p>
-<p>First, follow the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>, skipping the <a href="../Installation_guide.html#Connect_to_the_internet" title="Installation guide">Installation guide#Connect to the internet</a> section, until the <a href="../Installation_guide.html#Install_essential_packages" title="Installation guide">Installation guide#Install essential packages</a> step.
+<p>First, follow the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>, skipping the <a href="../wiki/Installation_guide.html#Connect_to_the_internet" title="Installation guide">Installation guide#Connect to the internet</a> section, until the <a href="../wiki/Installation_guide.html#Install_essential_packages" title="Installation guide">Installation guide#Install essential packages</a> step.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -72,7 +72,7 @@
 </p>
 <pre># cp -vaT /run/archiso/bootmnt/arch/boot/$(uname -m)/vmlinuz /mnt/boot/vmlinuz-linux
 </pre>
-<p>After that, generate a fstab as described in <a href="../Installation_guide.html#Fstab" title="Installation guide">Installation guide#Fstab</a>.
+<p>After that, generate a fstab as described in <a href="../wiki/Installation_guide.html#Fstab" title="Installation guide">Installation guide#Fstab</a>.
 </p>
 <h2><span class="mw-headline" id="Chroot_and_configure_the_base_system">Chroot and configure the base system</span></h2>
 <p>Next, chroot into your newly installed system:
@@ -80,7 +80,7 @@
 <pre># arch-chroot /mnt /bin/bash
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Before performing the other <a href="../Installation_guide.html#Configure_the_system" title="Installation guide">Installation guide#Configure the system</a> steps (e.g. locale, keymap, etc.), it is necessary to get rid of the trace of the Live environment (in other words, the customization of archiso which does not fit a non-Live environment).</div>
+<strong>Note:</strong> Before performing the other <a href="../wiki/Installation_guide.html#Configure_the_system" title="Installation guide">Installation guide#Configure the system</a> steps (e.g. locale, keymap, etc.), it is necessary to get rid of the trace of the Live environment (in other words, the customization of archiso which does not fit a non-Live environment).</div>
 <h3><span class="mw-headline" id="Restore_the_configuration_of_journald">Restore the configuration of journald</span></h3>
 <p><a rel="nofollow"  href="https://projects.archlinux.org/archiso.git/tree/configs/releng/airootfs/root/customize_airootfs.sh#n19">This customization of archiso</a> will lead to storing the system journal in RAM, it means that the journal will not be available after reboot:
 </p>
@@ -107,7 +107,7 @@
 # rm -r /etc/initcpio
 </pre>
 <h3><span class="mw-headline" id="Importing_archlinux_keys">Importing archlinux-toskeys</span></h3>
-<p>In order to use the official repositories, we need to import the archlinux-tosmaster keys (<a href="../Pacman/Package_signing.html#Initializing_the_keyring" title="Pacman/Package signing">pacman/Package signing#Initializing the keyring</a>). This step is usually done by pacstrap but can be achieved with
+<p>In order to use the official repositories, we need to import the archlinux-tosmaster keys (<a href="../wiki/Pacman/Package_signing.html#Initializing_the_keyring" title="Pacman/Package signing">pacman/Package signing#Initializing the keyring</a>). This step is usually done by pacstrap but can be achieved with
 </p>
 <pre># pacman-key --init
 # pacman-key --populate archlinux
@@ -115,18 +115,18 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  Keyboard or mouse activity is needed to generate entropy and speed-up the first step.</div>
 <h3><span class="mw-headline" id="Configure_the_system">Configure the system</span></h3>
-<p>Now you can follow the skipped steps of the <a href="../Installation_guide.html#Configure_the_system" title="Installation guide">Installation guide#Configure the system</a> section (setting a locale, timezone, hostname, etc.) and finish the installation by creating an initial ramdisk as described in <a href="../Installation_guide.html#Initramfs" title="Installation guide">Installation guide#Initramfs</a>.
+<p>Now you can follow the skipped steps of the <a href="../wiki/Installation_guide.html#Configure_the_system" title="Installation guide">Installation guide#Configure the system</a> section (setting a locale, timezone, hostname, etc.) and finish the installation by creating an initial ramdisk as described in <a href="../wiki/Installation_guide.html#Initramfs" title="Installation guide">Installation guide#Initramfs</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li>
-<li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="../wiki/Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li>
+<li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -144,9 +144,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

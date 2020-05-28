@@ -2,7 +2,7 @@
     title: Acpid
     description: Migration of Acpid from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,11 +29,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../ACPI_modules.html" title="ACPI modules">ACPI modules</a></li>
-<li><a href="../DSDT.html" title="DSDT">DSDT</a></li>
+<li><a href="../wiki/ACPI_modules.html" title="ACPI modules">ACPI modules</a></li>
+<li><a href="../wiki/DSDT.html" title="DSDT">DSDT</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="http://acpid2.sourceforge.net/">acpid2</a> is a flexible and extensible daemon for delivering <a href="../ACPI_modules.html" title="ACPI modules">ACPI events</a>. When an event occurs, it executes programs to handle the event. These events are triggered by certain actions, such as:
+<p><a rel="nofollow"  href="http://acpid2.sourceforge.net/">acpid2</a> is a flexible and extensible daemon for delivering <a href="../wiki/ACPI_modules.html" title="ACPI modules">ACPI events</a>. When an event occurs, it executes programs to handle the event. These events are triggered by certain actions, such as:
 </p>
 <ul>
 <li>Pressing special keys, including the Power/Sleep/Suspend button</li>
@@ -42,7 +42,7 @@
 <li>(Un)Plugging phone jack etc.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="../Desktop_environment.html" class="mw-redirect" title="Desktop environments">Desktop environments</a>, such as <a href="../GNOME.html" title="GNOME">GNOME</a>, <a href="../Power_management.html#ACPI_events" title="Power management">systemd</a> login manager and some <a href="../Extra_keyboard_keys.html" title="Extra keyboard keys">extra key handling</a> daemons may implement own event handling schemes, independent of acpid. Running more than one system at the same time may lead to unexpected behaviour, such as suspending two times in a row after one sleep button press. You should be aware of this and only activate desirable handlers.</div>
+<strong>Note:</strong> <a href="../wiki/Desktop_environment.html" class="mw-redirect" title="Desktop environments">Desktop environments</a>, such as <a href="../wiki/GNOME.html" title="GNOME">GNOME</a>, <a href="../wiki/Power_management.html#ACPI_events" title="Power management">systemd</a> login manager and some <a href="../wiki/Extra_keyboard_keys.html" title="Extra keyboard keys">extra key handling</a> daemons may implement own event handling schemes, independent of acpid. Running more than one system at the same time may lead to unexpected behaviour, such as suspending two times in a row after one sleep button press. You should be aware of this and only activate desirable handlers.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -76,7 +76,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> package. Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and/or <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>acpid.service</code>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> package. Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and/or <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>acpid.service</code>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> comes with a number of predefined actions for triggered events, such as what should happen when you press the Power button on your machine. By default, these actions are defined in <code>/etc/acpi/handler.sh</code>, which is executed after any ACPI events are detected (as determined by <code>/etc/acpi/events/anything</code>).
@@ -151,7 +151,7 @@ esac</pre>
 </p>
 <pre># chmod +x /etc/acpi/actions/sleep-button.sh
 </pre>
-<p>Finally, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a> the <code>acpid.service</code> to get acpid to recognize the changes to these files.
+<p>Finally, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a> the <code>acpid.service</code> to get acpid to recognize the changes to these files.
 </p>
 <p>Using this method, it is easy to create any number of individual event/action scripts.
 </p>
@@ -188,9 +188,9 @@ action=amixer set Master toggle</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">event=button/volumeup
 action=amixer set Master 5+</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> These commands may not work as expected with PulseAudio. <a rel="nofollow"  href="https://lists.freedesktop.org/archives/pulseaudio-discuss/2015-December/025062.html">[1]</a> For full functionality, run commands as the current user while specifying the <code>XDG_RUNTIME_DIR</code> <a href="../Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>, for example with <code>sudo -u <i>user</i> XDG_RUNTIME_DIR=/run/user/<i>1000</i> pactl</code>.</div>
+<strong>Note:</strong> These commands may not work as expected with PulseAudio. <a rel="nofollow"  href="https://lists.freedesktop.org/archives/pulseaudio-discuss/2015-December/025062.html">[1]</a> For full functionality, run commands as the current user while specifying the <code>XDG_RUNTIME_DIR</code> <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>, for example with <code>sudo -u <i>user</i> XDG_RUNTIME_DIR=/run/user/<i>1000</i> pactl</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Disable or bind the volume buttons in Xorg to prevent conflicts with other applications. See <a href="../Xmodmap.html" title="Xmodmap">Xmodmap</a> for details.</div>
+<strong>Tip:</strong> Disable or bind the volume buttons in Xorg to prevent conflicts with other applications. See <a href="../wiki/Xmodmap.html" title="Xmodmap">Xmodmap</a> for details.</div>
 <p>See also <a rel="nofollow"  href="http://web.archive.org/web/20150711044207/http://blog.lastlog.de/posts/fixing_volume_change_in_linux">[2]</a>.
 </p>
 <h3><span class="mw-headline" id="Enabling_backlight_control">Enabling backlight control</span></h3>
@@ -230,14 +230,14 @@ case $(&lt; $rf/state) in
   1) echo 0 &gt;$rf/state;;
 esac</pre>
 <h3><span class="mw-headline" id="Getting_user_name_of_the_current_display">Getting user name of the current display</span></h3>
-<p>To run commands depending on <a href="../Xorg.html" title="Xorg">Xorg</a>, defining the X display as well as the MIT magic cookie file (via XAUTHORITY) is required. Latter is a security credential providing read and write access to the X server, display, and any input devices (see <span class="plainlinks archwiki-template-man" title="$ man 1 xauth"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xauth.1">xauth(1)</a></span>). 
+<p>To run commands depending on <a href="../wiki/Xorg.html" title="Xorg">Xorg</a>, defining the X display as well as the MIT magic cookie file (via XAUTHORITY) is required. Latter is a security credential providing read and write access to the X server, display, and any input devices (see <span class="plainlinks archwiki-template-man" title="$ man 1 xauth"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xauth.1">xauth(1)</a></span>). 
 </p>
-<p>See <a rel="nofollow"  href="https://gist.githubusercontent.com/AladW/de1c5676d93d05a5a0e1/raw/16e010ecda9f2328e1e22d4e02ac814ed27717b4/gistfile1.txt">[3]</a> for an example function when using <a href="../Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>.
+<p>See <a rel="nofollow"  href="https://gist.githubusercontent.com/AladW/de1c5676d93d05a5a0e1/raw/16e010ecda9f2328e1e22d4e02ac814ed27717b4/gistfile1.txt">[3]</a> for an example function when using <a href="../wiki/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>If the LCD backlight is not turned off when the lid is closed, you may do so manually by running <code>getXuser xset dpms force off</code> and <code>getXuser xset dpms force on</code> respectively on lid close and lid open events. Should the display be blanked, but the backlight left on, instead use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vbetool">vbetool</a></span> with <code>vbetool dpms off</code> and <code>vbetool dpms on</code>. See also <a href="../XScreenSaver.html#Configuration" title="XScreenSaver">XScreenSaver#Configuration</a>.</li>
+<li>If the LCD backlight is not turned off when the lid is closed, you may do so manually by running <code>getXuser xset dpms force off</code> and <code>getXuser xset dpms force on</code> respectively on lid close and lid open events. Should the display be blanked, but the backlight left on, instead use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vbetool">vbetool</a></span> with <code>vbetool dpms off</code> and <code>vbetool dpms on</code>. See also <a href="../wiki/XScreenSaver.html#Configuration" title="XScreenSaver">XScreenSaver#Configuration</a>.</li>
 <li>When using <i>who</i> or <i>w</i>, make sure <code>/run/utmp</code> is created at boot-time. See <span class="plainlinks archwiki-template-man" title="$ man 5 utmp"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/utmp.5">utmp(5)</a></span> for details.</li>
 </ul>
 </div>
@@ -263,8 +263,8 @@ done
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Power_management.html" title="Category:Power management">Power management</a></li>
-<li><a href="../Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="../wiki/Category:Power_management.html" title="Category:Power management">Power management</a></li>
+<li><a href="../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -282,9 +282,9 @@ done
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: X_keyboard_extension
     description: Migration of X_keyboard_extension from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -26,7 +26,7 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p>The <a href="https://en.wikipedia.org/wiki/X_keyboard_extension"  title="wikipedia:X keyboard extension">X keyboard extension</a>, or XKB, defines the way keyboards codes are handled in X, and provides access to internal translation tables. It is the basic mechanism that allows using multiple keyboard layouts in X.
 </p>
-<p>This article describes how to modify and create keyboard layouts. If you are looking for how to configure your keyboard, see <a href="../Xorg/Keyboard_configuration.html" title="Xorg/Keyboard configuration">Xorg/Keyboard configuration</a>.
+<p>This article describes how to modify and create keyboard layouts. If you are looking for how to configure your keyboard, see <a href="../wiki/Xorg/Keyboard_configuration.html" title="Xorg/Keyboard configuration">Xorg/Keyboard configuration</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -167,7 +167,7 @@ EndSection
 <p>The core XKB functionality is quite simple, and it's necessary to have a some ideas on how it works before starting working on the keymaps.
 </p>
 <h3><span class="mw-headline" id="Tools_and_values">Tools and values</span></h3>
-<p>Use <a href="../Keyboard_input.html#Identifying_keycodes_in_Xorg" class="mw-redirect" title="Xev">xev</a> (package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xev">xorg-xev</a></span>) to get keycodes and to check how your keymap works. 
+<p>Use <a href="../wiki/Keyboard_input.html#Identifying_keycodes_in_Xorg" class="mw-redirect" title="Xev">xev</a> (package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xev">xorg-xev</a></span>) to get keycodes and to check how your keymap works. 
 </p>
 <pre>$ xev -event keyboard
 </pre>
@@ -214,7 +214,7 @@ EndSection
 </p>
 <p>Also, states in XKB have somewhat delayed effect, that is, you must have the state set prior to pressing a key.
 </p>
-<p>Example: <code>Ctrl+h</code> can be configured to act as backspace in <a href="../Rxvt-unicode.html" class="mw-redirect" title="Rxvt">rxvt</a> (application setting). This way rxvt will receive <code>h</code> keysym with <code>Control</code> bit set in the state value, and it will be clearly different from <code>Backspace</code> keysym. Alternatively, XKB can be used to make <code>Ctrl+h</code> combination generate <code>Backspace</code> keysym with <code>Control</code> bit set; in this case, rxvt will not see any difference between physical <code>Backspace</code> key and <code>h</code> key as long as <code>Ctrl</code> key is pressed. Making <code>Ctrl+h</code> combination generate <code>Backspace</code> keysym with no <code>Control</code> bit set is an XKB task, too, but it's much more difficult to implement than <code>Control+Backspace</code>.
+<p>Example: <code>Ctrl+h</code> can be configured to act as backspace in <a href="../wiki/Rxvt-unicode.html" class="mw-redirect" title="Rxvt">rxvt</a> (application setting). This way rxvt will receive <code>h</code> keysym with <code>Control</code> bit set in the state value, and it will be clearly different from <code>Backspace</code> keysym. Alternatively, XKB can be used to make <code>Ctrl+h</code> combination generate <code>Backspace</code> keysym with <code>Control</code> bit set; in this case, rxvt will not see any difference between physical <code>Backspace</code> key and <code>h</code> key as long as <code>Ctrl</code> key is pressed. Making <code>Ctrl+h</code> combination generate <code>Backspace</code> keysym with no <code>Control</code> bit set is an XKB task, too, but it's much more difficult to implement than <code>Control+Backspace</code>.
 </p>
 <h3><span class="mw-headline" id="Actions">Actions</span></h3>
 <p>Keysym obtained from the table above can also trigger some action:
@@ -421,7 +421,7 @@ EndSection
 </p>
 <h3><span class="mw-headline" id="Caps_hjkl_as_vimlike_arrow_keys">Caps hjkl as vimlike arrow keys</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b>  The purpose of this section is not clear. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:X_keyboard_extension">Talk:X keyboard extension#</a>)</div>
 </div>
@@ -603,7 +603,7 @@ EndSection
 <p>The files from <code>/usr/share/X11/xkb</code> are a good source of examples, especially when it comes to standard keyboard features with nontrivial XKB implementation (e.g. keypad/NumLock handling). Also, these are the files you have to edit to push your changes upstream. Check <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/XKeyboardConfig/Rules">X Keyboard Config Rules</a> before doing it though.
 </p>
 <h3><span class="mw-headline" id="xmodmap">xmodmap</span></h3>
-<p>While sometimes used in conjunction with preset configuration, <a href="../Xmodmap.html" title="Xmodmap">xmodmap</a> is not directly related to XKB. This tool uses different (pre-XKB) ideas on how keycodes are processed within X; in particular, xmodmap lacks the notion of groups and types, so trying to set more than one keysym per key is not likely to work.
+<p>While sometimes used in conjunction with preset configuration, <a href="../wiki/Xmodmap.html" title="Xmodmap">xmodmap</a> is not directly related to XKB. This tool uses different (pre-XKB) ideas on how keycodes are processed within X; in particular, xmodmap lacks the notion of groups and types, so trying to set more than one keysym per key is not likely to work.
 </p>
 <p>Generally it is not recommended to use xmodmap, except maybe for the simplest tasks. XKB-compatible equivalent of xmodmap is xkbcomp; however, xkbcomp lacks -e option, so it is not that simple. Anyway, whenever possible, xkbcomp should be preferred.
 </p>
@@ -873,7 +873,7 @@ EndSection
 <li>
 <a rel="nofollow"  href="http://www.charvolant.org/doug/xkb/html/index.html">An Unreliable Guide To XKB Configuration</a>.</li>
 <li>
-<a rel="nofollow"  href="http://pascal.tsu.ru/xkb/">Ivan Pascal XKB docs</a>. One of the oldest and most well-known guides. Focuses a lot on details, and explains some of exotic XKB features.</li>
+<a rel="nofollow"  href="http://pascal.tsu.ru/wiki/xkb/">Ivan Pascal XKB docs</a>. One of the oldest and most well-known guides. Focuses a lot on details, and explains some of exotic XKB features.</li>
 <li>
 <a rel="nofollow"  href="http://www.x.org/releases/current/doc/kbproto/xkbproto.pdf">XKB protocol specification</a>. Comprehensive description of all XKB features. Extremely useful for understating how XKB works, includes a good description of virtual modifiers among other things. Some practice with xkbcomp is strongly recommended though, because the features are described on protocol level.</li>
 </ul>
@@ -882,13 +882,13 @@ EndSection
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:X_server.html" title="Category:X server">X server</a></li>
-<li><a href="../Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li>
+<li><a href="../wiki/Category:X_server.html" title="Category:X server">X server</a></li>
+<li><a href="../wiki/Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -907,9 +907,9 @@ EndSection
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

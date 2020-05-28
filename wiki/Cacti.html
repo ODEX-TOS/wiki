@@ -2,7 +2,7 @@
     title: Cacti
     description: Migration of Cacti from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -72,12 +72,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>To use cacti, you need a working <a href="../List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> (e.g. <a href="../Nginx.html" title="Nginx">Nginx</a> or <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>) setup, that forwards requests to an application server (e.g. <a href="../UWSGI.html" title="UWSGI">uWSGI</a> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>).
+<p>To use cacti, you need a working <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> (e.g. <a href="../wiki/Nginx.html" title="Nginx">Nginx</a> or <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>) setup, that forwards requests to an application server (e.g. <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>).
 </p>
-<p>Next, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cacti">cacti</a></span> and configure <a href="../MariaDB.html" title="MariaDB">MariaDB</a>, if a local MySQL server will be used.
+<p>Next, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cacti">cacti</a></span> and configure <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a>, if a local MySQL server will be used.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Cacti should only be accessed over <a href="../Transport_Layer_Security.html" class="mw-redirect" title="TLS">TLS</a> (unless accessed directly from the machine running it), as it otherwise exposes passwords and user data.</div>
+<strong>Note:</strong> Cacti should only be accessed over <a href="../wiki/Transport_Layer_Security.html" class="mw-redirect" title="TLS">TLS</a> (unless accessed directly from the machine running it), as it otherwise exposes passwords and user data.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>To serve cacti top level instead of under <code>/cacti/</code> (i.e. <a rel="nofollow"  href="https://example.tld/">https://example.tld/</a> instead of <a rel="nofollow"  href="https://example.tld/cacti/">https://example.tld/cacti/</a>) use the <code>$url_path</code> configuration option:
 </p>
@@ -85,8 +85,8 @@
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">$url_path = '/';</pre>
 <h3><span class="mw-headline" id="PHP">PHP</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  Due to an unresolved upstream issue, cacti is unable to stay in its own <a href="../PHP.html" title="PHP">PHP</a> environment <a rel="nofollow"  href="https://github.com/Cacti/cacti/issues/2643">[1]</a>. Required <a href="../PHP.html" title="PHP">PHP</a> modules have to be activated in the system's global <code>/etc/php/php.ini</code>.</div>
-<p>Cacti requires the following <a href="../PHP.html#Extensions" title="PHP">PHP extensions</a> to be enabled:
+<strong>Note:</strong>  Due to an unresolved upstream issue, cacti is unable to stay in its own <a href="../wiki/PHP.html" title="PHP">PHP</a> environment <a rel="nofollow"  href="https://github.com/Cacti/cacti/issues/2643">[1]</a>. Required <a href="../wiki/PHP.html" title="PHP">PHP</a> modules have to be activated in the system's global <code>/etc/php/php.ini</code>.</div>
+<p>Cacti requires the following <a href="../wiki/PHP.html#Extensions" title="PHP">PHP extensions</a> to be enabled:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/php/php.ini</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">extension=gd
@@ -98,15 +98,15 @@ extension=pdo_mysql
 extension=snmp
 extension=sockets</pre>
 <p><br>
-Cacti needs certain directories and executables in <a href="../PHP.html" title="PHP">PHP</a>'s <code>open_basedir</code> <a rel="nofollow"  href="https://www.php.net/manual/ini.core.php#ini.open-basedir">[2]</a> to function properly:
+Cacti needs certain directories and executables in <a href="../wiki/PHP.html" title="PHP">PHP</a>'s <code>open_basedir</code> <a rel="nofollow"  href="https://www.php.net/manual/wiki/ini.core.php#ini.open-basedir">[2]</a> to function properly:
 <code>/tmp/:/usr/share/webapps/cacti:/etc/webapps/cacti:/var/cache/cacti:/var/lib/cacti:/var/log/cacti:/proc/meminfo:/usr/bin/rrdtool:/usr/bin/snmpget:/usr/bin/snmpwalk:/usr/bin/snmpbulkwalk:/usr/bin/snmpgetnext:/usr/bin/snmptrap:/usr/bin/sendmail:/usr/bin/php:/usr/bin/spine:/usr/share/fonts/TTF/</code>.
 </p>
-<p>Cacti requires <code>date.timezone</code> to be set in <code>/etc/php/php.ini</code>. Check upstream documentation <a rel="nofollow"  href="https://www.php.net/manual/datetime.configuration.php#ini.date.timezone">[3]</a> and <a href="../System_time.html#Time_zone" class="mw-redirect" title="Time zone">time zone</a> for reference.
+<p>Cacti requires <code>date.timezone</code> to be set in <code>/etc/php/php.ini</code>. Check upstream documentation <a rel="nofollow"  href="https://www.php.net/manual/wiki/datetime.configuration.php#ini.date.timezone">[3]</a> and <a href="../wiki/System_time.html#Time_zone" class="mw-redirect" title="Time zone">time zone</a> for reference.
 </p>
 <p><br>
 </p>
 <h3><span class="mw-headline" id="SNMP">SNMP</span></h3>
-<p>If it is necessary for cacti to monitor the machine that it is running on, configure <a href="../Snmpd.html" title="Snmpd">snmpd</a>.
+<p>If it is necessary for cacti to monitor the machine that it is running on, configure <a href="../wiki/Snmpd.html" title="Snmpd">snmpd</a>.
 </p>
 <h3><span class="mw-headline" id="MySQL">MySQL</span></h3>
 <p>Cacti needs its own database in which to store its data, and a database user account to access the database.
@@ -120,7 +120,7 @@ mysql&gt; GRANT ALL ON cactidb.* TO cactiuser@localhost IDENTIFIED BY 'some_pass
 mysql&gt; FLUSH PRIVILEGES;
 mysql&gt; exit
 </pre>
-<p>Alternatively, use <a href="../PhpMyAdmin.html" title="PhpMyAdmin">PhpMyAdmin</a> to achieve the same results:
+<p>Alternatively, use <a href="../wiki/PhpMyAdmin.html" title="PhpMyAdmin">PhpMyAdmin</a> to achieve the same results:
 </p>
 <ul>
 <li>Create an empty database called <code>cactidb</code>.</li>
@@ -141,16 +141,16 @@ $database_password = "some_password";</pre>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b>  Apache section needs <a href="../UWSGI.html" title="UWSGI">uWSGI</a> example. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Cacti">Talk:Cacti#</a>)</div>
+<b>Reason:</b>  Apache section needs <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> example. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Cacti">Talk:Cacti#</a>)</div>
 </div>
-<p>The <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">apache</a> <a href="../List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> can serve dynamic web applications with the help of modules, such as <a rel="nofollow"  href="https://httpd.apache.org/docs/current/mod/mod_proxy_fcgi.html">mod_proxy_fcgi</a> or <a rel="nofollow"  href="https://httpd.apache.org/docs/current/mod/mod_proxy_uwsgi.html">mod_proxy_uwsgi</a>.
+<p>The <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">apache</a> <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> can serve dynamic web applications with the help of modules, such as <a rel="nofollow"  href="https://httpd.apache.org/docs/current/mod/mod_proxy_fcgi.html">mod_proxy_fcgi</a> or <a rel="nofollow"  href="https://httpd.apache.org/docs/current/mod/mod_proxy_uwsgi.html">mod_proxy_uwsgi</a>.
 </p>
 <h4><span class="mw-headline" id="php-fpm">php-fpm</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> and configure <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> with <a href="../Apache_HTTP_Server.html#Using_php-fpm_and_mod_proxy_fcgi" title="Apache HTTP Server">php-fpm</a>.
-Use a <a rel="nofollow"  href="https://www.php.net/manual/install.fpm.configuration.php">pool</a> run as user and group <code>cacti</code>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> and configure <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> with <a href="../wiki/Apache_HTTP_Server.html#Using_php-fpm_and_mod_proxy_fcgi" title="Apache HTTP Server">php-fpm</a>.
+Use a <a rel="nofollow"  href="https://www.php.net/manual/wiki/install.fpm.configuration.php">pool</a> run as user and group <code>cacti</code>.
 The socket file should be accessible by the <code>http</code> user and/or group, but needs to be located below <code>/run/cacti</code>.
 </p>
-<p>Include the following configuration in your <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> configuration (i.e. <code>/etc/httpd/conf/httpd.conf</code>) and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <a href="../List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a>:
+<p>Include the following configuration in your <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> configuration (i.e. <code>/etc/httpd/conf/httpd.conf</code>) and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/httpd/conf/cacti.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Alias /cacti "/usr/share/webapps/cacti"
@@ -167,16 +167,16 @@ The socket file should be accessible by the <code>http</code> user and/or group,
 <p>The file <code>/usr/share/webapps/cacti/.htaccess</code> also controls access. Configure or remove it.
 </p>
 <h3><span class="mw-headline" id="Nginx">Nginx</span></h3>
-<p><a href="../Nginx.html" title="Nginx">Nginx</a> can proxy application servers such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> and <a href="../UWSGI.html" title="UWSGI">uWSGI</a>, that run a dynamic web application.
+<p><a href="../wiki/Nginx.html" title="Nginx">Nginx</a> can proxy application servers such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> and <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a>, that run a dynamic web application.
 The following examples describe a folder based setup over a non-default port (for simplicity).
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> For server entry management in <a href="../Nginx.html" title="Nginx">nginx</a> have a look at <a href="../Nginx.html#Managing_server_entries" title="Nginx">Nginx#Managing server entries</a>.</div>
+<strong>Tip:</strong> For server entry management in <a href="../wiki/Nginx.html" title="Nginx">nginx</a> have a look at <a href="../wiki/Nginx.html#Managing_server_entries" title="Nginx">Nginx#Managing server entries</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Postfixadmin ships a configuration for <a href="../UWSGI.html" title="UWSGI">uWSGI</a>.</div>
+<strong>Note:</strong> Postfixadmin ships a configuration for <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a>.</div>
 <h4><span class="mw-headline" id="php-fpm_2">php-fpm</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>. Setup <a href="../Nginx.html" title="Nginx">nginx</a> with <a href="../Nginx.html#PHP_implementation" title="Nginx">php-fpm</a> and use a <a rel="nofollow"  href="https://www.php.net/manual/install.fpm.configuration.php">pool</a> run as user and group <code>cacti</code>.
-The socket file should be accessible by the <code>http</code> user and/or group, but needs to be located below <code>/run/cacti</code>. This can be achieved by adding the following lines to the php-fpm configuration and <a href="../Systemd.html#Using_units" title="Systemd">restarting</a> it. 
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>. Setup <a href="../wiki/Nginx.html" title="Nginx">nginx</a> with <a href="../wiki/Nginx.html#PHP_implementation" title="Nginx">php-fpm</a> and use a <a rel="nofollow"  href="https://www.php.net/manual/wiki/install.fpm.configuration.php">pool</a> run as user and group <code>cacti</code>.
+The socket file should be accessible by the <code>http</code> user and/or group, but needs to be located below <code>/run/cacti</code>. This can be achieved by adding the following lines to the php-fpm configuration and <a href="../wiki/Systemd.html#Using_units" title="Systemd">restarting</a> it. 
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/php/php-fpm.d/www.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> 
@@ -189,7 +189,7 @@ listen.group = http
 pm = ondemand
 pm.max_children = 4
 </pre>
-<p>Add the following configuration for <a href="../Nginx.html" title="Nginx">nginx</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> it.
+<p>Add the following configuration for <a href="../wiki/Nginx.html" title="Nginx">nginx</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> it.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/nginx/sites-available/cacti.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">server {
@@ -219,9 +219,9 @@ pm.max_children = 4
 }
 </pre>
 <h4><span class="mw-headline" id="uWSGI">uWSGI</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=uwsgi-plugin-php">uwsgi-plugin-php</a></span>, create a per-application socket for <a href="../UWSGI.html" title="UWSGI">uWSGI</a> (see <a href="../UWSGI.html#Accessibility_of_uWSGI_socket" title="UWSGI">UWSGI#Accessibility of uWSGI socket</a> for reference) and <a href="../Systemd.html#Using_units" title="Systemd">activate</a> the <code>cacti@uwsgi-secure.socket</code> unit.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=uwsgi-plugin-php">uwsgi-plugin-php</a></span>, create a per-application socket for <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> (see <a href="../wiki/UWSGI.html#Accessibility_of_uWSGI_socket" title="UWSGI">UWSGI#Accessibility of uWSGI socket</a> for reference) and <a href="../wiki/Systemd.html#Using_units" title="Systemd">activate</a> the <code>cacti@uwsgi-secure.socket</code> unit.
 </p>
-<p>Add the following configuration for nginx and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <a href="../Nginx.html" title="Nginx">nginx</a>.
+<p>Add the following configuration for nginx and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <a href="../wiki/Nginx.html" title="Nginx">nginx</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/nginx/sites-available/cacti.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">    server {
@@ -266,7 +266,7 @@ pm.max_children = 4
 </ul>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Spine">Spine</span></h3>
-<p>Optionally, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cacti-spine/">cacti-spine</a></span><sup><small>AUR</small></sup>, a faster poller for cacti, from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. configure it with database access details:
+<p>Optionally, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cacti-spine/">cacti-spine</a></span><sup><small>AUR</small></sup>, a faster poller for cacti, from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. configure it with database access details:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/spine.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">DB_User cactiuser
@@ -274,8 +274,8 @@ DB_Pass some_password
 </pre>
 <h3><span class="mw-headline" id="Systemd">Systemd</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong>  The configuration for <a href="../UWSGI.html" title="UWSGI">uWSGI</a> integrates a cron based approach, that makes a separate systemd unit not necessary.</div>
-<p>Cacti uses a poller to collect data, so create a <a href="../Systemd.html" title="Systemd">Systemd</a> service to run <code>poller.php</code>, and a timer to run the service every 5 minutes:
+<strong>Tip:</strong>  The configuration for <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> integrates a cron based approach, that makes a separate systemd unit not necessary.</div>
+<p>Cacti uses a poller to collect data, so create a <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> service to run <code>poller.php</code>, and a timer to run the service every 5 minutes:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/cacti_poller.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -299,9 +299,9 @@ AccuracySec=1
 WantedBy=multi-user.target
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Do not start or enable <code>cacti_poller.service</code>. Instead, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>cacti_poller.timer</code> only, which calls the service every 5 minutes.</div>
+<strong>Note:</strong> Do not start or enable <code>cacti_poller.service</code>. Instead, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>cacti_poller.timer</code> only, which calls the service every 5 minutes.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="../Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> can be used to watch for the poller's log messages, which will resemble the following:
+<strong>Tip:</strong> <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> can be used to watch for the poller's log messages, which will resemble the following:
 <pre>Sep 27 15:50:00 hoom php[4072]: OK u:0.00 s:0.01 r:0.35
 Sep 27 15:50:00 hoom php[4072]: OK u:0.00 s:0.01 r:0.38
 Sep 27 15:50:00 hoom php[4072]: OK u:0.00 s:0.01 r:0.40
@@ -315,11 +315,11 @@ Sep 27 15:50:01 hoom php[4072]: 09/27/2015 03:50:01 PM - SYSTEM STATS: Time:0.61
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li>
-<li><a href="../Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="../wiki/Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li>
+<li><a href="../wiki/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -337,9 +337,9 @@ Sep 27 15:50:01 hoom php[4072]: 09/27/2015 03:50:01 PM - SYSTEM STATS: Time:0.61
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

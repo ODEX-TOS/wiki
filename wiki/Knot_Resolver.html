@@ -2,7 +2,7 @@
     title: Knot_Resolver
     description: Migration of Knot_Resolver from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.knot-resolver.cz/">Knot Resolver</a> is a full (recursive), caching DNS resolver. It is designed to scale from small home-office networks to providing DNS servers at the scale of ISPs. Knot Resolver supports <a href="../DNSSEC.html" title="DNSSEC">DNSSEC</a>, which is enabled by default.
+<p><a rel="nofollow"  href="https://www.knot-resolver.cz/">Knot Resolver</a> is a full (recursive), caching DNS resolver. It is designed to scale from small home-office networks to providing DNS servers at the scale of ISPs. Knot Resolver supports <a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a>, which is enabled by default.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -50,34 +50,34 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/knot-resolver/">knot-resolver</a></span><sup><small>AUR</small></sup> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/knot-resolver/">knot-resolver</a></span><sup><small>AUR</small></sup> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>kresd@1.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>kresd@1.service</code>.
 </p>
-<p>To use Knot Resolver as the local resolver, configure <code>127.0.0.1</code> as your nameserver (see see <a href="../Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>).
+<p>To use Knot Resolver as the local resolver, configure <code>127.0.0.1</code> as your nameserver (see see <a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>).
 </p>
-<p>By default, the resolver will listen on localhost, port <code>53</code>. If the resolver should be accessible from other hosts, configure other network interfaces in <code>/etc/knot-resolver/kresd.conf</code> with <code>net.listen()</code>. Refer to <a rel="nofollow"  href="https://knot-resolver.readthedocs.io/stable/">Knot Resolver documentation</a> for more information.
+<p>By default, the resolver will listen on localhost, port <code>53</code>. If the resolver should be accessible from other hosts, configure other network interfaces in <code>/etc/knot-resolver/kresd.conf</code> with <code>net.listen()</code>. Refer to <a rel="nofollow"  href="https://knot-resolver.readthedocs.io/wiki/stable/">Knot Resolver documentation</a> for more information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Unless you specifically want to run an open DNS resolver, do not configure the resolver to listen on a public (internet-facing) IP address.</div>
 <p>If the resolver should respect entries from the <code>/etc/hosts</code> file, add a <code>hints.add_hosts()</code> line to <code>/etc/knot-resolver/kresd.conf</code>.
 </p>
 <h3><span class="mw-headline" id="Knot_Resolver_and_dnsmasq">Knot Resolver and dnsmasq</span></h3>
-<p>If <a href="../Dnsmasq.html" title="Dnsmasq">dnsmasq</a> is used for managing DHCP, then advertising a kresd instance works like any other external DNS server would: By adding an <code>dhcp-option=option:dns-server,&lt;Server Address&gt;</code> line to the dnsmasq configuration file.
+<p>If <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> is used for managing DHCP, then advertising a kresd instance works like any other external DNS server would: By adding an <code>dhcp-option=option:dns-server,&lt;Server Address&gt;</code> line to the dnsmasq configuration file.
 </p>
-<p>Note that a default configuration of dnsmasq will clash with the default configuration of kresd, since both will attempt to use port <code>53</code>. <a href="../Dnsmasq.html#Configuration" title="Dnsmasq">Disable the dnsmasq DNS functionality</a> (<code>port=0</code>), or assign a different port to either service.
+<p>Note that a default configuration of dnsmasq will clash with the default configuration of kresd, since both will attempt to use port <code>53</code>. <a href="../wiki/Dnsmasq.html#Configuration" title="Dnsmasq">Disable the dnsmasq DNS functionality</a> (<code>port=0</code>), or assign a different port to either service.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><span class="plainlinks archwiki-template-man" title="$ man 8 kresd"><a rel="nofollow"  href="https://www.mankier.com/8/kresd">kresd(8)</a></span></li>
 <li><span class="plainlinks archwiki-template-man" title="$ man 7 kresd.systemd"><a rel="nofollow"  href="https://www.mankier.com/7/kresd.systemd">kresd.systemd(7)</a></span></li>
-<li><a rel="nofollow"  href="https://knot-resolver.readthedocs.io/stable/">Knot Resolver documentation</a></li>
+<li><a rel="nofollow"  href="https://knot-resolver.readthedocs.io/wiki/stable/">Knot Resolver documentation</a></li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -94,9 +94,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

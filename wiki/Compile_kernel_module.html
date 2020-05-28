@@ -2,7 +2,7 @@
     title: Compile_kernel_module
     description: Migration of Compile_kernel_module from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Kernel.html" title="Kernel">Kernel</a></li>
-<li><a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a></li>
+<li><a href="../wiki/Kernel.html" title="Kernel">Kernel</a></li>
+<li><a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a></li>
 </ul>
 </div>
-<p>Sometimes you may wish to compile Linux's <a href="../Kernel_module.html" title="Kernel module">Kernel module</a> without recompiling the whole kernel.
+<p>Sometimes you may wish to compile Linux's <a href="../wiki/Kernel_module.html" title="Kernel module">Kernel module</a> without recompiling the whole kernel.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You can only replace existing module if it is compiled as module (M) and not builtin (y) into kernel.</div>
@@ -69,10 +69,10 @@
 <p>There are two main options to acquire the required source. Each option has slightly different usage methods and directory structure.
 </p>
 <h3><span class="mw-headline" id="Traditional_compilation">Traditional compilation</span></h3>
-<p>See <a href="../Kernel/Traditional_compilation.html#Download_the_kernel_source" class="mw-redirect" title="Kernels/Traditional compilation">Kernels/Traditional compilation#Download the kernel source</a>. If you fetch latest source using <a href="../Git.html" title="Git">Git</a> you will need to checkout needed version using tag (eg. v4.1).
+<p>See <a href="../wiki/Kernel/Traditional_compilation.html#Download_the_kernel_source" class="mw-redirect" title="Kernels/Traditional compilation">Kernels/Traditional compilation#Download the kernel source</a>. If you fetch latest source using <a href="../wiki/Git.html" title="Git">Git</a> you will need to checkout needed version using tag (eg. v4.1).
 </p>
 <h3><span class="mw-headline" id="TOS_Build_System">TOS Build System</span></h3>
-<p>For a general overview on TOS Build System read <a href="../TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>. See <a href="../Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a> for acquiring the kernel source, as well as the directory structure, and other details.
+<p>For a general overview on TOS Build System read <a href="../wiki/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>. See <a href="../wiki/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a> for acquiring the kernel source, as well as the directory structure, and other details.
 </p>
 <h2><span class="mw-headline" id="Source_configuration">Source configuration</span></h2>
 <p>When you have the source code, enter its directory. For the <a href="#TOS_Build_System">#TOS Build System</a> case, that directory would be <code>src/archlinux-linux/</code> down from where the PKGBUILD is.
@@ -94,7 +94,7 @@
 <pre>$ make oldconfig
 </pre>
 <h2><span class="mw-headline" id="Module_compilation">Module compilation</span></h2>
-<p>In order to compile and load our module cleanly, we must find the value of the EXTRAVERSION component of the current kernel version number so we can match the version number exactly in our kernel source. EXTRAVERSION is a variable set in the kernel top-level Makefile, but the Makefile in a vanilla kernel source will have EXTRAVERSION empty; it is set only as part of the TOS kernel build process. If relevant, the value of the current kernel's EXTRAVERSION can be found by looking at the output of the <code>uname -r</code> command. In general, the kernel version is the concatenation of three components. Namely, the numeric version, the EXTRAVERSION, and the LOCALVERSION. The numeric version itself is a concatenation of three numbers. If built by a <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> file, the LOCALVERSION will be taken from the <code>pkgrel</code> variable, prefixed by a hyphen. And the EXTRAVERSION will be the suffix of the <code>pkgver</code> variable, where the period character to the right of the third numeric number of the numeric version is replaced by a hyphen. For example, with the linux-tospackage <code>linux 5.5.8.arch1-1</code>, the LOCALVERSION is <code>-1</code>. The EXTRAVERSION is <code>-arch1</code>. The output of <code>uname -r</code> will be <code>5.5.8-arch1-1</code> in that example.
+<p>In order to compile and load our module cleanly, we must find the value of the EXTRAVERSION component of the current kernel version number so we can match the version number exactly in our kernel source. EXTRAVERSION is a variable set in the kernel top-level Makefile, but the Makefile in a vanilla kernel source will have EXTRAVERSION empty; it is set only as part of the TOS kernel build process. If relevant, the value of the current kernel's EXTRAVERSION can be found by looking at the output of the <code>uname -r</code> command. In general, the kernel version is the concatenation of three components. Namely, the numeric version, the EXTRAVERSION, and the LOCALVERSION. The numeric version itself is a concatenation of three numbers. If built by a <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> file, the LOCALVERSION will be taken from the <code>pkgrel</code> variable, prefixed by a hyphen. And the EXTRAVERSION will be the suffix of the <code>pkgver</code> variable, where the period character to the right of the third numeric number of the numeric version is replaced by a hyphen. For example, with the linux-tospackage <code>linux 5.5.8.arch1-1</code>, the LOCALVERSION is <code>-1</code>. The EXTRAVERSION is <code>-arch1</code>. The output of <code>uname -r</code> will be <code>5.5.8-arch1-1</code> in that example.
 </p>
 <p>Once the EXTRAVERSION value is known, we prepare the source for module compilation:
 </p>
@@ -121,7 +121,7 @@
 <p>Which will build all the modules from the kernel configuration.
 </p>
 <h2><span class="mw-headline" id="out-of-tree_module_compilation">out-of-tree module compilation</span></h2>
-<p>get the official source code of the current running linux-toskernel as described in <a href="../Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a>:
+<p>get the official source code of the current running linux-toskernel as described in <a href="../wiki/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a>:
 </p>
 <pre>$ cd &amp;&amp; mkdir build
 $ asp update linux
@@ -148,7 +148,7 @@ $ make -C ~/build/linux/trunk/src/archlinux-linux-tosM=$PWD modules
 </p>
 <pre># cp fs/btrfs/btrfs.ko.xz /usr/lib/modules/`uname -r`/extramodules/
 </pre>
-<p>If you are compiling a module for early boot (e.g. updated module) which is copied to <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">Initramfs</a> then you must remember to regenerate it with (otherwise your compiled module will not be loaded). Furthermore, if you are using the "updates" folder method, you may need to rebuild the module dependency tree with "depmod" before regenerating <a href="../TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">Initramfs</a> 
+<p>If you are compiling a module for early boot (e.g. updated module) which is copied to <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">Initramfs</a> then you must remember to regenerate it with (otherwise your compiled module will not be loaded). Furthermore, if you are using the "updates" folder method, you may need to rebuild the module dependency tree with "depmod" before regenerating <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">Initramfs</a> 
 </p>
 <pre># mkinitcpio -p linux
 </pre>
@@ -172,7 +172,7 @@ modprobe: ERROR: could not insert 'mymod': Exec format error
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -189,9 +189,9 @@ modprobe: ERROR: could not insert 'mymod': Exec format error
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

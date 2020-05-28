@@ -2,7 +2,7 @@
     title: Rng-tools
     description: Migration of Rng-tools from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Haveged.html" title="Haveged">haveged</a></li>
-<li><a href="../Trusted_Platform_Module.html" title="Trusted Platform Module">Trusted Platform Module</a></li>
-<li><a href="../Random_number_generation.html" title="Random number generation">Random number generation</a></li>
+<li><a href="../wiki/Haveged.html" title="Haveged">haveged</a></li>
+<li><a href="../wiki/Trusted_Platform_Module.html" title="Trusted Platform Module">Trusted Platform Module</a></li>
+<li><a href="../wiki/Random_number_generation.html" title="Random number generation">Random number generation</a></li>
 </ul>
 </div>
 <p>The <a rel="nofollow"  href="https://github.com/nhorman/rng-tools">rng-tools</a> is a set of utilities related to random number generation in kernel. The main program is <b>rngd</b>, a daemon developed to check and feed random data from hardware device to kernel entropy pool.
@@ -39,8 +39,8 @@
 <p>While Linux itself uses the result from TRNG in <code>/dev/random</code>, if available, they are only used as a <a rel="nofollow"  href="https://www.lvh.io/posts/2013/10/thoughts-on-rdrand-in-linux/">XOR after the entropy is collected by kernel</a>. So <code>/dev/random</code>, by default, is slow even if you do have a TRNG. <i>rngd</i> feeds <code>/dev/random</code> itself, increasing the available entropy by far.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rng-tools">rng-tools</a></span> package.
-<a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rngd.service</code>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rng-tools">rng-tools</a></span> package.
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rngd.service</code>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>The configuration file is located in <code>/etc/conf.d/rngd</code>. There is only one option though, that is <code>RNGD_OPTS</code>, the parameters to be passed to the daemon when running it with the included <code>rngd.service</code>. The default parameter (<code>""</code>, or blank) should work in the majority of cases.
@@ -53,7 +53,7 @@
 <strong>Warning:</strong> Some tutorials available on the Internet recommend the following line for systems without TRNG:
 <pre>RNGD_OPTS="-o /dev/random -r /dev/urandom"
 </pre>
-Of course, this is a <a rel="nofollow"  href="https://lwn.net/Articles/525459/">really bad idea</a>, since you are simply filling the kernel entropy pool with entropy coming from the kernel itself! If your system does not have an available TRNG consider using <a href="../Haveged.html" title="Haveged">haveged</a> instead. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/34580">FS#34580</a> for details.</div>
+Of course, this is a <a rel="nofollow"  href="https://lwn.net/Articles/525459/">really bad idea</a>, since you are simply filling the kernel entropy pool with entropy coming from the kernel itself! If your system does not have an available TRNG consider using <a href="../wiki/Haveged.html" title="Haveged">haveged</a> instead. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/34580">FS#34580</a> for details.</div>
 <p>By default <i>rngd</i> fills the entropy pool until at least 2048 bits of entropy are available. This is to avoid the TRNG to dominate the contents of the pool. You can override this setting if you really <b>trust</b> your TRNG. To do this, pass <code>"--fill-watermark=4096"</code> to <code>RNGD_OPTS</code>, for example (4096 is the maximum size of kernel's entropy pool by default, you shouldn't pass a value greater than the maximum either). Doing so may increase the performance of <code>/dev/random</code> even further, at the expense of maybe lower random number quality. However, it should be noted that the default setting is already sufficient for the majority of user cases.
 </p>
 <h2><span class="mw-headline" id="Testing_and_usage">Testing and usage</span></h2>
@@ -61,7 +61,7 @@ Of course, this is a <a rel="nofollow"  href="https://lwn.net/Articles/525459/">
 </p>
 <pre># rngd -f
 </pre>
-<p>A simple test to see if everything is working as it should is to run (in another terminal) the following <a href="../Dd.html" title="Dd">dd</a> command:
+<p>A simple test to see if everything is working as it should is to run (in another terminal) the following <a href="../wiki/Dd.html" title="Dd">dd</a> command:
 </p>
 <pre>$ dd if=/dev/random of=/dev/null bs=1024 count=1 iflag=fullblock
 </pre>
@@ -94,12 +94,12 @@ rngtest: FIPS tests speed: (min=64.656; avg=91.010; max=123.055)Mibits/s
 rngtest: Program run time: 47037492 microseconds</pre>
 <p>It is normal for any random number generator to fail in a small number of tests in 1000 passes, however if the number of failures is too great (like 10), probably there is something wrong.
 </p>
-<p>After that, you can <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>rngd.service</code>.
+<p>After that, you can <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>rngd.service</code>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -116,9 +116,9 @@ rngtest: Program run time: 47037492 microseconds</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

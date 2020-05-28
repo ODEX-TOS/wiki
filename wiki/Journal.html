@@ -2,7 +2,7 @@
     title: Journal
     description: Migration of Journal from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Systemd.html" title="Systemd">Systemd</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Systemd.html" title="Systemd">Systemd</a></span></div>
 		
 		
 		
@@ -29,7 +29,7 @@
 </p>
 <pre># journalctl
 </pre>
-<p>In TOS Linux, the directory <code>/var/log/journal/</code> is a part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package, and the journal (when <code>Storage=</code> is set to <code>auto</code> in <code>/etc/systemd/journald.conf</code>) will write to <code>/var/log/journal/</code>.  If that directory is deleted, <i>systemd</i> will <b>not</b> recreate it automatically and instead will write its logs to <code>/run/systemd/journal</code> in a nonpersistent way. However, the folder will be recreated if <code>Storage=persistent</code> is added to <code>journald.conf</code> and <code>systemd-journald.service</code> is <a href="../../Systemd.html#Using_units" class="mw-redirect" title="Restart">restarted</a> (or the system is rebooted).
+<p>In TOS Linux, the directory <code>/var/log/journal/</code> is a part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package, and the journal (when <code>Storage=</code> is set to <code>auto</code> in <code>/etc/systemd/journald.conf</code>) will write to <code>/var/log/journal/</code>.  If that directory is deleted, <i>systemd</i> will <b>not</b> recreate it automatically and instead will write its logs to <code>/run/systemd/journal</code> in a nonpersistent way. However, the folder will be recreated if <code>Storage=persistent</code> is added to <code>journald.conf</code> and <code>systemd-journald.service</code> is <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restarted</a> (or the system is rebooted).
 </p>
 <p>Systemd journal classifies messages by <a href="#Priority_level">Priority level</a> and <a href="#Facility">Facility</a>. Logging classification corresponds to classic <a href="https://en.wikipedia.org/wiki/Syslog"  title="wikipedia:Syslog">Syslog</a> protocol (<a rel="nofollow"  href="https://tools.ietf.org/html/rfc5424">RFC 5424</a>).
 </p>
@@ -69,7 +69,7 @@
 <td>Emergency</td>
 <td>emerg</td>
 <td>System is unusable</td>
-<td>Severe Kernel BUG, <a href="../../Core_dump.html" class="mw-redirect" title="Systemd-coredump">systemd dumped core</a>.<br>This level should not be used by applications.
+<td>Severe Kernel BUG, <a href="../../wiki/Core_dump.html" class="mw-redirect" title="Systemd-coredump">systemd dumped core</a>.<br>This level should not be used by applications.
 </td>
 </tr>
 <tr>
@@ -332,12 +332,12 @@
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 1 journalctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/journalctl.1">journalctl(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 7 systemd.journal-fields"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.journal-fields.7">systemd.journal-fields(7)</a></span>, or <a rel="nofollow"  href="http://0pointer.de/blog/projects/journalctl.html">Lennart Poettering's blog post</a> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> By default, <i>journalctl</i> truncates lines longer than screen width, but in some cases, it may be better to enable wrapping instead of truncating. This can be controlled by the <code>SYSTEMD_LESS</code> <a href="../../Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>, which contains options passed to <a href="../../Core_utilities.html#Essentials" title="Core utilities">less</a> (the default pager) and defaults to <code>FRSXMK</code> (see <span class="plainlinks archwiki-template-man" title="$ man 1 less"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/less.1">less(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 journalctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/journalctl.1">journalctl(1)</a></span> for details).
+<strong>Tip:</strong> By default, <i>journalctl</i> truncates lines longer than screen width, but in some cases, it may be better to enable wrapping instead of truncating. This can be controlled by the <code>SYSTEMD_LESS</code> <a href="../../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>, which contains options passed to <a href="../../wiki/Core_utilities.html#Essentials" title="Core utilities">less</a> (the default pager) and defaults to <code>FRSXMK</code> (see <span class="plainlinks archwiki-template-man" title="$ man 1 less"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/less.1">less(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 journalctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/journalctl.1">journalctl(1)</a></span> for details).
 <p>By omitting the <code>S</code> option, the output will be wrapped instead of truncated. For example, start <i>journalctl</i> as follows:
 </p>
 <pre>$ SYSTEMD_LESS=FRXMK journalctl
 </pre>
-To set this behaviour as default, <a href="../../Environment_variables.html#Per_user" title="Environment variables">export</a> the variable from <code>~/.bashrc</code> or <code>~/.zshrc</code>.</div>
+To set this behaviour as default, <a href="../../wiki/Environment_variables.html#Per_user" title="Environment variables">export</a> the variable from <code>~/.bashrc</code> or <code>~/.zshrc</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> While the journal is stored in a binary format, the content of stored messages is not modified. This means it is viewable with <i>strings</i>, for example for recovery in an environment which does not have <i>systemd</i> installed, e.g.:
 <pre>$ strings /mnt/arch/var/log/journal/af4967d77fba44c6b093d0e9862f6ddd/system.journal | grep -i <i>message</i></pre>
@@ -354,7 +354,7 @@ To set this behaviour as default, <a href="../../Environment_variables.html#Per_
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/journald.conf.d/00-journal-size.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Journal]
 SystemMaxUse=50M</pre>
-<p><a href="../../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>systemd-journald.service</code> after changing this setting to apply the new limit.
+<p><a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>systemd-journald.service</code> after changing this setting to apply the new limit.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 5 journald.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/journald.conf.5">journald.conf(5)</a></span> for more info.
 </p>
@@ -370,23 +370,23 @@ SystemMaxUse=50M</pre>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 1 journalctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/journalctl.1">journalctl(1)</a></span> for more info.
 </p>
 <h2><span class="mw-headline" id="Journald_in_conjunction_with_syslog">Journald in conjunction with syslog</span></h2>
-<p>Compatibility with a classic, non-journald aware <a href="../../Syslog-ng.html" title="Syslog-ng">syslog</a> implementation can be provided by letting <i>systemd</i> forward all messages via the socket <code>/run/systemd/journal/syslog</code>. To make the syslog daemon work with the journal, it has to bind to this socket instead of <code>/dev/log</code> (<a rel="nofollow"  href="http://lwn.net/Articles/474968/">official announcement</a>). 
+<p>Compatibility with a classic, non-journald aware <a href="../../wiki/Syslog-ng.html" title="Syslog-ng">syslog</a> implementation can be provided by letting <i>systemd</i> forward all messages via the socket <code>/run/systemd/journal/syslog</code>. To make the syslog daemon work with the journal, it has to bind to this socket instead of <code>/dev/log</code> (<a rel="nofollow"  href="http://lwn.net/Articles/474968/">official announcement</a>). 
 </p>
-<p>The default <code>journald.conf</code> for forwarding to the socket is <code>ForwardToSyslog=no</code> to avoid system overhead, because <a href="../../Rsyslog.html" title="Rsyslog">rsyslog</a> or <a href="../../Syslog-ng.html" title="Syslog-ng">syslog-ng</a> pull the messages from the journal by <a rel="nofollow"  href="https://lists.freedesktop.org/archives/systemd-devel/2014-August/022295.html#journald">itself</a>. 
+<p>The default <code>journald.conf</code> for forwarding to the socket is <code>ForwardToSyslog=no</code> to avoid system overhead, because <a href="../../wiki/Rsyslog.html" title="Rsyslog">rsyslog</a> or <a href="../../wiki/Syslog-ng.html" title="Syslog-ng">syslog-ng</a> pull the messages from the journal by <a rel="nofollow"  href="https://lists.freedesktop.org/archives/systemd-devel/2014-August/022295.html#journald">itself</a>. 
 </p>
-<p>See <a href="../../Syslog-ng.html#Overview" title="Syslog-ng">Syslog-ng#Overview</a> and <a href="../../Syslog-ng.html#syslog-ng_and_systemd_journal" title="Syslog-ng">Syslog-ng#syslog-ng and systemd journal</a>, or <a href="../../Rsyslog.html" title="Rsyslog">rsyslog</a> respectively, for details on configuration.
+<p>See <a href="../../wiki/Syslog-ng.html#Overview" title="Syslog-ng">Syslog-ng#Overview</a> and <a href="../../wiki/Syslog-ng.html#syslog-ng_and_systemd_journal" title="Syslog-ng">Syslog-ng#syslog-ng and systemd journal</a>, or <a href="../../wiki/Rsyslog.html" title="Rsyslog">rsyslog</a> respectively, for details on configuration.
 </p>
 <h2>
 <span id="Forward_journald_to_.2Fdev.2Ftty12"></span><span class="mw-headline" id="Forward_journald_to_/dev/tty12">Forward journald to /dev/tty12</span>
 </h2>
-<p>Create a <a href="../../Systemd.html#Editing_provided_units" title="Systemd">drop-in directory</a> <code>/etc/systemd/journald.conf.d</code> and create a <code>fw-tty12.conf</code> file in it:
+<p>Create a <a href="../../wiki/Systemd.html#Editing_provided_units" title="Systemd">drop-in directory</a> <code>/etc/systemd/journald.conf.d</code> and create a <code>fw-tty12.conf</code> file in it:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/journald.conf.d/fw-tty12.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Journal]
 ForwardToConsole=yes
 TTYPath=/dev/tty12
 MaxLevelConsole=info</pre>
-<p>Then <a href="../../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>systemd-journald.service</code>.
+<p>Then <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>systemd-journald.service</code>.
 </p>
 <h2><span class="mw-headline" id="Specify_a_different_journal_to_view">Specify a different journal to view</span></h2>
 <p>There may be a need to check the logs of another system that is dead in the water, like booting from a live system to recover a production system. In such case, one can mount the disk in e.g. <code>/mnt</code>, and specify the journal path via <code>-D</code>/<code>--directory</code>, like so:
@@ -397,8 +397,8 @@ MaxLevelConsole=info</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../../Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
-<li><a href="../../Category:Logging.html" title="Category:Logging">Logging</a></li>
+<li><a href="../../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="../../wiki/Category:Logging.html" title="Category:Logging">Logging</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -416,9 +416,9 @@ MaxLevelConsole=info</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

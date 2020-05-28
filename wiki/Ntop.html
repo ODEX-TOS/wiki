@@ -2,7 +2,7 @@
     title: Ntop
     description: Migration of Ntop from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -53,7 +53,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation_and_configuration">Installation and configuration</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntop">ntop</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntop">ntop</a></span> package.
 The first run of ntop, you must set the admin password:
 </p>
 <pre># ntop
@@ -61,7 +61,7 @@ The first run of ntop, you must set the admin password:
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> The previous default <code>/etc/conf.d/ntop</code> does not exist anymore. A configuration file may be passed via the <code>@<i>file</i></code> option, but that must be picked up (e.g. via <a href="../Systemd.html#Drop-in_snippets" title="Systemd">Systemd#Drop-in_snippets</a>) from the systemd service file, which - as a second point - does not work due to <a rel="nofollow"  href="https://bugs.archlinux.org/task/41849">FS#41849</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Ntop#Configuration">Talk:Ntop#Configuration</a>)</div>
+<b>Reason:</b> The previous default <code>/etc/conf.d/ntop</code> does not exist anymore. A configuration file may be passed via the <code>@<i>file</i></code> option, but that must be picked up (e.g. via <a href="../wiki/Systemd.html#Drop-in_snippets" title="Systemd">Systemd#Drop-in_snippets</a>) from the systemd service file, which - as a second point - does not work due to <a rel="nofollow"  href="https://bugs.archlinux.org/task/41849">FS#41849</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Ntop#Configuration">Talk:Ntop#Configuration</a>)</div>
 </div>
 <p>Next, you need to edit the configuration file (<code>/etc/conf.d/ntop</code>) to adapt on your needs. Below is an example configuration, with the focus on the host to get as much as information from the hosts connections:
 </p>
@@ -72,7 +72,7 @@ NTOP_ARGS="-K -W 2323 -i enp1s0,wlp2s0 -M -s -4 -6 -s -u ntop -c -r 30 --w3c -t 
 # Location of the log file.
 NTOP_LOG="/var/log/ntop/ntop.log"
 </pre>
-<p>Before <a href="../Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> and possibly enabling the <code>ntop</code> service, you may have to <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> its <i>ntop</i> command options:
+<p>Before <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> and possibly enabling the <code>ntop</code> service, you may have to <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> its <i>ntop</i> command options:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/ntop.d/options.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -97,7 +97,7 @@ ExecStart=/usr/bin/ntop <i>options</i></pre>
   \-subj '/C=US/L=Portland/CN=swim' 
   \-newkey rsa:1024 -keyout ntop-cert.pem -out ntop-cert.pem
 </pre>
-<p>Instead of make a self-signed certificat who will make your page unable to print on firefox, you should look at <a href="../Certbot.html" class="mw-redirect" title="Letsencrypt">letsencrypt</a> service. This service will make a free well recognized certificat for your domain. Then you will have to copy privkey.pem and fullchain.pem inside ntop-cert.pem:
+<p>Instead of make a self-signed certificat who will make your page unable to print on firefox, you should look at <a href="../wiki/Certbot.html" class="mw-redirect" title="Letsencrypt">letsencrypt</a> service. This service will make a free well recognized certificat for your domain. Then you will have to copy privkey.pem and fullchain.pem inside ntop-cert.pem:
 </p>
 <pre># cat /etc/letsencrypt/live/&lt;your domain&gt;/privkey.pem /etc/letsencrypt/live/&gt;your domain&gt;/fullchain.pem &gt; /usr/share/ntop/ntop-cert.pem
 </pre>
@@ -130,9 +130,9 @@ ExecStart=/usr/bin/ntop <i>options</i></pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -150,9 +150,9 @@ ExecStart=/usr/bin/ntop <i>options</i></pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

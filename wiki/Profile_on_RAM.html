@@ -2,7 +2,7 @@
     title: Profile_on_RAM
     description: Migration of Profile_on_RAM from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Firefox.html" title="Firefox">Firefox</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Firefox.html" title="Firefox">Firefox</a></span></div>
 		
 		
 		
@@ -24,19 +24,19 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Assuming that there is memory to spare, placing <a href="../../Firefox.html" title="Firefox">Firefox</a>'s cache or complete profile to RAM offers significant advantages. Even though opting for the partial route is an improvement by itself, the latter can make Firefox even more responsive compared to its stock configuration. Benefits include, among others:
+<p>Assuming that there is memory to spare, placing <a href="../../wiki/Firefox.html" title="Firefox">Firefox</a>'s cache or complete profile to RAM offers significant advantages. Even though opting for the partial route is an improvement by itself, the latter can make Firefox even more responsive compared to its stock configuration. Benefits include, among others:
 </p>
 <ul>
 <li>reduced drive read/writes;</li>
 <li>heightened responsive feel;</li>
 <li>many operations within Firefox, such as quick search and history queries, are nearly instantaneous.</li>
 </ul>
-<p>To do so we can make use of a <a href="../../Tmpfs.html" title="Tmpfs">tmpfs</a>.
+<p>To do so we can make use of a <a href="../../wiki/Tmpfs.html" title="Tmpfs">tmpfs</a>.
 </p>
 <p>Because data placed therein cannot survive a shutdown, a script responsible for syncing back to drive prior to system shutdown is necessary if persistence is desired (which is likely in the case of profile relocation). On the other hand, only relocating the cache is a quick, less inclusive solution that will slightly speed up user experience while emptying Firefox cache on every reboot.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Cache is stored <b>separately</b> from Firefox default profiles' folder (<code>/home/$USER/.mozilla/firefox/</code>): it is found by default in <code>/home/$USER/.cache/mozilla/firefox/&lt;profile&gt;</code>. This is similar to what Chromium and other browsers do. Therefore, sections <a href="#Place_profile_in_RAM_using_tools">#Place profile in RAM using tools</a> and <a href="#Place_profile_in_RAM_manually">#Place profile in RAM manually</a> <b>don't deal</b> with cache relocating and syncing but only with profile adjustments. See the note at <a href="../../Profile-sync-daemon.html#Design_goals_and_benefits_of_psd" title="Profile-sync-daemon">Profile-sync-daemon#Design goals and benefits of psd</a> for more details. <a href="../../Anything-sync-daemon.html" title="Anything-sync-daemon">Anything-sync-daemon</a> may be used to achieve the same thing as Option 2 for cache folders.</div>
+<strong>Note:</strong> Cache is stored <b>separately</b> from Firefox default profiles' folder (<code>/home/$USER/.mozilla/firefox/</code>): it is found by default in <code>/home/$USER/.cache/mozilla/firefox/&lt;profile&gt;</code>. This is similar to what Chromium and other browsers do. Therefore, sections <a href="#Place_profile_in_RAM_using_tools">#Place profile in RAM using tools</a> and <a href="#Place_profile_in_RAM_manually">#Place profile in RAM manually</a> <b>don't deal</b> with cache relocating and syncing but only with profile adjustments. See the note at <a href="../../wiki/Profile-sync-daemon.html#Design_goals_and_benefits_of_psd" title="Profile-sync-daemon">Profile-sync-daemon#Design goals and benefits of psd</a> for more details. <a href="../../wiki/Anything-sync-daemon.html" title="Anything-sync-daemon">Anything-sync-daemon</a> may be used to achieve the same thing as Option 2 for cache folders.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -65,16 +65,16 @@
 </div>
 
 <h2><span class="mw-headline" id="Relocate_cache_to_RAM_only">Relocate cache to RAM only</span></h2>
-<p>See <a href="../../Firefox/Tweaks.html#Turn_off_the_disk_cache" title="Firefox/Tweaks">Firefox/Tweaks#Turn off the disk cache</a>.
+<p>See <a href="../../wiki/Firefox/Tweaks.html#Turn_off_the_disk_cache" title="Firefox/Tweaks">Firefox/Tweaks#Turn off the disk cache</a>.
 </p>
 <h2><span class="mw-headline" id="Place_profile_in_RAM_using_tools">Place profile in RAM using tools</span></h2>
-<p>Relocate the browser profile to <a href="../../Tmpfs.html" title="Tmpfs">tmpfs</a> so as to globally improve browser's responsiveness. Another benefit is a reduction in drive I/O operations, of which <a href="../../Improving_performance.html#Show_disk_writes" title="Improving performance">SSDs benefit the most</a>.
+<p>Relocate the browser profile to <a href="../../wiki/Tmpfs.html" title="Tmpfs">tmpfs</a> so as to globally improve browser's responsiveness. Another benefit is a reduction in drive I/O operations, of which <a href="../../wiki/Improving_performance.html#Show_disk_writes" title="Improving performance">SSDs benefit the most</a>.
 </p>
 <p>Use an active management script for maximal reliability and ease of use.  Several are available from the AUR.
 </p>
 <ul>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=profile-sync-daemon">profile-sync-daemon</a></span> - refer to the <a href="../../Profile-sync-daemon.html" title="Profile-sync-daemon">Profile-sync-daemon</a> wiki article for additional info on it;</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=profile-sync-daemon">profile-sync-daemon</a></span> - refer to the <a href="../../wiki/Profile-sync-daemon.html" title="Profile-sync-daemon">Profile-sync-daemon</a> wiki article for additional info on it;</li>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/firefox-sync/">firefox-sync</a></span><sup><small>AUR</small></sup> - sufficient for a user with a single profile; uses a script and systemd service similar to those below.</li>
 </ul>
@@ -89,7 +89,7 @@
 </p>
 <p>The script will first move Firefox's profile to a new static location, make a sub-directory in <code>/dev/shm</code>, softlink to it and later populate it with the contents of the profile. As before, replace the bold sections to suit. The only value that absolutely needs to be altered is, again, <code>xyz.default</code>.
 </p>
-<p>Be sure that <a href="../../Rsync.html" title="Rsync">rsync</a> is installed and save the script to <code>~/.local/bin/firefox-sync</code>, for example:
+<p>Be sure that <a href="../../wiki/Rsync.html" title="Rsync">rsync</a> is installed and save the script to <code>~/.local/bin/firefox-sync</code>, for example:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">firefox-sync</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -153,7 +153,7 @@ systemctl --user start firefox-profile@&lt;profile&gt;.service
  ExecStop=/home/matthew/.local/bin/firefox-sync %i
 </pre>
 <h4><span class="mw-headline" id="cron_job">cron job</span></h4>
-<p>Manipulate the user's <a href="../../Cron.html" title="Cron">cron</a> table using <code>crontab</code>:
+<p>Manipulate the user's <a href="../../wiki/Cron.html" title="Cron">cron</a> table using <code>crontab</code>:
 </p>
 <pre>$ crontab -e
 </pre>
@@ -168,18 +168,18 @@ systemctl --user start firefox-profile@&lt;profile&gt;.service
 <h4>
 <span id="Sync_at_login.2Flogout"></span><span class="mw-headline" id="Sync_at_login/logout">Sync at login/logout</span>
 </h4>
-<p>Assuming <a href="../../Bash.html" title="Bash">bash</a> is being used, add the script to the login/logout files:
+<p>Assuming <a href="../../wiki/Bash.html" title="Bash">bash</a> is being used, add the script to the login/logout files:
 </p>
 <pre>$ echo '<i>~/.local/bin/firefox-sync</i>' | tee -a ~/.bash_logout ~/.bash_login &gt;/dev/null
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  You may wish to use <code>~/.bash_profile</code> instead of <code>~/.bash_login</code> as bash will only read the first of these if both exist and are readable.</div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li><a href="../../Tmpfs.html" title="Tmpfs">tmpfs</a></li></ul>
+<ul><li><a href="../../wiki/Tmpfs.html" title="Tmpfs">tmpfs</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Web_browser.html" title="Category:Web browser">Web browser</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Web_browser.html" title="Category:Web browser">Web browser</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -196,9 +196,9 @@ systemctl --user start firefox-profile@&lt;profile&gt;.service
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

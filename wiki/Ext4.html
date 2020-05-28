@@ -2,7 +2,7 @@
     title: Ext4
     description: Migration of Ext4 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../File_systems.html" title="File systems">File systems</a></li>
-<li><a href="../Ext3.html" title="Ext3">Ext3</a></li>
+<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="../wiki/Ext3.html" title="Ext3">Ext3</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="http://kernelnewbies.org/Ext4">Ext4 - Linux Kernel Newbies</a>:
@@ -213,19 +213,19 @@
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
 <ul>
-<li>If you convert the system's root filesystem, ensure that the 'fallback' initramfs is available at reboot. Alternatively, add <code>ext4</code> according to <a href="../Mkinitcpio.html#MODULES" title="Mkinitcpio">Mkinitcpio#MODULES</a> and <a href="../Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a> before starting.</li>
-<li>If you decide to convert a separate <code>/boot</code> partition, ensure the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a> supports booting from ext4.</li>
+<li>If you convert the system's root filesystem, ensure that the 'fallback' initramfs is available at reboot. Alternatively, add <code>ext4</code> according to <a href="../wiki/Mkinitcpio.html#MODULES" title="Mkinitcpio">Mkinitcpio#MODULES</a> and <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a> before starting.</li>
+<li>If you decide to convert a separate <code>/boot</code> partition, ensure the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a> supports booting from ext4.</li>
 </ul>
 </div>
 <p>In the following steps <code>/dev/sdxX</code> denotes the path to the partition to be converted, such as <code>/dev/sda1</code>. 
 </p>
 <ol>
 <li>
-<a href="../Synchronization_and_backup_programs.html" class="mw-redirect" title="Backup programs">Back up</a> all data on any ext3 partitions that are to be converted to ext4. A useful package, especially for root partitions, is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clonezilla">clonezilla</a></span>.</li>
+<a href="../wiki/Synchronization_and_backup_programs.html" class="mw-redirect" title="Backup programs">Back up</a> all data on any ext3 partitions that are to be converted to ext4. A useful package, especially for root partitions, is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clonezilla">clonezilla</a></span>.</li>
 <li>Edit <code>/etc/fstab</code> and change the 'type' from ext3 to ext4 for any partitions that are to be converted to ext4.</li>
 <li>Boot the live medium (if necessary). The conversion process with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=e2fsprogs">e2fsprogs</a></span> must be done when the drive is not mounted. If converting a root partition, the simplest way to achieve this is to boot from some other live medium.</li>
 <li>Ensure the partition is <i>not</i> mounted</li>
-<li>If you want to convert a ext2 partition, the first conversion step is to add a <a href="../File_systems.html#Journaling" title="File systems">journal</a> by running <code>tune2fs -j /dev/sdxX</code> as root; making it a ext3 partition.</li>
+<li>If you want to convert a ext2 partition, the first conversion step is to add a <a href="../wiki/File_systems.html#Journaling" title="File systems">journal</a> by running <code>tune2fs -j /dev/sdxX</code> as root; making it a ext3 partition.</li>
 <li>Run <code>tune2fs -O extent,uninit_bg,dir_index /dev/sdxX</code> as root. This command converts the ext3 filesystem to ext4 (irreversibly).</li>
 <li>Run <code>fsck -f /dev/sdxX</code> as root.
 <ul><li>This step is necessary, otherwise the filesystem <b>will be unreadable</b>. This <i>fsck</i> run is needed to return the filesystem to a consistent state. It will find checksum errors in the group descriptors - this is expected. The <code>-f</code> option asks <i>fsck</i> to force checking even if the file system seems clean. The <code>-p</code> option may be used on top to "automatically repair" (otherwise, the user will be asked for input for each error).</li></ul>
@@ -237,7 +237,7 @@
 </ol>
 <h2><span class="mw-headline" id="Improving_performance">Improving performance</span></h2>
 <h3><span class="mw-headline" id="E4rat">E4rat</span></h3>
-<p><a href="../E4rat.html" title="E4rat">E4rat</a> is a preload application designed for the ext4 filesystem. It monitors files opened during boot, optimizes their placement on the partition to improve access time, and preloads them at the very beginning of the boot process. <i>E4rat</i> does not offer improvements with <a href="../Solid_state_drive.html" class="mw-redirect" title="SSD">SSDs</a>, whose access time is negligible compared to hard disks.
+<p><a href="../wiki/E4rat.html" title="E4rat">E4rat</a> is a preload application designed for the ext4 filesystem. It monitors files opened during boot, optimizes their placement on the partition to improve access time, and preloads them at the very beginning of the boot process. <i>E4rat</i> does not offer improvements with <a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSDs</a>, whose access time is negligible compared to hard disks.
 </p>
 <h3><span class="mw-headline" id="Disabling_access_time_update">Disabling access time update</span></h3>
 <p>The <i>ext4</i> file system records information about when a file was last accessed and there is a cost associated with recording it. With the <code>noatime</code> option, the access timestamps on the filesystem are not updated.
@@ -245,14 +245,14 @@
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/dev/sda5    /    ext4    defaults,<b>noatime</b>    0    1
 </pre>
-<p>Doing so breaks applications that rely on access time, see <a href="../Fstab.html#atime_options" title="Fstab">fstab#atime options</a> for possible solutions.
+<p>Doing so breaks applications that rely on access time, see <a href="../wiki/Fstab.html#atime_options" title="Fstab">fstab#atime options</a> for possible solutions.
 </p>
 <h3><span class="mw-headline" id="Increasing_commit_interval">Increasing commit interval</span></h3>
 <p>The sync interval for data and metadata can be increased by providing a higher time delay to the <code>commit</code> option.
 </p>
 <p>The default 5 sec means that if the power is lost, one will lose as much as the latest 5 seconds of work. 
 It forces a full sync of all data/journal to physical media every 5 seconds. The filesystem will not be damaged though, thanks to the journaling.
-The following <a href="../Fstab.html" title="Fstab">fstab</a> illustrates the use of <code>commit</code>:
+The following <a href="../wiki/Fstab.html" title="Fstab">fstab</a> illustrates the use of <code>commit</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/dev/sda5    /    ext4    defaults,noatime,<b>commit=60</b>    0    1</pre>
@@ -274,7 +274,7 @@ The following <a href="../Fstab.html" title="Fstab">fstab</a> illustrates the us
 </pre>
 <h3><span class="mw-headline" id="Use_external_journal_to_optimize_performance">Use external journal to optimize performance</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Complicated to read, needs style fixing. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Ext4">Talk:Ext4#</a>)</div>
 </div>
@@ -284,12 +284,12 @@ The following <a href="../Fstab.html" title="Fstab">fstab</a> illustrates the us
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Using_file-based_encryption">Using file-based encryption</span></h3>
-<p>Since Linux 4.1, ext4 natively supports file encryption, see the <a href="../Fscrypt.html" title="Fscrypt">fscrypt</a> article.  Encryption is applied at the directory level, and different directories can use different encryption keys.  This is different from both <a href="../Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which is block-device level encryption, and from <a href="../ECryptfs.html" title="ECryptfs">eCryptfs</a>, which is a stacked cryptographic filesystem.
+<p>Since Linux 4.1, ext4 natively supports file encryption, see the <a href="../wiki/Fscrypt.html" title="Fscrypt">fscrypt</a> article.  Encryption is applied at the directory level, and different directories can use different encryption keys.  This is different from both <a href="../wiki/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which is block-device level encryption, and from <a href="../wiki/ECryptfs.html" title="ECryptfs">eCryptfs</a>, which is a stacked cryptographic filesystem.
 </p>
 <h3><span class="mw-headline" id="Enabling_metadata_checksums">Enabling metadata checksums</span></h3>
 <p>When a filesystem has been created with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=e2fsprogs">e2fsprogs</a></span> 1.44 or later, metadata checksums should already be enabled by default. Existing filesystems may be converted to enable metadata checksum support.
 </p>
-<p>If the CPU supports SSE 4.2, make sure the <code>crc32c_intel</code> <a href="../Kernel_module.html" title="Kernel module">kernel module</a> is loaded in order to enable the hardware accelerated CRC32C algorithm <a rel="nofollow"  href="https://ext4.wiki.kernel.org/index.php/Ext4_Metadata_Checksums#Benchmarking">[5]</a>. If not, load the <code>crc32c_generic</code> module instead.
+<p>If the CPU supports SSE 4.2, make sure the <code>crc32c_intel</code> <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a> is loaded in order to enable the hardware accelerated CRC32C algorithm <a rel="nofollow"  href="https://ext4.wiki.kernel.org/index.php/Ext4_Metadata_Checksums#Benchmarking">[5]</a>. If not, load the <code>crc32c_generic</code> module instead.
 </p>
 <p>To read more about metadata checksums, see the <a rel="nofollow"  href="https://ext4.wiki.kernel.org/index.php/Ext4_Metadata_Checksums">ext4 wiki</a>.
 </p>
@@ -334,9 +334,9 @@ The following <a href="../Fstab.html" title="Fstab">fstab</a> illustrates the us
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -354,9 +354,9 @@ The following <a href="../Fstab.html" title="Fstab">fstab</a> illustrates the us
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

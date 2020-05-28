@@ -2,7 +2,7 @@
     title: Chroot
     description: Migration of Chroot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,9 +29,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../PRoot.html" title="PRoot">PRoot</a></li>
-<li><a href="../Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
-<li><a href="../Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="../wiki/PRoot.html" title="PRoot">PRoot</a></li>
+<li><a href="../wiki/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+<li><a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
 </ul>
 </div>
 <p>A <a href="https://en.wikipedia.org/wiki/Chroot"  title="wikipedia:Chroot">chroot</a> is an operation that changes the apparent root directory for the current running process and their children. A program that is run in such a modified environment cannot access files and commands outside that environmental directory tree.  This modified environment is called a <i>chroot jail</i>.
@@ -73,10 +73,10 @@
 <p>Changing root is commonly done for performing system maintenance on systems where booting and/or logging in is no longer possible. Common examples are:
 </p>
 <ul>
-<li>Reinstalling the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a>.</li>
-<li>Rebuilding the <a href="../Mkinitcpio.html" title="Mkinitcpio">initramfs image</a>.</li>
-<li>Upgrading or <a href="../Downgrading_packages.html" title="Downgrading packages">downgrading packages</a>.</li>
-<li>Resetting a <a href="../Reset_lost_root_password.html" class="mw-redirect" title="Password recovery">forgotten password</a>.</li>
+<li>Reinstalling the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a>.</li>
+<li>Rebuilding the <a href="../wiki/Mkinitcpio.html" title="Mkinitcpio">initramfs image</a>.</li>
+<li>Upgrading or <a href="../wiki/Downgrading_packages.html" title="Downgrading packages">downgrading packages</a>.</li>
+<li>Resetting a <a href="../wiki/Reset_lost_root_password.html" class="mw-redirect" title="Password recovery">forgotten password</a>.</li>
 <li>Building packages in a clean chroot, see <a href="../DeveloperWiki:Building_in_a_clean_chroot.html" title="DeveloperWiki:Building in a clean chroot">DeveloperWiki:Building in a clean chroot</a>.</li>
 </ul>
 <p>See also <a href="https://en.wikipedia.org/wiki/Chroot#Limitations"  title="wikipedia:Chroot">Wikipedia:Chroot#Limitations</a>.
@@ -88,7 +88,7 @@
 <li>Matching architecture environments; i.e. the chroot from and chroot to.  The architecture of the current environment can be discovered with: <code>uname -m</code> (e.g. i686 or x86_64).</li>
 <li>Kernel modules loaded that are needed in the chroot environment.</li>
 <li>
-<a href="../Swap.html" title="Swap">Swap</a> enabled if needed: <pre># swapon /dev/sd<i>xY</i></pre>
+<a href="../wiki/Swap.html" title="Swap">Swap</a> enabled if needed: <pre># swapon /dev/sd<i>xY</i></pre>
 </li>
 <li>Internet connection established if needed.</li>
 </ul>
@@ -96,7 +96,7 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>Some <a href="../Systemd.html" title="Systemd">systemd</a> tools such as <i>hostnamectl</i>, <i>localectl</i> and <i>timedatectl</i> can not be used inside a chroot, as they require an active <a href="../D-Bus.html" class="mw-redirect" title="Dbus">dbus</a> connection. <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/798#issuecomment-126568596">[1]</a>
+<li>Some <a href="../wiki/Systemd.html" title="Systemd">systemd</a> tools such as <i>hostnamectl</i>, <i>localectl</i> and <i>timedatectl</i> can not be used inside a chroot, as they require an active <a href="../wiki/D-Bus.html" class="mw-redirect" title="Dbus">dbus</a> connection. <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/798#issuecomment-126568596">[1]</a>
 </li>
 <li>The file system that will serve as the new root (<code>/</code>) of your chroot must be accessible (i.e., decrypted, mounted).</li>
 </ul>
@@ -111,7 +111,7 @@
 </p>
 <pre># arch-chroot <i>/location/of/new/root</i>
 </pre>
-<p>For example, in the <a href="../Installation_guide.html" title="Installation guide">installation guide</a> this directory would be <code>/mnt</code>:
+<p>For example, in the <a href="../wiki/Installation_guide.html" title="Installation guide">installation guide</a> this directory would be <code>/mnt</code>:
 </p>
 <pre># arch-chroot /mnt
 </pre>
@@ -184,9 +184,9 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If there is an error mentioning something like: <code>umount: /path: device is busy</code> this usually means that either: a program (even a shell) was left running in the chroot or that a sub-mount still exists.  Quit the program and use <code>findmnt -R <i>/location/of/new/root</i></code> to find and then <code>umount</code> sub-mounts. It may be tricky to <code>umount</code> some things and one can hopefully have <code>umount --force</code> work, as a last resort use <code>umount --lazy</code> which just releases them. In either case to be safe, <code>reboot</code> as soon as possible if these are unresolved to avoid possible future conflicts.</div>
 <h2><span class="mw-headline" id="Run_graphical_applications_from_chroot">Run graphical applications from chroot</span></h2>
-<p>If you have an <a href="../Xorg.html" class="mw-redirect" title="X server">X server</a> running on your system, you can start graphical applications from the chroot environment.
+<p>If you have an <a href="../wiki/Xorg.html" class="mw-redirect" title="X server">X server</a> running on your system, you can start graphical applications from the chroot environment.
 </p>
-<p>To allow the chroot environment to connect to an X server, open a virtual terminal inside the X server (i.e. inside the desktop of the user that is currently logged in), then run the <a href="../Xhost.html" title="Xhost">xhost</a> command, which gives permission to anyone to connect to the user's X server (see also <a href="../Xhost.html" title="Xhost">Xhost</a>):
+<p>To allow the chroot environment to connect to an X server, open a virtual terminal inside the X server (i.e. inside the desktop of the user that is currently logged in), then run the <a href="../wiki/Xhost.html" title="Xhost">xhost</a> command, which gives permission to anyone to connect to the user's X server (see also <a href="../wiki/Xhost.html" title="Xhost">Xhost</a>):
 </p>
 <pre>$ xhost +local:
 </pre>
@@ -202,7 +202,7 @@
 <p>Chroot requires root privileges, which may not be desirable or possible for the user to obtain in certain situations. There are, however, various ways to simulate chroot-like behavior using alternative implementations.
 </p>
 <h3><span class="mw-headline" id="PRoot">PRoot</span></h3>
-<p><a href="../PRoot.html" title="PRoot">PRoot</a> may be used to change the apparent root directory and use <code>mount --bind</code> without root privileges. This is useful for confining applications to a single directory or running programs built for a different CPU architecture, but it has limitations due to the fact that all files are owned by the user on the host system. PRoot provides a <code>--root-id</code> argument that can be used as a workaround for some of these limitations in a similar (albeit more limited) manner to <i>fakeroot</i>.
+<p><a href="../wiki/PRoot.html" title="PRoot">PRoot</a> may be used to change the apparent root directory and use <code>mount --bind</code> without root privileges. This is useful for confining applications to a single directory or running programs built for a different CPU architecture, but it has limitations due to the fact that all files are owned by the user on the host system. PRoot provides a <code>--root-id</code> argument that can be used as a workaround for some of these limitations in a similar (albeit more limited) manner to <i>fakeroot</i>.
 </p>
 <h3><span class="mw-headline" id="Fakechroot">Fakechroot</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fakechroot">fakechroot</a></span> is a library shim which intercepts the chroot call and fakes the results. It can be used in conjunction with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fakeroot">fakeroot</a></span> to simulate a chroot as a regular user. 
@@ -215,9 +215,9 @@
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:System_recovery.html" title="Category:System recovery">System recovery</a></li>
-<li><a href="../Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li>
-<li><a href="../Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="../wiki/Category:System_recovery.html" title="Category:System recovery">System recovery</a></li>
+<li><a href="../wiki/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li>
+<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -235,9 +235,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

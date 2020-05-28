@@ -2,7 +2,7 @@
     title: LIRC
     description: Migration of LIRC from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../LIRC/Quick_start_guide.html" title="LIRC/Quick start guide">LIRC/Quick start guide</a></li>
+<li><a href="../wiki/LIRC/Quick_start_guide.html" title="LIRC/Quick start guide">LIRC/Quick start guide</a></li>
 </ul>
 </div>
 <p>From the <a rel="nofollow"  href="http://lirc.org/">official website</a>:
@@ -107,13 +107,13 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lirc">lirc</a></span> package. If you need <i>audio</i> driver, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lirc-git/">lirc-git</a></span><sup><small>AUR</small></sup>.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lirc">lirc</a></span> package. If you need <i>audio</i> driver, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lirc-git/">lirc-git</a></span><sup><small>AUR</small></sup>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Receiver_and_transmitter_configuration">Receiver and transmitter configuration</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This section is a quick summary. Complete documentation is available <a rel="nofollow"  href="http://lirc.sourceforge.net/lirc.org/html/index.html">upstream</a>.</div>
-<p>The <i>driver</i> and/or the <i>device</i> for the LIRC service may need to be specified in order to run properly. Look for messages like these in the <a href="../Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> output if the service abruptly stops while running LIRC-dependent programs such as <i>irrecord</i>:
+<p>The <i>driver</i> and/or the <i>device</i> for the LIRC service may need to be specified in order to run properly. Look for messages like these in the <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> output if the service abruptly stops while running LIRC-dependent programs such as <i>irrecord</i>:
 </p>
 <pre>Driver `devinput' not found or not loadable (wrong or missing -U/--plugindir?).
 readlink() failed for "auto": No such file or directory
@@ -194,7 +194,7 @@ Downloaded sourceforge.net/p/lirc-remotes/code/ci/master/tree/remotes/streamzap/
 <h3><span class="mw-headline" id="Application-specific_actions">Application-specific actions</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Many application-specific lircrc files are available on the internet.</div>
-<p>Bind keycodes to application-specific actions by placing their respective configuration files in <code>~/.config/lircrc/</code> which should be created manually if desired, see <span class="plainlinks archwiki-template-man" title="$ man 5 lircrc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/lircrc.5">lircrc(5)</a></span>.  This only works for LIRC-aware applications, like <a href="../MPlayer.html" title="MPlayer">MPlayer</a>, <a href="../VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a>, <a href="../MythTV.html" title="MythTV">MythTV</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=totem">totem</a></span> (<a href="../Kodi.html" title="Kodi">Kodi</a> also supports LIRC but does so in a non-standard way, see <a href="../Kodi.html#Using_a_remote_control" title="Kodi">Kodi#Using a remote control</a>).
+<p>Bind keycodes to application-specific actions by placing their respective configuration files in <code>~/.config/lircrc/</code> which should be created manually if desired, see <span class="plainlinks archwiki-template-man" title="$ man 5 lircrc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/lircrc.5">lircrc(5)</a></span>.  This only works for LIRC-aware applications, like <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a>, <a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a>, <a href="../wiki/MythTV.html" title="MythTV">MythTV</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=totem">totem</a></span> (<a href="../wiki/Kodi.html" title="Kodi">Kodi</a> also supports LIRC but does so in a non-standard way, see <a href="../wiki/Kodi.html#Using_a_remote_control" title="Kodi">Kodi#Using a remote control</a>).
 </p>
 <p>Define these application-specific configurations in separate files and include them in <i>lircrc</i>, like:
 </p>
@@ -211,7 +211,7 @@ include "~/.config/lircrc/vlc"
 # useradd -r -g lirc -d /var/lib/lirc -s /usr/bin/nologin -c "LIRC daemon user" lirc
 # usermod -a -G lock,input lirc
 </pre>
-<p>Augment the package-providing service unit by creating a lircd <a href="../Systemd.html#Drop-in_files" title="Systemd">Systemd#Drop-in files</a>:
+<p>Augment the package-providing service unit by creating a lircd <a href="../wiki/Systemd.html#Drop-in_files" title="Systemd">Systemd#Drop-in files</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># systemctl edit lircd</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -237,7 +237,7 @@ ProtectSystem=full
 <p>Reboot the system to verify expected function.
 </p>
 <h2><span class="mw-headline" id="Testing">Testing</span></h2>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>lircd.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>lircd.service</code>.
 </p>
 <h3><span class="mw-headline" id="Receiving_commands">Receiving commands</span></h3>
 <p>Run <span class="plainlinks archwiki-template-man" title="$ man 1 irw"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/irw.1">irw(1)</a></span>, point remote to the receiver and press some buttons. Received codes will be printed to stdout.
@@ -276,7 +276,7 @@ LG_6710CMAP01A
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Remote_functions_as_a_keyboard">Remote functions as a keyboard</span></h3>
 <h4><span class="mw-headline" id="When_using_Xorg">When using Xorg</span></h4>
-<p><a href="../Xorg.html" title="Xorg">Xorg</a> detects some remotes, such as the Streamzap USB PC Remote, as a Human Interface Device (HID) which means some or all of the keys will show up as key strokes as if entered from the physical keyboard. This behavior will present problems if LIRC is to be used to manage the device.
+<p><a href="../wiki/Xorg.html" title="Xorg">Xorg</a> detects some remotes, such as the Streamzap USB PC Remote, as a Human Interface Device (HID) which means some or all of the keys will show up as key strokes as if entered from the physical keyboard. This behavior will present problems if LIRC is to be used to manage the device.
 </p>
 <p>To disable, create the following file and restart X:
 </p>
@@ -359,7 +359,7 @@ nodaemon        = False</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -376,9 +376,9 @@ nodaemon        = False</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

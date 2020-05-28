@@ -2,7 +2,7 @@
     title: Mouse_polling_rate
     description: Migration of Mouse_polling_rate from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Mouse_acceleration.html" title="Mouse acceleration">Mouse acceleration</a></li>
-<li><a href="../Mouse_buttons.html" title="Mouse buttons">Mouse buttons</a></li>
+<li><a href="../wiki/Mouse_acceleration.html" title="Mouse acceleration">Mouse acceleration</a></li>
+<li><a href="../wiki/Mouse_buttons.html" title="Mouse buttons">Mouse buttons</a></li>
 </ul>
 </div>
 <p>If you have invested in a high resolution mouse, adjusting the USB polling rate is a common trick to utilize the added precision it brings. The polling rate (or report rate) determines how often the mouse sends information to your computer.
@@ -97,7 +97,7 @@
 </p>
 <p>If the <code>Latest</code> value does not stabilize and switches between two values then the attempted polling rate is faster than the device is capable of, see <a href="#USB_device_speed">#USB device speed</a>.
 </p>
-<p>Alternatively, Windows tools such as <a rel="nofollow"  href="http://razerblueprints.net/index.php/View-document-details/18-DirectX-mouserate-checker.html">DirectX mouserate checker</a> can be run using <a href="../Wine.html" title="Wine">Wine</a>.
+<p>Alternatively, Windows tools such as <a rel="nofollow"  href="http://razerblueprints.net/index.php/View-document-details/18-DirectX-mouserate-checker.html">DirectX mouserate checker</a> can be run using <a href="../wiki/Wine.html" title="Wine">Wine</a>.
 </p>
 <h2><span class="mw-headline" id="Display_polling_interval">Display polling interval</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -147,7 +147,7 @@ E:  Ad=81(I) Atr=03(Int.) MxPS=   2 Ivl=255ms</pre>
 <p>The <code>Ivl</code> of the hub is independent of the device and does not affect the polling rate of the device.
 </p>
 <h2><span class="mw-headline" id="Set_polling_interval">Set polling interval</span></h2>
-<p>To configure the polling rate use the <code>mousepoll</code> option of the <code>usbhid</code> <a href="../Kernel_module.html" title="Kernel module">kernel module</a>. The default value is 0 which means the module uses the interval requested by the device(s).
+<p>To configure the polling rate use the <code>mousepoll</code> option of the <code>usbhid</code> <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a>. The default value is 0 which means the module uses the interval requested by the device(s).
 </p>
 <p>The current value of the option can be verified with:
 </p>
@@ -169,9 +169,9 @@ E:  Ad=81(I) Atr=03(Int.) MxPS=   2 Ivl=255ms</pre>
 <p>You may have to unplug the mouse and plug it back in for the change to take effect.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If the usbhid module is included on your initramfs image you may need to add <code>/etc/modprobe.d/usbhid.conf</code> to the image also. See the note at <a href="../Kernel_module.html#Using_files_in_/etc/modprobe.d/" class="mw-redirect" title="Kernel modules">Kernel modules#Using files in /etc/modprobe.d/</a>. Alternatively, you can add <code>usbhid.mousepoll=X</code> to your kernel command line. See <a href="../Kernel_module.html#Using_kernel_command_line" class="mw-redirect" title="Kernel modules">Kernel modules#Using kernel command line</a>.</div>
+<strong>Note:</strong> If the usbhid module is included on your initramfs image you may need to add <code>/etc/modprobe.d/usbhid.conf</code> to the image also. See the note at <a href="../wiki/Kernel_module.html#Using_files_in_/etc/modprobe.d/" class="mw-redirect" title="Kernel modules">Kernel modules#Using files in /etc/modprobe.d/</a>. Alternatively, you can add <code>usbhid.mousepoll=X</code> to your kernel command line. See <a href="../wiki/Kernel_module.html#Using_kernel_command_line" class="mw-redirect" title="Kernel modules">Kernel modules#Using kernel command line</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> When using a smaller than default interval you may want to adjust the <a href="../Mouse_acceleration.html" title="Mouse acceleration">Mouse acceleration</a> option <a rel="nofollow"  href="http://xorg.freedesktop.org/wiki/Development/Documentation/PointerAcceleration/#VelocityScale">VelocityScale</a> to match.</div>
+<strong>Tip:</strong> When using a smaller than default interval you may want to adjust the <a href="../wiki/Mouse_acceleration.html" title="Mouse acceleration">Mouse acceleration</a> option <a rel="nofollow"  href="http://xorg.freedesktop.org/wiki/Development/Documentation/PointerAcceleration/#VelocityScale">VelocityScale</a> to match.</div>
 <h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
 <h3><span class="mw-headline" id="Polling_at_half_of_requested_rate">Polling at half of requested rate</span></h3>
 <p>There is a kernel bug that for certain configurations prevents devices from reaching 1000hz (1ms) polling rate. See the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1528109">BBS</a> and <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=60586">Bug</a>.
@@ -185,7 +185,7 @@ E:  Ad=81(I) Atr=03(Int.) MxPS=   2 Ivl=255ms</pre>
 </p>
 <p>A work-around that may help is to connect the device to a port using a different driver.
 </p>
-<p>Another work-around is to disable <a href="https://en.wikipedia.org/wiki/Extensible_Host_Controller_Interface"  title="wikipedia:Extensible Host Controller Interface">xHCI</a>. There might be a BIOS setting for this or you can do so by <a href="../Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklisting">blacklisting</a> the <code>xhci-hcd</code> module. <b>However</b>, either way will cause any USB 3 ports to act as USB 2 as the kernel will use the <code>ehci-hcd</code> module instead.
+<p>Another work-around is to disable <a href="https://en.wikipedia.org/wiki/Extensible_Host_Controller_Interface"  title="wikipedia:Extensible Host Controller Interface">xHCI</a>. There might be a BIOS setting for this or you can do so by <a href="../wiki/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklisting">blacklisting</a> the <code>xhci-hcd</code> module. <b>However</b>, either way will cause any USB 3 ports to act as USB 2 as the kernel will use the <code>ehci-hcd</code> module instead.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> To see which <code>hcd</code> drivers are in use see the <code>S: Manufacturer</code> line for hub devices in <code>/sys/kernel/debug/usb/devices</code>.</div>
@@ -195,7 +195,7 @@ E:  Ad=81(I) Atr=03(Int.) MxPS=   2 Ivl=255ms</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Mice.html" title="Category:Mice">Mice</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Mice.html" title="Category:Mice">Mice</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -212,9 +212,9 @@ E:  Ad=81(I) Atr=03(Int.) MxPS=   2 Ivl=255ms</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

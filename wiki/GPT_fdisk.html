@@ -2,7 +2,7 @@
     title: GPT_fdisk
     description: Migration of GPT_fdisk from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Partitioning.html" title="Partitioning">Partitioning</a></li>
-<li><a href="../Fdisk.html" title="Fdisk">fdisk</a></li>
-<li><a href="../Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a></li>
-<li><a href="../Dd.html" title="Dd">dd</a></li>
+<li><a href="../wiki/Partitioning.html" title="Partitioning">Partitioning</a></li>
+<li><a href="../wiki/Fdisk.html" title="Fdisk">fdisk</a></li>
+<li><a href="../wiki/Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a></li>
+<li><a href="../wiki/Dd.html" title="Dd">dd</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.rodsbooks.com/gdisk/">GPT fdisk</a>—consisting of the <i>gdisk</i>, <i>cgdisk</i>, <i>sgdisk</i>, and <i>fixparts</i> programs—is a set of text-mode partitioning tools made by Rod Smith. They work on Globally Unique Identifier (GUID) Partition Table (GPT) disks, rather than on the older (and once more common) Master Boot Record (MBR) partition tables.
@@ -84,10 +84,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> package.
 </p>
 <h2><span class="mw-headline" id="List_partitions">List partitions</span></h2>
-<p>To list partition tables and partitions on a <a href="../Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a>, you can run the following, where device is a name like <code>/dev/sda</code>, <code>/dev/nvme0n1</code>, <code>/dev/mmcblk0</code>, etc.:
+<p>To list partition tables and partitions on a <a href="../wiki/Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a>, you can run the following, where device is a name like <code>/dev/sda</code>, <code>/dev/nvme0n1</code>, <code>/dev/mmcblk0</code>, etc.:
 </p>
 <pre># gdisk -l /dev/sda
 </pre>
@@ -115,28 +115,28 @@
 <pre># sgdisk -G /dev/sdc
 </pre>
 <h2><span class="mw-headline" id="Create_a_partition_table_and_partitions">Create a partition table and partitions</span></h2>
-<p>The first step to <a href="../Partitioning.html" title="Partitioning">partitioning</a> a disk is making a partition table. After that, the actual partitions are created according to the desired <a href="../Partitioning.html#Partition_scheme" class="mw-redirect" title="Partition scheme">partition scheme</a>.
+<p>The first step to <a href="../wiki/Partitioning.html" title="Partitioning">partitioning</a> a disk is making a partition table. After that, the actual partitions are created according to the desired <a href="../wiki/Partitioning.html#Partition_scheme" class="mw-redirect" title="Partition scheme">partition scheme</a>.
 </p>
 <p>Before beginning, you may wish to <a href="#Backup_and_restore_partition_table">backup</a> your current partition table and scheme.
 </p>
 <p>The following shows how to use <i>gdisk</i> to perform both the creation of a partition table and the creation of the actual partitions. Alternatively, you may use the curses-based version called <i>cgdisk</i>; however, the following instructions do not apply to it. See <span class="plainlinks archwiki-template-man" title="$ man 8 cgdisk"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cgdisk.8">cgdisk(8)</a></span> for its usage.
 </p>
-<p><i>gdisk</i> performs partition alignment automatically on a 2048 512-byte sector (1 MiB) block size base which should be compatible with all <a href="../Advanced_Format.html" title="Advanced Format">Advanced Format</a> HDDs and the vast majority of <a href="../Solid_state_drive.html" class="mw-redirect" title="SSD">SSDs</a> if not all.
+<p><i>gdisk</i> performs partition alignment automatically on a 2048 512-byte sector (1 MiB) block size base which should be compatible with all <a href="../wiki/Advanced_Format.html" title="Advanced Format">Advanced Format</a> HDDs and the vast majority of <a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSDs</a> if not all.
 </p>
-<p>To use <i>gdisk</i>, run the program with the name of the <a href="../Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a> you want to change/edit. This example uses <code>/dev/sda</code>:
+<p>To use <i>gdisk</i>, run the program with the name of the <a href="../wiki/Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a> you want to change/edit. This example uses <code>/dev/sda</code>:
 </p>
 <pre># gdisk /dev/sda
 </pre>
 <h3><span class="mw-headline" id="Create_new_table">Create new table</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> If you create a new partition table on a disk with data on it, it will erase all the data on the disk. Make sure this is what you want to do.</div>
-<p>To create a new <a href="../Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a> and clear all current partition data, type <code>o</code> at the prompt. Skip this step if the table you require has already been created.
+<p>To create a new <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a> and clear all current partition data, type <code>o</code> at the prompt. Skip this step if the table you require has already been created.
 </p>
 <h3><span class="mw-headline" id="Create_partitions">Create partitions</span></h3>
 <p>Create a new partition with the <code>n</code> command. You must enter the partition number, first sector, last sector and the partition type.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> See <a href="../Partitioning.html#Partition_scheme" title="Partitioning">Partitioning#Partition scheme</a> for considerations concerning the size and location of partitions.</div>
+<strong>Note:</strong> See <a href="../wiki/Partitioning.html#Partition_scheme" title="Partitioning">Partitioning#Partition scheme</a> for considerations concerning the size and location of partitions.</div>
 <h4><span class="mw-headline" id="Partition_number">Partition number</span></h4>
 <p>A partition number is the number assigned to a partition, e.g. a partition with number <code>1</code> on a disk <code>/dev/sda</code> would be <code>/dev/sda1</code>. Partition numbers may not always match the order of partitions on disk, in which case they can be <a href="#Sort_partitions">sorted</a>.
 </p>
@@ -157,7 +157,7 @@
 <strong>Tip:</strong> 
 <ul>
 <li>When partitioning it is always a good idea to specify partition sizes using relative terms with the <code>+<i>size{M,G,T,P}</i></code> notation and not use sizes smaller than 1 MiB. Such partitions will always be aligned according to the device properties.</li>
-<li>Leave a 1 MiB free space somewhere in the first 2 TiB of the disk (e.g. by using <code>+1M</code> as the first sector of a partition) in case you ever need to create a <a href="../GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>.</li>
+<li>Leave a 1 MiB free space somewhere in the first 2 TiB of the disk (e.g. by using <code>+1M</code> as the first sector of a partition) in case you ever need to create a <a href="../wiki/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>.</li>
 </ul>
 </div>
 <h4><span class="mw-headline" id="Partition_type">Partition type</span></h4>
@@ -199,7 +199,7 @@
 </tr>
 <tr>
 <td>
-<a href="../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>
+<a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>
 </td>
 <td>Any<sup>1</sup>
 </td>
@@ -212,7 +212,7 @@
 </tr>
 <tr>
 <td>
-<a href="../GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>
+<a href="../wiki/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>
 </td>
 <td>None
 </td>
@@ -225,7 +225,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#/" title="Partitioning">Linux x86-64 root (/)</a>
+<a href="../wiki/Partitioning.html#/" title="Partitioning">Linux x86-64 root (/)</a>
 </td>
 <td>
 <code>/</code>
@@ -239,7 +239,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#Swap" title="Partitioning">Linux swap</a>
+<a href="../wiki/Partitioning.html#Swap" title="Partitioning">Linux swap</a>
 </td>
 <td>
 <code>[SWAP]</code>
@@ -253,7 +253,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#/home" title="Partitioning">Linux /home</a>
+<a href="../wiki/Partitioning.html#/home" title="Partitioning">Linux /home</a>
 </td>
 <td>
 <code>/home</code>
@@ -267,7 +267,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#Discrete_partitions" title="Partitioning">Linux /srv</a>
+<a href="../wiki/Partitioning.html#Discrete_partitions" title="Partitioning">Linux /srv</a>
 </td>
 <td>
 <code>/srv</code>
@@ -281,7 +281,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#/var" title="Partitioning">Linux /var</a>
+<a href="../wiki/Partitioning.html#/var" title="Partitioning">Linux /var</a>
 </td>
 <td>
 <code>/var</code><sup>1</sup>
@@ -295,7 +295,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Partitioning.html#Discrete_partitions" title="Partitioning">Linux /var/tmp</a>
+<a href="../wiki/Partitioning.html#Discrete_partitions" title="Partitioning">Linux /var/tmp</a>
 </td>
 <td>
 <code>/var/tmp</code><sup>1</sup>
@@ -309,7 +309,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Install_TOS_Linux_on_LVM.html#Create_partitions" title="Install TOS Linux on LVM">Linux LVM</a>
+<a href="../wiki/Install_TOS_Linux_on_LVM.html#Create_partitions" title="Install TOS Linux on LVM">Linux LVM</a>
 </td>
 <td>Any
 </td>
@@ -322,7 +322,7 @@
 </tr>
 <tr>
 <td>
-<a href="../RAID.html#GUID_Partition_Table" title="RAID">Linux RAID</a>
+<a href="../wiki/RAID.html#GUID_Partition_Table" title="RAID">Linux RAID</a>
 </td>
 <td>Any
 </td>
@@ -335,7 +335,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Dm-crypt/Drive_preparation.html#Physical_partitions" title="Dm-crypt/Drive preparation">Linux LUKS</a>
+<a href="../wiki/Dm-crypt/Drive_preparation.html#Physical_partitions" title="Dm-crypt/Drive preparation">Linux LUKS</a>
 </td>
 <td>Any
 </td>
@@ -348,7 +348,7 @@
 </tr>
 <tr>
 <td>
-<a href="../Dm-crypt/Drive_preparation.html#Physical_partitions" title="Dm-crypt/Drive preparation">Linux dm-crypt</a>
+<a href="../wiki/Dm-crypt/Drive_preparation.html#Physical_partitions" title="Dm-crypt/Drive preparation">Linux dm-crypt</a>
 </td>
 <td>Any
 </td>
@@ -362,12 +362,12 @@
 </tbody>
 </table>
 <ol><li>
-<span class="plainlinks archwiki-template-man" title="$ man 8 systemd-gpt-auto-generator"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-gpt-auto-generator.8">systemd-gpt-auto-generator(8)</a></span> will only automount the partition if specific conditions are met. See <a href="../Systemd.html#GPT_partition_automounting" title="Systemd">systemd#GPT partition automounting</a> for details.</li></ol>
+<span class="plainlinks archwiki-template-man" title="$ man 8 systemd-gpt-auto-generator"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-gpt-auto-generator.8">systemd-gpt-auto-generator(8)</a></span> will only automount the partition if specific conditions are met. See <a href="../wiki/Systemd.html#GPT_partition_automounting" title="Systemd">systemd#GPT partition automounting</a> for details.</li></ol>
 <p>Repeat this procedure until you have the partitions you desire.
 </p>
 <h3><span class="mw-headline" id="Write_changes_to_disk">Write changes to disk</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Use the command <code>c</code> to change a partition's name (<a href="../Persistent_block_device_naming.html#by-partlabel" class="mw-redirect" title="PARTLABEL">PARTLABEL</a>) for easy distinguishing.</div>
+<strong>Tip:</strong> Use the command <code>c</code> to change a partition's name (<a href="../wiki/Persistent_block_device_naming.html#by-partlabel" class="mw-redirect" title="PARTLABEL">PARTLABEL</a>) for easy distinguishing.</div>
 <p>Write the table to disk and exit via the <code>w</code> command.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
@@ -376,7 +376,7 @@
 <strong>Tip:</strong> Read Rod Smith's <a rel="nofollow"  href="https://www.rodsbooks.com/gdisk/mbr2gpt.html">Converting to or from GPT</a> for more detailed information and walktrough.</div>
 <p><i>gdisk</i>, <i>sgdisk</i> and <i>cgdisk</i> have the ability to convert MBR and <a href="https://en.wikipedia.org/wiki/BSD_disklabel"  title="wikipedia:BSD disklabel">BSD disklabels</a> to GPT without data loss. Upon conversion, all the MBR primary partitions and the logical partitions become GPT partitions with the correct partition type GUIDs and Unique partition GUIDs created for each partition.
 </p>
-<p>After conversion, the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> will need to be reinstalled to configure it to boot from GPT.
+<p>After conversion, the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> will need to be reinstalled to configure it to boot from GPT.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
@@ -401,7 +401,7 @@
 </p>
 <pre># sgdisk -s /dev/sda
 </pre>
-<p>After sorting the partitions if you are not using <a href="../Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>, it might be required to adjust the <code>/etc/fstab</code> and/or the <code>/etc/crypttab</code> configuration files.
+<p>After sorting the partitions if you are not using <a href="../wiki/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>, it might be required to adjust the <code>/etc/fstab</code> and/or the <code>/etc/crypttab</code> configuration files.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The kernel must read the new partition table for the partitions (e.g. <code>/dev/sda1</code>) to be usable. Reboot the system or tell the kernel to <a rel="nofollow"  href="https://serverfault.com/questions/36038/reread-partition-table-without-rebooting">reread the partition table</a>.</div>
@@ -421,7 +421,7 @@
 <p>When done write the table to disk and exit via the <code>w</code> command.
 </p>
 <h3><span class="mw-headline" id="Expand_a_GPT_disk">Expand a GPT disk</span></h3>
-<p>After enlarging a disk (e.g. in hardware <a href="../RAID.html" title="RAID">RAID</a> or a <a href="../Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machine</a> disk) the newly added free space will not be immediately usable since GPT keeps data at the end of the disk. You must relocate the backup GPT header to the new end of the disk.
+<p>After enlarging a disk (e.g. in hardware <a href="../wiki/RAID.html" title="RAID">RAID</a> or a <a href="../wiki/Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machine</a> disk) the newly added free space will not be immediately usable since GPT keeps data at the end of the disk. You must relocate the backup GPT header to the new end of the disk.
 </p>
 <p>Run <i>sgdisk</i> with the option <code>-e</code>/<code>--move-second-header</code>, e.g.:
 </p>
@@ -451,7 +451,7 @@
 <pre># sgdisk -A 2:set:63 /dev/sda
 </pre>
 <h3><span class="mw-headline" id="gdisk_EFI_application">gdisk EFI application</span></h3>
-<p>There is no package for the EFI version of gdisk, but Rod Smith provides a prebuilt gdisk EFI binary on <a rel="nofollow"  href="https://sourceforge.net/projects/gptfdisk/files/gptfdisk/">SourceForge</a>. Download <code>gdisk-efi-*.zip</code> and extract the archive. To use it, copy <code>gdisk_x64.efi</code> to the <a href="../EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and launch it from your <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> or <a href="../Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">UEFI Shell</a>.
+<p>There is no package for the EFI version of gdisk, but Rod Smith provides a prebuilt gdisk EFI binary on <a rel="nofollow"  href="https://sourceforge.net/projects/gptfdisk/files/gptfdisk/">SourceForge</a>. Download <code>gdisk-efi-*.zip</code> and extract the archive. To use it, copy <code>gdisk_x64.efi</code> to the <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> and launch it from your <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> or <a href="../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">UEFI Shell</a>.
 </p>
 <p><i>gdisk_x64.efi</i> allows you to edit the partition table before the operating system is even booted. It is used the same way as the <i>gdisk</i> binary on Linux.
 </p>
@@ -470,12 +470,12 @@
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="../Category:System_recovery.html" title="Category:System recovery">System recovery</a></li>
-<li><a href="../Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="../wiki/Category:System_recovery.html" title="Category:System recovery">System recovery</a></li>
+<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -493,9 +493,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

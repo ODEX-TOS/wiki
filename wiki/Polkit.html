@@ -2,7 +2,7 @@
     title: Polkit
     description: Migration of Polkit from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../General_troubleshooting.html#Session_permissions" class="mw-redirect" title="Session">Session</a></li>
-<li><a href="../Sudo.html" title="Sudo">Sudo</a></li>
-<li><a href="../Users_and_groups.html" title="Users and groups">Users and groups</a></li>
+<li><a href="../wiki/General_troubleshooting.html#Session_permissions" class="mw-redirect" title="Session">Session</a></li>
+<li><a href="../wiki/Sudo.html" title="Sudo">Sudo</a></li>
+<li><a href="../wiki/Users_and_groups.html" title="Users and groups">Users and groups</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/polkit/">polkit homepage</a>:
@@ -80,14 +80,14 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=polkit">polkit</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=polkit">polkit</a></span> package.
 </p>
 <h3><span class="mw-headline" id="Authentication_agents">Authentication agents</span></h3>
 <p>An authentication agent is used to make the user of a session prove that the user of the session really is the user (by authenticating as the user) or an administrative user (by authenticating as an administrator). The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=polkit">polkit</a></span> package contains a textual authentication agent called 'pkttyagent', which is used as a general fallback. 
 </p>
-<p>If you are using a graphical environment, make sure that a graphical authentication agent is installed and <a href="../Autostarting.html" title="Autostarting">autostarted</a> on login.
+<p>If you are using a graphical environment, make sure that a graphical authentication agent is installed and <a href="../wiki/Autostarting.html" title="Autostarting">autostarted</a> on login.
 </p>
-<p><a href="../Cinnamon.html" title="Cinnamon">Cinnamon</a>, <a href="../Deepin_Desktop_Environment.html" class="mw-redirect" title="Deepin">Deepin</a>, <a href="../GNOME.html" title="GNOME">GNOME</a>, <a href="../GNOME/Flashback.html" class="mw-redirect" title="GNOME Flashback">GNOME Flashback</a>, <a href="../KDE.html" title="KDE">KDE</a>, <a href="../LXDE.html" title="LXDE">LXDE</a>, <a href="../LXQt.html" title="LXQt">LXQt</a>, <a href="../MATE.html" title="MATE">MATE</a>, theShell and <a href="../Xfce.html" title="Xfce">Xfce</a> have an authentication agent already.
+<p><a href="../wiki/Cinnamon.html" title="Cinnamon">Cinnamon</a>, <a href="../wiki/Deepin_Desktop_Environment.html" class="mw-redirect" title="Deepin">Deepin</a>, <a href="../wiki/GNOME.html" title="GNOME">GNOME</a>, <a href="../wiki/GNOME/Flashback.html" class="mw-redirect" title="GNOME Flashback">GNOME Flashback</a>, <a href="../wiki/KDE.html" title="KDE">KDE</a>, <a href="../wiki/LXDE.html" title="LXDE">LXDE</a>, <a href="../wiki/LXQt.html" title="LXQt">LXQt</a>, <a href="../wiki/MATE.html" title="MATE">MATE</a>, theShell and <a href="../wiki/Xfce.html" title="Xfce">Xfce</a> have an authentication agent already.
 In other desktop environments, you have to choose one of the following implementations:
 </p>
 <ul>
@@ -130,7 +130,7 @@ In other desktop environments, you have to choose one of the following implement
 <p>Polkit operates on top of the existing permissions systems in Linux – group membership, administrator status – it does not replace them. The .rules files designate a subset of users, refer to one (or more) of the actions specified in the actions files, and determine with what restrictions these actions can be taken by those users. As an example, a rules file could overrule the default requirement for all users to authenticate as an admin when using GParted, determining that some specific user doesn't need to. A different example: A certain user isn't allowed to use GParted at all.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This does not preclude running GParted by means which do not respect polkit, such as the command line. Therefore, polkit should be used to expand access to privileged services for unprivileged users, rather than try to curtail the rights of (semi-)privileged users. For security purposes, <a href="../Sudo.html" title="Sudo">sudoers</a> is still the way to go.</div>
+<strong>Note:</strong> This does not preclude running GParted by means which do not respect polkit, such as the command line. Therefore, polkit should be used to expand access to privileged services for unprivileged users, rather than try to curtail the rights of (semi-)privileged users. For security purposes, <a href="../wiki/Sudo.html" title="Sudo">sudoers</a> is still the way to go.</div>
 <h3><span class="mw-headline" id="Actions">Actions</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> To display Policykit actions in a graphical interface, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/polkit-explorer/">polkit-explorer</a></span><sup><small>AUR</small></sup> package.</div>
@@ -140,11 +140,11 @@ In other desktop environments, you have to choose one of the following implement
 </p>
 <ul>
 <li>
-<b><a href="../Systemd.html" title="Systemd">systemd-logind</a></b> <i>(org.freedesktop.login1.policy)</i> actions regulated by polkit include powering off, rebooting, suspending and hibernating the system, including when other users may still be logged in.</li>
+<b><a href="../wiki/Systemd.html" title="Systemd">systemd-logind</a></b> <i>(org.freedesktop.login1.policy)</i> actions regulated by polkit include powering off, rebooting, suspending and hibernating the system, including when other users may still be logged in.</li>
 <li>
-<b><a href="../Udisks.html" title="Udisks">udisks</a></b> <i>(org.freedesktop.udisks2.policy)</i> actions regulated by polkit include mounting file systems and unlocking encrypted devices.</li>
+<b><a href="../wiki/Udisks.html" title="Udisks">udisks</a></b> <i>(org.freedesktop.udisks2.policy)</i> actions regulated by polkit include mounting file systems and unlocking encrypted devices.</li>
 <li>
-<b><a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a></b> <i>(org.freedesktop.NetworkManager.policy)</i> actions regulated by polkit include turning on and off the network, wifi or mobile broadband.</li>
+<b><a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a></b> <i>(org.freedesktop.NetworkManager.policy)</i> actions regulated by polkit include turning on and off the network, wifi or mobile broadband.</li>
 </ul>
 <p>Each action is defined in an <code>&lt;action&gt;</code> tag in a .policy file. The <code>org.archlinux.pkexec.gparted.policy</code> contains a single action and looks like this:
 </p>
@@ -168,7 +168,7 @@ In other desktop environments, you have to choose one of the following implement
 
 &lt;/policyconfig&gt;
 </pre>
-<p>The attribute <b>id</b> is the actual command sent to <a href="../D-Bus.html" title="D-Bus">D-Bus</a>, the <b>message</b> tag is the explanation to the user when authentication is required and the <b>icon_name</b> is sort of obvious. 
+<p>The attribute <b>id</b> is the actual command sent to <a href="../wiki/D-Bus.html" title="D-Bus">D-Bus</a>, the <b>message</b> tag is the explanation to the user when authentication is required and the <b>icon_name</b> is sort of obvious. 
 </p>
 <p>The <b>defaults</b> tag is where the permissions or lack thereof are located. It contains three settings: <b>allow_any</b>, <b>allow_inactive</b>, and <b>allow_active</b>. Inactive sessions are generally remote sessions (SSH, VNC, etc.) whereas active sessions are logged directly into the machine on a TTY or an X display. allow_any is the setting encompassing both scenarios. 
 </p>
@@ -255,7 +255,7 @@ polkit.addAdminRule(function(action, subject) {
     }
 });</pre>
 <h3><span class="mw-headline" id="Bypass_password_prompt">Bypass password prompt</span></h3>
-<p>To achieve something similar to the <a href="../Sudo.html" title="Sudo">sudo</a> <code>NOPASSWD</code> option and get authorized solely based on <a href="../Users_and_groups.html" title="Users and groups">user/group</a> identity, you can create custom rules in <code>/etc/polkit-1/rules.d/</code>. This allows you to override password authentication either <a href="#For_specific_actions">only for specific actions</a> or <a href="#Globally">globally</a>. See <a rel="nofollow"  href="https://gist.github.com/4013294/ccacedd69d54de7f2fd5881b546d5192d6a2bddb">[1]</a> for an example rule set.
+<p>To achieve something similar to the <a href="../wiki/Sudo.html" title="Sudo">sudo</a> <code>NOPASSWD</code> option and get authorized solely based on <a href="../wiki/Users_and_groups.html" title="Users and groups">user/group</a> identity, you can create custom rules in <code>/etc/polkit-1/rules.d/</code>. This allows you to override password authentication either <a href="#For_specific_actions">only for specific actions</a> or <a href="#Globally">globally</a>. See <a rel="nofollow"  href="https://gist.github.com/4013294/ccacedd69d54de7f2fd5881b546d5192d6a2bddb">[1]</a> for an example rule set.
 </p>
 <h4><span class="mw-headline" id="Globally">Globally</span></h4>
 <p>Create the following file as root:
@@ -292,15 +292,15 @@ polkit.addRule(function(action, subject) {
     }
 });
 </pre>
-<p>The <code>action.id</code>s selected here are just (working) examples for GParted and <a href="../Libvirt.html" title="Libvirt">Libvirt</a>, but you can replace them by any other of your liking as long as they exist (custom made or supplied by a package), and so can you define any group instead of <code>wheel</code>.
+<p>The <code>action.id</code>s selected here are just (working) examples for GParted and <a href="../wiki/Libvirt.html" title="Libvirt">Libvirt</a>, but you can replace them by any other of your liking as long as they exist (custom made or supplied by a package), and so can you define any group instead of <code>wheel</code>.
 </p>
 <p>The <code>||</code> operator is used to delimit actions (logical OR), and <code>&amp;&amp;</code> means logical AND and must be kept as the last operator.
 </p>
 <h4><span class="mw-headline" id="Udisks">Udisks</span></h4>
-<p><a href="../File_manager_functionality.html" class="mw-redirect" title="File manager">File managers</a> may ask for a password when trying to mount a storage device, or yield a <i>Not authorized</i> or similar error. See <a href="../Udisks.html#Configuration" title="Udisks">Udisks#Configuration</a> for details.
+<p><a href="../wiki/File_manager_functionality.html" class="mw-redirect" title="File manager">File managers</a> may ask for a password when trying to mount a storage device, or yield a <i>Not authorized</i> or similar error. See <a href="../wiki/Udisks.html#Configuration" title="Udisks">Udisks#Configuration</a> for details.
 </p>
 <h3><span class="mw-headline" id="Allow_management_of_individual_systemd_units_by_regular_users">Allow management of individual systemd units by regular users</span></h3>
-<p>By checking for certain values passed to the polkit policy check, you can give specific users or groups the ability to manage specific units. As an example, you might want regular users to start and stop <a href="../Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>:
+<p>By checking for certain values passed to the polkit policy check, you can give specific users or groups the ability to manage specific units. As an example, you might want regular users to start and stop <a href="../wiki/Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/polkit-1/rules.d/10-wifimanagement.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">polkit.addRule(function(action, subject) {
@@ -323,7 +323,7 @@ polkit.addRule(function(action, subject) {
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Security.html" title="Category:Security">Security</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -340,9 +340,9 @@ polkit.addRule(function(action, subject) {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

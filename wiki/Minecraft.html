@@ -2,7 +2,7 @@
     title: Minecraft
     description: Migration of Minecraft from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -95,7 +95,7 @@
 </p>
 <p>A simpler way is to allow others to join your current Minecraft game. When playing, your Minecraft client also allows others to join the game in progress. Your client automatically broadcasts the info about your game on port 4445. It will also listen for TCP connections on which other players join. This TCP listening port is picked at random every time you start Minecraft. This works well if you don't have a firewall. But if your firewall blocks incoming TCP connections, then it is very tricky to allow this random port in. 
 </p>
-<p>In conclusion, to allow your client to host a local LAN game, your <a href="../Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> need to allow:
+<p>In conclusion, to allow your client to host a local LAN game, your <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> need to allow:
 </p>
 <ul>
 <li>UDP port <code>4445</code> to broadcast your game</li>
@@ -105,7 +105,7 @@
 </p>
 <h2><span class="mw-headline" id="Server">Server</span></h2>
 <h3><span class="mw-headline" id="Installation_2">Installation</span></h3>
-<p>Minecraft server can be installed via the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/minecraft-server/">minecraft-server</a></span><sup><small>AUR</small></sup> package. It provides additional <a href="../Systemd.html" title="Systemd">systemd</a> unit files and includes a small control script.
+<p>Minecraft server can be installed via the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/minecraft-server/">minecraft-server</a></span><sup><small>AUR</small></sup> package. It provides additional <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit files and includes a small control script.
 </p>
 <p>Also see <a href="#Alternative_servers">#Alternative servers</a> for an overview of alternative programs allowing to host Minecraft.
 </p>
@@ -115,10 +115,10 @@
 However you may safely add your user to the <code>minecraft</code> group and add group write permission to the directory <code>/srv/minecraft</code> (default) to modify Minecraft server settings. Make sure that all files in the <code>/srv/minecraft</code> directory are either owned by the <code>minecraft</code> user, or that the user has by other means read and write permissions. The server will error out if it is unable to access certain files and might even have insufficient rights to write an according error message to the log.
 </p>
 <p>The package provides a systemd service and timer to take automatic backups. By default the backups are located in the <code>backup</code> folder under the server root directory. Though to keep the disk footprint small only the 10 most recent backups are preserved (configurable via <code>KEEP_BACKUPS</code>). The related systemd files are <code>minecraftd-backup.timer</code>
-and <code>minecraftd-backup.service</code>. They may easily be <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">adapted</a> to your liking, e.g. to follow a custom backup interval.
+and <code>minecraftd-backup.service</code>. They may easily be <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">adapted</a> to your liking, e.g. to follow a custom backup interval.
 </p>
 <h4><span class="mw-headline" id="Starting_the_server">Starting the server</span></h4>
-<p>To start the server you may either use systemd or run it directly from the command line. Either way the server is encapsulated in a <a href="../GNU_Screen.html" title="GNU Screen">GNU Screen</a> session which is owned by the <code>minecraft</code> user. Using systemd you may <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable the included <code>minecraftd.service</code>. Alternatively run
+<p>To start the server you may either use systemd or run it directly from the command line. Either way the server is encapsulated in a <a href="../wiki/GNU_Screen.html" title="GNU Screen">GNU Screen</a> session which is owned by the <code>minecraft</code> user. Using systemd you may <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable the included <code>minecraftd.service</code>. Alternatively run
 </p>
 <pre># minecraftd start
 </pre>
@@ -147,7 +147,7 @@ and <code>minecraftd-backup.service</code>. They may easily be <a href="../Syste
 <h4><span class="mw-headline" id="Tweaking">Tweaking</span></h4>
 <p>To tweak the default settings (e.g. the maximum RAM, number of threads etc.) edit the file <code>/etc/conf.d/minecraft</code>.
 </p>
-<p>For example, more advanced users may wish to enable <code>IDLE_SERVER</code> by setting it to <code>true</code>. This will enable the management script to suspend the server if no player was online for at least <code>IDLE_IF_TIME</code> (defaults to 20 minutes). When the server is suspended an <code>idle_server</code> will listen on the Minecraft port using <span class="plainlinks archwiki-template-man" title="$ man 1 ncat"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ncat.1">ncat(1)</a></span> (also called netcat or simply nc for short; see <a href="../Network_tools.html#Netcat" title="Network tools">Network tools#Netcat</a>) and will immediately start the server at the first incoming connection. Though this obviously delays joining for the first time after suspension, it significantly decreases the CPU and memory usage leading to more reasonable resource and power consumption levels.
+<p>For example, more advanced users may wish to enable <code>IDLE_SERVER</code> by setting it to <code>true</code>. This will enable the management script to suspend the server if no player was online for at least <code>IDLE_IF_TIME</code> (defaults to 20 minutes). When the server is suspended an <code>idle_server</code> will listen on the Minecraft port using <span class="plainlinks archwiki-template-man" title="$ man 1 ncat"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ncat.1">ncat(1)</a></span> (also called netcat or simply nc for short; see <a href="../wiki/Network_tools.html#Netcat" title="Network tools">Network tools#Netcat</a>) and will immediately start the server at the first incoming connection. Though this obviously delays joining for the first time after suspension, it significantly decreases the CPU and memory usage leading to more reasonable resource and power consumption levels.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If running for the first time with this option enabled, the <code>/srv/minecraft/eula.txt</code> file will not get created. You need to disable it to initially start.</div>
@@ -155,7 +155,7 @@ and <code>minecraftd-backup.service</code>. They may easily be <a href="../Syste
 <h4>
 <span id="Spigot_.28respectively_Craftbukkit.29"></span><span class="mw-headline" id="Spigot_(respectively_Craftbukkit)">Spigot (respectively Craftbukkit)</span>
 </h4>
-<p><a rel="nofollow"  href="https://www.spigotmc.org/">Spigot</a> is the most widely-used <b>modded</b> Minecraft server in the world. It can be installed as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/spigot/">spigot</a></span><sup><small>AUR</small></sup> via the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. The spigot PKGBUILD builds on top of the files from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/minecraft-server/">minecraft-server</a></span><sup><small>AUR</small></sup> package. This means that the spigot server provides its own systemd unit files, spigot script and  corresponding script configuration file. The binary is called <code>spigot</code> and is capable of fulfilling the same commands as <code>minecraftd</code>. The configuration file resides under <code>/etc/conf.d/spigot</code>.
+<p><a rel="nofollow"  href="https://www.spigotmc.org/">Spigot</a> is the most widely-used <b>modded</b> Minecraft server in the world. It can be installed as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/spigot/">spigot</a></span><sup><small>AUR</small></sup> via the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. The spigot PKGBUILD builds on top of the files from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/minecraft-server/">minecraft-server</a></span><sup><small>AUR</small></sup> package. This means that the spigot server provides its own systemd unit files, spigot script and  corresponding script configuration file. The binary is called <code>spigot</code> and is capable of fulfilling the same commands as <code>minecraftd</code>. The configuration file resides under <code>/etc/conf.d/spigot</code>.
 </p>
 <p>Be sure to read <a href="#Setup">#Setup</a> and replace <code>minecraftd</code> with <code>spigot</code> wherever you encounter it.
 </p>
@@ -203,8 +203,8 @@ and <code>minecraftd-backup.service</code>. They may easily be <a href="../Syste
 <h3><span class="mw-headline" id="Additional_notes">Additional notes</span></h3>
 <ul>
 <li>There are several server wrappers available providing everything from automatic backup to managing dozens of servers in parallel, refer to <a rel="nofollow"  href="http://www.minecraftwiki.net/wiki/Programs_and_editors#Server_Wrappers">Server Wrappers</a> for more information. However the management script provided by the AUR packages should suffice most needs.</li>
-<li>You might want to set up a <a href="../Systemd/Timers.html" title="Systemd/Timers">systemd timer</a> with e.g. <a rel="nofollow"  href="http://www.minecraftwiki.net/wiki/Programs_and_editors#Mappers">mapper</a> to generate periodic maps of your world.</li>
-<li>Be sure to take periodic backups e.g. using the provided management script (see <a href="#Introduction">#Introduction</a>) or plain <a href="../Rsync.html" title="Rsync">rsync</a>.</li>
+<li>You might want to set up a <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd timer</a> with e.g. <a rel="nofollow"  href="http://www.minecraftwiki.net/wiki/Programs_and_editors#Mappers">mapper</a> to generate periodic maps of your world.</li>
+<li>Be sure to take periodic backups e.g. using the provided management script (see <a href="#Introduction">#Introduction</a>) or plain <a href="../wiki/Rsync.html" title="Rsync">rsync</a>.</li>
 </ul>
 <h2><span class="mw-headline" id="Minecraft_mod_launchers">Minecraft mod launchers</span></h2>
 <p>You can launch Minecraft from different so called <i>launchers</i> that often include an array of mod packs to enhance one's gameplay and add <a rel="nofollow"  href="http://minecraft.gamepedia.com/Mods">mods</a>.
@@ -232,15 +232,15 @@ and <code>minecraftd-backup.service</code>. They may easily be <a href="../Syste
 <ul><li>Minutor (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/minutor-git/">minutor-git</a></span><sup><small>AUR</small></sup>) is a minimalistic map generator for Minecraft. You are provided with a simple GTK based interface for viewing your world. Several rendering modes are available, as well as custom coloring modes and the ability to slice through z-levels.</li></ul>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Server_on_ARM_devices">Server on ARM devices</span></h3>
-<p>Minecraft server should run without any issues on <a rel="nofollow"  href="https://archlinuxarm.org/">ARM</a> devices with latest <a href="../Java.html" title="Java">Java</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jre-openjdk-headless">jre-openjdk-headless</a></span>. However, if you encounter any issues, try using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jdk-arm/">jdk-arm</a></span><sup><small>AUR</small></sup> instead. Also consider <a href="#Cuberite">#Cuberite</a> server as an alternative.
+<p>Minecraft server should run without any issues on <a rel="nofollow"  href="https://archlinuxarm.org/">ARM</a> devices with latest <a href="../wiki/Java.html" title="Java">Java</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jre-openjdk-headless">jre-openjdk-headless</a></span>. However, if you encounter any issues, try using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jdk-arm/">jdk-arm</a></span><sup><small>AUR</small></sup> instead. Also consider <a href="#Cuberite">#Cuberite</a> server as an alternative.
 </p>
 <h3><span class="mw-headline" id="Client_Wayland_support">Client Wayland support</span></h3>
 <p>Wayland and other window managers are currently not supported with Minecraft, as Minecraft has the prerequisite of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xrandr">xorg-xrandr</a></span> and should be opened with xorg.
 </p>
 <h3><span class="mw-headline" id="Client_or_server_does_not_start">Client or server does not start</span></h3>
-<p>It might be the problem with <a href="../Java.html" title="Java">Java</a> version. Java version 8 is guaranteed to work well in all cases.
+<p>It might be the problem with <a href="../wiki/Java.html" title="Java">Java</a> version. Java version 8 is guaranteed to work well in all cases.
 </p>
-<p>Both Minecraft server and the actual game work perfectly fine with the latest version of <a href="../Java.html" title="Java">Java</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jre-openjdk">jre-openjdk</a></span>, but the Minecraft game launcher (and possibly all other mods) might only work with the <a href="../Java.html" title="Java">Java</a> version 8.
+<p>Both Minecraft server and the actual game work perfectly fine with the latest version of <a href="../wiki/Java.html" title="Java">Java</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jre-openjdk">jre-openjdk</a></span>, but the Minecraft game launcher (and possibly all other mods) might only work with the <a href="../wiki/Java.html" title="Java">Java</a> version 8.
 </p>
 <h3><span class="mw-headline" id="Broken_fonts_with_MinecraftForge">Broken fonts with MinecraftForge</span></h3>
 <p>Force Unicode fonts from the language menu.
@@ -287,7 +287,7 @@ allow-moves=yes</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Gaming.html" title="Category:Gaming">Gaming</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Gaming.html" title="Category:Gaming">Gaming</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -304,9 +304,9 @@ allow-moves=yes</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: HP_EliteBook_840_G1
     description: Migration of HP_EliteBook_840_G1 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -40,7 +40,7 @@
 </td>
 </tr>
 <tr>
-<td>AMD graphics (<a href="../PRIME.html" title="PRIME">PRIME</a>)</td>
+<td>AMD graphics (<a href="../wiki/PRIME.html" title="PRIME">PRIME</a>)</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Working</td>
 <td>xf86-video-amdgpu
 </td>
@@ -150,14 +150,14 @@
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="UEFI_Setup">UEFI Setup</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Make sure you have the latest HP <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware installed.</div>
-<p>Even if <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="../TOS_Linux.html" title="TOS Linux">TOS Linux</a> and (e.g.) <a href="../GRUB.html" title="GRUB">GRUB</a> are correctly configured and with the correct UEFI NVRAM variables set, the system will not boot from the HDD/SSD. The problem is that HP hard coded the paths for the OS boot manager in their UEFI boot manager to <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> to boot Microsoft Windows, regardless of how the UEFI NVRAM variables are changed. There are two workarounds:
+<strong>Note:</strong> Make sure you have the latest HP <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware installed.</div>
+<p>Even if <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="../wiki/TOS_Linux.html" title="TOS Linux">TOS Linux</a> and (e.g.) <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> are correctly configured and with the correct UEFI NVRAM variables set, the system will not boot from the HDD/SSD. The problem is that HP hard coded the paths for the OS boot manager in their UEFI boot manager to <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> to boot Microsoft Windows, regardless of how the UEFI NVRAM variables are changed. There are two workarounds:
 </p>
 <h4>
 <span id="Using_the_.22Customized_Boot.22_path_option_.28recommended.29"></span><span class="mw-headline" id='Using_the_"Customized_Boot"_path_option_(recommended)'>Using the "Customized Boot" path option (recommended)</span>
 </h4>
 <p>The latest HP firmware allows defining a “Customized Boot” path in the UEFI pre-boot graphical environment.
-Select the “Customized Boot” option in the UEFI pre-boot graphical environment under “Boot Options” and set the path to your OS boot loader on the ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>), e.g.:
+Select the “Customized Boot” option in the UEFI pre-boot graphical environment under “Boot Options” and set the path to your OS boot loader on the ESP (see <a href="../wiki/Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>), e.g.:
 </p>
 <p><code>\EFI\grub\grubx64.efi</code>
 </p>
@@ -169,7 +169,7 @@ Select the “Customized Boot” option in the UEFI pre-boot graphical environme
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> This method is not recommended, as it will create conflicts in a dual boot setup with Microsoft Windows. Also, everytime you install GRUB, you have to remember to copy it to the hard coded path.</div>
 <p>Change the UEFI application path of the OS boot loader to that hard coded path.
-On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; e.g. with the $MOUNTPOINT <code>/boot/efi</code>), do (e.g. with <a href="../GRUB.html" title="GRUB">GRUB</a> entry <code>grub_archlinux</code>):
+On your ESP (see <a href="../wiki/Unified_Extensible_Firmware_Interface.html#EFI_System_Partition" class="mw-redirect" title="UEFI">UEFI#EFI System Partition</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>; e.g. with the $MOUNTPOINT <code>/boot/efi</code>), do (e.g. with <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> entry <code>grub_archlinux</code>):
 </p>
 <pre> # mkdir -p $MOUNTPOINT/EFI/Microsoft/Boot
  # cp $MOUNTPOINT/EFI/grub/grubx64.efi $MOUNTPOINT/EFI/Microsoft/Boot/bootmgfw.efi
@@ -182,13 +182,13 @@ On your ESP (see <a href="../Unified_Extensible_Firmware_Interface.html#EFI_Syst
 <h3><span class="mw-headline" id="Encryption">Encryption</span></h3>
 <p>This notebook supports <a href="https://en.wikipedia.org/wiki/Hardware-based_full_disk_encryption#Hard_disk_drive_FDE"  title="wikipedia:Hardware-based full disk encryption">HDD FDE (SED)</a>. The HDD/SSD can be locked by setting a password in the UEFI pre-boot graphical environment under the option "DriveLock" (this requires setting a password for the UEFI pre-boot graphical environment first). If you replace the HDD/SSD, make sure to get a compatible one to make use of this feature.
 </p>
-<p>Otherwise, see <a href="../Data-at-rest_encryption.html" class="mw-redirect" title="Disk encryption">Disk encryption</a> for software-based encryption.
+<p>Otherwise, see <a href="../wiki/Data-at-rest_encryption.html" class="mw-redirect" title="Disk encryption">Disk encryption</a> for software-based encryption.
 </p>
 <h3><span class="mw-headline" id="AMD_Graphics">AMD Graphics</span></h3>
-<p>In order to get the dedicated AMD graphics card to function properly, install <a href="../AMDGPU.html" title="AMDGPU">AMDGPU</a> first.
+<p>In order to get the dedicated AMD graphics card to function properly, install <a href="../wiki/AMDGPU.html" title="AMDGPU">AMDGPU</a> first.
 Set the following kernel parameters: <code>amdgpu.si_support=1 radeon.si_support=0</code>.
 </p>
-<p>Now, any application run with <code>DRI_PRIME</code> (as described for using <a href="../PRIME.html" title="PRIME">PRIME</a>) is using the dedicated GPU.
+<p>Now, any application run with <code>DRI_PRIME</code> (as described for using <a href="../wiki/PRIME.html" title="PRIME">PRIME</a>) is using the dedicated GPU.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
 <p>For HDMI Audio you need <code>CONFIG_INTEL_IOMMU_DEFAULT_ON=n</code> in your kernel config (see <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=61471">https://bugzilla.kernel.org/show_bug.cgi?id=61471</a>). In some cases, you will need <code>options snd-hda-intel enable=1,1,0</code> in <code>/etc/modprobe.d/snd-hda-intel.conf</code>. This will prevent freezes caused by hdmi audio cards conflicting.
@@ -211,7 +211,7 @@ Set the following kernel parameters: <code>amdgpu.si_support=1 radeon.si_support
  KEYBOARD_KEY_81=f20                          # Fn+F8 on Elitebook, map to F20
 </pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> It is strongly recommanded to understand <a href="../Map_scancodes_to_keycodes.html" title="Map scancodes to keycodes">scancodes to keycodes mapping</a> before doing this.</div>
+<strong>Warning:</strong> It is strongly recommanded to understand <a href="../wiki/Map_scancodes_to_keycodes.html" title="Map scancodes to keycodes">scancodes to keycodes mapping</a> before doing this.</div>
 <p>Then, you just need to regenerate and reload your <code>hwdb.bin</code> file:
 </p>
 <pre># systemd-hwdb update
@@ -230,11 +230,11 @@ Set the following kernel parameters: <code>amdgpu.si_support=1 radeon.si_support
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -253,9 +253,9 @@ Set the following kernel parameters: <code>amdgpu.si_support=1 radeon.si_support
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

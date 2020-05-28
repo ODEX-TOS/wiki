@@ -2,7 +2,7 @@
     title: Active_Directory_domain_controller
     description: Migration of Active_Directory_domain_controller from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../Samba.html" title="Samba">Samba</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Samba.html" title="Samba">Samba</a></span></div>
 		
 		
 		
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../../Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
-<li><a href="../../Samba.html" title="Samba">Samba</a></li>
-<li><a href="../../SOGo.html" title="SOGo">SOGo</a></li>
+<li><a href="../../wiki/Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
+<li><a href="../../wiki/Samba.html" title="Samba">Samba</a></li>
+<li><a href="../../wiki/SOGo.html" title="SOGo">SOGo</a></li>
 </ul>
 </div>
-<p>This article explains how to setup an Active Directory domain controller using <a href="../../Samba.html" title="Samba">Samba</a>. It is assumed that all configuration files are in their unmodified, post-installation state. This article was written and tested on a fresh installation, with no modifications other than setting up a static IPv4 network connection (required). Finally, most of the commands below will require elevated privileges. Despite conventional wisdom, it may be easier to run these short few commands from a root session as opposed to obtaining rights on an as needed basis.
+<p>This article explains how to setup an Active Directory domain controller using <a href="../../wiki/Samba.html" title="Samba">Samba</a>. It is assumed that all configuration files are in their unmodified, post-installation state. This article was written and tested on a fresh installation, with no modifications other than setting up a static IPv4 network connection (required). Finally, most of the commands below will require elevated privileges. Despite conventional wisdom, it may be easier to run these short few commands from a root session as opposed to obtaining rights on an as needed basis.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -111,16 +111,16 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Make sure you can access the machines in your network via their hostname. See <a href="../../Network_configuration.html#Local_network_hostname_resolution" title="Network configuration">Network configuration#Local network hostname resolution</a> for more information.</div>
+<strong>Note:</strong> Make sure you can access the machines in your network via their hostname. See <a href="../../wiki/Network_configuration.html#Local_network_hostname_resolution" title="Network configuration">Network configuration#Local network hostname resolution</a> for more information.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Samba packages are currently broken in the official TOS repos, but this will likely be remedied with the release of samba-4.12.2-4. In the interim, please install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/smbclient-heimdal/">smbclient-heimdal</a></span><sup><small>AUR</small></sup>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/samba-heimdal/">samba-heimdal</a></span><sup><small>AUR</small></sup>. Until samba-4.12.2-4 is released (or whichever release brings us back to internal Heimdal), you will need to decided if you would like to continue using the internal Heimdal krb5, or use the system MIT krb5. There are some limitations with MIT krb5 WRT RODC and System GPOs, but MIT krb5 is currently required for GSSAPI authentication for printing (I'm looking into this issue separately in an effort to get the samba packages stabel, but currently suspect that the issue is with our <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> packaging rather than Samba (just a side effect). You can continue to use the -heimdal packages until <s>you are ready to upgrade to MIT krb5</s> this is fixed in the official repos. See <a href="#Upgrading_an_existing_installation_to_MIT_krb5">below</a>.</div>
-<p>A fully functional samba domain controller requires several programs beyond those included with the Samba distribution. <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind-tools">bind-tools</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=krb5">krb5</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-dnspython">python-dnspython</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> packages from the official repositories.
+<p>A fully functional samba domain controller requires several programs beyond those included with the Samba distribution. <a href="../../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind-tools">bind-tools</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=krb5">krb5</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntp">ntp</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-dnspython">python-dnspython</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> packages from the official repositories.
 </p>
-<p>Samba contains its own fully functional DNS server, but if you need to maintain DNS zones for external domains, you are strongly encouraged to use <a href="../../BIND.html" title="BIND">BIND</a> instead. If you need to share printers, you will also need <a href="../../CUPS.html" title="CUPS">CUPS</a>. If needed, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> and/or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> packages.
+<p>Samba contains its own fully functional DNS server, but if you need to maintain DNS zones for external domains, you are strongly encouraged to use <a href="../../wiki/BIND.html" title="BIND">BIND</a> instead. If you need to share printers, you will also need <a href="../../wiki/CUPS.html" title="CUPS">CUPS</a>. If needed, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> and/or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cups">cups</a></span> packages.
 </p>
 <h2><span class="mw-headline" id="Creating_a_new_directory">Creating a new directory</span></h2>
 <h3><span class="mw-headline" id="Provisioning">Provisioning</span></h3>
-<p>The first step to creating an Active Directory domain is provisioning. This involves setting up the internal <a href="../../OpenLDAP.html" class="mw-redirect" title="LDAP">LDAP</a>, <a href="../../Kerberos.html" title="Kerberos">Kerberos</a>, and DNS servers and performing all of the basic configuration needed for the directory. If you have set up a directory server before, you are undoubtedly aware of the potential for errors in making these individual components work together as a single unit. The difficulty in doing so is the very reason that the Samba developers chose to provide internal versions of these programs. The server packages above were installed only for the client utilities. Provisioning is quite a bit easier with Samba. Just issue the following command:
+<p>The first step to creating an Active Directory domain is provisioning. This involves setting up the internal <a href="../../wiki/OpenLDAP.html" class="mw-redirect" title="LDAP">LDAP</a>, <a href="../../wiki/Kerberos.html" title="Kerberos">Kerberos</a>, and DNS servers and performing all of the basic configuration needed for the directory. If you have set up a directory server before, you are undoubtedly aware of the potential for errors in making these individual components work together as a single unit. The difficulty in doing so is the very reason that the Samba developers chose to provide internal versions of these programs. The server packages above were installed only for the client utilities. Provisioning is quite a bit easier with Samba. Just issue the following command:
 </p>
 <pre># samba-tool domain provision --use-rfc2307 --interactive
 </pre>
@@ -168,7 +168,7 @@
 </dl>
 <h3><span class="mw-headline" id="Configuring_daemons">Configuring daemons</span></h3>
 <h4><span class="mw-headline" id="NTPD">NTPD</span></h4>
-<p>Create a suitable NTP configuration for your network time server. See <a href="../../Network_Time_Protocol_daemon.html" title="Network Time Protocol daemon">Network Time Protocol daemon</a> for explanations of, and additional configuration options.
+<p>Create a suitable NTP configuration for your network time server. See <a href="../../wiki/Network_Time_Protocol_daemon.html" title="Network Time Protocol daemon">Network Time Protocol daemon</a> for explanations of, and additional configuration options.
 </p>
 <p>Modify the <code>/etc/ntp.conf</code> file with the following contents:
 </p>
@@ -212,7 +212,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd/
 <p>Enable and start the <code>ntpd.service</code> unit.
 </p>
 <h4><span class="mw-headline" id="BIND">BIND</span></h4>
-<p>If you elected to use the <b>BIND9_DLZ</b> DNS backend, <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> package and create the following BIND configuration. See <a href="../../BIND.html" title="BIND">BIND</a> for explanations of, and additional configuration options. Be sure to replace the <b>x</b> characters with suitable values:
+<p>If you elected to use the <b>BIND9_DLZ</b> DNS backend, <a href="../../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span> package and create the following BIND configuration. See <a href="../../wiki/BIND.html" title="BIND">BIND</a> for explanations of, and additional configuration options. Be sure to replace the <b>x</b> characters with suitable values:
 </p>
 <p>Create the <code>/etc/named.conf</code> file:
 </p>
@@ -419,7 +419,7 @@ Valid starting       Expires              Service principal
         tls certfile = tls/cert.pem
         tls cafile   = tls/ca.pem
 </pre>
-<p>If a trusted certificate is needed, create a signing key and a certificate request (see <a href="../../OpenSSL.html" title="OpenSSL">OpenSSL</a> for detailed instructions). Get the request signed by your chosen certificate authority, and put into this directory. If your certificate authority also needs an intermediate certificate, concatenate the certs (server cert first, then intermediate) and leave <b>tls cafile</b> blank.
+<p>If a trusted certificate is needed, create a signing key and a certificate request (see <a href="../../wiki/OpenSSL.html" title="OpenSSL">OpenSSL</a> for detailed instructions). Get the request signed by your chosen certificate authority, and put into this directory. If your certificate authority also needs an intermediate certificate, concatenate the certs (server cert first, then intermediate) and leave <b>tls cafile</b> blank.
 </p>
 <p>Restart <code>samba</code> for the changes to take effect.
 </p>
@@ -562,7 +562,7 @@ Valid starting       Expires              Service principal
         DNS Client
           Dynamic Update = Disabled
           Register PTR Records = Disabled</pre>
-<p><a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhcp">dhcp</a></span> package and the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/samba-dhcpd-update/">samba-dhcpd-update</a></span><sup><small>AUR</small></sup> package.
+<p><a href="../../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhcp">dhcp</a></span> package and the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/samba-dhcpd-update/">samba-dhcpd-update</a></span><sup><small>AUR</small></sup> package.
 </p>
 <p>Create an unprivileged user in AD for performing the updates. When prompted for password, use a secure password. 63 random, mixed case, alpha-numeric characters is sufficient. Optionally samba-tool also takes a random argument:
 </p>
@@ -596,7 +596,7 @@ PRINCIPAL="dhcp@${REALM}"
 NAMESERVER="<b>server</b>.${DOMAIN}"
 ZONE="${DOMAIN}"
 </pre>
-<p>Configure the dhcpd server following the <a href="../../Dhcpd.html" title="Dhcpd">dhcpd</a> article and add the following to all subnet declarations in the <code>/etc/dhcpd.conf</code> file that provide DHCP service:
+<p>Configure the dhcpd server following the <a href="../../wiki/Dhcpd.html" title="Dhcpd">dhcpd</a> article and add the following to all subnet declarations in the <code>/etc/dhcpd.conf</code> file that provide DHCP service:
 </p>
 <pre>  on commit {
     set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
@@ -697,7 +697,7 @@ subnet <b>192.168.1.0</b> netmask <b>255.255.255.0</b> {
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -714,9 +714,9 @@ subnet <b>192.168.1.0</b> netmask <b>255.255.255.0</b> {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

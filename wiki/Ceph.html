@@ -2,7 +2,7 @@
     title: Ceph
     description: Migration of Ceph from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Glusterfs.html" class="mw-redirect" title="GlusterFS">GlusterFS</a></li>
+<li><a href="../wiki/Glusterfs.html" class="mw-redirect" title="GlusterFS">GlusterFS</a></li>
 </ul>
 </div>
-<p>Ceph is a storage platform with a focus on being distributed, resilient, and having good performance and high reliability. Ceph can also be used as a block storage solution for <a href="https://en.wikipedia.org/wiki/Virtual_Machine"  title="wikipedia:Virtual Machine">virtual machines</a> or through the use of <a href="../FUSE.html" title="FUSE">FUSE</a>, a conventional filesystem. Ceph is extremely configurable, with administrators being able to control virtually all aspects of the system. A command line interface is used to monitor and control the cluster. The platform also contains authentication &amp; authorization features, and various gateways to make it compatible with systems such as <a href="https://en.wikipedia.org/wiki/OpenStack#Swift"  title="wikipedia:OpenStack">OpenStack Swift</a> and <a href="https://en.wikipedia.org/wiki/Amazon_S3"  title="wikipedia:Amazon S3">Amazon S3</a>.
+<p>Ceph is a storage platform with a focus on being distributed, resilient, and having good performance and high reliability. Ceph can also be used as a block storage solution for <a href="https://en.wikipedia.org/wiki/Virtual_Machine"  title="wikipedia:Virtual Machine">virtual machines</a> or through the use of <a href="../wiki/FUSE.html" title="FUSE">FUSE</a>, a conventional filesystem. Ceph is extremely configurable, with administrators being able to control virtually all aspects of the system. A command line interface is used to monitor and control the cluster. The platform also contains authentication &amp; authorization features, and various gateways to make it compatible with systems such as <a href="https://en.wikipedia.org/wiki/OpenStack#Swift"  title="wikipedia:OpenStack">OpenStack Swift</a> and <a href="https://en.wikipedia.org/wiki/Amazon_S3"  title="wikipedia:Amazon S3">Amazon S3</a>.
 </p>
 <p>From <a href="https://en.wikipedia.org/wiki/Ceph_(software)"  title="wikipedia:Ceph (software)">Wikipedia: Ceph (software)</a>:
 </p>
@@ -39,7 +39,7 @@
 </p>
 <dl><dd>Ceph is a distributed object store and file system designed to provide excellent performance, reliability and scalability.</dd></dl>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> The recommended installation method for Ceph is via an <a rel="nofollow"  href="https://github.com/ceph/ceph-deploy">upstream tool</a> which uses <a href="../Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> to connect to machines with the purpose of automatically installing, configuring, and managing Ceph. The upstream tool (ceph-deploy) does not currently support <a href="../TOS_Linux.html" title="TOS Linux">TOS Linux</a>. Until ceph-deploy includes support for TOS Linux, it is not possible to use the <a rel="nofollow"  href="https://docs.ceph.com/docs/master/start/">quick installation method</a><sup title="Last check status: 403">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-28 ⓘ]</sup> due to the extensive use of the tool. The only other officially documented installation method is the <a rel="nofollow"  href="https://docs.ceph.com/docs/master/install/manual-deployment/">manual deployment guide</a>. This article therefore documents the manual procedure until TOS Linux is supported by the quick method.
+<strong>Warning:</strong> The recommended installation method for Ceph is via an <a rel="nofollow"  href="https://github.com/ceph/ceph-deploy">upstream tool</a> which uses <a href="../wiki/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> to connect to machines with the purpose of automatically installing, configuring, and managing Ceph. The upstream tool (ceph-deploy) does not currently support <a href="../wiki/TOS_Linux.html" title="TOS Linux">TOS Linux</a>. Until ceph-deploy includes support for TOS Linux, it is not possible to use the <a rel="nofollow"  href="https://docs.ceph.com/docs/master/start/">quick installation method</a><sup title="Last check status: 403">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-28 ⓘ]</sup> due to the extensive use of the tool. The only other officially documented installation method is the <a rel="nofollow"  href="https://docs.ceph.com/docs/master/install/manual-deployment/">manual deployment guide</a>. This article therefore documents the manual procedure until TOS Linux is supported by the quick method.
 <p>The official documentation <a rel="nofollow"  href="https://docs.ceph.com/docs/master/install/#deploy-a-cluster-manually">states</a> "the manual procedure is primarily for exemplary purposes for those developing deployment scripts with Chef, Juju, Puppet, etc.".
 </p>
 </div>
@@ -86,14 +86,14 @@
 </ul>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="Packages">Packages</span></h3>
-<p>Install it with the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ceph">ceph</a></span>, available in the <a href="../Official_repositories.html" title="Official repositories">official repositories</a>. You may instead install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ceph-git/">ceph-git</a></span><sup><small>AUR</small></sup> if you want a bleeding-edge installation.
+<p>Install it with the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ceph">ceph</a></span>, available in the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>. You may instead install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ceph-git/">ceph-git</a></span><sup><small>AUR</small></sup> if you want a bleeding-edge installation.
 </p>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ceph">ceph</a></span> on all nodes that will be in the cluster.
 </p>
 <h3><span class="mw-headline" id="NTP_Client">NTP Client</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> You should synchronise the clocks on your monitor nodes to prevent clock drift (see <a href="../System_time.html#Time_skew" title="System time">System time#Time skew</a> for details), which can degrade the performance of your cluster or stop it from functioning entirely. The <a rel="nofollow"  href="https://docs.ceph.com/docs/master/rados/configuration/mon-config-ref/#clock">official documentation</a> recommends that nodes run some form of clock synchronisation.</div>
-<p>Install and run a time synchronisation client on the node. See <a href="../System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">Time synchronization</a> for details.
+<strong>Warning:</strong> You should synchronise the clocks on your monitor nodes to prevent clock drift (see <a href="../wiki/System_time.html#Time_skew" title="System time">System time#Time skew</a> for details), which can degrade the performance of your cluster or stop it from functioning entirely. The <a rel="nofollow"  href="https://docs.ceph.com/docs/master/rados/configuration/mon-config-ref/#clock">official documentation</a> recommends that nodes run some form of clock synchronisation.</div>
+<p>Install and run a time synchronisation client on the node. See <a href="../wiki/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">Time synchronization</a> for details.
 </p>
 <h2><span class="mw-headline" id="Bootstrapping_a_storage_cluster">Bootstrapping a storage cluster</span></h2>
 <p>Before a storage cluster can operate, the monitors for that cluster must be bootstrapped with several identifiers and keyrings.
@@ -103,9 +103,9 @@
 <p>To boostrap a storage cluster, follow the steps documented in the <a rel="nofollow"  href="https://docs.ceph.com/docs/master/install/manual-deployment/#monitor-bootstrapping">official manual deployment guide</a>.
 </p>
 <h3><span class="mw-headline" id="Starting_a_monitor">Starting a monitor</span></h3>
-<p>Since your system most likely uses <a href="../Systemd.html" title="Systemd">systemd</a>, you can enable a monitor as a systemd unit.
+<p>Since your system most likely uses <a href="../wiki/Systemd.html" title="Systemd">systemd</a>, you can enable a monitor as a systemd unit.
 </p>
-<p>As an example, for a monitor named <code>node1</code> start and enable <code>ceph-mon@node1.service</code> as detailed in <a href="../Systemd.html#Using_units" title="Systemd">Systemd#Using units</a>.
+<p>As an example, for a monitor named <code>node1</code> start and enable <code>ceph-mon@node1.service</code> as detailed in <a href="../wiki/Systemd.html#Using_units" title="Systemd">Systemd#Using units</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -127,12 +127,12 @@
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="../Category:Distributed_computing.html" title="Category:Distributed computing">Distributed computing</a></li>
-<li><a href="../Category:Red_Hat.html" title="Category:Red Hat">Red Hat</a></li>
+<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="../wiki/Category:Distributed_computing.html" title="Category:Distributed computing">Distributed computing</a></li>
+<li><a href="../wiki/Category:Red_Hat.html" title="Category:Red Hat">Red Hat</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -150,9 +150,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

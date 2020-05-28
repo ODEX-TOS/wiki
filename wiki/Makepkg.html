@@ -2,7 +2,7 @@
     title: Makepkg
     description: Migration of Makepkg from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,16 +29,16 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Creating_packages.html" title="Creating packages">Creating packages</a></li>
-<li><a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a></li>
-<li><a href="../.SRCINFO.html" title=".SRCINFO">.SRCINFO</a></li>
-<li><a href="../TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
-<li><a href="../Pacman.html" title="Pacman">pacman</a></li>
-<li><a href="../Official_repositories.html" title="Official repositories">Official repositories</a></li>
-<li><a href="../TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
+<li><a href="../wiki/Creating_packages.html" title="Creating packages">Creating packages</a></li>
+<li><a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a></li>
+<li><a href="../wiki/.SRCINFO.html" title=".SRCINFO">.SRCINFO</a></li>
+<li><a href="../wiki/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
+<li><a href="../wiki/Pacman.html" title="Pacman">pacman</a></li>
+<li><a href="../wiki/Official_repositories.html" title="Official repositories">Official repositories</a></li>
+<li><a href="../wiki/TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://projects.archlinux.org/pacman.git/tree/scripts/makepkg.sh.in">makepkg</a> is a script to automate the building of packages. The requirements for using the script are a build-capable Unix platform and a <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a>.
+<p><a rel="nofollow"  href="https://projects.archlinux.org/pacman.git/tree/scripts/makepkg.sh.in">makepkg</a> is a script to automate the building of packages. The requirements for using the script are a build-capable Unix platform and a <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a>.
 </p>
 <p><i>makepkg</i> is provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman">pacman</a></span> package.
 </p>
@@ -122,31 +122,31 @@ Packager       : John Doe &lt;john@doe.com&gt;
 <li>
 <code>PKGDEST</code> — directory for storing resulting packages</li>
 <li>
-<code>SRCDEST</code> — directory for storing <a href="../PKGBUILD.html#source" title="PKGBUILD">source</a> data (symbolic links will be placed to <code>src/</code> if it points elsewhere)</li>
+<code>SRCDEST</code> — directory for storing <a href="../wiki/PKGBUILD.html#source" title="PKGBUILD">source</a> data (symbolic links will be placed to <code>src/</code> if it points elsewhere)</li>
 <li>
 <code>SRCPKGDEST</code> — directory for storing resulting source packages (built with <code>makepkg -S</code>)</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> The <code>PKGDEST</code> directory can be cleaned up with e.g. <code>paccache -c ~/build/packages/</code> as described in <a href="../Pacman.html#Cleaning_the_package_cache" title="Pacman">pacman#Cleaning the package cache</a>.</div>
+<strong>Tip:</strong> The <code>PKGDEST</code> directory can be cleaned up with e.g. <code>paccache -c ~/build/packages/</code> as described in <a href="../wiki/Pacman.html#Cleaning_the_package_cache" title="Pacman">pacman#Cleaning the package cache</a>.</div>
 <h3><span class="mw-headline" id="Signature_checking">Signature checking</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The signature checking implemented in <i>makepkg</i> does not use pacman's keyring, instead relying on the user's keyring.<a rel="nofollow"  href="http://allanmcrae.com/2015/01/two-pgp-keyrings-for-package-management-in-arch-linux/">[1]</a>
 </div>
-<p>If a signature file in the form of <i>.sig</i> or <i>.asc</i> is part of the <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> source array, <i>makepkg</i> automatically attempts to <a href="../GnuPG.html#Verify_a_signature" title="GnuPG">verify</a> it. In case the user's keyring does not contain the needed public key for signature verification, <i>makepkg</i> will abort the installation with a message that the PGP key could not be verified. 
+<p>If a signature file in the form of <i>.sig</i> or <i>.asc</i> is part of the <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> source array, <i>makepkg</i> automatically attempts to <a href="../wiki/GnuPG.html#Verify_a_signature" title="GnuPG">verify</a> it. In case the user's keyring does not contain the needed public key for signature verification, <i>makepkg</i> will abort the installation with a message that the PGP key could not be verified. 
 </p>
-<p>If a needed public key for a package is missing, the <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> will most likely contain a <a href="../PKGBUILD.html#validpgpkeys" title="PKGBUILD">validpgpkeys</a> entry with the required key IDs. You can <a href="../GnuPG.html#Import_a_public_key" title="GnuPG">import</a> it manually, or you can find it <a href="../GnuPG.html#Use_a_keyserver" title="GnuPG">on a keyserver</a> and import it from there.
+<p>If a needed public key for a package is missing, the <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> will most likely contain a <a href="../wiki/PKGBUILD.html#validpgpkeys" title="PKGBUILD">validpgpkeys</a> entry with the required key IDs. You can <a href="../wiki/GnuPG.html#Import_a_public_key" title="GnuPG">import</a> it manually, or you can find it <a href="../wiki/GnuPG.html#Use_a_keyserver" title="GnuPG">on a keyserver</a> and import it from there.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p>Before continuing, <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/base-devel/">base-devel</a></span> group. Packages belonging to this group are <b>not</b> required to be listed as build-time dependencies (<i>makedepends</i>) in <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> files.
+<p>Before continuing, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/base-devel/">base-devel</a></span> group. Packages belonging to this group are <b>not</b> required to be listed as build-time dependencies (<i>makedepends</i>) in <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> files.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>Make sure <a href="../Sudo.html" title="Sudo">sudo</a> is configured properly for commands passed to <a href="../Pacman.html" title="Pacman">pacman</a>.</li>
+<li>Make sure <a href="../wiki/Sudo.html" title="Sudo">sudo</a> is configured properly for commands passed to <a href="../wiki/Pacman.html" title="Pacman">pacman</a>.</li>
 <li>Running <i>makepkg</i> itself as root is <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/pacman-dev/2014-March/018911.html">disallowed</a>.<a rel="nofollow"  href="https://projects.archlinux.org/pacman.git/tree/NEWS">[2]</a> Besides how a <code>PKGBUILD</code> may contain arbitrary commands, building as root is generally considered unsafe.<a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=67561">[3]</a> Users who have no access to a regular user account should run makepkg as the <a rel="nofollow"  href="http://allanmcrae.com/2015/01/replacing-makepkg-asroot/">nobody user</a>.</li>
 </ul>
 </div>
-<p>To build a package, one must first create a <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a>, or build script, as described in <a href="../Creating_packages.html" title="Creating packages">Creating packages</a>. Existing scripts are available from the <a href="../TOS_Build_System.html" title="TOS Build System">TOS Build System</a> <i>(ABS)</i> tree or the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. Once in possession of a <code>PKGBUILD</code>, change to the directory where it is saved and run the following command to build the package:
+<p>To build a package, one must first create a <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a>, or build script, as described in <a href="../wiki/Creating_packages.html" title="Creating packages">Creating packages</a>. Existing scripts are available from the <a href="../wiki/TOS_Build_System.html" title="TOS Build System">TOS Build System</a> <i>(ABS)</i> tree or the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. Once in possession of a <code>PKGBUILD</code>, change to the directory where it is saved and run the following command to build the package:
 </p>
 <pre>$ makepkg
 </pre>
@@ -154,12 +154,12 @@ Packager       : John Doe &lt;john@doe.com&gt;
 </p>
 <pre>$ makepkg --syncdeps
 </pre>
-<p>Adding the <code>-r</code>/<code>--rmdeps</code> flag causes <i>makepkg</i> to remove the make dependencies later, which are no longer needed. If constantly building packages, consider using <a href="../Pacman/Tips_and_tricks.html#Removing_unused_packages_(orphans)" title="Pacman/Tips and tricks">Pacman/Tips and tricks#Removing unused packages (orphans)</a> once in a while instead.
+<p>Adding the <code>-r</code>/<code>--rmdeps</code> flag causes <i>makepkg</i> to remove the make dependencies later, which are no longer needed. If constantly building packages, consider using <a href="../wiki/Pacman/Tips_and_tricks.html#Removing_unused_packages_(orphans)" title="Pacman/Tips and tricks">Pacman/Tips and tricks#Removing unused packages (orphans)</a> once in a while instead.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>These dependencies must be available in the configured repositories; see <a href="../Pacman.html#Repositories_and_mirrors" title="Pacman">pacman#Repositories and mirrors</a> for details. Alternatively, one can manually install dependencies prior to building (<code>pacman -S --asdeps <i>dep1</i> <i>dep2</i></code>).</li>
+<li>These dependencies must be available in the configured repositories; see <a href="../wiki/Pacman.html#Repositories_and_mirrors" title="Pacman">pacman#Repositories and mirrors</a> for details. Alternatively, one can manually install dependencies prior to building (<code>pacman -S --asdeps <i>dep1</i> <i>dep2</i></code>).</li>
 <li>Only global values are used when installing dependencies, i.e any override done in a split package's packaging function will not be used.</li>
 </ul>
 </div>
@@ -177,14 +177,14 @@ Packager       : John Doe &lt;john@doe.com&gt;
 <h3><span class="mw-headline" id="Building_optimized_binaries">Building optimized binaries</span></h3>
 <p>A performance improvement of the packaged software can be achieved by enabling compiler optimizations for the host machine. The downside is that binaries compiled for a specific processor architecture will not run correctly on other machines. On x86_64 machines, there are rarely significant enough real world performance gains that would warrant investing the time to rebuild official packages.
 </p>
-<p>However, it is very easy to reduce performance by using "nonstandard" compiler flags. Many compiler optimizations are only useful in certain situations and should not be indiscriminately applied to every package. Unless you can verify/benchmark that something is faster, there is a very good chance it is not! The Gentoo <a rel="nofollow"  href="http://www.gentoo.org/doc/gcc-optimization.xml">Compilation Optimization Guide</a> and <a rel="nofollow"  href="http://wiki.gentoo.org/wiki/Safe_CFLAGS">Safe CFLAGS</a> wiki article provide more in-depth information about compiler optimization.
+<p>However, it is very easy to reduce performance by using "nonstandard" compiler flags. Many compiler optimizations are only useful in certain situations and should not be indiscriminately applied to every package. Unless you can verify/benchmark that something is faster, there is a very good chance it is not! The Gentoo <a rel="nofollow"  href="http://www.gentoo.org/doc/wiki/gcc-optimization.xml">Compilation Optimization Guide</a> and <a rel="nofollow"  href="http://wiki.gentoo.org/wiki/Safe_CFLAGS">Safe CFLAGS</a> wiki article provide more in-depth information about compiler optimization.
 </p>
 <p>The options passed to a C/C++ compiler (e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcc">gcc</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clang">clang</a></span>) are controlled by the <code>CFLAGS</code>, <code>CXXFLAGS</code>, and <code>CPPFLAGS</code> environment variables. For use in the TOS build system, <i>makepkg</i> exposes these environment variables as configuration options in <code>makepkg.conf</code>. The default values are configured to produce generic binaries that can be installed on a wide range of machines.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>Keep in mind that not all build systems use the variables configured in <code>makepkg.conf</code>. For example, <i>cmake</i> disregards the preprocessor options environment variable, <code>CPPFLAGS</code>. Consequently, many <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> contain workarounds with options specific to the build system used by the packaged software.</li>
+<li>Keep in mind that not all build systems use the variables configured in <code>makepkg.conf</code>. For example, <i>cmake</i> disregards the preprocessor options environment variable, <code>CPPFLAGS</code>. Consequently, many <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> contain workarounds with options specific to the build system used by the packaged software.</li>
 <li>The configuration provided with the source code in the <code>Makefile</code> or a specific argument in the compilation command line takes precedence and can potentially override the one in <code>makepkg.conf</code>.</li>
 </ul>
 </div>
@@ -201,14 +201,14 @@ CXXFLAGS="${CFLAGS}"</pre>
 <strong>Note:</strong> If you specify different value than <code>-march=native</code>, then <code>-Q --help=target</code> <b>will not</b> work as expected.<a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1616694#p1616694">[4]</a> You need to go through a compilation phase to find out which options are really enabled. See <a rel="nofollow"  href="https://wiki.gentoo.org/wiki/Safe_CFLAGS#Find_CPU-specific_options">Find CPU-specific options</a> on Gentoo wiki for instructions.</div>
 <h3><span class="mw-headline" id="Improving_compile_times">Improving compile times</span></h3>
 <h4><span class="mw-headline" id="Parallel_compilation">Parallel compilation</span></h4>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=make">make</a></span> build system uses the <code>MAKEFLAGS</code> <a href="../Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to specify additional options for <i>make</i>. The variable can also be set in the <code>makepkg.conf</code> file.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=make">make</a></span> build system uses the <code>MAKEFLAGS</code> <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to specify additional options for <i>make</i>. The variable can also be set in the <code>makepkg.conf</code> file.
 </p>
-<p>Users with multi-core/multi-processor systems can specify the number of jobs to run simultaneously. This can be accomplished with the use of <i>nproc</i> to determine the number of available processors, e.g. <code>MAKEFLAGS="-j$(nproc)"</code>. Some <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> specifically override this with <code>-j1</code>, because of race conditions in certain versions or simply because it is not supported in the first place. Packages that fail to build because of this should be <a href="../Bug_reporting_guidelines.html" class="mw-redirect" title="Reporting bug guidelines">reported</a> on the bug tracker (or in the case of <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> packages, to the package maintainer) after making sure that the error is indeed being caused by your <code>MAKEFLAGS</code>.
+<p>Users with multi-core/multi-processor systems can specify the number of jobs to run simultaneously. This can be accomplished with the use of <i>nproc</i> to determine the number of available processors, e.g. <code>MAKEFLAGS="-j$(nproc)"</code>. Some <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> specifically override this with <code>-j1</code>, because of race conditions in certain versions or simply because it is not supported in the first place. Packages that fail to build because of this should be <a href="../wiki/Bug_reporting_guidelines.html" class="mw-redirect" title="Reporting bug guidelines">reported</a> on the bug tracker (or in the case of <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> packages, to the package maintainer) after making sure that the error is indeed being caused by your <code>MAKEFLAGS</code>.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 1 make"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/make.1">make(1)</a></span> for a complete list of available options.
 </p>
 <h4><span class="mw-headline" id="Building_from_files_in_memory">Building from files in memory</span></h4>
-<p>As compiling requires many I/O operations and handling of small files, moving the working directory to a <a href="../Tmpfs.html" title="Tmpfs">tmpfs</a> may bring improvements in build times. 
+<p>As compiling requires many I/O operations and handling of small files, moving the working directory to a <a href="../wiki/Tmpfs.html" title="Tmpfs">tmpfs</a> may bring improvements in build times. 
 </p>
 <p>The <code>BUILDDIR</code> variable can be temporarily exported to <i>makepkg</i> to set the build directory to an existing tmpfs. For example:
 </p>
@@ -225,7 +225,7 @@ CXXFLAGS="${CFLAGS}"</pre>
 </ul>
 </div>
 <h4><span class="mw-headline" id="Using_a_compilation_cache">Using a compilation cache</span></h4>
-<p>The use of <a href="../Ccache.html" title="Ccache">ccache</a> can improve build times by caching the results of compilations for successive use.
+<p>The use of <a href="../wiki/Ccache.html" title="Ccache">ccache</a> can improve build times by caching the results of compilations for successive use.
 </p>
 <h3><span class="mw-headline" id="Generate_new_checksums">Generate new checksums</span></h3>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman-contrib">pacman-contrib</a></span> and run the following command in the same directory as the PKGBUILD file to generate new checksums:
@@ -274,7 +274,7 @@ CXXFLAGS="${CFLAGS}"</pre>
 <h3><span class="mw-headline" id="Build_32-bit_packages_on_a_64-bit_system">Build 32-bit packages on a 64-bit system</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Errors have been reported when using this method to build the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> package.</div>
-<p>First, enable the <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository and <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/multilib-devel/">multilib-devel</a></span>.
+<p>First, enable the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository and <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/multilib-devel/">multilib-devel</a></span>.
 </p>
 <p>Then create a 32-bit configuration file
 </p>
@@ -331,7 +331,7 @@ INSTALLS += target
 <p>One possible cause would be from the usage of <code>__FILE__</code> macro in C/C++ code with full path passed to compiler.
 </p>
 <h3><span class="mw-headline" id="Makepkg_fails_to_download_dependencies_when_behind_proxy">Makepkg fails to download dependencies when behind proxy</span></h3>
-<p>When <i>makepkg</i> calls dependencies, it calls pacman to install the packages, which requires administrative privileges via <i>sudo</i>. However, <i>sudo</i> does not pass any <a href="../Environment_variables.html" title="Environment variables">environment variables</a> to the privileged environment, and includes the proxy-related variables <code>ftp_proxy</code>, <code>http_proxy</code>, <code>https_proxy</code>, and <code>no_proxy</code>.
+<p>When <i>makepkg</i> calls dependencies, it calls pacman to install the packages, which requires administrative privileges via <i>sudo</i>. However, <i>sudo</i> does not pass any <a href="../wiki/Environment_variables.html" title="Environment variables">environment variables</a> to the privileged environment, and includes the proxy-related variables <code>ftp_proxy</code>, <code>http_proxy</code>, <code>https_proxy</code>, and <code>no_proxy</code>.
 </p>
 <p>In order to have <i>makepkg</i> working behind a proxy you have to do one of the following methods.
 </p>
@@ -346,7 +346,7 @@ XferCommand = /usr/bin/curl -x http://username:password@proxy.proxyhost.com:80 -
 <h4>
 <span id="Enable_proxy_via_sudoer.27s_env_keep"></span><span class="mw-headline" id="Enable_proxy_via_sudoer's_env_keep">Enable proxy via sudoer's env_keep</span>
 </h4>
-<p>Alternatively, one may want to use sudoer's <code>env_keep</code> option, which enables preserving given variables the privileged environment. See <a href="../Sudo.html#Environment_variables" title="Sudo">Sudo#Environment variables</a> for more information.
+<p>Alternatively, one may want to use sudoer's <code>env_keep</code> option, which enables preserving given variables the privileged environment. See <a href="../wiki/Sudo.html#Environment_variables" title="Sudo">Sudo#Environment variables</a> for more information.
 </p>
 <h3>
 <span id="Makepkg_fails.2C_but_make_succeeds"></span><span class="mw-headline" id="Makepkg_fails,_but_make_succeeds">Makepkg fails, but make succeeds</span>
@@ -372,9 +372,9 @@ XferCommand = /usr/bin/curl -x http://username:password@proxy.proxyhost.com:80 -
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Package_development.html" title="Category:Package development">Package development</a></li>
-<li><a href="../Category:About_TOS.html" title="Category:About TOS">About TOS</a></li>
-<li><a href="../Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="../wiki/Category:Package_development.html" title="Category:Package development">Package development</a></li>
+<li><a href="../wiki/Category:About_TOS.html" title="Category:About TOS">About TOS</a></li>
+<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -392,9 +392,9 @@ XferCommand = /usr/bin/curl -x http://username:password@proxy.proxyhost.com:80 -
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

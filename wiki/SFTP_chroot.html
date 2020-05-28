@@ -2,7 +2,7 @@
     title: SFTP_chroot
     description: Migration of SFTP_chroot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../SSHFS.html" title="SSHFS">SSHFS</a></li>
+<li><a href="../wiki/SSHFS.html" title="SSHFS">SSHFS</a></li>
 </ul>
 </div>
-<p><a href="../OpenSSH.html" title="OpenSSH">OpenSSH</a> 4.9+ includes a built-in chroot for SFTP, but requires a few tweaks to the normal install.
+<p><a href="../wiki/OpenSSH.html" title="OpenSSH">OpenSSH</a> 4.9+ includes a built-in chroot for SFTP, but requires a few tweaks to the normal install.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -85,12 +85,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> and configure <a href="../OpenSSH.html" title="OpenSSH">OpenSSH</a>. Once running, make sure <code>sftp-server</code> has been set correctly:
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> and configure <a href="../wiki/OpenSSH.html" title="OpenSSH">OpenSSH</a>. Once running, make sure <code>sftp-server</code> has been set correctly:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/ssh/sshd_config</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Subsystem sftp /usr/lib/ssh/sftp-server
 </pre>
-<p>Access files with <i>sftp</i> or <a href="../SSHFS.html" title="SSHFS">SSHFS</a>. Many standard <a href="../List_of_applications/Internet.html#FTP_clients" title="List of applications/Internet">FTP clients</a> should work as well.
+<p>Access files with <i>sftp</i> or <a href="../wiki/SSHFS.html" title="SSHFS">SSHFS</a>. Many standard <a href="../wiki/List_of_applications/Internet.html#FTP_clients" title="List of applications/Internet">FTP clients</a> should work as well.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Setup_the_filesystem">Setup the filesystem</span></h3>
@@ -104,25 +104,25 @@
 # chmod 0755 /home/&lt;username&gt;
 </pre>
 </div>
-<p>Bind mount the live <a href="../File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> to be shared to this directory. In this example, <code>/mnt/data/share</code> is to be used, owned by <a href="../Users_and_groups.html" class="mw-redirect" title="User">user</a> <code>root</code> and has octal <a href="../File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> of <code>755</code>:
+<p>Bind mount the live <a href="../wiki/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a> to be shared to this directory. In this example, <code>/mnt/data/share</code> is to be used, owned by <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> <code>root</code> and has octal <a href="../wiki/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> of <code>755</code>:
 </p>
 <pre># chown root:root /mnt/data/share
 # chmod 755 /mnt/data/share
 # mkdir -p /srv/ssh/jail
 # mount -o bind /mnt/data/share /srv/ssh/jail
 </pre>
-<p>Add entries to <a href="../Fstab.html" title="Fstab">fstab</a> to make the bind mount survive on a reboot:
+<p>Add entries to <a href="../wiki/Fstab.html" title="Fstab">fstab</a> to make the bind mount survive on a reboot:
 </p>
 <pre>/mnt/data/share /srv/ssh/jail  none   bind   0   0
 </pre>
 <h3><span class="mw-headline" id="Create_an_unprivileged_user">Create an unprivileged user</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You do not need to create a group, it is possible to use <code>Match User</code> instead of <code>Match Group</code>.</div>
-<p>Create the <code>sftponly</code> <a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
+<p>Create the <code>sftponly</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
 </p>
 <pre># groupadd sftponly 
 </pre>
-<p>Create a <a href="../Users_and_groups.html" class="mw-redirect" title="User">user</a> that uses <i>sftponly</i> as main group and has <a href="../Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> login access denied:
+<p>Create a <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> that uses <i>sftponly</i> as main group and has <a href="../wiki/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> login access denied:
 </p>
 <pre># useradd -g sftponly -s /usr/bin/nologin -d <i>/srv/ssh/jail</i> <i>username</i>
 </pre>
@@ -143,12 +143,12 @@ Match Group sftponly
   X11Forwarding no
   PasswordAuthentication no
 </pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code> to confirm the changes.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code> to confirm the changes.
 </p>
 <h4><span class="mw-headline" id="Fixing_path_for_authorized_keys">Fixing path for authorized_keys</span></h4>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Use the <a href="../SSH_keys.html#Key_ignored_by_the_server" title="SSH keys">debug mode</a> of OpenSSH on the client and server in case of <code>(pre)auth</code> error(s).</div>
-<p>With the standard path of <i>AuthorizedKeysFile</i>, the <a href="../SSH_keys.html" title="SSH keys">SSH keys</a> authentication will fail for chrooted-users. To fix this, <a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> a root-owned directory on <i>AuthorizedKeysFile</i> to <code>/etc/openssh/sshd_config</code> e.g. <code>/etc/ssh/authorized_keys</code>, as example:
+<strong>Tip:</strong> Use the <a href="../wiki/SSH_keys.html#Key_ignored_by_the_server" title="SSH keys">debug mode</a> of OpenSSH on the client and server in case of <code>(pre)auth</code> error(s).</div>
+<p>With the standard path of <i>AuthorizedKeysFile</i>, the <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a> authentication will fail for chrooted-users. To fix this, <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> a root-owned directory on <i>AuthorizedKeysFile</i> to <code>/etc/openssh/sshd_config</code> e.g. <code>/etc/ssh/authorized_keys</code>, as example:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/ssh/sshd_config</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">AuthorizedKeysFile <i>/etc/ssh/authorized_keys/%u</i> .ssh/authorized_keys
@@ -157,7 +157,7 @@ PasswordAuthentication no
 PermitEmptyPasswords no
 Subsystem sftp /usr/lib/ssh/sftp-server
 </pre>
-<p>Create <i>authorized_keys</i> folder, generate a <a href="../SSH_keys.html#Choosing_the_key_location_and_passphrase" title="SSH keys">SSH-key</a> on the client, <a href="../SSH_keys.html#Manual_method" title="SSH keys">copy</a> the contents of the key to <code>/etc/ssh/authorized_keys</code> (or any other preferred method) of the server and <a href="../SSH_keys.html#Key_ignored_by_the_server" title="SSH keys">set correct permissions</a>:
+<p>Create <i>authorized_keys</i> folder, generate a <a href="../wiki/SSH_keys.html#Choosing_the_key_location_and_passphrase" title="SSH keys">SSH-key</a> on the client, <a href="../wiki/SSH_keys.html#Manual_method" title="SSH keys">copy</a> the contents of the key to <code>/etc/ssh/authorized_keys</code> (or any other preferred method) of the server and <a href="../wiki/SSH_keys.html#Key_ignored_by_the_server" title="SSH keys">set correct permissions</a>:
 </p>
 <pre># mkdir /etc/ssh/authorized_keys
 # chown root:root /etc/ssh/authorized_keys
@@ -165,18 +165,18 @@ Subsystem sftp /usr/lib/ssh/sftp-server
 # echo 'ssh-rsa &lt;key&gt; &lt;username@host&gt;' &gt;&gt; <i>/etc/ssh/authorized_keys/username</i>
 # chmod 644 /etc/ssh/authorized_keys/<i>username</i>
 </pre>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Write_permissions">Write permissions</span></h3>
 <p>The <a href="#Setup_the_filesystem">bind</a> path needs to be fully owned by <code>root</code>, however files and/or subdirectories don't have to be.
-In the following example the <a href="../Users_and_groups.html" class="mw-redirect" title="User">user</a> <i>www-demo</i> uses <code>/srv/ssh/www/demo</code> as the jail-directory:
+In the following example the <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> <i>www-demo</i> uses <code>/srv/ssh/www/demo</code> as the jail-directory:
 </p>
 <pre># mkdir /srv/ssh/www/demo/public_html
 # chown www-demo:sftponly /srv/ssh/www/demo/public_html
 # chmod 755 /srv/ssh/www/demo/public_html
 </pre>
-<p>The user should now be able to create files/subdirectories inside this directory. See <a href="../File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> for more information.
+<p>The user should now be able to create files/subdirectories inside this directory. See <a href="../wiki/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Logging">Logging</span></h3>
 <p>The user will not be able to access <code>/dev/log</code>. This can be seen by running <code>strace</code> on the process once the user connects and attempts to download a file. 
@@ -225,13 +225,13 @@ destination ssh { file("/var/log/ssh.log"); };
 filter f_ssh { program("sshd"); };
 log { source(src); filter(f_ssh); destination(ssh); };
 </pre>
-<p>(From <a href="../Syslog-ng.html#Move_log_to_another_file" title="Syslog-ng">Syslog-ng#Move log to another file</a>)
+<p>(From <a href="../wiki/Syslog-ng.html#Move_log_to_another_file" title="Syslog-ng">Syslog-ng#Move log to another file</a>)
 </p>
 <h4><span class="mw-headline" id="OpenSSH_configuration">OpenSSH configuration</span></h4>
 <p>Edit <code>/etc/ssh/sshd_config</code> to replace all instances of <code>internal-sftp</code> with <code>internal-sftp -f AUTH -l VERBOSE</code>
 </p>
 <h4><span class="mw-headline" id="Restart_service">Restart service</span></h4>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> service <code>syslog-ng</code> and <code>sshd</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> service <code>syslog-ng</code> and <code>sshd</code>.
 </p>
 <p><code>/usr/local/chroot/theuser/dev/log</code> should now exist.
 </p>
@@ -241,10 +241,10 @@ log { source(src); filter(f_ssh); destination(ssh); };
 </h3>
 <p>Installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span> provides the <i>scp</i> command to transfer files. SCP may be faster than using SFTP <a rel="nofollow"  href="https://superuser.com/questions/134901/whats-the-difference-between-scp-and-sftp">[1]</a>.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rssh/">rssh</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=scponly">scponly</a></span> as alternative shell solutions.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rssh/">rssh</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=scponly">scponly</a></span> as alternative shell solutions.
 </p>
 <h4><span class="mw-headline" id="Scponly">Scponly</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=scponly">scponly</a></span>. 
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=scponly">scponly</a></span>. 
 </p>
 <p>For existing users, simply set the user's shell to scponly:
 </p>
@@ -273,8 +273,8 @@ log { source(src); filter(f_ssh); destination(ssh); };
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:File_Transfer_Protocol.html" title="Category:File Transfer Protocol">File Transfer Protocol</a></li>
-<li><a href="../Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
+<li><a href="../wiki/Category:File_Transfer_Protocol.html" title="Category:File Transfer Protocol">File Transfer Protocol</a></li>
+<li><a href="../wiki/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -292,9 +292,9 @@ log { source(src); filter(f_ssh); destination(ssh); };
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

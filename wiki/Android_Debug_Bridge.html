@@ -2,7 +2,7 @@
     title: Android_Debug_Bridge
     description: Migration of Android_Debug_Bridge from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -56,15 +56,15 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>ADB is part of the Platform-Tools <a href="../Android.html#SDK_packages" title="Android">SDK package</a> and the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-tools">android-tools</a></span> package.
+<p>ADB is part of the Platform-Tools <a href="../wiki/Android.html#SDK_packages" title="Android">SDK package</a> and the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-tools">android-tools</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <h3><span class="mw-headline" id="Connect_device">Connect device</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
-<li>For some devices, you may have to enable <a href="../Media_Transfer_Protocol.html" class="mw-redirect" title="MTP">MTP</a> on the device, before ADB will work. Some other devices require enable PTP mode to work.</li>
-<li>Many devices' <a href="../Udev.html" title="Udev">udev</a> rules are included in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmtp">libmtp</a></span>, so if you have this installed, the following steps may not be necessary.</li>
+<li>For some devices, you may have to enable <a href="../wiki/Media_Transfer_Protocol.html" class="mw-redirect" title="MTP">MTP</a> on the device, before ADB will work. Some other devices require enable PTP mode to work.</li>
+<li>Many devices' <a href="../wiki/Udev.html" title="Udev">udev</a> rules are included in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmtp">libmtp</a></span>, so if you have this installed, the following steps may not be necessary.</li>
 <li>Make sure your USB cable is capable of both charge and data. Many USB cables bundled with mobile devices do not include the USB data pin.</li>
 </ul>
 </div>
@@ -97,7 +97,7 @@ product id: 0c8d
 <pre>Bus 002 Device 006: ID 0bb4:0c8d High Tech Computer Corp.
 </pre>
 <h3><span class="mw-headline" id="Adding_udev_rules">Adding udev rules</span></h3>
-<p>Use the rules from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-udev">android-udev</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/android-udev-git/">android-udev-git</a></span><sup><small>AUR</small></sup>), install them manually from <a rel="nofollow"  href="https://source.android.com/source/initializing#configuring-usb-access">Android developer</a>, or use the following template for your <a href="../Udev.html" class="mw-redirect" title="Udev rules">udev rules</a>, just replace <code>[VENDOR ID]</code> and <code>[PRODUCT ID]</code> with yours. Copy these rules into <code>/etc/udev/rules.d/51-android.rules</code>:
+<p>Use the rules from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-udev">android-udev</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/android-udev-git/">android-udev-git</a></span><sup><small>AUR</small></sup>), install them manually from <a rel="nofollow"  href="https://source.android.com/source/initializing#configuring-usb-access">Android developer</a>, or use the following template for your <a href="../wiki/Udev.html" class="mw-redirect" title="Udev rules">udev rules</a>, just replace <code>[VENDOR ID]</code> and <code>[PRODUCT ID]</code> with yours. Copy these rules into <code>/etc/udev/rules.d/51-android.rules</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/51-android.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="usb", ATTR{idVendor}=="[VENDOR ID]", MODE="0660", GROUP="adbusers"
@@ -108,7 +108,7 @@ SUBSYSTEM=="usb",ATTR{idVendor}=="[VENDOR ID]",ATTR{idProduct}=="[PRODUCT ID]",S
 </p>
 <pre># udevadm control --reload-rules
 </pre>
-<p>Make sure you are member of <code>adbusers</code> <a href="../Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to access <code>adb</code> devices.
+<p>Make sure you are member of <code>adbusers</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to access <code>adb</code> devices.
 </p>
 <h3><span class="mw-headline" id="Detect_the_device">Detect the device</span></h3>
 <p>After you have setup the udev rules, unplug your device and replug it.
@@ -161,7 +161,7 @@ $ adb devices
 <h2><span class="mw-headline" id="Tools_building_on_ADB">Tools building on ADB</span></h2>
 <ul>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/adbfs-rootless-git/">adbfs-rootless-git</a></span><sup><small>AUR</small></sup> - a <a href="../FUSE.html" title="FUSE">FUSE</a> filesystem over ADB</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/adbfs-rootless-git/">adbfs-rootless-git</a></span><sup><small>AUR</small></sup> - a <a href="../wiki/FUSE.html" title="FUSE">FUSE</a> filesystem over ADB</li>
 <li>
 <a rel="nofollow"  href="https://github.com/google/adb-sync">adb-sync</a> (available as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/adb-sync-git/">adb-sync-git</a></span><sup><small>AUR</small></sup>) – a tool to synchronize files between a PC and an Android device using the ADB protocol.</li>
 <li>
@@ -184,7 +184,7 @@ Verify the actual device's ID with <a href="#Figure_out_device_IDs">lsusb</a> an
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Android.html" title="Category:Android">Android</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Android.html" title="Category:Android">Android</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -201,9 +201,9 @@ Verify the actual device's ID with <a href="#Figure_out_device_IDs">lsusb</a> an
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

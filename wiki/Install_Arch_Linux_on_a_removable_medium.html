@@ -2,7 +2,7 @@
     title: Install_TOS_Linux_on_a_removable_medium
     description: Migration of Install_TOS_Linux_on_a_removable_medium from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Installation_guide.html" title="Installation guide">Installation guide</a></li>
-<li><a href="../General_recommendations.html" title="General recommendations">General recommendations</a></li>
-<li><a href="../General_troubleshooting.html" title="General troubleshooting">General troubleshooting</a></li>
-<li><a href="../VirtualBox/Tips_and_tricks.html#Install_a_native_TOS_Linux_system_from_VirtualBox" class="mw-redirect" title="Install TOS Linux from VirtualBox">Install TOS Linux from VirtualBox</a></li>
-<li><a href="../Solid_state_drive.html" class="mw-redirect" title="Solid State Drives">Solid State Drives</a></li>
+<li><a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a></li>
+<li><a href="../wiki/General_recommendations.html" title="General recommendations">General recommendations</a></li>
+<li><a href="../wiki/General_troubleshooting.html" title="General troubleshooting">General troubleshooting</a></li>
+<li><a href="../wiki/VirtualBox/Tips_and_tricks.html#Install_a_native_TOS_Linux_system_from_VirtualBox" class="mw-redirect" title="Install TOS Linux from VirtualBox">Install TOS Linux from VirtualBox</a></li>
+<li><a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="Solid State Drives">Solid State Drives</a></li>
 </ul>
 </div>
-<p>This page explains how to perform a regular TOS installation onto removable media (e.g. a USB flash drive). In contrast to having a LiveUSB as covered in <a href="../USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a>, the result will be a persistent installation identical to normal installation to HDD.
+<p>This page explains how to perform a regular TOS installation onto removable media (e.g. a USB flash drive). In contrast to having a LiveUSB as covered in <a href="../wiki/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a>, the result will be a persistent installation identical to normal installation to HDD.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -81,20 +81,20 @@
 <p>There are various ways of installing TOS on removable media, depending on the operating system you have available:
 </p>
 <ul>
-<li>If you have another Linux computer available (it need not be TOS), you can follow the instructions at <a href="../Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a>.</li>
-<li>An TOS Linux CD/USB can be used to install TOS onto the removable medium, via booting the CD/USB and following the <a href="../Installation_guide.html" title="Installation guide">installation guide</a>. If booting from a Live USB, the installation cannot be made to the same removable medium you are booting from.</li>
-<li>If you run Windows or OS X, download VirtualBox, install VirtualBox Extensions, attach your removable medium to a virtual machine running Linux (either already installed or via a live ISO), and point the installation into the now attached drive while using the instructions at the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>.</li>
+<li>If you have another Linux computer available (it need not be TOS), you can follow the instructions at <a href="../wiki/Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a>.</li>
+<li>An TOS Linux CD/USB can be used to install TOS onto the removable medium, via booting the CD/USB and following the <a href="../wiki/Installation_guide.html" title="Installation guide">installation guide</a>. If booting from a Live USB, the installation cannot be made to the same removable medium you are booting from.</li>
+<li>If you run Windows or OS X, download VirtualBox, install VirtualBox Extensions, attach your removable medium to a virtual machine running Linux (either already installed or via a live ISO), and point the installation into the now attached drive while using the instructions at the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>.</li>
 </ul>
 <h3><span class="mw-headline" id="Installation_tweaks">Installation tweaks</span></h3>
 <ul>
-<li>Before <a href="../Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">creating the initial RAM disk</a>, in <code>/etc/mkinitcpio.conf</code> move the <code>block</code> and <code>keyboard</code> hooks before the <code>autodetect</code> hook. This is necessary to allow booting on multiple systems each requiring different modules in early userspace.</li>
+<li>Before <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">creating the initial RAM disk</a>, in <code>/etc/mkinitcpio.conf</code> move the <code>block</code> and <code>keyboard</code> hooks before the <code>autodetect</code> hook. This is necessary to allow booting on multiple systems each requiring different modules in early userspace.</li>
 <li>If you have chosen to install TOS onto a USB mass storage device and want to be able to continue to use it as a cross-platform removable drive, this can be accomplished by creating a partition housing an appropriate file system (most likely NTFS or exFAT). Note that the data partition may need to be the first partition on the device, as Windows assumes that there can only be one partition on a removable device, and will happily automount an EFI system partition otherwise. Remember to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dosfstools">dosfstools</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntfs-3g">ntfs-3g</a></span>. Some tools are available online that may allow you to flip the Removable Medium Bit (RMB) on your USB mass storage device. This would trick operating systems into treating your USB mass storage device as an external hard disk and allow you to use whichever partitioning scheme you choose.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> It is not possible to flip the Removable Medium Bit (RMB) on every USB mass storage device and attempting to use software that is incompatible with your device may damage it. Attempting to flip the RMB is <b>not</b> recommended.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<ul><li>Make sure that <code>/etc/fstab</code> includes the correct partition information for <code>/</code>, and for any other partitions on the disk. If the drive is to be booted on several machines, it is quite likely that devices and number of available hard disks vary. So it is advised to use <a href="../Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> or label.</li></ul>
-<p>To get the proper UUIDs for your partitions use <i>lsblk</i> of <i>blkid</i>. See <a href="../Persistent_block_device_naming.html#by-uuid" title="Persistent block device naming">Persistent block device naming#by-uuid</a> for more information.
+<ul><li>Make sure that <code>/etc/fstab</code> includes the correct partition information for <code>/</code>, and for any other partitions on the disk. If the drive is to be booted on several machines, it is quite likely that devices and number of available hard disks vary. So it is advised to use <a href="../wiki/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> or label.</li></ul>
+<p>To get the proper UUIDs for your partitions use <i>lsblk</i> of <i>blkid</i>. See <a href="../wiki/Persistent_block_device_naming.html#by-uuid" title="Persistent block device naming">Persistent block device naming#by-uuid</a> for more information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -119,7 +119,7 @@ kernel /boot/vmlinuz-linux-tosroot=/dev/disk/by-uuid/3a9f8929-627b-4667-9db4-388
 initrd /boot/initramfs-linux.img
 </pre>
 <h3><span class="mw-headline" id="GRUB">GRUB</span></h3>
-<p>On GPT with UEFI installations, make sure you follow the instructions on <a href="../GRUB.html#UEFI_systems" title="GRUB">GRUB#UEFI systems</a> and include the <code>--removable</code> option as doing otherwise may break existing GRUB installations, as in the below command:
+<p>On GPT with UEFI installations, make sure you follow the instructions on <a href="../wiki/GRUB.html#UEFI_systems" title="GRUB">GRUB#UEFI systems</a> and include the <code>--removable</code> option as doing otherwise may break existing GRUB installations, as in the below command:
 </p>
 <pre># grub-install --target=x86_64-efi --efi-directory=<i>esp</i>  <b>--removable</b> --recheck
 </pre>
@@ -140,15 +140,15 @@ initrd /boot/initramfs-linux.img
 <p>To support most common GPUs, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-vesa">xf86-video-vesa</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-ati">xf86-video-ati</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-amdgpu">xf86-video-amdgpu</a></span>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-nouveau">xf86-video-nouveau</a></span>.
 </p>
 <h4><span class="mw-headline" id="Persistent_block_device_naming">Persistent block device naming</span></h4>
-<p>It is recommended to use <a href="../Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> in both <a href="../Fstab.html" title="Fstab">fstab</a> and boot loader configuration. See <a href="../Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for details.
+<p>It is recommended to use <a href="../wiki/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> in both <a href="../wiki/Fstab.html" title="Fstab">fstab</a> and boot loader configuration. See <a href="../wiki/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for details.
 </p>
-<p>Alternatively, you may create udev rule to create custom symlink for your disk. Then use this symlink in <a href="../Fstab.html" title="Fstab">fstab</a> and boot loader configuration. See <a href="../Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a> for details.
+<p>Alternatively, you may create udev rule to create custom symlink for your disk. Then use this symlink in <a href="../wiki/Fstab.html" title="Fstab">fstab</a> and boot loader configuration. See <a href="../wiki/Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a> for details.
 </p>
 <h4><span class="mw-headline" id="Kernel_parameters">Kernel parameters</span></h4>
-<p>You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display, when using some Intel video cards, etc. To disable KMS, add <code>nomodeset</code> as a kernel parameter. See <a href="../Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a> for more info.
+<p>You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display, when using some Intel video cards, etc. To disable KMS, add <code>nomodeset</code> as a kernel parameter. See <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a> for more info.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Some <a href="../Xorg.html" title="Xorg">Xorg</a> drivers will not work with KMS disabled. See the wiki page on your specific driver for details. Nouveau in particular needs KMS to determine the correct display resolution. If you add <code>nomodeset</code> as a kernel parameter as a preemptive measure you may have to adjust the display resolution manually when using machines with Nvidia video cards. See <a href="../Xrandr.html" title="Xrandr">Xrandr</a> for more info.</div>
+<strong>Warning:</strong> Some <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> drivers will not work with KMS disabled. See the wiki page on your specific driver for details. Nouveau in particular needs KMS to determine the correct display resolution. If you add <code>nomodeset</code> as a kernel parameter as a preemptive measure you may have to adjust the display resolution manually when using machines with Nvidia video cards. See <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a> for more info.</div>
 <h3><span class="mw-headline" id="Compatibility">Compatibility</span></h3>
 <p>The fallback image should be used for maximum compatibility.
 </p>
@@ -156,8 +156,8 @@ initrd /boot/initramfs-linux.img
 <p>If you are running TOS on a USB drive, SD card, or other devices with slow I/O or limited writes, you will want to minimize unneeded writes for maximum performance and longevity
 </p>
 <ul>
-<li>It is highly recommended to review the <a href="../Improving_performance.html#Reduce_disk_reads/writes" title="Improving performance">Improving performance#Reduce disk reads/writes</a> article prior to selecting a file system. To sum it up, for flash-based media such as USB flash drives or SD cards, <a rel="nofollow"  href="http://fenidik.blogspot.com/2010/03/ext4-disable-journal.html">ext4 without a journal</a> should be fine, which can be created with <code>mkfs.ext4 -O "^has_journal" /dev/sdXX</code>. The obvious drawback of using a file system with journaling disabled is data loss as a result of an ungraceful dismount. Recognize that flash has a limited number of writes, and a journaling file system will take some of these as the journal is updated. For this same reason, it is best to forget the swap partition. Note that this does not affect installing onto a portable hard drive.</li>
-<li>You may want to configure <a href="../Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> to store its journals in RAM, e.g. by creating a custom configuration file:</li>
+<li>It is highly recommended to review the <a href="../wiki/Improving_performance.html#Reduce_disk_reads/writes" title="Improving performance">Improving performance#Reduce disk reads/writes</a> article prior to selecting a file system. To sum it up, for flash-based media such as USB flash drives or SD cards, <a rel="nofollow"  href="http://fenidik.blogspot.com/2010/03/ext4-disable-journal.html">ext4 without a journal</a> should be fine, which can be created with <code>mkfs.ext4 -O "^has_journal" /dev/sdXX</code>. The obvious drawback of using a file system with journaling disabled is data loss as a result of an ungraceful dismount. Recognize that flash has a limited number of writes, and a journaling file system will take some of these as the journal is updated. For this same reason, it is best to forget the swap partition. Note that this does not affect installing onto a portable hard drive.</li>
+<li>You may want to configure <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> to store its journals in RAM, e.g. by creating a custom configuration file:</li>
 </ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/journald.conf.d/usbstick.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Journal]
@@ -178,7 +178,7 @@ RuntimeMaxUse=30M</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -195,9 +195,9 @@ RuntimeMaxUse=30M</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

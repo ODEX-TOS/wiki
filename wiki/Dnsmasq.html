@@ -2,7 +2,7 @@
     title: Dnsmasq
     description: Migration of Dnsmasq from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,7 +29,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> provides a <a href="https://en.wikipedia.org/wiki/Name_server"  title="wikipedia:Name server">DNS server</a>, a <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol"  title="wikipedia:Dynamic Host Configuration Protocol">DHCP server</a> with support for <a href="https://en.wikipedia.org/wiki/DHCPv6"  title="wikipedia:DHCPv6">DHCPv6</a> and <a href="https://en.wikipedia.org/wiki/Preboot_Execution_Environment"  title="wikipedia:Preboot Execution Environment">PXE</a>, and a <a href="https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol"  title="wikipedia:Trivial File Transfer Protocol">TFTP server</a>. It is designed to be lightweight and have a small footprint, suitable for resource constrained routers and firewalls. dnsmasq can also be configured to cache DNS queries for improved DNS lookup speeds to previously visited sites.
@@ -89,10 +89,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Start_the_daemon">Start the daemon</span></h2>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>dnsmasq.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>dnsmasq.service</code>.
 </p>
 <p>To see if dnsmasq started properly, check the system's journal:
 </p>
@@ -125,7 +125,7 @@
 </p>
 <pre>cache-size=1000
 </pre>
-<p>To validate <a href="../DNSSEC.html" title="DNSSEC">DNSSEC</a> load the DNSSEC trust anchors provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> package  and set the option <code>dnssec</code>:
+<p>To validate <a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> load the DNSSEC trust anchors provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> package  and set the option <code>dnssec</code>:
 </p>
 <pre>conf-file=/usr/share/dnsmasq/trust-anchors.conf
 dnssec
@@ -135,10 +135,10 @@ dnssec
 <h4><span class="mw-headline" id="DNS_addresses_file_and_forwarding">DNS addresses file and forwarding</span></h4>
 <p>After configuring dnsmasq, you need to add the localhost addresses as the only nameservers in <code>/etc/resolv.conf</code>. This causes all queries to be sent to dnsmasq.
 </p>
-<p>Since dnsmasq is a stub resolver not a recursive resolver you must set up forwarding to an external DNS server. This can be done automatically by using <a href="../Openresolv.html" title="Openresolv">openresolv</a> or by manually specifying the DNS server address in dnsmasq's configuration.
+<p>Since dnsmasq is a stub resolver not a recursive resolver you must set up forwarding to an external DNS server. This can be done automatically by using <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> or by manually specifying the DNS server address in dnsmasq's configuration.
 </p>
 <h5><span class="mw-headline" id="openresolv">openresolv</span></h5>
-<p>If your network manager supports <i>resolvconf</i>, instead of directly altering <code>/etc/resolv.conf</code>, you can use <a href="../Openresolv.html" title="Openresolv">openresolv</a> to generate configuration files for dnsmasq. <a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[1]</a>
+<p>If your network manager supports <i>resolvconf</i>, instead of directly altering <code>/etc/resolv.conf</code>, you can use <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> to generate configuration files for dnsmasq. <a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[1]</a>
 </p>
 <p>Edit <code>/etc/resolvconf.conf</code> and add the loopback addresses as name servers, and configure openresolv to write out dnsmasq configuration:
 </p>
@@ -164,7 +164,7 @@ resolv-file=/etc/dnsmasq-resolv.conf
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">nameserver ::1
 nameserver 127.0.0.1
 </pre>
-<p>Make sure to protect <code>/etc/resolv.conf</code> from modification as described in <a href="../Domain_name_resolution.html#Overwriting_of_/etc/resolv.conf" title="Domain name resolution">Domain name resolution#Overwriting of /etc/resolv.conf</a>.
+<p>Make sure to protect <code>/etc/resolv.conf</code> from modification as described in <a href="../wiki/Domain_name_resolution.html#Overwriting_of_/etc/resolv.conf" title="Domain name resolution">Domain name resolution#Overwriting of /etc/resolv.conf</a>.
 </p>
 <p>The upstream DNS server addresses must then be specified in dnsmasq's configuration file as <code>server=<i>server_address</i></code>. Also add <code>no-resolv</code> so dnsmasq does not needlessly read <code>/etc/resolv.conf</code> which only contains the localhost addresses of itself.
 </p>
@@ -202,7 +202,7 @@ domain=lan
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ drill archlinux.org | grep "Query time"</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">;; Query time: 2 msec
 </pre>
-<p>To test if DNSSEC validation is working see <a href="../DNSSEC.html#Testing" title="DNSSEC">DNSSEC#Testing</a>.
+<p>To test if DNSSEC validation is working see <a href="../wiki/DNSSEC.html#Testing" title="DNSSEC">DNSSEC#Testing</a>.
 </p>
 <h3><span class="mw-headline" id="DHCP_server">DHCP server</span></h3>
 <div class="noprint archwiki-template-message">
@@ -257,11 +257,11 @@ dhcp-host=aa:bb:cc:ff:dd:ee,192.168.111.51
 <p>If you inspect the <code>/var/lib/misc/dnsmasq.leases</code> file on the server, you should be able to see the lease.
 </p>
 <h3><span class="mw-headline" id="TFTP_server">TFTP server</span></h3>
-<p>dnsmasq has built-in <a href="../TFTP.html" title="TFTP">TFTP</a> server.
+<p>dnsmasq has built-in <a href="../wiki/TFTP.html" title="TFTP">TFTP</a> server.
 </p>
 <p>To use it, create a directory for TFTP root (e.g. <code>/srv/tftp</code>) to put transferable files in.
 </p>
-<p>For increased security it is advised to use dnsmasq's TFTP secure mode. In secure mode only files owned by the <code>dnsmasq</code> user will be served over TFTP. You will need to <a href="../File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> TFTP root and all files in it to <code>dnsmasq</code> user to use this feature.
+<p>For increased security it is advised to use dnsmasq's TFTP secure mode. In secure mode only files owned by the <code>dnsmasq</code> user will be served over TFTP. You will need to <a href="../wiki/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> TFTP root and all files in it to <code>dnsmasq</code> user to use this feature.
 </p>
 <p>Enable TFTP:
 </p>
@@ -283,7 +283,7 @@ dhcp-range=<i>192.168.0.1</i>,proxy</pre>
 <ol>
 <li>set up <a href="#TFTP_server">#TFTP server</a> and <a href="#DHCP_server">#DHCP server</a>
 </li>
-<li>copy and configure a PXE compatible bootloader (e.g. <a href="../Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a>) on TFTP root</li>
+<li>copy and configure a PXE compatible bootloader (e.g. <a href="../wiki/Syslinux.html#PXELINUX" class="mw-redirect" title="PXELINUX">PXELINUX</a>) on TFTP root</li>
 <li>enable PXE in <code>/etc/dnsmasq.conf</code>:</li>
 </ol>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -314,7 +314,7 @@ dhcp-boot=tag:bios,"bios/lpxelinux.0"
 </pre>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 8 dnsmasq"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dnsmasq.8">dnsmasq(8)</a></span> for more options.
 </p>
-<p>The rest is up to the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a>.
+<p>The rest is up to the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Prevent_OpenDNS_redirecting_Google_queries">Prevent OpenDNS redirecting Google queries</span></h3>
@@ -343,7 +343,7 @@ dhcp-boot=tag:bios,"bios/lpxelinux.0"
 bind-dynamic
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This is the default in <a href="../Libvirt.html" title="Libvirt">libvirt</a>.</div>
+<strong>Note:</strong> This is the default in <a href="../wiki/Libvirt.html" title="Libvirt">libvirt</a>.</div>
 <h3><span class="mw-headline" id="Domain_blacklisting">Domain blacklisting</span></h3>
 <p>To blacklist domains, i.e. answer queries for them with NXDOMAIN, use the <code>address</code> option without specifying the IP address:
 </p>
@@ -361,11 +361,11 @@ address=/another.blacklisted.example/
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
-<li><a href="../Category:DHCP.html" title="Category:DHCP">DHCP</a></li>
+<li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
+<li><a href="../wiki/Category:DHCP.html" title="Category:DHCP">DHCP</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -383,9 +383,9 @@ address=/another.blacklisted.example/
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

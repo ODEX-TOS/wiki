@@ -2,7 +2,7 @@
     title: Ad-hoc_networking
     description: Migration of Ad-hoc_networking from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,15 +27,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Network_configuration.html" title="Network configuration">Network configuration</a></li>
-<li><a href="../Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
-<li><a href="../Software_access_point.html" title="Software access point">Software access point</a></li>
-<li><a href="../Internet_sharing.html" title="Internet sharing">Internet sharing</a></li>
+<li><a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
+<li><a href="../wiki/Software_access_point.html" title="Software access point">Software access point</a></li>
+<li><a href="../wiki/Internet_sharing.html" title="Internet sharing">Internet sharing</a></li>
 </ul>
 </div>
 <p>An IBSS (Independent Basic Service Set) network, often called an ad-hoc network, is a way to have a group of devices talk to each other wirelessly, without a central controller. It is an example of a peer-to-peer network, in which all devices talk directly to each other, with no inherent relaying.
 </p>
-<p>For example, ad-hoc networking may be used to <a href="../Internet_sharing.html" title="Internet sharing">share an internet connection</a>.
+<p>For example, ad-hoc networking may be used to <a href="../wiki/Internet_sharing.html" title="Internet sharing">share an internet connection</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -64,16 +64,16 @@
 </div>
 
 <h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
-<ul><li>A <a rel="nofollow"  href="https://wireless.wiki.kernel.org/users/drivers%7C">nl80211 compatible</a> wireless device (e.g. ath9k) on all devices which will connect to the network</li></ul>
+<ul><li>A <a rel="nofollow"  href="https://wireless.wiki.kernel.org/wiki/users/drivers%7C">nl80211 compatible</a> wireless device (e.g. ath9k) on all devices which will connect to the network</li></ul>
 <h2><span class="mw-headline" id="Wifi_link_layer">Wifi link layer</span></h2>
 <p>Since IBSS network is a peer-to-peer network, the steps necessary to set up the wifi link layer should be the same on all devices.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> It is possible to create complex network topologies, see <a rel="nofollow"  href="https://wireless.wiki.kernel.org/users/documentation/iw/vif">Linux Wireless documentation</a> for advanced examples.</div>
+<strong>Tip:</strong> It is possible to create complex network topologies, see <a rel="nofollow"  href="https://wireless.wiki.kernel.org/wiki/users/documentation/iw/vif">Linux Wireless documentation</a> for advanced examples.</div>
 <h3><span class="mw-headline" id="Manual_method">Manual method</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> This method creates <b>unencrypted</b> ad-hoc network. See <a href="#WPA_supplicant">#WPA supplicant</a> for method using WPA encryption.</div>
-<p>See <a href="../Network_configuration/Wireless.html#iw" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#iw</a> for a better explanation of the following commands. Make sure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iw">iw</a></span> is <a href="../Pacman.html" title="Pacman">installed</a>.
+<p>See <a href="../wiki/Network_configuration/Wireless.html#iw" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#iw</a> for a better explanation of the following commands. Make sure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iw">iw</a></span> is <a href="../wiki/Pacman.html" title="Pacman">installed</a>.
 </p>
 <p>Set the operation mode to ibss:
 </p>
@@ -88,7 +88,7 @@
 <pre># iw <i>interface</i> ibss join <i>your_ssid</i> <i>frequency</i>
 </pre>
 <h3><span class="mw-headline" id="WPA_supplicant">WPA supplicant</span></h3>
-<p>Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wpa_supplicant">wpa_supplicant</a></span> is <a href="../Pacman.html" title="Pacman">installed</a>, and create a configuration file for it (see <a href="../Wpa_supplicant.html" class="mw-redirect" title="WPA supplicant">WPA supplicant</a> for details).
+<p>Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wpa_supplicant">wpa_supplicant</a></span> is <a href="../wiki/Pacman.html" title="Pacman">installed</a>, and create a configuration file for it (see <a href="../wiki/Wpa_supplicant.html" class="mw-redirect" title="WPA supplicant">WPA supplicant</a> for details).
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/wpa_supplicant-adhoc.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ctrl_interface=DIR=/run/wpa_supplicant GROUP=wheel
@@ -116,15 +116,15 @@ network={
 <p>The final step is to assign an IP address to all devices in the network. There are multiple ways to do this:
 </p>
 <ul>
-<li>Assign static IP addresses. See <a href="../Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a> for details.</li>
-<li>Running DHCP server on one device. See <a href="../Dhcpd.html" title="Dhcpd">dhcpd</a> or <a href="../Dnsmasq.html" title="Dnsmasq">dnsmasq</a> for details.</li>
-<li>Running <i>avahi-autoipd</i>. See <a href="../Avahi.html#Obtaining_IPv4LL_IP_address" title="Avahi">Avahi#Obtaining IPv4LL IP address</a> for details.</li>
+<li>Assign static IP addresses. See <a href="../wiki/Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a> for details.</li>
+<li>Running DHCP server on one device. See <a href="../wiki/Dhcpd.html" title="Dhcpd">dhcpd</a> or <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> for details.</li>
+<li>Running <i>avahi-autoipd</i>. See <a href="../wiki/Avahi.html#Obtaining_IPv4LL_IP_address" title="Avahi">Avahi#Obtaining IPv4LL IP address</a> for details.</li>
 </ul>
-<p>If you want to share an internet connection to the ad-hoc network, see <a href="../Internet_sharing.html" title="Internet sharing">Internet sharing</a>.
+<p>If you want to share an internet connection to the ad-hoc network, see <a href="../wiki/Internet_sharing.html" title="Internet sharing">Internet sharing</a>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Using_NetworkManager">Using NetworkManager</span></h3>
-<p>If you use <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a>, you can use <i>nm-applet</i> for ad-hoc network configuration instead of the manual method described above. See <a href="../NetworkManager.html#Sharing_internet_connection_over_Wi-Fi" title="NetworkManager">NetworkManager#Sharing internet connection over Wi-Fi</a> for details.
+<p>If you use <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a>, you can use <i>nm-applet</i> for ad-hoc network configuration instead of the manual method described above. See <a href="../wiki/NetworkManager.html#Sharing_internet_connection_over_Wi-Fi" title="NetworkManager">NetworkManager#Sharing internet connection over Wi-Fi</a> for details.
 </p>
 <h3>
 <span id="Custom_systemd_service_.28with_wpa_supplicant_and_static_IP.29"></span><span class="mw-headline" id="Custom_systemd_service_(with_wpa_supplicant_and_static_IP)">Custom systemd service (with wpa_supplicant and static IP)</span>
@@ -169,7 +169,7 @@ WantedBy=multi-user.target
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Wireless_networking.html" title="Category:Wireless networking">Wireless networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Wireless_networking.html" title="Category:Wireless networking">Wireless networking</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -186,9 +186,9 @@ WantedBy=multi-user.target
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

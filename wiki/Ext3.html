@@ -2,7 +2,7 @@
     title: Ext3
     description: Migration of Ext3 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../File_systems.html" title="File systems">File systems</a></li>
-<li><a href="../Ext4.html" title="Ext4">Ext4</a></li>
+<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="../wiki/Ext4.html" title="Ext4">Ext4</a></li>
 </ul>
 </div>
 <p>There are many strengths to the Third Extended ("ext3") filesystem. Its in-kernel and userspace code has been tried, tested, fixed, and improved upon more than almost every other Linux-compatible filesystem. It is simple, robust, and extensible. This article explains some tips that can improve both the performance and the reliability of the filesystem.
@@ -52,7 +52,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Using_tune2fs_and_e2fsck">Using tune2fs and e2fsck</span></h2>
-<p>Before we begin, we need to make sure you are comfortable with using the tune2fs utility to alter the filesystem options of an ext2 or ext3 partition (or <a href="../Ext4.html#Migrating_from_ext2.2Fext3_to_ext4" class="mw-redirect" title="Convert ext2 to ext3">convert ext2 to ext3</a>). Please read the <b>tune2fs</b> man page.
+<p>Before we begin, we need to make sure you are comfortable with using the tune2fs utility to alter the filesystem options of an ext2 or ext3 partition (or <a href="../wiki/Ext4.html#Migrating_from_ext2.2Fext3_to_ext4" class="mw-redirect" title="Convert ext2 to ext3">convert ext2 to ext3</a>). Please read the <b>tune2fs</b> man page.
 </p>
 <p>It's generally a good idea to run a filesystem check using the <b>e2fsck</b> utility after you've completed the alterations you wish to make on your filesystem. This will verify that your filesystem is clean and fix it if needed. You should also read the manual page for the <b>e2fsck</b> utility if you have not yet done so.
 </p>
@@ -77,7 +77,7 @@
 </div>
 <h2><span class="mw-headline" id="Enable_full_journaling">Enable full journaling</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> <a href="../Ext4.html" title="Ext4">ext4</a> partitions will not mount if both delayed allocation and full journaling (e.g. <code>journal=data</code>) are enabled.</div>
+<strong>Warning:</strong> <a href="../wiki/Ext4.html" title="Ext4">ext4</a> partitions will not mount if both delayed allocation and full journaling (e.g. <code>journal=data</code>) are enabled.</div>
 <p>By default, ext3 partitions mount with the 'ordered' data mode. In this mode, all data is written to the main filesystem and its metadata is committed to the journal, whose blocks are logically grouped into transactions to decrease disk I/O. This tends to be a good default for most people. However, I've found a method that increases both reliability and performance (in some situations): journaling everything, including the file data itself (known as 'journal' data mode). Normally, one would think that journaling all data would decrease performance, because the data is written to disk twice: once to the journal then later committed to the main filesystem, but this does not seem to be the case. I've enabled it on all nine of my partitions and have only seen a minor performance loss in deleting large files. In fact, doing this can actually improve performance on a filesystem where much reading and writing is to be done simultaneously. See <a rel="nofollow"  href="http://www-106.ibm.com/developerworks/linux/library/l-fs8.html#4">this article</a> written by Daniel Robbins on IBM's website for more information.
 </p>
 <p>There are two different ways to activate journal data mode. The first is by adding data=journal as a mount option in /etc/fstab. If you do it this way and want your root filesystem to also use it, you should also pass rootflags=data=journal as a kernel parameter in your bootloader's configuration. In the second method, you will use tune2fs to modify the default mount options in the filesystem's superblock:
@@ -127,9 +127,9 @@
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -147,9 +147,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

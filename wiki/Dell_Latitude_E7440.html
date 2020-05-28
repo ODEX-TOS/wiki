@@ -2,7 +2,7 @@
     title: Dell_Latitude_E7440
     description: Migration of Dell_Latitude_E7440 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -108,10 +108,10 @@ Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="First_things_to_do_specific_for_this_laptop">First things to do specific for this laptop</span></h3>
 <h4><span class="mw-headline" id="Check_the_BIOS_firmware_first">Check the BIOS firmware first</span></h4>
-<p>Firmware update process does not need an operating system and it can be done with the BIOS utilities of the laptop. A USB flash drive can be prepared on another computer. The latest BIOS firmware, which is an EXE file, can be downloaded from the <a rel="nofollow"  href="https://www.dell.com/support/home/us/19/product-support/product/latitude-e7440-ultrabook/drivers">Dell website</a>. On Windows, the firmware can be burned with <a rel="nofollow"  href="https://rufus.akeo.ie/">Rufus</a> into a bootable USB flash drive. USB Flash drive can be made UEFI/GPT bootable. After the USB flash is prepared, plug the USB flash stick, boot the laptop by pressing F12 and follow the instructions to boot the USB flash. After the firmware update, during reboot press F2 and check whether the shown BIOS version is the one which is burned.
+<p>Firmware update process does not need an operating system and it can be done with the BIOS utilities of the laptop. A USB flash drive can be prepared on another computer. The latest BIOS firmware, which is an EXE file, can be downloaded from the <a rel="nofollow"  href="https://www.dell.com/support/home/us/wiki/19/product-support/product/latitude-e7440-ultrabook/drivers">Dell website</a>. On Windows, the firmware can be burned with <a rel="nofollow"  href="https://rufus.akeo.ie/">Rufus</a> into a bootable USB flash drive. USB Flash drive can be made UEFI/GPT bootable. After the USB flash is prepared, plug the USB flash stick, boot the laptop by pressing F12 and follow the instructions to boot the USB flash. After the firmware update, during reboot press F2 and check whether the shown BIOS version is the one which is burned.
 </p>
 <h4><span class="mw-headline" id="SecureBoot">SecureBoot</span></h4>
-<p>The TOS Linux kernel is not signed by default, thus it cannot be booted if SecureBoot is enabled in the BIOS. If you want to use the SecureBoot, please follow the instructions <a href="../Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">here</a> to prepare the kernel. The signed kernel itself can be booted by a signed boot loader, e.g. shimx64.efi from Ubuntu.
+<p>The TOS Linux kernel is not signed by default, thus it cannot be booted if SecureBoot is enabled in the BIOS. If you want to use the SecureBoot, please follow the instructions <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">here</a> to prepare the kernel. The signed kernel itself can be booted by a signed boot loader, e.g. shimx64.efi from Ubuntu.
 </p>
 <h3><span class="mw-headline" id="Setup_1:_install_only_the_TOS_Linux">Setup 1: install only the TOS Linux</span></h3>
 <p>The instructions below focus on GPT partitioning scheme, and relies on UEFI features of the laptop.
@@ -124,7 +124,7 @@ Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <li>/dev/sda3/ swap with label SWAP, 8 GB for the laptop with 8 GB. The end sector is last sector of the 1st 10 GB of SSD.</li>
 <li>/dev/sda4/ to be mounted as/data, file system ext4 and can be shared between many Linux installations. This is a 40 GB area which end is aligned to 1st 64 GB of SSD. End of 1st 10 GB and 24 GB beginning was not allocated. This was reserved if 8 GB RAM is upgraded to 16 GB RAM for which at least 16 GB swap could be needed. Since 1st 2x 1GB was reserved for ESP and sda2, this area starts at 24GB boundary, thus giving 40 GB to the end of 1st 64 GB.</li>
 <li>/dev/sda5 file system ext4, to be mounted to /, 2nd 64 GB.</li>
-<li>With the scheme above, an 256GB SSD has been partitioned for the 1st 2x 64 GB. The last two 64GB regions can be partitioned for other Linux operating systems. In <a href="../Partitioning.html" title="Partitioning">Partitioning</a> it is advised to reserve 15-20 GB for a distro. For maximum flexibility 64 GB is taken in the scheme above.</li>
+<li>With the scheme above, an 256GB SSD has been partitioned for the 1st 2x 64 GB. The last two 64GB regions can be partitioned for other Linux operating systems. In <a href="../wiki/Partitioning.html" title="Partitioning">Partitioning</a> it is advised to reserve 15-20 GB for a distro. For maximum flexibility 64 GB is taken in the scheme above.</li>
 </ul>
 <h3><span class="mw-headline" id="Setup_2:_install_TOS_Linux_in_a_Multi-Boot_Setup">Setup 2: install TOS Linux in a Multi-Boot Setup</span></h3>
 <p>An example setup can be found <a href="../User:Sporadiccrash.html#Multi-Boot_of_TOS_Linux_with_Lubuntu" title="User:Sporadiccrash">here</a>.
@@ -132,13 +132,13 @@ Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <h2><span class="mw-headline" id="Drivers">Drivers</span></h2>
 <ul>
 <li>
-<a href="../Intel_graphics.html" title="Intel graphics">Intel graphics</a> for HD4400 graphics card.</li>
+<a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a> for HD4400 graphics card.</li>
 <li>
-<a href="../Network_configuration/Wireless.html#iwlwifi" class="mw-redirect" title="Wireless">Wireless#iwlwifi</a> for Intel 7260 wifi card. This driver is from Intel and also part of the TOS Linux package repository.</li>
+<a href="../wiki/Network_configuration/Wireless.html#iwlwifi" class="mw-redirect" title="Wireless">Wireless#iwlwifi</a> for Intel 7260 wifi card. This driver is from Intel and also part of the TOS Linux package repository.</li>
 <li>
-<a href="../Touchpad_Synaptics.html" class="mw-redirect" title="Synaptics">Synaptics</a> for Touchpad</li>
+<a href="../wiki/Touchpad_Synaptics.html" class="mw-redirect" title="Synaptics">Synaptics</a> for Touchpad</li>
 <li>
-<a href="../Fan_speed_control.html#Dell_laptops" title="Fan speed control">Fan speed control#Dell laptops</a> to control fan speed. There is only one fan on this laptop, detected on the right. Don't forget to disable BIOS fan speed control to be able to use custom fan speed config.</li>
+<a href="../wiki/Fan_speed_control.html#Dell_laptops" title="Fan speed control">Fan speed control#Dell laptops</a> to control fan speed. There is only one fan on this laptop, detected on the right. Don't forget to disable BIOS fan speed control to be able to use custom fan speed config.</li>
 </ul>
 <h2><span class="mw-headline" id="What_does_not_work">What does not work</span></h2>
 <ul>
@@ -156,7 +156,7 @@ Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <h3>
 <span id=".22Invalid_partition_table.21.22_when_booting"></span><span class="mw-headline" id='"Invalid_partition_table!"_when_booting'>"Invalid partition table!" when booting</span>
 </h3>
-<p>If you use BIOS+<a href="../Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> boot method and msdos partition table, the BIOS may show this error message before entering <a href="../Syslinux.html" title="Syslinux">Syslinux</a> or other <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loaders</a>. To bypass it, press Enter. To prevent it, put the "boot" flag on a primary partition (instead of a logical partition). You may refer to the wiki page of your boot loader to see how this works. It may be a "kindly reminder" to Windows users, since Windows can only boot on primary partitions.
+<p>If you use BIOS+<a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> boot method and msdos partition table, the BIOS may show this error message before entering <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> or other <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loaders</a>. To bypass it, press Enter. To prevent it, put the "boot" flag on a primary partition (instead of a logical partition). You may refer to the wiki page of your boot loader to see how this works. It may be a "kindly reminder" to Windows users, since Windows can only boot on primary partitions.
 </p>
 <h3><span class="mw-headline" id="Freeze_before_going_to_suspend_when_lid_is_closed">Freeze before going to suspend when lid is closed</span></h3>
 <p>This seems to be related to <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1301601">https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1301601</a>.
@@ -192,9 +192,9 @@ esac
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -212,9 +212,9 @@ esac
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

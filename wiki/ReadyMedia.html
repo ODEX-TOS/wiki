@@ -2,7 +2,7 @@
     title: ReadyMedia
     description: Migration of ReadyMedia from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -24,9 +24,9 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://sourceforge.net/projects/minidlna">ReadyMedia</a> (previously <b>MiniDLNA</b>) is server software with the aim of being fully compliant with <a href="https://en.wikipedia.org/wiki/Digital_Living_Network_Alliance"  title="wikipedia:Digital Living Network Alliance">DLNA</a>/<a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play"  title="wikipedia:Universal Plug and Play">UPnP</a> clients.  The MiniDNLA daemon serves media files (music, pictures, and video) to clients on a network.  Example clients include applications such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=totem">totem</a></span> and <a href="../Kodi.html" title="Kodi">Kodi</a>, and devices such as portable media players, Smartphones, Televisions, and gaming systems (such as PS3 and Xbox 360).
+<p><a rel="nofollow"  href="https://sourceforge.net/projects/minidlna">ReadyMedia</a> (previously <b>MiniDLNA</b>) is server software with the aim of being fully compliant with <a href="https://en.wikipedia.org/wiki/Digital_Living_Network_Alliance"  title="wikipedia:Digital Living Network Alliance">DLNA</a>/<a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play"  title="wikipedia:Universal Plug and Play">UPnP</a> clients.  The MiniDNLA daemon serves media files (music, pictures, and video) to clients on a network.  Example clients include applications such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=totem">totem</a></span> and <a href="../wiki/Kodi.html" title="Kodi">Kodi</a>, and devices such as portable media players, Smartphones, Televisions, and gaming systems (such as PS3 and Xbox 360).
 </p>
-<p>ReadyMedia is a simple, lightweight alternative to <a href="../MediaTomb.html" title="MediaTomb">MediaTomb</a>, but has fewer features. It does not have a web interface for administration and must be configured by editing a text file.
+<p>ReadyMedia is a simple, lightweight alternative to <a href="../wiki/MediaTomb.html" title="MediaTomb">MediaTomb</a>, but has fewer features. It does not have a web interface for administration and must be configured by editing a text file.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -89,7 +89,7 @@ inotify=yes                                     # 'no' for less resources, resta
 presentation_url=<a rel="nofollow"  href="http://www.mylan/index.php">http://www.mylan/index.php</a>     # or use your device static IP <a rel="nofollow"  href="http://192.168.0.14:8200/">http://192.168.0.14:8200/</a></pre>
 <p>MiniDLNA runs as the <i>minidlna</i> user by default. To change the user it runs as, see <a href="#Running_minidlna_as_your_own_user">#Running minidlna as your own user</a> below.
 </p>
-<p>The minidlna service can be managed by <code>minidlna.service</code> <a href="../Systemd.html#Using_units" title="Systemd">using systemd</a>.
+<p>The minidlna service can be managed by <code>minidlna.service</code> <a href="../wiki/Systemd.html#Using_units" title="Systemd">using systemd</a>.
 </p>
 <h3><span class="mw-headline" id="Automatic_Media_DB_Update">Automatic Media_DB Update</span></h3>
 <p>Kernel adds one <a href="https://en.wikipedia.org/wiki/Inotify"  title="wikipedia:Inotify">inotify</a> watch per each folder/subfolder in <i>Media_Collection</i> Directories set in <code>/etc/minidlna.conf</code> to monitor changes thus allowing MiniDLNA to update <i>Media_DB</i> in real time. When MiniDLNA is run as a regular user, it does not have the ability to change the kernel's <i>inotify</i> limits. If default number of <i>inotify</i> watches is non-sufficient to have MiniDLNA monitor all your media folders, increase <i>inotify</i> watches through <code>sysctl</code> (100000 should be enough for most uses):
@@ -107,7 +107,7 @@ fs.inotify.max_user_watches = 100000
 </p>
 <p>You can also clean or rebuild MiniDLNA DB manually after stopping MiniDLNA daemon, or analyze its debug output (Ctrl+C to exit):
 </p>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Stop">Stop</a> the MiniDLNA daemon.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Stop">Stop</a> the MiniDLNA daemon.
 </p>
 <p>To rebuild Media_DB forcibly:
 </p>
@@ -122,12 +122,12 @@ fs.inotify.max_user_watches = 100000
 <p><code>Ctrl+C</code> to exit it.
 </p>
 <h3><span class="mw-headline" id="Troubleshooting_service_autostart">Troubleshooting service autostart</span></h3>
-<p>Sometimes the minidlna daemon fails to start while booting. <a href="../NetworkManager.html#Enable_NetworkManager_Wait_Online" title="NetworkManager">NetworkManager#Enable NetworkManager Wait Online</a> solves this issue. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/35325">FS#35325</a>
+<p>Sometimes the minidlna daemon fails to start while booting. <a href="../wiki/NetworkManager.html#Enable_NetworkManager_Wait_Online" title="NetworkManager">NetworkManager#Enable NetworkManager Wait Online</a> solves this issue. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/35325">FS#35325</a>
 </p>
 <h3><span class="mw-headline" id="Running_minidlna_as_your_own_user">Running minidlna as your own user</span></h3>
 <p>Change <code>user</code> line in <code>/etc/minidlna.conf</code>, and change the <code>db_dir</code> and <code>log_dir</code> options to directories that are writeable by that user. If you are <a href="#Running_minidlnad_without_systemd">running without systemd</a>, this is all you need.
 </p>
-<p>If you are using the systemd service, <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> <code>minidlna.service</code> as it will by default run as the <code>minidlna</code> user. To do so, create a <code>/etc/systemd/system/minidlna.service.d/run-as-user.conf</code> <a href="../Systemd.html#Drop-in_files" class="mw-redirect" title="Drop-in file">drop-in file</a>:
+<p>If you are using the systemd service, <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> <code>minidlna.service</code> as it will by default run as the <code>minidlna</code> user. To do so, create a <code>/etc/systemd/system/minidlna.service.d/run-as-user.conf</code> <a href="../wiki/Systemd.html#Drop-in_files" class="mw-redirect" title="Drop-in file">drop-in file</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/minidlna.service.d/run-as-user.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -170,10 +170,10 @@ log_dir=/home/$USER/.config/minidlna
 OPEN_UDP="1900"
 </pre>
 <h3><span class="mw-headline" id="File_System_and_Localization">File System and Localization</span></h3>
-<p>When keeping MiniDLNA <i>Media_DB</i> on an external drive accessible in both Linux and Windows, choose proper <a href="../File_systems.html" class="mw-redirect" title="File system">file system</a> for it. <b>NTFS</b> preserves in Windows its Linux defaults: <i>rw</i> access for <i>root</i> user and <i>UTF8</i> font <i>encoding</i> for file names, so media titles in your language are readable when browsing <i>Media_DB</i> in terminal and media players, since most support <i>UTF8</i>. If you prefer <b>Vfat</b> (FAT32) for better USB drive compatibility with older players when hooked directly, or your <i>Media_Collection</i> drive is Vfat and has folder &amp; file names in your local language, MiniDLNA can transcode them to <i>UTF8</i> charset while scanning folders to <i>Media_DB</i>. Add to <i>Media_Collection</i> and <i>Media_DB</i> drives' mount options your FS language <a href="https://en.wikipedia.org/wiki/Code_page"  title="wikipedia:Code page">codepage</a> for transcoding to short DOS file names, and <a href="https://en.wikipedia.org/wiki/Character_encoding"  title="wikipedia:Character encoding">iocharset</a> for converting long file names to your terminal's locale, i.g. <i>codepage=cp866,iocharset=utf8 (or ISO-8859-5)</i>. Set <i>rw</i> permissions for all users, since <i>Vfat</i> does not preserve Linux access permissions:
+<p>When keeping MiniDLNA <i>Media_DB</i> on an external drive accessible in both Linux and Windows, choose proper <a href="../wiki/File_systems.html" class="mw-redirect" title="File system">file system</a> for it. <b>NTFS</b> preserves in Windows its Linux defaults: <i>rw</i> access for <i>root</i> user and <i>UTF8</i> font <i>encoding</i> for file names, so media titles in your language are readable when browsing <i>Media_DB</i> in terminal and media players, since most support <i>UTF8</i>. If you prefer <b>Vfat</b> (FAT32) for better USB drive compatibility with older players when hooked directly, or your <i>Media_Collection</i> drive is Vfat and has folder &amp; file names in your local language, MiniDLNA can transcode them to <i>UTF8</i> charset while scanning folders to <i>Media_DB</i>. Add to <i>Media_Collection</i> and <i>Media_DB</i> drives' mount options your FS language <a href="https://en.wikipedia.org/wiki/Code_page"  title="wikipedia:Code page">codepage</a> for transcoding to short DOS file names, and <a href="https://en.wikipedia.org/wiki/Character_encoding"  title="wikipedia:Character encoding">iocharset</a> for converting long file names to your terminal's locale, i.g. <i>codepage=cp866,iocharset=utf8 (or ISO-8859-5)</i>. Set <i>rw</i> permissions for all users, since <i>Vfat</i> does not preserve Linux access permissions:
 </p>
 <pre>UUID=6140-75F7 /media/MyDrive/Media_DB vfat user,rw,async,noatime,umask=111,dmask=000,codepage=cp866,iocharset=utf8 0 0</pre>
-<p>While your <i>iocharset</i> would be present in the system with a matching <a href="../Locale.html" title="Locale">locale</a>, if your terminal or player supports only short file names, check if the set <i>codepage</i> is also present and enabled (like ru_RU.CP866), i.e. was included in system config when TOSLinux release was compiled, or consider recompiling the release to add it: 
+<p>While your <i>iocharset</i> would be present in the system with a matching <a href="../wiki/Locale.html" title="Locale">locale</a>, if your terminal or player supports only short file names, check if the set <i>codepage</i> is also present and enabled (like ru_RU.CP866), i.e. was included in system config when TOSLinux release was compiled, or consider recompiling the release to add it: 
 </p>
 <pre>ls /usr/share/fonts/encodings
 </pre>
@@ -192,7 +192,7 @@ OPEN_UDP="1900"
 <p>Media served could be based on lightweight and cheap system like development board (Raspberry Pi, CubeBoard, etc.). You do not even need to put X Server on this board.
 </p>
 <h3><span class="mw-headline" id="Automount_external_drives">Automount external drives</span></h3>
-<p>This is very useful if you want to automate the server. See <a href="../Udisks.html#Mount_helpers" title="Udisks">udisks#Mount helpers</a> for more information.
+<p>This is very useful if you want to automate the server. See <a href="../wiki/Udisks.html#Mount_helpers" title="Udisks">udisks#Mount helpers</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Issues">Issues</span></h3>
 <p>Media server based on MiniDLNA could face the drive re-scan issue. Ex.: external HDD you have plugged will be scanned each time again and again. This happens due to MiniDLNA removes DB records for unplugged drive. If your drive plugged all the time it is not a problem, but if you have "pluggable" media library on large external drives this could take a big while till you start watching your video.
@@ -205,7 +205,7 @@ OPEN_UDP="1900"
 </p>
 <h3><span class="mw-headline" id="Media_directory_not_accessible">Media directory not accessible</span></h3>
 <p>Please note that the default systemd service file enforces the parameter <code>ProtectHome=on</code>. If you intend to share files that reside within the <code>/home/</code> file system you may want to lessen that restriction.
-You can achieve this by updating the <a href="../Systemd.html" title="Systemd">systemd</a> unit override file.
+You can achieve this by updating the <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit override file.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/minidlna.service.d/override.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -242,7 +242,7 @@ WantedBy=multi-user.target
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Media_servers.html" title="Category:Media servers">Media servers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Media_servers.html" title="Category:Media servers">Media servers</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -259,9 +259,9 @@ WantedBy=multi-user.target
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

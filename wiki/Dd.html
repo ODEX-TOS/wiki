@@ -2,7 +2,7 @@
     title: Dd
     description: Migration of Dd from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,13 +29,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Disk_cloning.html" title="Disk cloning">Disk cloning</a></li>
-<li><a href="../USB_flash_installation_media.html#Using_dd" title="USB flash installation media">USB flash installation media#Using dd</a></li>
-<li><a href="../Benchmarking.html#dd" title="Benchmarking">Benchmarking#dd</a></li>
-<li><a href="../Securely_wipe_disk.html#dd" title="Securely wipe disk">Securely wipe disk#dd</a></li>
+<li><a href="../wiki/Disk_cloning.html" title="Disk cloning">Disk cloning</a></li>
+<li><a href="../wiki/USB_flash_installation_media.html#Using_dd" title="USB flash installation media">USB flash installation media#Using dd</a></li>
+<li><a href="../wiki/Benchmarking.html#dd" title="Benchmarking">Benchmarking#dd</a></li>
+<li><a href="../wiki/Securely_wipe_disk.html#dd" title="Securely wipe disk">Securely wipe disk#dd</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/dd_(Unix)"  title="wikipedia:dd (Unix)">dd</a> is a <a href="../Core_utilities.html" class="mw-redirect" title="Core utility">core utility</a> whose primary purpose is to convert and copy a file.
+<p><a href="https://en.wikipedia.org/wiki/dd_(Unix)"  title="wikipedia:dd (Unix)">dd</a> is a <a href="../wiki/Core_utilities.html" class="mw-redirect" title="Core utility">core utility</a> whose primary purpose is to convert and copy a file.
 </p>
 <p>Similarly to <i>cp</i>, by default <i>dd</i> makes a bit-to-bit copy of the file, but with lower-level I/O flow control features.
 </p>
@@ -79,7 +79,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><i>dd</i> is part of the GNU <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=coreutils">coreutils</a></span>. For other utilities in the package, please refer to <a href="../Core_utilities.html" title="Core utilities">Core utilities</a>.
+<p><i>dd</i> is part of the GNU <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=coreutils">coreutils</a></span>. For other utilities in the package, please refer to <a href="../wiki/Core_utilities.html" title="Core utilities">Core utilities</a>.
 </p>
 <h2><span class="mw-headline" id="Disk_cloning_and_restore">Disk cloning and restore</span></h2>
 <p>The <i>dd</i> command is a simple, yet versatile and powerful tool. It can be used to copy from source to destination, block-by-block, regardless of their filesystem types or operating systems. A convenient method is to use <i>dd</i> from a live environment, as in a Live CD.
@@ -112,7 +112,7 @@
 <code>status=progress</code> shows periodic transfer statistics which can be used to estimate when the operation may be complete.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The block size you specify influences how read errors are handled. Read below. For data recovery, use <a href="../Disk_cloning.html#Using_ddrescue" title="Disk cloning">ddrescue</a>.</div>
+<strong>Note:</strong> The block size you specify influences how read errors are handled. Read below. For data recovery, use <a href="../wiki/Disk_cloning.html#Using_ddrescue" title="Disk cloning">ddrescue</a>.</div>
 <p>The <i>dd</i> utility technically has an "input block size" (IBS) and an "output block size" (OBS). When you set <code>bs</code>, you effectively set both IBS and OBS. Normally, if your block size is, say, 1 MiB, <i>dd</i> will read 1024×1024 bytes and write as many bytes. But if a read error occurs, things will go wrong. Many people seem to think that <i>dd</i> will "fill up read errors with zeroes" if you use the <code>noerror,sync</code> options, but this is not what happens. <i>dd</i> will, according to documentation, fill up the OBS to IBS size <i>after completing its read</i>, which means adding zeroes at the <i>end</i> of the block. This means, for a disk, that effectively the whole 1 MiB would become messed up because of a single 512 byte read error in the beginning of the read: 12ERROR89 would become 128900000 instead of 120000089.
 </p>
 <p>If you are positive that your disk does not contain any errors, you could proceed using a larger block size, which will increase the speed of your copying several fold. For example, changing bs from 512 to 64K changed copying speed from 35 MB/s to 120 MB/s on a simple Celeron 2.7 GHz system. But keep in mind that read errors on the source disk will end up as <i>block errors</i> on the destination disk, i.e. a single 512-byte read error will mess up the whole 64 KiB output block.
@@ -123,11 +123,11 @@
 <strong>Note:</strong> 
 <ul>
 <li>To regain unique UUIDs of an <i>ext2/3/4</i> filesystem, use <code>tune2fs /dev/sd<i>XY</i> -U random</code> on every partition. For swap partitions, use <code>mkswap /dev/sd<i>XY</i></code> instead.</li>
-<li>Partition table changes from <i>dd</i> are not registered by the kernel. To notify of changes without rebooting, use a utility like <i>partprobe</i> (part of <a href="../Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a>).</li>
+<li>Partition table changes from <i>dd</i> are not registered by the kernel. To notify of changes without rebooting, use a utility like <i>partprobe</i> (part of <a href="../wiki/Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a>).</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="Backing_up_the_partition_table">Backing up the partition table</span></h3>
-<p>See <a href="../Fdisk.html#Backup_and_restore_partition_table" title="Fdisk">fdisk#Backup and restore partition table</a> or <a href="../GPT_fdisk.html#Backup_and_restore_partition_table" class="mw-redirect" title="Gdisk">gdisk#Backup and restore partition table</a>.
+<p>See <a href="../wiki/Fdisk.html#Backup_and_restore_partition_table" title="Fdisk">fdisk#Backup and restore partition table</a> or <a href="../wiki/GPT_fdisk.html#Backup_and_restore_partition_table" class="mw-redirect" title="Gdisk">gdisk#Backup and restore partition table</a>.
 </p>
 <h3><span class="mw-headline" id="Create_disk_image">Create disk image</span></h3>
 <p>Boot from a live medium and make sure no partitions are mounted from the source hard drive.
@@ -136,7 +136,7 @@
 </p>
 <pre># dd if=/dev/sda conv=sync,noerror bs=64K | gzip -c  &gt; <i>/path/to/backup.img.gz</i>
 </pre>
-<p>If necessary (e.g. when the resulting files will be stored on a <a href="../FAT.html" class="mw-redirect" title="FAT32">FAT32</a> file system) split the disk image into multiple parts (see also <span class="plainlinks archwiki-template-man" title="$ man 1 split"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/split.1">split(1)</a></span>):
+<p>If necessary (e.g. when the resulting files will be stored on a <a href="../wiki/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> file system) split the disk image into multiple parts (see also <span class="plainlinks archwiki-template-man" title="$ man 1 split"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/split.1">split(1)</a></span>):
 </p>
 <pre># dd if=/dev/sda conv=sync,noerror bs=64K | gzip -c | split -a3 -b2G - <i>/path/to/backup.img.gz</i>
 </pre>
@@ -189,7 +189,7 @@ If one wants to replace offset <code>0x123AB</code> of a file with the <code>FF 
 <pre># dd if=/<i>path/to/mbr_file.img</i> of=/dev/sd<i>X</i> bs=512 count=1
 </pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Restoring the MBR with a mismatching partition table will make your data unreadable and nearly impossible to recover. If you simply need to reinstall the bootloader see their respective pages as they also employ the <a rel="nofollow"  href="http://www.pixelbeat.org/docs/disk/">DOS compatibility region</a>: <a href="../GRUB.html" title="GRUB">GRUB</a> or <a href="../Syslinux.html" title="Syslinux">Syslinux</a>.</div>
+<strong>Warning:</strong> Restoring the MBR with a mismatching partition table will make your data unreadable and nearly impossible to recover. If you simply need to reinstall the bootloader see their respective pages as they also employ the <a rel="nofollow"  href="http://www.pixelbeat.org/docs/disk/">DOS compatibility region</a>: <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> or <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a>.</div>
 <p>If you only want to restore the boot loader, but not the primary partition table entries, just restore the first 440 bytes of the MBR: 
 </p>
 <pre># dd if=<i>/path/to/mbr_file.img</i> of=/dev/sd<i>X</i> bs=440 count=1
@@ -229,7 +229,7 @@ $ dd if=/dev/urandom of=bigsecret.img bs=40M count=1 iflag=fullblock
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Commands.html" title="Category:Commands">Commands</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -246,9 +246,9 @@ $ dd if=/dev/urandom of=bigsecret.img bs=40M count=1 iflag=fullblock
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

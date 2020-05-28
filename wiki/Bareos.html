@@ -2,7 +2,7 @@
     title: Bareos
     description: Migration of Bareos from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,9 +29,9 @@
 <p>The open-source project site is located at <a rel="nofollow"  href="http://www.bareos.org">http://www.bareos.org</a>, the source code is hosted on Github <a rel="nofollow"  href="https://github.com/bareos/">https://github.com/bareos/</a>
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>There is a group of packages in <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> that will install the software, but there is some minor manual labour necessary to make it run. It is recommended to use Bareos with <a href="../PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, since use with <a href="../MariaDB.html" title="MariaDB">MariaDB</a>/MySQL was deprecated with version 19.0.
+<p>There is a group of packages in <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> that will install the software, but there is some minor manual labour necessary to make it run. It is recommended to use Bareos with <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, since use with <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a>/MySQL was deprecated with version 19.0.
 </p>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the requirements first: 
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the requirements first: 
 </p>
 <ul>
 <li>
@@ -41,26 +41,26 @@
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span> PostgreSQL Database</li>
 </ul>
-<p>Minimal configuration for <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and <a href="../PHP.html" title="PHP">PHP</a>:
+<p>Minimal configuration for <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and <a href="../wiki/PHP.html" title="PHP">PHP</a>:
 </p>
 <ul>
-<li>Follow the steps described in <a href="../Apache_HTTP_Server.html#Using_libphp" title="Apache HTTP Server">Apache HTTP Server#Using libphp</a>
+<li>Follow the steps described in <a href="../wiki/Apache_HTTP_Server.html#Using_libphp" title="Apache HTTP Server">Apache HTTP Server#Using libphp</a>
 </li>
 <li>You will also need to enable the <code>rewrite</code> module, to do this, modify <code>/etc/httpd/conf/httpd.conf</code> and uncomment: <pre>LoadModule rewrite_module modules/mod_rewrite.so</pre>
 </li>
-<li>Then enable the <code>postgresql</code> extension in PHP as listed in <a href="../PHP.html#PostgreSQL" title="PHP">PHP#PostgreSQL</a>
+<li>Then enable the <code>postgresql</code> extension in PHP as listed in <a href="../wiki/PHP.html#PostgreSQL" title="PHP">PHP#PostgreSQL</a>
 </li>
 </ul>
-<p>Minimal configuration for <a href="../PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> 
+<p>Minimal configuration for <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> 
 </p>
-<ul><li>Initialize the database by following <a href="../PostgreSQL.html#Initial_configuration" title="PostgreSQL">PostgreSQL#Initial configuration</a>
+<ul><li>Initialize the database by following <a href="../wiki/PostgreSQL.html#Initial_configuration" title="PostgreSQL">PostgreSQL#Initial configuration</a>
 </li></ul>
-<p>Make sure both <a href="../Systemd.html" title="Systemd">Systemd</a> services are <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> them: 
+<p>Make sure both <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> services are <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> them: 
 </p>
 <dl><dd>
 <code>httpd.service</code> and <code>postgresql.service</code>
 </dd></dl>
-<p>Install the packages from <a href="../TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>:
+<p>Install the packages from <a href="../wiki/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>:
 </p>
 <ul>
 <li>
@@ -109,7 +109,7 @@
 </p>
 <dl><dd>edit <code>/etc/bareos/bareos-dir.d/catalog/MyCatalog.conf</code> and replace the line containing the placeholder with this line: <pre>dbdriver = "postgresql"</pre>
 </dd></dl>
-<p>The <a href="../Systemd.html" title="Systemd">Systemd</a> services for Bareos can now be <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">started</a>: 
+<p>The <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> services for Bareos can now be <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">started</a>: 
 </p>
 <dl><dd>
 <code>bareos-dir.service</code>, <code>bareos-sd.service</code> and <code>bareos-fd.service</code>
@@ -133,7 +133,7 @@
 <li>in the file <code>/etc/httpd/conf/httpd.conf</code> add the line: <pre>Include conf.d/extra/bareos-webui.conf</pre>
 </li>
 <li>
-<a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> Apache <code>httpd.serive</code>
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> Apache <code>httpd.serive</code>
 </li>
 </ul>
 <p>Now you can now login to Bareos Webui at <code>http://localhost/bareos-webui/</code> and login using the account you just created with <code>bconsole</code>.
@@ -142,8 +142,8 @@
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Backup.html" title="Category:Backup">Backup</a></li>
-<li><a href="../Category:Data_compression_and_archiving.html" title="Category:Data compression and archiving">Data compression and archiving</a></li>
+<li><a href="../wiki/Category:Backup.html" title="Category:Backup">Backup</a></li>
+<li><a href="../wiki/Category:Data_compression_and_archiving.html" title="Category:Data compression and archiving">Data compression and archiving</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -161,9 +161,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

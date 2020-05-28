@@ -2,7 +2,7 @@
     title: TOSiso
     description: Migration of TOSiso from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Remastering_the_Install_ISO.html" title="Remastering the Install ISO">Remastering the Install ISO</a></li>
-<li><a href="../Preboot_Execution_Environment.html" class="mw-redirect" title="TOSiso as pxe server">TOSiso as pxe server</a></li>
-<li><a href="../TOSboot.html" title="TOSboot">TOSboot</a></li>
-<li><a href="../Offline_installation.html" title="Offline installation">Offline installation</a></li>
+<li><a href="../wiki/Remastering_the_Install_ISO.html" title="Remastering the Install ISO">Remastering the Install ISO</a></li>
+<li><a href="../wiki/Preboot_Execution_Environment.html" class="mw-redirect" title="TOSiso as pxe server">TOSiso as pxe server</a></li>
+<li><a href="../wiki/TOSboot.html" title="TOSboot">TOSboot</a></li>
+<li><a href="../wiki/Offline_installation.html" title="Offline installation">Offline installation</a></li>
 </ul>
 </div> 
 <p><b>TOSiso</b> is a tool for building TOS Linux live CD ISO images. The <a rel="nofollow"  href="https://www.archlinux.org/download/">official images</a> are built with TOSiso. TOSiso is configurable and can be used as the basis for different systems, for example rescue systems, or linux-tosinstallers. This wiki article explains how to install TOSiso, and how to configure it to control aspects of the resulting ISO image such as included packages and files. Technical requirements and build steps can be found in the <a rel="nofollow"  href="https://git.archlinux.org/archiso.git/tree/docs">official project documentation</a>. TOSiso is implemented with a number of bash scripts. The core component of TOSiso is the <i>mkarchiso</i> command. Its options are documented in its usage output and not covered here. Users do not need to interface with <i>mkarchiso</i> directly.
@@ -87,7 +87,7 @@
 <h2><span class="mw-headline" id="Setup">Setup</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> It is recommended to act as root in all the following steps. If not, it is very likely to have problems with false permissions later.</div>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archiso">archiso</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/archiso-git/">archiso-git</a></span><sup><small>AUR</small></sup> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archiso">archiso</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/archiso-git/">archiso-git</a></span><sup><small>AUR</small></sup> package.
 </p>
 <p>TOSiso comes with two "profiles", <i>releng</i> and <i>baseline</i>.
 </p>
@@ -129,9 +129,9 @@
 <p>Edit the lists of packages in <code>packages.x86_64</code> to configure which packages are installed on the live system image, listing packages line by line.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you want to use a <a href="../Window_manager.html" title="Window manager">window manager</a> in the Live CD then you must add the necessary and correct <a href="../Xorg.html#Driver_installation" class="mw-redirect" title="Video drivers">video drivers</a>, or the WM may freeze on loading.</div>
+<strong>Note:</strong> If you want to use a <a href="../wiki/Window_manager.html" title="Window manager">window manager</a> in the Live CD then you must add the necessary and correct <a href="../wiki/Xorg.html#Driver_installation" class="mw-redirect" title="Video drivers">video drivers</a>, or the WM may freeze on loading.</div>
 <h4><span class="mw-headline" id="Custom_local_repository">Custom local repository</span></h4>
-<p>For the purpose of preparing custom packages or packages from <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>/<a href="../TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>, you could also <a href="../Pacman/Tips_and_tricks.html#Custom_local_repository" class="mw-redirect" title="Custom local repository">create a custom local repository</a>.
+<p>For the purpose of preparing custom packages or packages from <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>/<a href="../wiki/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>, you could also <a href="../wiki/Pacman/Tips_and_tricks.html#Custom_local_repository" class="mw-redirect" title="Custom local repository">create a custom local repository</a>.
 You can then add your repository by putting the following into <code>~/archlive/pacman.conf</code>, above the other repository entries (for top priority):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/archlive/pacman.conf</pre>
@@ -142,7 +142,7 @@ SigLevel = Optional TrustAll
 Server = file:///home/<b>user</b>/customrepo/$arch
 ...</pre>
 <h4><span class="mw-headline" id="Installing_packages_from_multilib">Installing packages from multilib</span></h4>
-<p>To install packages from the <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository simply uncomment the repository in <code>~/archlive/pacman.conf</code>:
+<p>To install packages from the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository simply uncomment the repository in <code>~/archlive/pacman.conf</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">pacman.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[multilib]
@@ -177,10 +177,10 @@ Include = /etc/pacman.d/mirrorlist</pre>
 <p>Due to the modular nature of isolinux, you are able to use lots of addons since all *.c32 files are copied and available to you. Take a look at the <a rel="nofollow"  href="http://syslinux.zytor.com/wiki/index.php/SYSLINUX">official syslinux-tossite</a> and the <a rel="nofollow"  href="https://git.archlinux.org/archiso.git/tree/configs/releng/syslinux">archiso git repo</a>. Using said addons, it is possible to make visually attractive and complex menus. See <a rel="nofollow"  href="http://syslinux.zytor.com/wiki/index.php/Comboot/menu.c32">here</a>.
 </p>
 <h4><span class="mw-headline" id="UEFI_Secure_Boot">UEFI Secure Boot</span></h4>
-<p>If you want to make your TOSiso bootable on a UEFI Secure Boot enabled environment, you must use a signed bootloader. You can follow the instructions on <a href="../Unified_Extensible_Firmware_Interface/Secure_Boot.html#Booting_an_install_media" class="mw-redirect" title="Secure Boot">Secure Boot#Booting an install media</a>.
+<p>If you want to make your TOSiso bootable on a UEFI Secure Boot enabled environment, you must use a signed bootloader. You can follow the instructions on <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html#Booting_an_install_media" class="mw-redirect" title="Secure Boot">Secure Boot#Booting an install media</a>.
 </p>
 <h3><span class="mw-headline" id="Login_manager">Login manager</span></h3>
-<p>Starting X at boot is done by enabling your login manager's <a href="../Systemd.html" title="Systemd">systemd</a> service. If you know which .service file needs a softlink: Great. If not, you can easily find out in case you are using the same program on the system you build your iso on. Just use:
+<p>Starting X at boot is done by enabling your login manager's <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service. If you know which .service file needs a softlink: Great. If not, you can easily find out in case you are using the same program on the system you build your iso on. Just use:
 </p>
 <pre>$ ls -l /etc/systemd/system/display-manager.service
 </pre>
@@ -252,7 +252,7 @@ ExecStart=-/sbin/agetty --autologin <b>isouser</b> --noclear %I 38400 linux
 <p>The temporary files are copied into work directory. If it happens that the build.sh script is interrupted, make sure there are no mount binds before deleting it - otherwise, you may lose data (e.g. an external device mounted at <code>/run/media/$user/$label</code> gets bound within <code>work/x86_64/airootfs/run/media/$user/$label</code> during the build process).
 </p>
 <h2><span class="mw-headline" id="Using_the_ISO">Using the ISO</span></h2>
-<p>See <a href="../Installation_guide.html#Boot_the_live_environment" title="Installation guide">Installation guide#Boot the live environment</a> for various options.
+<p>See <a href="../wiki/Installation_guide.html#Boot_the_live_environment" title="Installation guide">Installation guide#Boot the live environment</a> for various options.
 </p>
 <h2><span class="mw-headline" id="Run_the_ISO_in_QEMU">Run the ISO in QEMU</span></h2>
 <pre> qemu-system-x86_64 \
@@ -277,20 +277,20 @@ ExecStart=-/sbin/agetty --autologin <b>isouser</b> --noclear %I 38400 linux
 <h3><span class="mw-headline" id="Example_customization_template">Example customization template</span></h3>
 <ul><li><a rel="nofollow"  href="http://easy.open.and.free.fr/didjix/">A live DJ distribution powered by TOSLinux and built with TOSiso</a></li></ul>
 <h3><span class="mw-headline" id="Creating_a_offline_installation_ISO">Creating a offline installation ISO</span></h3>
-<ul><li><a href="../TOSiso_offline.html" title="TOSiso offline">TOSiso offline</a></li></ul>
+<ul><li><a href="../wiki/TOSiso_offline.html" title="TOSiso offline">TOSiso offline</a></li></ul>
 <h3><span class="mw-headline" id="Find_a_previous_version_of_an_ISO_image">Find a previous version of an ISO image</span></h3>
-<ul><li><a href="../TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a></li></ul>
+<ul><li><a href="../wiki/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li>
-<li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
-<li><a href="../Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
+<li><a href="../wiki/Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li>
+<li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="../wiki/Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -308,9 +308,9 @@ ExecStart=-/sbin/agetty --autologin <b>isouser</b> --noclear %I 38400 linux
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

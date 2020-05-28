@@ -2,7 +2,7 @@
     title: Advanced_Linux_Sound_TOSitecture
     description: Migration of Advanced_Linux_Sound_TOSitecture from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Advanced_Linux_Sound_TOSitecture/Configuration_examples.html" class="mw-redirect" title="ALSA configuration examples">ALSA configuration examples</a></li>
-<li><a href="../Advanced_Linux_Sound_TOSitecture/Troubleshooting.html" class="mw-redirect" title="ALSA troubleshooting">ALSA troubleshooting</a></li>
-<li><a href="../Sound_system.html" title="Sound system">Sound system</a></li>
-<li><a href="../PC_speaker.html" title="PC speaker">PC speaker</a></li>
-<li><a href="../PulseAudio.html" title="PulseAudio">PulseAudio</a></li>
-<li><a href="../Open_Sound_System.html" title="Open Sound System">Open Sound System</a></li>
+<li><a href="../wiki/Advanced_Linux_Sound_TOSitecture/Configuration_examples.html" class="mw-redirect" title="ALSA configuration examples">ALSA configuration examples</a></li>
+<li><a href="../wiki/Advanced_Linux_Sound_TOSitecture/Troubleshooting.html" class="mw-redirect" title="ALSA troubleshooting">ALSA troubleshooting</a></li>
+<li><a href="../wiki/Sound_system.html" title="Sound system">Sound system</a></li>
+<li><a href="../wiki/PC_speaker.html" title="PC speaker">PC speaker</a></li>
+<li><a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a></li>
+<li><a href="../wiki/Open_Sound_System.html" title="Open Sound System">Open Sound System</a></li>
 </ul>
 </div>
 <p>The <a href="https://en.wikipedia.org/wiki/Advanced_Linux_Sound_TOSitecture"  title="wikipedia:Advanced Linux Sound TOSitecture">Advanced Linux Sound TOSitecture</a> (<b>ALSA</b>) provides kernel driven sound card drivers. It replaces the original Open Sound System (OSS).
@@ -143,34 +143,34 @@
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>ALSA is a set of built-in Linux kernel modules. Therefore, manual installation is not necessary.
 </p>
-<p><a href="../Udev.html" title="Udev">udev</a> will automatically detect your hardware and select needed drivers at boot time, therefore, your sound should already be working. However, your sound may be initially muted. If it is, see <a href="#Unmuting_the_channels">Unmuting the channels</a>.
+<p><a href="../wiki/Udev.html" title="Udev">udev</a> will automatically detect your hardware and select needed drivers at boot time, therefore, your sound should already be working. However, your sound may be initially muted. If it is, see <a href="#Unmuting_the_channels">Unmuting the channels</a>.
 </p>
 <h3><span class="mw-headline" id="User_privileges">User privileges</span></h3>
 <p>Usually, local users have permission to play audio and change mixer levels.
 </p>
-<p>To allow remote users to use ALSA, you need to <a href="../Users_and_groups.html#Group_management" title="Users and groups">add</a> those users to the <code>audio</code> group, however this is not recommended by default (see note below). 
+<p>To allow remote users to use ALSA, you need to <a href="../wiki/Users_and_groups.html#Group_management" title="Users and groups">add</a> those users to the <code>audio</code> group, however this is not recommended by default (see note below). 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Adding users to the <code>audio</code> group allows direct access to devices. Keep in mind, that this allows applications to exclusively reserve output devices. This may break software mixing or fast-user-switching on multi-seat systems. Therefore, adding a user to the <code>audio</code> group is <b>not</b> recommended by default; unless you specifically need to <a rel="nofollow"  href="https://wiki.ubuntu.com/Audio/TheAudioGroup">[1]</a>.</div>
 <h3><span class="mw-headline" id="ALSA_Utilities">ALSA Utilities</span></h3>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-utils">alsa-utils</a></span> package. This contains (among other utilities) the <code>alsamixer</code> and <code>amixer</code> utilities. <i>amixer</i> is a shell command to change audio settings, while <i>alsamixer</i> provides a more intuitive <a href="https://en.wikipedia.org/wiki/Ncurses"  title="wikipedia:Ncurses">ncurses</a> based interface for audio device configuration.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-utils">alsa-utils</a></span> package. This contains (among other utilities) the <code>alsamixer</code> and <code>amixer</code> utilities. <i>amixer</i> is a shell command to change audio settings, while <i>alsamixer</i> provides a more intuitive <a href="https://en.wikipedia.org/wiki/Ncurses"  title="wikipedia:Ncurses">ncurses</a> based interface for audio device configuration.
 </p>
 <p>If you need <a href="#High_quality_resampling">high quality resampling</a> install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-plugins">alsa-plugins</a></span> package to enable <a href="#Upmixing/downmixing">upmixing/downmixing</a> and other advanced features.
 </p>
 <h3><span class="mw-headline" id="OSS_compatibility">OSS compatibility</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This is important if your application complains about missing <code>/dev/dsp</code> or <code>/dev/snd/seq</code>.</div>
-<p>ALSA has some ability to intercept <a href="../Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> calls and re-route them through ALSA instead. This emulation layer is useful e.g. for legacy applications which try to open <code>/dev/dsp</code> and write sound data to them directly. Without OSS or the emulation library, <code>/dev/dsp</code> will be missing, and the application will not produce any sound.
+<p>ALSA has some ability to intercept <a href="../wiki/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> calls and re-route them through ALSA instead. This emulation layer is useful e.g. for legacy applications which try to open <code>/dev/dsp</code> and write sound data to them directly. Without OSS or the emulation library, <code>/dev/dsp</code> will be missing, and the application will not produce any sound.
 </p>
-<p>If you want <a href="../Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> applications to work with <a href="#Dmix">dmix</a>, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-oss">alsa-oss</a></span> package as well. Then load the <code>snd-seq-oss</code>, <code>snd-pcm-oss</code> and <code>snd-mixer-oss</code> <a href="../Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> to enable OSS emulation.
+<p>If you want <a href="../wiki/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> applications to work with <a href="#Dmix">dmix</a>, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-oss">alsa-oss</a></span> package as well. Then load the <code>snd-seq-oss</code>, <code>snd-pcm-oss</code> and <code>snd-mixer-oss</code> <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> to enable OSS emulation.
 </p>
 <h3><span class="mw-headline" id="PulseAudio_compatibility">PulseAudio compatibility</span></h3>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/apulse/">apulse</a></span><sup><small>AUR</small></sup> lets you use ALSA for applications that support only <a href="../PulseAudio.html" title="PulseAudio">PulseAudio</a> for sound. Usage is simply <code>$ apulse <i>yourapplication</i></code>.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/apulse/">apulse</a></span><sup><small>AUR</small></sup> lets you use ALSA for applications that support only <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> for sound. Usage is simply <code>$ apulse <i>yourapplication</i></code>.
 </p>
 <h3><span class="mw-headline" id="ALSA_and_Systemd">ALSA and Systemd</span></h3>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-utils">alsa-utils</a></span> package comes with <a href="../Systemd.html" title="Systemd">systemd</a> unit configuration files <code>alsa-restore.service</code> and <code>alsa-state.service</code> by default.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-utils">alsa-utils</a></span> package comes with <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit configuration files <code>alsa-restore.service</code> and <code>alsa-state.service</code> by default.
 </p>
-<p>These are automatically installed and activated during installation (via package provided symlink to <a href="../Systemd.html#Targets" title="Systemd">sound.target</a>). Neither will run by default, as they rely on some conscious decisions by the user to know which method should be preferred. The options are as follows:
+<p>These are automatically installed and activated during installation (via package provided symlink to <a href="../wiki/Systemd.html#Targets" title="Systemd">sound.target</a>). Neither will run by default, as they rely on some conscious decisions by the user to know which method should be preferred. The options are as follows:
 </p>
 <ul>
 <li>
@@ -216,7 +216,7 @@ $ amixer sset Headphone unmute
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Please take note that this will not automatically upmix stereo sources (like most music). In order to accomplish that, see <a href="#Upmixing/downmixing">#Upmixing/downmixing</a>.</div>
 <h3><span class="mw-headline" id="Enable_the_microphone">Enable the microphone</span></h3>
-<p>To enable your microphone, switch to the Capture tab with <code>F4</code> and enable a channel with <code>Space</code>. See <a href="../Advanced_Linux_Sound_TOSitecture/Troubleshooting.html#Microphone" title="Advanced Linux Sound TOSitecture/Troubleshooting">/Troubleshooting#Microphone</a> if microphone does not work.
+<p>To enable your microphone, switch to the Capture tab with <code>F4</code> and enable a channel with <code>Space</code>. See <a href="../wiki/Advanced_Linux_Sound_TOSitecture/Troubleshooting.html#Microphone" title="Advanced Linux Sound TOSitecture/Troubleshooting">/Troubleshooting#Microphone</a> if microphone does not work.
 </p>
 <h3><span class="mw-headline" id="Test_your_changes">Test your changes</span></h3>
 <p>Next, test to see if sound works:
@@ -243,7 +243,7 @@ surround41:CARD=PCH,DEV=0
 surround50:CARD=PCH,DEV=0
 surround51:CARD=PCH,DEV=0
 surround71:CARD=PCH,DEV=0</pre>
-<p>If that does not work, consult the <a href="#Configuration">#Configuration</a> section or the <a href="../Advanced_Linux_Sound_TOSitecture/Troubleshooting.html" title="Advanced Linux Sound TOSitecture/Troubleshooting">/Troubleshooting</a> page.
+<p>If that does not work, consult the <a href="#Configuration">#Configuration</a> section or the <a href="../wiki/Advanced_Linux_Sound_TOSitecture/Troubleshooting.html" title="Advanced Linux Sound TOSitecture/Troubleshooting">/Troubleshooting</a> page.
 </p>
 <h3><span class="mw-headline" id="Additional_notes">Additional notes</span></h3>
 <ul><li>If your system has more than one soundcard, then you can switch between them by pressing <code>F6</code>
@@ -383,7 +383,7 @@ pcm.default.slave.pcm.card 0;</pre>
 <b>Reason:</b> Explain the difference between a "card" and a "device." <code>amixer --help</code> suggests the two are not synonymous (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Advanced_Linux_Sound_TOSitecture">Talk:Advanced Linux Sound TOSitecture#</a>)</div>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> There is no previous instruction regarding <code>defaults.pcm.device</code>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Advanced_Linux_Sound_TOSitecture">Talk:Advanced Linux Sound TOSitecture#</a>)</div>
 </div>
@@ -536,7 +536,7 @@ snd_page_alloc         7017    2  snd_hda_intel,snd_pcm</pre>
 <p>If the output looks similar, your sound drivers have been successfully autodetected.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Since <code>udev&gt;=171</code>, the OSS emulation modules (<code>snd_seq_oss, snd_pcm_oss, snd_mixer_oss</code>) are not loaded by default: <a href="../Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Load them manually</a>, if they are needed.</div>
+<strong>Note:</strong> Since <code>udev&gt;=171</code>, the OSS emulation modules (<code>snd_seq_oss, snd_pcm_oss, snd_mixer_oss</code>) are not loaded by default: <a href="../wiki/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Load them manually</a>, if they are needed.</div>
 <p>You might also want to check the directory <code>/dev/snd/</code> for the right device files:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ ls -l /dev/snd</pre>
@@ -559,9 +559,9 @@ crw-rw----  1 root audio 116, 33 Apr  8 14:17 timer</pre>
 <ul>
 <li>Locate the module for your sound card: <a rel="nofollow"  href="http://www.alsa-project.org/main/index.php/Matrix:Main">ALSA Soundcard Matrix</a> The module will be prefixed with 'snd-' (for example: <code>snd-via82xx</code>).</li>
 <li>
-<a href="../Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Load the module</a>.</li>
+<a href="../wiki/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">Load the module</a>.</li>
 <li>Check for the device files in <code>/dev/snd</code> (see above) and/or try if <code>alsamixer</code> or <code>amixer</code> have reasonable output.</li>
-<li>Configure <code>snd-NAME-OF-MODULE</code> and <code>snd-pcm-oss</code> to <a href="../Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">load at boot</a>.</li>
+<li>Configure <code>snd-NAME-OF-MODULE</code> and <code>snd-pcm-oss</code> to <a href="../wiki/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">load at boot</a>.</li>
 </ul>
 <h3>
 <span id="Getting_S.2FPDIF_output"></span><span class="mw-headline" id="Getting_S/PDIF_output">Getting S/PDIF output</span>
@@ -570,7 +570,7 @@ crw-rw----  1 root audio 116, 33 Apr  8 14:17 timer</pre>
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> With some soundcards this disables analog sound output  (eg. Sound Blaster Audigy 2).</div>
-<p>Depending on what <a href="../Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> you use, add the following line to your shell's configuration file:
+<p>Depending on what <a href="../wiki/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> you use, add the following line to your shell's configuration file:
 </p>
 <pre>amixer -c 0 cset name='IEC958 Playback Switch' on
 </pre>
@@ -615,7 +615,7 @@ pcm.!default {
 <pre>$ alsamixer -D equal
 </pre>
 <p>Note that configuration file is different for each user (until not specified else) it is saved in <code>~/.alsaequal.bin</code>.
-so if you want to use ALSAEqual with <a href="../Music_Player_Daemon.html" class="mw-redirect" title="Mpd">mpd</a> or another software running under different user, you can configure it using
+so if you want to use ALSAEqual with <a href="../wiki/Music_Player_Daemon.html" class="mw-redirect" title="Mpd">mpd</a> or another software running under different user, you can configure it using
 </p>
 <pre>$ su mpd -c 'alsamixer -D equal'
 </pre>
@@ -702,7 +702,7 @@ Thus, if you are getting poor sound quality due to bad resampling, the problem c
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">defaults.pcm.rate_converter "speexrate_medium"
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> It is also possible to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsamplerate">libsamplerate</a></span> converters, which are only about half as fast as the <i>speexrate</i> converters but do not achieve much higher quality. See <a href="../Talk:Advanced_Linux_Sound_TOSitecture.html#On_high_quality_resampling" title="Talk:Advanced Linux Sound TOSitecture">discussion</a>.</div>
+<strong>Note:</strong> It is also possible to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsamplerate">libsamplerate</a></span> converters, which are only about half as fast as the <i>speexrate</i> converters but do not achieve much higher quality. See <a href="../wiki/Talk:Advanced_Linux_Sound_TOSitecture.html#On_high_quality_resampling" title="Talk:Advanced Linux Sound TOSitecture">discussion</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> It is also possible to use lavcrate resamplers that use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ffmpeg">ffmpeg</a></span> With filter sizes of lavcrate_faster:4 lavcrate_fast:8 lavcrate:16 lavcrate_high:32 lavcrate_higher:64 With the last 2 options being equal to Kodi low and medium quality resamplers respectively</div>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -793,7 +793,7 @@ pcm.!surround40 {
 <p>and then unmuting other required items, such as <b>Headphones</b>, <b>Speaker</b>, <b>Bass Speaker</b>...
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you have a crackling sound through headphones connector (mini-jack) after, see <a href="../Advanced_Linux_Sound_TOSitecture/Troubleshooting.html#Crackling_sound_through_mini-jack_.28headphones_connector.29" title="Advanced Linux Sound TOSitecture/Troubleshooting">here</a>.</div>
+<strong>Note:</strong> If you have a crackling sound through headphones connector (mini-jack) after, see <a href="../wiki/Advanced_Linux_Sound_TOSitecture/Troubleshooting.html#Crackling_sound_through_mini-jack_.28headphones_connector.29" title="Advanced Linux Sound TOSitecture/Troubleshooting">here</a>.</div>
 <h3><span class="mw-headline" id="Keyboard_volume_control">Keyboard volume control</span></h3>
 <p>Map the following commands to your volume keys: <code>XF86AudioRaiseVolume</code>, <code>XF86AudioLowerVolume</code>, <code>XF86AudioMute</code>
 </p>
@@ -850,7 +850,7 @@ rm "_tmp.wav";
 </p>
 <pre># echo 1 &gt; /sys/class/sound/<i>card</i>/reconfig
 </pre>
-<p>Before doing this, all processes using the ALSA driver (such as <a href="../PulseAudio.html#Running" title="PulseAudio">Pulseaudio</a> or <a href="../JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a>) must be stopped.
+<p>Before doing this, all processes using the ALSA driver (such as <a href="../wiki/PulseAudio.html#Running" title="PulseAudio">Pulseaudio</a> or <a href="../wiki/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a>) must be stopped.
 </p>
 <h3>
 <span id="Correctly_detect_microphone_plugged_in_a_4-pin_3.5mm_.28TRRS.29_jack"></span><span class="mw-headline" id="Correctly_detect_microphone_plugged_in_a_4-pin_3.5mm_(TRRS)_jack">Correctly detect microphone plugged in a 4-pin 3.5mm (TRRS) jack</span>
@@ -877,11 +877,11 @@ Tested with Gigabyte Aero15 2017 (P65 Model), with ALC255 and set model to <code
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
 </ul>
 </div>
 </div>
@@ -900,9 +900,9 @@ Tested with Gigabyte Aero15 2017 (P65 Model), with ALC255 and set model to <code
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

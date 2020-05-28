@@ -2,7 +2,7 @@
     title: Kernel_parameters
     description: Migration of Kernel_parameters from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <p>There are three ways to pass options to the kernel and thus control its behaviour:
 </p>
 <ol>
-<li>When building the kernel. See <a href="../Kernel.html#Compilation" title="Kernel">Kernel#Compilation</a> for details.</li>
+<li>When building the kernel. See <a href="../wiki/Kernel.html#Compilation" title="Kernel">Kernel#Compilation</a> for details.</li>
 <li>When starting the kernel (usually, when invoked from a boot loader).</li>
-<li>At runtime (through the files in <code>/proc</code> and <code>/sys</code>). See <a href="../Sysctl.html" title="Sysctl">sysctl</a> for details.</li>
+<li>At runtime (through the files in <code>/proc</code> and <code>/sys</code>). See <a href="../wiki/Sysctl.html" title="Sysctl">sysctl</a> for details.</li>
 </ol>
 <p>This page explains in more detail the second method and shows a list of the most used kernel parameters in TOS Linux.
 </p>
@@ -69,12 +69,12 @@
 <strong>Note:</strong> 
 <ul>
 <li>You can check the parameters your system was booted up with by running <code>cat /proc/cmdline</code> and see if it includes your changes.</li>
-<li>The TOS Linux <a rel="nofollow"  href="https://www.archlinux.org/download/">installation medium</a> uses <a href="../Syslinux.html" title="Syslinux">Syslinux</a> for <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS</a> systems, and <a href="../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> for <a href="../Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> systems.</li>
+<li>The TOS Linux <a rel="nofollow"  href="https://www.archlinux.org/download/">installation medium</a> uses <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> for <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS</a> systems, and <a href="../wiki/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> for <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> systems.</li>
 </ul>
 </div>
 <p>Kernel parameters can be set either temporarily by editing the boot entry in the boot loader's boot selection menu, or by modifying the boot loader's configuration file.
 </p>
-<p>The following examples add the <code>quiet</code> and <code>splash</code> parameters to <a href="../Syslinux.html" title="Syslinux">Syslinux</a>, <a href="../Systemd-boot.html" title="Systemd-boot">systemd-boot</a>, <a href="../GRUB.html" title="GRUB">GRUB</a>, <a href="../GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>, <a href="../LILO.html" title="LILO">LILO</a>, and <a href="../REFInd.html" title="REFInd">rEFInd</a>.
+<p>The following examples add the <code>quiet</code> and <code>splash</code> parameters to <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a>, <a href="../wiki/Systemd-boot.html" title="Systemd-boot">systemd-boot</a>, <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>, <a href="../wiki/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>, <a href="../wiki/LILO.html" title="LILO">LILO</a>, and <a href="../wiki/REFInd.html" title="REFInd">rEFInd</a>.
 </p>
 <h3><span class="mw-headline" id="Syslinux">Syslinux</span></h3>
 <ul><li>Press <code>Tab</code> when the menu shows up and add them at the end of the string:</li></ul>
@@ -82,7 +82,7 @@
 <dl><dd>Press <code>Enter</code> to boot with these parameters.</dd></dl>
 <ul><li>To make the change persistent after reboot, edit <code>/boot/syslinux/syslinux.cfg</code> and add them to the <code>APPEND</code> line:</li></ul>
 <dl><dd><pre>APPEND root=/dev/sda3 <i>quiet splash</i></pre></dd></dl>
-<p>For more information on configuring Syslinux, see the <a href="../Syslinux.html" title="Syslinux">Syslinux</a> article.
+<p>For more information on configuring Syslinux, see the <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a> article.
 </p>
 <h3><span class="mw-headline" id="systemd-boot">systemd-boot</span></h3>
 <ul><li>Press <code>e</code> when the menu appears and add the parameters to the end of the string:</li></ul>
@@ -95,9 +95,9 @@
 <li>If you cannot edit the parameters from the boot menu, you may need to edit <code>/boot/loader/loader.conf</code> and add <code>editor 1</code> to enable editing.</li>
 </ul>
 </div>
-<ul><li>To make the change persistent after reboot, edit <code>/boot/loader/entries/arch.conf</code> (assuming you set up your <a href="../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>) and add them to the <code>options</code> line:</li></ul>
+<ul><li>To make the change persistent after reboot, edit <code>/boot/loader/entries/arch.conf</code> (assuming you set up your <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>) and add them to the <code>options</code> line:</li></ul>
 <dl><dd><pre>options root=/dev/sda2 <i>quiet splash</i></pre></dd></dl>
-<p>For more information on configuring systemd-boot, see the <a href="../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> article.
+<p>For more information on configuring systemd-boot, see the <a href="../wiki/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> article.
 </p>
 <h3><span class="mw-headline" id="GRUB">GRUB</span></h3>
 <ul><li>Press <code>e</code> when the menu shows up and add them on the <code>linux</code> line:</li></ul>
@@ -108,21 +108,21 @@
 <dl><dd><dl><dd><pre>GRUB_CMDLINE_LINUX_DEFAULT="<i>quiet splash</i>"</pre></dd></dl></dd></dl>
 <dl><dd>And then automatically re-generate the <code>grub.cfg</code> file with:</dd></dl>
 <dl><dd><dl><dd><pre># grub-mkconfig -o /boot/grub/grub.cfg</pre></dd></dl></dd></dl>
-<p>For more information on configuring GRUB, see the <a href="../GRUB.html" title="GRUB">GRUB</a> article.
+<p>For more information on configuring GRUB, see the <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> article.
 </p>
 <h3><span class="mw-headline" id="GRUB_Legacy">GRUB Legacy</span></h3>
 <ul><li>Press <code>e</code> when the menu shows up and add them on the <code>kernel</code> line:</li></ul>
 <dl><dd><pre>kernel /boot/vmlinuz-linux-tosroot=/dev/sda3 <i>quiet splash</i></pre></dd></dl>
 <dl><dd>Press <code>b</code> to boot with these parameters.</dd></dl>
 <ul><li>To make the change persistent after reboot, edit <code>/boot/grub/menu.lst</code> and add them to the <code>kernel</code> line, exactly like above.</li></ul>
-<p>For more information on configuring GRUB Legacy, see the <a href="../GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> article.
+<p>For more information on configuring GRUB Legacy, see the <a href="../wiki/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> article.
 </p>
 <h3><span class="mw-headline" id="LILO">LILO</span></h3>
 <ul><li>Add them to <code>/etc/lilo.conf</code>:</li></ul>
 <dl><dd><pre>image=/boot/vmlinuz-linux
         ...
         <i>quiet splash</i></pre></dd></dl>
-<p>For more information on configuring LILO, see the <a href="../LILO.html" title="LILO">LILO</a> article.
+<p>For more information on configuring LILO, see the <a href="../wiki/LILO.html" title="LILO">LILO</a> article.
 </p>
 <h3><span class="mw-headline" id="rEFInd">rEFInd</span></h3>
 <ul><li>Press <code>+</code>, <code>F2</code>, or <code>Insert</code> on the desired menu entry and press it again on the submenu entry. Add kernel parameters at the end of the string:</li></ul>
@@ -137,13 +137,13 @@
 	...
 }
 </pre></dd></dl>
-<p>For more information on configuring rEFInd, see the <a href="../REFInd.html" title="REFInd">rEFInd</a> article.
+<p>For more information on configuring rEFInd, see the <a href="../wiki/REFInd.html" title="REFInd">rEFInd</a> article.
 </p>
 <h3><span class="mw-headline" id="EFISTUB">EFISTUB</span></h3>
-<p>See <a href="../EFISTUB.html#Using_UEFI_directly" title="EFISTUB">EFISTUB#Using UEFI directly</a>.
+<p>See <a href="../wiki/EFISTUB.html#Using_UEFI_directly" title="EFISTUB">EFISTUB#Using UEFI directly</a>.
 </p>
 <h3><span class="mw-headline" id="dracut">dracut</span></h3>
-<p><a href="../Dracut.html" title="Dracut">dracut</a> is capable of embedding the kernel parameters in the initramfs, thus allowing to omit them from the boot loader configuration. See <a href="../Dracut.html#Kernel_command_line_options" title="Dracut">dracut#Kernel command line options</a>.
+<p><a href="../wiki/Dracut.html" title="Dracut">dracut</a> is capable of embedding the kernel parameters in the initramfs, thus allowing to omit them from the boot loader configuration. See <a href="../wiki/Dracut.html#Kernel_command_line_options" title="Dracut">dracut#Kernel command line options</a>.
 </p>
 <h3><span class="mw-headline" id="Hijacking_cmdline">Hijacking cmdline</span></h3>
 <p>Even without access to your bootloader it is possible to change your kernel parameters to enable debugging (if you have root access). This can be accomplished by overwriting <code>/proc/cmdline</code> which stores the kernel parameters. However <code>/proc/cmdline</code> is not writable even as root, so this hack is accomplished by using a bind mount to mask the path.
@@ -195,7 +195,7 @@
 </tr>
 <tr>
 <td>init=</td>
-<td>Run specified binary instead of <code>/sbin/init</code> as init process. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-sysvcompat">systemd-sysvcompat</a></span> package symlinks <code>/sbin/init</code> to <code>/usr/lib/systemd/systemd</code> to use <a href="../Systemd.html" title="Systemd">systemd</a>.
+<td>Run specified binary instead of <code>/sbin/init</code> as init process. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-sysvcompat">systemd-sysvcompat</a></span> package symlinks <code>/sbin/init</code> to <code>/usr/lib/systemd/systemd</code> to use <a href="../wiki/Systemd.html" title="Systemd">systemd</a>.
 </td>
 </tr>
 <tr>
@@ -205,22 +205,22 @@
 </tr>
 <tr>
 <td>systemd.unit=</td>
-<td>Boot to a <a href="../Systemd.html#Targets" title="Systemd">specified target</a>.
+<td>Boot to a <a href="../wiki/Systemd.html#Targets" title="Systemd">specified target</a>.
 </td>
 </tr>
 <tr>
 <td>resume=</td>
-<td>Specify a swap device to use when waking from <a href="../Power_management/Suspend_and_hibernate.html#Hibernation" class="mw-redirect" title="Hibernation">hibernation</a>.
+<td>Specify a swap device to use when waking from <a href="../wiki/Power_management/Suspend_and_hibernate.html#Hibernation" class="mw-redirect" title="Hibernation">hibernation</a>.
 </td>
 </tr>
 <tr>
 <td>nomodeset</td>
-<td>Disable <a href="../Kernel_mode_setting.html" title="Kernel mode setting">Kernel mode setting</a>.
+<td>Disable <a href="../wiki/Kernel_mode_setting.html" title="Kernel mode setting">Kernel mode setting</a>.
 </td>
 </tr>
 <tr>
 <td>zswap.enabled</td>
-<td>Enable <a href="../Zswap.html" title="Zswap">Zswap</a>.
+<td>Enable <a href="../wiki/Zswap.html" title="Zswap">Zswap</a>.
 </td>
 </tr>
 <tr>
@@ -260,18 +260,18 @@
 </tr>
 </tbody>
 </table>
-<p><sup>1</sup> <a href="../Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> uses <code>ro</code> as default value when neither <code>rw</code> or <code>ro</code> is set by the <a href="../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>. Boot loaders may set the value to use, for example GRUB uses <code>rw</code> by default (see <a rel="nofollow"  href="https://bugs.archlinux.org/task/36275">FS#36275</a> as a reference).
+<p><sup>1</sup> <a href="../wiki/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> uses <code>ro</code> as default value when neither <code>rw</code> or <code>ro</code> is set by the <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>. Boot loaders may set the value to use, for example GRUB uses <code>rw</code> by default (see <a rel="nofollow"  href="https://bugs.archlinux.org/task/36275">FS#36275</a> as a reference).
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html">"The kernel’s command-line parameters" documentation</a></li>
-<li><a href="../Power_management.html#Kernel_parameters" class="mw-redirect" title="Power saving">Power saving#Kernel parameters</a></li>
+<li><a href="../wiki/Power_management.html#Kernel_parameters" class="mw-redirect" title="Power saving">Power saving#Kernel parameters</a></li>
 <li><a rel="nofollow"  href="http://files.kroah.com/lkn/lkn_pdf/ch09.pdf">List of kernel parameters with further explanation and grouped by similar options</a></li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -288,9 +288,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

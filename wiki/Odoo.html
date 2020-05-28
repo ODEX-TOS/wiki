@@ -2,7 +2,7 @@
     title: Odoo
     description: Migration of Odoo from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -58,7 +58,7 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="Installing_Odoo">Installing Odoo</span></h3>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/odoo/">odoo</a></span><sup><small>AUR</small></sup> package. Please note that the Odoo package comes with a bunch of Python packages available in the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. These dependencies and the size of Odoo require much disk space to be used (multiple GBs). If you are building manually in the current directory, please make sure your current directory is on a device with enough free space.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/odoo/">odoo</a></span><sup><small>AUR</small></sup> package. Please note that the Odoo package comes with a bunch of Python packages available in the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. These dependencies and the size of Odoo require much disk space to be used (multiple GBs). If you are building manually in the current directory, please make sure your current directory is on a device with enough free space.
 </p>
 <h3><span class="mw-headline" id="Configuring_PostgreSQL_to_run_with_Odoo">Configuring PostgreSQL to run with Odoo</span></h3>
 <p>Odoo uses PostgreSQL as the database backend. The latter should have been installed with the odoo package as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span> comes as a dependency.
@@ -71,7 +71,7 @@
 <dl><dd><pre>$ su
 # su - postgres
 </pre></dd></dl>
-<p>If the PostgreSQL instance has not been initialized yet, please follow first the <a href="../PostgreSQL.html#Installation" title="PostgreSQL">PostgreSQL install process</a>.
+<p>If the PostgreSQL instance has not been initialized yet, please follow first the <a href="../wiki/PostgreSQL.html#Installation" title="PostgreSQL">PostgreSQL install process</a>.
 </p>
 <p>Once logged as the 'postgres' user, create the database user (called <i>role</i> in the PostgreSQL ) <i>odoo</i> with the command that follows.
 </p>
@@ -95,7 +95,7 @@ Shall the new role be allowed to create more new roles? (y/n) n
 </pre>
 <p>Once you are finished answering these questions, type <code>exit</code> to return to your regular user.
 </p>
-<p>This completes the required installation and setup of PostgreSQL for use with Odoo under TOS Linux. Additional detailed information about PostgreSQL configuration can be found in the <a href="../PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> article. By default, PostgreSQL only accepts connections from the local machine. If you plan to run PostgreSQL and Odoo on two different machines, you will need to follow <a href="../PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>.
+<p>This completes the required installation and setup of PostgreSQL for use with Odoo under TOS Linux. Additional detailed information about PostgreSQL configuration can be found in the <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> article. By default, PostgreSQL only accepts connections from the local machine. If you plan to run PostgreSQL and Odoo on two different machines, you will need to follow <a href="../wiki/PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>.
 </p>
 <h3><span class="mw-headline" id="Configuring_Odoo_to_run_with_PostgreSQL">Configuring Odoo to run with PostgreSQL</span></h3>
 <p>The configuration file of Odoo is located at <code>/etc/odoo/odoo.conf</code>. Specify the <code>db_user</code> and <code>db_password</code> according to the username and password you specified at previous step. If the PostgreSQL server is on a different machine, also edit <code>db_host</code>.
@@ -123,14 +123,14 @@ db_password = False
 <p>Go to <a rel="nofollow"  href="http://localhost:8069">http://localhost:8069</a> in your web browser to access the Odoo login page.
 </p>
 <h2><span class="mw-headline" id="Running_Odoo_behind_a_reverse_proxy">Running Odoo behind a reverse proxy</span></h2>
-<p>You can run odoo behind a web server such as <a href="../Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="../Nginx.html" title="Nginx">Nginx</a> in reverse proxy mode. This is useful for making odoo available in a local network, under a domaine name such as <code>odoo.mydomain.local</code>. It is also useful to enable caching for static resources, and reduce the load on your odoo application.
+<p>You can run odoo behind a web server such as <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="../wiki/Nginx.html" title="Nginx">Nginx</a> in reverse proxy mode. This is useful for making odoo available in a local network, under a domaine name such as <code>odoo.mydomain.local</code>. It is also useful to enable caching for static resources, and reduce the load on your odoo application.
 </p>
-<p>For this to work, you need to make sure that your local DNS-server (such as <a href="../BIND.html" title="BIND">BIND</a> or <a href="../Dnsmasq.html" title="Dnsmasq">dnsmasq</a>) resolves the domain name you choose to the web server's IP address. If running on your local machine, you could simply add an entry to <code>/etc/hosts</code> like this:
+<p>For this to work, you need to make sure that your local DNS-server (such as <a href="../wiki/BIND.html" title="BIND">BIND</a> or <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>) resolves the domain name you choose to the web server's IP address. If running on your local machine, you could simply add an entry to <code>/etc/hosts</code> like this:
 </p>
 <pre>127.0.0.1 odoo.mydomain.local
 </pre>
 <h3><span class="mw-headline" id="Using_Nginx">Using Nginx</span></h3>
-<p>Refer to <a href="../Nginx.html#Managing_server_entries" title="Nginx">this guide</a> for how to create virtual hosts in Nginx.
+<p>Refer to <a href="../wiki/Nginx.html#Managing_server_entries" title="Nginx">this guide</a> for how to create virtual hosts in Nginx.
 </p>
 <p>Assuming your local domain is called <code>mydomain.local</code>, and odoo is hosted on the same machine as your Nginx server, create a file inside the <code>servers-available</code> directory that contains this server block:
 </p>
@@ -183,7 +183,7 @@ server {
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Office.html" title="Category:Office">Office</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Office.html" title="Category:Office">Office</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -200,9 +200,9 @@ server {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

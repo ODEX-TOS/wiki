@@ -2,7 +2,7 @@
     title: Pulse_Connect_Secure
     description: Migration of Pulse_Connect_Secure from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -88,7 +88,7 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="AUR">AUR</span></h3>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pulse-secure/">pulse-secure</a></span><sup><small>AUR</small></sup> package and run the service:
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pulse-secure/">pulse-secure</a></span><sup><small>AUR</small></sup> package and run the service:
 </p>
 <pre>$ pulsesvc -h &lt;hostname&gt; -Port &lt;port number&gt; -u &lt;username&gt; -realm &lt;realm&gt; -Url &lt;login URL&gt;
 </pre>
@@ -98,13 +98,13 @@
 In the GUI client, the URL should be same as that used in browsers.
 </p>
 <h3><span class="mw-headline" id="OpenConnect">OpenConnect</span></h3>
-<p>The <a href="../OpenConnect.html" title="OpenConnect">OpenConnect</a> VPN client also supports Pulse Connect Secure. See the <a rel="nofollow"  href="http://lists.infradead.org/pipermail/openconnect-devel/2015-January/002628.html">initial announcement</a> for more details.
+<p>The <a href="../wiki/OpenConnect.html" title="OpenConnect">OpenConnect</a> VPN client also supports Pulse Connect Secure. See the <a rel="nofollow"  href="http://lists.infradead.org/pipermail/openconnect-devel/2015-January/002628.html">initial announcement</a> for more details.
 </p>
 <p>To use, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openconnect">openconnect</a></span>. If your Juniper VPN setup doesn't require any input after connecting you can use this command in order to connect 
 </p>
 <pre># openconnect --protocol=pulse https://vpn.example.com/
 </pre>
-<p>If you want <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> support, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-openconnect">networkmanager-openconnect</a></span>, or try the latest git version. The VPN connection can be created through the GUI or by using this command:
+<p>If you want <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> support, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-openconnect">networkmanager-openconnect</a></span>, or try the latest git version. The VPN connection can be created through the GUI or by using this command:
 </p>
 <pre>$ nmcli con add type vpn con-name "Connection Name" ifname "*" vpn-type openconnect -- vpn.data "gateway=vpn.example.com,protocol=nc"
 </pre>
@@ -114,7 +114,7 @@ In the GUI client, the URL should be same as that used in browsers.
 <strong>Note:</strong> In <a rel="nofollow"  href="http://kb.juniper.net/InfoCenter/index?page=content&amp;id=KB20490&amp;actp=RSS">some cases</a><sup>[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2017-12-19]</sup>, depending on your corporate policy configuration, you <b>must</b> login through the browser. If this is the case, command-line tools (jnc, junipernc) will not work.</div>
 <p>1. Go to your company's VPN site, log in and download/install the Juniper client. 
 </p>
-<p>2. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jnc/">jnc</a></span><sup><small>AUR</small></sup>. You need to enable the <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository: see the <a rel="nofollow"  href="http://www.scc.kit.edu/scc/net/juniper-vpn/linux/">upstream website</a>.
+<p>2. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jnc/">jnc</a></span><sup><small>AUR</small></sup>. You need to enable the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository: see the <a rel="nofollow"  href="http://www.scc.kit.edu/scc/net/juniper-vpn/linux/">upstream website</a>.
 </p>
 <p>3. Make a directory for the <i>.config</i> file:
 </p>
@@ -149,7 +149,7 @@ certfile=</pre>
 <p>The <a rel="nofollow"  href="http://mad-scientist.us/juniper.html">Mad Scientist's "msjnc" script</a> requires <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gtk2-perl">gtk2-perl</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glib-perl">glib-perl</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unzip">unzip</a></span>.
 </p>
 <h4><span class="mw-headline" id="Instructions_for_64-bit_users">Instructions for 64-bit users</span></h4>
-<p>Enable <a href="../Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> and then <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-zlib">lib32-zlib</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glib-perl">glib-perl</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-libwww">perl-libwww</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gtk2-perl">gtk2-perl</a></span>.
+<p>Enable <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> and then <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-zlib">lib32-zlib</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glib-perl">glib-perl</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-libwww">perl-libwww</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gtk2-perl">gtk2-perl</a></span>.
 </p>
 <p>Access the the Juniper VPN website you need to use. Log in and allow the installation to attempt and fail (due to non-32 bit Java). You should get an error similar to the following:
 </p>
@@ -200,7 +200,7 @@ $ mkdir -p ~/.juniper_networks/tmp
 <li>Automatic download of the required Juniper java and daemon files (ncsvc) when run as root.</li>
 </ul>
 <h4><span class="mw-headline" id="Installation_2">Installation</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the perl dependencies <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-term-readkey">perl-term-readkey</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-lwp-protocol-https">perl-lwp-protocol-https</a></span>. Once you have done so, you must choose whether to run <i>jvpn</i> as root (easiest method) or as a regular user and run the steps below accordingly. 
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the perl dependencies <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-term-readkey">perl-term-readkey</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-lwp-protocol-https">perl-lwp-protocol-https</a></span>. Once you have done so, you must choose whether to run <i>jvpn</i> as root (easiest method) or as a regular user and run the steps below accordingly. 
 </p>
 <h4><span class="mw-headline" id="Running_as_root">Running as root</span></h4>
 <p>Run the command:
@@ -275,9 +275,9 @@ fi</pre>
 </p>
 <ol>
 <li>
-<a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xterm">xterm</a></span>.</li>
-<li>Install a custom 64-bit Java environment from <a rel="nofollow"  href="http://www.java.com/download">java.com</a>. Select the Linux x64 version. Once you have decided upon a location for the installation, extract the binary into that location and then mark it executable. Finally, run the binary to install Java.</li>
-<li>Install a custom 32-bit Java environment, also from <a rel="nofollow"  href="http://www.java.com/download">java.com</a> but this time, select the Linux (self-extracting) option. Extract the new binary to the same location created above, mark it executable, and run the binary. It will ask you whether you want to replace the files to 32 bit: <b>Type "A" to overwrite all the 64-bit files with the 32-bit ones.</b>
+<a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xterm">xterm</a></span>.</li>
+<li>Install a custom 64-bit Java environment from <a rel="nofollow"  href="http://www.java.com/wiki/download">java.com</a>. Select the Linux x64 version. Once you have decided upon a location for the installation, extract the binary into that location and then mark it executable. Finally, run the binary to install Java.</li>
+<li>Install a custom 32-bit Java environment, also from <a rel="nofollow"  href="http://www.java.com/wiki/download">java.com</a> but this time, select the Linux (self-extracting) option. Extract the new binary to the same location created above, mark it executable, and run the binary. It will ask you whether you want to replace the files to 32 bit: <b>Type "A" to overwrite all the 64-bit files with the 32-bit ones.</b>
 </li>
 <li>Finally, link the library into the required location. The relevant library for Firefox is <code>libnpjp2.so</code>. To link it, use the following command <code>ln -s <i>location-of-custom-java-installation</i>/lib/amd64/libnpjp2.so /usr/lib/mozilla/plugins/libnpjp2.so</code>.</li>
 </ol>
@@ -297,7 +297,7 @@ fi</pre>
 <strong>Warning:</strong> The steps involved in this section, including using obsolete libraries and symlinking new library names to old are <b>absolutely not recommended</b>.</div>
 <p>When trying to use Juniper VPN, you may be informed that there are missing libraries. If so, follow the instructions below.
 </p>
-<p>1) Install a Java Runtime Environment (JRE) - see <a href="../Java.html" title="Java">Java</a>.
+<p>1) Install a Java Runtime Environment (JRE) - see <a href="../wiki/Java.html" title="Java">Java</a>.
 </p>
 <p>2) Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libstdc%2B%2B296/">libstdc++296</a></span><sup><small>AUR</small></sup> which provides the required <code>libstdc++-libc6.2-2.so.3</code> library.
 </p>
@@ -369,12 +369,12 @@ fi</pre>
 </p>
 <ul>
 <li>
-<a href="../Downgrading_packages.html" class="mw-redirect" title="Downgrade">Downgrade</a> to version 4.4, or <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span>.</li>
+<a href="../wiki/Downgrading_packages.html" class="mw-redirect" title="Downgrade">Downgrade</a> to version 4.4, or <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span>.</li>
 <li>According to a comment on the <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=121131#c24">kernel bugzilla</a> disabling router solicitations for IPv6 and reconnecting will also solve the issue. This can be done with the following command:</li>
 </ul>
 <pre># echo 0 &gt; /proc/sys/net/ipv6/conf/default/router_solicitations
 </pre>
-<dl><dd>To make this setting automatically on boot time use <a href="../Systemd.html#Temporary_files" title="Systemd">systemd-tmpfiles</a>:</dd></dl>
+<dl><dd>To make this setting automatically on boot time use <a href="../wiki/Systemd.html#Temporary_files" title="Systemd">systemd-tmpfiles</a>:</dd></dl>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/disable-router-solicitations.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w /proc/sys/net/ipv6/conf/default/router_solicitations - - - - 0</pre>
 <h3>
@@ -384,23 +384,23 @@ fi</pre>
 </p>
 <pre>rmon.error Unauthorized new route to x.x.x.x/y.y.y.y has been added (conflicts with our route to z.z.z.z), disconnecting (routemon.cpp:598)
 </pre>
-<p>If this is the case, using <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> instead can fix the issue.
+<p>If this is the case, using <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> instead can fix the issue.
 </p>
 <h3>
 <span id="After_login.2C_pulseUi_displays_.27Compliance:_Security_policies_not_met.27"></span><span class="mw-headline" id="After_login,_pulseUi_displays_'Compliance:_Security_policies_not_met'">After login, pulseUi displays 'Compliance: Security policies not met'</span>
 </h3>
-<p>It seems that <code>pulseUi</code> uses <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> internally while verifying connection in some cases. If this is the case, install <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> and start <code>NetworkManager.sevice</code>.
+<p>It seems that <code>pulseUi</code> uses <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> internally while verifying connection in some cases. If this is the case, install <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> and start <code>NetworkManager.sevice</code>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:VPN_providers.html" title="Category:VPN providers">VPN providers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:VPN_providers.html" title="Category:VPN providers">VPN providers</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -419,9 +419,9 @@ fi</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

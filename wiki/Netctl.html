@@ -2,7 +2,7 @@
     title: Netctl
     description: Migration of Netctl from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -29,9 +29,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Bridge_with_netctl.html" title="Bridge with netctl">Bridge with netctl</a></li>
-<li><a href="../Network_configuration.html" title="Network configuration">Network configuration</a></li>
-<li><a href="../Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
+<li><a href="../wiki/Bridge_with_netctl.html" title="Bridge with netctl">Bridge with netctl</a></li>
+<li><a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a></li>
+<li><a href="../wiki/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless network configuration">Wireless network configuration</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://projects.archlinux.org/netctl.git/">netctl</a> is a CLI and profile-based network manager and an TOS project.
@@ -115,7 +115,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=netctl">netctl</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=netctl">netctl</a></span> package.
 </p>
 <p><i>netctl's</i> <a href="#Special_systemd_units">#Special systemd units</a> used in automating connections require some additional dependencies; see that section for more information.
 </p>
@@ -162,7 +162,7 @@
 </p>
 <p>The <i>netctl</i> profile files are stored in <code>/etc/netctl/</code> and example configuration files are available in <code>/etc/netctl/examples/</code>. 
 </p>
-<p>To use an example profile, simply copy it from <code>/etc/netctl/examples/</code> to <code>/etc/netctl/</code> and configure it to your needs; see basic <a href="#Example_profiles">#Example profiles</a> below. The first parameter you need to create a profile is the network <code>Interface</code>, see <a href="../Network_configuration.html#Network_interfaces" title="Network configuration">Network configuration#Network interfaces</a> for details.
+<p>To use an example profile, simply copy it from <code>/etc/netctl/examples/</code> to <code>/etc/netctl/</code> and configure it to your needs; see basic <a href="#Example_profiles">#Example profiles</a> below. The first parameter you need to create a profile is the network <code>Interface</code>, see <a href="../wiki/Network_configuration.html#Network_interfaces" title="Network configuration">Network configuration#Network interfaces</a> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
@@ -188,7 +188,7 @@
 </p>
 <pre># netctl enable <i>profile</i>
 </pre>
-<p>This will create and enable a <a href="../Systemd.html" title="Systemd">systemd</a> service that will start when the computer boots. Changes to the profile file will not propagate to the service file automatically. After such changes, it is necessary to reenable the profile:
+<p>This will create and enable a <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service that will start when the computer boots. Changes to the profile file will not propagate to the service file automatically. After such changes, it is necessary to reenable the profile:
 </p>
 <pre># netctl reenable <i>profile</i>
 </pre>
@@ -197,10 +197,10 @@
 <p>If you need to switch multiple profiles frequently (i.e., traveling with a laptop), use <a href="#Special_systemd_units">#Special systemd units</a> instead of enabling a profile.
 </p>
 <h3><span class="mw-headline" id="Special_systemd_units">Special systemd units</span></h3>
-<p><i>netctl</i> provides special <a href="../Systemd.html" title="Systemd">systemd</a> services for automatically switching of profiles for wired and wireless connections. See <span class="plainlinks archwiki-template-man" title="$ man 7 netctl.special"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/netctl.special.7">netctl.special(7)</a></span> for a complete list of special systemd units.
+<p><i>netctl</i> provides special <a href="../wiki/Systemd.html" title="Systemd">systemd</a> services for automatically switching of profiles for wired and wireless connections. See <span class="plainlinks archwiki-template-man" title="$ man 7 netctl.special"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/netctl.special.7">netctl.special(7)</a></span> for a complete list of special systemd units.
 </p>
 <h4><span class="mw-headline" id="Wired">Wired</span></h4>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifplugd">ifplugd</a></span> package and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>netctl-ifplugd@<i>interface</i>.service</code> systemd unit. DHCP profiles will be started/stopped when the network cable is plugged in/unplugged.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifplugd">ifplugd</a></span> package and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>netctl-ifplugd@<i>interface</i>.service</code> systemd unit. DHCP profiles will be started/stopped when the network cable is plugged in/unplugged.
 </p>
 <ul>
 <li>The <code>netctl-ifplugd@<i>interface</i>.service</code> will prefer profiles that use <a href="https://en.wikipedia.org/wiki/DHCP"  title="wikipedia:DHCP">DHCP</a>.</li>
@@ -208,7 +208,7 @@
 <li>To prioritize a profile with a static IP over DHCP profiles, you can set <code>Priority=2</code>, which is higher than the default priority given to DHCP profiles of <code>Priority=1</code>.</li>
 </ul>
 <h4><span class="mw-headline" id="Wireless">Wireless</span></h4>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>netctl-auto@<i>interface</i>.service</code> systemd unit. <i>netctl</i> profiles will be started/stopped automatically as you move from the range of one network into the range of another network (roaming).
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>netctl-auto@<i>interface</i>.service</code> systemd unit. <i>netctl</i> profiles will be started/stopped automatically as you move from the range of one network into the range of another network (roaming).
 </p>
 <ul>
 <li>Profiles must use <code>Security=wpa-configsection</code> or <code>Security=wpa</code> to work with <i>netctl-auto</i> rather than <code>Security=wpa-config</code>.</li>
@@ -278,7 +278,7 @@ Key=\"64cf3ced850ecef39197bb7b7b301fc39437a6aa6c6a599d0534b16af578e04a</pre>
 </p>
 <p>Users <b>not</b> wishing to have the passphrase to their wireless network stored in <i>plain text</i> have the option of storing the corresponding 256-bit pre-shared key instead, which is calculated from the passphrase and the SSID using standard algorithms.
 </p>
-<p>Calculate your 256-bit PSK using <a href="../Wpa_supplicant.html#Connecting_with_wpa_passphrase" class="mw-redirect" title="WPA supplicant">wpa_passphrase</a>:
+<p>Calculate your 256-bit PSK using <a href="../wiki/Wpa_supplicant.html#Connecting_with_wpa_passphrase" class="mw-redirect" title="WPA supplicant">wpa_passphrase</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ wpa_passphrase <i>your_essid</i></pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">network={
@@ -321,11 +321,11 @@ IP6=stateless</pre>
 <strong>Tip:</strong> To check the status and bonding mode: <pre>$ cat /proc/net/bonding/bond0</pre>
 </div>
 <h4><span class="mw-headline" id="Wired_to_wireless_failover">Wired to wireless failover</span></h4>
-<p>This example describes how to use <i>bonding</i> to fallback to wireless when the wired ethernet goes down. This is most useful when both the wired and wireless interface will be connected to the same network. Your wireless router/access point must be configured in <a href="../Network_bridge.html" class="mw-redirect" title="Bridge">bridge</a> mode.
+<p>This example describes how to use <i>bonding</i> to fallback to wireless when the wired ethernet goes down. This is most useful when both the wired and wireless interface will be connected to the same network. Your wireless router/access point must be configured in <a href="../wiki/Network_bridge.html" class="mw-redirect" title="Bridge">bridge</a> mode.
 </p>
 <p>You will need additional packages from the official repositories: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifenslave">ifenslave</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wpa_supplicant">wpa_supplicant</a></span>.
 </p>
-<p>First enable the bonding module to be loaded upon boot time, as instructed on <a href="../Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>:
+<p>First enable the bonding module to be loaded upon boot time, as instructed on <a href="../wiki/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modules-load.d/bonding.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">bonding</pre>
@@ -359,9 +359,9 @@ update_config=1</pre>
     psk=PSK
 }
 </pre>
-<p>To generate the obfuscated PSK you can run <i>wpa_passphrase</i> as on the <a href="../Wpa_supplicant.html#Connecting_with_wpa_passphrase" class="mw-redirect" title="WPA supplicant">WPA supplicant#Connecting with wpa_passphrase</a> page.
+<p>To generate the obfuscated PSK you can run <i>wpa_passphrase</i> as on the <a href="../wiki/Wpa_supplicant.html#Connecting_with_wpa_passphrase" class="mw-redirect" title="WPA supplicant">WPA supplicant#Connecting with wpa_passphrase</a> page.
 </p>
-<p>Now, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>wpa_supplicant@</code> template service on the network interface, for example <code>wpa_supplicant@wlan0</code>.
+<p>Now, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>wpa_supplicant@</code> template service on the network interface, for example <code>wpa_supplicant@wlan0</code>.
 </p>
 <p>You can try now to reboot your machine and see if your configuration worked.
 </p>
@@ -369,14 +369,14 @@ update_config=1</pre>
 <strong>Note:</strong> If you get this error on boot bonding:
 <pre>wlan0 is up - this may be due to an out of date ifenslave
 </pre>
-<p>Then this is happening because the <i>wpa_supplicant</i> is being run before the <code>failover</code> netctl profile. This happens because <a href="../Systemd.html" title="Systemd">systemd</a> runs everything in parallel, unless told otherwise. <i>ifenslave</i> need all the interfaces to be down before bonding them to the <code>bond0</code> interface. And, since the <i>wpa_supplicant</i> need to put the interface up to be able to scan for networks, this might cause the interface to not be enslaved and your bonding to only have the wired interface.
+<p>Then this is happening because the <i>wpa_supplicant</i> is being run before the <code>failover</code> netctl profile. This happens because <a href="../wiki/Systemd.html" title="Systemd">systemd</a> runs everything in parallel, unless told otherwise. <i>ifenslave</i> need all the interfaces to be down before bonding them to the <code>bond0</code> interface. And, since the <i>wpa_supplicant</i> need to put the interface up to be able to scan for networks, this might cause the interface to not be enslaved and your bonding to only have the wired interface.
 </p>
-<p>If this is your case, then you will need to setup a custom dependency on the <code>wpa_supplicant@wlan0</code> service in relation with the <code>netctl@failover</code> profile. More specifically, the <i>wpa_supplicant</i> must be started <b>after</b> the netctl profile. To accomplish this, create a custom dependency file based on the instructions provided here: <a href="../Systemd.html#Handling_dependencies" title="Systemd">systemd#Handling dependencies</a>
+<p>If this is your case, then you will need to setup a custom dependency on the <code>wpa_supplicant@wlan0</code> service in relation with the <code>netctl@failover</code> profile. More specifically, the <i>wpa_supplicant</i> must be started <b>after</b> the netctl profile. To accomplish this, create a custom dependency file based on the instructions provided here: <a href="../wiki/Systemd.html#Handling_dependencies" title="Systemd">systemd#Handling dependencies</a>
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/wpa_supplicant@wlan0.service.d/customdependency.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
 After=netctl@failover.service</pre>
-<p>After that you can try to reboot your system again and see if it works. You can check the status of your bonding by checking <a href="../Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> for the <code>netctl@failover.service</code> unit.
+<p>After that you can try to reboot your system again and see if it works. You can check the status of your bonding by checking <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> for the <code>netctl@failover.service</code> unit.
 </p>
 <p>And by checking:
 </p>
@@ -392,7 +392,7 @@ After=netctl@failover.service</pre>
     link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
 </pre>
 </div>
-<p>Now, you can test your failover setup, by initiating a big download. Unplug your wired interface. Your download should keep going over the wireless interface. Then, plug your wired interface again and it should keep working. You can debug by checking <a href="../Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> for the <code>netctl@failover.service</code> and <code>wpa_supplicant@wlan0.service</code> units.
+<p>Now, you can test your failover setup, by initiating a big download. Unplug your wired interface. Your download should keep going over the wireless interface. Then, plug your wired interface again and it should keep working. You can debug by checking <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> for the <code>netctl@failover.service</code> and <code>wpa_supplicant@wlan0.service</code> units.
 </p>
 <h3><span class="mw-headline" id="Using_any_interface">Using any interface</span></h3>
 <p>In some cases it may be desirable to allow a profile to use any interface on the system. A common example use case is using a common disk image across many machines with differing hardware (this is especially useful if they are headless). If you use the kernel's naming scheme, and your machine has only one ethernet interface, you can probably guess that eth0 is the right interface. If you use udev's <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/">Predictable Network Interface Names</a>, however, names will be assigned based on the specific hardware itself (e.g. enp1s0), rather than simply the order that the hardware was detected (e.g. eth0, eth1). This means that a netctl profile may work on one machine and not another, because they each have different interface names.
@@ -452,7 +452,7 @@ DHCPClient='dhclient'
 <b>Reason:</b> It would be useful to replace the example with a general hook that executes different actions depending on <code>$ACTION</code> being CONNECT and DISCONNECT. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Netctl">Talk:Netctl#</a>)</div>
 </div>
 <h3><span class="mw-headline" id="Minimal_WPAConfigSection">Minimal WPAConfigSection</span></h3>
-<p>As stated in the <a rel="nofollow"  href="https://projects.archlinux.org/netctl.git/tree/docs/netctl.profile.5.txt#n281">netctl.profile(5)</a> man page, the <code>WPAConfigSection</code> variable is an array of config lines passed to <a href="../Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>. So, a minimal WPAConfigSection would contain:
+<p>As stated in the <a rel="nofollow"  href="https://projects.archlinux.org/netctl.git/tree/docs/netctl.profile.5.txt#n281">netctl.profile(5)</a> man page, the <code>WPAConfigSection</code> variable is an array of config lines passed to <a href="../wiki/Wpa_supplicant.html" title="Wpa supplicant">wpa_supplicant</a>. So, a minimal WPAConfigSection would contain:
 </p>
 <pre>Description='A wireless connection using a custom network block configuration'
 Interface=wlan0
@@ -467,7 +467,7 @@ WPAConfigSection=(
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If trying to connect to an SSID with non-ASCII characters (unicode, emoji, etc), you can specify the SSID as hex instead of as a string, e.g. <code>ssid=F09F90BA</code> for "🐺". When unsure on the hex encoding, run <i>wifi-menu</i> (be sure to remove the \ and x characters).</div>
 <h3><span class="mw-headline" id="resolv.conf">resolv.conf</span></h3>
-<p>If you use <code>DNS*</code> options in your profile, <i>netctl</i> calls <a href="../Openresolv.html" class="mw-redirect" title="Resolvconf">resolvconf</a> to overwrite <a href="../Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a>.
+<p>If you use <code>DNS*</code> options in your profile, <i>netctl</i> calls <a href="../wiki/Openresolv.html" class="mw-redirect" title="Resolvconf">resolvconf</a> to overwrite <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3>
@@ -549,7 +549,7 @@ ExecStart=/usr/bin/systemctl restart netctl-auto@%i.service
 [Install]
 WantedBy=sleep.target
 </pre>
-<p>To <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> this service for your wireless card, for example, enable <code>netctl-auto-resume@wlan0.service</code> as root. Change <code>wlan0</code> to the required network interface.
+<p>To <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> this service for your wireless card, for example, enable <code>netctl-auto-resume@wlan0.service</code> as root. Change <code>wlan0</code> to the required network interface.
 </p>
 <p>If the device is not yet running on resume when the unit is started, this will fail. It can be fixed by adding the following dependency in the <i>After</i> line:
 </p>
@@ -559,7 +559,7 @@ After=sleep.target sys-subsystem-net-devices-%i.device
 ...
 </pre>
 <h3><span class="mw-headline" id="netctl-auto_does_not_automatically_unblock_a_wireless_card_to_use_an_interface">netctl-auto does not automatically unblock a wireless card to use an interface</span></h3>
-<p>Many laptops have a hardware button (or switch) to turn off wireless card, however, the card can also be blocked by the kernel. This can be handled by <a href="../Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Rfkill">rfkill</a>.
+<p>Many laptops have a hardware button (or switch) to turn off wireless card, however, the card can also be blocked by the kernel. This can be handled by <a href="../wiki/Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Rfkill">rfkill</a>.
 </p>
 <p>If you want <i>netctl-auto</i> to automatically unblock your wireless card to connect to a particular network, set <code>RFKill=++auto++</code> option for the wireless connection of your choice, as specified in the <a rel="nofollow"  href="https://github.com/joukewitteveen/netctl/blob/master/docs/netctl.profile.5.txt">netctl.profile(5)</a> man page.
 </p>
@@ -586,7 +586,7 @@ ExecStart=/usr/bin/ip route add default via 192.168.xxx.yyy
 WantedBy=network-online.target
 </pre>
 <h3><span class="mw-headline" id="Problems_with_eduroam_and_other_MSCHAPv2_connections">Problems with eduroam and other MSCHAPv2 connections</span></h3>
-<p>See <a href="../Wpa_supplicant.html#Problems_with_eduroam_and_other_MSCHAPv2_connections" class="mw-redirect" title="WPA supplicant">WPA supplicant#Problems with eduroam and other MSCHAPv2 connections</a>.
+<p>See <a href="../wiki/Wpa_supplicant.html#Problems_with_eduroam_and_other_MSCHAPv2_connections" class="mw-redirect" title="WPA supplicant">WPA supplicant#Problems with eduroam and other MSCHAPv2 connections</a>.
 </p>
 <h3><span class="mw-headline" id="Journal_warnings_for_profiles_using_.include_directives">Journal warnings for profiles using .include directives</span></h3>
 <p>Profiles still using systemd's old <code>.include</code> directives will produce journal warnings, for example:
@@ -599,7 +599,7 @@ WantedBy=network-online.target
 </p>
 <pre>netctl reenable <i>profile</i>
 </pre>
-<p>will update the profile to the new <a href="../Systemd.html#Drop-in_files" class="mw-redirect" title="Drop-in unit file">drop-in unit file</a> format.
+<p>will update the profile to the new <a href="../wiki/Systemd.html#Drop-in_files" class="mw-redirect" title="Drop-in unit file">drop-in unit file</a> format.
 </p>
 <h3>
 <span id="Hooks_don.27t_work"></span><span class="mw-headline" id="Hooks_don't_work">Hooks don't work</span>
@@ -623,12 +623,12 @@ ExecDownPre="some command ; "$ExecDownPre
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../Category:Network_managers.html" title="Category:Network managers">Network managers</a></li>
-<li><a href="../Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
-<li><a href="../Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="../wiki/Category:Network_managers.html" title="Category:Network managers">Network managers</a></li>
+<li><a href="../wiki/Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
+<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -646,9 +646,9 @@ ExecDownPre="some command ; "$ExecDownPre
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

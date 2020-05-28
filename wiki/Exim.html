@@ -2,7 +2,7 @@
     title: Exim
     description: Migration of Exim from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="../Dovecot.html" title="Dovecot">Dovecot</a></li>
-<li><a href="../Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
-<li><a href="../Fail2ban.html" title="Fail2ban">Fail2ban</a></li>
+<li><a href="../wiki/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="../wiki/Dovecot.html" title="Dovecot">Dovecot</a></li>
+<li><a href="../wiki/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
+<li><a href="../wiki/Fail2ban.html" title="Fail2ban">Fail2ban</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/Exim"  title="wikipedia:Exim">Exim</a> is a versatile <a href="../Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a>. This article builds upon <a href="../Mail_server.html" title="Mail server">Mail server</a>. While the <a rel="nofollow"  href="https://github.com/Exim/exim/wiki/">Exim wiki</a> provides some helpful how-tos on certain specific use cases, a <a rel="nofollow"  href="https://exim.org/exim-html-current/doc/html/spec_html/index.html">detailed description</a> of all configuration options is available as well.
+<p><a href="https://en.wikipedia.org/wiki/Exim"  title="wikipedia:Exim">Exim</a> is a versatile <a href="../wiki/Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a>. This article builds upon <a href="../wiki/Mail_server.html" title="Mail server">Mail server</a>. While the <a rel="nofollow"  href="https://github.com/Exim/exim/wiki/">Exim wiki</a> provides some helpful how-tos on certain specific use cases, a <a rel="nofollow"  href="https://exim.org/exim-html-current/doc/html/spec_html/index.html">detailed description</a> of all configuration options is available as well.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -77,7 +77,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=exim">exim</a></span> package.
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=exim">exim</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Basic_configuration">Basic configuration</span></h2>
 <p>Exim comes with a bulky default configuration file which is located in <code>/etc/mail/exim.conf</code>. Many options in there are not necessary in a regular use case. By default configuration is done in a single file containing several chapters. Below is a very basic configuration, which provides: local delivers to system users (<a href="https://en.wikipedia.org/wiki/Maildir"  title="wikipedia:Maildir">Maildir</a> format) and authorized relaying to MX hosts. The description is based on a domain "mydomain.tld" served on a host "hostname.mydomain.tld". It is highly recommended to consult the official documentation before using the given documentation below.
@@ -116,8 +116,8 @@ timeout_frozen_after = 7d
 <b>Reason:</b> Are there factual concerns with giving a low privilege user access to a private key? Why should the Exim private key get lost? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Exim">Talk:Exim#</a>)</div>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a href="../Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a> to prevent vulnerabilities.</div>
-<p>To obtain a certificate, see <a href="../OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
+<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a href="../wiki/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a> to prevent vulnerabilities.</div>
+<p>To obtain a certificate, see <a href="../wiki/OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
 </p>
 <p>The first part of the following options are still part of the first configuration section in Exim. Starting with "begin authenticators" the first special section in Exim configuration begins. There will be more such sections later.
 Below some very basic security related options are defined, TLS is set up &amp; a plain text authenticator using a user password lookup is introduced.
@@ -280,7 +280,7 @@ begin acl
 <p>where <code><i>machine</i></code> is the hostname of your laptop or PC and <code><i>mydomain</i></code> is the domain name of the machine and the outgoing mail. To rewrite only sender domain, add special flag (F) in the line end. See <a rel="nofollow"  href="http://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html">upstream document</a> for detail
 </p>
 <h3><span class="mw-headline" id="Startup">Startup</span></h3>
-<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>exim.service</code>.
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>exim.service</code>.
 </p>
 <h2>
 <span id="Dovecot_LMTP_delivery_.26_SASL_authentication"></span><span class="mw-headline" id="Dovecot_LMTP_delivery_&amp;_SASL_authentication">Dovecot LMTP delivery &amp; SASL authentication</span>
@@ -290,7 +290,7 @@ begin acl
 <div>
 <b>Reason:</b> What is LMTP? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Exim">Talk:Exim#</a>)</div>
 </div>
-<p>In this section the integration of <a href="../Dovecot.html" title="Dovecot">Dovecot</a> is described. It is assumed that Dovecot &amp; Exim are already setup and configured.
+<p>In this section the integration of <a href="../wiki/Dovecot.html" title="Dovecot">Dovecot</a> is described. It is assumed that Dovecot &amp; Exim are already setup and configured.
 Dovecot will serve as <a href="https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer"  title="wikipedia:Simple Authentication and Security Layer">SASL</a> authenticator and local transport mechanism. For this purpose the Dovecot services will be setup as follows.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/dovecot/conf.d/10-master.conf</pre>
@@ -441,9 +441,9 @@ Add an authenticator (replacing myaccount@gmail.com and mypassword with your own
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -461,9 +461,9 @@ Add an authenticator (replacing myaccount@gmail.com and mypassword with your own
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Convert_a_single_drive_system_to_RAID
     description: Migration of Convert_a_single_drive_system_to_RAID from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:44:33.000Z
+    date: 2020-05-28T17:58:55.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This guide shows how to convert a functional single-drive system to a <a href="../RAID.html" title="RAID">RAID</a> 1 setup after adding a second drive, without the need to temporarily store the data on a third drive. The procedure can also be adapted, simplifying it, to the conversion of simple non-root partitions, and to other RAID levels.
+<p>This guide shows how to convert a functional single-drive system to a <a href="../wiki/RAID.html" title="RAID">RAID</a> 1 setup after adding a second drive, without the need to temporarily store the data on a third drive. The procedure can also be adapted, simplifying it, to the conversion of simple non-root partitions, and to other RAID levels.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> You may consider using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/Raider/">Raider</a></span><sup><small>AUR</small></sup>, which can convert a single disk into a RAID system with a two-pass command.</div>
@@ -90,9 +90,9 @@
 <strong>Warning:</strong> Backup important data before proceeding.</div>
 <h2><span class="mw-headline" id="Prepare_the_new_disk">Prepare the new disk</span></h2>
 <h3><span class="mw-headline" id="Partition_the_disk">Partition the disk</span></h3>
-<p>The first step is creating the <a href="../Partitioning.html" class="mw-redirect" title="Partition">partition</a> on the new disk, <code>/dev/sdb1</code>, that will be used as the mirror for the RAID array. In general, in this step it is not needed to recreate the exact partitioning scheme of the pre-existing drive; RAID can even be configured on whole disks, and <a rel="nofollow"  href="https://raid.wiki.kernel.org/index.php/Partitioning_RAID_/_LVM_on_RAID#Partitions%20on%20a%20RAID%20device">partitions</a> or <a href="../LVM.html" title="LVM">logical volumes</a> created later.
+<p>The first step is creating the <a href="../wiki/Partitioning.html" class="mw-redirect" title="Partition">partition</a> on the new disk, <code>/dev/sdb1</code>, that will be used as the mirror for the RAID array. In general, in this step it is not needed to recreate the exact partitioning scheme of the pre-existing drive; RAID can even be configured on whole disks, and <a rel="nofollow"  href="https://raid.wiki.kernel.org/index.php/Partitioning_RAID_/_LVM_on_RAID#Partitions%20on%20a%20RAID%20device">partitions</a> or <a href="../wiki/LVM.html" title="LVM">logical volumes</a> created later.
 </p>
-<p>Make sure that the partition type is set as <code>FD</code>. See <a href="../RAID.html#Prepare_the_devices" title="RAID">RAID#Prepare the devices</a> and <a href="../RAID.html#Partition_the_devices" title="RAID">RAID#Partition the devices</a> for more information.
+<p>Make sure that the partition type is set as <code>FD</code>. See <a href="../wiki/RAID.html#Prepare_the_devices" title="RAID">RAID#Prepare the devices</a> and <a href="../wiki/RAID.html#Partition_the_devices" title="RAID">RAID#Partition the devices</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Create_the_RAID_device">Create the RAID device</span></h3>
 <p>Next, create the RAID array in a degraded state, using only the new disk. Note how the <code>missing</code> keyword is specified for the first device: this will be added later.
@@ -106,7 +106,7 @@
 </div>
 <p>Note: If the above command causes mdadm to say "no such device /dev/sdb2", then reboot, and run the command again.
 </p>
-<p>If you want to use <a href="../Syslinux.html" title="Syslinux">Syslinux</a>, then specify <code>--metadata=1.0</code> (for the boot partition). As of Syslinux-tos6.03, <a href="../RAID.html" class="mw-redirect" title="Mdadm">mdadm</a> 1.2 is not yet supported in Syslinux. See also <a href="../LVM_on_software_RAID.html" class="mw-redirect" title="Software RAID and LVM">Software RAID and LVM</a>.
+<p>If you want to use <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a>, then specify <code>--metadata=1.0</code> (for the boot partition). As of Syslinux-tos6.03, <a href="../wiki/RAID.html" class="mw-redirect" title="Mdadm">mdadm</a> 1.2 is not yet supported in Syslinux. See also <a href="../wiki/LVM_on_software_RAID.html" class="mw-redirect" title="Software RAID and LVM">Software RAID and LVM</a>.
 </p>
 <p>Make sure the array has been created correctly by checking <code>/proc/mdstat</code>:
 </p>
@@ -118,7 +118,7 @@ md0 : active raid1 sdb1[1]
 unused devices: &lt;none&gt;
 </pre>
 <h3><span class="mw-headline" id="Make_file_system">Make file system</span></h3>
-<p>Create the needed <a href="../File_systems.html" class="mw-redirect" title="File system">file system</a> on the <code>/dev/md0</code> device.
+<p>Create the needed <a href="../wiki/File_systems.html" class="mw-redirect" title="File system">file system</a> on the <code>/dev/md0</code> device.
 </p>
 <h2><span class="mw-headline" id="Copy_the_data_on_the_array">Copy the data on the array</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -128,7 +128,7 @@ unused devices: &lt;none&gt;
 <pre># mkdir /mnt/new-raid
 # mount /dev/md0 /mnt/new-raid
 </pre>
-<p>Now copy the data from <code>/dev/sda1</code> to <code>/mnt/new-raid</code>, for example using <a href="../Rsync.html#As_a_backup_utility" class="mw-redirect" title="Full system backup with rsync">rsync</a>.
+<p>Now copy the data from <code>/dev/sda1</code> to <code>/mnt/new-raid</code>, for example using <a href="../wiki/Rsync.html#As_a_backup_utility" class="mw-redirect" title="Full system backup with rsync">rsync</a>.
 </p>
 <h2><span class="mw-headline" id="Boot_on_the_new_disk">Boot on the new disk</span></h2>
 <h3><span class="mw-headline" id="Update_the_boot_loader">Update the boot loader</span></h3>
@@ -173,12 +173,12 @@ kernel /vmlinuz-linux-tosroot=/dev/md0 md=0,/dev/sda1,/dev/sdb1
 - # groot=(hd0,0)
 + # groot=(hd0,1)
 </pre>
-<p>See <a href="../GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> for more information.
+<p>See <a href="../wiki/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> for more information.
 </p>
 <h4><span class="mw-headline" id="GRUB">GRUB</span></h4>
-<p>Please refer to <a href="../GRUB.html#RAID" title="GRUB">GRUB#RAID</a>.
+<p>Please refer to <a href="../wiki/GRUB.html#RAID" title="GRUB">GRUB#RAID</a>.
 </p>
-<p>To boot the system from your degraded array, you will need to (1) add the <code>mdadm_udev</code> hook to the HOOKS line in <code>/etc/mkinitcpio.conf</code> (after the entry for <code>block</code>) and (2) regenerate the initramfs and <a href="../GRUB.html#Generate_the_main_configuration_file" title="GRUB">generate a new configuration file</a>. You can then add a menu entry in <code>/boot/grub/grub.cfg</code> pointing to the raid partitions for boot. This is complicated by the default config generation making use of a primary boot entry, and placing the remaining boot entries in <b>submenues</b>. To restore generation of a single entry per-line for each boot option, simply add:
+<p>To boot the system from your degraded array, you will need to (1) add the <code>mdadm_udev</code> hook to the HOOKS line in <code>/etc/mkinitcpio.conf</code> (after the entry for <code>block</code>) and (2) regenerate the initramfs and <a href="../wiki/GRUB.html#Generate_the_main_configuration_file" title="GRUB">generate a new configuration file</a>. You can then add a menu entry in <code>/boot/grub/grub.cfg</code> pointing to the raid partitions for boot. This is complicated by the default config generation making use of a primary boot entry, and placing the remaining boot entries in <b>submenues</b>. To restore generation of a single entry per-line for each boot option, simply add:
 </p>
 <pre>   GRUB_DISABLE_SUBMENU=y
 </pre>
@@ -187,7 +187,7 @@ kernel /vmlinuz-linux-tosroot=/dev/md0 md=0,/dev/sda1,/dev/sdb1
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Another alternative that avoids the uuid-shuffle, is to chroot your degraded array after it has been created and file copied to each of the respective arrays (e.g. <code>/</code>, <code>/boot</code>, and <code>/home</code>). You can add the <code>mdadm_udev</code> hook to <code>/etc/mkinitcpio.conf</code>, regenerate the initramfs. install the bootloader and generate a <code>grub.cfg</code> within the chroot environment. If you then toggle the primary drive for boot, you can boot the degraded array.</div>
 <h3><span class="mw-headline" id="Alter_fstab">Alter fstab</span></h3>
-<p>You need to tell fstab on the <b>new</b> disk where to find the new device. It is recommended to use <a href="../Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>.
+<p>You need to tell fstab on the <b>new</b> disk where to find the new device. It is recommended to use <a href="../wiki/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/mnt/new-raid/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/dev/md0    /    ext4     defaults   0 1
@@ -204,14 +204,14 @@ kernel /vmlinuz-linux-tosroot=/dev/md0 md=0,/dev/sda1,/dev/sdb1
 <h4>
 <span id="Record_mdadm.27s_config"></span><span class="mw-headline" id="Record_mdadm's_config">Record mdadm's config</span>
 </h4>
-<p><a href="../Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Textedit">Edit</a> <code>/etc/mdadm.conf</code> and change the <code>MAILADDR</code> line to be your email address, if you want emailed alerts of problems with the RAID 1.
+<p><a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Textedit">Edit</a> <code>/etc/mdadm.conf</code> and change the <code>MAILADDR</code> line to be your email address, if you want emailed alerts of problems with the RAID 1.
 </p>
 <p>Then save the array configuration with UUIDs to make it easier for the system to find <code>/dev/md0</code> at boot. If you do not do this, you can get an <code>ALERT! /dev/md0 does not exist</code> error when booting:
 </p>
 <pre># mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
 </pre>
 <h4><span class="mw-headline" id="Rebuild_initcpio">Rebuild initcpio</span></h4>
-<p>Follow <a href="../RAID.html#Configure_mkinitcpio" title="RAID">RAID#Configure mkinitcpio</a>.
+<p>Follow <a href="../wiki/RAID.html#Configure_mkinitcpio" title="RAID">RAID#Configure mkinitcpio</a>.
 </p>
 <h3><span class="mw-headline" id="Install_the_boot_loader_on_the_RAID_array">Install the boot loader on the RAID array</span></h3>
 <div class="noprint archwiki-template-message">
@@ -313,11 +313,11 @@ unused devices: &lt;none&gt;
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -336,9 +336,9 @@ unused devices: &lt;none&gt;
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">
