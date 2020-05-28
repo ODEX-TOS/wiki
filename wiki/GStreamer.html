@@ -1,0 +1,184 @@
+<!--
+    title: GStreamer
+    description: Migration of GStreamer from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">GStreamer</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a href="https://en.wikipedia.org/wiki/GStreamer"  title="wikipedia:GStreamer">GStreamer</a> is a pipeline-based multimedia framework written in the C programming language with the type system based on GObject.
+</p>
+<p>GStreamer allows a programmer to create a variety of media-handling components, including simple audio playback, audio and video playback, recording, streaming and editing. The pipeline design serves as a base to create many types of multimedia applications such as video editors, streaming media broadcasters, and media players.
+</p>
+<p>Designed to be cross-platform, it is known to work on Linux (x86, PowerPC and ARM), Solaris (Intel and SPARC), macOS, Microsoft Windows and OS/400. GStreamer has bindings for programming-languages like <a href="../wiki/Python.html" title="Python">Python</a>, C++, Perl, GNU Guile (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=guile">guile</a></span>), and <a href="../wiki/Ruby.html" title="Ruby">Ruby</a>. GStreamer is free software, licensed under the GNU Lesser General Public License.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Integration"><span >2</span> <span >Integration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#PulseAudio"><span >2.1</span> <span >PulseAudio</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#KDE_/_Phonon_integration"><span >2.2</span> <span >KDE / Phonon integration</span></a></li>
+<li class="toclevel-2 tocsection-5">
+<a href="#Hardware_video_acceleration"><span >2.3</span> <span >Hardware video acceleration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Ignore_driver_whitelist"><span >2.3.1</span> <span >Ignore driver whitelist</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Verify_VA-API/VDPAU_support"><span >2.3.2</span> <span >Verify VA-API/VDPAU support</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gstreamer">gstreamer</a></span> package.
+</p>
+<p>To make GStreamer useful, install the plugins packages you require. See <a rel="nofollow"  href="https://gstreamer.freedesktop.org/documentation/plugins_doc.html">official documentation</a> for list of features in each plugin.
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-libav">gst-libav</a></span> - Libav-based plugin containing many decoders and encoders.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-bad">gst-plugins-bad</a></span> - Plugins that need more quality, testing or documentation.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-base">gst-plugins-base</a></span> - Essential exemplary set of elements.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-good">gst-plugins-good</a></span> - Good-quality plugins under LGPL license.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-ugly">gst-plugins-ugly</a></span> - Good-quality plugins that might pose distribution problems.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gst-plugin-libde265/">gst-plugin-libde265</a></span><sup><small>AUR</small></sup> - <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libde265">libde265</a></span> plugin (an open h.265 video codec implementation) for gstreamer.</li>
+</ul>
+<h2><span class="mw-headline" id="Integration">Integration</span></h2>
+<h3><span class="mw-headline" id="PulseAudio">PulseAudio</span></h3>
+<p><a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> support is provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-good">gst-plugins-good</a></span> package.
+</p>
+<h3>
+<span id="KDE_.2F_Phonon_integration"></span><span class="mw-headline" id="KDE_/_Phonon_integration">KDE / Phonon integration</span>
+</h3>
+<p>See <a href="../wiki/KDE.html#Phonon" class="mw-redirect" title="Phonon">Phonon</a>.
+</p>
+<h3><span class="mw-headline" id="Hardware_video_acceleration">Hardware video acceleration</span></h3>
+<p>See <a href="../wiki/Hardware_video_acceleration.html" title="Hardware video acceleration">Hardware video acceleration</a>.
+</p>
+<p>GStreamer will automatically detect and use the correct API <a rel="nofollow"  href="https://gstreamer.freedesktop.org/documentation/tutorials/playback/hardware-accelerated-video-decoding.html">[1]</a>. Depending on the system <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a>:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gstreamer-vaapi">gstreamer-vaapi</a></span> for <a href="../wiki/Hardware_video_acceleration.html" class="mw-redirect" title="VA-API">VA-API</a> support.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gst-plugins-bad">gst-plugins-bad</a></span> for <a href="../wiki/Hardware_video_acceleration.html" class="mw-redirect" title="VDPAU">VDPAU</a> support. (NVDECODE/NVENCODE is <a rel="nofollow"  href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/gst-plugins-bad#n45">disabled in the TOS package</a>)</li>
+</ul>
+<h4><span class="mw-headline" id="Ignore_driver_whitelist">Ignore driver whitelist</span></h4>
+<p>GStreamer <a rel="nofollow"  href="https://blogs.igalia.com/vjaquez/2018/03/28/gstreamer-va-api-troubleshooting/">uses a whitelist</a> of VA-API drivers. To ignore the whitelist and allow support for other drivers like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-media-driver">intel-media-driver</a></span>, set <code>GST_VAAPI_ALL_DRIVERS=1</code> as <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>.
+</p>
+<h4>
+<span id="Verify_VA-API.2FVDPAU_support"></span><span class="mw-headline" id="Verify_VA-API/VDPAU_support">Verify VA-API/VDPAU support</span>
+</h4>
+<p>To verify VA-API support:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ gst-inspect-1.0 vaapi</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Plugin Details:
+  Name                     vaapi
+  Description              VA-API based elements
+  Filename                 /usr/lib/gstreamer-1.0/libgstvaapi.so
+  Version                  1.16.2
+  License                  LGPL
+  Source module            gstreamer-vaapi
+  Binary package           gstreamer-vaapi
+  Origin URL               <a rel="nofollow"  href="http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer">http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer</a>
+
+  vaapijpegdec: VA-API JPEG decoder
+  vaapimpeg2dec: VA-API MPEG2 decoder
+  vaapih264dec: VA-API H264 decoder
+  vaapivc1dec: VA-API VC1 decoder
+  vaapih265dec: VA-API H265 decoder
+  vaapipostproc: VA-API video postprocessing
+  vaapidecodebin: VA-API Decode Bin
+  vaapisink: VA-API sink
+  vaapih265enc: VA-API H265 encoder
+  vaapih264enc: VA-API H264 encoder
+
+  10 features:
+  +-- 10 elements</pre>
+<p>To verify VDPAU support:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ gst-inspect-1.0 vdpau</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Plugin Details:
+  Name                     vdpau
+  Description              Various elements utilizing VDPAU
+  Filename                 /usr/lib/gstreamer-1.0/libgstvdpau.so
+  Version                  1.16.2
+  License                  LGPL
+  Source module            gst-plugins-bad
+  Binary package           GStreamer Bad Plugins (TOS Linux)
+  Origin URL               <a rel="nofollow"  href="https://www.archlinux.org/">https://www.archlinux.org/</a>
+
+  vdpaumpegdec: VDPAU Mpeg Decoder
+
+  1 features:
+  +-- 1 elements</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../wiki/Sound_system.html" title="Sound system">Sound system</a></li>
+<li><a rel="nofollow"  href="https://gstreamer.freedesktop.org/">website</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Multimedia.html" title="Category:Multimedia">Multimedia</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=GStreamer&amp;oldid=606147">https://wiki.archlinux.org/index.php?title=GStreamer&amp;oldid=606147</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 April 2020, at 09:29.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

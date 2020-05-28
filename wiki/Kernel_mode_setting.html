@@ -1,0 +1,302 @@
+<!--
+    title: Kernel_mode_setting
+    description: Migration of Kernel_mode_setting from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Kernel mode setting</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/ATI.html" title="ATI">ATI</a></li>
+<li><a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a></li>
+<li><a href="../wiki/Nouveau.html" title="Nouveau">Nouveau</a></li>
+</ul>
+</div>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> KMS and rootless X (1.16), see <a href="../wiki/Talk:Kernel_mode_setting.html" title="Talk:Kernel mode setting">Talk:Kernel mode setting</a> and <a href="../wiki/Xorg.html#Rootless_Xorg_(v1.16)" title="Xorg">Xorg#Rootless Xorg (v1.16)</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Kernel_mode_setting">Talk:Kernel mode setting#</a>)</div>
+</div>
+<p>Kernel <a href="https://en.wikipedia.org/wiki/Mode-setting"  title="wikipedia:Mode-setting">Mode Setting</a> (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.
+</p>
+<p>The Linux kernel's implementation of KMS enables native resolution in the framebuffer and allows for instant console (tty) switching.  KMS also enables newer technologies (such as DRI2) which will help reduce artifacts and increase 3D performance, even kernel space power-saving.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The proprietary <a href="../wiki/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver (since 364.12) also implements kernel mode-setting, but it does not use the built-in kernel implementation and it lacks an fbdev driver for the high-resolution console.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Background"><span >1</span> <span >Background</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Installation"><span >2</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Late_KMS_start"><span >2.1</span> <span >Late KMS start</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Early_KMS_start"><span >2.2</span> <span >Early KMS start</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#My_fonts_are_too_tiny"><span >3.1</span> <span >My fonts are too tiny</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Problem_upon_bootloading_and_dmesg"><span >3.2</span> <span >Problem upon bootloading and dmesg</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Forcing_modes_and_EDID"><span >4</span> <span >Forcing modes and EDID</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Forcing_modes"><span >4.1</span> <span >Forcing modes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Disabling_modesetting"><span >5</span> <span >Disabling modesetting</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Background">Background</span></h2>
+<p>Previously, setting up the video card was the job of the X server. Because of this, it was not easily possible to have fancy graphics in <a href="../wiki/Linux_console.html#Virtual_consoles" class="mw-redirect" title="Virtual console">virtual consoles</a>. Also, each time a switch from X to a virtual console was made (<code>Ctrl+Alt+F2</code>), the server had to give control over the video card to the kernel, which was slow and caused flickering. The same "painful" process happened when the control was given back to the X server (<code>Alt+F7</code> when X runs in VT7).
+</p>
+<p>With Kernel Mode Setting (KMS), the kernel is now able to set the mode of the video card. This makes fancy graphics during bootup, virtual console and X fast switching possible, among other things.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>At first, note that for <i>any</i> method you use, you should <i>always</i> disable:
+</p>
+<ul>
+<li>Any <code>vga=</code> options in your bootloader as these will conflict with the native resolution enabled by KMS.</li>
+<li>Any <code>video=</code> lines that enable a framebuffer that conflicts with the driver.</li>
+<li>Any other framebuffer drivers (such as <a href="../wiki/Uvesafb.html" title="Uvesafb">uvesafb</a>).</li>
+</ul>
+<h3><span class="mw-headline" id="Late_KMS_start">Late KMS start</span></h3>
+<p><a href="../wiki/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>, <a href="../wiki/Nouveau.html" title="Nouveau">Nouveau</a>, <a href="../wiki/ATI.html" title="ATI">ATI</a> and <a href="../wiki/AMDGPU.html" title="AMDGPU">AMDGPU</a> drivers already enable KMS automatically for all chipsets, so you need not install it manually.
+</p>
+<p>The proprietary <a href="../wiki/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver supports KMS (since 364.12), which has to be <a href="../wiki/NVIDIA.html#DRM_kernel_mode_setting" title="NVIDIA">manually enabled</a>.
+</p>
+<p>The proprietary <a href="../wiki/AMD_Catalyst.html" title="AMD Catalyst">AMD Catalyst</a> driver does not support KMS. In order to use KMS you have to replace it with the open-source <a href="../wiki/AMDGPU.html" title="AMDGPU">AMDGPU</a> or <a href="../wiki/ATI.html" title="ATI">ATI</a> driver.
+</p>
+<h3><span class="mw-headline" id="Early_KMS_start">Early KMS start</span></h3>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> If you encounter problems with the resolution, you can check whether <a href="#Forcing_modes_and_EDID">enforcing the mode</a> helps.</div>
+<p>KMS is typically initialized after the <a href="../wiki/TOS_boot_process.html#initramfs" title="TOS boot process">initramfs stage</a>. However it is possible to already enable KMS during the initramfs stage. Add the required module for the <a href="../wiki/Xorg.html#Driver_installation" title="Xorg">video driver</a> to the <code>MODULES</code> array in <code>/etc/mkinitcpio.conf</code>:
+</p>
+<ul>
+<li>
+<code>amdgpu</code> for <a href="../wiki/AMDGPU.html" title="AMDGPU">AMDGPU</a>, or <code>radeon</code> when using the legacy <a href="../wiki/ATI.html" title="ATI">ATI</a> driver.</li>
+<li>
+<code>i915</code> for <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a>.</li>
+<li>
+<code>nouveau</code> for the open-source <a href="../wiki/Nouveau.html" title="Nouveau">Nouveau</a> driver.</li>
+<li>
+<code>mgag200</code> for Matrox graphics.</li>
+<li>Depending on <a href="../wiki/QEMU.html" title="QEMU">QEMU</a> graphics in use: <code>virtio-gpu</code> for VirtIO, <code>qxl</code> for QXL, or <code>cirrus</code> for Cirrus.</li>
+</ul>
+<p>For example to enable early KMS for the Intel graphics driver:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">MODULES=(... i915 ...)</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Intel users may need to add <code>intel_agp</code> before <code>i915</code> to suppress the ACPI errors. This may be required for resuming from hibernation to work with a changed display configuration.</div>
+<p>If you are using a custom EDID file (not applicable for the built-in resolutions), you should embed it into <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> as well:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">FILES=(/usr/lib/firmware/edid/your_edid.bin)</pre>
+<p>Then <a href="../wiki/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="My_fonts_are_too_tiny">My fonts are too tiny</span></h3>
+<p>See <a href="../wiki/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a> for how to change your console font to a large font. The Terminus font (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=terminus-font">terminus-font</a></span>) is available in many sizes, such as <code>ter-132n</code> which is larger.
+</p>
+<p>Alternatively, <a href="#Disabling_modesetting">disabling modesetting</a> might switch to lower resolution and make fonts appear larger.
+</p>
+<h3><span class="mw-headline" id="Problem_upon_bootloading_and_dmesg">Problem upon bootloading and dmesg</span></h3>
+<p>Polling for connected display devices on older systems can be quite expensive. Poll will happen periodically and can in worst cases take several hundred milliseconds, depending on the hardware. This will cause visible stalls, for example in video playback. These stalls might happen even when your video is on HDP output but you have other non HDP outputs in your hw configuration. If you experience stalls in display output occurring every 10 seconds, disabling polling might help.
+</p>
+<p>If you see an error code of <code>0x00000010 (2)</code> while booting up, (you will get about 10 lines of text, the last part denoting that error code), use:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/modprobe.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options drm_kms_helper poll=0</pre>
+<h2><span class="mw-headline" id="Forcing_modes_and_EDID">Forcing modes and EDID</span></h2>
+<p>If your native resolution is not automatically configured or no display at all is detected, then your monitor might send none or just a skewed <a href="https://en.wikipedia.org/wiki/EDID"  title="wikipedia:EDID">EDID</a> file. The kernel will try to catch this case and will set one of the most typical resolutions.
+</p>
+<p>In case you have the EDID file for your monitor you merely need to explicitly enforce it (see below). However most often one does not have direct access to a sane file and it is necessary to either extract an existing one and fix it or to generate a new one.
+</p>
+<p>Generating new EDID binaries for various resolutions and configurations is possible during kernel compilation by following the <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/edid.html">upstream documentation</a> (also see <a rel="nofollow"  href="https://www.osadl.org/Single-View.111+M5315d29dd12.0.html">here</a> for a short guide). Other solutions are outlined in details in this <a rel="nofollow"  href="https://kodi.wiki/view/Creating_and_using_edid.bin_via_xorg.conf">article</a>.
+Extracting an existing one is in most cases easier, e.g. if your monitor works fine under Windows you might have luck extracting the EDID from the corresponding driver, or if a similar monitor works which has the same settings you may use <code>get-edid</code> from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=read-edid">read-edid</a></span> package. You can also try looking in <code>/sys/class/drm/*/edid</code>.
+</p>
+<p>After having prepared your EDID place it in a folder, e.g. called <code>edid</code> under <code>/usr/lib/firmware</code> and copy your binary into it.
+</p>
+<p>To load it at boot, specify the following in the <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a>:
+</p>
+<pre>drm_kms_helper.edid_firmware=edid/your_edid.bin
+</pre>
+<p>or alternatively (since kernel 4.15), one may also enforce the EDID information on a lower level, using:
+</p>
+<pre>drm.edid_firmware=edid/your_edid.bin
+</pre>
+<p>In order to apply it only to a specific connector use:
+</p>
+<pre>drm_kms_helper.edid_firmware=VGA-1:edid/your_edid.bin
+</pre>
+<p>For the built-in resolutions, refer to the table below. The <b>Name</b> column specifies the name which one is supposed to use in order to enforce its usage.
+</p>
+<table >
+
+<tbody>
+<tr>
+<td><b>Resolution</b></td>
+<td>
+<b>Name</b>
+</td>
+</tr>
+<tr>
+<td>800x600</td>
+<td>edid/800x600.bin
+</td>
+</tr>
+<tr>
+<td>1024x768</td>
+<td>edid/1024x768.bin
+</td>
+</tr>
+<tr>
+<td>1280x1024</td>
+<td>edid/1280x1024.bin
+</td>
+</tr>
+<tr>
+<td>1600x1200 (kernel 3.10 or higher)</td>
+<td>edid/1600x1200.bin
+</td>
+</tr>
+<tr>
+<td>1680x1050</td>
+<td>edid/1680x1050.bin
+</td>
+</tr>
+<tr>
+<td>1920x1080</td>
+<td>edid/1920x1080.bin
+</td>
+</tr>
+</tbody>
+</table>
+<p>If you are doing <a href="#Early_KMS_start">early KMS</a>, you must include the custom EDID file in the initramfs, otherwise you will run into problems.
+</p>
+<h3><span class="mw-headline" id="Forcing_modes">Forcing modes</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The method described below is somehow incomplete because e.g. <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> does not take into account the resolution specified, so users are encouraged to use the method described above. However, specifying resolution with <code>video=</code> command line may be useful in some scenarios.</div>
+<p>From <a rel="nofollow"  href="http://nouveau.freedesktop.org/wiki/KernelModeSetting">the nouveau wiki</a>:
+</p>
+<dl><dd>A mode can be forced on the kernel command line. Unfortunately, the command line option video is poorly documented in the DRM case. Bits and pieces on how to use it can be found in
+<ul>
+<li><a rel="nofollow"  href="http://cgit.freedesktop.org/nouveau/linux-2.6/tree/Documentation/fb/modedb.txt">http://cgit.freedesktop.org/nouveau/linux-2.6/tree/Documentation/fb/modedb.txt</a></li>
+<li><a rel="nofollow"  href="http://cgit.freedesktop.org/nouveau/linux-2.6/tree/drivers/gpu/drm/drm_fb_helper.c">http://cgit.freedesktop.org/nouveau/linux-2.6/tree/drivers/gpu/drm/drm_fb_helper.c</a></li>
+</ul>
+</dd></dl>
+<p>The format is: 
+</p>
+<pre>video=&lt;conn&gt;:&lt;xres&gt;x&lt;yres&gt;[M][R][-&lt;bpp&gt;][@&lt;refresh&gt;][i][m][eDd]
+</pre>
+<ul>
+<li>
+<code>&lt;conn&gt;</code>: Connector, e.g. DVI-I-1, see <code>/sys/class/drm/</code> for available connectors</li>
+<li>
+<code>&lt;xres&gt; x &lt;yres&gt;</code>: resolution</li>
+<li>
+<code>M</code>: compute a CVT mode?</li>
+<li>
+<code>R</code>: reduced blanking?</li>
+<li>
+<code>-&lt;bpp&gt;</code>: color depth</li>
+<li>
+<code>@&lt;refresh&gt;</code>: refresh rate</li>
+<li>
+<code>i</code>: interlaced (non-CVT mode)</li>
+<li>
+<code>m</code>: margins?</li>
+<li>
+<code>e</code>: output forced to on</li>
+<li>
+<code>d</code>: output forced to off</li>
+<li>
+<code>D</code>: digital output forced to on (e.g. DVI-I connector)</li>
+</ul>
+<p>You can override the modes of several outputs using <code>video=</code> several times, for instance, to force <code>DVI</code> to <i>1024x768</i> at <i>85 Hz</i> and <code>TV-out</code> off: 
+</p>
+<pre>video=DVI-I-1:1024x768@85 video=TV-1:d
+</pre>
+<p>To get the name and current status of connectors, you can use the following shell oneliner:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ for p in /sys/class/drm/*/status; do con=${p%/status}; echo -n "${con#*/card?-}: "; cat $p; done</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">DVI-I-1: connected
+HDMI-A-1: disconnected
+VGA-1: disconnected
+</pre>
+<h2><span class="mw-headline" id="Disabling_modesetting">Disabling modesetting</span></h2>
+<p>You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display, when using the Catalyst driver, etc. To disable KMS add <code>nomodeset</code> as a kernel parameter. See <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a> for more info.
+</p>
+<p>Along with <code>nomodeset</code> kernel parameter, for Intel graphics card you need to add <code>i915.modeset=0</code> and for Nvidia graphics card  you need to add <code>nouveau.modeset=0</code>. For Nvidia Optimus dual-graphics system, you need to add all the three kernel parameters (i.e. <code>"nomodeset i915.modeset=0 nouveau.modeset=0"</code>).
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Some <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> drivers will not work with KMS disabled. See the wiki page on your specific driver for details.</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
+<li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Kernel_mode_setting&amp;oldid=607565">https://wiki.archlinux.org/index.php?title=Kernel_mode_setting&amp;oldid=607565</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 24 April 2020, at 10:48.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

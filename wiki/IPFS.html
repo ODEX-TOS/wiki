@@ -1,0 +1,188 @@
+<!--
+    title: IPFS
+    description: Migration of IPFS from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">IPFS</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<p><a href="../wiki/Daemons.html" title="Daemons">Daemons</a>
+</p>
+</ul>
+</div>
+<p>From the <a rel="nofollow"  href="https://github.com/ipfs/ipfs">IPFS README.md on GitHub</a>:
+</p>
+<dl><dd>IPFS (the <a href="https://en.wikipedia.org/wiki/IPFS"  title="wikipedia:IPFS">InterPlanetary File System</a>) is a new hypermedia distribution protocol, addressed by content and identities. IPFS enables the creation of completely distributed applications. It aims to make the web faster, safer, and more open.</dd></dl>
+<dl><dd>IPFS is a distributed file system that seeks to connect all computing devices with the same system of files. In some ways, this is similar to the original aims of the Web, but IPFS is actually more similar to a single BitTorrent swarm exchanging git objects.</dd></dl>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_a_service_to_start_the_daemon"><span >2</span> <span >Using a service to start the daemon</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#File_sharing"><span >3</span> <span >File sharing</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Simple_hosting_with_name_resolution"><span >4</span> <span >Simple hosting with name resolution</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=go-ipfs">go-ipfs</a></span> package or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/go-ipfs-git/">go-ipfs-git</a></span><sup><small>AUR</small></sup> package.
+</p>
+<p>To start using IPFS you must first issue
+</p>
+<pre>$ ipfs init
+</pre>
+<p>as a user. This creates a <code>~/.ipfs</code> directory with all the necessary files in it.
+</p>
+<p>Now you can start the IPFS daemon:
+</p>
+<pre>$ ipfs daemon
+</pre>
+<p>This starts your node, available via the <code>ipfs</code> cli, or the web interface on <a rel="nofollow"  href="http://localhost:5001/webui">localhost:5001/webui</a>. Additionally, a local gateway goes up on localhost:8080 (the default port can be changed in <code>~/.ipfs/config</code>).
+</p>
+<h2><span class="mw-headline" id="Using_a_service_to_start_the_daemon">Using a service to start the daemon</span></h2>
+<p>For convenience you can automate the startup of <a class="mw-selflink selflink">IPFS</a> daemon using a <a href="../wiki/Systemd/User.html" title="Systemd/User">Systemd/User</a> service. This ensures that the daemon starts when you log in, and that it is restarted if it crashes.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/systemd/user/ipfs.service</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
+Description=IPFS daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ipfs daemon --migrate
+Restart=on-failure
+
+[Install]
+WantedBy=default.target</pre>
+<p>You can then enable and start the service unit:
+</p>
+<pre>$ systemctl --user enable --now ipfs
+</pre>
+<p>If you want the unit to keep working even after you have logged out, and start before you log in, you can enable lingering:
+</p>
+<pre># loginctl enable-linger <i>username</i>
+</pre>
+<h2><span class="mw-headline" id="File_sharing">File sharing</span></h2>
+<p>To share a file using IPFS you need the daemon to be running. 
+</p>
+<pre>$ ipfs add file
+</pre>
+<p>returns a hash. If someone shared this file via IPFS before, the hash would match that previous upload, making you the second source of the file.
+</p>
+<p>To retrieve a file via the IPFS hash, use <code>ipfs cat</code>:
+</p>
+<pre>$ ipfs cat /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+</pre>
+<p>You can pipe this into any other application, for example, to watch a video with <a href="../wiki/Mpv.html" title="Mpv">mpv</a>:
+</p>
+<pre>$ ipfs cat QmWenbjgZnA6UguLtmUYayS6e7UQM7woB15zuEymSRRMoi | mpv -
+</pre>
+<p>Or you can download the file:
+</p>
+<pre>$ ipfs get QmWenbjgZnA6UguLtmUYayS6e7UQM7woB15zuEymSRRMoi
+</pre>
+<p>There is also an <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ipget/">ipget</a></span><sup><small>AUR</small></sup> utility, which acts like <a href="../wiki/Wget.html" title="Wget">wget</a> for IPFS. In addition it includes a bootstrap node, so you won't have to have ipfs daemon running or installed in order to use it. To download a file: 
+</p>
+<pre>$ ipget QmWenbjgZnA6UguLtmUYayS6e7UQM7woB15zuEymSRRMoi
+</pre>
+<p>You can share both files and folders. Folders should be shared recursively:
+</p>
+<pre>$ ipfs add -r folder
+</pre>
+<p>To view all the files and caches in a folder (if hash is a folder):
+</p>
+<pre>$ ipfs ls QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
+</pre>
+<p>Every file shared with network is accessible via the IPFS gateway on <code>localhost:8080</code> like this:
+</p>
+<pre>http://localhost:8080/ipfs/QmWenbjgZnA6UguLtmUYayS6e7UQM7woB15zuEymSRRMoi
+</pre>
+<p>There are public gateways, allowing users with no IPFS node running to access files on the network. For example, the official <a rel="nofollow"  href="http://ipfs.io">website</a>:
+</p>
+<pre><a rel="nofollow"  href="http://ipfs.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG">http://ipfs.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG</a>
+</pre>
+<h2><span class="mw-headline" id="Simple_hosting_with_name_resolution">Simple hosting with name resolution</span></h2>
+<p>In IPFS files shared are never deleted, and with any change of a file its hash changes too. This makes such tasks as website hosting difficult, as any changes to a webpage, for example to an <code>index.html</code>, would result in this webpage having a different hash, and the old webpage would be still accessible with the old hash. It is one of a network's goals to store all the content persistently with full history. IPFS offers a name service you can use to generate persistent caches - ipns. Ipns allows you to bind any hash to your node's unique id, generated at initialization.
+You can view your id like this:
+</p>
+<pre>$ ipfs id
+</pre>
+<p>And to bind any hash to it:
+</p>
+<pre>$ ipfs name publish <i>HASH</i>
+</pre>
+<p>This would assign new hash generated by <code>ipfs add</code> after file change to your node id, and hence make updated version of a folder/file accessible using the same address. 
+</p>
+<p>Note that when using ipns the address would have an ipns prefix instead of ipfs:
+</p>
+<pre> <a rel="nofollow"  href="http://localhost:8080/ipns/QmPtMQErTfQMbZTMMpQh65cpk5y7D94WdYJurCeRqvXKmD/">http://localhost:8080/ipns/QmPtMQErTfQMbZTMMpQh65cpk5y7D94WdYJurCeRqvXKmD/</a>
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://ipfs.io">IPFS Homepage</a></li>
+<li><a rel="nofollow"  href="https://github.com/ipfs/website/tree/master/content/docs/examples">IPFS Examples</a></li>
+<li><a rel="nofollow"  href="https://github.com/ipfs/awesome-ipfs">Awesome IPFS</a></li>
+<li><a rel="nofollow"  href="https://github.com/ipfs/notes/issues/84">IPFS and pacman</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="../wiki/Category:Peer-to-peer.html" title="Category:Peer-to-peer">Peer-to-peer</a></li>
+<li><a href="../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=IPFS&amp;oldid=609038">https://wiki.archlinux.org/index.php?title=IPFS&amp;oldid=609038</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 30 April 2020, at 19:13.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

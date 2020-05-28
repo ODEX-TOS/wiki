@@ -1,0 +1,327 @@
+<!--
+    title: JHBuild
+    description: Migration of JHBuild from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">JHBuild</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/GNOME.html" title="GNOME">GNOME</a></li>
+</ul>
+</div>
+<p>From <a rel="nofollow"  href="https://wiki.gnome.org/Projects/Jhbuild/Introduction">JHBuild's wiki</a>:
+</p>
+<dl><dd><i>JHBuild allows you to build and run GNOME platform and applications building the required modules in a sandbox environment, isolating the installation; so there is no need to build and run GNOME inside a virtual machine.</i></dd></dl>
+<p>JHBuild is a tool that allows you to automatically download and compile "modules" (i.e. source code packages). It can pull modules from a variety of sources (CVS, Subversion, Git, Bazaar, tarballs, etc.) and handle dependencies. You can also choose which specific modules you want to build, instead of building the whole project.
+</p>
+<p>JHBuild was originally written for building <a href="../wiki/GNOME.html" title="GNOME">GNOME</a>, but has since been extended to be usable with other projects.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Default_configuration_file"><span >2.1</span> <span >Default configuration file</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#User-specific_configuration_file"><span >2.2</span> <span >User-specific configuration file</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Sample_configuration"><span >2.3</span> <span >Sample configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Usage"><span >3</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Checking_and_installing_prerequisites"><span >3.1</span> <span >Checking and installing prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Updating_modules"><span >3.2</span> <span >Updating modules</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Building_modules"><span >3.3</span> <span >Building modules</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Running_modules"><span >3.4</span> <span >Running modules</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Creating_dependency_graph"><span >3.5</span> <span >Creating dependency graph</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Troubleshooting"><span >4</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Python_issues"><span >4.1</span> <span >Python issues</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#pkg-config_issues"><span >4.2</span> <span >pkg-config issues</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Build_failed_due_to_incompatible_meson_versions"><span >4.3</span> <span >Build failed due to incompatible meson versions</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Build_failed_due_to_GCC_library_or_object_not_found"><span >4.4</span> <span >Build failed due to GCC library or object not found</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#gst-plugin-bad_fails_on_missing_vulkan_headers"><span >4.5</span> <span >gst-plugin-bad fails on missing vulkan headers</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Library_missing_and_no_known_rule_to_make_it"><span >4.6</span> <span >Library missing and no known rule to make it</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Building_JHBuild_from_scratch"><span >5</span> <span >Building JHBuild from scratch</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> package.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>There are two configuration files: the <a href="#Default_configuration_file">#Default configuration file</a> installed by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> package, and the <a href="#User-specific_configuration_file">#User-specific configuration file</a> created by the user.
+</p>
+<p>By default JHBuild uses the installed configuration file. Its configuration is overridden by the configuration in the user-specific configuration file if it exists.
+</p>
+<p>These use <a href="../wiki/Python.html" title="Python">Python</a> syntax. See <a rel="nofollow"  href="https://developer.gnome.org/jhbuild/stable/">JHBuild Manual</a> for more information.
+</p>
+<h3><span class="mw-headline" id="Default_configuration_file">Default configuration file</span></h3>
+<p>The default configuration file is located at <code>/usr/lib/python3.8/site-packages/jhbuild/defaults.jhbuildrc</code>. It should have everything you need for start using JHBuild, as it sets the modulesets directory, the default moduleset, autogen/meson/cmake arguments for all modules that use it.
+</p>
+<p>Some default values currently set:
+</p>
+<ul>
+<li>moduleset = <code>gnome-apps-latest</code>
+</li>
+<li>modules = <code>meta-gnome-core</code>
+</li>
+<li>directory of downloaded tarball = <code>$XDG_CACHE_HOME/jhbuild/downloads</code>
+</li>
+<li>buildroot = <code>$XDG_CACHE_HOME/jhbuild/build</code>
+</li>
+</ul>
+<p>If believe you found a TOS-specific setting that should be set, feel free to suggest that in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> comments. If not TOS-specific, consider filing an <a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/jhbuild/issues">issue in the upstream</a>.
+</p>
+<h3><span class="mw-headline" id="User-specific_configuration_file">User-specific configuration file</span></h3>
+<p>This configuration file is located at <code>$XDG_CONFIG_HOME/jhbuildrc</code> (e.g. <code>~/.config/jhbuildrc</code>). It is optional, does not exist by default and overrides values set in the default JHBuild configuration file.
+</p>
+<p>It is very useful for, e.g., set a different moduleset, or to add a compiler flag to debug and try to fix a build failure system.
+</p>
+<p>See examples in <code>/usr/share/jhbuild/examples/</code>.
+</p>
+<h3><span class="mw-headline" id="Sample_configuration">Sample configuration</span></h3>
+<p>This section shows a non-exhaustive list of key/value pairs that can be set in any of the configuration files.
+</p>
+<ul><li>Use a local moduleset file instead of downloading it again, making it possible to change something in the file and test it</li></ul>
+<pre>use_local_modulesets = True
+modulesets_dir = "~/.cache/jhbuild/"</pre>
+<ul><li>Enable a wide-most moduleset, and also force GTK3 for modules that would use GTK2 by default</li></ul>
+<pre>moduleset = ['gnome-world']
+autogenargs = '--with-gtk3'</pre>
+<ul><li>Or you may want to enable documentation build for autotools, even though it will slowdown module compilation</li></ul>
+<pre>autogenargs = '--enable-gtk-doc'</pre>
+<ul><li>Or you want some debug output from make command</li></ul>
+<pre>makeargs = 'V=1'</pre>
+<ul><li>Or you found out that a module requires a specific automake option (WebKit is already patched, there is no real need for this one)</li></ul>
+<pre>module_autogenargs['WebKit'] = 'PYTHON=/usr/bin/python2'</pre>
+<ul><li>Or you want to disable documentation build for a module that use meson build system</li></ul>
+<pre>module_mesonargs['gstreamer'] = '-Ddisable_gtkdoc=true</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <i>autotools</i> and <i>meson</i> are different build systems, so make sure to add the desired flags for the correct option name</div>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>This topic provides some information and examples on how to use some JHBuild commands, but without intending to exhaust the subject. For a detailed information on each of JHBuild commands, please refer to <a rel="nofollow"  href="https://developer.gnome.org/jhbuild/stable/">JHBuild Manual</a>, learn from each command's help output or even read JHBuild's <a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/jhbuild/">source code</a>.
+</p>
+<p>JHBuild provides a general <code>--help</code> which lists all the commands available, and also a help message for each sub-command, e.g. <code>jhbuild sysdeps --help</code>.
+</p>
+<h3><span class="mw-headline" id="Checking_and_installing_prerequisites">Checking and installing prerequisites</span></h3>
+<p><i>sysdeps</i> can be used to get a detailed list of which dependencies you have installed and which ones you should install. In order to get this information, just run:
+</p>
+<pre>$ jhbuild sysdeps
+</pre>
+<p>To install missing dependencies,  run use <code>--install</code> parameter:
+</p>
+<pre>$ jhbuild sysdeps --install
+</pre>
+<p>For dependencies that the above command is unable install, consider installing the correspondent package from <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a> or the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> already lists some dependencies that <i>sysdeps --install</i> can't install for some reason. If you find a package that should be listed in there, please report it in the comments of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup>.</div>
+<h3><span class="mw-headline" id="Updating_modules">Updating modules</span></h3>
+<p>It is possible to simply update the source code of the modules without building them, making it possible build another time without having to wait fetching the source code. There are three ways of simply updating modules:
+</p>
+<p><i>update</i>, without any arguments, will update all modules available in the moduleset/modules set in configuration file
+</p>
+<pre>$ jhbuild update
+</pre>
+<p><i>update</i>, with one or more modules as arguments, will update <b>all</b> modules that the named modules depends on. e.g.:
+</p>
+<pre>$ jhbuild update gedit
+</pre>
+<p><i>updateone</i>, with one or more modules, will update <b>only</b> the named module(s). e.g.:
+</p>
+<pre>$ jhbuild updateonly gedit
+</pre>
+<h3><span class="mw-headline" id="Building_modules">Building modules</span></h3>
+<p>This action will run the whole build process: it will update the source code (unless it is already up-to-date), configure &amp; build, and install it in the proper directory.
+</p>
+<p>Just like <i>update</i>, There are three ways of building modules in JHBuild:
+</p>
+<p><i>build</i>, without any arguments, will build all modules available in the moduleset/modules set in configuration file
+</p>
+<pre>$ jhbuild build
+</pre>
+<p><i>build</i>, with one or more modules as arguments, will build <b>all</b> modules that the named modules depends on. e.g.:
+</p>
+<pre>$ jhbuild build gedit
+</pre>
+<p><i>buildone</i>, with one or more modules, will build <b>only</b> the named module(s). e.g.:
+</p>
+<pre>$ jhbuild buildone gedit
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Please notice that since <i>buildone</i> don't also build the latest development version of a module's dependencies, it may fail due to dependency not being installed or being out-of-date; in this case, you should run <i>build</i> for the named module</div>
+<h3><span class="mw-headline" id="Running_modules">Running modules</span></h3>
+<p>After a successfully installed application in JHBuild, use <i>run</i> to start the module you just built. e.g.:
+</p>
+<pre>$ jhbuild run gedit
+</pre>
+<h3><span class="mw-headline" id="Creating_dependency_graph">Creating dependency graph</span></h3>
+<p>JHBuild can output graph contents which can by piped into <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=graphviz">graphviz</a></span> in order to generate e.g. a PNG or PostScript file.
+</p>
+<p>To generate a PNG file of e.g. gedit, run:
+</p>
+<pre>$ jhbuild dot gedit | dot -Tpng &gt; dependencies.png
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you encounter an issue that is not documented below, please report it in a comment on the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> package.</div>
+<h3><span class="mw-headline" id="Python_issues">Python issues</span></h3>
+<p>A module that depends on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python2">python2</a></span> may fail to build as software usually expect the binary filename of python 2.x to be <code>/usr/bin/python</code> and python 3.x to be <code>/usr/bin/python3</code>, which is not the case in TOS Linux: python 2.x is <code>/usr/bin/python2</code> and python 3.x is <code>/usr/bin/python</code>.
+</p>
+<p>For cases like that, force the modules to run <code>/usr/bin/python2</code> using the one or more methods below:
+</p>
+<ul><li>set <i>module_autoargs</i> with <i>PYTHON=/usr/bin/python2</i> for this specific module in <code>~/.config/jhbuildrc</code>, as mentioned in the above Configuration section — this will run autogen.sh or configure with this value for variable PYTHON</li></ul>
+<ul><li>if the <i>configure</i> or <i>Makefile</i> doesn't parse PYTHON variable, one approach is to manually find all lines in <i>configure</i>/<i>Makefile</i> that run python binary and rename python -&gt; python2 — this will hard code python2 in the module's source code.</li></ul>
+<ul><li>if only the above workarounds still don't work for you, consider editing module's .py files in order to replace <i>python</i> with <i>python2</i> when the first line matches <i>#!/usr/bin/env python</i> or <i>#!/usr/bin/python</i>
+</li></ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> All edits and patches that are manually applied to the source code will be lost when you wipe the directory and checkout (download) it again, so it is not exactly a permanent solution</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If a module's configure/build process misuse PYTHON variable, or doesn't use at all, consider reporting it to the module's upstream and/or providing patch for JHBuild upstream</div>
+<h3><span class="mw-headline" id="pkg-config_issues">pkg-config issues</span></h3>
+<p>If you have a malformatted .pc file on your PKG_CONFIG_PATH, JHBuild will not be able to detect all the (valid) .pc files you have installed and will complain that the .pc files are missing. Look at the output of <code>jhbuild sysdeps</code>—there should be a message about the problematic .pc files.
+</p>
+<h3><span class="mw-headline" id="Build_failed_due_to_incompatible_meson_versions">Build failed due to incompatible meson versions</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> No longer an issue, as meson now regenerates the configuration from scratch when the meson's version used to generate the build directory has incompatible with the current version. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:JHBuild">Talk:JHBuild#</a>)</div>
+</div>
+<p>You may come across with a message similar to one of these below.
+</p>
+<pre>Meson encountered an error:
+Build directory has been generated with Meson version 0.40.0, which is incompatible with current version 0.40.1.
+Please delete this build directory AND create a new one.
+FAILED: build.ninja 
+'/usr/bin/python3' '/home/foobar/jhbuild/install/bin/meson' --internal regenerate '/home/foobar/jhbuild/checkout/gst-plugins-base' '/home/foobar/.cache/jhbuild/build/gst-plugins-base' --backend ninja
+ninja: error: rebuilding 'build.ninja': subcommand failed</pre>
+<p>In the above example, the module was configured with meson 0.40.0 at on time, but a newer version (0.40.1, in the example) is now installed and is not compatible with the old one.
+</p>
+<p><b>Solution:</b> Run Configure phase again, in order to have this module configured with newer Meson version
+</p>
+<h3><span class="mw-headline" id="Build_failed_due_to_GCC_library_or_object_not_found">Build failed due to GCC library or object not found</span></h3>
+<p>You may come across with a message similar to the one below.
+</p>
+<pre>cc: error: /usr/lib/gcc/x86_64-pc-linux-gnu/<i>gcc_version</i>/../../../../lib/<i>name</i>.so: No such file or directory</pre>
+<p>or
+</p>
+<pre>g++: error: /usr/lib/gcc/x86_64-pc-linux-gnu/<i>gcc_version</i>/../../../../lib/<i>name</i>.o: No such file or directory</pre>
+<p>where <i>gcc_version</i> is a GCC version older than the current one, and <i>name</i> is the name of the library (.so) or object (.o) that failed to be found.
+</p>
+<p>This may happen if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcc">gcc</a></span> was updated and the software was previously configured and built with the previous version of gcc.
+</p>
+<p><b>Solution:</b> Run <i>Configure</i> phase again, in order to have this module configured with newer GCC version
+</p>
+<h3><span class="mw-headline" id="gst-plugin-bad_fails_on_missing_vulkan_headers">gst-plugin-bad fails on missing vulkan headers</span></h3>
+<p>When building the <i>gst-plugins-bad</i> module, You may come across with a number of messages similar to the one below:
+</p>
+<pre>In file included from ext/vulkan/gstvulkan-plugins-enumtypes.c:8:
+../../../../jhbuild/checkout/gst-plugins-bad/ext/vulkan/vkviewconvert.h:26:10: fatal error: gst/vulkan/vulkan.h: No such file or directory
+   26 </pre>
+<p>It means <i>gst-plugin-bad</i> was automatically set to build its <i>vulkan</i> extension, but did not find all the dependecies it needs. As of the writing this subsection, <a rel="nofollow"  href="https://github.com/GStreamer/gst-plugins-bad/blob/master/ext/vulkan/meson.build">ext/vulkan/meson.build</a> looks for the binary <i>glslc</i> provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shaderc">shaderc</a></span>, which several packages depend on directly or indirectly. Removing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shaderc">shaderc</a></span> would solve this error, but this might not be an option if you want to keep one those packages the depends on it.
+</p>
+<p><b>Solution:</b> edit your jhbuild user configuration file to disable the <i>vulkan</i> extension:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/jhbuildrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">module_mesonargs['gst-plugins-bad'] = '-D vulkan=disabled'</pre>
+<p>and run Configure phase again, in order to have the <i>gst-plugins-bad</i> module successfully built.
+</p>
+<h3><span class="mw-headline" id="Library_missing_and_no_known_rule_to_make_it">Library missing and no known rule to make it</span></h3>
+<p>When building a module that uses meson build system you might come across an issue like this:
+</p>
+<pre>*** Checking out <i>module_name</i> *** [67/218]
+<i>some omitted checkout output</i>
+*** Building <i>module_name</i> *** [67/218]
+ninja
+<b>ninja: error: '<i>path/to/missing_library.so</i>', needed by '<i>path/to/module_file</i>', missing and no known rule to make it</b>
+*** Error during the phase build of <i>module_name</i>: ########## Error running ninja   *** [67/218]
+</pre>
+<p>This happens because the module was previously configured and built in another commit of this module, and in that occasion it was configured to a previous version of the dependency <code><i>path/to/missing_library.so</i></code>. Since the file <code><i>path/to/module_file</i></code> was configured to and expects that missing library to be available, it fails.
+</p>
+<p><b>Solution</b>: Just run option 7 for the configure phase to reconfigure the module and build it again.
+</p>
+<h2><span class="mw-headline" id="Building_JHBuild_from_scratch">Building JHBuild from scratch</span></h2>
+<p>If you do not want to use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/jhbuild/">jhbuild</a></span><sup><small>AUR</small></sup> package, and instead you want build JHBuild from scratch on your own, there are a few things you should pay attention too.
+</p>
+<ul><li>Make sure to install all the dependencies required by JHBuild and its target modules. Refer to <a rel="nofollow"  href="https://wiki.gnome.org/Projects/Jhbuild/Dependencies/TOSLinux">list of dependencies for TOS Linux</a>;</li></ul>
+<ul><li>JHBuild itself used to depend on <a href="../wiki/Python.html" title="Python">Python</a> version 2 but it got migrated to python 3, so no specific configuration on python version;</li></ul>
+<ul><li>Some modules might still depend on python2. Make sure to read the <a href="#Python_issues">#Python issues</a> section;</li></ul>
+<ul><li>For detailed information downloading and building the source code of JHBuild, check <a rel="nofollow"  href="https://wiki.gnome.org/HowDoI/Jhbuild">JHBuild's "How Do I" at GNOME wiki</a>.</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://wiki.gnome.org/Projects/Jhbuild">JHBuild homepage in GNOME Wiki</a></li>
+<li><a rel="nofollow"  href="https://wiki.gnome.org/HowDoI/Jhbuild">JHBuild for experienced GNOME contributors</a></li>
+<li><a rel="nofollow"  href="https://developer.gnome.org/jhbuild/stable/">JHBuild Manual</a></li>
+<li><a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/jhbuild/">JHBuild Source Code</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Development.html" title="Category:Development">Development</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=JHBuild&amp;oldid=599563">https://wiki.archlinux.org/index.php?title=JHBuild&amp;oldid=599563</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 February 2020, at 05:11.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
