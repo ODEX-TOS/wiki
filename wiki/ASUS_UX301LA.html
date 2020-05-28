@@ -1,0 +1,165 @@
+<!--
+    title: ASUS_UX301LA
+    description: Migration of ASUS_UX301LA from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">ASUS UX301LA</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page contains information specific to the ASUS Zenbook UX301LA. Some of it may also be applicable to similar models, depending on the specific configuration. You might also want to look at <a href="../wiki/ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Booting_from_USB"><span >1.1</span> <span >Booting from USB</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Partitioning"><span >1.2</span> <span >Partitioning</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Installing_TOS"><span >1.3</span> <span >Installing TOS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Function_Keys"><span >2</span> <span >Function Keys</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#KDE_and_Keyboard_Backlight"><span >3</span> <span >KDE and Keyboard Backlight</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Display"><span >4</span> <span >Display</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Touchpad"><span >5</span> <span >Touchpad</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Wi-Fi"><span >6</span> <span >Wi-Fi</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Battery_Issues"><span >7</span> <span >Battery Issues</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Hardware"><span >8</span> <span >Hardware</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Heat"><span >9</span> <span >Heat</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Helpful_Links"><span >10</span> <span >Helpful Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>The UX301LA and similar models come with Windows 8 pre-installed, using <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> and a <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a> scheme. 
+</p>
+<h3><span class="mw-headline" id="Booting_from_USB">Booting from USB</span></h3>
+<p>Boot the machine with the USB medium plugged in. You can try pressing <code>Escape</code> to get a boot menu and select your USB device. If it's not showing, then try booting while pressing <code>F2</code>. You will be booted into a BIOS menu. Go to <code>Boot &gt; Create a boot device</code> and select your USB medium. You'll have to choose a specific <code>.efi</code> file - for an TOS bootable USB it's <code>/EFI/boot/bootx64.efi</code>. Then under the Boot tab, change the boot device you just made to be higher priority than Windows Boot Manager. Make sure to save your changes on exit, and the system should reboot into the device.
+</p>
+<h3><span class="mw-headline" id="Partitioning">Partitioning</span></h3>
+<p>Whatever partition scheme you desire, make sure to use <code>parted</code> if you want to keep any of the other existing partitions since <code>fdisk</code> does not support the GPT scheme already on the machine. If you want to use a <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> live CD/USB, you will need to run <code>kpartx -a /dev/mapper/xxx_ASUS_OS</code> as root where the <code>xxx_ASUS_OS</code> is the node in <code>/dev/mapper</code> other than <code>control</code> before you start the <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a> application. 
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> In TOS, if you have RAID 0 your hard drive device will look something like <code>/dev/md126</code> and the partitions will look like <code>/dev/md126p1</code>.</div>
+<h3><span class="mw-headline" id="Installing_TOS">Installing TOS</span></h3>
+<p>See <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>. 
+</p>
+<p>If your machine comes with RAID 0 then add <code>mdadm_udev</code> to your HOOKS in <code>mkinitcpio.conf</code> and rerun <code>mkinitcpio -p linux</code>.
+</p>
+<p>When you install <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>, follow the instructions for UEFI Systems. Your ESP (<a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>) should be the first partition in your scheme.
+</p>
+<h2><span class="mw-headline" id="Function_Keys">Function Keys</span></h2>
+<p>All function keys except the backlight seem to work out of the box (as of TOS default kernel 3.12.7). To fix the backlight keys, add <code>acpi_osi=</code> as a kernel parameter. Example line from <code>/etc/default/grub</code>:
+</p>
+<pre>GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_osi="</pre>
+<h2><span class="mw-headline" id="KDE_and_Keyboard_Backlight">KDE and Keyboard Backlight</span></h2>
+<p>You may need to run the following command on login to fix keyboard backlight control. 
+</p>
+<pre>qdbus org.kde.kded /kded unloadModule powerdevil
+qdbus org.kde.kded /kded loadModule powerdevil</pre>
+<h2><span class="mw-headline" id="Display">Display</span></h2>
+<p>Check <a href="../wiki/HiDPI.html" title="HiDPI">HiDPI</a>.
+</p>
+<h2><span class="mw-headline" id="Touchpad">Touchpad</span></h2>
+<p>xinput lists it as "ETPS/2 Elantech Touchpad" but it works with a xf86-input-synaptics driver. See <a href="../wiki/Touchpad_Synaptics.html" title="Touchpad Synaptics">Touchpad Synaptics</a> for detail.
+</p>
+<h2><span class="mw-headline" id="Wi-Fi">Wi-Fi</span></h2>
+<p>See <a href="../wiki/Network_configuration/Wireless.html#iwlwifi" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#iwlwifi</a>
+</p>
+<h2><span class="mw-headline" id="Battery_Issues">Battery Issues</span></h2>
+<p>Many have been experiencing an issue with the battery not properly charging under Linux. There is a thread about this on the <a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=2195607">Ubuntu Forums</a>. Holding down the power button to do a clean reboot seems to be a workaround, but the issue hasn't been resolved yet, and those who have sent their laptops in for repair have reported that it didn't resolve the issue.
+</p>
+<h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
+<p>lsusb: (from UX301LA-DH71T)
+</p>
+<pre>* 1bcf:2987 Sunplus Innovation Technology Inc. (Webcam)
+* 058f:6366 Alcor Micro Corp. Multi Flash Reader
+* 8087:07dc Intel Corp. (Bluetooth)
+* 03eb:8a0c Atmel Corp. (maxTouch Digitizer)
+</pre>
+<p>lspci: (from UX301LA-DH71T)
+</p>
+<pre>* 00:00.0 Host bridge [0600]: Intel Corporation Haswell-ULT DRAM Controller [8086:0a04] (rev 09)
+* 00:02.0 VGA compatible controller [0300]: Intel Corporation Device [8086:0a2e] (rev 09)
+* 00:03.0 Audio device [0403]: Intel Corporation Device [8086:0a0c] (rev 09)
+* 00:04.0 Signal processing controller [1180]: Intel Corporation Device [8086:0a03] (rev 09)
+* 00:14.0 USB controller [0c03]: Intel Corporation Lynx Point-LP USB xHCI HC [8086:9c31] (rev 04)
+* 00:16.0 Communication controller [0780]: Intel Corporation Lynx Point-LP HECI #0 [8086:9c3a] (rev 04)
+* 00:1b.0 Audio device [0403]: Intel Corporation Lynx Point-LP HD Audio Controller [8086:9c20] (rev 04)
+* 00:1c.0 PCI bridge [0604]: Intel Corporation Lynx Point-LP PCI Express Root Port 1 [8086:9c10] (rev e4)
+* 00:1c.3 PCI bridge [0604]: Intel Corporation Lynx Point-LP PCI Express Root Port 4 [8086:9c16] (rev e4)
+* 00:1f.0 ISA bridge [0601]: Intel Corporation Lynx Point-LP LPC Controller [8086:9c43] (rev 04)
+* 00:1f.2 SATA controller [0106]: Intel Corporation Lynx Point-LP SATA Controller 1 [AHCI mode] [8086:9c03] (rev 04)
+* 00:1f.3 SMBus [0c05]: Intel Corporation Lynx Point-LP SMBus Controller [8086:9c22] (rev 04)
+* 00:1f.6 Signal processing controller [1180]: Intel Corporation Lynx Point-LP Thermal [8086:9c24] (rev 04)
+* 02:00.0 Network controller [0280]: Intel Corporation Wireless 7260 [8086:08b1] (rev 6b)
+</pre>
+<h2><span class="mw-headline" id="Heat">Heat</span></h2>
+<p>As you have probably noticed, the UX301 family of laptops will reach 80° Celsius doing the most remedial of tasks, and upwards of 90° while watching videos. You may want to consider installing and configuring <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/thermald/">thermald</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<h2><span class="mw-headline" id="Helpful_Links">Helpful Links</span></h2>
+<ul>
+<li><a href="../wiki/ASUS_Zenbook_Prime_UX31A.html" title="ASUS Zenbook Prime UX31A">ASUS Zenbook Prime UX31A</a></li>
+<li><a href="../wiki/RAID.html" title="RAID">RAID</a></li>
+<li>
+<a href="../wiki/TLP.html" title="TLP">TLP</a> (Pre-configured power saving)</li>
+<li><a rel="nofollow"  href="https://help.ubuntu.com/community/AsusZenbookUX302">Ubuntu UX302 Page</a></li>
+<li><a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=2205704&amp;page=3">Ubuntu Forums UX302 thread</a></li>
+<li><a rel="nofollow"  href="http://www.insanelymac.com/forum/topic/295153-asus-ux301la-haswell-dev-guide-1091-newer/">InsanelyMac(OSX86) thread with hardware info, etc.</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:ASUS.html" title="Category:ASUS">ASUS</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=ASUS_UX301LA&amp;oldid=570080">https://wiki.archlinux.org/index.php?title=ASUS_UX301LA&amp;oldid=570080</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 30 March 2019, at 07:34.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
