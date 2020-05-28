@@ -1,0 +1,257 @@
+<!--
+    title: Tvheadend
+    description: Migration of Tvheadend from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Tvheadend</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://tvheadend.org/">Tvheadend</a> is a TV streaming server and recorder. Tvheadend supports DVB-S/S2, DVB-C/C2, DVB-T, ATSC, ISDB-T, IPTV, SAT&gt;IP and HDHomeRun as input sources.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#HDHomeRun"><span >1.1</span> <span >HDHomeRun</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Playback_Clients"><span >1.2</span> <span >Playback Clients</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Usage"><span >2</span> <span >Usage</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Configuration"><span >3</span> <span >Configuration</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#XMLTV"><span >4</span> <span >XMLTV</span></a></li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Tips_and_tricks"><span >5</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Create_M3U_compatible_playlist_file"><span >5.1</span> <span >Create M3U compatible playlist file</span></a></li>
+<li class="toclevel-2 tocsection-9">
+<a href="#Use_hardware_video_acceleration"><span >5.2</span> <span >Use hardware video acceleration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Enable_VA-API_support_transcoding"><span >5.2.1</span> <span >Enable VA-API support transcoding</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Use_CAPMT_(Linux_Network_DVBAPI)_with_OSCam"><span >5.3</span> <span >Use CAPMT (Linux Network DVBAPI) with OSCam</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Troubleshooting"><span >6</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Unable_to_authenticate/play_stream"><span >6.1</span> <span >Unable to authenticate/play stream</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#DVB-T2_HD_in_Germany"><span >6.2</span> <span >DVB-T2 HD in Germany</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Tvheadend is available from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend/">tvheadend</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend-git/">tvheadend-git</a></span><sup><small>AUR</small></sup> (development branch).
+</p>
+<h3><span class="mw-headline" id="HDHomeRun">HDHomeRun</span></h3>
+<p>HDHomeRun support should be working out-of-the-box in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend-git/">tvheadend-git</a></span><sup><small>AUR</small></sup> package.
+</p>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend/">tvheadend</a></span><sup><small>AUR</small></sup> package does not have HDHomeRun support enabled. To enable you will need to edit the <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> and add <code>libhdhomerun</code> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libhdhomerun/">libhdhomerun</a></span><sup><small>AUR</small></sup>) to the <a href="../wiki/PKGBUILD.html#depends" title="PKGBUILD">depends</a> list. Finally, add <code>--enable-hdhomerun_client</code> in the <i>configure array</i>.
+</p>
+<h3><span class="mw-headline" id="Playback_Clients">Playback Clients</span></h3>
+<ul>
+<li>
+<a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> — <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/vlc-htsp-plugin-git/">vlc-htsp-plugin-git</a></span><sup><small>AUR</small></sup><sup>[<a href="../wiki/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup>
+</li>
+<li>
+<a href="../wiki/Kodi.html" title="Kodi">Kodi</a> — <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kodi-addon-hts-pvrmanager/">kodi-addon-hts-pvrmanager</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kodi-addon-pvr-hts/">kodi-addon-pvr-hts</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kodi-addon-pvr-hts-git/">kodi-addon-pvr-hts-git</a></span><sup><small>AUR</small></sup>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Once Tvheadend is installed <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>tvheadend.service</code>.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Once the service is running, configuration of Tvheadend is done through a web interface on <a rel="nofollow"  href="http://localhost:9981">localhost:9981</a>.
+</p>
+<p>The service should automatically generate Tvheadend username and passwords that are the same as your system. You can log in as root with your system's root password. If Tvheadend is unable to generate an username/password, one should simple login <b>without</b> providing credentials.
+</p>
+<h2><span class="mw-headline" id="XMLTV">XMLTV</span></h2>
+<p>If you want to obtain schedule data from an outside source like Schedules Direct, then you should also install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xmltv/">xmltv</a></span><sup><small>AUR</small></sup>.
+</p>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Create_M3U_compatible_playlist_file">Create M3U compatible playlist file</span></h3>
+<p>To export all channels as a M3U playlist file, one may want to use the following URL <a rel="nofollow"  href="https://tvheadend.org/boards/5/topics/21366">[1]</a>:
+</p>
+<pre>http://&lt;user&gt;:&lt;pass&gt;@&lt;ip&gt;:9981/playlist/channels.m3u?profile=&lt;profile&gt;
+</pre>
+<h3><span class="mw-headline" id="Use_hardware_video_acceleration">Use hardware video acceleration</span></h3>
+<p>When using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend-git/">tvheadend-git</a></span><sup><small>AUR</small></sup> it is possible to enable <a href="../wiki/Hardware_video_acceleration.html" title="Hardware video acceleration">hardware video acceleration</a>.
+</p>
+<p>Support depends on selected the codec and capabilities of the video device in use.
+</p>
+<p>To enable hardware acceleration, check <i>Hardware acceleration</i> for a codec profile on the <i>Codec Profiles</i> page.
+</p>
+<h4><span class="mw-headline" id="Enable_VA-API_support_transcoding">Enable VA-API support transcoding</span></h4>
+<p>It is possible to use <a href="../wiki/Hardware_video_acceleration.html" class="mw-redirect" title="VA-API">VA-API</a> for transcoding streams when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tvheadend-git/">tvheadend-git</a></span><sup><small>AUR</small></sup>, support depends on capabilities of the video device and the selected codec.
+</p>
+<p>To enable VA-API create a new <i>Codec Profile</i> and select a codec with <i>VAAPI</i> on the <i>Codec Profiles</i> page. On the next screen check <i>Hardware acceleration</i>, select the correct <i>Device Name</i>, e.g. <code>i915 v1.6.0 (/dev/dri/renderD128)</code> and click on <i>Create</i>.
+</p>
+<p>Finally, create a <i>Stream Profile</i> and select the previously created <i>Codec Profile</i> as <i>Video codec profile</i>. The <i>Audio codec profile</i> and <i>Subtitle codec profile</i> depend on the user preferences and as stated support by the video device.
+</p>
+<p>To test the newly created profile, you may want to use the following URL:
+</p>
+<pre>http://&lt;user&gt;:&lt;pass&gt;@&lt;ip&gt;:9981/stream/channelnumber/&lt;channel&gt;?profile=&lt;stream-profile&gt;
+</pre>
+<p>Use <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> to check for Tvheadend debug info. The error <i>tvheadend[..]: transcode: no AVHWAccel</i> indicates the stream profile doesn't use hardware acceleration and one should adjust the codec configuration.
+</p>
+<h3>
+<span id="Use_CAPMT_.28Linux_Network_DVBAPI.29_with_OSCam"></span><span class="mw-headline" id="Use_CAPMT_(Linux_Network_DVBAPI)_with_OSCam">Use CAPMT (Linux Network DVBAPI) with OSCam</span>
+</h3>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/oscam-git/">oscam-git</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/oscam-svn/">oscam-svn</a></span><sup><small>AUR</small></sup> to provide a softcam for Tvheadend.
+</p>
+<p>The following settings may be used when using DVB-API as Conditional Access Client (CAs):
+</p>
+<table >
+<tbody>
+<tr>
+<th>Parameter
+</th>
+<th>Value
+</th>
+</tr>
+<tr>
+<td>Client name
+</td>
+<td>OSCam
+</td>
+</tr>
+<tr>
+<td>Mode
+</td>
+<td>OSCam net protocol (rev &gt;= 10389)
+</td>
+</tr>
+<tr>
+<td>IP Address (TCP mode)
+</td>
+<td>localhost <i>or</i> 127.0.0.1 <i>or</i> hostname
+</td>
+</tr>
+<tr>
+<td>Connect port
+</td>
+<td>9000
+</td>
+</tr>
+<tr>
+<td>CW Mode
+</td>
+<td>Standard / auto
+</td>
+</tr>
+</tbody>
+</table>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> See the official <a rel="nofollow"  href="https://docs.tvheadend.org/webui/config_caclient/">Tvheadend docs</a> about CAs for details.</div>
+<p>In OSCam create a user named <i>vdr</i> with <i>vdr</i> as password and set the <i>DVB Api</i> configuration to use at least the following parameters:
+</p>
+<table >
+<tbody>
+<tr>
+<th>Parameter
+</th>
+<th>Value
+</th>
+</tr>
+<tr>
+<td>Boxtype
+</td>
+<td>pc
+</td>
+</tr>
+<tr>
+<td>User
+</td>
+<td>vdr
+</td>
+</tr>
+<tr>
+<td>PMT Mode
+</td>
+<td>4
+</td>
+</tr>
+<tr>
+<td>Listen port
+</td>
+<td>9000
+</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>oscam.service</code> and <code>tvheadend.service</code> to apply the changes.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3>
+<span id="Unable_to_authenticate.2Fplay_stream"></span><span class="mw-headline" id="Unable_to_authenticate/play_stream">Unable to authenticate/play stream</span>
+</h3>
+<p>Authentication issues can occur when using <i>digest</i> as <i>Authentication type</i>.
+</p>
+<p>Change this to <i>Both plain and digest</i> to allow browsers/players that don't support the digest protocol.
+</p>
+<h3><span class="mw-headline" id="DVB-T2_HD_in_Germany">DVB-T2 HD in Germany</span></h3>
+<p>The German broadcast of DVB-T2 HD is a deviation of the official standard inasmuch as it is using the more modern H.265 codec. Somehow, tvheadend doesn’t detect the channels automatically. You first need to run the configuration wizard, choose no pre-defined muxes, just <i>--Generic--: auto-Default</i>. After the search run, save and go to <i>Configuration</i>, <i>DVB Inputs</i>, <i>Muxes</i>. Select all listed muxes (might be on two pages, batch selection via shift key possible) and edit them from <i>DVB-T</i> to <i>DVB-T2</i> – you need to check the <i>Delivery system</i> checkmark in the edit dialog. Then go to <i>Network</i>, select the DVB-T entry and click <i>Force scan</i>. Observe the rescan via the <i>Muxes</i> tab as many of the former "FAIL" results become "OK". This will get you the channels under <i>Services</i> which you can use to create an actual channels list of the unencrypted TV channels.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Television.html" title="Category:Television">Television</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Tvheadend&amp;oldid=596348">https://wiki.archlinux.org/index.php?title=Tvheadend&amp;oldid=596348</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 January 2020, at 08:39.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

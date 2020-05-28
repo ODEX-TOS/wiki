@@ -1,0 +1,248 @@
+<!--
+    title: User-mode_Linux
+    description: Migration of User-mode_Linux from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">User-mode Linux</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <a href="../wiki/Talk:User-mode_Linux.html" title="Talk:User-mode Linux">Inaccurate Information</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:User-mode_Linux#Needs_work">Talk:User-mode Linux#Needs work</a>)</div>
+</div>
+<p>User-mode-Linux (UML) is a method to run Linux inside Linux as a normal process. Please check <a rel="nofollow"  href="http://user-mode-linux.sourceforge.net/">[1]</a> for in-depth information what UML is and how it works.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Why_use_UML?"><span >1</span> <span >Why use UML?</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#HOWTO"><span >2</span> <span >HOWTO</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Setup_by_hostfs_+_vde2"><span >2.1</span> <span >Setup by hostfs + vde2</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Required_packages"><span >2.1.1</span> <span >Required packages</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Launch_script"><span >2.1.2</span> <span >Launch script</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Setup_by_rootfs_+_tap"><span >2.2</span> <span >Setup by rootfs + tap</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Required_packages_2"><span >2.2.1</span> <span >Required packages</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Build_rootfs_image"><span >2.2.2</span> <span >Build rootfs image</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Marionnet"><span >2.3</span> <span >Marionnet</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Usage"><span >3</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Management_console"><span >3.1</span> <span >Management console</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2>
+<span id="Why_use_UML.3F"></span><span class="mw-headline" id="Why_use_UML?">Why use UML?</span>
+</h2>
+<p>Running UML is a safe way to run multiple instances of (TOS-)Linux at the same time. The single processes are separated from each other, which makes it secure to run, for example, a testing instance and a production instance on the same machine. If something goes wrong inside the testing instance, it does not interfere with the host Linux or the productive instance.
+</p>
+<h2><span class="mw-headline" id="HOWTO">HOWTO</span></h2>
+<p>There are three methods:
+</p>
+<ul>
+<li>Use hostfs with vde2 network (all UMLs use same file system)</li>
+<li>Use rootfs with tap network (require build image)</li>
+<li>Use <a rel="nofollow"  href="https://www.marionnet.org/">Marionnet</a>
+</li>
+</ul>
+<h3>
+<span id="Setup_by_hostfs_.2B_vde2"></span><span class="mw-headline" id="Setup_by_hostfs_+_vde2">Setup by hostfs + vde2</span>
+</h3>
+<p>Hostfs means use the host's file system in read-only mode.
+</p>
+<h4><span class="mw-headline" id="Required_packages">Required packages</span></h4>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-usermode/">linux-usermode</a></span><sup><small>AUR</small></sup>
+</li>
+<li>Utility packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vde2">vde2</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=screen">screen</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/start-stop-daemon/">start-stop-daemon</a></span><sup><small>AUR</small></sup> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rsyslog/">rsyslog</a></span><sup><small>AUR</small></sup>
+</li>
+</ul>
+<h4><span class="mw-headline" id="Launch_script">Launch script</span></h4>
+<ul>
+<li>download <a rel="nofollow"  href="http://pastebin.com/qDE0D7Lk">http://pastebin.com/qDE0D7Lk</a> script as 2vm.bash</li>
+<li>use normal user to launch 2vm.bash (there are two VMs named as 'C1' &amp; 'C2')</li>
+<li>modify the 2vm.bash to fit your requirements</li>
+</ul>
+<h3>
+<span id="Setup_by_rootfs_.2B_tap"></span><span class="mw-headline" id="Setup_by_rootfs_+_tap">Setup by rootfs + tap</span>
+</h3>
+<h4><span class="mw-headline" id="Required_packages_2">Required packages</span></h4>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-usermode/">linux-usermode</a></span><sup><small>AUR</small></sup>
+</li>
+<li>Utility packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vde2">vde2</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/uml_utilities/">uml_utilities</a></span><sup><small>AUR</small></sup>
+</li>
+</ul>
+<h4><span class="mw-headline" id="Build_rootfs_image">Build rootfs image</span></h4>
+<p>1.) First you have to create a single, big file into which you will install TOS Linux. This command creates a single 1 GiB file, only containing zeros, which should be enough for a basic TOS Linux installation.
+</p>
+<pre>dd if=/dev/zero of=rootfs bs=1M count=1024
+</pre>
+<p>or 
+</p>
+<pre>fallocate -l 1GiB ./rootfs
+</pre>
+<p>2.) After the build process you have to format the root file system image:
+</p>
+<pre>mke2fs -F rootfs
+</pre>
+<p>3.) After formatting the file, you have to mount it. Executing the following command as root does the job (you have also to load the <code>loop</code> module with <code>modprobe</code>):
+</p>
+<pre>mount -o loop rootfs /mnt
+</pre>
+<p>4.) Now the installation of the basic system may start:
+</p>
+<pre>mkdir -p /mnt/var/lib/pacman
+pacman -Sy base -r /mnt
+cd /mnt/dev
+mknod --mode=660 ubd0 b 98 0
+chown root:disk ubd0
+</pre>
+<p>5.) Before the system can be booted with user-mode-Linux, some files inside the TOS basic system have to be customised. Add this line to <code>/mnt/etc/fstab</code>:
+</p>
+<pre>/dev/ubd0 / ext2 defaults 0 0
+</pre>
+<p>6.) Now unmount the file system.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> If you change <i>anything</i> inside your mounted file system (e.g. <code>/mnt</code>) while it is <i>running</i>, it may lead to significant file system corruption inside your virtual machine and <i>kill</i> it!</div>
+<pre>umount /mnt
+</pre>
+<p>7.) Next step is to set up networking. Therefore, you create a so called tun device (Please visit the <a rel="nofollow"  href="http://user-mode-linux.sourceforge.net/old/UserModeLinux-HOWTO.html">UML how-to</a> for further information about tun/tap), and give it an IP address. The following lines load the necessary <code>tun</code> module, create a tun/tap device that is readable by the <code>users</code> group, and sets it up with the given IP address. For security, you should consider creating a certain UML group with read permissions for the network device.
+</p>
+<pre>modprobe tun
+ip tuntap add tap0 mode tap group users
+chown root:users /dev/net/tun
+ip addr add 192.168.0.100/24 dev tap0
+</pre>
+<p>8.) Now you can boot the image.
+</p>
+<p>To use the network, you have to announce the proper device to the UML kernel. (Mind that the user running the UML command needs enough rights to access the tun device!)
+</p>
+<pre>vmlinux-tosubd0=rootfs eth0=tuntap,,,192.168.0.100
+</pre>
+<p>The options to eth0 (<code>,,,</code>) mean:
+</p>
+<pre>eth0=transportmode,tuntap device,MAC address,hostip
+</pre>
+<p>Where transportmode is 'tuntap' in this example; the tuntap device is the device configured above; MAC address is the MAC address that the eth0 device in the UML system should get; hostip is the ip adress that the tuntap device in the host system gets. This should be an unused ip address of your hosts local network. The device and MAC address are optional and "guessed" if not supplied.
+</p>
+<p>Example:
+</p>
+<pre>eth0=tuntap,tap0,3f:2a:bb:00:00:00,192.168.0.100
+</pre>
+<p>Other important options are <code>mem</code> for specifying the amount of RAM the guest system should be able to use (defaults to only 16MB); <code>con</code> to configure the virtual terminals and ubdb, ubdc, … for mounting additional filesystems.
+</p>
+<p>Headless example:
+</p>
+<pre> vmlinux-tosubd0=rootfs eth0=tuntap,,,192.168.0.100 mem=128M con=pty
+</pre>
+<p>9) If you are not presented with a login prompt but see something like <code>Virtual console 1 assigned device '/dev/pts/4</code>, open the virtual console in another terminal with screen and press enter:
+</p>
+<pre>screen /dev/pts/4
+</pre>
+<p>10) In the UML system you can configure the network manually:
+</p>
+<pre>ip link set dev eth0 up
+ip addr add 192.168.0.200/24  broadcast + dev eth0
+ip route add default via 192.168.0.100
+echo 'nameserver 1.1.1.1' &gt; /etc/resolv.conf
+</pre>
+<p>Gateway it the address you specified in 8; the local address should be another unused address from your network.
+</p>
+<h3><span class="mw-headline" id="Marionnet">Marionnet</span></h3>
+<p><a rel="nofollow"  href="https://www.marionnet.org/">Marionnet</a> is a free application for virtual networks. For use, you must install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/uml_utilities/">uml_utilities</a></span><sup><small>AUR</small></sup>, and see <a rel="nofollow"  href="https://bugs.launchpad.net/marionnet/+bug/1580349">https://bugs.launchpad.net/marionnet/+bug/1580349</a>.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<h3><span class="mw-headline" id="Management_console">Management console</span></h3>
+<p>With {[ic|uml_mconsole}} you can manage running UML systems:
+</p>
+<pre>uml_mconsole socket-name
+</pre>
+<p>You can see the socket-names – also called UMID – of your UML systems in the folder <code>~/.uml/</code>:
+</p>
+<pre>$ ls -l ~/.uml/
+drwxr-xr-x 1 michi users 16 11. Apr 19:52 I0KaOj
+drwxr-xr-x 1 michi users 16 11. Apr 19:14 LrPv03
+drwxr-xr-x 1 michi users 16 11. Apr 19:31 o8X27c
+</pre>
+<p>You can also specify it on start with the <code>umid</code> option.
+</p>
+<p>With <code>uml_mconsole</code> you can among others reboot/halt the system, add/remove storage devices or send special key combinations (sysrq, Ctrl-alt-del) to the system.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=User-mode_Linux&amp;oldid=605717">https://wiki.archlinux.org/index.php?title=User-mode_Linux&amp;oldid=605717</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 11 April 2020, at 18:57.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

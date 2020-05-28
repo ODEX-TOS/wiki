@@ -1,0 +1,181 @@
+<!--
+    title: Multi-pointer_X
+    description: Migration of Multi-pointer_X from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Multi-pointer X</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Xorg servers starting from version 1.7 have a feature called "multi-pointer". Basically it allows to have multiple mouse cursors (each with its own keyboard focus) on the screen and control them with separate physical input devices. It can be used as a crude <a href="../wiki/Xorg_multiseat.html" title="Xorg multiseat">multiseat</a> solution.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Basic_concepts"><span >1</span> <span >Basic concepts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Master_and_slave_devices"><span >1.1</span> <span >Master and slave devices</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Client_pointer"><span >1.2</span> <span >Client pointer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#configuration_file"><span >2.1</span> <span >configuration file</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#xinput_utility"><span >2.2</span> <span >xinput utility</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Flicker"><span >3.1</span> <span >Flicker</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Software_support"><span >4</span> <span >Software support</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Window_managers"><span >4.1</span> <span >Window managers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Useful_links"><span >5</span> <span >Useful links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Basic_concepts">Basic concepts</span></h2>
+<h3><span class="mw-headline" id="Master_and_slave_devices">Master and slave devices</span></h3>
+<p>With the introduction of XInput2, input devices are organised in a two-level hierarchy:
+</p>
+<ul>
+<li>Master devices, which correspond to cursors on the screen</li>
+<li>Slave devices, which correspond to physical input devices</li>
+</ul>
+<p>Master devices come in pairs, one for pointer and one for keyboard. Each master device can have a number of slave devices attached, so that cursor of a master device can be controlled by all slave devices attached to it.
+</p>
+<h3><span class="mw-headline" id="Client_pointer">Client pointer</span></h3>
+<p>When an application grabs input (e.g. a fullscreen game), it grabs a master device that is set as its client pointer. By default, the client pointer is set to "Virtual core pointer", but it can be set to a different one with a "xinput" utility.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="configuration_file">configuration file</span></h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Information how to configure multipointer with <code>xorg.conf</code> should be added</div>
+<h3><span class="mw-headline" id="xinput_utility">xinput utility</span></h3>
+<p>More pointers can be added with <code>xinput</code> CLI utility. Here is how to do it:
+</p>
+<p>Create a new pair of master devices named "<i>name</i> pointer" and "<i>name</i> keyboard":
+</p>
+<pre>xinput create-master <i>[name]</i>
+</pre>
+<p>Find out names and ids of existing slave devices:
+</p>
+<pre>xinput list
+</pre>
+<p>Reattach slave devices to newly created master devices:
+</p>
+<pre>xinput reattach <i>[slave device name or id]</i> <i>[master device name or id]</i>
+</pre>
+<p>For example, say we create a device called "Auxiliary":
+</p>
+<pre>xinput create-master Auxiliary
+</pre>
+<p>When we list the xinput devices you should see something like this:
+</p>
+<pre>Virtual core pointer
+  &gt;Virtual Core XTEST pointer
+  &gt;[probably your main mouse]
+Virtual core keyboard
+  &gt;Virtual Core XTEST pointer
+  &gt;[probably your main keyboard]
+  &gt;[other function buttons]
+Auxiliary pointer
+  &gt;auxiliary XTEST pointer
+Auxiliary keyboard
+  &gt;auxiliary XTEST keyboard
+</pre>
+<p>What you then want to do is simply attach your secondary mouse and keyboard to the respective auxiliary positions. The XTEST devices are irrelevant here. I found the easiest way to determine whats what was to just unplug stuff and type "xinput list" again.
+</p>
+<p>To attach devices, you type:
+</p>
+<pre>xinput reattach [device id #] "Auxiliary pointer"
+</pre>
+<p>and then do so for your keyboard as well!
+</p>
+<p>Shamelessly stolen from <a rel="nofollow"  href="http://ao2.it/wiki/blog/2010/01/19/poor-mans-multi-touch-using-multiple-mice-xorg">Antonio Ospite at ao2.it</a>
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Flicker">Flicker</span></h3>
+<p>The <a href="../wiki/Picom.html" class="mw-redirect" title="Compton">Compton</a> compositor can cause the cursors to flicker and should be disabled.
+</p>
+<h2><span class="mw-headline" id="Software_support">Software support</span></h2>
+<p>It is possible to use multi-pointer with software that doesn't explicitly support it, but with limited functionality. Applications which do not support it won't distinguish between multiple pointers and will interpret all actions as if done by single master device pair.
+</p>
+<h3><span class="mw-headline" id="Window_managers">Window managers</span></h3>
+<p>In window managers multi-pointer support could mean:
+</p>
+<ul>
+<li>recognizing multiple focuses</li>
+<li>setting the client pointer of a focused window to the pointer that "focused" it</li>
+<li>letting move and resize windows simultaneously</li>
+</ul>
+<p>As of 24 December 2016, only <a rel="nofollow"  href="http://multicursor-wm.sourceforge.net/">multicursor-wm</a> (development stops around 2011) supports multi-pointer.
+</p>
+<h2><span class="mw-headline" id="Useful_links">Useful links</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://www.x.org/wiki/Development/Documentation/MPX">Xorg wiki article</a></li>
+<li>
+<a href="../wiki/Xorg_multiseat.html" title="Xorg multiseat">Xorg multiseat</a>. A how-to for a more complicated multi-user environment. Requires 2 different xorg sessions and graphics cards!!</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:X_server.html" title="Category:X server">X server</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Multi-pointer_X&amp;oldid=516226">https://wiki.archlinux.org/index.php?title=Multi-pointer_X&amp;oldid=516226</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 April 2018, at 20:40.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

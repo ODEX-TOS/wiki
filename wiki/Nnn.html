@@ -1,0 +1,156 @@
+<!--
+    title: Nnn
+    description: Migration of Nnn from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">nnn</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/File_manager_functionality.html" title="File manager functionality">File manager functionality</a></li>
+<li><a href="../wiki/Midnight_Commander.html" title="Midnight Commander">Midnight Commander</a></li>
+<li><a href="../wiki/Ranger.html" title="Ranger">ranger</a></li>
+<li><a href="../wiki/Vifm.html" title="Vifm">vifm</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://github.com/jarun/nnn">nnn</a> (also stylized as n³) is a portable terminal file manager written in C. It is easily extensible via its flat text plugin system where you can add your own language-agnostic scripts alongside already available plugins, including a <a rel="nofollow"  href="https://github.com/mcchrish/nnn.vim">(neo)vim</a> plugin. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nnn">nnn</a></span> features native archiving/decompression to and from commonly installed formats such as <i>xz</i>, disk usage analysis and a fuzzy app launcher, a batch file renamer and a file picker through its plugin architecture. <i>nnn</i> supports instant <i>search-as-you-type</i> with regex (or simple string) filters and a <i>navigate-as-you-type</i> mode for continuous navigation in filter mode with directory auto-select. Also supported are contexts, bookmarks, multiple sorting options, SSHFS, batch operations on selections (a group of selected files) and a lot more.
+</p>
+<p>Despite its capabilities, <i>nnn</i> is designed to be easy to use and is configured by way of <a href="../wiki/Environment_variables.html" title="Environment variables">environment variables</a> without the use of a configuration file. 
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Usage"><span >1.1</span> <span >Usage</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#Configuration"><span >1.2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Get_selected_files_in_terminal"><span >1.2.1</span> <span >Get selected files in terminal</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Indicate_depth_level_within_nnn_shells"><span >1.2.2</span> <span >Indicate depth level within nnn shells</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#cd_on_quit_(Ctrl-G)"><span >1.2.3</span> <span >cd on quit (Ctrl-G)</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Add_your_own_plugins"><span >1.2.4</span> <span >Add your own plugins</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span >2</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><i>nnn</i> can be <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nnn">nnn</a></span> package.
+</p>
+<h3><span class="mw-headline" id="Usage">Usage</span></h3>
+<p><i>nnn</i> can be controlled with the vim-like characters <code>hjkl</code> or the <code>arrow keys</code>. Don't memorize keys. Arrows, <code>/</code> and <code>q</code> suffice. Press <code>?</code> for help on keyboard shortcuts anytime.
+</p>
+<h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
+<p><i>nnn</i> is configured via environment variables, typically by appending them to <code>~/.bashrc</code>. For detailed information on these settings see the man page <span class="plainlinks archwiki-template-man" title="$ man 1 nnn"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nnn.1">nnn(1)</a></span> as well as the <a rel="nofollow"  href="https://github.com/jarun/nnn/wiki">nnn wiki</a>.
+</p>
+<p>Here is an example configuration you can add to your <code>~/.bashrc</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.bashrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">export NNN_BMS='d:~/Documents;u:/home/user/Cam Uploads;D:~/Downloads/'
+export NNN_SSHFS="sshfs -o follow_symlinks"        # make sshfs follow symlinks on the remote
+export NNN_COLORS="2136"                           # use a different color for each context
+export NNN_TRASH=1                                 # trash (needs trash-cli) instead of delete</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you start <i>nnn</i> via <code>nnn.desktop</code> from a desktop environment started from a <a href="../wiki/Display_manager.html" title="Display manager">display manager</a>, <code>.bashrc</code> may not be sourced. In this case, see the upstream instructions for <a rel="nofollow"  href="https://github.com/jarun/nnn/wiki/Advanced-use-cases#desktop-integration">desktop integration</a>.</div>
+<p>One of the more useful settings is the <code>NNN_BMS</code> variable which lets you choose shortcuts to quickly jump to your bookmarked directories. They are reached with <code>b</code> followed by one of the letters that you have specified. In the example configuration hitting the keys <code>bD</code> would result in <i>nnn</i> jumping into <code>~/Downloads</code>. But all of these are optional, <i>nnn</i> will consistently behave the same on all of your machines.
+</p>
+<h4><span class="mw-headline" id="Get_selected_files_in_terminal">Get selected files in terminal</span></h4>
+<p>To get a list of the files you have selected in <i>nnn</i> one could create the following alias:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.bashrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">alias ncp="cat ${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection} | tr '\0' '\n'"</pre>
+<p>which later could be used to pipe the selected files to other tools.
+</p>
+<h4><span class="mw-headline" id="Indicate_depth_level_within_nnn_shells">Indicate depth level within nnn shells</span></h4>
+<p>If you use <code>!</code> to spawn a shell in the current directory, it could be nice to add:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.bashrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[ -n "$NNNLVL" ] &amp;&amp; PS1="N$NNNLVL $PS1"</pre>
+<p>To have your prompt indicate that you are within a shell that will return you to <i>nnn</i> when you are done.
+</p>
+<p>This together with <a href="#cd_on_quit_(Ctrl-G)">#cd on quit (Ctrl-G)</a> becomes a powerful combination.
+</p>
+<h4>
+<span id="cd_on_quit_.28Ctrl-G.29"></span><span class="mw-headline" id="cd_on_quit_(Ctrl-G)">cd on quit (Ctrl-G)</span>
+</h4>
+<p>See the <a rel="nofollow"  href="https://github.com/jarun/nnn/wiki/Basic-use-cases#configure-cd-on-quit">nnn wiki</a>.
+</p>
+<h4><span class="mw-headline" id="Add_your_own_plugins">Add your own plugins</span></h4>
+<p>You can run your own plugins by putting them in <code>${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins</code>. For example you could create a executable shell script
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins/git-changes</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/usr/bin/env sh
+git log -p -- "$@"</pre>
+<p>And then trigger it by hitting <code>R</code> and selecting <code>git-changes</code> which will conveniently show the git log of changes to the particular file along with the code for a quick and easy review.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://github.com/jarun/nnn">nnn's official repository</a></li>
+<li><a rel="nofollow"  href="https://github.com/jarun/nnn/wiki/Basic-use-cases">Guides for additional configuration of nnn</a></li>
+<li><a rel="nofollow"  href="https://www.youtube.com/watch?v=U2n5aGqou9E">Introduction to nnn video</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:File_managers.html" title="Category:File managers">File managers</a></li>
+<li><a href="../wiki/Category:Console_applications.html" title="Category:Console applications">Console applications</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Nnn&amp;oldid=611790">https://wiki.archlinux.org/index.php?title=Nnn&amp;oldid=611790</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 9 May 2020, at 22:08.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

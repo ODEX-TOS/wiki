@@ -1,0 +1,301 @@
+<!--
+    title: Package_signing
+    description: Migration of Package_signing from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">pacman/Package signing</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Pacman.html" title="Pacman">Pacman</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><span></span>
+</p>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../../wiki/GnuPG.html" title="GnuPG">GnuPG</a></li>
+<li><a href="../../DeveloperWiki:Package_signing.html" title="DeveloperWiki:Package signing">DeveloperWiki:Package signing</a></li>
+</ul>
+</div>
+<p>To determine if packages are authentic, <i>pacman</i> uses <a rel="nofollow"  href="http://www.gnupg.org/">GnuPG keys</a> in a <a rel="nofollow"  href="http://www.gnupg.org/gph/wiki/manual.html#AEN385">web of trust</a> model. The current Master Signing Keys are found <a rel="nofollow"  href="https://www.archlinux.org/master-keys/">here</a>. At least three of these Master Signing Keys are used to sign the Developer's and Trusted User's own keys. They are then used to sign their packages. Each user also has a unique PGP key, which is generated when you configure <i>pacman-key</i>. It is this web of trust that links the user's key to the master keys.
+</p>
+<p>Examples of webs of trust:
+</p>
+<ul>
+<li>
+<b>Custom packages</b>: Packages made and signed with a local key.</li>
+<li>
+<b>Unofficial packages</b>: Packages made and signed by a developer. Then, a local key was used to sign the developer's key.</li>
+<li>
+<b>Official packages</b>: Packages made and signed by a developer. The developer's key was signed by the TOS Linux master keys. You used your key to sign the master keys, and you trust them to vouch for developers.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The HKP protocol uses 11371/tcp for communication. In order to get the signed keys from the servers (using <i>pacman-key</i>), this port is required for communication.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Setup"><span >1</span> <span >Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Configuring_pacman"><span >1.1</span> <span >Configuring pacman</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Initializing_the_keyring"><span >1.2</span> <span >Initializing the keyring</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Managing_the_keyring"><span >2</span> <span >Managing the keyring</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Verifying_the_master_keys"><span >2.1</span> <span >Verifying the master keys</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Adding_developer_keys"><span >2.2</span> <span >Adding developer keys</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Adding_unofficial_keys"><span >2.3</span> <span >Adding unofficial keys</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Debugging_with_gpg"><span >2.4</span> <span >Debugging with gpg</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Cannot_import_keys"><span >3.1</span> <span >Cannot import keys</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Disabling_signature_checking"><span >3.2</span> <span >Disabling signature checking</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Resetting_all_the_keys"><span >3.3</span> <span >Resetting all the keys</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Removing_stale_packages"><span >3.4</span> <span >Removing stale packages</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Signature_is_unknown_trust"><span >3.5</span> <span >Signature is unknown trust</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Updating_keys_via_proxy"><span >3.6</span> <span >Updating keys via proxy</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Setup">Setup</span></h2>
+<h3><span class="mw-headline" id="Configuring_pacman">Configuring pacman</span></h3>
+<p>The <code>SigLevel</code> option in <code>/etc/pacman.conf</code> determines the level of trust required to install a package. For a detailed explanation of <code>SigLevel</code> see the <a rel="nofollow"  href="https://www.archlinux.org/pacman/pacman.conf.5.html#_package_and_database_signature_checking">pacman.conf man page</a> and the file comments. One can set signature checking globally or per repository. If <code>SigLevel</code> is set globally in the <code>[options]</code> section, all packages will then require signing. Any packages you build will then need to be signed using <i>makepkg</i>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Although all official packages are now signed, as of November 2018 signing of the databases is a <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=242258">work in progress</a>. If <code>Required</code> is set then <code>DatabaseOptional</code> should also be set.</div>
+<p>The default configuration will only support the installation of packages signed by trusted keys:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SigLevel = Required DatabaseOptional</pre>
+<p><code>TrustedOnly</code> is a default compiled-in <i>pacman</i> parameter. The default configuration is identical to using the global option of:
+</p>
+<pre>SigLevel = Required DatabaseOptional TrustedOnly
+</pre>
+<p>The above can be achieved too on a repository level further below in the configuration, e.g.:
+</p>
+<pre>[core]
+SigLevel = PackageRequired
+Include = /etc/pacman.d/mirrorlist
+</pre>
+<p>explicitly adds signature checking for the packages of the repository, but does not require the database to be signed. <code>Optional</code> here would turn off a global <code>Required</code> for this repository
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The SigLevel <code>TrustAll</code> option exists for debugging purposes and makes it very easy to trust keys that have not been verified. You should use <code>TrustedOnly</code> for all official repositories.</div>
+<h3><span class="mw-headline" id="Initializing_the_keyring">Initializing the keyring</span></h3>
+<p>To initialize the <i>pacman</i> keyring run:
+</p>
+<pre># pacman-key --init
+</pre>
+<p>Initializing the keyring requires <a href="https://en.wikipedia.org/wiki/Entropy_(computing)"  title="wikipedia:Entropy (computing)">entropy</a>. To generate entropy, move your mouse around, press random characters on the keyboard, or run some disk-based activity (for example in another console running <code>ls -R /</code> or <code>find / -name foo</code> or <code>dd if=/dev/sda8 of=/dev/tty7</code>). If your system does not already have sufficient entropy, this step may take hours; if you actively generate entropy, it will complete much more quickly.
+</p>
+<p>The randomness created is used to initialize the keyring (<code>/etc/pacman.d/gnupg</code>) and the GPG signing key of your system.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you need to run <code>pacman-key --init</code> on computer that does not generate much entropy (e.g. a headless server), key generation may take a very long time. To generate pseudo-entropy, install either <a href="../../wiki/Haveged.html" title="Haveged">haveged</a> or <a href="../../wiki/Rng-tools.html" title="Rng-tools">rng-tools</a> on the target machine and start the corresponding service before running <code>pacman-key --init</code>.</div>
+<h2><span class="mw-headline" id="Managing_the_keyring">Managing the keyring</span></h2>
+<h3><span class="mw-headline" id="Verifying_the_master_keys">Verifying the master keys</span></h3>
+<p>The initial setup of keys is achieved using:
+</p>
+<pre># pacman-key --populate archlinux
+</pre>
+<p>Take time to verify the <a rel="nofollow"  href="https://www.archlinux.org/master-keys/">Master Signing Keys</a> when prompted as these are used to co-sign (and therefore trust) all other packager's keys.
+</p>
+<p>PGP keys are too large (2048 bits or more) for humans to work with, so they are usually hashed to create a 40-hex-digit fingerprint which can be used to check by hand that two keys are the same. The last eight digits of the fingerprint serve as a name for the key known as the '(short) key ID' (the last <i>sixteen</i> digits of the fingerprint would be the 'long key ID').
+</p>
+<h3><span class="mw-headline" id="Adding_developer_keys">Adding developer keys</span></h3>
+<p>The official developer and <a href="../../wiki/Trusted_Users.html" title="Trusted Users">Trusted Users</a> <i>(TU)</i> keys are signed by the master keys, so you do not need to use <i>pacman-key</i> to sign them yourself. Whenever <i>pacman</i> encounters a key it does not recognize, it will prompt to download it from a <code>keyserver</code> configured in <code>/etc/pacman.d/gnupg/gpg.conf</code> (or by using the <code>--keyserver</code> option on the command line). Wikipedia maintains a <a href="https://en.wikipedia.org/wiki/Key_server_(cryptographic)"  title="wikipedia:Key server (cryptographic)">list of keyservers</a>.
+</p>
+<p>Once you have downloaded a developer key, you will not have to download it again, and it can be used to verify any other packages signed by that developer.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package, which is a dependency of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman">pacman</a></span>, contains the latest keys. However keys can also be updated manually using <code>pacman-key --refresh-keys</code> (as root). While doing <code>--refresh-keys</code>, your local key will also be looked up on the remote keyserver, and you will receive a message about it being not found. This is nothing to be concerned about.</div>
+<h3><span class="mw-headline" id="Adding_unofficial_keys">Adding unofficial keys</span></h3>
+<p>This method can be utilized to add a key to the <i>pacman</i> keyring, or to enable signed <a href="../../wiki/Unofficial_user_repositories.html" title="Unofficial user repositories">unofficial user repositories</a>.
+</p>
+<p>First, get the <b>key ID</b> (<code><i>keyid</i></code>) from its owner. Then add it to the keyring using one of the two methods:
+</p>
+<ol>
+<li>If the key is found on a keyserver, import it with: <pre># pacman-key --recv-keys <i>keyid</i></pre>
+</li>
+<li>If otherwise a link to a keyfile is provided, download it and then run: <pre># pacman-key --add <i>/path/to/downloaded/keyfile</i></pre>
+</li>
+</ol>
+<p>It is recommended to verify the fingerprint, as with any master key or any other key you are going to sign:
+</p>
+<pre>$ pacman-key --finger <i>keyid</i>
+</pre>
+<p>Finally, you must locally sign the imported key:
+</p>
+<pre># pacman-key --lsign-key <i>keyid</i>
+</pre>
+<p>You now trust this key to sign packages.
+</p>
+<h3><span class="mw-headline" id="Debugging_with_gpg">Debugging with gpg</span></h3>
+<p>For debugging purposes, you can access <i>pacman'</i>s keyring directly with <i>gpg</i>, e.g.:
+</p>
+<pre># gpg --homedir /etc/pacman.d/gnupg --list-keys
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Instructions could be clearer (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Pacman/Package_signing">Talk:Pacman/Package signing#</a>)</div>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> <i>pacman-key</i> depends on <a href="../../wiki/System_time.html" title="System time">system time</a>. If your system clock is wrong, you'll get:
+<pre>error: PackageName: signature from "User &lt;email@archlinux.org&gt;" is invalid
+error: failed to commit transaction (invalid or corrupted package (PGP signature))
+Errors occured, no packages were upgraded.
+</pre>
+</div>
+<h3><span class="mw-headline" id="Cannot_import_keys">Cannot import keys</span></h3>
+<p>There are multiple possible sources of this problem:
+</p>
+<ul>
+<li>An outdated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package.</li>
+<li>Incorrect date.</li>
+<li>Your ISP blocked the port used to import PGP keys.</li>
+<li>Your <i>pacman</i> cache contains copy of unsigned packages from previous attempts.</li>
+<li>
+<code>dirmngr</code> is not correctly configured</li>
+</ul>
+<p>You might be stuck because of outdated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package when doing an upgrade synchronization. Try if <a href="../../wiki/Pacman.html#Upgrading_packages" title="Pacman">upgrading the system</a> can fix it first.
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Silly "if that does not work, try this" list. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Pacman/Package_signing">Talk:Pacman/Package signing#</a>)</div>
+</div>
+<p>If you are still having issues, make sure the following file exists <code>/root/.gnupg/dirmngr_ldapservers.conf</code> and that you can successfully run <code>dirmngr</code> as the root user. Create an empty file if it doesn't and run <code>dirmngr</code> (as the root user) again.
+</p>
+<p>If it does not help and your date is correct, you could try to switch to the MIT keyserver, which provides an alternate port. To do this, edit <code>/etc/pacman.d/gnupg/gpg.conf</code> and change the <code>keyserver</code> line to:
+</p>
+<pre>keyserver hkp://pgp.mit.edu:11371
+</pre>
+<p>If even port 80 doesn't work (for example when company uses some kind of http-only "transparent" proxy instead of routing, following could work:
+</p>
+<pre>keyserver hkps://hkps.pool.sks-keyservers.net:443
+</pre>
+<p>If you have IPv6 disabled, <i>gpg</i> will fail when it found some IPv6 address. In this case try with an IPv4-only keyserver like:
+</p>
+<pre>keyserver hkp://ipv4.pool.sks-keyservers.net:11371
+</pre>
+<p>If you happen to forget to run <code>pacman-key --populate archlinux</code> you might get some errors while importing keys.
+</p>
+<p>If none of this helps, your <i>pacman</i> cache, located at <code>/var/cache/pacman/pkg/</code> might contain unsigned packages from previous attempts. Try cleaning the cache manually or run:
+</p>
+<pre># pacman -Sc
+</pre>
+<p>which removes all cached packages that have not been installed.
+</p>
+<h3><span class="mw-headline" id="Disabling_signature_checking">Disabling signature checking</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Use with caution. Disabling package signing will allow <i>pacman</i> to install untrusted packages automatically.</div>
+<p>If you are not concerned about package signing, you can disable PGP signature checking completely. Edit <code>/etc/pacman.conf</code> and uncomment the following line under <code>[options]</code>:
+</p>
+<pre>SigLevel = Never
+</pre>
+<p>You need to comment out any repository-specific SigLevel settings too because they override the global settings. This will result in no signature checking, which was the behavior before pacman 4. If you decide to do this, you do not need to set up a keyring with <i>pacman-key</i>. You can change this option later if you decide to enable package verification.
+</p>
+<h3><span class="mw-headline" id="Resetting_all_the_keys">Resetting all the keys</span></h3>
+<p>If you want to remove or reset all the keys installed in your system, you can remove <code>/etc/pacman.d/gnupg</code> folder as root and rerun <code>pacman-key --init</code> followed by <code>pacman-key --populate archlinux</code> to re-add the default keys.
+</p>
+<h3><span class="mw-headline" id="Removing_stale_packages">Removing stale packages</span></h3>
+<p>If the same packages keep failing and you are sure you did all the <i>pacman-key</i> stuff right, try removing them like so <code>rm /var/cache/pacman/pkg/<i>badpackage</i>*</code> so that they are freshly downloaded.
+</p>
+<p>This might actually be the solution if you get a message like <code>error: linux: signature from "Some Person &lt;Some.Person@example.com&gt;" is invalid</code> or similar when upgrading (i.e. you might not be the victim of a MITM attack after all, your downloaded file was simply corrupt).
+</p>
+<h3><span class="mw-headline" id="Signature_is_unknown_trust">Signature is unknown trust</span></h3>
+<p>Sometimes when running <code>pacman -Suy</code> you might encounter this error:
+</p>
+<pre>error: <i>package-name</i>: signature from "<i>packager</i>" is unknown trust
+</pre>
+<p>This occurs because the <code><i>packager</i></code>'s key used in the package <code><i>package-name</i></code> is not present and/or not trusted in the local pacman-key gpg database. Pacman does not seem to always be able to check if the key was received and marked as trusted before continuing. This could also be because a key has expired since it was added to your keychain.
+</p>
+<p>Mitigate by:
+</p>
+<ul>
+<li>Refreshing your keys with <code>pacman-key --refresh-keys</code>, or</li>
+<li>
+<a href="#Adding_unofficial_keys">manually signing the untrusted key locally</a>, or</li>
+<li>
+<a href="#Resetting_all_the_keys">resetting all the keys</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="Updating_keys_via_proxy">Updating keys via proxy</span></h3>
+<p>In order to use a proxy when updating keys the <code>honor-http-proxy</code> option must be set in both <code>/etc/gnupg/dirmngr.conf</code> and <code>/etc/pacman.d/gnupg/dirmngr.conf</code>. See <a href="../../wiki/GnuPG.html#Use_a_keyserver" title="GnuPG">GnuPG#Use a keyserver</a> for more information.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If <i>pacman-key</i> is used without the <code>honor-http-proxy</code> option and fails, a reboot may solve the issue.</div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../../DeveloperWiki:Package_Signing_Proposal_for_Pacman.html" title="DeveloperWiki:Package Signing Proposal for Pacman">DeveloperWiki:Package Signing Proposal for Pacman</a></li>
+<li><a rel="nofollow"  href="http://allanmcrae.com/2011/08/pacman-package-signing-1-makepkg-and-repo-add/">Pacman Package Signing – 1: Makepkg and Repo-add</a></li>
+<li><a rel="nofollow"  href="http://allanmcrae.com/2011/08/pacman-package-signing-2-pacman-key/">Pacman Package Signing – 2: Pacman-key</a></li>
+<li><a rel="nofollow"  href="http://allanmcrae.com/2011/08/pacman-package-signing-3-pacman/">Pacman Package Signing – 3: Pacman</a></li>
+<li><a rel="nofollow"  href="http://allanmcrae.com/2011/12/pacman-package-signing-4-arch-linux/">Pacman Package Signing – 4: TOS Linux</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Pacman/Package_signing&amp;oldid=611366">https://wiki.archlinux.org/index.php?title=Pacman/Package_signing&amp;oldid=611366</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 May 2020, at 07:27.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

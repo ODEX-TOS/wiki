@@ -1,0 +1,1725 @@
+<!--
+    title: Security
+    description: Migration of Security from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Security</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/TOS_Security_Team.html" title="TOS Security Team">TOS Security Team</a></li>
+<li><a href="../wiki/General_recommendations.html" title="General recommendations">General recommendations</a></li>
+<li><a href="../wiki/PAM.html" title="PAM">PAM</a></li>
+<li><a href="../wiki/Capabilities.html" title="Capabilities">Capabilities</a></li>
+<li><a href="../wiki/List_of_applications/Security.html" class="mw-redirect" title="List of Applications/Security">List of Applications/Security</a></li>
+<li><a href="../wiki/Security_package_guidelines.html" title="Security package guidelines">Security package guidelines</a></li>
+</ul>
+</div>
+<p>This article contains recommendations and best practices for <a href="https://en.wikipedia.org/wiki/Hardening_(computing)"  title="wikipedia:Hardening (computing)">hardening</a> an TOS Linux system.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Concepts"><span >1</span> <span >Concepts</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Passwords"><span >2</span> <span >Passwords</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Choosing_secure_passwords"><span >2.1</span> <span >Choosing secure passwords</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Maintaining_passwords"><span >2.2</span> <span >Maintaining passwords</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Password_hashes"><span >2.3</span> <span >Password hashes</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Enforcing_strong_passwords_using_pam_cracklib"><span >2.4</span> <span >Enforcing strong passwords using pam_cracklib</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#CPU"><span >3</span> <span >CPU</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Microcode"><span >3.1</span> <span >Microcode</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Disable_hyper-threading"><span >3.2</span> <span >Disable hyper-threading</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#CPU_vulnerabilities"><span >3.3</span> <span >CPU vulnerabilities</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#Memory"><span >4</span> <span >Memory</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Hardened_malloc"><span >4.1</span> <span >Hardened malloc</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13">
+<a href="#Storage"><span >5</span> <span >Storage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Data-at-rest_encryption"><span >5.1</span> <span >Data-at-rest encryption</span></a></li>
+<li class="toclevel-2 tocsection-15">
+<a href="#File_systems"><span >5.2</span> <span >File systems</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Mount_options"><span >5.2.1</span> <span >Mount options</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#File_access_permissions"><span >5.3</span> <span >File access permissions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18">
+<a href="#User_setup"><span >6</span> <span >User setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Enforce_a_delay_after_a_failed_login_attempt"><span >6.1</span> <span >Enforce a delay after a failed login attempt</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Lockout_user_after_three_failed_login_attempts"><span >6.2</span> <span >Lockout user after three failed login attempts</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Limit_amount_of_processes"><span >6.3</span> <span >Limit amount of processes</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Run_Xorg_rootless"><span >6.4</span> <span >Run Xorg rootless</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23">
+<a href="#Restricting_root"><span >7</span> <span >Restricting root</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24">
+<a href="#Use_sudo_instead_of_su"><span >7.1</span> <span >Use sudo instead of su</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="#Editing_files_using_sudo"><span >7.1.1</span> <span >Editing files using sudo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26">
+<a href="#Restricting_root_login"><span >7.2</span> <span >Restricting root login</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#Allow_only_certain_users"><span >7.2.1</span> <span >Allow only certain users</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Denying_SSH_login"><span >7.2.2</span> <span >Denying SSH login</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Specify_acceptable_login_combinations_with_access.conf"><span >7.2.3</span> <span >Specify acceptable login combinations with access.conf</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30">
+<a href="#Mandatory_access_control"><span >8</span> <span >Mandatory access control</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="#Pathname_MAC"><span >8.1</span> <span >Pathname MAC</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Labels_MAC"><span >8.2</span> <span >Labels MAC</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Access_Control_Lists"><span >8.3</span> <span >Access Control Lists</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34">
+<a href="#Kernel_hardening"><span >9</span> <span >Kernel hardening</span></a>
+<ul>
+<li class="toclevel-2 tocsection-35">
+<a href="#Kernel_self-protection_/_exploit_mitigation"><span >9.1</span> <span >Kernel self-protection / exploit mitigation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-36">
+<a href="#Userspace_ASLR_comparison"><span >9.1.1</span> <span >Userspace ASLR comparison</span></a>
+<ul>
+<li class="toclevel-4 tocsection-37"><a href="#64-bit_processes"><span >9.1.1.1</span> <span >64-bit processes</span></a></li>
+<li class="toclevel-4 tocsection-38"><a href="#32-bit_processes_(on_an_x86_64_kernel)"><span >9.1.1.2</span> <span >32-bit processes (on an x86_64 kernel)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-39"><a href="#Restricting_access_to_kernel_logs"><span >9.2</span> <span >Restricting access to kernel logs</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#Restricting_access_to_kernel_pointers_in_the_proc_filesystem"><span >9.3</span> <span >Restricting access to kernel pointers in the proc filesystem</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#BPF_hardening"><span >9.4</span> <span >BPF hardening</span></a></li>
+<li class="toclevel-2 tocsection-42">
+<a href="#ptrace_scope"><span >9.5</span> <span >ptrace scope</span></a>
+<ul>
+<li class="toclevel-3 tocsection-43"><a href="#Examples_of_broken_functionality"><span >9.5.1</span> <span >Examples of broken functionality</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-44"><a href="#hidepid"><span >9.6</span> <span >hidepid</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="#Restricting_module_loading"><span >9.7</span> <span >Restricting module loading</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="#Disable_kexec"><span >9.8</span> <span >Disable kexec</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#Kernel_lockdown_mode"><span >9.9</span> <span >Kernel lockdown mode</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-48">
+<a href="#Sandboxing_applications"><span >10</span> <span >Sandboxing applications</span></a>
+<ul>
+<li class="toclevel-2 tocsection-49"><a href="#Firejail"><span >10.1</span> <span >Firejail</span></a></li>
+<li class="toclevel-2 tocsection-50"><a href="#bubblewrap"><span >10.2</span> <span >bubblewrap</span></a></li>
+<li class="toclevel-2 tocsection-51"><a href="#chroots"><span >10.3</span> <span >chroots</span></a></li>
+<li class="toclevel-2 tocsection-52"><a href="#Linux_containers"><span >10.4</span> <span >Linux containers</span></a></li>
+<li class="toclevel-2 tocsection-53"><a href="#Other_virtualization_options"><span >10.5</span> <span >Other virtualization options</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-54">
+<a href="#Network_and_firewalls"><span >11</span> <span >Network and firewalls</span></a>
+<ul>
+<li class="toclevel-2 tocsection-55"><a href="#Firewalls"><span >11.1</span> <span >Firewalls</span></a></li>
+<li class="toclevel-2 tocsection-56"><a href="#Kernel_parameters"><span >11.2</span> <span >Kernel parameters</span></a></li>
+<li class="toclevel-2 tocsection-57"><a href="#SSH"><span >11.3</span> <span >SSH</span></a></li>
+<li class="toclevel-2 tocsection-58"><a href="#DNS"><span >11.4</span> <span >DNS</span></a></li>
+<li class="toclevel-2 tocsection-59"><a href="#Proxies"><span >11.5</span> <span >Proxies</span></a></li>
+<li class="toclevel-2 tocsection-60"><a href="#Managing_SSL_certificates"><span >11.6</span> <span >Managing SSL certificates</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-61">
+<a href="#Physical_security"><span >12</span> <span >Physical security</span></a>
+<ul>
+<li class="toclevel-2 tocsection-62"><a href="#Locking_down_BIOS"><span >12.1</span> <span >Locking down BIOS</span></a></li>
+<li class="toclevel-2 tocsection-63">
+<a href="#Boot_loaders"><span >12.2</span> <span >Boot loaders</span></a>
+<ul>
+<li class="toclevel-3 tocsection-64"><a href="#Syslinux"><span >12.2.1</span> <span >Syslinux</span></a></li>
+<li class="toclevel-3 tocsection-65"><a href="#GRUB"><span >12.2.2</span> <span >GRUB</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-66"><a href="#Boot_partition_on_removable_flash_drive"><span >12.3</span> <span >Boot partition on removable flash drive</span></a></li>
+<li class="toclevel-2 tocsection-67"><a href="#Automatic_logout"><span >12.4</span> <span >Automatic logout</span></a></li>
+<li class="toclevel-2 tocsection-68"><a href="#Protect_against_rogue_USB_devices"><span >12.5</span> <span >Protect against rogue USB devices</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-69">
+<a href="#Packages"><span >13</span> <span >Packages</span></a>
+<ul>
+<li class="toclevel-2 tocsection-70"><a href="#Authentication"><span >13.1</span> <span >Authentication</span></a></li>
+<li class="toclevel-2 tocsection-71"><a href="#Upgrades"><span >13.2</span> <span >Upgrades</span></a></li>
+<li class="toclevel-2 tocsection-72"><a href="#Follow_vulnerability_alerts"><span >13.3</span> <span >Follow vulnerability alerts</span></a></li>
+<li class="toclevel-2 tocsection-73"><a href="#Rebuilding_packages"><span >13.4</span> <span >Rebuilding packages</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-74"><a href="#See_also"><span >14</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Concepts">Concepts</span></h2>
+<ul>
+<li>It <i>is</i> possible to tighten the security so much as to make your system unusable. The trick is to secure it without overdoing it.</li>
+<li>There are many other things that can be done to heighten the security, but the biggest threat is, and will always be, the user. When you think security, you have to think layers. When one layer is breached, another should stop the attack. But you can never make the system 100% secure unless you unplug the machine from all networks, lock it in a safe and never use it.</li>
+<li>Be a little paranoid. It helps. And be suspicious. If anything sounds too good to be true, it probably is!</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege"  title="wikipedia:Principle of least privilege">principle of least privilege</a>: each part of a system should only be able to access what is required to use it, and nothing more.</li>
+</ul>
+<h2><span class="mw-headline" id="Passwords">Passwords</span></h2>
+<p>Passwords are key to a secure Linux system. They secure your <a href="../wiki/Users_and_groups.html" title="Users and groups">user accounts</a>, <a href="../wiki/Data-at-rest_encryption.html" title="Data-at-rest encryption">encrypted filesystems</a>, and <a href="../wiki/SSH_keys.html" title="SSH keys">SSH</a>/<a href="../wiki/GnuPG.html" class="mw-redirect" title="GPG">GPG</a> keys. They are the main way a computer chooses to trust the person using it, so a big part of security is just about picking secure passwords and protecting them.
+</p>
+<h3><span class="mw-headline" id="Choosing_secure_passwords">Choosing secure passwords</span></h3>
+<p>Passwords must be complex enough to not be easily guessed from e.g. personal information, or <a href="https://en.wikipedia.org/wiki/Password_cracking"  title="wikipedia:Password cracking">cracked</a> using methods like social engineering or brute-force attacks. The tenets of strong passwords are based on <i>length</i> and <i>randomness</i>. In cryptography the quality of a password is referred to as its <a href="https://en.wikipedia.org/wiki/Entropic_security"  title="wikipedia:Entropic security">entropic security</a>. 
+</p>
+<p>Insecure passwords include those containing:
+</p>
+<ul>
+<li>Personally identifiable information (e.g., your dog's name, date of birth, area code, favorite video game)</li>
+<li>Simple character substitutions on words (e.g., <code>k1araj0hns0n</code>), as modern dictionary attacks can easily work with these</li>
+<li>Root "words" or common strings followed or preceded by added numbers, symbols, or characters (e.g., <code>DG091101%</code>)</li>
+<li>Common phrases or short phrases of grammatically related words (e.g. <code>all of the lights</code>), and even with character substitution.</li>
+<li>Any of the <a href="https://en.wikipedia.org/wiki/List_of_the_most_common_passwords"  title="wikipedia:List of the most common passwords">most common passwords</a>
+</li>
+</ul>
+<p>The best choice for a password is something long (8-64 characters, longer is better) and generated from a random source.
+</p>
+<p>Tools like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pwgen">pwgen</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/apg/">apg</a></span><sup><small>AUR</small></sup> can generate random passwords. However, these passwords can be difficult to memorize. One memorization technique (for ones typed often) is to generate a long password and memorize a minimally secure number of characters, temporarily writing down the full generated string. Over time, increase the number of characters typed - until the password is ingrained in muscle memory and need not be remembered. This technique is more difficult, but can provide confidence that a password will not turn up in wordlists or "intelligent" brute force attacks that combine words and substitute characters.
+</p>
+<p>There are also techniques for building memorable secure passwords.
+</p>
+<p>One technique is to use a mnemonic phase, where each word in the phase reminds you of the next character in the password.
+Take for instance “the girl is walking down the rainy street” could be translated to <code>t6!WdtR5</code> or, less simply, <code>t&amp;6!RrlW@dtR,57</code>.
+This approach could make it easier to remember a password, but note that the various letters have very different probabilities of being found at the start of words (<a href="https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_the_first_letters_of_a_word_in_the_English_language"  title="wikipedia:Letter frequency">Wikipedia:Letter frequency</a>). 
+</p>
+<p>Another technique is to use a memorable long series of unrelated words as a password. If a sufficiently long phrase is used, the gained entropy from the password's length can counter the lost entropy from the use of dictionary words. This <a rel="nofollow"  href="https://xkcd.com/936/">XKCD comic</a> demonstrates the entropy tradeoff of this method. The <a rel="nofollow"  href="http://world.std.com/~reinhold/diceware.html">Diceware Passphrase</a> method uses a long passphrase in combination with a random number generator (game dice).
+</p>
+<p>Another effective technique can be to write randomly generated passwords down and store them in a <i>safe</i> place, such as in a wallet, purse or document safe. Most people do a generally good job of protecting their physical valuables from attack, and it is easier for most people to understand physical security best practices compared to digital security practices. <a rel="nofollow"  href="https://www.schneier.com/news/archives/2010/11/bruce_schneier_write.html">Bruce Schneier has endorsed this technique</a>.
+</p>
+<p>It is also very effective to combine the memorable and random technique by saving long randomly generated passwords with a <a href="../wiki/List_of_applications/Security.html#Password_managers" class="mw-redirect" title="Password manager">password manager</a>, which will be in turn accessed with a memorable "master password" that must be used only for that purpose. The master password must be memorized and never saved. This requires the password manager to be installed on a system to easily access the password (which could be seen as an inconvenience or a security feature, depending on the situation). Some password managers also have smartphone apps which can be used to display passwords for manual entry on systems without that password manager installed. Note that a password manager introduces a single point of failure if you ever forget the master password.
+</p>
+<p>See Bruce Schneier's article <a rel="nofollow"  href="https://www.schneier.com/blog/archives/2014/03/choosing_secure_1.html">Choosing Secure Passwords</a>, <a rel="nofollow"  href="https://www.iusmentis.com/security/passphrasefaq/">The passphrase FAQ</a> or <a href="https://en.wikipedia.org/wiki/Password_strength"  title="wikipedia:Password strength">Wikipedia:Password strength</a> for some additional background.
+</p>
+<h3><span class="mw-headline" id="Maintaining_passwords">Maintaining passwords</span></h3>
+<p>Once you pick a strong password, be sure to keep it safe. Watch out for <a href="https://en.wikipedia.org/wiki/Keylogger"  title="wikipedia:Keylogger">keyloggers</a> (software and hardware), screen loggers, <a href="https://en.wikipedia.org/wiki/Social_engineering_(security)"  title="wikipedia:Social engineering (security)">social engineering</a>, <a href="https://en.wikipedia.org/wiki/Shoulder_surfing_(computer_security)"  title="wikipedia:Shoulder surfing (computer security)">shoulder surfing</a>, and avoid reusing passwords so insecure servers cannot leak more information than necessary. <a href="../wiki/List_of_applications/Security.html#Password_managers" title="List of applications/Security">Password managers</a> can help manage large numbers of complex passwords: if you are copy-pasting the stored passwords from the manager to the applications that need them, make sure to clear the copy buffer every time, and ensure they are not saved in any kind of log (e.g. do not paste them in plain terminal commands, which would store them in files like <code>.bash_history</code>).
+</p>
+<p>As a rule, do not pick insecure passwords just because secure ones are harder to remember. Passwords are a balancing act. It is better to have an encrypted database of secure passwords, guarded behind a key and one strong master password, than it is to have many similar weak passwords. Writing passwords down is perhaps equally effective<a rel="nofollow"  href="https://www.schneier.com/blog/archives/2005/06/write_down_your.html">[1]</a>, avoiding potential vulnerabilities in software solutions while requiring physical security.
+</p>
+<p>Another aspect of the strength of the passphrase is that it must not be easily recoverable from other places.
+If you use the same passphrase for disk encryption as you use for your login password (useful e.g. to auto-mount the encrypted partition or folder on login), make sure that <code>/etc/shadow</code> either also ends up on an encrypted partition, or uses a strong hash algorithm (i.e. sha512/bcrypt, not md5) for the stored password hash (see <a href="../wiki/SHA_password_hashes.html" title="SHA password hashes">SHA password hashes</a> for more information).
+</p>
+<p>If you are backing up your password database, make sure that each copy is not stored behind any other passphrase which in turn is stored in it, e.g. an encrypted drive or an authenticated remote storage service, or you will not be able to access it in case of need; a useful trick is to protect the drives or accounts where the database is backed up using a simple cryptographic hash of the master password. Maintain a list of all the backup locations: if one day you fear that the master passphrase has been compromised you will have to change it immediately on all the database backups and the locations protected with keys derived from the master password. Version-controlling the database in a secure way can be very complicated: if you choose to do it, you must have a way to update the master password of all the database versions. It may not always be immediately clear when the master password is leaked: to reduce the risk of somebody else discovering your password before you realize that it leaked, you may choose to change it on a periodical basis. If you fear that you have lost control over a copy of the database, you will need to change all the passwords contained in it within the time that it may take to brute-force the master password, according to its entropy.
+</p>
+<h3><span class="mw-headline" id="Password_hashes">Password hashes</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Mention <a href="https://en.wikipedia.org/wiki/Key_derivation_function"  title="wikipedia:Key derivation function">key derivation functions</a>, in particular PBKDF2, bcrypt and scrypt, how to use them, advantages and disadvantages, especially regarding custom-hardware-based brute-force attacks. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Security#Removal_of_incorrect_warning">Talk:Security#Removal of incorrect warning</a>)</div>
+</div>
+<p>By default, TOS stores the hashed user passwords in the root-only-readable <code>/etc/shadow</code> file, separated from the other user parameters stored in the world-readable <code>/etc/passwd</code> file, see <a href="../wiki/Users_and_groups.html#User_database" title="Users and groups">Users and groups#User database</a>. See also <a href="#Restricting_root">#Restricting root</a>.
+</p>
+<p>Passwords are set with the <b>passwd</b> command, which <a href="https://en.wikipedia.org/wiki/Key_stretching"  title="wikipedia:Key stretching">stretches</a> them with the <a href="https://en.wikipedia.org/wiki/Crypt_(C)"  title="wikipedia:Crypt (C)">crypt</a> function and then saves them in <code>/etc/shadow</code>. See also <a href="../wiki/SHA_password_hashes.html" title="SHA password hashes">SHA password hashes</a>. The passwords are also <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)"  title="wikipedia:Salt (cryptography)">salted</a> in order to defend them against <a href="https://en.wikipedia.org/wiki/Rainbow_table"  title="wikipedia:Rainbow table">rainbow table</a> attacks.
+</p>
+<p>See also <a rel="nofollow"  href="http://www.slashroot.in/how-are-passwords-stored-linux-understanding-hashing-shadow-utils">How are passwords stored in Linux (Understanding hashing with shadow utils)</a>.
+</p>
+<h3><span class="mw-headline" id="Enforcing_strong_passwords_using_pam_cracklib">Enforcing strong passwords using pam_cracklib</span></h3>
+<p><i>pam_cracklib</i> provides protection against <a href="https://en.wikipedia.org/wiki/Dictionary_attack"  title="wikipedia:Dictionary attack">Dictionary attacks</a> and helps configure a password policy that can be enforced throughout the system.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The <i>root</i> account is not affected by this policy.</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You can use the <i>root</i> account to set a password for a user that bypasses the desired/configured policy. This is useful when setting temporary passwords.</div>
+<p>If for example you want to enforce this policy:
+</p>
+<ul>
+<li>prompt 2 times for password in case of an error</li>
+<li>10 characters minimum length (minlen option)</li>
+<li>at least 6 characters should be different from old password when entering a new one (difok option)</li>
+<li>at least 1 digit (dcredit option)</li>
+<li>at least 1 uppercase (ucredit option)</li>
+<li>at least 1 other character (ocredit option)</li>
+<li>at least 1 lowercase (lcredit option)</li>
+</ul>
+<p>Edit the <code>/etc/pam.d/passwd</code> file to read as:
+</p>
+<pre>#%PAM-1.0
+password required pam_cracklib.so retry=2 minlen=10 difok=6 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1
+password required pam_unix.so use_authtok sha512 shadow</pre>
+<p>The <code>password required pam_unix.so use_authtok</code> instructs the <i>pam_unix</i> module to not prompt for a password but rather to use the one provided by <i>pam_cracklib</i>.
+</p>
+<p>You can refer to the <span class="plainlinks archwiki-template-man" title="$ man 8 pam_cracklib"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_cracklib.8">pam_cracklib(8)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 8 pam_unix"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_unix.8">pam_unix(8)</a></span> man pages for more information.
+</p>
+<h2><span class="mw-headline" id="CPU">CPU</span></h2>
+<h3><span class="mw-headline" id="Microcode">Microcode</span></h3>
+<p>See <a href="../wiki/Microcode.html" title="Microcode">microcode</a> for information on how to install important security updates for your CPU's microcode.
+</p>
+<h3><span class="mw-headline" id="Disable_hyper-threading">Disable hyper-threading</span></h3>
+<p>If your computer contains an <a href="../wiki/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> CPU, disabling <a href="https://en.wikipedia.org/wiki/Hyper-threading"  title="wikipedia:Hyper-threading">hyper-threading</a> is a security consideration due to <a href="https://en.wikipedia.org/wiki/Microarchitectural_Data_Sampling"  title="wikipedia:Microarchitectural Data Sampling">Microarchitectural Data Sampling</a>, see <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/mds.html">https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/mds.html</a>. <a rel="nofollow"  href="https://www.youtube.com/watch?v=jI3YE3Jlgw8">Kernel developer Greg Kroah-Hartman has endorsed disabling hyper-threading</a> as a security hardening option for systems running untrusted code, such as web browsers that enable Javascript.
+</p>
+<p>To check if you are affected, run the following:
+</p>
+<pre>$ grep . -r /sys/devices/system/cpu/vulnerabilities/
+</pre>
+<p>If the output contains <code>SMT vulnerable</code>, you should disable hyper-threading. Note that there will be a performance impact and you should consider if the trade-off is acceptable.
+</p>
+<p>Hyper-threading can often be disabled in your system's firmware. Consult your motherboard or system documentation for more information. You can also disable hyper-threading in the kernel by adding the following <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>:
+</p>
+<pre>l1tf=full,force mds=full,nosmt mitigations=auto,nosmt nosmt=force
+</pre>
+<p>Reboot afterwards and verify the output of grep. It should now say <code>SMT disabled</code>.
+</p>
+<h3><span class="mw-headline" id="CPU_vulnerabilities">CPU vulnerabilities</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Give a good set of defaults, plus discussion of the tradeoffs involved. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Security">Talk:Security#</a>)</div>
+</div>
+<p>In the wake of the Spectre/Meltdown vulnerabilities, certain configurable mitigations have been added to the kernel. Refer to the <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/">kernel documentation</a> for more details.
+</p>
+<h2><span class="mw-headline" id="Memory">Memory</span></h2>
+<h3><span class="mw-headline" id="Hardened_malloc">Hardened malloc</span></h3>
+<p><a rel="nofollow"  href="https://github.com/GrapheneOS/hardened_malloc">hardened_malloc</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hardened_malloc/">hardened_malloc</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hardened-malloc-git/">hardened-malloc-git</a></span><sup><small>AUR</small></sup>) is a hardened replacement for glibc's malloc(). The project was originally developed for integration into Android's Bionic and musl by Daniel Micay, of GrapheneOS, but he has also built in support for standard Linux distributions on the x86_64 architecture.
+</p>
+<p>While hardened_malloc is not yet integrated into glibc (assistance and pull requests welcome) it can be used easily with LD_PRELOAD. In testing so far, it only causes issues with a handful of applications if enabled globally in /etc/ld.so.preload. For example, <code>man</code> fails to work properly unless its seccomp environment flag is disabled due to not having <code>getrandom</code> in the standard whitelist, although this can be easily fixed by rebuilding it with the system call added. Since hardened_malloc has a performance cost, you may want to decide which implementation to use on a case-by-case basis based on attack surface and performance needs.
+</p>
+<p>To try it out in a standalone manner, use the hardened-malloc-preload wrapper script, or manually start an application with the proper preload value:
+</p>
+<pre>LD_PRELOAD="/usr/lib/libhardened_malloc.so" /usr/bin/firefox
+</pre>
+<p>Proper usage with <a href="../wiki/Firejail.html" title="Firejail">Firejail</a> can be found on its wiki page, and some configurable build options for hardened_malloc can be found on the github repo.
+</p>
+<h2><span class="mw-headline" id="Storage">Storage</span></h2>
+<h3><span class="mw-headline" id="Data-at-rest_encryption">Data-at-rest encryption</span></h3>
+<p><a href="../wiki/Data-at-rest_encryption.html" title="Data-at-rest encryption">Data-at-rest encryption</a>, preferably full-disk encryption with a <a href="#Passwords">strong passphrase</a>, is the only way to guard data against physical recovery. This provides complete security when the computer is turned off or the disks in question are unmounted.
+</p>
+<p>Once the computer is powered on and the drive is mounted, however, its data becomes just as vulnerable as an unencrypted drive. It is therefore best practice to unmount data partitions as soon as they are no longer needed.
+</p>
+<p>Certain programs, like <a href="../wiki/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, allow the user to encrypt a loop file as a virtual volume. This is a reasonable alternative to full-disk encryption when only certain parts of the system need be secure.
+</p>
+<h3><span class="mw-headline" id="File_systems">File systems</span></h3>
+<p>The kernel now prevents security issues related to hardlinks and symlinks if the <code>fs.protected_hardlinks</code> and <code>fs.protected_symlinks</code> sysctl switches are enabled, so there is no longer a major security benefit from separating out world-writable directories.
+</p>
+<p>File systems containing world-writable directories can still be kept separate as a coarse way of limiting the damage from disk space exhaustion. However, filling <code>/var</code> or <code>/tmp</code> is enough to take down services. More flexible mechanisms for dealing with this concern exist (like <a href="../wiki/Disk_quota.html" title="Disk quota">quotas</a>), and some <a href="../wiki/File_systems.html" title="File systems">file systems</a> include related features themselves (Btrfs has quotas on subvolumes).
+</p>
+<h4><span class="mw-headline" id="Mount_options">Mount options</span></h4>
+<p>Following the principle of least privilege, file systems should be mounted with the most restrictive mount options possible (without losing functionality).
+</p>
+<p>Relevant mount options are:
+</p>
+<ul>
+<li>
+<code>nodev</code>: Do not interpret character or block special devices on the file system.</li>
+<li>
+<code>nosuid</code>: Do not allow set-user-identifier or set-group-identifier bits to take effect.</li>
+<li>
+<code>noexec</code>: Do not allow direct execution of any  binaries on the mounted file system.
+<ul>
+<li>Setting <code>noexec</code> on <code>/home</code> disallows executable scripts and breaks <a href="../wiki/Wine.html" title="Wine">Wine</a>*, <a href="../wiki/Steam.html" title="Steam">Steam</a>, PyCharm, etc.</li>
+<li>Some packages (building <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia-dkms">nvidia-dkms</a></span> for example) may require <code>exec</code> on <code>/var</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Wine does not need the <code>exec</code> flag for opening Windows executables. It is only needed when Wine itself is installed in <code>/home</code>.</div>
+<p>File systems used for data should always be mounted with <code>nodev</code>, <code>nosuid</code> and <code>noexec</code>.
+</p>
+<p>Potential file system mounts to consider:
+</p>
+<ul>
+<li><code>/var</code></li>
+<li><code>/home</code></li>
+<li><code>/dev/shm</code></li>
+<li><code>/tmp</code></li>
+<li><code>/boot</code></li>
+</ul>
+<h3><span class="mw-headline" id="File_access_permissions">File access permissions</span></h3>
+<p>The default <a href="../wiki/File_permissions_and_attributes.html" class="mw-redirect" title="File permissions">file permissions</a> allow read access to almost everything and changing the permissions can hide valuable information from an attacker who gains access to a non-root account such as the <code>http</code> or <code>nobody</code> users.
+</p>
+<p>For example:
+</p>
+<pre># chmod 700 /boot /etc/{iptables,arptables}
+</pre>
+<p>The default <a href="../wiki/Umask.html" title="Umask">Umask</a> <code>0022</code> can be changed to improve security for newly created files. The <a rel="nofollow"  href="https://apps.nsa.gov/iaarchive/library/ia-guidance/security-configuration/operating-systems/guide-to-the-secure-configuration-of-red-hat-enterprise.cfm">NSA RHEL5 Security Guide</a> suggests a umask of <code>0077</code> for maximum security, which makes new files not readable by users other than the owner. To change this, see <a href="../wiki/Umask.html#Set_the_mask_value" title="Umask">Umask#Set the mask value</a>.
+</p>
+<h2><span class="mw-headline" id="User_setup">User setup</span></h2>
+<p>After installation make a normal user for daily use. Do not use the root user for daily use.
+</p>
+<h3><span class="mw-headline" id="Enforce_a_delay_after_a_failed_login_attempt">Enforce a delay after a failed login attempt</span></h3>
+<p>Add the following line to <code>/etc/pam.d/system-login</code> to add a delay of at least 4 seconds between failed login attempts:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/system-login</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth optional pam_faildelay.so delay=4000000</pre>
+<p><code>4000000</code> is the time in microseconds to delay.
+</p>
+<h3><span class="mw-headline" id="Lockout_user_after_three_failed_login_attempts">Lockout user after three failed login attempts</span></h3>
+<p>To further heighten the security it is possible to lockout a user after a specified number of failed login attempts. The user account can either be locked until the root user unlocks it, or automatically be unlocked after a set time.
+</p>
+<p>To lockout a user for ten minutes <code>unlock_time=600</code> after three failed login attempts <code>deny=3</code>, add the parameters to the PAM configuration as follows:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/system-login</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth required pam_tally2.so deny=3 unlock_time=600 onerr=succeed file=/var/log/tallylog</pre>
+<p>That is all there is to it. If you feel adventurous, make three failed login attempts. Then you can see for yourself what happens. To unlock a user manually do:
+</p>
+<pre># pam_tally2 --reset --user <i>username</i>
+</pre>
+<p><code>unlock_time</code> is specified in seconds. If you want to permanently lockout a user after 3 failed login attempts remove the <code>unlock_time</code> part of the line. The user is then unable to login until root unlocks the account.
+</p>
+<h3><span class="mw-headline" id="Limit_amount_of_processes">Limit amount of processes</span></h3>
+<p>On systems with many, or untrusted users, it is important to limit the number of processes each can run at once, therefore preventing <a href="https://en.wikipedia.org/wiki/Fork_bomb"  title="wikipedia:Fork bomb">fork bombs</a> and other denial of service attacks. <code>/etc/security/limits.conf</code> determines how many processes each user, or group can have open, and is empty (except for useful comments) by default. Adding the following lines to this file will limit all users to 100 active processes, unless they use the <code>prlimit</code> command to explicitly raise their maximum to 200 for that session. These values can be changed according to the appropriate number of processes a user should have running, or the hardware of the box you are administrating. 
+</p>
+<pre>* soft nproc 100
+* hard nproc 200
+</pre>
+<p>The current number of threads for each user can be found with <code>ps --no-headers -Leo user | sort | uniq --count</code>. This may help with determining appropriate values for the limits.
+</p>
+<h3><span class="mw-headline" id="Run_Xorg_rootless">Run Xorg rootless</span></h3>
+<p><a href="../wiki/Xorg.html" title="Xorg">Xorg</a> is commonly <a rel="nofollow"  href="https://security.stackexchange.com/questions/4641/why-are-people-saying-that-the-x-window-system-is-not-secure/4646#4646">considered insecure</a> because of its architecture and dated design. Thus it is recommended to avoid running it as root.
+</p>
+<p>See <a href="../wiki/Xorg.html#Rootless_Xorg" title="Xorg">Xorg#Rootless Xorg</a> for more details how to run it without root privileges. Alternatively, use <a href="../wiki/Wayland.html" title="Wayland">Wayland</a> instead of Xorg.
+</p>
+<h2><span class="mw-headline" id="Restricting_root">Restricting root</span></h2>
+<p>The root user is, by definition, the most powerful user on a system. Because of this, there are a number of ways to keep the power of the root user while limiting its ability to cause harm, or at least to make root user actions more traceable.
+</p>
+<h3><span class="mw-headline" id="Use_sudo_instead_of_su">Use sudo instead of su</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Sudo.html" title="Sudo">sudo</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> There's a dedicated article. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Security">Talk:Security#</a>)</div>
+</div>
+<p>Using <a href="../wiki/Sudo.html" title="Sudo">sudo</a> for privileged access is preferable to <a href="../wiki/Su.html" title="Su">su</a> for <a href="../wiki/Su.html#Sudo,_an_alternative" title="Su">a number of reasons</a>.
+</p>
+<ul>
+<li>It keeps a log of which normal privilege user has run each privileged command.</li>
+<li>The root user password need not be given out to each user who requires root access.</li>
+<li>
+<code>sudo</code> prevents users from accidentally running commands as <i>root</i> that do not need root access, because a full root terminal is not created. This aligns with the <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege"  title="wikipedia:Principle of least privilege">principle of least privilege</a>.</li>
+<li>Individual programs may be enabled per user, instead of offering complete root access just to run one command. For example, to give the user <i>alice</i> access to a particular program:</li>
+</ul>
+<pre># visudo
+</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sudoers</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">alice ALL = NOPASSWD: /path/to/program</pre>
+<p>Or, individual commands can be allowed for all users. To mount Samba shares from a server as a regular user:
+</p>
+<pre>%users ALL=/sbin/mount.cifs,/sbin/umount.cifs
+</pre>
+<p>This allows all users who are members of the group users to run the commands <code>/sbin/mount.cifs</code> and <code>/sbin/umount.cifs</code> from any machine (ALL).
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<p>To use restricted version of <code>nano</code> instead of <code>vi</code> with <code>visudo</code>,
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sudoers</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Defaults editor=/usr/bin/rnano</pre>
+<p>Exporting <code>EDITOR=nano visudo</code> is regarded as a severe security risk since everything can be used as an <code>EDITOR</code>.
+</p>
+</div>
+<h4><span class="mw-headline" id="Editing_files_using_sudo">Editing files using sudo</span></h4>
+<p>Running a text editor as root can be a security vulnerability as many editors can run arbitrary shell commands or affect files other than the one you intend to edit. To avoid this, use <code>sudoedit filename</code> (equivalently, <code>sudo --edit filename</code>) to edit files. This edits a copy of the file using your normal user privileges and then overwrites the original using sudo only after the editor is closed. You can change the editor this uses by setting the <code>SUDO_EDITOR</code> environment variable:
+</p>
+<pre>$ export SUDO_EDITOR=vim
+</pre>
+<p>Alternatively, use an editor like <code>rvim</code> which has restricted capabilities in order to be safe to run as root.
+</p>
+<h3><span class="mw-headline" id="Restricting_root_login">Restricting root login</span></h3>
+<p>Once <a href="../wiki/Sudo.html" title="Sudo">sudo</a> is properly configured, full root access can be heavily restricted or denied without losing much usability. To disable root, but still allowing to use <a href="../wiki/Sudo.html" title="Sudo">sudo</a>, you can use <code>passwd --lock root</code>.
+</p>
+<h4><span class="mw-headline" id="Allow_only_certain_users">Allow only certain users</span></h4>
+<p>The <a href="../wiki/PAM.html" title="PAM">PAM</a> <code>pam_wheel.so</code> lets you allow only users in the group <code>wheel</code> to login using <a href="../wiki/Su.html" title="Su">su</a>. See <a href="../wiki/Su.html#su_and_wheel" title="Su">su#su and wheel</a>.
+</p>
+<h4><span class="mw-headline" id="Denying_SSH_login">Denying SSH login</span></h4>
+<p>Even if you do not wish to deny root login for local users, it is always good practice to <a href="../wiki/OpenSSH.html#Deny" title="OpenSSH">deny root login via SSH</a>. The purpose of this is to add an additional layer of security before a user can completely compromise your system remotely.
+</p>
+<h4><span class="mw-headline" id="Specify_acceptable_login_combinations_with_access.conf">Specify acceptable login combinations with access.conf</span></h4>
+<p>When someone attempts to log in with <a href="../wiki/PAM.html" title="PAM">PAM</a>, <code>/etc/security/access.conf</code> is checked for the first combination that matches their login properties. Their attempt then fails or succeeds based on the rule for that combination. 
+</p>
+<pre>+:root:LOCAL
+-:root:ALL
+</pre>
+<p>Rules can be set for specific groups and users. In this example, the user archie is allowed to login locally, as are all users in the wheel and adm groups. All other logins are rejected:
+</p>
+<pre>+:archie:LOCAL
++:(wheel):LOCAL
++:(adm):LOCAL
+-:ALL:ALL
+</pre>
+<p>Read more at <span class="plainlinks archwiki-template-man" title="$ man 5 access.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/access.conf.5">access.conf(5)</a></span>
+</p>
+<h2><span class="mw-headline" id="Mandatory_access_control">Mandatory access control</span></h2>
+<p><a href="https://en.wikipedia.org/wiki/Mandatory_Access_Control"  title="wikipedia:Mandatory Access Control">Mandatory access control</a> (MAC) is a type of security policy that differs significantly from the <a href="https://en.wikipedia.org/wiki/Discretionary_Access_Control"  title="wikipedia:Discretionary Access Control">discretionary access control</a> (DAC) used by default in TOS and most Linux distributions. MAC essentially means that every action a program could perform that affects the system in any way is checked against a security ruleset. This ruleset, in contrast to DAC methods, cannot be modified by users. Using virtually any mandatory access control system will significantly improve the security of your computer, although there are differences in how it can be implemented.
+</p>
+<h3><span class="mw-headline" id="Pathname_MAC">Pathname MAC</span></h3>
+<p>Pathname-based access control is a simple form of access control that offers permissions based on the path of a given file. The downside to this style of access control is that permissions are not carried with files if they are moved about the system. On the positive side, pathname-based MAC can be implemented on a much wider range of filesystems, unlike labels-based alternatives.
+</p>
+<ul>
+<li>
+<a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a> is a <a href="https://en.wikipedia.org/wiki/Canonical_(company)"  title="wikipedia:Canonical (company)">Canonical</a>-maintained MAC implementation seen as an "easier" alternative to SELinux.</li>
+<li>
+<a href="../wiki/TOMOYO_Linux.html" class="mw-redirect" title="Tomoyo">Tomoyo</a> is another simple, easy-to-use system offering mandatory access control. It is designed to be both simple in usage and in implementation, requiring very few dependencies.</li>
+</ul>
+<h3><span class="mw-headline" id="Labels_MAC">Labels MAC</span></h3>
+<p>Labels-based access control means the extended attributes of a file are used to govern its security permissions. While this system is arguably more flexible in its security offerings than pathname-based MAC, it only works on filesystems that support these extended attributes.
+</p>
+<ul><li>
+<a href="../wiki/SELinux.html" title="SELinux">SELinux</a>, based on a <a href="https://en.wikipedia.org/wiki/NSA"  title="wikipedia:NSA">NSA</a> project to improve Linux security, implements MAC completely separate from system users and roles. It offers an extremely robust multi-level MAC policy implementation that can easily maintain control of a system that grows and changes past its original configuration.</li></ul>
+<h3><span class="mw-headline" id="Access_Control_Lists">Access Control Lists</span></h3>
+<p><a href="../wiki/Access_Control_Lists.html" title="Access Control Lists">Access Control Lists</a> (ACLs) are an alternative to attaching rules directly to the filesystem in some way. ACLs implement access control by checking program actions against a list of permitted behavior.
+</p>
+<h2><span class="mw-headline" id="Kernel_hardening">Kernel hardening</span></h2>
+<h3>
+<span id="Kernel_self-protection_.2F_exploit_mitigation"></span><span class="mw-headline" id="Kernel_self-protection_/_exploit_mitigation">Kernel self-protection / exploit mitigation</span>
+</h3>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span> package uses a <a rel="nofollow"  href="https://github.com/anthraxx/linux-hardened">basic kernel hardening patch set</a> and more security-focused compile-time configuration options than the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> package. A custom build can be made to choose a different compromise between security and performance than the security-leaning defaults.
+</p>
+<p>How ever, it should be noted that several packages will not work when using this kernel. For example:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/skypeforlinux-preview-bin/">skypeforlinux-preview-bin</a></span><sup><small>AUR</small></sup>
+</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/skypeforlinux-stable-bin/">skypeforlinux-stable-bin</a></span><sup><small>AUR</small></sup>
+</li>
+<li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=throttled">throttled</a></span></li>
+</ul>
+<p>If you use an out-of-tree driver such as <a href="../wiki/NVIDIA.html" title="NVIDIA">NVIDIA</a>, you may need to switch to its <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> package.
+</p>
+<h4><span class="mw-headline" id="Userspace_ASLR_comparison">Userspace ASLR comparison</span></h4>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span> package provides an improved implementation of Address Space Layout Randomization for userspace processes. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=paxtest">paxtest</a></span> command can be used to obtain an estimate of the provided entropy:
+</p>
+<h5><span class="mw-headline" id="64-bit_processes">64-bit processes</span></h5>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">linux-hardened 5.4.21.a-1-hardened</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Anonymous mapping randomization test     : 32 quality bits (guessed)
+Heap randomization test (ET_EXEC)        : 40 quality bits (guessed)
+Heap randomization test (PIE)            : 40 quality bits (guessed)
+Main executable randomization (ET_EXEC)  : 32 quality bits (guessed)
+Main executable randomization (PIE)      : 32 quality bits (guessed)
+Shared library randomization test        : 32 quality bits (guessed)
+VDSO randomization test                  : 32 quality bits (guessed)
+Stack randomization test (SEGMEXEC)      : 40 quality bits (guessed)
+Stack randomization test (PAGEEXEC)      : 40 quality bits (guessed)
+Arg/env randomization test (SEGMEXEC)    : 44 quality bits (guessed)
+Arg/env randomization test (PAGEEXEC)    : 44 quality bits (guessed)
+Offset to library randomisation (ET_EXEC): 34 quality bits (guessed)
+Offset to library randomisation (ET_DYN) : 34 quality bits (guessed)
+Randomization under memory exhaustion @~0: 32 bits (guessed)
+Randomization under memory exhaustion @0 : 32 bits (guessed)
+</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">linux-tos5.5.5-arch1-1</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Anonymous mapping randomization test     : 28 quality bits (guessed)
+Heap randomization test (ET_EXEC)        : 28 quality bits (guessed)
+Heap randomization test (PIE)            : 28 quality bits (guessed)
+Main executable randomization (ET_EXEC)  : 28 quality bits (guessed)
+Main executable randomization (PIE)      : 28 quality bits (guessed)
+Shared library randomization test        : 28 quality bits (guessed)
+VDSO randomization test                  : 20 quality bits (guessed)
+Stack randomization test (SEGMEXEC)      : 30 quality bits (guessed)
+Stack randomization test (PAGEEXEC)      : 30 quality bits (guessed)
+Arg/env randomization test (SEGMEXEC)    : 22 quality bits (guessed)
+Arg/env randomization test (PAGEEXEC)    : 22 quality bits (guessed)
+Offset to library randomisation (ET_EXEC): 28 quality bits (guessed)
+Offset to library randomisation (ET_DYN) : 28 quality bits (guessed)
+Randomization under memory exhaustion @~0: 29 bits (guessed)
+Randomization under memory exhaustion @0 : 29 bits (guessed)
+</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">linux-lts 4.19.101-1-lts</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Anonymous mapping randomization test     : 28 quality bits (guessed)
+Heap randomization test (ET_EXEC)        : 28 quality bits (guessed)
+Heap randomization test (PIE)            : 28 quality bits (guessed)
+Main executable randomization (ET_EXEC)  : 28 quality bits (guessed)
+Main executable randomization (PIE)      : 28 quality bits (guessed)
+Shared library randomization test        : 28 quality bits (guessed)
+VDSO randomization test                  : 19 quality bits (guessed)
+Stack randomization test (SEGMEXEC)      : 30 quality bits (guessed)
+Stack randomization test (PAGEEXEC)      : 30 quality bits (guessed)
+Arg/env randomization test (SEGMEXEC)    : 22 quality bits (guessed)
+Arg/env randomization test (PAGEEXEC)    : 22 quality bits (guessed)
+Offset to library randomisation (ET_EXEC): 28 quality bits (guessed)
+Offset to library randomisation (ET_DYN) : 28 quality bits (guessed)
+Randomization under memory exhaustion @~0: 28 bits (guessed)
+Randomization under memory exhaustion @0 : 28 bits (guessed)
+</pre>
+<h5>
+<span id="32-bit_processes_.28on_an_x86_64_kernel.29"></span><span class="mw-headline" id="32-bit_processes_(on_an_x86_64_kernel)">32-bit processes (on an x86_64 kernel)</span>
+</h5>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">linux-hardened</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Anonymous mapping randomization test     : 16 quality bits (guessed)
+Heap randomization test (ET_EXEC)        : 22 quality bits (guessed)
+Heap randomization test (PIE)            : 27 quality bits (guessed)
+Main executable randomization (ET_EXEC)  : No randomization
+Main executable randomization (PIE)      : 18 quality bits (guessed)
+Shared library randomization test        : 16 quality bits (guessed)
+VDSO randomization test                  : 16 quality bits (guessed)
+Stack randomization test (SEGMEXEC)      : 24 quality bits (guessed)
+Stack randomization test (PAGEEXEC)      : 24 quality bits (guessed)
+Arg/env randomization test (SEGMEXEC)    : 28 quality bits (guessed)
+Arg/env randomization test (PAGEEXEC)    : 28 quality bits (guessed)
+Offset to library randomisation (ET_EXEC): 18 quality bits (guessed)
+Offset to library randomisation (ET_DYN) : 16 quality bits (guessed)
+Randomization under memory exhaustion @~0: 18 bits (guessed)
+Randomization under memory exhaustion @0 : 18 bits (guessed)
+</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">linux</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Anonymous mapping randomization test     : 8 quality bits (guessed)
+Heap randomization test (ET_EXEC)        : 13 quality bits (guessed)
+Heap randomization test (PIE)            : 13 quality bits (guessed)
+Main executable randomization (ET_EXEC)  : No randomization
+Main executable randomization (PIE)      : 8 quality bits (guessed)
+Shared library randomization test        : 8 quality bits (guessed)
+VDSO randomization test                  : 8 quality bits (guessed)
+Stack randomization test (SEGMEXEC)      : 19 quality bits (guessed)
+Stack randomization test (PAGEEXEC)      : 19 quality bits (guessed)
+Arg/env randomization test (SEGMEXEC)    : 11 quality bits (guessed)
+Arg/env randomization test (PAGEEXEC)    : 11 quality bits (guessed)
+Offset to library randomisation (ET_EXEC): 8 quality bits (guessed)
+Offset to library randomisation (ET_DYN) : 13 quality bits (guessed)
+Randomization under memory exhaustion @~0: No randomization
+Randomization under memory exhaustion @0 : No randomization
+</pre>
+<h3><span class="mw-headline" id="Restricting_access_to_kernel_logs">Restricting access to kernel logs</span></h3>
+<p>The kernel logs contain useful information for an attacker trying to exploit kernel vulnerabilities, such as sensitive memory addresses. The <code>kernel.dmesg_restrict</code> flag was to forbid access to the logs without the <code>CAP_SYS_ADMIN</code> capability (which only processes running as root have by default).
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/51-dmesg-restrict.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">kernel.dmesg_restrict = 1</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> This is enabled by default in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span>.</div>
+<h3><span class="mw-headline" id="Restricting_access_to_kernel_pointers_in_the_proc_filesystem">Restricting access to kernel pointers in the proc filesystem</span></h3>
+<p>Setting <code>kernel.kptr_restrict</code> to 1 will hide kernel symbol addresses in <code>/proc/kallsyms</code> from regular users without <code>CAP_SYSLOG</code>, making it more difficult for kernel exploits to resolve addresses/symbols dynamically. This will not help that much on a pre-compiled TOS Linux kernel, since a determined attacker could just download the kernel package and get the symbols manually from there, but if you are compiling your own kernel, this can help mitigating local root exploits. This will break some <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perf">perf</a></span> commands when used by non-root users (but many <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perf">perf</a></span> features require root access anyway). See <a rel="nofollow"  href="https://bugs.archlinux.org/task/34323">FS#34323</a> for more information.
+</p>
+<p>Setting  <code>kernel.kptr_restrict</code> to 2 will hide kernel symbol addresses in <code>/proc/kallsyms</code> regardless of privileges.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/51-kptr-restrict.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">kernel.kptr_restrict = 1</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span> sets <code>kptr_restrict=2</code> by default rather than <code>0</code>.</div>
+<h3><span class="mw-headline" id="BPF_hardening">BPF hardening</span></h3>
+<p>BPF is a system used to load and execute bytecode within the kernel dynamically during runtime. It is used in a number of Linux kernel subsystems such as networking (e.g. XDP, tc), tracing (e.g. kprobes, uprobes, tracepoints) and security (e.g. seccomp). It is also useful for advanced network security, performance profiling and dynamic tracing.
+</p>
+<p>BPF was originally an acronym of "Berkeley Packet Filter" since the original classic BPF was used for packet capture tools for BSD. This eventually evolved into Extended BPF (eBPF), which was shortly afterwards renamed to just BPF (not an acronym). BPF should not be confused with packet filtering tools like iptables or netfilter, although BPF can be used to implement packet filtering tools.
+</p>
+<p>BPF code may be either interpreted or compiled using a Just-In-Time (JIT) compiler. The TOS kernel is built with <code>CONFIG_BPF_JIT_ALWAYS_ON</code> which disables the BPF interpreter and forces all BPF to use JIT compilation. This makes it harder for an attacker to use BPF to escalate attacks that exploit SPECTRE-style vulnerabilities. See <a rel="nofollow"  href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=290af86629b25ffd1ed6232c4e9107da031705cb">the kernel patch which introduced CONFIG_BPF_JIT_ALWAYS_ON</a> for more details.
+</p>
+<p>The kernel includes a hardening feature for JIT-compiled BPF which can mitigate some types of JIT spraying attacks at the cost of performance and the ability to trace and debug many BPF programs. It may be enabled by setting <code>net.core.bpf_jit_harden</code> to <code>1</code> (to enable hardening of unprivileged code) or <code>2</code> (to enable hardening of all code).
+</p>
+<p>See the <code>net.core.bpf_*</code> settings in the <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/sysctl/net.html">kernel documentation</a> for more details.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span> sets <code>net.core.bpf_jit_harden=2</code> by default rather than <code>0</code>.</div>
+<h3><span class="mw-headline" id="ptrace_scope">ptrace scope</span></h3>
+<p>TOS enables the Yama LSM by default, providing a <code>kernel.yama.ptrace_scope</code> flag. This flag is enabled by default and prevents processes from performing a <code>ptrace</code> call on other processes outside of their scope without <code>CAP_SYS_PTRACE</code>. While many debugging tools require this for some of their functionality, it is a significant improvement in security. Without this feature, there is essentially no separation between processes running as the same user without applying extra layers like namespaces. The ability to attach a debugger to an existing process is a demonstration of this weakness.
+</p>
+<h4><span class="mw-headline" id="Examples_of_broken_functionality">Examples of broken functionality</span></h4>
+<ul>
+<li><code>gdb -p $PID</code></li>
+<li><code>strace -p $PID</code></li>
+<li><code>perf trace -p $PID</code></li>
+<li><code>reptyr $PID</code></li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You can still execute these commands as root (such as allowing them through <a href="../wiki/Sudo.html" title="Sudo">sudo</a> for certain users, with or without a password).</div>
+<h3><span class="mw-headline" id="hidepid">hidepid</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> 
+<ul>
+<li>This may cause issues for certain applications like an application running in a sandbox and <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> (see workaround).</li>
+<li>This causes issues with <a href="../wiki/D-Bus.html" title="D-Bus">D-Bus</a>, <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> and <a href="../wiki/Bluetooth.html" title="Bluetooth">bluetooth</a> when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> &gt; 237.64-1.</li>
+</ul>
+</div>
+<p>The kernel has the ability to hide other users' processes, normally accessible via <code>/proc</code>, from unprivileged users by mounting the <code>proc</code> filesystem with the <code>hidepid=</code> and <code>gid=</code> options documented in <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/filesystems/proc.html">https://www.kernel.org/doc/html/latest/filesystems/proc.html</a>. 
+</p>
+<p>This greatly complicates an intruder's task of gathering information about running processes, whether some daemon runs with elevated privileges, whether other user runs some sensitive program, whether other users run any program at all, makes it impossible to learn whether any user runs a specific program (given the program does not reveal itself by its behaviour), and, as an additional bonus, poorly written programs passing sensitive information via program arguments are now protected against local eavesdroppers.
+</p>
+<p>The <code>proc</code> <a href="../wiki/Users_and_groups.html#System_groups" title="Users and groups">group</a>, provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=filesystem">filesystem</a></span> package, acts as a whitelist of users authorized to learn other users' process information. If users or services need access to <code>/proc/&lt;pid&gt;</code> directories beyond their own, <a href="../wiki/Users_and_groups.html#Group_management" title="Users and groups">add them to the group</a>.
+</p>
+<p>For example, to hide process information from other users except those in the <code>proc</code> group:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">proc	/proc	proc	nosuid,nodev,noexec,hidepid=2,gid=proc	0	0</pre>
+<p>For user sessions to work correctly, an exception needs to be added for <i>systemd-logind</i>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/systemd-logind.service.d/hidepid.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
+SupplementaryGroups=proc</pre>
+<h3><span class="mw-headline" id="Restricting_module_loading">Restricting module loading</span></h3>
+<p>The default TOS kernel has <code>CONFIG_MODULE_SIG_ALL</code> enabled which signs all kernel modules build as part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> package. This allows the kernel to restrict modules to be only loaded when they are signed with a valid key, in practical terms this means that all out of tree modules compiled locally or provides by packages such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-modules-arch">virtualbox-host-modules-arch</a></span> cannot be loaded. Kernel module loading can be restricted by setting the <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>module.sig_enforce=1</code>. More information can be found at the <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html">kernel documentation</a>.
+</p>
+<h3><span class="mw-headline" id="Disable_kexec">Disable kexec</span></h3>
+<p>Kexec allows replacing the current running kernel.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/51-kexec-restrict.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">kernel.kexec_load_disabled = 1</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> kexec is disabled by default in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span>.</div>
+<h3><span class="mw-headline" id="Kernel_lockdown_mode">Kernel lockdown mode</span></h3>
+<p>Since Linux 5.4 the kernel <a rel="nofollow"  href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=aefcf2f4b58155d27340ba5f9ddbe9513da8286d">has gained</a> an optional <a rel="nofollow"  href="https://mjg59.dreamwidth.org/55105.html">lockdown feature</a>, intended to strengthen the boundary between UID 0 (root) and the kernel. When enabled some applications may cease to work who rely on low-level access to either hardware or the kernel.
+</p>
+<p>To use lockdown, its LSM must be initialized, check it by running <code>cat /sys/kernel/security/lsm</code>. If the output does not have <code>lockdown</code> in it, set the <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>lsm=lockdown,yama</code> and reboot.
+</p>
+<p>Lockdown has two modes of operation:
+</p>
+<ul>
+<li>
+<code>integrity</code>: kernel features that allow userland to modify the running kernel are disabled (kexec, bpf).</li>
+<li>
+<code>confidentiality</code>: kernel features that allow userland to extract confidential information from the kernel are also disabled.</li>
+</ul>
+<p>To enable kernel lockdown at runtime, run:
+</p>
+<pre># echo <i>mode</i> &gt; /sys/kernel/security/lockdown
+</pre>
+<p>To enable kernel lockdown on boot, use the <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>lockdown=<i>mode</i></code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>Kernel lockdown cannot be disabled at runtime.</li>
+<li>Kernel lockdown disables <a href="../wiki/Power_management/Suspend_and_hibernate.html#Hibernation" class="mw-redirect" title="Hibernation">hibernation</a>.</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Sandboxing_applications">Sandboxing applications</span></h2>
+<p>See also <a href="https://en.wikipedia.org/wiki/Sandbox_(computer_security)"  title="wikipedia:Sandbox (computer security)">Wikipedia:Sandbox (computer security)</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The user namespace configuration item <code>CONFIG_USER_NS</code> is currently enabled in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> (4.14.5 or later), <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> (4.14.15 or later) and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span>. Lack of it may prevent certain sandboxing features from being made available to applications.</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Unprivileged user namespace usage (<code>CONFIG_USER_NS_UNPRIVILEGED</code>) is enabled by default in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> (5.1.8 or later), <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> (4.19.55-2 or later) and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-zen">linux-zen</a></span> (5.1.14.zen1-2 or later) unless the <code>kernel.unprivileged_userns_clone</code> <a href="../wiki/Sysctl.html" title="Sysctl">sysctl</a> is set to <code>0</code>. Since this greatly increases the attack surface for local privilege escalation, it is advised to disable this manually, or use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-hardened">linux-hardened</a></span> kernel. For more information see <a rel="nofollow"  href="https://bugs.archlinux.org/task/36969">FS#36969</a>.</div>
+<h3><span class="mw-headline" id="Firejail">Firejail</span></h3>
+<p><a href="../wiki/Firejail.html" title="Firejail">Firejail</a> is an easy to use and simple tool for sandboxing applications and servers alike. Firejail is suggested for browsers and internet facing applications, as well as any servers you may be running.
+</p>
+<h3><span class="mw-headline" id="bubblewrap">bubblewrap</span></h3>
+<p><a href="../wiki/Bubblewrap.html" title="Bubblewrap">bubblewrap</a> is a sandbox application developed from <a href="https://en.wikipedia.org/wiki/Flatpak"  title="wikipedia:Flatpak">Flatpak</a> with an even smaller resource footprint than Firejail. While it lacks certain features such as file path whitelisting, bubblewrap does offer bind mounts as well as the creation of user/IPC/PID/network/cgroup namespaces and can support both simple and complex sandboxes.
+</p>
+<h3><span class="mw-headline" id="chroots">chroots</span></h3>
+<p>Manual <a href="../wiki/Chroot.html" title="Chroot">chroot</a> jails can also be constructed.
+</p>
+<h3><span class="mw-headline" id="Linux_containers">Linux containers</span></h3>
+<p><a href="../wiki/Linux_Containers.html" title="Linux Containers">Linux Containers</a> are another good option when you need more separation than the other options (short of KVM and VirtualBox) provide. LXC is run on top of the existing kernel in a pseudo-chroot with their own virtual hardware.
+</p>
+<h3><span class="mw-headline" id="Other_virtualization_options">Other virtualization options</span></h3>
+<p>Using full virtualization options such as <a href="../wiki/VirtualBox.html" title="VirtualBox">VirtualBox</a>, <a href="../wiki/KVM.html" title="KVM">KVM</a>, <a href="../wiki/Xen.html" title="Xen">Xen</a> or <a rel="nofollow"  href="https://www.qubes-os.org/">Qubes OS</a> (based on Xen) can also improve isolation and security in the event you plan on running risky applications or browsing dangerous websites.
+</p>
+<h2><span class="mw-headline" id="Network_and_firewalls">Network and firewalls</span></h2>
+<h3><span class="mw-headline" id="Firewalls">Firewalls</span></h3>
+<p>While the stock TOS kernel is capable of using <a href="https://en.wikipedia.org/wiki/Netfilter"  title="wikipedia:Netfilter">Netfilter</a>'s <a href="../wiki/Iptables.html" title="Iptables">iptables</a> and <a href="../wiki/Nftables.html" title="Nftables">nftables</a>, they are not enabled by default. It is highly recommended to set up some form of firewall to protect the services running on the system. Many resources (including TOS Wiki) do not state explicitly which services are worth protecting, so enabling a firewall is a good precaution.
+</p>
+<ul>
+<li>See <a href="../wiki/Iptables.html" title="Iptables">iptables</a> and <a href="../wiki/Nftables.html" title="Nftables">nftables</a> for general information.</li>
+<li>See <a href="../wiki/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> for a guide on setting up an iptables firewall.</li>
+<li>See <a href="../wiki/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a> for other ways of setting up netfilter.</li>
+<li>See <a href="../wiki/Ipset.html" title="Ipset">Ipset</a> for blocking lists of ip addresses, such as those from Bluetack.</li>
+</ul>
+<h3><span class="mw-headline" id="Kernel_parameters">Kernel parameters</span></h3>
+<p>Kernel parameters which affect networking can be set using <a href="../wiki/Sysctl.html" title="Sysctl">Sysctl</a>. For how to do this, see <a href="../wiki/Sysctl.html#TCP/IP_stack_hardening" title="Sysctl">Sysctl#TCP/IP stack hardening</a>.
+</p>
+<h3><span class="mw-headline" id="SSH">SSH</span></h3>
+<p>To mitigate <a href="https://en.wikipedia.org/wiki/Brute-force_attack"  title="wikipedia:Brute-force attack">brute-force attacks</a> it is recommended to enforce key-based authentication. For OpenSSH, see <a href="../wiki/OpenSSH.html#Force_public_key_authentication" title="OpenSSH">OpenSSH#Force public key authentication</a>. Alternatively <a href="../wiki/Fail2ban.html" title="Fail2ban">Fail2ban</a> or <a href="../wiki/Sshguard.html" title="Sshguard">Sshguard</a> offer lesser forms of protection by monitoring logs and writing <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> rules but open up the potential for a denial of service, since an attacker can <a href="https://en.wikipedia.org/wiki/Spoofing_attack#Spoofing_and_TCP.2FIP"  title="wikipedia:Spoofing attack">spoof</a> packets as if they came from the administrator after identifying their address. Spoofing IP has lines of defense, such as by <a href="../wiki/Sysctl.html#Reverse_path_filtering" title="Sysctl">reverse path filtering</a> and <a href="../wiki/Sysctl.html#Disable_ICMP_redirects" title="Sysctl">disabling ICMP redirects</a>.
+</p>
+<p>You may want to harden authentication even more by using two-factor authentication. <a href="../wiki/Google_Authenticator.html" title="Google Authenticator">Google Authenticator</a> provides a two-step authentication procedure using one-time passcodes (OTP).
+</p>
+<p>Denying root login is also a good practice, both for tracing intrusions and adding an additional layer of security before root access. For OpenSSH, see <a href="../wiki/OpenSSH.html#Deny" title="OpenSSH">OpenSSH#Deny</a>.
+</p>
+<h3><span class="mw-headline" id="DNS">DNS</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Your browser might notice DNS spoofing with <a href="../wiki/Transport_Layer_Security.html#HSTS" class="mw-redirect" title="HSTS">HSTS</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Security">Talk:Security#</a>)</div>
+</div>
+<p><a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> queries are, by default on most systems, sent and received unencrypted and without checking for authentication of receipt from qualified servers. This could then allow <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack"  title="wikipedia:Man-in-the-middle attack">man-in-the-middle attacks</a>, whereby an attacker intercepts your DNS queries and modifies the responses to deliver you an IP address leading to a <a href="https://en.wikipedia.org/wiki/Phishing"  title="wikipedia:Phishing">phishing</a> page to collect your valuable information. Neither you nor the browser/other software would be aware since the DNS protocol takes the legitimacy of query results for granted.
+</p>
+<p><a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> is a set of standards in place that requires DNS servers to provide clients with origin authentication of DNS data, authenticated denial of existence, and data integrity. It, however, is not yet widely used. With DNSSEC enabled, an attacker can not make modifications to your DNS queries and the returning results, but would still be able to read them.
+</p>
+<p><a href="../wiki/Dnscrypt-proxy.html" class="mw-redirect" title="DNSCrypt">DNSCrypt</a>, as well as later alternative protocol developments <i>DNS over TLS</i> and <i>DNS over HTTPS</i>, use cryptography to secure communications with DNS servers. Usually only one protocol is employed on a system level. See <a href="../wiki/Domain_name_resolution.html#DNS_servers" title="Domain name resolution">Domain name resolution#DNS servers</a> for supporting software.
+</p>
+<p>If you have a domain name, set a <a href="../wiki/Mail_server.html#Sender_Policy_Framework" class="mw-redirect" title="Sender Policy Framework">Sender Policy Framework</a> policy to combat email spoofing.
+</p>
+<h3><span class="mw-headline" id="Proxies">Proxies</span></h3>
+<p>Proxies are commonly used as an extra layer between applications and the network, sanitizing data from untrusted sources. The attack surface of a small proxy running with lower privileges is significantly smaller than a complex application running with the end user privileges.
+</p>
+<p>For example the DNS resolver is implemented in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glibc">glibc</a></span>, that is linked with the application (that may be running as root), so a bug in the DNS resolver might lead to a remote code execution. This can be prevented by installing a DNS caching server, such as <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>, which acts as a proxy. <a rel="nofollow"  href="https://googleonlinesecurity.blogspot.it/2016/02/cve-2015-7547-glibc-getaddrinfo-stack.html">[2]</a>
+</p>
+<h3><span class="mw-headline" id="Managing_SSL_certificates">Managing SSL certificates</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Transport_Layer_Security.html" title="Transport Layer Security">Transport Layer Security</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> There's a dedicated article. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Security">Talk:Security#</a>)</div>
+</div>
+<p>See <a href="../wiki/OpenSSL.html" title="OpenSSL">OpenSSL</a> and <a href="../wiki/Network_Security_Services.html" title="Network Security Services">Network Security Services</a> (NSS) for managing custom server-side SSL certificates. Notably, the related <a href="../wiki/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a> project is also supported. 
+</p>
+<p>The default internet SSL certificate trustchains are provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ca-certificates">ca-certificates</a></span> package and its dependencies. Note that TOS relies on trust-sources (e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ca-certificates-mozilla">ca-certificates-mozilla</a></span>) providing the certificates to be trusted per default by the system. 
+</p>
+<p>There may be occasions when you want to deviate from the default. For example, you may read some <a rel="nofollow"  href="https://www.theregister.co.uk/2016/05/27/blue_coat_ca_certs/">news</a> and want to distrust a certificate rather than wait until the trust-source providers do. The TOS infrastructure makes such easy:
+</p>
+<ol>
+<li>Obtain the respective certificate in .crt format (Example: <a rel="nofollow"  href="https://crt.sh/?id=19538258">view</a>, <a rel="nofollow"  href="https://crt.sh/?d=19538258">download</a>; in case of an existing trusted root certificate authority, you may also find it extracted in the system path),</li>
+<li>Copy it to <code>/etc/ca-certificates/trust-source/blacklist/</code> and</li>
+<li>Run <i>update-ca-trust</i> as root.</li>
+</ol>
+<p>To check the blacklisting works as intended, you may re-open your preferred browser and do so via its GUI, which should show it as <b>untrusted</b> now.
+</p>
+<h2><span class="mw-headline" id="Physical_security">Physical security</span></h2>
+<p>Physical access to a computer is root access given enough time and resources. However, a high <i>practical</i> level of security can be obtained by putting up enough barriers.
+</p>
+<p>An attacker can gain full control of your computer on the next boot by simply attaching a malicious IEEE 1394 (FireWire), Thunderbolt or PCI Express device as they are given full memory access.<a rel="nofollow"  href="https://www.breaknenter.org/projects/inception/">[3]</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup> There is little you can do from preventing this, or modification of the hardware itself - such as flashing malicious firmware onto a drive. However, the vast majority of attackers will not be this knowledgeable and determined.
+</p>
+<p><a href="#Data-at-rest_encryption">#Data-at-rest encryption</a> will prevent access to your data if the computer is stolen, but malicious firmware can be installed to obtain this data upon your next log in by a resourceful attacker.
+</p>
+<h3><span class="mw-headline" id="Locking_down_BIOS">Locking down BIOS</span></h3>
+<p>Adding a password to the BIOS prevents someone from booting into removable media, which is basically the same as having root access to your computer. You should make sure your drive is first in the boot order and disable the other drives from being bootable if you can.
+</p>
+<h3><span class="mw-headline" id="Boot_loaders">Boot loaders</span></h3>
+<p>It is highly important to protect your <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>. An unprotected boot loader can bypass any login restrictions, e.g. by setting the <code>init=/bin/sh</code> <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to boot directly to a shell.
+</p>
+<h4><span class="mw-headline" id="Syslinux">Syslinux</span></h4>
+<p>Syslinux-tossupports <a href="../wiki/Syslinux.html#Security" title="Syslinux">password-protecting your bootloader</a>. It allows you to set either a per-menu-item password or a global bootloader password.
+</p>
+<h4><span class="mw-headline" id="GRUB">GRUB</span></h4>
+<p><a href="../wiki/GRUB.html" title="GRUB">GRUB</a> supports bootloader passwords as well. See <a href="../wiki/GRUB/Tips_and_tricks.html#Password_protection_of_GRUB_menu" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Password protection of GRUB menu</a> for details. It also has support for <a href="../wiki/GRUB.html#Encrypted_/boot" title="GRUB">encrypted /boot</a>, which only leaves some parts of the bootloader code unencrypted. GRUB's configuration, <a href="../wiki/Kernel.html" title="Kernel">kernel</a> and <a href="../wiki/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> are encrypted.
+</p>
+<h3><span class="mw-headline" id="Boot_partition_on_removable_flash_drive">Boot partition on removable flash drive</span></h3>
+<p>One popular idea is to place the boot partition on a flash drive in order to render the system unbootable without it. Proponents of this idea often use <a href="#Data-at-rest_encryption">full-disk encryption</a> alongside, and some also use <a href="../wiki/Dm-crypt/Specialties.html#Encrypted_system_using_a_detached_LUKS_header" title="Dm-crypt/Specialties">detached encryption headers</a> placed on the boot partition. 
+</p>
+<h3><span class="mw-headline" id="Automatic_logout">Automatic logout</span></h3>
+<p>If you are using <a href="../wiki/Bash.html" title="Bash">Bash</a> or <a href="../wiki/Zsh.html" title="Zsh">Zsh</a>, you can set <code>TMOUT</code> for an automatic logout from shells after a timeout.
+</p>
+<p>For example, the following will automatically log out from virtual consoles (but not terminal emulators in X11):
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/profile.d/shell-timeout.sh</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">TMOUT="$(( 60*10 ))";
+[ -z "$DISPLAY" ] &amp;&amp; export TMOUT;
+case $( /usr/bin/tty ) in
+	/dev/tty[0-9]*) export TMOUT;;
+esac
+</pre>
+<p>If you really want EVERY Bash/Zsh prompt (even within X) to timeout, use:
+</p>
+<pre>$ export TMOUT="$(( 60*10 ))";
+</pre>
+<p>Note that this will not work if there is some command running in the shell (eg.: an SSH session or other shell without <code>TMOUT</code> support). But if you are using VC mostly for restarting frozen GDM/Xorg as root, then this is very useful.
+</p>
+<h3><span class="mw-headline" id="Protect_against_rogue_USB_devices">Protect against rogue USB devices</span></h3>
+<p>Install <a href="../wiki/USBGuard.html" title="USBGuard">USBGuard</a>, which is a software framework that  helps to protect your computer against rogue USB devices (a.k.a. <a rel="nofollow"  href="https://srlabs.de/badusb">BadUSB</a>, <a rel="nofollow"  href="https://github.com/samyk/poisontap">PoisonTap</a> or <a rel="nofollow"  href="https://lanturtle.com/">LanTurtle</a>) by implementing basic whitelisting and blacklisting capabilities based on device attributes.
+</p>
+<h2><span class="mw-headline" id="Packages">Packages</span></h2>
+<h3><span class="mw-headline" id="Authentication">Authentication</span></h3>
+<p><a rel="nofollow"  href="https://www2.cs.arizona.edu/stork/packagemanagersecurity/attacks-on-package-managers.html#overview">Attacks on package managers</a> are possible without proper use of package signing, and can affect even package managers with <a rel="nofollow"  href="https://www2.cs.arizona.edu/stork/packagemanagersecurity/faq.html">proper signature systems</a>. TOS uses package signing by default and relies on a web of trust from 5 trusted master keys. See <a href="../wiki/Pacman/Package_signing.html" class="mw-redirect" title="Pacman-key">Pacman-key</a> for details.
+</p>
+<h3><span class="mw-headline" id="Upgrades">Upgrades</span></h3>
+<p>It is important to regularly <a href="../wiki/System_maintenance.html#Upgrading_the_system" title="System maintenance">upgrade the system</a>.
+</p>
+<h3><span class="mw-headline" id="Follow_vulnerability_alerts">Follow vulnerability alerts</span></h3>
+<p>Subscribe to the Common Vulnerabilities and Exposure (CVE) Security Alert updates, made available by National Vulnerability Database, and found on the <a rel="nofollow"  href="https://nvd.nist.gov/download.cfm">NVD Download webpage</a>. The <a rel="nofollow"  href="https://security.archlinux.org/">TOS Linux Security Tracker</a> serves as a particularly useful resource in that it combines TOS Linux Security Advisory (ASA), TOS Linux Vulnerability Group (AVG) and CVE data sets in tabular format. See also <a href="../wiki/TOS_Security_Team.html" title="TOS Security Team">TOS Security Team</a>.
+</p>
+<p>You should also consider subscribing to the release notifications for software you use, especially if you install software through means other than the main repositories or AUR. Some software have mailing lists you can subscribe to for security notifications. Source code hosting sites often offer RSS feeds for new releases.
+</p>
+<h3><span class="mw-headline" id="Rebuilding_packages">Rebuilding packages</span></h3>
+<p>Packages can be rebuilt and stripped of undesired functions and features as a means to reduce attack surface. For example, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bzip2">bzip2</a></span> can be rebuilt without <code>bzip2recover</code> in an attempt to circumvent <a rel="nofollow"  href="https://security.archlinux.org/CVE-2016-3189">CVE-2016-3189</a>. Custom hardening flags can also be applied either manually or via a wrapper.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://security.archlinux.org/">TOS Linux Security Tracker</a></li>
+<li><a rel="nofollow"  href="https://wiki.centos.org/HowTos/OS_Protection">CentOS Wiki: OS Protection</a></li>
+<li><a rel="nofollow"  href="https://www.ibm.com/developerworks/linux/tutorials/l-harden-desktop/index.html">Hardening the Linux desktop</a></li>
+<li><a rel="nofollow"  href="https://www.ibm.com/developerworks/linux/tutorials/l-harden-server/index.html">Hardening the Linux server</a></li>
+<li><a rel="nofollow"  href="https://github.com/lfit/itpol/blob/master/linux-workstation-security.md">Linux Foundation: Linux workstation security checklist</a></li>
+<li><a rel="nofollow"  href="https://www.privacytools.io/">privacytools.io Privacy Resources</a></li>
+<li><a rel="nofollow"  href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/">Red Hat Enterprise Linux 7 Security Guide</a></li>
+<li><a rel="nofollow"  href="https://www.debian.org/doc/manuals/securing-debian-howto/securing-debian-howto.en.pdf">Securing Debian Manual (PDF)</a></li>
+<li><a rel="nofollow"  href="https://web.archive.org/web/20140220055801/http://crunchbang.org:80/forums/viewtopic.php?id=24722">The paranoid #! Security Guide</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Security&amp;oldid=615958">https://wiki.archlinux.org/index.php?title=Security&amp;oldid=615958</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 26 May 2020, at 13:45.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
+<!--
+    title: Security
+    description: Migration of Security from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">List of applications/Security</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/List_of_applications.html" title="List of applications">List of applications</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-box" style="background-color: #f9faff; border-color:#d7dfe3; text-align: center;">
+<a href="../../wiki/List_of_applications/Internet.html" title="List of applications/Internet">Internet</a> – <a href="../../wiki/List_of_applications/Multimedia.html" title="List of applications/Multimedia">Multimedia</a> – <a href="../../wiki/List_of_applications/Utilities.html" title="List of applications/Utilities">Utilities</a> – <a href="../../wiki/List_of_applications/Documents.html" title="List of applications/Documents">Documents</a> – <a class="mw-selflink selflink">Security</a> – <a href="../../wiki/List_of_applications/Science.html" title="List of applications/Science">Science</a> – <a href="../../wiki/List_of_applications/Other.html" title="List of applications/Other">Other</a>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Security"><span >1</span> <span >Security</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Network_security"><span >1.1</span> <span >Network security</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Firewall_management"><span >1.2</span> <span >Firewall management</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Threat_and_vulnerability_detection"><span >1.3</span> <span >Threat and vulnerability detection</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#File_security"><span >1.4</span> <span >File security</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Anti_malware"><span >1.5</span> <span >Anti malware</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Backup_programs"><span >1.6</span> <span >Backup programs</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Screen_lockers"><span >1.7</span> <span >Screen lockers</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Password_auditing"><span >1.8</span> <span >Password auditing</span></a></li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Password_managers"><span >1.9</span> <span >Password managers</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Console"><span >1.9.1</span> <span >Console</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Graphical"><span >1.9.2</span> <span >Graphical</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13">
+<a href="#Cryptography"><span >1.10</span> <span >Cryptography</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#Hash_checkers"><span >1.10.1</span> <span >Hash checkers</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Encryption,_signing,_steganography"><span >1.10.2</span> <span >Encryption, signing, steganography</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Data-at-rest_encryption"><span >1.10.3</span> <span >Data-at-rest encryption</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#Privilege_elevation"><span >1.11</span> <span >Privilege elevation</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Security">Security</span></h2>
+<p>For detailed guides, see the main TOS Wiki page, <a href="../../wiki/Security.html" title="Security">Security</a>.
+</p>
+<h4><span class="mw-headline" id="Network_security">Network security</span></h4>
+<p>See also <a href="https://en.wikipedia.org/wiki/Comparison_of_packet_analyzers"  title="wikipedia:Comparison of packet analyzers">Wikipedia:Comparison of packet analyzers</a>.
+</p>
+<ul><li>
+<b>airgeddon</b> — Multi-use bash script to audit wireless networks</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/v1s1t0r1sh3r3/airgeddon">https://github.com/v1s1t0r1sh3r3/airgeddon</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/airgeddon-git/">airgeddon-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Arpwatch"  title="wikipedia:Arpwatch">Arpwatch</a></b> — Tool that monitors ethernet activity and keeps a database of Ethernet/IP address pairings.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://ee.lbl.gov/">https://ee.lbl.gov/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arpwatch">arpwatch</a></span>
+</dd></dl>
+<ul><li>
+<b>bettercap</b> — Swiss army knife for network attacks and monitoring.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.bettercap.org/">https://www.bettercap.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bettercap">bettercap</a></span>
+</dd></dl>
+<ul><li>
+<b>darkstat</b> — Captures network traffic, calculates statistics about usage, and serves reports over HTTP.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://unix4lyfe.org/darkstat/">https://unix4lyfe.org/darkstat/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=darkstat">darkstat</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/dSniff"  title="wikipedia:dSniff">dsniff</a></b> — Collection of tools for network auditing and penetration testing.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.monkey.org/~dugsong/dsniff/">https://www.monkey.org/~dugsong/dsniff/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dsniff">dsniff</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/EtherApe"  title="wikipedia:EtherApe">EtherApe</a></b> — Graphical network monitor for Unix modeled after etherman. Featuring link layer, IP and TCP modes, it displays network activity graphically. Hosts and links change in size with traffic. Color coded protocols display.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://etherape.sourceforge.io/">https://etherape.sourceforge.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=etherape">etherape</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Ettercap_(software)"  title="wikipedia:Ettercap (software)">Ettercap</a></b> — Multipurpose Network sniffer/analyser/interceptor/logger.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://ettercap.github.io/ettercap/">https://ettercap.github.io/ettercap/</a> || CLI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ettercap">ettercap</a></span>, GUI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ettercap-gtk">ettercap-gtk</a></span>
+</dd></dl>
+<ul><li>
+<b>GNOME Network Tools</b> — GNOME interface for various networking tools.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/gnome-nettool">https://gitlab.gnome.org/GNOME/gnome-nettool</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-nettool">gnome-nettool</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Honeyd.html" title="Honeyd">Honeyd</a></b> — Tool that allows the user to set up and run multiple virtual hosts on a computer network.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.honeyd.org/">http://www.honeyd.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/honeyd/">honeyd</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>hping</b> — Command-line oriented TCP/IP packet assembler/analyzer.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://hping.org/">http://hping.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hping">hping</a></span>
+</dd></dl>
+<ul><li>
+<b>IPTraf</b> — Console-based network monitoring utility.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/iptraf-ng/">https://sourceforge.net/projects/iptraf-ng/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptraf-ng">iptraf-ng</a></span>
+</dd></dl>
+<ul><li>
+<b>jnettop</b> — top-like console network traffic visualizer.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/jnettop/">https://sourceforge.net/projects/jnettop/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=jnettop">jnettop</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/justniffer"  title="wikipedia:justniffer">justniffer</a></b> — Network protocol analyzer that captures network traffic and produces logs in a customized way, can emulate Apache web server log files, track response times and extract all "intercepted" files from the HTTP traffic.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://justniffer.sourceforge.net/">http://justniffer.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/justniffer/">justniffer</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Kismet</b> — 802.11 layer2 wireless network detector, sniffer, and intrusion detection system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.kismetwireless.net/">https://www.kismetwireless.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kismet">kismet</a></span>
+</dd></dl>
+<ul><li>
+<b>LinSSID</b> — Graphical wireless scanner.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/linssid/">https://sourceforge.net/projects/linssid/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linssid">linssid</a></span>
+</dd></dl>
+<ul><li>
+<b>Nemesis</b> — Command-line network packet crafting and injection utility.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://nemesis.sourceforge.net/">http://nemesis.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nemesis/">nemesis</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Net Activity Viewer</b> — Graphical network connections viewer, similar in functionality with Netstat.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://netactview.sourceforge.net/">http://netactview.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/netactview/">netactview</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/netsniff-ng"  title="wikipedia:netsniff-ng">netsniff-ng</a></b> — High performance Linux network sniffer for packet inspection.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://netsniff-ng.org/">http://netsniff-ng.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=netsniff-ng">netsniff-ng</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/ngrep"  title="wikipedia:ngrep">ngrep</a></b> — grep-like utility that allows you to search for network packets on an interface.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/jpr5/ngrep">https://github.com/jpr5/ngrep</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ngrep">ngrep</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Nmap.html" title="Nmap">Nmap</a></b> — Security scanner used to discover hosts and services on a computer network, thus creating a "map" of the network.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://nmap.org/">https://nmap.org/</a> || CLI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nmap">nmap</a></span>, GUI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zenmap/">zenmap</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Ntop.html" title="Ntop">Ntop</a></b> — Network probe that shows network usage in a way similar to what top does for processes.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.ntop.org/">https://www.ntop.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntop">ntop</a></span>
+</dd></dl>
+<ul><li>
+<b>pyNeighborhood</b> — GTK-based SMB/CIFS browsing utility.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://launchpad.net/pyneighborhood">https://launchpad.net/pyneighborhood</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pyneighborhood/">pyneighborhood</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Smb4K</b> — Advanced network neighborhood browser and Samba share mounting utility for KDE.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://smb4k.sourceforge.io/">https://smb4k.sourceforge.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smb4k">smb4k</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Snort.html" title="Snort">Snort</a></b> — Network intrusion prevention and detection system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.snort.org/">https://www.snort.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snort/">snort</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Spectools</b> — A set of utilities for spectrum analyzer hardware including Wi-Spy devices.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.kismetwireless.net/spectools/">https://www.kismetwireless.net/spectools/</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-30 ⓘ]</sup> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/spectools/">spectools</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Sshguard.html" title="Sshguard">Sshguard</a></b> — Daemon that protects SSH and other services against brute-force attacts, similar to Fail2ban.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.sshguard.net/">https://www.sshguard.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sshguard">sshguard</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Suricata.html" title="Suricata">Suricata</a></b> — High performance Network IDS, IPS and Network Security Monitoring engine.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://suricata-ids.org/">https://suricata-ids.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/suricata/">suricata</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Network_Debugging.html#Tcpdump" title="Network Debugging">Tcpdump</a></b> — Common console-based packet analyzer that allows the user to intercept and display TCP/IP and other packets being transmitted or received over a network.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.tcpdump.org/">http://www.tcpdump.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tcpdump">tcpdump</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/tcptrace"  title="wikipedia:tcptrace">tcptrace</a></b> — TCP dump file analysis tool.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://tcptrace.org/">http://tcptrace.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tcptrace">tcptrace</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/VnStat.html" title="VnStat">vnStat</a></b> — Console-based network traffic monitor that keeps a log of network traffic for the selected interfaces.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://humdi.net/vnstat/">https://humdi.net/vnstat/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vnstat">vnstat</a></span>
+</dd></dl>
+<ul><li>
+<b>wifiphisher</b> — Fast automated phishing attacks against WPA networks.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/wifiphisher/wifiphisher">https://github.com/wifiphisher/wifiphisher</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/wifiphisher/">wifiphisher</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Wireshark.html" title="Wireshark">Wireshark</a></b> — Network protocol analyzer that lets you capture and interactively browse the traffic running on a computer network.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.wireshark.org/">https://www.wireshark.org/</a> || CLI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireshark-cli">wireshark-cli</a></span>, GUI: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireshark-qt">wireshark-qt</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Xplico"  title="wikipedia:Xplico">Xplico</a></b> — Network forensics analysis tool (NFAT), which is a software that reconstructs the contents of acquisitions performed with a packet sniffer.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.xplico.org/">https://www.xplico.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xplico/">xplico</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Zeek</b> — Powerful network analysis framework that is much different from the typical IDS you may know.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://zeek.org/">https://zeek.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zeek/">zeek</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h4><span class="mw-headline" id="Firewall_management">Firewall management</span></h4>
+<p>See <a href="../../wiki/Iptables.html#Front-ends" title="Iptables">iptables#Front-ends</a>.
+</p>
+<h4><span class="mw-headline" id="Threat_and_vulnerability_detection">Threat and vulnerability detection</span></h4>
+<ul><li>
+<b>AFICK</b> — Security tool that allows to monitor the changes on your files systems, and so can detect intrusions.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://afick.sourceforge.net/">http://afick.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/afick/">afick</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Lynis"  title="wikipedia:Lynis">Lynis</a></b> — Security and system auditing tool to harden Unix/Linux systems.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://cisofy.com/lynis/">https://cisofy.com/lynis/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lynis">lynis</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Metasploit_Framework.html" title="Metasploit Framework">Metasploit Framework</a></b> — An advanced open-source platform for developing, testing, and using exploit code.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.metasploit.com/">https://www.metasploit.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=metasploit">metasploit</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Nessus.html" title="Nessus">Nessus</a></b> — Comprehensive vulnerability scanning program.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.tenable.com/products/nessus">https://www.tenable.com/products/nessus</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nessus/">nessus</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/OpenVAS.html" title="OpenVAS">OpenVAS</a></b> — Framework of several services and tools offering a comprehensive and powerful vulnerability scanning and vulnerability management solution. FOSS Nessus fork.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.openvas.org/">http://www.openvas.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openvas/">openvas</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>OSSEC</b> — Open Source Host-based Intrusion Detection System that performs log analysis, file integrity checking, policy monitoring, rootkit detection, real-time alerting and active response.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://ossec.github.io/">https://ossec.github.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ossec-agent/">ossec-agent</a></span><sup><small>AUR</small></sup> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ossec-local/">ossec-local</a></span><sup><small>AUR</small></sup> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ossec-server/">ossec-server</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Samhain</b> — Host-based intrusion detection system (HIDS) provides file integrity checking and log file monitoring/analysis, as well as rootkit detection, port monitoring, detection of rogue SUID executables, and hidden processes.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.la-samhna.de/samhain/index.html">https://www.la-samhna.de/samhain/index.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/samhain/">samhain</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Tiger_(security_software)"  title="wikipedia:Tiger (security software)">Tiger</a></b> — Security tool that can be use both as a security audit and intrusion detection system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.nongnu.org/tiger/">http://www.nongnu.org/tiger/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tiger/">tiger</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Open_Source_Tripwire"  title="wikipedia:Open Source Tripwire">Tripwire</a></b> — Intrusion detection system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/Tripwire/tripwire-open-source">https://github.com/Tripwire/tripwire-open-source</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tripwire-git/">tripwire-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h4><span class="mw-headline" id="File_security">File security</span></h4>
+<ul><li>
+<b><a href="../../wiki/AIDE.html" title="AIDE">AIDE</a></b> — File and directory integrity checker.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://aide.github.io">https://aide.github.io</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/aide/">aide</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Logcheck</b> — Simple utility which is designed to allow a system administrator to view the logfiles which are produced upon hosts under their control.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://logcheck.alioth.debian.org/">https://logcheck.alioth.debian.org/</a><sup>[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-02-25]</sup> || <small>not packaged? <a rel="nofollow"  href="https://aur.archlinux.org/packages/">search in AUR</a></small>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Logwatch.html" title="Logwatch">Logwatch</a></b> — Customizable log analysis system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/logwatch/">https://sourceforge.net/projects/logwatch/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=logwatch">logwatch</a></span>
+</dd></dl>
+<ul><li>
+<b>OpenDLP</b> — OpenDLP is a free and open source, agent- and agentless-based, centrally-managed, massively distributable data loss prevention tool.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://code.google.com/archive/p/opendlp/">https://code.google.com/archive/p/opendlp/</a> || <small>not packaged? <a rel="nofollow"  href="https://aur.archlinux.org/packages/">search in AUR</a></small>
+</dd></dl>
+<h4><span class="mw-headline" id="Anti_malware">Anti malware</span></h4>
+<ul><li>
+<b><a href="../../wiki/ClamAV.html" title="ClamAV">ClamAV</a></b> — Open source antivirus engine for detecting trojans, viruses, malware &amp; other malicious threats.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.clamav.net/">http://www.clamav.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clamav">clamav</a></span>
+</dd></dl>
+<ul><li>
+<b>ClamTk</b> — Graphical front-end for ClamAV using Perl and Gtk libraries. It is designed to be an easy-to-use, lightweight, on-demand antivirus scanner for Linux systems.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://dave-theunsub.github.io/clamtk/">https://dave-theunsub.github.io/clamtk/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clamtk">clamtk</a></span>, Nautilus plugin: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/clamtk-gnome/">clamtk-gnome</a></span><sup><small>AUR</small></sup>, MATE plugin: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/clamtk-mate/">clamtk-mate</a></span><sup><small>AUR</small></sup>, Thunar plugin: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/thunar-sendto-clamtk/">thunar-sendto-clamtk</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Linux Malware Detect</b> — Malware scanner designed around the threats faced in shared hosted environments.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.rfxn.com/projects/linux-malware-detect/">https://www.rfxn.com/projects/linux-malware-detect/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/maldet/">maldet</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Rootkit Hunter</b> — Checks machines for the presence of rootkits and other unwanted tools.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://rkhunter.sourceforge.net/">http://rkhunter.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rkhunter">rkhunter</a></span>
+</dd></dl>
+<ul><li>
+<b>Hostsblock</b> — A script that downloads, sorts, and compiles multiple ad- and malware-blocking hosts files.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://gaenserich.github.io/hostsblock/">http://gaenserich.github.io/hostsblock/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hostsblock/">hostsblock</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h4><span class="mw-headline" id="Backup_programs">Backup programs</span></h4>
+<p>See also <a href="../../wiki/Synchronization_and_backup_programs.html#Incremental_backups" title="Synchronization and backup programs">Synchronization and backup programs#Incremental backups</a> and <a href="https://en.wikipedia.org/wiki/Comparison_of_backup_software"  title="wikipedia:Comparison of backup software">Wikipedia:Comparison of backup software</a>.
+</p>
+<ul><li>
+<b>Déjà Dup</b> — Simple GTK backup program. It hides the complexity of doing backups the 'right way' (encrypted, off-site, and regular) and uses <a href="../../wiki/Duplicity.html" title="Duplicity">duplicity</a> as the backend.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://launchpad.net/deja-dup">https://launchpad.net/deja-dup</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=deja-dup">deja-dup</a></span>
+</dd></dl>
+<ul><li>
+<b>borg</b> — Deduplicating backup program with compression and authenticated encryption that supports backing up over ssh</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.borgbackup.org">https://www.borgbackup.org</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=borg">borg</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Duplicati"  title="wikipedia:Duplicati">Duplicati</a></b> — Backup client that securely stores encrypted, incremental, compressed backups on cloud storage services and remote file servers.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.duplicati.com/">https://www.duplicati.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/duplicati-latest/">duplicati-latest</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Duplicity.html" title="Duplicity">duplicity</a></b> — Simple command-line utility which allows encrypted compressed incremental backup to nearly any storage.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.nongnu.org/duplicity/">http://www.nongnu.org/duplicity/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=duplicity">duplicity</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Duply.html" title="Duply">Duply</a></b> — Command-line front-end for <a href="../../wiki/Duplicity.html" title="Duplicity">duplicity</a> which simplifies running it. It manages backup job settings in profiles and allows to batch execute commands.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.duply.net/">http://www.duply.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/duply/">duply</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>restic</b> — Fast, secure, efficient backup program that supports backing up to many cloud services.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://restic.net/">https://restic.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=restic">restic</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Tarsnap"  title="wikipedia:Tarsnap">Tarsnap</a></b> — Secure, efficient proprietary online backup service.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.tarsnap.com/">http://www.tarsnap.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tarsnap">tarsnap</a></span>
+</dd></dl>
+<h4><span class="mw-headline" id="Screen_lockers">Screen lockers</span></h4>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../../wiki/Session_lock.html#By_environment" title="Session lock">Session lock#By environment</a>.</b><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Same purpose. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:List_of_applications/Security">Talk:List of applications/Security#</a>)</div>
+</div>
+<p>See also <a href="../../wiki/Session_lock.html" title="Session lock">Session lock</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Only <i>sflock</i>, <i>physlock</i>, <i>Cinnamon Screensaver</i>, <i>MATE Screensaver</i> and <i>GNOME Screensaver</i> are able to block tty access. See <a href="../../wiki/Xorg.html#Block_TTY_access" title="Xorg">Xorg#Block TTY access</a> on how to manually block tty access.</div>
+<ul><li>
+<b>betterlockscreen</b> — <i>i3lock-color</i> wrapper. Betterlockscreen allows you to cache images with different filters and lockscreen with blazing speed.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/pavanjadhaw/betterlockscreen">https://github.com/pavanjadhaw/betterlockscreen</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/betterlockscreen/">betterlockscreen</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Cinnamon Screensaver</b> — Screen locker for the Cinnamon desktop.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/linuxmint/cinnamon-screensaver">https://github.com/linuxmint/cinnamon-screensaver</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cinnamon-screensaver">cinnamon-screensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>Deepin Screensaver</b> — A lightweight Qt5 based screensaver.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/linuxdeepin/deepin-screensaver">https://github.com/linuxdeepin/deepin-screensaver</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=deepin-screensaver">deepin-screensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>GNOME Screensaver</b> — Screen locker for the GNOME Flashback desktop.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Projects/GnomeScreensaver">https://wiki.gnome.org/Projects/GnomeScreensaver</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-screensaver">gnome-screensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>i3lock</b> — A simple screen locker. Provides user feedback and uses PAM authentication. The background can be set to an image or solid color.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://i3wm.org/i3lock/">https://i3wm.org/i3lock/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=i3lock">i3lock</a></span>
+</dd></dl>
+<ul><li>
+<b>i3lock-blur</b> — Fork of <i>i3lock</i> which can use your desktop with the blur effect applied as a background.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/karulont/i3lock-blur">https://github.com/karulont/i3lock-blur</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/i3lock-blur/">i3lock-blur</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>i3lock-color</b> — Fork of <i>i3lock</i> with color and positioning configuration support and can use your desktop with the blur effect applied as a background.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/Raymo111/i3lock-color">https://github.com/Raymo111/i3lock-color</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=i3lock-color">i3lock-color</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/i3lock-color-git/">i3lock-color-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Light-locker</b> — A simple locker (forked from <i>gnome-screensaver</i>) that aims to have simple, sane, secure defaults and be well integrated with the desktop while not carrying any desktop-specific dependencies. It relies on <a href="../../wiki/LightDM.html" title="LightDM">LightDM</a> for locking and unlocking your session via ConsoleKit/UPower or <i>logind/systemd</i>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/the-cavalry/light-locker">https://github.com/the-cavalry/light-locker</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=light-locker">light-locker</a></span>
+</dd></dl>
+<ul><li>
+<b>MATE Screensaver</b> — Screensaver and locker for MATE Desktop Environment.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/mate-desktop/mate-screensaver">https://github.com/mate-desktop/mate-screensaver</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mate-screensaver">mate-screensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>physlock</b> — Screen and console locker.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/muennich/physlock">https://github.com/muennich/physlock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=physlock">physlock</a></span>
+</dd></dl>
+<ul><li>
+<b>sflock</b> — Simple screen locker utility for X, based on slock. Provides a very basic user feedback.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/benruijl/sflock">https://github.com/benruijl/sflock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sflock-git/">sflock-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Slock.html" title="Slock">slock</a></b> — Very simple and lightweight X screen locker. Offers only a black background when locked, there are no animations or text fields.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://tools.suckless.org/slock/">https://tools.suckless.org/slock/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=slock">slock</a></span>
+</dd></dl>
+<ul><li>
+<b>sxlock</b> — Fork of sflock with a few enhancements. Provides basic user feedback, uses PAM authentication, supports DPMS and RandR. Supports <code>sxlock.service</code> to lock the screen on suspend/hibernation. See the  <a rel="nofollow"  href="https://github.com/lahwaacz/sxlock/blob/master/README.md">README</a> for more information.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/lahwaacz/sxlock">https://github.com/lahwaacz/sxlock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sxlock-git/">sxlock-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>tsscreenlock</b> — Screen locker used in theShell. Shows music controls, and if used with theShell, also shows desktop notifications.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/vicr123/tsscreenlock">https://github.com/vicr123/tsscreenlock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tsscreenlock/">tsscreenlock</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>vlock</b> — TTY locker. A mirror of the <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/aur-general/2013-July/024662.html">original vlock</a> is available at <a rel="nofollow"  href="https://github.com/WorMzy/vlock">github</a>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://kbd-project.org/">http://kbd-project.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kbd">kbd</a></span>
+</dd></dl>
+<ul><li>
+<b>xfce4-screensaver</b> — A screen saver and locker that aims to have simple, sane, secure defaults and be well integrated with the xfce desktop.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://git.xfce.org/apps/xfce4-screensaver/about/">https://git.xfce.org/apps/xfce4-screensaver/about/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfce4-screensaver">xfce4-screensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>xlockmore</b> — Simple X11 screen lock with PAM support.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://sillycycle.com/xlockmore.html">http://sillycycle.com/xlockmore.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xlockmore">xlockmore</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/XScreenSaver.html" title="XScreenSaver">XScreenSaver</a></b> — Screen saver and locker for the X Window System.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.jwz.org/xscreensaver/">https://www.jwz.org/xscreensaver/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xscreensaver">xscreensaver</a></span>
+</dd></dl>
+<ul><li>
+<b>XSecureLock</b> — X11 screen lock utility designed with the primary goal of security.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/google/xsecurelock">https://github.com/google/xsecurelock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xsecurelock">xsecurelock</a></span>
+</dd></dl>
+<ul><li>
+<b>xtrlock</b> — Very lightweight X display  locker. Keeps windows visible and displays lock icon instead of mouse cursor. Typing password followed by enter unlocks the screen.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://packages.debian.org/sid/xtrlock">https://packages.debian.org/sid/xtrlock</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xtrlock">xtrlock</a></span>
+</dd></dl>
+<h4><span class="mw-headline" id="Password_auditing">Password auditing</span></h4>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/John"  title="wikipedia:John">John</a></b> — John the Ripper password cracker.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.openwall.com/john">https://www.openwall.com/john</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=john">john</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Hashcat.html" title="Hashcat">Hashcat</a></b> — Multithreaded advanced password recovery utility.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://hashcat.net/hashcat">https://hashcat.net/hashcat</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hashcat">hashcat</a></span>
+</dd></dl>
+<h4><span class="mw-headline" id="Password_managers">Password managers</span></h4>
+<p>See also <a href="../../wiki/KeePass.html" title="KeePass">KeePass</a>.
+</p>
+<h5><span class="mw-headline" id="Console">Console</span></h5>
+<ul><li>
+<b>gopass</b> — Advanced console based password manager, supporting GnuPG and other backends.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/justwatchcom/gopass">https://github.com/justwatchcom/gopass</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gopass">gopass</a></span>
+</dd></dl>
+<ul><li>
+<b>KeePassC</b> — Curses-based password manager compatible to KeePass v.1.x.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://outerhaven.de/keepassc/">https://outerhaven.de/keepassc/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/keepassc/">keepassc</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>LastPass</b> — Hosted password manager.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.lastpass.com/">https://www.lastpass.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lastpass-cli">lastpass-cli</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Pass.html" title="Pass">pass</a></b> — Simple console-based password manager featuring flat text file organization and GnuPG encryption.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.passwordstore.org/">https://www.passwordstore.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pass">pass</a></span>
+</dd></dl>
+<ul><li>
+<b>pwsafe</b> — Unix command-line program that manages encrypted password databases.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://nsd.dyndns.org/pwsafe/">http://nsd.dyndns.org/pwsafe/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pwsafe/">pwsafe</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>spm</b> — Simple Password Manager written entirely in POSIX shell using PGP. Fast, lightweight and easily scriptable.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://notabug.org/kl3/spm/">https://notabug.org/kl3/spm/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/spm/">spm</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>tpm</b> — tiny password manager, inspired by pass, written entirely in POSIX shell.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/nmeum/tpm">https://github.com/nmeum/tpm</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tpm/">tpm</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Ylva</b> — Command-line password manager, written in C, uses OpenSSL.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.ylvapasswordmanager.com/">https://www.ylvapasswordmanager.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ylva/">ylva</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h5><span class="mw-headline" id="Graphical">Graphical</span></h5>
+<ul><li>
+<b>Bitwarden</b> — Open source password manager with desktop, mobile, browser, and CLI versions. Cloud or self-hosted.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://bitwarden.com/">https://bitwarden.com/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bitwarden-bin/">bitwarden-bin</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bitwarden-cli/">bitwarden-cli</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Encryptr</b> — Zero-knowledge, cloud-based password manager.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://spideroak.com/encryptr/">https://spideroak.com/encryptr/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/encryptr/">encryptr</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Enpass</b> — A multiplatform password manager</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.enpass.io/">https://www.enpass.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/enpass-bin/">enpass-bin</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Figaro's Password Manager 2</b> — GTK2 port of <a rel="nofollow"  href="http://fpm.sourceforge.net/">Figaro's Password Manager</a> with some new enhancements.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://als.regnet.cz/fpm2/">https://als.regnet.cz/fpm2/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fpm2/">fpm2</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>GNOME Password Safe</b> — Password manager for GNOME which makes use of the KeePass v.4 format.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://gitlab.gnome.org/World/PasswordSafe">https://gitlab.gnome.org/World/PasswordSafe</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-passwordsafe">gnome-passwordsafe</a></span>
+</dd></dl>
+<ul><li>
+<b>Ked Password Manager</b> — A password manager that helps to manage large numbers of passwords.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://kedpm.sourceforge.net">http://kedpm.sourceforge.net</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kedpm/">kedpm</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/KeePass.html" title="KeePass">KeePass Password Safe</a></b> — Mono-based password manager, which helps you to manage your passwords in a secure way.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://keepass.info/">https://keepass.info/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=keepass">keepass</a></span>
+</dd></dl>
+<ul><li>
+<b>KeePassX</b> — Qt-based password manager. Compatible with KeePass v.1.x and KeePass v.2.x.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.keepassx.org/">https://www.keepassx.org/</a> || version 1: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/keepassx/">keepassx</a></span><sup><small>AUR</small></sup>, version 2: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/keepassx2/">keepassx2</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>KeePassXC</b> — Community fork of KeePassX with more active development. Compatible with KeePass v.1.x (import only) and KeePass v.2.x.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://keepassxc.org/">https://keepassxc.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=keepassxc">keepassxc</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/KDE_Wallet.html" title="KDE Wallet">KDE Wallet Manager</a></b> — Tool to manage the passwords on your system. By using the KDE wallet subsystem it not only allows you to keep your own secrets but also to access and manage the passwords of every application that integrates with the wallet.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.kde.org/applications/system/kwalletmanager/">https://www.kde.org/applications/system/kwalletmanager/</a><sup>[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-02-25]</sup> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwalletmanager">kwalletmanager</a></span>
+</dd></dl>
+<ul><li>
+<b>OTPClient</b> — Highly secure and easy to use GTK software for two-factor authentication that supports both Time-based One-time Passwords (TOTP) and HMAC-Based One-Time Passwords (HOTP).</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/paolostivanin/OTPClient">https://github.com/paolostivanin/OTPClient</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/otpclient/">otpclient</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Passbook</b> — Modern password manager for GNOME.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Apps/Passbook">https://wiki.gnome.org/Apps/Passbook</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/passbook/">passbook</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Password Gorilla</b> — A cross-platform password manager.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/zdia/gorilla/wiki">https://github.com/zdia/gorilla/wiki</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/password-gorilla/">password-gorilla</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Password Safe</b> — Simple and secure password manager.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://pwsafe.org/">https://pwsafe.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/passwordsafe/">passwordsafe</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>QPass</b> — Easy to use password manager with built-in password generator.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://qpass.sourceforge.net/">http://qpass.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/qpass/">qpass</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>QtPass</b> — GUI for pass, the standard unix password manager.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://qtpass.org/">https://qtpass.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qtpass">qtpass</a></span>
+</dd></dl>
+<ul><li>
+<b>Revelation</b> — Password manager for the GNOME desktop.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://revelation.olasagasti.info/">https://revelation.olasagasti.info/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/revelation/">revelation</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Seahorse_(software)"  title="wikipedia:Seahorse (software)">Seahorse</a></b> — GNOME application for managing encryption keys and passwords in the GNOME Keyring.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Apps/Seahorse">https://wiki.gnome.org/Apps/Seahorse</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=seahorse">seahorse</a></span>
+</dd></dl>
+<ul><li>
+<b>Universal Password Manager</b> — Allows you to store usernames, passwords, URLs and generic notes in an encrypted database protected by one master password.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://upm.sourceforge.net/">http://upm.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/upm/">upm</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h4><span class="mw-headline" id="Cryptography">Cryptography</span></h4>
+<h5><span class="mw-headline" id="Hash_checkers">Hash checkers</span></h5>
+<ul><li>
+<b>cfv</b> — Tiny utility to both test and create checksum files, support <code>.sfv</code>, <code>.csv</code>, <code>.crc</code>, <code>.md5</code>, <code>md5sum</code>, <code>sha1sum</code>, <code>.torrent</code>, <code>par</code>, and <code>.par2</code> files.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://cfv.sourceforge.net/">http://cfv.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cfv/">cfv</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>GtkHash</b> — A GTK utility for computing message digests or checksums</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/tristanheaven/gtkhash">https://github.com/tristanheaven/gtkhash</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gtkhash/">gtkhash</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>hashdeep</b> — A cross-platform tools to compute hashes, or message digests, for any number of files</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://md5deep.sourceforge.net/">http://md5deep.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hashdeep">hashdeep</a></span>
+</dd></dl>
+<ul><li>
+<b>Parano</b> — A GNOME frontend for creating/editing/checking MD5 and SFV files</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/parano.berlios/">https://sourceforge.net/projects/parano.berlios/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/parano/">parano</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Quick Hash GUI</b> — A GUI to enable the rapid selection and subsequent hashing of files (individually or recursively throughout a folder structure) text and (on Linux) disks.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.quickhash-gui.org/">https://www.quickhash-gui.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/quickhash-gui-bin/">quickhash-gui-bin</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>RHash</b> — Utility for verifying hash sums (SFV, CRC, etc). Supports lots of algorithms.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/rhash/RHash/">https://github.com/rhash/RHash/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rhash">rhash</a></span>
+</dd></dl>
+<ul><li>
+<b>MassHash</b> — A set of file hashing tools (both CLI and GTK GUI) written in Python.  Supported algorithms include MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://jdleicher.github.io/MassHash/">http://jdleicher.github.io/MassHash/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/masshash/">masshash</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>Parchive</b> — Utility which creates and uses PAR2 files to detect damage in data files and repair them if necessary.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/Parchive/par2cmdline">https://github.com/Parchive/par2cmdline</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=par2cmdline">par2cmdline</a></span>
+</dd></dl>
+<h5>
+<span id="Encryption.2C_signing.2C_steganography"></span><span class="mw-headline" id="Encryption,_signing,_steganography">Encryption, signing, steganography</span>
+</h5>
+<ul><li>
+<b>ccrypt</b> — A command-line utility for encrypting and decrypting files and streams based on <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard"  title="wikipedia:Advanced Encryption Standard">Rijndael</a>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://ccrypt.sourceforge.net/">http://ccrypt.sourceforge.net/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ccrypt/">ccrypt</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Enigmail"  title="wikipedia:Enigmail">Enigmail</a></b> — A security extension to Mozilla Thunderbird and Seamonkey. It enables you to write and receive email messages signed and/or encrypted with the OpenPGP standard.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://enigmail.net">https://enigmail.net</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=thunderbird-extension-enigmail">thunderbird-extension-enigmail</a></span>
+</dd></dl>
+<ul><li>
+<b>GNOME Keysign</b> — GTK/GNOME application to use GnuPG for signing other people's keys. Quickly, easily, and securely.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Apps/Keysign">https://wiki.gnome.org/Apps/Keysign</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gnome-keysign/">gnome-keysign</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/GnuPG.html" title="GnuPG">GnuPG</a></b> — The GNU project's complete and free implementation of the OpenPGP standard as defined by RFC4880. Free and Open Source replacement of PGP, mostly used for digital signing of packages.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://gnupg.org/">https://gnupg.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnupg">gnupg</a></span>
+</dd></dl>
+<ul><li>
+<b>GPG-Crypter</b> — Graphical front-end to GnuPG(GPG) using the GTK3 toolkit and GPGME library.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://sourceforge.net/projects/gpg-crypter/">https://sourceforge.net/projects/gpg-crypter/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gpg-crypter">gpg-crypter</a></span>
+</dd></dl>
+<ul><li>
+<b>gzsteg</b> — Utility that can hide data in gzip compressed files</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://www.nic.funet.fi/pub/crypt/steganography/">http://www.nic.funet.fi/pub/crypt/steganography/</a> || <small>not packaged? <a rel="nofollow"  href="https://aur.archlinux.org/packages/">search in AUR</a></small>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Keybase.html" title="Keybase">Keybase</a></b> — Key directory mapping social media identities, with cross platform encrypted chat, cloud storage, and git repositories.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://keybase.io/">https://keybase.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=keybase">keybase</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/KGPG"  title="wikipedia:KGPG">KGpg</a></b> — Simple interface for GnuPG, for KDE.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.kde.org/applications/utilities/kgpg/">https://www.kde.org/applications/utilities/kgpg/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kgpg">kgpg</a></span>
+</dd></dl>
+<ul><li>
+<b>Kleopatra</b> — Certificate Manager and Unified Crypto GUI for KDE. It supports managing X.509 and OpenPGP certificates in the GpgSM keybox and retrieving certificates from LDAP servers.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.kde.org/applications/utilities/kleopatra/">https://www.kde.org/applications/utilities/kleopatra/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kleopatra">kleopatra</a></span>
+</dd></dl>
+<ul><li>
+<b>minisign</b> — Simple program that only inplements key signing</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/jedisct1/minisign">https://github.com/jedisct1/minisign</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=minisign">minisign</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="https://en.wikipedia.org/wiki/Seahorse_(software)"  title="wikipedia:Seahorse (software)">Seahorse</a></b> — GNOME application for managing encryption keys and passwords in the GNOME Keyring.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Apps/Seahorse">https://wiki.gnome.org/Apps/Seahorse</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=seahorse">seahorse</a></span>
+</dd></dl>
+<ul><li>
+<b>scrypt</b> — Command-line encryption utility featuring the memory-hardened <code>scrypt</code> key derivation function.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.tarsnap.com/scrypt.html">https://www.tarsnap.com/scrypt.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=scrypt">scrypt</a></span>
+</dd></dl>
+<ul><li>
+<b>steghide</b> — A steganography utility that is able to hide data in various kinds of image and audio files.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="http://steghide.sourceforge.net">http://steghide.sourceforge.net</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/steghide/">steghide</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h5><span class="mw-headline" id="Data-at-rest_encryption">Data-at-rest encryption</span></h5>
+<p>See <a href="../../wiki/Data-at-rest_encryption.html" title="Data-at-rest encryption">Data-at-rest encryption</a>.
+</p>
+<h4><span class="mw-headline" id="Privilege_elevation">Privilege elevation</span></h4>
+<ul><li>
+<b><a rel="nofollow"  href="https://man.openbsd.org/doas.1">doas</a></b> — A portable version of OpenBSD's doas command, known for being substantially smaller in size compared to sudo.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/Duncaen/OpenDoas">https://github.com/Duncaen/OpenDoas</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opendoas">opendoas</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Su.html" title="Su">su</a></b> — Command used to assume the identity of another user on the system.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/about/">https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/about/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=util-linux">util-linux</a></span>
+</dd></dl>
+<ul><li>
+<b><a href="../../wiki/Sudo.html" title="Sudo">sudo</a></b> — Command to delegate the ability to run commands as root or another user while providing an audit trail.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://www.sudo.ws/sudo/">https://www.sudo.ws/sudo/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sudo">sudo</a></span>
+</dd></dl>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../../wiki/Category:Applications.html" title="Category:Applications">Applications</a></li>
+<li><a href="../../wiki/Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="../../wiki/Category:Lists_of_software.html" title="Category:Lists of software">Lists of software</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../../wiki/Category:Pages_with_missing_package_links.html" title="Category:Pages with missing package links">Pages with missing package links</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=List_of_applications/Security&amp;oldid=616423">https://wiki.archlinux.org/index.php?title=List_of_applications/Security&amp;oldid=616423</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 26 May 2020, at 23:47.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

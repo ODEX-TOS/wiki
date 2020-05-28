@@ -1,0 +1,163 @@
+<!--
+    title: Lenovo_ThinkPad_X1
+    description: Migration of Lenovo_ThinkPad_X1 from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Lenovo ThinkPad X1</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Model_description"><span >1</span> <span >Model description</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Installation_method"><span >2</span> <span >Installation method</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Legacy-BIOS"><span >2.1</span> <span >Legacy-BIOS</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#UEFI"><span >2.2</span> <span >UEFI</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Hardware"><span >3</span> <span >Hardware</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Fingerprint_Reader"><span >3.1</span> <span >Fingerprint Reader</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Adjusting_Backlight_Brightness"><span >3.2</span> <span >Adjusting Backlight Brightness</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Bluetooth"><span >3.3</span> <span >Bluetooth</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Power_management"><span >4</span> <span >Power management</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Extra_Keys"><span >5</span> <span >Extra Keys</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#USB3_Issues"><span >6</span> <span >USB3 Issues</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Model_description">Model description</span></h2>
+<p>Lenovo ThinkPad X1, Sandy Bridge (Core i5, 2,5 GHz), NWG2MRT
+This model has SSD 80/HDD 320 pair.
+Comes without optical drive.
+Has UEFI BIOS with BIOS-legacy fallback mode.
+</p>
+<h2><span class="mw-headline" id="Installation_method">Installation method</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you'd like to create Windows recovery flash drive, do it before TOS installation with the help of autorun located at recovery partition, from your installed Windows system.</div>
+<p>Due to the fact that there is no optical drive, you need to <a href="../wiki/USB_flash_installation_media.html" class="mw-redirect" title="USB Installation Media">install TOS from USB stick</a>.
+</p>
+<h3><span class="mw-headline" id="Legacy-BIOS">Legacy-BIOS</span></h3>
+<p>This procedure is far less involved then UEFI and works perfectly.
+</p>
+<p>In order to turn off UEFI booting you will need to boot into your BIOS and change the boot mode to Legacy. Afterward, follow the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a> for standard installation instructions.
+</p>
+<h3><span class="mw-headline" id="UEFI">UEFI</span></h3>
+<p>Installation from UEFI bootable USB works with the default bootloader, so rEFInd is unnecessary. In the BIOS under Startup, set "UEFI/Legacy Boot" to UEFI only. 
+The default partition table (and Windows installation) uses MBR. For UEFI, reformat the disk as GPT.
+</p>
+<p>Booting using an <a href="../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> entry works well. The warnings about incompatibility and embedding arguments to do not apply.
+</p>
+<h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
+<p>Almost everything works out of the box. Install synaptics and video-intel drivers.
+</p>
+<h3><span class="mw-headline" id="Fingerprint_Reader">Fingerprint Reader</span></h3>
+<p><a href="../wiki/Fingerprint_GUI.html" class="mw-redirect" title="Fingerprint-gui">fingerprint-gui</a> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> is already patched to work with the X1's newer fingerprint reader.
+</p>
+<p>It has been seen that the relevant udev rules do not get set properly. To do this, open <code>/usr/lib/udev/rules.d/40-libbsapi.rules</code> with your favorite text editor to add (or create with) the following lines:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/lib/udev/rules.d/40-libbsapi.rules</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ATTRS{idVendor}==”147e”, ATTRS{idProduct}==”2020″,   SYMLINK+=”input/touchchip-%k”, MODE=”0664″, GROUP=”plugdev”
+ATTRS{idVendor}==”147e”, ATTRS{idProduct}==”2020″,   ATTR{power/control}==”*”, ATTR{power/control}=”auto”
+</pre>
+<p>Restart your computer for the udev change to take effect.
+</p>
+<h3><span class="mw-headline" id="Adjusting_Backlight_Brightness">Adjusting Backlight Brightness</span></h3>
+<p>Add <code>acpi_osi="!Windows 2012"</code> to your <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> (see <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=158775">https://bbs.archlinux.org/viewtopic.php?id=158775</a>).
+</p>
+<h3><span class="mw-headline" id="Bluetooth">Bluetooth</span></h3>
+<p>Laptop has a Broadcom BCM20702 bluetooth chip. There are no drivers for this chip in any package. When you try to enable bluetooth you get the message <code>bluetooth hci0: Direct firmware load for brcm/BCM20702A1-0a5c-21e6.hcd failed with error -2</code>
+The file /lib/firmware/brcm/BCM20702A1-0a5c-21e6.hcd can be generated with the help of this guide <a rel="nofollow"  href="http://www.slackwiki.com/Btfirmware-nonfree">http://www.slackwiki.com/Btfirmware-nonfree</a>
+Those who don't want to hassle around can download the file from <a rel="nofollow"  href="https://yadi.sk/d/SeZeFsvJtt9YE">here</a> 
+Don't forget to read the <a href="../wiki/Bluetooth.html" title="Bluetooth">Bluetooth</a> page to finalize bluetooth setup to make it work.
+</p>
+<h2><span class="mw-headline" id="Power_management">Power management</span></h2>
+<p>Just consult <a href="../wiki/Laptop.html" title="Laptop">Laptop</a> and <a href="../wiki/Power_management.html" title="Power management">Power management</a> pages.
+</p>
+<p>Tp_smapi does not seem to work at all.
+</p>
+<p>Suspend works fine, even with status indicator.
+</p>
+<h2><span class="mw-headline" id="Extra_Keys">Extra Keys</span></h2>
+<p>The sleep, wifi, brightness, and keyboard backlight keys all work out of the box. All of the others (volume, media, etc.) can be bound as described in <a href="../wiki/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a>.
+</p>
+<h2><span class="mw-headline" id="USB3_Issues">USB3 Issues</span></h2>
+<p>With some external devices the USB3 hubs fails to hotplug and can be unstable and only 
+reboots make external drives appear.
+The only solution I found is a firmware update of the NEC Corporation uPD720200 USB 3.0 Host Controller (rev 04) without official files from Lenovo!
+</p>
+<p>The Firmware and it's installer can be found on station-drivers.com:
+<a rel="nofollow"  href="http://www.station-drivers.com/index.php/downloads/Drivers/Renesas-Nec/USB-3.0/Renesas-Nec-uPD720200a-USB-3.0-Controller-Firmware-Version-4.0.2.1.0.3/">[1]</a><sup title="Last check status: too many redirects">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>The Website is mostly in FRENCH! Télécharger means Download!!</li>
+<li>The Installation can only be done from a 64bit Windows! so no 32bit BartPE Windows XP livecd will work and 64 Windows (tested with 64bit Win 7 Pro) has to be installed on the Laptop once to install the Firmware!</li>
+<li>Since this is not officially propagated from Lenovo proceed with caution!</li>
+</ul>
+</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Lenovo.html" title="Category:Lenovo">Lenovo</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Lenovo_ThinkPad_X1&amp;oldid=603147">https://wiki.archlinux.org/index.php?title=Lenovo_ThinkPad_X1&amp;oldid=603147</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 March 2020, at 22:08.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

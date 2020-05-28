@@ -1,0 +1,101 @@
+<!--
+    title: TPM2-PK11
+    description: Migration of TPM2-PK11 from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">TPM2-PK11</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> This is a (now slightly adapted) copy of the README on GitHub. What's this article about? What does it add over the README that shouldn't be maintained there? How do you install this on TOS? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:TPM2-PK11">Talk:TPM2-PK11#</a>)</div>
+</div>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tpm2-pk11-git/">tpm2-pk11-git</a></span><sup><small>AUR</small></sup> provides a <a rel="nofollow"  href="https://github.com/irtimmer/tpm2-pk11">PKCS#11</a> backend for a <a href="../wiki/Trusted_Platform_Module.html" class="mw-redirect" title="TPM">TPM</a> 2.0 chip.
+This can be used to secure your <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Only the OpenSSH client is supported as of November 2017.</div>
+<h2><span class="mw-headline" id="SSH_Usage">SSH Usage</span></h2>
+<p>Create keys:
+</p>
+<pre>$ mkdir ~/.tpm2 &amp;&amp; cd ~/.tpm2
+$ tpm2_createprimary -A e -g 0x000b -G 0x0001 -C po.ctx
+$ tpm2_create -c po.ctx -g 0x000b -G 0x0001 -o key.pub -O key.priv
+$ tpm2_load -c po.ctx -u key.pub -r key.priv -n key.name -C obj.ctx
+$ tpm2_evictcontrol -A o -c obj.ctx -S 0x81010010
+$ rm key.name *.ctx
+</pre>
+<p>Create configuration file and change it for your setup:
+</p>
+<pre>$ cp config.sample ~/.tpm2/config
+</pre>
+<p>Extract public key:
+</p>
+<pre>$ ssh-keygen -D libtpm2-pk11.so
+</pre>
+<p>Use your TPM key:
+</p>
+<pre>$ ssh -I libtpm2-pk11.so ssh.example.com
+</pre>
+<p>Or add the PKCS#11 module to your ssh configuration in <code>~/.ssh/config</code>:
+</p>
+<pre>Host *
+    PKCS11Provider libtpm2-pk11.so
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=TPM2-PK11&amp;oldid=614501">https://wiki.archlinux.org/index.php?title=TPM2-PK11&amp;oldid=614501</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 May 2020, at 09:29.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

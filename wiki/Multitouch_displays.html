@@ -1,0 +1,144 @@
+<!--
+    title: Multitouch_displays
+    description: Migration of Multitouch_displays from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Multitouch displays</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Since Linux Kernel 3.2, multitouch devices are handled by the <code>hid-multitouch</code> module, see <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>. 
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Configuration_(USB_devices)"><span >1</span> <span >Configuration (USB devices)</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Rotating_the_touch_screen"><span >2</span> <span >Rotating the touch screen</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Drivers"><span >3</span> <span >Drivers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4">
+<a href="#eGalax"><span >3.1</span> <span >eGalax</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Invert_Y-axis"><span >3.1.1</span> <span >Invert Y-axis</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Gestures"><span >4</span> <span >Gestures</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="Configuration_.28USB_devices.29"></span><span class="mw-headline" id="Configuration_(USB_devices)">Configuration (USB devices)</span>
+</h2>
+<p>Find the vendor ID (VID) and product ID (PID) for your touchscreen using <code>lsusb</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ lsusb</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
+Bus 004 Device 002: ID 0eef:725e D-WAV Scientific Co., Ltd 
+...
+</pre>
+<p>Here, VID=0eef (eGalax) and PID=725e. Now, get the MT_CLASS_* definitions from <a rel="nofollow"  href="http://lxr.free-electrons.com/source/drivers/hid/hid-multitouch.c">[1]</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup>. Currently vendor specific classes are available for 3M Cypress and eGalax. If none of this matches your device, you can try to experiment with the other MT_CLS_*. In this example
+</p>
+<pre>#define MT_CLS_EGALAX                           0x0103
+</pre>
+<p>You need to convert MT_CLS_* to decimal (In this case, 0x0103 is 259 in decimal).
+</p>
+<p>After loading the <code>hid-multitouch</code>, see <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>, you need to pass the devices' options with
+</p>
+<pre># echo BUS VID PID MT_CLASS_* &gt; /sys/module/hid_multitouch/drivers/hid\:hid-multitouch/new_id
+</pre>
+<p>In this example, the touchscreen is an USB device, so BUS=3 and the previous command looks like this:
+</p>
+<pre># echo 3 0eef 725e 259 &gt; /sys/module/hid_multitouch/drivers/hid\:hid-multitouch/new_id
+</pre>
+<p>Reboot. If the touchscreen is detected you should submit your devices' details (relevant <code>lsusb</code> line) to the <a rel="nofollow"  href="http://vger.kernel.org/vger-lists.html#linux-input">linux-input mailing list</a>.
+</p>
+<p>If the touchscreen is not working properly, you may need to install a specific driver for your touchscreen, see <a href="#Drivers">#Drivers</a>.
+</p>
+<h2><span class="mw-headline" id="Rotating_the_touch_screen">Rotating the touch screen</span></h2>
+<p>Store and mark <a rel="nofollow"  href="https://gist.githubusercontent.com/anonymous/b5728d68bb8808454cb6/raw/1882d23b273fc1b341a8b7afa1f2649fceff4574/gistfile1.sh">[2]</a> executable (call the script to see its input options).
+</p>
+<h2><span class="mw-headline" id="Drivers">Drivers</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <span style="color:red;">please use the first argument of the template to provide a brief explanation.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Multitouch_displays">Talk:Multitouch displays#</a>)</div>
+</div>
+<h3><span class="mw-headline" id="eGalax">eGalax</span></h3>
+<p>The driver for eGalax touchscreens is available from the <a rel="nofollow"  href="http://home.eeti.com.tw/drivers_Linux.html">eGalax website</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-31 ⓘ]</sup>. Also, it is availbale as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xf86-input-egalax/">xf86-input-egalax</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>.
+</p>
+<h4><span class="mw-headline" id="Invert_Y-axis">Invert Y-axis</span></h4>
+<p>If after installing the eGalax driver the Y-axis of the touchscreen is inverted, edit the file <code>/etc/eGTouchd.ini</code> an change the value of <code>Direction</code> from 0 to 2:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/eGtouchd.ini</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
+DetectRotation 0
+<b>Direction 2</b>
+Orientation 0
+...</pre>
+<h2><span class="mw-headline" id="Gestures">Gestures</span></h2>
+<p>If you want gestures in your window manager, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/touchegg/">touchegg</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> and read its <a rel="nofollow"  href="https://code.google.com/p/touchegg/wiki/Main">docs</a>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Displays.html" title="Category:Displays">Displays</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Multitouch_displays&amp;oldid=603386">https://wiki.archlinux.org/index.php?title=Multitouch_displays&amp;oldid=603386</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 31 March 2020, at 09:43.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

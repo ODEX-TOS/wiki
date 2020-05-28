@@ -1,0 +1,812 @@
+<!--
+    title: Tweaks
+    description: Migration of Tweaks from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Firefox/Tweaks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../wiki/Firefox.html" title="Firefox">Firefox</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../../wiki/Firefox.html" title="Firefox">Firefox</a></li>
+<li><a href="../../wiki/Browser_plugins.html" title="Browser plugins">Browser plugins</a></li>
+<li><a href="../../wiki/Firefox/Profile_on_RAM.html" title="Firefox/Profile on RAM">Firefox/Profile on RAM</a></li>
+<li><a href="../../wiki/Firefox/Privacy.html" title="Firefox/Privacy">Firefox/Privacy</a></li>
+</ul>
+</div>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../../wiki/Firefox.html#Tips_and_tricks" title="Firefox">Firefox#Tips and tricks</a>.</b><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Also overlaps with <a href="../../wiki/Firefox.html#Configuration" title="Firefox">Firefox#Configuration</a>; deciding if some particular topic should be here or on the main page is arbitrary. The "tweaks" are the backbone of the content related to Firefox, so they should be directly on the main page. The troubleshooting section can be split into a subpage if the result is deemed too long. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Talk:Firefox/Tweaks#</a>)</div>
+</div>
+<p>This page contains advanced Firefox configuration options and performance tweaks.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Performance"><span >1</span> <span >Performance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Change_Performance_settings"><span >1.1</span> <span >Change Performance settings</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Enable_OpenGL_Off-Main-Thread_Compositing_(OMTC)"><span >1.2</span> <span >Enable OpenGL Off-Main-Thread Compositing (OMTC)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Enable_WebRender"><span >1.3</span> <span >Enable WebRender</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Enable_Accelerated_Azure_Canvas"><span >1.4</span> <span >Enable Accelerated Azure Canvas</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Stop_urlclassifier3.sqlite_from_being_created_again"><span >1.5</span> <span >Stop urlclassifier3.sqlite from being created again</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Turn_off_the_disk_cache"><span >1.6</span> <span >Turn off the disk cache</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Move_disk_cache_to_RAM"><span >1.7</span> <span >Move disk cache to RAM</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Longer_interval_between_session_information_record"><span >1.8</span> <span >Longer interval between session information record</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Referrer_header_control"><span >1.9</span> <span >Referrer header control</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Defragment_the_profile's_SQLite_databases"><span >1.10</span> <span >Defragment the profile's SQLite databases</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Cache_the_entire_profile_into_RAM_via_tmpfs"><span >1.11</span> <span >Cache the entire profile into RAM via tmpfs</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Disable_Pocket"><span >1.12</span> <span >Disable Pocket</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Appearance"><span >2</span> <span >Appearance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15">
+<a href="#Fonts"><span >2.1</span> <span >Fonts</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Configure_the_DPI_value"><span >2.1.1</span> <span >Configure the DPI value</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Default_font_settings_from_Microsoft_Windows"><span >2.1.2</span> <span >Default font settings from Microsoft Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18">
+<a href="#General_user_interface_CSS_settings"><span >2.2</span> <span >General user interface CSS settings</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Change_the_interface_font"><span >2.2.1</span> <span >Change the interface font</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Hide_button_icons"><span >2.2.2</span> <span >Hide button icons</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Hiding_various_tab_buttons"><span >2.2.3</span> <span >Hiding various tab buttons</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Horizontal_tabs"><span >2.2.4</span> <span >Horizontal tabs</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Hide_title_bar_and_window_border"><span >2.2.5</span> <span >Hide title bar and window border</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Auto-hide_Bookmarks_Toolbar"><span >2.2.6</span> <span >Auto-hide Bookmarks Toolbar</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Remove_sidebar_width_restrictions"><span >2.2.7</span> <span >Remove sidebar width restrictions</span></a></li>
+<li class="toclevel-3 tocsection-26">
+<a href="#Unreadable_input_fields_with_dark_GTK_themes"><span >2.2.8</span> <span >Unreadable input fields with dark GTK themes</span></a>
+<ul>
+<li class="toclevel-4 tocsection-27"><a href="#Override_input_field_color_with_CSS"><span >2.2.8.1</span> <span >Override input field color with CSS</span></a></li>
+<li class="toclevel-4 tocsection-28"><a href="#Change_the_GTK_theme"><span >2.2.8.2</span> <span >Change the GTK theme</span></a></li>
+<li class="toclevel-4 tocsection-29"><a href="#Change_the_GTK_theme_for_content_process_only"><span >2.2.8.3</span> <span >Change the GTK theme for content process only</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-30">
+<a href="#Web_content_CSS_settings"><span >2.3</span> <span >Web content CSS settings</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="#Import_other_CSS_files"><span >2.3.1</span> <span >Import other CSS files</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#Block_certain_parts_of_a_domain"><span >2.3.2</span> <span >Block certain parts of a domain</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#Add_%5Bpdf%5D_after_links_to_PDF_files"><span >2.3.3</span> <span >Add [pdf] after links to PDF files</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#Block_ads"><span >2.3.4</span> <span >Block ads</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35">
+<a href="#Mouse_and_keyboard"><span >3</span> <span >Mouse and keyboard</span></a>
+<ul>
+<li class="toclevel-2 tocsection-36"><a href="#Mouse_wheel_scroll_speed"><span >3.1</span> <span >Mouse wheel scroll speed</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#Pixel-perfect_trackpad_scrolling"><span >3.2</span> <span >Pixel-perfect trackpad scrolling</span></a></li>
+<li class="toclevel-2 tocsection-38"><a href="#Enable_touchscreen_gestures"><span >3.3</span> <span >Enable touchscreen gestures</span></a></li>
+<li class="toclevel-2 tocsection-39"><a href="#Mouse_click_on_URL_bar's_behavior"><span >3.4</span> <span >Mouse click on URL bar's behavior</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#Set_backspace's_behavior"><span >3.5</span> <span >Set backspace's behavior</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#Disable_middle_mouse_button_clipboard_paste"><span >3.6</span> <span >Disable middle mouse button clipboard paste</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#Emacs_key_bindings"><span >3.7</span> <span >Emacs key bindings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-43">
+<a href="#Miscellaneous"><span >4</span> <span >Miscellaneous</span></a>
+<ul>
+<li class="toclevel-2 tocsection-44">
+<a href="#Enable_additional_media_codecs"><span >4.1</span> <span >Enable additional media codecs</span></a>
+<ul>
+<li class="toclevel-3 tocsection-45"><a href="#Widevine_and_Netflix/Amazon_Video"><span >4.1.1</span> <span >Widevine and Netflix/Amazon Video</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#Force-enable_hardware_video_decoding"><span >4.1.2</span> <span >Force-enable hardware video decoding</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-47"><a href="#Remove_full_screen_warning"><span >4.2</span> <span >Remove full screen warning</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="#Change_the_order_of_search_engines_in_the_Firefox_Search_Bar"><span >4.3</span> <span >Change the order of search engines in the Firefox Search Bar</span></a></li>
+<li class="toclevel-2 tocsection-49"><a href="#%22I'm_Feeling_Lucky%22_mode"><span >4.4</span> <span >"I'm Feeling Lucky" mode</span></a></li>
+<li class="toclevel-2 tocsection-50"><a href="#Secure_DNS_with_DNSSEC_validator"><span >4.5</span> <span >Secure DNS with DNSSEC validator</span></a></li>
+<li class="toclevel-2 tocsection-51"><a href="#Adding_magnet_protocol_association"><span >4.6</span> <span >Adding magnet protocol association</span></a></li>
+<li class="toclevel-2 tocsection-52"><a href="#Prevent_accidental_closing"><span >4.7</span> <span >Prevent accidental closing</span></a></li>
+<li class="toclevel-2 tocsection-53"><a href="#Plugins_do_not_work_with_latest_version"><span >4.8</span> <span >Plugins do not work with latest version</span></a></li>
+<li class="toclevel-2 tocsection-54"><a href="#Jerky_or_choppy_scrolling"><span >4.9</span> <span >Jerky or choppy scrolling</span></a></li>
+<li class="toclevel-2 tocsection-55"><a href="#Run_Firefox_inside_an_nspawn_container"><span >4.10</span> <span >Run Firefox inside an nspawn container</span></a></li>
+<li class="toclevel-2 tocsection-56"><a href="#Disable_WebRTC_audio_post_processing"><span >4.11</span> <span >Disable WebRTC audio post processing</span></a></li>
+<li class="toclevel-2 tocsection-57"><a href="#Fido_U2F_authentication"><span >4.12</span> <span >Fido U2F authentication</span></a></li>
+<li class="toclevel-2 tocsection-58"><a href="#Get_ALSA_working_back"><span >4.13</span> <span >Get ALSA working back</span></a></li>
+<li class="toclevel-2 tocsection-59"><a href="#Force-enable_WebGL"><span >4.14</span> <span >Force-enable WebGL</span></a></li>
+<li class="toclevel-2 tocsection-60"><a href="#Enable_Recommended_by_Pocket"><span >4.15</span> <span >Enable Recommended by Pocket</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-61"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Performance">Performance</span></h2>
+<p>Improving Firefox's performance is divided into parameters that can be inputted while running Firefox or otherwise modifying its configuration as intended by the developers, and advanced procedures that involve foreign programs or scripts.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Listed options may only be available for the latest version of Firefox.</div>
+<p>This section contains advanced Firefox options for performance tweaking. For additional information see <a rel="nofollow"  href="http://kb.mozillazine.org/Category:Tweaking_preferences">these MozillaZine articles</a>.
+</p>
+<h3><span class="mw-headline" id="Change_Performance_settings">Change Performance settings</span></h3>
+<p>Firefox automatically uses settings based on the computer's hardware specifications <a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/performance-settings">[1]</a>.
+</p>
+<p>Adjusting these settings can be done in Preferences or by changing the <code>dom.ipc.processCount</code> value to <code>1-8</code> and <code>browser.preferences.defaultPerformanceSettings.enabled</code> to <code>false</code> manually in <code>about:config</code>.
+</p>
+<p>However you may want to manually adjust this setting to increase performance even further or decrease memory usage on low-end devices.
+</p>
+<p>In this case the <b>Content process limit</b> for the current <a href="../../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> has been increased to <i>4</i>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ ps -e | grep 'Web Content'</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">13991 tty1     00:00:04 Web Content
+14027 tty1     00:00:09 Web Content
+14031 tty1     00:00:20 Web Content
+14040 tty1     00:00:26 Web Content
+</pre>
+<h3>
+<span id="Enable_OpenGL_Off-Main-Thread_Compositing_.28OMTC.29"></span><span class="mw-headline" id="Enable_OpenGL_Off-Main-Thread_Compositing_(OMTC)">Enable OpenGL Off-Main-Thread Compositing (OMTC)</span>
+</h3>
+<p>Basic software OMTC is enabled by default.
+</p>
+<p>To check if OpenGL OMTC is enabled, go to <code>about:support</code> and under the "Graphics" section look for "Compositing". If it reports "Basic", OpenGL OMTC is disabled; if it reports "OpenGL" it is enabled.
+</p>
+<p>If OpenGL OMTC is disabled, you can force-enable it by going to <code>about:config</code> and enabling <code>layers.acceleration.force-enabled</code>. Restart Firefox for changes to take effect.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If OpenGL OMTC is disabled for a specific hardware, it may be due to stability issues, high system resources consumption, driver bugs or a number of different variables, and so instead of speeding things up it might slow them down. Proceed with force-enabling it at your own risk, benchmark if you aren’t sure.</div>
+<p>For more information on OMTC in Firefox read <a href="https://wiki.mozilla.org/Platform/GFX/OffMainThreadCompositing"  title="mozillawiki:Platform/GFX/OffMainThreadCompositing">MozillaWiki:Platform/GFX/OffMainThreadCompositing</a>.
+</p>
+<h3><span class="mw-headline" id="Enable_WebRender">Enable WebRender</span></h3>
+<p>Enables WebRender compositor in Servo, instead of Gecko. It improves performance on supported hardware, fixes some black visual glitches when "OpenGL Off-Main-Thread" is enabled. Currently it has some known bugs. You can read more in <a href="https://wiki.mozilla.org/Platform/GFX/Quantum_Render"  title="mozillawiki:Platform/GFX/Quantum Render">MozillaWiki:Platform/GFX/Quantum Render</a>.
+</p>
+<p>Mozilla is slowly deploying WebRender to "qualified" Linux configurations. The qualification mostly depends on the GPU, the driver's version and the screen resolution. 
+</p>
+<p>One can force-enable it using one of the two methods below:
+</p>
+<ol>
+<li>by setting the <code>MOZ_WEBRENDER</code> <a href="../../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to <code>1</code> before launching Firefox.</li>
+<li>by going to <code>about:config</code> and setting <code>gfx.webrender.all</code> to <code>true</code>. Restart Firefox for changes to take effect.</li>
+</ol>
+<p>To check if WebRender is enabled go to <code>about:support</code> and under the "Graphics" section, in the "Decision Log" sub-section, look for "WEBRENDER". If it reports "available by user: Force enabled by pref", it means is enabled. Otherwise it will just report "opt-in by default: WebRender is an opt-in feature".
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If WebRender is disabled for a specific hardware, it may be due to stability issues, high system resources consumption, driver bugs or a number of different variables, and so instead of speeding things up it might slow them down. Proceed with force-enabling it at your own risk, benchmark if you are not sure.</div>
+<h3><span class="mw-headline" id="Enable_Accelerated_Azure_Canvas">Enable Accelerated Azure Canvas</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Accelerated Azure Canvas may cause invalid/corrupt rendering of images on unsupported devices and/or drivers, see <a href="#Enable_OpenGL_Off-Main-Thread_Compositing_(OMTC)">#Enable OpenGL Off-Main-Thread Compositing (OMTC)</a>.</div>
+<p>Go to <code>about:config</code>, accept the warning, right click and create a new boolean value. Set the name as <code>gfx.canvas.azure.accelerated</code> and set it to <code>true</code>.
+</p>
+<p>To verify restart Firefox then go to <code>about:support</code> and search for <code>AzureCanvasAccelerated</code> which should be set to <i>1</i>.
+</p>
+<p>The acceleration efficiency can be tested by comparing the speed of a <a rel="nofollow"  href="http://js1k.com/2016-elemental/demo/2445">javascript demo</a> with and without the setting.
+</p>
+<h3><span class="mw-headline" id="Stop_urlclassifier3.sqlite_from_being_created_again">Stop urlclassifier3.sqlite from being created again</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> This advice seems not need anymore. (<code>urlclassifier*</code> files don't exist as of Firefox 64+.) (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Talk:Firefox/Tweaks#</a>)</div>
+</div>
+<p>Removing all <code>urlclassifier*</code> files can prevent the use of megabytes of storage in your firefox profile. If you remove all the <code>urlclassifier*</code> files, you may find out that <code>urlclassifier3.sqlite</code> keeps growing again after a certain time. Here is a simple solution to avoid it for now and ever.
+</p>
+<pre>$ cd ~/.mozilla/firefox/&lt;profile_dir&gt;
+$ echo "" &gt; urlclassifier3.sqlite
+$ chmod 400 urlclassifier3.sqlite
+</pre>
+<p>This effectively makes the file empty and then read-only so Firefox cannot write to it anymore.
+</p>
+<h3><span class="mw-headline" id="Turn_off_the_disk_cache">Turn off the disk cache</span></h3>
+<p>Every object loaded (html page, jpeg image, css stylesheet, gif banner) is saved in the Firefox cache for future use without the need to download it again. It is estimated that only a fraction of these objects will be reused, usually about 30%. This is because of very short object expiration time, updates or simply user behavior (loading new pages instead of returning to the ones already visited). The Firefox cache is divided into memory and disk cache and the latter results in frequent disk writes: newly loaded objects are written to memory and older objects are removed.
+</p>
+<p>An alternative approach is to use <code>about:config</code> settings:
+</p>
+<ul>
+<li>Set <code>browser.cache.disk.enable</code> to <code>false</code>
+</li>
+<li>Verify that <code>browser.cache.memory.enable</code> is set to <code>true</code>, more information about this option can be found in the <a rel="nofollow"  href="http://kb.mozillazine.org/Browser.cache.memory.enable">browser.cache.memory Mozilla article</a>
+</li>
+<li>Add the entry (<i>right click &gt; new &gt; integer</i>) <code>browser.cache.memory.capacity</code> and set it to the amount of KB you want to spare, or to <code>-1</code> for <a rel="nofollow"  href="http://kb.mozillazine.org/Browser.cache.memory.capacity#-1">automatic</a> cache size selection (skipping this step has the same effect as setting the value to <code>-1</code>)
+<ul><li>The "automatic" size selection is based on a decade-old table that only contains settings for systems at or below 8GB of system memory.  The following formula very closely approximates this table, and can be used to set the Firefox cache more dynamically:  <code>41297 - (41606 / (1 + ((RAM / 1.16) ^ 0.75)))</code>, where <code>RAM</code> is in GB and the result is in KB.</li></ul>
+</li>
+</ul>
+<p>This method has some drawbacks:
+</p>
+<ul>
+<li>The content of currently browsed webpages is lost if the browser crashes or after a reboot, this can be avoided using <a href="../../wiki/Anything-sync-daemon.html" title="Anything-sync-daemon">anything-sync-daemon</a> or any similar periodically-syncing script so that cache gets copied over to the drive on a regular basis</li>
+<li>The settings need to be configured for each user individually</li>
+</ul>
+<h3><span class="mw-headline" id="Move_disk_cache_to_RAM">Move disk cache to RAM</span></h3>
+<p>An alternative is to move the "disk" cache to a RAM disk, giving you a solution in between the two above. The cache will now be preserved between Firefox runs (including Firefox crash recovery), but will be discarded upon reboot (including OS crash).
+</p>
+<p>To do this, go to <code>about:config</code> and set <code>browser.cache.disk.parent_directory</code> to <code>/run/user/<i>UID</i>/firefox</code>, where <code><i>UID</i></code> is your user's ID which can be obtained by running <code>id -u</code>.
+</p>
+<p>Open <code>about:cache</code> to verify the new disk cache location.
+</p>
+<h3><span class="mw-headline" id="Longer_interval_between_session_information_record">Longer interval between session information record</span></h3>
+<p>Firefox stores the current session status (opened urls, cookies, history and form data) to the disk on a regular basis. It is used to recover a previous session in case of crash.
+The default setting is to save the session every 15 seconds, resulting in frequent disk access. 
+</p>
+<p>To increase the save interval to 10 minutes (600000 milliseconds) for example, change in <code>about:config</code> the setting of <code>browser.sessionstore.interval</code> to <code>600000</code>
+</p>
+<p>To disable completely this feature, change <code>browser.sessionstore.resume_from_crash</code> to <code>false</code>
+</p>
+<h3><span class="mw-headline" id="Referrer_header_control">Referrer header control</span></h3>
+<p>The HTTP <code>Referer</code> header can be extensively configured via <code>about:config</code>. See <a href="https://wiki.mozilla.org/Security/Referrer"  title="mozillawiki:Security/Referrer">MozillaWiki:Security/Referrer</a> for the available preferences.
+</p>
+<h3>
+<span id="Defragment_the_profile.27s_SQLite_databases"></span><span class="mw-headline" id="Defragment_the_profile's_SQLite_databases">Defragment the profile's SQLite databases</span>
+</h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This procedure may damage the databases in such a way that sessions are not saved properly.</div>
+<p>Firefox keeps bookmarks, history, passwords in SQLite databases. SQLite databases become fragmented over time and empty spaces appear all around. But, since there are no managing processes checking and optimizing the database, these factors eventually result in a performance hit. A good way to improve start-up and some other bookmarks and history related tasks is to defragment and trim unused space from these databases.
+</p>
+<p>You can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=profile-cleaner">profile-cleaner</a></span> to do this, while Firefox is <b>not</b> running:
+</p>
+<table >
+<caption>profile-cleaner usage example:
+</caption>
+<tbody>
+<tr>
+<th>SQLite database</th>
+<th>Size Before</th>
+<th>Size After</th>
+<th>% change
+</th>
+</tr>
+<tr>
+<td>urlclassifier3.sqlite</td>
+<td>37 M</td>
+<td>30 M</td>
+<td>19 %
+</td>
+</tr>
+<tr>
+<td>places.sqlite</td>
+<td>16 M</td>
+<td>2.4 M</td>
+<td>85 %
+</td>
+</tr>
+</tbody>
+</table>
+<p>Firefox provides a tool to defragment and optimize the places database, which is the source of most slowdowns and profile corruptions. To access this tool, open the <code>about:support</code> page, search for <code>Places Database</code> and click the <code>Verify Integrity</code> button.
+</p>
+<h3><span class="mw-headline" id="Cache_the_entire_profile_into_RAM_via_tmpfs">Cache the entire profile into RAM via tmpfs</span></h3>
+<p>If the system has memory to spare, <code>tmpfs</code> can be used to <a href="../../wiki/Firefox/Profile_on_RAM.html" title="Firefox/Profile on RAM">cache the entire profile directory</a>, which might result in increased Firefox responsiveness.
+</p>
+<h3><span class="mw-headline" id="Disable_Pocket">Disable Pocket</span></h3>
+<p>If you do not use the Pocket-service, you may want to disable it by setting <code>extensions.pocket.enabled</code> to <i>false</i> in <code>about:config</code>.
+</p>
+<h2><span class="mw-headline" id="Appearance">Appearance</span></h2>
+<h3><span class="mw-headline" id="Fonts">Fonts</span></h3>
+<p>See the main article: <a href="../../wiki/Font_configuration.html" title="Font configuration">Font configuration</a>
+</p>
+<h4><span class="mw-headline" id="Configure_the_DPI_value">Configure the DPI value</span></h4>
+<p>Modifying the following value can help improve the way fonts looks in Firefox if the system's DPI is below 96.  Firefox, by default, uses 96 and only uses the system's DPI if it is a higher value. To force the system's DPI regardless of its value, type <code>about:config</code> into the address bar and set <code>layout.css.dpi</code> to <b>0</b>.
+</p>
+<p>Note that the above method only affects the Firefox user interface's DPI settings. Web page contents still use a DPI value of 96, which may look ugly or, in the case of high-resolution displays, may be rendered too small to read. A solution is to change <code>layout.css.devPixelsPerPx</code> to system's DPI divided by 96. For example, if your system's DPI is 144, then the value to add is 144/96 = 1.5. Changing <code>layout.css.devPixelsPerPx</code> to <b>1.5</b> makes web page contents use a DPI of 144, which looks much better.
+</p>
+<p>See also <a href="../../wiki/HiDPI.html#Firefox" title="HiDPI">HiDPI#Firefox</a> for information about HiDPI displays and  <a rel="nofollow"  href="https://www.sven.de/dpi/">[2]</a> for calculating the DPI.
+</p>
+<h4><span class="mw-headline" id="Default_font_settings_from_Microsoft_Windows">Default font settings from Microsoft Windows</span></h4>
+<p>Below are the default font preferences when Firefox is installed in Microsoft Windows. Many web sites use the Microsoft fonts.
+</p>
+<pre>Proportional: Serif Size (pixels): 16
+Serif: Times New Roman
+Sans-serif: Arial
+Monospace: Courier New Size (pixels): 13
+</pre>
+<h3><span class="mw-headline" id="General_user_interface_CSS_settings">General user interface CSS settings</span></h3>
+<p>Firefox's user interface can be modified by editing the <code>userChrome.css</code> and <code>userContent.css</code> files in <code>~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/</code> (<i>profile_dir</i> is of the form <i>hash.name</i>, where the <i>hash</i> is an 8 character, seemingly random string and the profile <i>name</i> is usually <i>default</i>).
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>The <code>chrome/</code> folder and <code>userChrome.css</code>/<code>userContent.css</code> files may not necessarily exist, so they may need to be created.</li>
+<li>
+<code>toolkit.legacyUserProfileCustomizations.stylesheets</code> must be enabled in <code>about:config</code>.</li>
+</ul>
+</div>
+<p>This section only deals with the <code>userChrome.css</code> file which modifies Firefox's user interface, and not web pages.
+</p>
+<h4><span class="mw-headline" id="Change_the_interface_font">Change the interface font</span></h4>
+<p>The setting effectively overrides the global GTK font preferences, and does not affect webpages, only the user interface itself:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">* {
+    font-family: "FONT_NAME";
+}
+</pre>
+<h4><span class="mw-headline" id="Hide_button_icons">Hide button icons</span></h4>
+<p>Enables text-only buttons:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">.button-box .button-icon {
+    display: none;
+}
+</pre>
+<h4><span class="mw-headline" id="Hiding_various_tab_buttons">Hiding various tab buttons</span></h4>
+<p>These settings hide the arrows that appear to the horizontal edges of the tab bar, the button that toggles the "all tabs" drop-down list, and the plus sign button that creates a new tab.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/* Tab bar */
+
+.tabbrowser-strip *[class^="scrollbutton"] {
+    /* Hide tab scroll buttons */
+    display: none;
+}
+
+.tabbrowser-strip *[class^="tabs-alltabs"] {
+    /* Hide tab drop-down list */
+    display: none;
+}
+
+.tabbrowser-strip *[class^="tabs-newtab-button"] {
+    /* Hide new-tab button */
+    display: none;
+}
+</pre>
+<h4><span class="mw-headline" id="Horizontal_tabs">Horizontal tabs</span></h4>
+<p>To place the tab bar horizontally stacked along the sides of the browser window:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/* Display the tabbar on the left */
+#content &gt; tabbox {
+    -moz-box-orient: horizontal;
+}
+
+.tabbrowser-strip {
+    -moz-box-orient: vertical;
+    /*
+     * You can set this to -moz-scrollbars-vertical instead,
+     * but then the scrollbar will *always* be visible.  this way
+     * there is never a scrollbar, so it behaves like the tab bar
+     * normally does
+     */
+     overflow: -moz-scrollbars-none;
+}
+
+.tabbrowser-tabs {
+    -moz-box-orient: horizontal;
+    min-width: 20ex;   /* You may want to increase this value */
+    -mox-box-pack: start;
+    -moz-box-align: start;
+}
+
+.tabbrowser-tabs &gt; hbox {
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    -moz-box-pack: start;
+}
+
+.tabbrowser-tabs &gt; hbox &gt; tab {
+    -moz-box-align: start;
+    -moz-box-orient: horizontal;
+}
+</pre>
+<h4><span class="mw-headline" id="Hide_title_bar_and_window_border">Hide title bar and window border</span></h4>
+<p>To replace the title bar with the tab bar, enable <code>browser.tabs.drawInTitlebar</code> in <code>about:config</code>.
+</p>
+<p>Or go to "Menu", then "Customize" and then at the bottom-left corner find checkbox named "Title Bar". Uncheck it. If the checkbox is missing, make sure the <code>XDG_CURRENT_DESKTOP</code> environment variable is correctly set and/or the <code>MOZ_GTK_TITLEBAR_DECORATION</code> environment variable is set to "client".
+</p>
+<h4><span class="mw-headline" id="Auto-hide_Bookmarks_Toolbar">Auto-hide Bookmarks Toolbar</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#PersonalToolbar {
+    visibility: collapse !important;
+}
+
+#navigator-toolbox:hover &gt; #PersonalToolbar {
+    visibility: visible !important;
+}
+</pre>
+<h4><span class="mw-headline" id="Remove_sidebar_width_restrictions">Remove sidebar width restrictions</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userChrome.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/* remove maximum/minimum  width restriction of sidebar */
+#sidebar {
+    max-width: none !important;
+    min-width: 0px !important;
+}
+</pre>
+<h4><span class="mw-headline" id="Unreadable_input_fields_with_dark_GTK_themes">Unreadable input fields with dark GTK themes</span></h4>
+<p>When using a dark <a href="../../wiki/GTK.html" title="GTK">GTK</a> theme, one might encounter Internet pages with unreadable input and text fields (e.g. text input field with white text on white background, or black text on dark background). This can happen because the site only sets either background or text color, and Firefox takes the other one from the theme. To prevent Firefox from using theme's colors in web pages confirm <code>browser.display.use_system_colors</code> is set to <code>false</code> in <code>about:config</code>.
+</p>
+<p>Otherwise, if the previous modification didn't solve the issue, it is possible to launch Firefox with a light GTK theme by adding a new string in <code>about:config</code> named <code>widget.content.gtk-theme-override</code> and setting it to a light theme like <code>Breeze:light</code> or <code>Adwaita:light</code>.
+</p>
+<h5><span class="mw-headline" id="Override_input_field_color_with_CSS">Override input field color with CSS</span></h5>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Related bug has been resolved starting with 68. <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1527048#c44">[3]</a>
+</div>
+<p>The extension <a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/text-contrast-for-dark-themes/">Text Contrast for Dark Themes</a> sets the other color as needed to maintain contrast.
+</p>
+<p>Alternatively set the standard colors explicitly for all web pages in <code>userContent.css</code> or using the <a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/styl-us/">stylus add-on</a>.
+The style sheet is usually located in your profile folder (visit <code>about:profiles</code> for the path) in <code>chrome/userContent.css</code>, if not you can create it there.
+</p>
+<p>The following sets input fields to standard black text / white background; both can be overridden by the displayed site, so that colors are seen as intended:
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you want <code>urlbar</code> and <code>searchbar</code> to be <code>white</code> remove the two first <code>:not</code> css selectors.</div>
+<pre>input:not(.urlbar-input):not(.textbox-input):not(.form-control):not([type='checkbox']):not([type='radio']), textarea, select {
+    -moz-appearance: none !important;
+    background-color: white;
+    color: black;
+}
+
+#downloads-indicator-counter {
+    color: white;
+}</pre>
+<h5><span class="mw-headline" id="Change_the_GTK_theme">Change the GTK theme</span></h5>
+<p>To force Firefox to use a light theme (e.g. Adwaita) for both web content and UI, see <a href="../../wiki/GTK.html#Themes" title="GTK">GTK#Themes</a>.
+</p>
+<h5><span class="mw-headline" id="Change_the_GTK_theme_for_content_process_only">Change the GTK theme for content process only</span></h5>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Works with multiprocess enabled. <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1158076#c145">[4]</a>
+</div>
+<p>To force Firefox to use a light theme (e.g. Adwaita) for web content only:
+</p>
+<ol>
+<li>Open <code>about:config</code> in the address bar.</li>
+<li>Create a new <code>widget.content.gtk-theme-override</code> string type entry (<code>right mouse button</code> <i>&gt; New &gt; String</i>).</li>
+<li>Set the value to the light theme to use for rendering purposes (e.g. <code>Adwaita:light</code>).</li>
+<li>Restart Firefox.</li>
+</ol>
+<h3><span class="mw-headline" id="Web_content_CSS_settings">Web content CSS settings</span></h3>
+<p>This section deals with the <code>userContent.css</code> file in which you can add custom CSS rules for web content. Changes to this file will take effect once the browser is restarted.
+</p>
+<p>This file can be used for making small fixes or to apply personal styles to frequently visited websites. Custom stylesheets for popular websites are available from sources such as <a rel="nofollow"  href="http://userstyles.org/">userstyles.org</a>. You can install an add-on such as <a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/superusercontent/">superUserContent</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup> to manage themes. This add-on creates the directory <code>chrome/userContent.css.d</code> and applies changes to the CSS files therein when the page is refreshed.
+</p>
+<h4><span class="mw-headline" id="Import_other_CSS_files">Import other CSS files</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userContent.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">@import url("./imports/some_file.css");
+</pre>
+<h4><span class="mw-headline" id="Block_certain_parts_of_a_domain">Block certain parts of a domain</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userContent.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">@-moz-document domain(example.com) {
+    div#header {
+        background-image: none !important;
+    } 
+}
+</pre>
+<h4>
+<span id="Add_.5Bpdf.5D_after_links_to_PDF_files"></span><span class="mw-headline" id="Add_[pdf]_after_links_to_PDF_files">Add [pdf] after links to PDF files</span>
+</h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.mozilla/firefox/&lt;profile_dir&gt;/chrome/userContent.css</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/* add '[pdf]' next to links to PDF files */
+a[href$=".pdf"]:after {
+    font-size: smaller;
+    content: " [pdf]";
+}
+</pre>
+<h4><span class="mw-headline" id="Block_ads">Block ads</span></h4>
+<p>See <a rel="nofollow"  href="http://www.floppymoose.com">floppymoose.com</a> for an example of how to use <code>userContent.css</code> as a basic ad-blocker.
+</p>
+<h2><span class="mw-headline" id="Mouse_and_keyboard">Mouse and keyboard</span></h2>
+<h3><span class="mw-headline" id="Mouse_wheel_scroll_speed">Mouse wheel scroll speed</span></h3>
+<p>To modify the default values (i.e. speed-up) of the mouse wheel scroll speed, go to <code>about:config</code> and search for <code>mousewheel.acceleration</code>. This will show the available options, modifying the following:
+</p>
+<ul>
+<li>Set <code>mousewheel.acceleration.start</code> to <code>-1</code>.</li>
+<li>Set <code>mousewheel.acceleration.factor</code> to the desired number (<code>10</code> to <code>20</code> are common values).</li>
+</ul>
+<p>Mozilla's recommendation for increasing the mousewheel scroll speed is to:
+</p>
+<ul><li>Set <code>mousewheel.default.delta_multiplier_y</code> between <code>200</code> and <code>500</code> (default: <code>100</code>)</li></ul>
+<h3><span class="mw-headline" id="Pixel-perfect_trackpad_scrolling">Pixel-perfect trackpad scrolling</span></h3>
+<p>To enable one-to-one trackpad scrolling (as can be witnessed with GTK3 applications like Nautilus), set the <code>MOZ_USE_XINPUT2=1</code> <a href="../../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> before starting Firefox.
+</p>
+<p>If scrolling is undesirably jerky, try enabling Firefox's "Use smooth scrolling" option in Preferences &gt; General &gt; Browsing.
+</p>
+<h3><span class="mw-headline" id="Enable_touchscreen_gestures">Enable touchscreen gestures</span></h3>
+<p>Make sure <code>dom.w3c_touch_events.enabled</code> is either set to 1 (<i>enabled</i>) or 2 (<i>default, auto-detect</i>).
+</p>
+<p>Add <code>MOZ_USE_XINPUT2 DEFAULT=1</code> to <code>/etc/security/pam_env.conf</code> and then logout or reboot your system for the changes to take effect.
+</p>
+<p>On some devices, it may be necessary to disable xinput's touchscreen gestures by running the following:
+</p>
+<pre>$ xsetwacom --set <i>device</i> Gesture off
+</pre>
+<h3>
+<span id="Mouse_click_on_URL_bar.27s_behavior"></span><span class="mw-headline" id="Mouse_click_on_URL_bar's_behavior">Mouse click on URL bar's behavior</span>
+</h3>
+<p>To make the URL bar behave like in Windows regarding mouse clicks: a single click selects everything, a double click selects a single word until a punctuation sign and a triple click selects everything again, set the following in <code>about:config</code>:
+</p>
+<pre>browser.urlbar.clickSelectsAll; true
+browser.urlbar.doubleClickSelectsAll; false
+layout.word_select.stop_at_punctuation; true (default)
+</pre>
+<h3>
+<span id="Set_backspace.27s_behavior"></span><span class="mw-headline" id="Set_backspace's_behavior">Set backspace's behavior</span>
+</h3>
+<p>See <a href="../../wiki/Firefox.html#Backspace_does_not_work_as_the_'Back'_button" title="Firefox">Firefox#Backspace does not work as the 'Back' button</a>.
+</p>
+<h3><span class="mw-headline" id="Disable_middle_mouse_button_clipboard_paste">Disable middle mouse button clipboard paste</span></h3>
+<p>See <a href="../../wiki/Firefox.html#Middle-click_behavior" title="Firefox">Firefox#Middle-click behavior</a>.
+</p>
+<h3><span class="mw-headline" id="Emacs_key_bindings">Emacs key bindings</span></h3>
+<p>To have Emacs/Readline-like key bindings active in text fields, see <a href="../../wiki/GTK.html#Emacs_key_bindings" title="GTK">GTK#Emacs key bindings</a>.
+</p>
+<h2><span class="mw-headline" id="Miscellaneous">Miscellaneous</span></h2>
+<h3><span class="mw-headline" id="Enable_additional_media_codecs">Enable additional media codecs</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> This section is not completed, there are many other variables related to Media Codecs in firefox. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Talk:Firefox/Tweaks#</a>)</div>
+</div>
+<p>Before continuing, remember there is a reason some of these variables are not enabled by default, e.g. stability, memory leaks, etc. Go to <code>about:config</code> and check the following options:
+</p>
+<table >
+<caption>Suggested values
+</caption>
+<tbody>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Description
+</th>
+</tr>
+<tr>
+<td>media.mediasource.enabled</td>
+<td>true (default)</td>
+<td>Enable <a href="https://en.wikipedia.org/wiki/Media_Source_Extensions"  title="wikipedia:Media Source Extensions">Media Source Extensions</a> (MSE)
+</td>
+</tr>
+<tr>
+<td>media.mediasource.mp4.enabled</td>
+<td>true (default)</td>
+<td>Enable <a href="https://en.wikipedia.org/wiki/MPEG-4_Part_14"  title="wikipedia:MPEG-4 Part 14">MP4</a> MSE
+</td>
+</tr>
+<tr>
+<td>media.mediasource.webm.enabled</td>
+<td>true (default)</td>
+<td>Enable <a href="https://en.wikipedia.org/wiki/WebM"  title="wikipedia:WebM">WebM</a> MSE.
+</td>
+</tr>
+<tr>
+<td>media.mediasource.ignore_codecs</td>
+<td>true</td>
+<td>Enable H.264 MSE, amongst other things (This boolean key has to be created!)
+</td>
+</tr>
+<tr>
+<td>media.av1.enabled</td>
+<td>true</td>
+<td>Enable <a href="https://en.wikipedia.org/wiki/AV1"  title="wikipedia:AV1">AV1</a>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>
+<span id="Widevine_and_Netflix.2FAmazon_Video"></span><span class="mw-headline" id="Widevine_and_Netflix/Amazon_Video">Widevine and Netflix/Amazon Video</span>
+</h4>
+<p>Widevine is a digital rights management tool that Netflix, Amazon Prime Video, and others use to protect their video content.
+</p>
+<p>The first time you visit a Widevine-enabled page Firefox will display a prompt below the address bar asking for permission to install DRM. Approve this and then wait for the "Downloading" bar to disappear, you are now able to watch videos from Netflix, Amazon Prime Video, or any other Widevine protected site.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Please make sure to check the <i>Play DRM content</i> option under Content-Preference.</div>
+<p>It is also required that the private mode browsing is disabled, for the window and in the preferences.
+</p>
+<h4><span class="mw-headline" id="Force-enable_hardware_video_decoding">Force-enable hardware video decoding</span></h4>
+<p>Although <code>media.hardware-video-decoding.enabled</code> is enabled by default, one may need to force-enable hardware video decoding by setting <code>media.hardware-video-decoding.force-enabled</code> to <code>true</code>.
+</p>
+<h3><span class="mw-headline" id="Remove_full_screen_warning">Remove full screen warning</span></h3>
+<p>Warning about video displayed in full screen mode ("… is now fullscreen") can be disabled by setting <code>full-screen-api.warning.timeout</code> to <code>0</code> in <code>about:config</code>.
+</p>
+<h3><span class="mw-headline" id="Change_the_order_of_search_engines_in_the_Firefox_Search_Bar">Change the order of search engines in the Firefox Search Bar</span></h3>
+<p>To change the order search engines are displayed in:
+</p>
+<ul>
+<li>Open the drop-down list of search engines and click <i>Manage Search Engines...</i> entry.</li>
+<li>Highlight the engine you want to move and use <i>Move Up</i> or <i>Move Down</i> to move it. Alternatively, you can use drag-and-drop.</li>
+</ul>
+<h3>
+<span id=".22I.27m_Feeling_Lucky.22_mode"></span><span class="mw-headline" id="&quot;I'm_Feeling_Lucky&quot;_mode">"I'm Feeling Lucky" mode</span>
+</h3>
+<p>Some search engines have a "feeling lucky" feature. For example, Google has "I'm Feeling Lucky", and DuckDuckGo has "I'm Feeling Ducky".
+</p>
+<p>To activate them, search for <code>keyword.url</code> in <code>about:config</code> and modify its value (if any) to the URL of the search engine. 
+</p>
+<p>For Google, set it to:
+</p>
+<pre>https://www.google.com/search?btnI=I%27m+Feeling+Lucky&amp;q=</pre>
+<p>For DuckDuckGo, set it to:
+</p>
+<pre>https://duckduckgo.com/?q=\</pre>
+<h3><span class="mw-headline" id="Secure_DNS_with_DNSSEC_validator">Secure DNS with DNSSEC validator</span></h3>
+<p>You can enable <a href="../../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> support for safer browsing.
+</p>
+<h3><span class="mw-headline" id="Adding_magnet_protocol_association">Adding magnet protocol association</span></h3>
+<p>In <code>about:config</code> set <code>network.protocol-handler.expose.magnet</code> to <code>false</code>. In case it does not exist, it needs to be created, right click on a free area and select <i>New &gt; Boolean</i>, input <code>network.protocol-handler.expose.magnet</code> and set it to <code>false</code>.
+</p>
+<p>The next time you open a magnet link, you will be prompted with a <i>Launch Application</i> dialogue. From there simply select your chosen <a href="../../wiki/List_of_applications/Internet.html#BitTorrent_clients" title="List of applications/Internet">BitTorrent client</a>. This technique can also be used with other protocols: <code>network.protocol-handler.expose.&lt;protocol&gt;</code>.
+</p>
+<h3><span class="mw-headline" id="Prevent_accidental_closing">Prevent accidental closing</span></h3>
+<p>There are different approaches to handle this:
+</p>
+<p>Under <code>about:preferences#general</code> select <code>Warn you when quitting the browser</code>.
+</p>
+<p>An alternative is to add a rule in your window manager configuration file. For example in <a href="../../wiki/Openbox.html" title="Openbox">Openbox</a> add:
+</p>
+<pre> &lt;keybind key="C-q"&gt;
+   &lt;action name="Execute"&gt;
+     &lt;execute&gt;false&lt;/execute&gt;
+   &lt;/action&gt;
+ &lt;/keybind&gt;
+</pre>
+<p>in the <i>&lt;keyboard&gt;</i> section of your <code>~/.config/openbox/rc.xml</code> file.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This will be effective for every application used under a graphic server.</div>
+<p>The <a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/disable-ctrl-q-and-cmd-q/">Disable Ctrl-Q and Cmd-Q</a> extension can be installed to prevent unwanted closing of the browser.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This extension no longer works on Linux due to a <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1325692">bug</a>.</div>
+<h3><span class="mw-headline" id="Plugins_do_not_work_with_latest_version">Plugins do not work with latest version</span></h3>
+<p>There can be compatibility issues with plugins not working with the latest Firefox version (e.g. <a rel="nofollow"  href="http://5digits.org/pentadactyl/index">Pentadactyl</a>). If possible, try installing the nightly/beta builds available, or temporarily <a href="../../wiki/Downgrading_packages.html" class="mw-redirect" title="Downgrade">downgrade</a> Firefox.
+</p>
+<p><a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/checkcompatibility/">Disable Add-on Compatibility Checks</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup> plugin should take care of spurious compatibility issues when the plugins get disabled, even though they work just fine with the new version.
+</p>
+<h3><span class="mw-headline" id="Jerky_or_choppy_scrolling">Jerky or choppy scrolling</span></h3>
+<p>Scrolling in Firefox can feel "jerky" or "choppy". A post on <a rel="nofollow"  href="http://forums.mozillazine.org/viewtopic.php?f=8&amp;t=2749475/">MozillaZine</a> gives settings that work on Gentoo, but reportedly work on TOS Linux as well: 
+</p>
+<ol>
+<li>Set  <code>mousewheel.min_line_scroll_amount</code> to 40</li>
+<li>Set  <code>general.smoothScroll</code> and <code>general.smoothScroll.pages</code> to <b>false</b>
+</li>
+<li>Set  <code>image.mem.min_discard_timeout_ms</code> to something really large such as 2100000000 but no more than 2140000000.  Above that number Firefox will not accept your entry and complain with the error code:  "The text you entered is not a number."</li>
+<li>Set  <code>image.mem.max_decoded_image_kb</code> to at least 512K</li>
+</ol>
+<p>Now scrolling should flow smoothly.
+</p>
+<h3><span class="mw-headline" id="Run_Firefox_inside_an_nspawn_container">Run Firefox inside an nspawn container</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a>.</b><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> This is potentially useful for any browser, so... move back? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Talk:Firefox/Tweaks#</a>)</div>
+</div>
+<p>If you have problems accessing the X server from within the container, you might want to consider <a href="../../wiki/Systemd-nspawn.html#Use_an_X_environment" title="Systemd-nspawn">Systemd-nspawn#Use an X environment</a>.
+</p>
+<p>To run as PID 1
+</p>
+<pre> # systemd-nspawn --setenv=DISPLAY=:0 \
+              --setenv=XAUTHORITY=~/.Xauthority \
+              --bind-ro=$HOME/.Xauthority:/root/.Xauthority \
+              --bind=/tmp/.X11-unix \
+              -D ~/containers/firefox \
+              firefox
+</pre>
+<p>Else rather boot the container, with systemd ideally setting up your networking with <a href="../../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a>:
+</p>
+<pre># systemd-nspawn --bind-ro=$HOME/.Xauthority:/root/.Xauthority \
+              --bind=/tmp/.X11-unix \
+              -D ~/containers/firefox \
+              --network-veth -b
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> There is <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/7093">a bug</a> in systemd version 235 that causes /tmp/.X11-unix to disappear from the filesystem when doing this. If you are having trouble, try binding /tmp/.X11-unix read-only instead: <code>--bind-ro=/tmp/.X11-unix</code> </div>
+<p>Once your container is booted, run the Xorg binary like so:
+</p>
+<pre># systemd-run -M firefox --setenv=DISPLAY=:0 firefox
+</pre>
+<h3><span class="mw-headline" id="Disable_WebRTC_audio_post_processing">Disable WebRTC audio post processing</span></h3>
+<p>If you are using the PulseAudio <a href="../../wiki/PulseAudio/Troubleshooting.html#Enable_Echo/Noise-Cancellation" title="PulseAudio/Troubleshooting">module-echo-cancel</a>, you probably do not want Firefox to do additional audio post processing.
+</p>
+<p>To disable audio post processing, change the value of the following preferences to <code>false</code>:
+</p>
+<ul>
+<li>
+<code>media.getusermedia.aec_enabled</code> (Acoustic Echo Cancellation)</li>
+<li>
+<code>media.getusermedia.agc_enabled</code> (Automatic Gain Control)</li>
+<li>
+<code>media.getusermedia.noise_enabled</code> (Noise suppression)</li>
+<li>
+<code>media.getusermedia.hpf_enabled</code> (High-pass filter)</li>
+</ul>
+<h3><span class="mw-headline" id="Fido_U2F_authentication">Fido U2F authentication</span></h3>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libu2f-host">libu2f-host</a></span> for the required udev rules to allow Firefox to communicate with the <a href="../../wiki/Category:Universal_2nd_Factor.html" class="mw-redirect" title="U2F">U2F</a> key.
+</p>
+<p>Firefox supports the Fido U2F authentication protocol.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Firefox does not inplement the entire U2F protocol <a rel="nofollow"  href="https://www.yubico.com/2017/11/how-to-navigate-fido-u2f-in-firefox-quantum/">[5]</a>. Some sites might not work correctly.</div>
+<h3><span class="mw-headline" id="Get_ALSA_working_back">Get ALSA working back</span></h3>
+<p>As long as TOS keeps building Firefox with <i>ac_add_options --enable-alsa</i>, then one can make Firefox allow ioctl syscalls, blocked by default by Firefox sandboxing, and required by ALSA setting <code>security.sandbox.content.syscall_whitelist</code> in <code>about:config</code>, to the right ioctl syscall number, which is <i>16</i> for x86-64 and <i>54</i> for x86-32.  See:
+</p>
+<p><a rel="nofollow"  href="https://www.linuxquestions.org/questions/slackware-14/firefox-in-current-alsa-sound-4175622116">[6]</a>
+<a rel="nofollow"  href="https://codelab.wordpress.com/2017/12/11/firefox-drops-alsa-apulse-to-the-rescue">[7]</a>
+<a rel="nofollow"  href="https://www.bleepingcomputer.com/news/security/firefox-57-brings-better-sandboxing-on-linux">[8]</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>
+</p>
+<p>No need for apulse if built as done so far.
+</p>
+<h3><span class="mw-headline" id="Force-enable_WebGL">Force-enable WebGL</span></h3>
+<p>On some platforms WebGL may be disabled <a rel="nofollow"  href="https://wiki.mozilla.org/Blocklisting/Blocked_Graphics_Drivers">[9]</a> even when the user desires to use it. To force-enable WebGL set <code>webgl.force-enabled</code> to <code>true</code>, to also force-enable WebGL anti-aliasing, set <code>webgl.msaa-force</code> to <code>true</code>.
+</p>
+<p>If you get an error similar to this:
+</p>
+<pre>libGL error: MESA-LOADER: failed to retrieve device information
+libGL error: image driver extension not found
+libGL error: failed to load driver: i915
+libGL error: MESA-LOADER: failed to retrieve device information
+...</pre>
+<p>then you can try the solution explained in Firefox bug 1480755 <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1480755">[10]</a>:
+</p>
+<p>Set <code>security.sandbox.content.read_path_whitelist</code> to <code>/sys/</code>
+</p>
+<h3><span class="mw-headline" id="Enable_Recommended_by_Pocket">Enable Recommended by Pocket</span></h3>
+<p>If you do not see "Recommended by Pocket" (<i>Preferences &gt; Home &gt; Firefox Home Content</i> - between "Top Sites" and "Highlights"), you can enable it by setting <code>browser.newtabpage.activity-stream.feeds.section.topstories</code> to <code>true</code> in <code>about:config</code>. Although the option will still not show in Preferences, newly opened tabs/windows (if set to <code>Firefox Home</code>) should now display Pocket recommendations.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://kb.mozillazine.org/Knowledge_Base">MozillaZine Wiki</a></li>
+<li><a rel="nofollow"  href="http://kb.mozillazine.org/About:config_entries">about:config entries MozillaZine article</a></li>
+<li><a rel="nofollow"  href="http://linuxtidbits.wordpress.com/2009/08/01/better-fox-cat-and-weasel/">Firefox touch-ups that might be desired</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Web_browser.html" title="Category:Web browser">Web browser</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="../../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Firefox/Tweaks&amp;oldid=611567">https://wiki.archlinux.org/index.php?title=Firefox/Tweaks&amp;oldid=611567</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 May 2020, at 19:20.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

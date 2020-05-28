@@ -1,0 +1,131 @@
+<!--
+    title: ThinkPad:_Mute_button
+    description: Migration of ThinkPad:_Mute_button from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">ThinkPad: Mute button</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Problem:"><span >1</span> <span >Problem:</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Nothing_works"><span >1.1</span> <span >Nothing works</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#External_Audio_still_on"><span >1.2</span> <span >External Audio still on</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Solution:"><span >2</span> <span >Solution:</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Older_IBM_ThinkPads"><span >2.1</span> <span >Older IBM ThinkPads</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Nothing_works:"><span >2.2</span> <span >Nothing works:</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#External_Audio_still_on:"><span >2.3</span> <span >External Audio still on:</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#External_Audio_still_on_(and_you_use_XFCE):"><span >2.4</span> <span >External Audio still on (and you use XFCE):</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Problem:">Problem:</span></h2>
+<p>The mute button does not work properly on most ThinkPads and IdeaPads with a newer kernel. Two different scenarios occur:
+</p>
+<h3><span class="mw-headline" id="Nothing_works">Nothing works</span></h3>
+<dl><dd>The Button does not react at all: no led flash (some ThinkPads have an LED, indicating the Mute-State) and no effect on Speakers Volume. It only mutes, if you first press the mute button and afterwards the Vol-Down-Key.</dd></dl>
+<h3><span class="mw-headline" id="External_Audio_still_on">External Audio still on</span></h3>
+<dl><dd>Pressing the button causes the speakers to mute (LED also works), but external audio is still on.</dd></dl>
+<h2><span class="mw-headline" id="Solution:">Solution:</span></h2>
+<h3><span class="mw-headline" id="Older_IBM_ThinkPads">Older IBM ThinkPads</span></h3>
+<dl><dd>First try this: "<a rel="nofollow"  href="http://www.thinkwiki.org/wiki/Mute_button">http://www.thinkwiki.org/wiki/Mute_button</a>"</dd></dl>
+<h3><span class="mw-headline" id="Nothing_works:">Nothing works:</span></h3>
+<dl><dd>Edit your /etc/modprobe.d/modprobe.conf and add the following line: <br>
+</dd></dl>
+<pre>options thinkpad_acpi enabled=0 # enables Mute-Button on ThinkPads with IdeaPad-Firmware <br>
+</pre>
+<dl><dd>reboot, and go on:<br>
+</dd></dl>
+<h3><span class="mw-headline" id="External_Audio_still_on:">External Audio still on:</span></h3>
+<dl><dd>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tpb/">tpb</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> and create an file "/root/.tpbrc":</dd></dl>
+<pre>#tpb-Settings: <br>
+CALLBACK "/root/tp-key-handler" <br>
+OSD off <br>
+</pre>
+<dl><dd>Now create the file "/root/tp-key-handler":</dd></dl>
+<pre>#!/bin/bash
+echo $1 $2
+if [ $1 = mute ]; then
+	if [ $2 = on ]; then
+		mset="off";
+	else
+		mset="on";
+	fi
+	sudo -u USERNAME amixer sset Master $mset; # I had to sudo to me, because I use PulseAudio
+fi
+</pre>
+<dl><dd>you'll have too add execute-rights to /root/tp-key-handler:</dd></dl>
+<pre>chmod +x /root/tp-key-handler 
+</pre>
+<dl><dd>Since tpb needs root-privileges as well as X, you may start it by adding "sudo tpb" in the .xinitrc and editing your sudo-Settings (use visudo) or addin "gksudo tpb" in any X-Startscript (the last will ask for an password on startup).</dd></dl>
+<p>That's it - if you have a better Idea, please do not hesitate to edit this page!
+</p>
+<h3>
+<span id="External_Audio_still_on_.28and_you_use_XFCE.29:"></span><span class="mw-headline" id="External_Audio_still_on_(and_you_use_XFCE):">External Audio still on (and you use XFCE):</span>
+</h3>
+<p>Go to Applications-&gt;Settings-&gt;Keyboard-&gt;Application Shortcuts tab. Hit Add and for the command, use 'amixer sset Master toggle'. For the key, hit the mute button. Protip, to make sure the led state is correct, start with the led in the opposite state of your mutedness so that when you map the button, it starts out in the correct state. Alternatively, you could just reboot and make sure the led is off before you get into your XFCE session.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Lenovo.html" title="Category:Lenovo">Lenovo</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=ThinkPad:_Mute_button&amp;oldid=527418">https://wiki.archlinux.org/index.php?title=ThinkPad:_Mute_button&amp;oldid=527418</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 June 2018, at 17:40.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,156 @@
+<!--
+    title: MoinMoin
+    description: Migration of MoinMoin from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">MoinMoin</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>"<a rel="nofollow"  href="https://moinmo.in/">MoinMoin</a> is an advanced, easy to use and extensible WikiEngine with a large community of users. Said in a few words, it is about collaboration on easily editable web pages."
+MoinMoin is written in <a href="../wiki/Python.html" title="Python">Python</a> 2.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#uWSGI"><span >2.1</span> <span >uWSGI</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#nginx"><span >2.1.1</span> <span >nginx</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Systemd_unit_file_for_MoinMoin_with_uWSGI"><span >2.1.2</span> <span >Systemd unit file for MoinMoin with uWSGI</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#First_steps"><span >3</span> <span >First steps</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<ol>
+<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/moinmoin/">moinmoin</a></span><sup><small>AUR</small></sup>.</li>
+<li>Make a new directory for MoinMoin under <code>/var/lib/moin/</code> for non static files.</li>
+<li>Copy the folders <code>/usr/share/moin/data/</code>, <code>/usr/share/moin/underlay/</code> and the configuration file <code>/usr/share/moin/config/wikiconfig.py</code> into <code>/var/lib/moin/</code>.</li>
+<li>Change the owner of <code>/var/lib/moin/</code> to the user under which your web server is running (in most cases "http").</li>
+</ol>
+<p>You can also run MoinMoin directly from <code>/usr/share/moin/</code> if you're ok with non static files in <code>/usr/</code>.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="uWSGI">uWSGI</span></h3>
+<p>If using <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a>, copy the file <code>/usr/share/moin/server/moin.wsgi</code> to <code>/var/lib/moin</code>. In the file, replace the string <code>'/path/to/wikiconfigdir'</code> with <code>'/var/lib/moin'</code> and uncomment the line.
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=uwsgi-plugin-python2">uwsgi-plugin-python2</a></span> and create the file <code>/var/lib/moin/uwsgi.ini</code> with the following content.
+</p>
+<pre>[uwsgi]
+socket = /run/uwsgi/moin.sock
+chmod-socket = 660
+plugin = python2
+
+chdir = /var/lib/moin/
+wsgi-file = /var/lib/moin/moin.wsgi
+
+master
+workers = 3
+max-requests = 200
+harakiri = 60
+die-on-term
+</pre>
+<p>Start uWSGI with <code>uwsgi --ini /var/lib/moin/uwsgi.ini</code>. Make sure uWSGI has read and write rights for <code>/var/lib/moin/</code> and your web server has read and write rights for <code>/run/uwsgi/moin.sock</code>. If you're following this guide you should start uwsgi under the "http" user.
+</p>
+<h4><span class="mw-headline" id="nginx">nginx</span></h4>
+<p><a href="../wiki/Nginx.html" title="Nginx">nginx</a> can be set adding the following server block to your <code>/etc/nginx/nginx.conf</code>:
+</p>
+<pre>server {
+   listen       80;
+   server_name  wiki.<i>your.domain</i>;
+
+   location / {
+      uwsgi_pass unix:/run/uwsgi/moin.sock;
+      include /etc/nginx/uwsgi_params;
+   }
+
+   location ~ /moin_static[0-9]+/(.*) {
+      alias /usr/lib/python2.7/site-packages/MoinMoin/web/static/htdocs/$1;
+   }
+
+   location /favicon.ico {
+      alias /usr/lib/python2.7/site-packages/MoinMoin/web/static/htdocs/favicon.ico;
+   }
+}
+</pre>
+<h4><span class="mw-headline" id="Systemd_unit_file_for_MoinMoin_with_uWSGI">Systemd unit file for MoinMoin with uWSGI</span></h4>
+<p>Create the <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemd unit</a> the following for easily starting/stopping the service:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/moinmoin.service</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
+Description=Start uwsgi for moinmoin wiki
+After=network.target
+
+[Service]
+Type=simple
+User=http
+ExecStart=/usr/bin/uwsgi --ini /var/lib/moin/uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target</pre>
+<h2><span class="mw-headline" id="First_steps">First steps</span></h2>
+<p>You should now be able to reach your wiki under wiki.your.domain. For further information on how to configure MoinMoin refer to the <a rel="nofollow"  href="http://moinmo.in/">MoinMoinWiki</a>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Wiki_software.html" title="Category:Wiki software">Wiki software</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=MoinMoin&amp;oldid=589785">https://wiki.archlinux.org/index.php?title=MoinMoin&amp;oldid=589785</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 November 2019, at 15:20.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
