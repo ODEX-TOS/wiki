@@ -1,0 +1,394 @@
+<!--
+    title: Wmii
+    description: Migration of Wmii from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">wmii</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../I3.html" title="I3">i3</a></li>
+<li><a href="../Window_manager.html" title="Window manager">Window manager</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://code.google.com/archive/p/wmii/">wmii</a> (window manager improved 2) is a dynamic window manager for X11. It supports classic and dynamic window management with extended keyboard, mouse, and filesystem based remote control. It replaces the workspace paradigm with a new tagging approach. 
+</p>
+<p>The following tips are intended to help the user get started with wmii. While wmii can be configured in almost any language, this article will focus on using the <b>wmiirc</b> configuration file, which is simply a shell script.
+</p>
+<p>Please note that wmii does not appear to be in active development, so any bugs encountered are likely to stay.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Starting_wmii"><span >2</span> <span >Starting wmii</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Configuration"><span >3</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Configuration_Variables"><span >3.1</span> <span >Configuration Variables</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Window_Colors"><span >3.2</span> <span >Window Colors</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Usage"><span >4</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7">
+<a href="#Layouts"><span >4.1</span> <span >Layouts</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Floating_layout"><span >4.1.1</span> <span >Floating layout</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Views_and_Tagging"><span >4.2</span> <span >Views and Tagging</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#WMII_filesystem"><span >5</span> <span >WMII filesystem</span></a></li>
+<li class="toclevel-1 tocsection-11">
+<a href="#Tips_and_tricks"><span >6</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Weechat_Highlight_Notification"><span >6.1</span> <span >Weechat Highlight Notification</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Mod4_on_an_old_Thinkpad"><span >6.2</span> <span >Mod4 on an old Thinkpad</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Nice_fonts"><span >6.3</span> <span >Nice fonts</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Keyboard_layouts"><span >6.4</span> <span >Keyboard layouts</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/wmii/">wmii</a></span><sup><small>AUR</small></sup> package.
+</p>
+<p>The source can be found on <a rel="nofollow"  href="https://code.google.com/p/wmii/">the project's Google Code page</a> and is also <a rel="nofollow"  href="https://github.com/sunaku/wmii">mirrored on GitHub</a>.
+</p>
+<h2><span class="mw-headline" id="Starting_wmii">Starting wmii</span></h2>
+<p>Select <i>wmii</i> from the menu in a <a href="../Display_manager.html" title="Display manager">display manager</a> of choice.
+</p>
+<p>Alternatively, to start wmii with <i>startx</i>, edit your <code>~/.xinitrc</code> file, adding the following:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> exec wmii
+</pre>
+<p>To allow for starting wmii without logging off or killing the X session, add the following to <code>~/.xinitrc</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> until wmii; do
+   true
+ done
+</pre>
+<p>Upon your first login, you will be greeted with the wmii welcome message, which also includes a short tutorial on wmii. Completing this tutorial will give you a good idea of how wmii works.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> If the welcome message does not appear, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xmessage">xorg-xmessage</a></span>. Then you can read the welcome message by pressing <code>$MODKEY-a</code> and selecting 'welcome'.</div>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The easiest way to start configuring wmii, is to copy the default wmiirc file to your home directory and changing it to your needs. For version 3.9,
+</p>
+<pre>mkdir ~/.wmii
+cp /etc/wmii/wmiirc ~/.wmii/
+</pre>
+<p>Or just create ~/.wmii/wmiirc_local if you want only basic customization such as fonts, colors etc.
+</p>
+<p>For earlier versions,
+</p>
+<pre>mkdir ~/.wmii/wmii-$VERSION
+cp /etc/wmii/wmiirc ~/.wmii/wmii-$VERSION/
+</pre>
+<p>By editing this file, you can change things such as color, background, modkey, etc. Keep in mind that wmiirc uses tabbed indentation in case your editor of choice is configured to only produce spaces. Mixing the two indenting styles may cause unexpected behavior.
+</p>
+<h3><span class="mw-headline" id="Configuration_Variables">Configuration Variables</span></h3>
+<pre># Configuration Variables
+MODKEY=Mod1
+UP=k
+DOWN=j
+LEFT=h
+RIGHT=l
+</pre>
+<p>Change Mod1 to Mod4 if you want to use Windows key instead of Alt. You can also change h, j, k, l, if you like.
+</p>
+<h3><span class="mw-headline" id="Window_Colors">Window Colors</span></h3>
+<pre># Colors tuples: "&lt;text&gt; &lt;background&gt; &lt;border&gt;"
+WMII_NORMCOLORS='#ffffff #000000 #ffffff'
+WMII_FOCUSCOLORS='#ffffff #5c0000 #ffffff'
+</pre>
+<pre>WMII_BACKGROUND='#333333'
+WMII_FONT='fixed'
+</pre>
+<p>Colors of unselected window are in NORMCOLORS variable. Colors of selected window are in FOCUSCOLOR variable. You can change the background color (if you use transparent terminal) with the WMII_BACKGROUND variable.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>If you are not familiar with tiling WMs, it's not really easy to begin with it. You must learn a few basic hotkeys to launch programs and place or resize windows. It is a good idea to write the basic hotkeys on paper and stick these on your monitor until you memorize them. By default, the "Mod" key is Alt. Some default hotkeys are :
+</p>
+<ul>
+<li>Mod+Enter -&gt; Terminal</li>
+<li>Mod+p -&gt; wimenu : a menu appears, just type the beginning of the name of the application to open it.</li>
+<li>Mod+d -&gt; default layout : windows are divided on screen</li>
+<li>Mod+s -&gt; stacked layout : the selected window take all the screen, we just see the title bar of the others.</li>
+<li>Mod+j -&gt; select the window below</li>
+<li>Mod+k -&gt; select the window above</li>
+<li>Shift+Mod+j -&gt; move the window down</li>
+<li>Shift+Mod+k -&gt; move the window up</li>
+<li>Mod+a -&gt; Actions menu : choose "quit" to quit</li>
+</ul>
+<p>N.B. For commonly used programs you can make use of <i>history.progs</i>, Mod+p and up/down arrow keys to select previous entries.
+</p>
+<p><br>
+By default, only one column is used by the desktop (i.e. the entire screen). It's possible to use several columns with h and l :
+</p>
+<ul>
+<li>Mod+Shift+h : move the selected window left</li>
+<li>Mod+Shift+l : move the selected window right</li>
+<li>Mod+h : select the column on the left</li>
+<li>Mod+l : select the column on the right</li>
+</ul>
+<p>Columns are created automatically, with your placements of the windows. You can make them bigger or smaller, clicking beetween two columns.
+</p>
+<h3><span class="mw-headline" id="Layouts">Layouts</span></h3>
+<p>You begin in "default" layout : all windows take the same space. You can make them bigger or smaller by clicking in the little square in the title bar of a window.
+</p>
+<ul>
+<li>"default" layout (Mod+d) : all windows take the same space.</li>
+<li>"stacked" layout (Mod+s) : the selected window takes the entire column, but you can see the title bar of other windows.</li>
+<li>"maximum" layout (Mod+m) : the selected window takes the entire column, you do not see other windows.</li>
+<li>"fullscreen" layout (Mod+f) : the selected window takes runs in full screen.</li>
+</ul>
+<h4><span class="mw-headline" id="Floating_layout">Floating layout</span></h4>
+<p>You can place your windows like a classic window manager. It's called floating layout. It's useful for some applications, like the Gimp, mplayer, vlc etc.
+</p>
+<ul>
+<li>Mod+Shift+Space : Move selected window in floating layout.</li>
+<li>Mod+Space : switch between floating layout and normal layout.</li>
+</ul>
+<p>In the floating layout, we can select a window with Mod+j and Mod+k. We can change dimensions of the window, by dragging, like in any other window manager. But we can use hotkeys for that as well :
+</p>
+<ul>
+<li>Mod+Left click : move window</li>
+<li>Mod+Right click : change dimensions of the window (you can use it in other layouts too)</li>
+</ul>
+<h3><span class="mw-headline" id="Views_and_Tagging">Views and Tagging</span></h3>
+<p>Tagging in wmii is very similar to the concept of virtual desktops in other window managers. However, tagging is slightly more powerful because it makes it very easy to group windows in multiple ways concurrently. This is made possible by the fact that WMII easily allows each window to have multiple tags. This allows you to group applications for specific use cases and easily switch between them without having to tear down your previous environment by sending applications to another "Desktop".
+</p>
+<p>By default, when you first start up wmii you will see the word 'nil' in the lower left corner. You are at the 'nil' view. The first application you start (such as a terminal: Mod+Enter) will automatically be tagged with a "1" and you will be automatically switched to view "1". Views can be navigated or changed with built in keybindings:
+</p>
+<ul>
+<li>Mod+Shift+2 : tag selected window to view "2"</li>
+<li>Mod+2 : this switches you to view "2" where you can see all windows tagged with "2"</li>
+</ul>
+<p>It's the same thing for all numbers, from 0 to 9. But you can also use names :
+</p>
+<ul><li>Mod+t : views menu : you can select a tag with right and left keys, or type the name of the tag (or just a part of the name, if it was created).</li></ul>
+<ul><li>Mod+Shift+t : this retags the currently selected window with whatever you type into the menu.</li></ul>
+<ul><li>N.B If using plan9port a <i>history.tags</i> file is generated in .wmii-*/. You can use up/down arrow keys to recall previous entries for simple re-tagging/window viewing.</li></ul>
+<p>You can tag windows with multiple views by using a '+' between the tag names :
+</p>
+<ul><li>Mod+Shift+t foo+bar+2 : this tags the currently selected window to the views "foo", "bar" and "2".</li></ul>
+<p>You can remove a single tag from multi-tagged windows by selecting the one you wish to remove
+and using Mod+Shift+t, -tag <i>name/number</i> e.g.
+Urxvt is multi-tagged on views 1 2 3 and 4, if you jumped to 3 and typed exit, all instances of urxvt will be terminated, using Mod+Shift+t, -3 will only remove that single view.
+</p>
+<p>Tags can be set for specific applications in the wmiirc configuration file.
+</p>
+<pre># Tagging Rules
+wmiir write /tagrules &lt;&lt;!
+/Firefox.*/ -&gt; ~+2
+/Gimp.*/ -&gt; ~+3
+/.*/ -&gt; sel
+/.*/ -&gt; 1
+!
+</pre>
+<p>With the above tag rules, firefox starts in floating mode (~) on view "2". Gimp starts in floating mode on view "3".
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong>  Applications need to spawn an X-window in order to be automatically assigned tags. Therefore, in order to launch your terminal based programs you will need to prepend something like <i>urxvt -e &lt;program&gt;</i> if want to make use of this feature.</div>
+<h2><span class="mw-headline" id="WMII_filesystem">WMII filesystem</span></h2>
+<p>WMII's filesystem is based on the <a rel="nofollow"  href="http://9p.cat-v.org">9P protocol</a>. Every element (windows, statusbar, ...) is represented as a file. This makes several cool things possible. For example you can display the song you're currently listening to in the statusbar (for example with MPD and MPC).
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This filesystem is not permanent and you have to set up everything again after reboot. To make your changes "permanent" simply write the right commands into your wmiirc.</div>
+<p>You can access the filesystem with the <i>wmiir</i> command. For instance, you can list the root directory with <i>wmiir ls /</i>
+</p>
+<pre>client/
+colrules
+ctl
+event
+keys
+lbar/
+rbar/
+tag/
+tagrules
+</pre>
+<p>You can use <i>wmiir read</i> to look into files: <i>wmiir read /tag/sel/index</i>
+</p>
+<pre># ~ 1280 785
+~ 0x160000d 731 394 486 332 xterm:XTerm:~
+# 1 0 1280
+1 0x800003 0 785 opera:Opera:Editing Wmii - Preview - TOS Wiki - Opera
+</pre>
+<p>So this is the info for the <b>sel</b>ected (current) tag. As you can see, I've got one floating xterm and Opera running on this tag. The first number in this output indicates the column of the window. ~ is the floating column and 1 ist (obviously) the first column. The second column is the XServer-ID for the client. The next columns are the coordinates and the size of the window. The last column ist the titlebar of the window.
+</p>
+<p>You can create new files with <i>wmiir create</i>:
+</p>
+<pre>echo TOS is best | wmiir create /rbar/arch
+</pre>
+<p>Now you should see "TOS is best" in your statusbar
+</p>
+<p>"wmiir create" reads from STDIN. So you can pipe any information you like into your statusbar. "wmiir write" works in a similar fashion but doesn't create new files.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Note for /rbar and /lbar:The elements in those status bars are in alphabetical order.</div>
+<p>You can remove files with rm or remove
+</p>
+<p>If you like to have a program on several tags you can use:
+</p>
+<pre>echo "3+5+8" | wmiir write /client/0x800003/tags
+</pre>
+<p>Now my Opera window appears on Tags 3,5 and 8.
+</p>
+<p>But there are easier ways to accomplish this ;)
+Just type MOD+shift+t and enter "3+5+8" and you get the same result for the currently selected client.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong>  There's also the possibility to mount WMII's filesystem. Have a look at the <a rel="nofollow"  href="http://wmii.suckless.org/9p">official documentation</a><sup title="Last check status: domain name not resolved">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup>. </div>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Weechat_Highlight_Notification">Weechat Highlight Notification</span></h3>
+<p>If you use weechat and want to know when you have been messaged without always having to look at the weechat window,  you can use the <i>launcher.pl</i> script to send a notice to the bar. To get this working, you will need to create a script that sends your desired notice. Here is very simple example:
+</p>
+<pre>#!/bin/bash
+echo :: NEW MESSAGE :: | wmiir create /lbar/alert
+sleep 8
+wmiir remove /lbar/alert
+</pre>
+<p>Then start weechat and load the script.
+</p>
+<pre>/perl load launcher.pl
+</pre>
+<p>Then type the following command into weechat:
+</p>
+<pre>/set plugins.var.perl.launcher.signal.weechat_pv = "/path/to/yourscript"
+</pre>
+<p>If you are experiencing the "/rbar/alert File not Found" error inside the weechat buffer and its messing up your layout you can try the following fix:
+</p>
+<pre>/set plugins.var.perl.launcher.signal.weechat_pv = "/path/to/yourscript &gt;/dev/null 2&gt;&amp;"
+</pre>
+<p>Now, :: NEW MESSAGE :: will appear in the left corner of your bar whenever you have a message highlight. Make sure to place <i>launcher.pl</i> the perl/autoload directory so that it starts when weechat starts.
+</p>
+<h3><span class="mw-headline" id="Mod4_on_an_old_Thinkpad">Mod4 on an old Thinkpad</span></h3>
+<p>Although Wmii defaults to Mod1, using Mod4 reduces conflicts in keybindings with many terminal applications. There is a snag for old Thinkpad users, however. They do not have a Mod4 key. To get one, another key has to be assigned to it using xmodmap. To do it, make an <i>.Xmodmap</i> file in your home directory and add this to it:
+</p>
+<pre>keycode 64 = Super_L
+add Mod4 = Super_L
+remove Mod1 = Super_L
+</pre>
+<p>You will need to replace 64 with whatever <i>xev</i> tells you is the keycode of the key you want to replace. In the above example, I replace left Alt (and use right alt for applications).
+</p>
+<h3><span class="mw-headline" id="Nice_fonts">Nice fonts</span></h3>
+<p>Wmii now supports Xft, just prefix font name with 'xft'. For instance:
+</p>
+<pre>export WMII_FONT='xft:Sans-9'
+</pre>
+<h3><span class="mw-headline" id="Keyboard_layouts">Keyboard layouts</span></h3>
+<p>You'd probably like to have its own keyboard layout for each window. However, most of such applications requires system tray while witray is only available in the <a rel="nofollow"  href="https://aur.archlinux.org/packages.php?ID=3497">development version of wmii</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup>. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xxkb">xxkb</a></span> package helps to solve the problem. It has no UI by default. You only need to configure layouts in xorg.conf. Create /etc/X11/xorg.conf.d/20-keyboard.conf and put something like this into it:
+</p>
+<pre>Section "InputClass"
+    Identifier      "Keyboard Defaults"
+    MatchIsKeyboard "yes"
+    Option          "XkbModel"      "pc101"
+    Option          "XkbLayout"     "us,ru"
+    Option          "XkbOptions"    "grp:ctrl_shift_toggle,compose:prsc"
+EndSection
+</pre>
+<p>Replace layout, options and model to fit your needs. Add
+</p>
+<pre>xxkb &amp;
+</pre>
+<p>into your wmiirc and it just works.
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xkblayout-state/">xkblayout-state</a></span><sup><small>AUR</small></sup><sup>[<a href="../Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> can be used to put layout indicator into the status line:
+</p>
+<pre>status() {
+    echo -n label $(xkblayout-state print "%s") '|' $(date +"%a %b %d %H:%M")
+}
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow"  href="https://code.google.com/p/wmii/">wmii Website</a> -- the official website of wmii</li>
+<li>
+<a href="../Dmenu.html" title="Dmenu">dmenu</a> -- a simple application launcher which binds well with dwm and wmii</li>
+<li>
+<a rel="nofollow"  href="http://wmii.googlecode.com/hg/doc/wmii.pdf">user guide</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup> -- latest wmii guide (pdf)</li>
+<li><a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=22592">The wmii thread</a></li>
+<li><a rel="nofollow"  href="https://sites.google.com/site/blijvend/home-1/notes/wmiicolor">wmii colour themes</a></li>
+<li>
+<a rel="nofollow"  href="http://eigenclass.org/hiki.rb?wmii+ruby">ruby-wmii</a> -- Ruby configuration and scripting for wmii 3.1</li>
+<li>
+<a rel="nofollow"  href="https://github.com/sunaku/wmiirc">sunaku's wmiirc</a> -- Ruby configuration and scripting for wmii 3.9+ and wmii-hg</li>
+<li>
+<a rel="nofollow"  href="http://pastebin.com/Xyn0mEjr">Ben's wmiirc</a> -- Simple wmiirc with extra widgets (vol, mpd, mail, clock) and other modifications</li>
+<li>mailing list is dev@suckless.org, see official website</li>
+<li>IRC channel is #wmii on the OFTC IRC network</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Dynamic_WMs.html" title="Category:Dynamic WMs">Dynamic WMs</a></li>
+<li><a href="../Category:Suckless.html" title="Category:Suckless">Suckless</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Wmii&amp;oldid=604511">https://wiki.archlinux.org/index.php?title=Wmii&amp;oldid=604511</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 April 2020, at 10:26.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

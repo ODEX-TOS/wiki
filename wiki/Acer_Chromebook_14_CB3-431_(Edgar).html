@@ -1,0 +1,190 @@
+<!--
+    title: Acer_Chromebook_14_CB3-431_(Edgar)
+    description: Migration of Acer_Chromebook_14_CB3-431_(Edgar) from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Acer Chromebook 14 CB3-431 (Edgar)</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This article assumes the reader is willing to replace ChromeOS with TOS Linux.</div>
+<p>The following article briefly explains all necessary procedures to install a fully-functional TOS Linux configuration on the Acer Chromebook 14 cb3-431 (Edgar).
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Write_Protection"><span >1</span> <span >Write Protection</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Developer_Mode"><span >2</span> <span >Developer Mode</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Flashing_a_custom_SeaBios"><span >3</span> <span >Flashing a custom SeaBios</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Installation"><span >4</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Booting_the_Installation_Media"><span >4.1</span> <span >Booting the Installation Media</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Post_installation"><span >4.2</span> <span >Post installation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Fixes"><span >5</span> <span >Fixes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Sound"><span >5.1</span> <span >Sound</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Internal_Keyboard"><span >5.2</span> <span >Internal Keyboard</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Trackpad"><span >5.3</span> <span >Trackpad</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Write_Protection">Write Protection</span></h2>
+<p>Write Protection does not have to be voided to follow this guideline.
+</p>
+<h2><span class="mw-headline" id="Developer_Mode">Developer Mode</span></h2>
+<p>Prior to the installation, certain actions must be taken to grant bios reading permission on unsigned installation mediums.
+This includes enabling <a rel="nofollow"  href="http://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/acer-c720-chromebook#TOC-Developer-Mode">Developer Mode</a>, and flashing a custom SeaBios.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Enabling Developer Mode will wipe all of your data.</div>
+<p>Enabling Developer Mode:
+</p>
+<ol>
+<li>Enter recovery mode by pressing the power button while holding down <code>Esc+F3</code> (Refresh).</li>
+<li>Once greeted in recovery mode (large yellow exclamation mark) press <code>Ctrl+d</code>.</li>
+<li>You will be prompted for confirmation, press enter to confirm developer mode.</li>
+<li>The device will reset and greet the user with a warning screen on every boot, that can be skipped by pressing <code>Ctrl+d</code>.</li>
+</ol>
+<h2><span class="mw-headline" id="Flashing_a_custom_SeaBios">Flashing a custom SeaBios</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Dubious installation instructions involving scripts from untrusted sources. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Acer_Chromebook_14_CB3-431_(Edgar)">Talk:Acer Chromebook 14 CB3-431 (Edgar)#</a>)</div>
+</div>
+<p>A custom SeaBios is required to load unsigned or self-signed installation mediums, in our case, being the TOS Linux Installation Media.
+</p>
+<p>In ChromeOS, estasblish internet connection and enter the superuser shell with <code>Ctrl+Alt+F2</code> using the <code>chronos</code> username. Then obtain MrChromeBox's SeaBios utility:
+</p>
+<pre># curl -L -O https://mrchromebox.tech/firmware-util.sh
+</pre>
+<p>Execute the firmware utility:
+</p>
+<pre># bash firmware-util.sh
+</pre>
+<p>Select option 1 to Install RW_LEGACY, permitting booting from an external installation media from SeaBios.
+</p>
+<p>Before selecting the reboot option and proceeding to the next part, ensure an TOS Linux Installation Media is inserted.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Booting_the_Installation_Media">Booting the Installation Media</span></h3>
+<p>During the white "OS verification disabled" screen, toggle <code>Ctrl+l</code> to enter SeaBios.
+Then press the <code>Esc</code> key to load the boot menu, and select your external installation media.
+</p>
+<p>Unless the installation media runs on a Linux version 4.8.14 or prior, the internal keyboard, sound, and trackpad will not function during the installation.
+From this point on, proceed with the official <a href="../Installation_guide.html" title="Installation guide">TOS Linux Installation Guide</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If SeaBios has immediately attempted to load from the internal disk, or simply ignored the <code>Esc</code> key boot menu request, the device has been fully shut down prior to the SeaBios load. SeaBios must be entered on reboot from ChromeOS to enter the Boot Menu</div>
+<h3><span class="mw-headline" id="Post_installation">Post installation</span></h3>
+<p>Unless RW protection has been voided and SeaBios has been set to boot as default, booting into grub is only possible by toggling <code>Ctrl+l</code> during the white "OS verification disabled" screen on boot.
+</p>
+<h2><span class="mw-headline" id="Fixes">Fixes</span></h2>
+<p>Due to the unpopularity of the Intel Braswell Chipset, a number of issues may be encountered which require manual fixes.
+</p>
+<p>As of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> 4.12.4 the internal keyboard and trackpad now work out of the box without the need for any additional kernel patches. The following features are not expected to work out of the box:
+</p>
+<ul><li>Sound/Audio</li></ul>
+<h3><span class="mw-headline" id="Sound">Sound</span></h3>
+<p>To fix audio/sound output, install the Braswell config files from <a rel="nofollow"  href="https://github.com/GalliumOS/galliumos-braswell">GalliumOS</a>. Installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/galliumos-braswell-config/">galliumos-braswell-config</a></span><sup><small>AUR</small></sup> package using the <code>pacman --force</code> parameter automates this process.
+</p>
+<p>Currently, the internal microphone does not function and there is no known workaround.
+</p>
+<h3><span class="mw-headline" id="Internal_Keyboard">Internal Keyboard</span></h3>
+<p>The internal keyboard should be fully functional when using the latest kernel, with the exception of the top row hotkeys which are mapped to the function keys by default. See <a href="../Chrome_OS_devices.html#Hotkeys" title="Chrome OS devices">Chrome OS devices#Hotkeys</a> for methods to implement the Chrome OS keyboard hotkeys.
+</p>
+<h3><span class="mw-headline" id="Trackpad">Trackpad</span></h3>
+<p>To fix trackpad pressure sensitivity issues for the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-synaptics">xf86-input-synaptics</a></span> driver, add the following configuration file under <code>/etc/X11/xorg.conf.d/10-synaptics.conf</code>
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/10-synaptics.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "InputClass"
+	Identifier "touchpad catchall"
+	Driver "synaptics"
+	MatchIsTouchpad "on"
+	MatchDevicePath "/dev/input/event*"
+	Option "FingerLow" "1"
+	Option "FingerHigh" "5"
+EndSection
+</pre>
+<p>To fix trackpad sensitivity issues when using the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libinput">libinput</a></span> driver, add the following local device quirk under <code>/etc/libinput/local-overrides.quirks</code>
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/libinput/local-overrides.quirks</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Touchpad pressure override]
+MatchUdevType=touchpad
+MatchName=*Elan Touchpad
+MatchDMIModalias=dmi:*svnGOOGLE:*pnEdgar*
+AttrPressureRange=4:3
+</pre>
+<p>After the XServer has been restarted, the changes will take place.
+</p>
+<p>When using hibernation (<a href="../Power_management/Suspend_and_hibernate.html#Hibernation" class="mw-redirect" title="Suspend and hibernate">Suspend and hibernate#Hibernation</a>) an issue may be encountered where the module required for the touchpad <code>elan_i2c</code> is not loaded on resuming, meaning that the touchpad won't be operable. A workaround for this is to enable the required module during the <a href="../TOS_boot_process.html#initramfs" title="TOS boot process">initramfs stage</a>.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">MODULES=(... elan_i2c ...)
+</pre>
+<p>After the recreating the initramfs image and rebooting the touchpad should now be working on resuming from hibernation.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Acer.html" title="Category:Acer">Acer</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Acer_Chromebook_14_CB3-431_(Edgar)&amp;oldid=576897">https://wiki.archlinux.org/index.php?title=Acer_Chromebook_14_CB3-431_(Edgar)&amp;oldid=576897</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 July 2019, at 04:59.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

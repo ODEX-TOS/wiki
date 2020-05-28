@@ -1,0 +1,291 @@
+<!--
+    title: Keyring
+    description: Migration of Keyring from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">GNOME/Keyring</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../GNOME.html" title="GNOME">GNOME</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://wiki.gnome.org/Projects/GnomeKeyring">GNOME Keyring</a> is "a collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications."
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Manage_using_GUI"><span >2</span> <span >Manage using GUI</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Using_the_keyring_outside_GNOME"><span >3</span> <span >Using the keyring outside GNOME</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4">
+<a href="#Without_a_display_manager"><span >3.1</span> <span >Without a display manager</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Automatic_login"><span >3.1.1</span> <span >Automatic login</span></a></li>
+<li class="toclevel-3 tocsection-6">
+<a href="#Console_login"><span >3.1.2</span> <span >Console login</span></a>
+<ul>
+<li class="toclevel-4 tocsection-7"><a href="#PAM_method"><span >3.1.2.1</span> <span >PAM method</span></a></li>
+<li class="toclevel-4 tocsection-8"><a href="#xinitrc_method"><span >3.1.2.2</span> <span >xinitrc method</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#With_a_display_manager"><span >3.2</span> <span >With a display manager</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#SSH_keys"><span >4</span> <span >SSH keys</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Start_SSH_and_Secrets_components_of_keyring_daemon"><span >4.1</span> <span >Start SSH and Secrets components of keyring daemon</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Disable_keyring_daemon_components"><span >4.2</span> <span >Disable keyring daemon components</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13">
+<a href="#Tips_and_tricks"><span >5</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Integration_with_applications"><span >5.1</span> <span >Integration with applications</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Flushing_passphrases"><span >5.2</span> <span >Flushing passphrases</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Git_integration"><span >5.3</span> <span >Git integration</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#GnuPG_integration"><span >5.4</span> <span >GnuPG integration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18">
+<a href="#Troubleshooting"><span >6</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Passwords_are_not_remembered"><span >6.1</span> <span >Passwords are not remembered</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Resetting_the_keyring"><span >6.2</span> <span >Resetting the keyring</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>When using GNOME, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-keyring">gnome-keyring</a></span> is installed automatically as a part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/gnome/">gnome</a></span> group. Otherwise <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-keyring">gnome-keyring</a></span> package. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsecret">libsecret</a></span> to allow applications to use your keyrings. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libgnome-keyring">libgnome-keyring</a></span> is deprecated, however, some applications may require it.
+</p>
+<p>Extra utilities related to GNOME keyring include:
+</p>
+<ul><li>
+<b>secret-tool</b> — Access the GNOME keyring (and any other service implementing the <a rel="nofollow"  href="https://specifications.freedesktop.org/secret-service/">DBus Secret Service API</a>) from the command line.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://wiki.gnome.org/Projects/Libsecret">https://wiki.gnome.org/Projects/Libsecret</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsecret">libsecret</a></span>
+</dd></dl>
+<ul><li>
+<b>gnome-keyring-query</b> — Provides a simple command-line tool for querying passwords from the password store of the GNOME Keyring. (uses the deprecated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libgnome-keyring">libgnome-keyring</a></span>)</li></ul>
+<dl><dd>|| <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gnome-keyring-query/">gnome-keyring-query</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>gkeyring</b> — Query passwords from the command line. (uses the deprecated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libgnome-keyring">libgnome-keyring</a></span>)</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/kparal/gkeyring">https://github.com/kparal/gkeyring</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gkeyring/">gkeyring</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gkeyring-git/">gkeyring-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<h2><span class="mw-headline" id="Manage_using_GUI">Manage using GUI</span></h2>
+<p>You can manage the contents of GNOME Keyring using Seahorse. <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> it with the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=seahorse">seahorse</a></span>.
+</p>
+<p>It is possible to leave the GNOME keyring password blank or change it. In seahorse, in the "View" drop-down menu, select "By Keyring". On the Passwords tab, right click on "Passwords: login" and pick "Change password." Enter the old password and leave empty the new password. You will be warned about using unencrypted storage; continue by pushing "Use Unsafe Storage."
+</p>
+<h2><span class="mw-headline" id="Using_the_keyring_outside_GNOME">Using the keyring outside GNOME</span></h2>
+<h3><span class="mw-headline" id="Without_a_display_manager">Without a display manager</span></h3>
+<h4><span class="mw-headline" id="Automatic_login">Automatic login</span></h4>
+<p>If you are using automatic login, then you can disable the keyring manager by setting a blank password on the login keyring.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong>  The passwords are stored unencrypted in this case.</div>
+<h4><span class="mw-headline" id="Console_login">Console login</span></h4>
+<p>When using console-based login, the keyring daemon can be started by either <a href="../../PAM.html" title="PAM">PAM</a> or <a href="../../Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>. PAM can also unlock the keyring automatically at login.
+</p>
+<h5><span class="mw-headline" id="PAM_method">PAM method</span></h5>
+<p>Start the gnome-keyring-daemon from <code>/etc/pam.d/login</code>:
+</p>
+<p>Add <code>auth optional pam_gnome_keyring.so</code> at the end of the <code>auth</code> section and <code>session optional pam_gnome_keyring.so auto_start</code> at the end of the <code>session</code> section.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/login</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#%PAM-1.0
+ 
+auth       required     pam_securetty.so
+auth       requisite    pam_nologin.so
+auth       include      system-local-login
+auth       optional     pam_gnome_keyring.so<b></b>
+account    include      system-local-login
+session    include      system-local-login
+session    optional     pam_gnome_keyring.so auto_start<b></b></pre>
+<p>For <a href="../../SDDM.html" title="SDDM">SDDM</a>, edit instead the configuration file <code>/etc/pam.d/sddm</code>.
+</p>
+<p>Next, for <a href="../../GDM.html" title="GDM">GDM</a>, add <code>password optional pam_gnome_keyring.so</code> to the end of <code>/etc/pam.d/passwd</code>.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/passwd</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#%PAM-1.0
+
+#password	required	pam_cracklib.so difok=2 minlen=8 dcredit=2 ocredit=2 retry=3
+#password	required	pam_unix.so sha512 shadow use_authtok
+password	required	pam_unix.so sha512 shadow nullok
+password	optional	pam_gnome_keyring.so<b></b></pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>To use automatic unlocking, the same password for the user account and the keyring have to be set.</li>
+<li>You will still need the code in <code>~/.xinitrc</code> below in order to export the environment variables required.</li>
+</ul>
+</div>
+<h5><span class="mw-headline" id="xinitrc_method">xinitrc method</span></h5>
+<p>Start the gnome-keyring-daemon from <a href="../../Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+</pre>
+<p>See <a href="../../Xfce.html#SSH_agents" title="Xfce">Xfce#SSH agents</a> for use in Xfce.
+</p>
+<h3><span class="mw-headline" id="With_a_display_manager">With a display manager</span></h3>
+<p>When using a display manager, the keyring works out of the box for most cases. The following display managers automatically unlock the keyring once you log in:
+</p>
+<ul>
+<li><a href="../../GDM.html" title="GDM">GDM</a></li>
+<li><a href="../../LightDM.html" title="LightDM">LightDM</a></li>
+<li><a href="../../LXDM.html" title="LXDM">LXDM</a></li>
+<li><a href="../../SDDM.html" title="SDDM">SDDM</a></li>
+</ul>
+<p>For GDM and LightDM, note the keyring <a rel="nofollow"  href="https://wiki.gnome.org/Projects/GnomeKeyring/Pam">must be</a> named <i>login</i> to be automatically unlocked.
+</p>
+<p>To enable the keyring for applications run through the terminal, such as SSH, add the following to your <code>~/.bash_profile</code>, <code>~/.zshenv</code>, or similar:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.bash_profile</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/fish/config.fish</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">if test -n "$DESKTOP_SESSION"
+    set (gnome-keyring-daemon --start | string split "=")
+end</pre>
+<h2><span class="mw-headline" id="SSH_keys">SSH keys</span></h2>
+<p>To add your SSH key:
+</p>
+<pre>$ ssh-add ~/.ssh/id_rsa
+Enter passphrase for /home/mith/.ssh/id_rsa:
+</pre>
+<p>To list automatically loaded keys:
+</p>
+<pre>$ ssh-add -L
+</pre>
+<p>To disable all keys:
+</p>
+<pre>$ ssh-add -D
+</pre>
+<p>Now when you connect to a server, the key will be found and a dialog will popup asking you for the passphrase. It has an option to automatically unlock the key when you log in. If you check this, you will not need to enter your passphrase again!
+</p>
+<p>Alternatively, to permanently save the a passphrase in the keyring, use ssh-askpass from package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=seahorse">seahorse</a></span>:
+</p>
+<pre>/usr/lib/seahorse/ssh-askpass my_key
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You have to have the corresponding <code>.pub</code> file in the same directory as the private key (<code>~/.ssh/id_rsa.pub</code> in the example). Also, make sure that the public key is the file name of the private key plus <code>.pub</code> (for example, <code>my_key.pub</code>).</div>
+<h3><span class="mw-headline" id="Start_SSH_and_Secrets_components_of_keyring_daemon">Start SSH and Secrets components of keyring daemon</span></h3>
+<p>If you are starting Gnome Keyring with a display manager or the Pam method described above and you are NOT using Gnome, Unity or Mate as your desktop you may find that the SSH and Secrets components are not being started automatically.
+You can fix this by copying the desktop files gnome-keyring-ssh.desktop and gnome-keyring-secrets.desktop from <code>/etc/xdg/autostart/</code> to <code>~/.config/autostart/</code> and deleting the OnlyShowIn line.
+</p>
+<pre>$ cp /etc/xdg/autostart/{gnome-keyring-secrets.desktop,gnome-keyring-ssh.desktop} ~/.config/autostart/
+$ sed -i '/^OnlyShowIn.*$/d' ~/.config/autostart/gnome-keyring-secrets.desktop
+$ sed -i '/^OnlyShowIn.*$/d' ~/.config/autostart/gnome-keyring-ssh.desktop
+</pre>
+<h3><span class="mw-headline" id="Disable_keyring_daemon_components">Disable keyring daemon components</span></h3>
+<p>If you wish to run an alternative SSH agent (e.g. <a href="../../SSH_keys.html#ssh-agent" title="SSH keys">ssh-agent</a> or <a href="../../GnuPG.html#gpg-agent" title="GnuPG">gpg-agent</a>), you need to disable the <code>ssh</code> component of GNOME Keyring.
+To do so in an account-local way, copy <code>/etc/xdg/autostart/gnome-keyring-ssh.desktop</code> to <code>~/.config/autostart/</code> and then append the line <code>Hidden=true</code> to the copied file. Then log out.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> In case you use <a href="../../GNOME.html" title="GNOME">GNOME</a> 3.24 or older on <a href="../../Wayland.html" title="Wayland">Wayland</a>, gnome-shell will overwrite <code>SSH_AUTH_SOCK</code> to point to gnome-keyring regardless if it is running or not. To prevent this, you need to set the environment variable GSM_SKIP_SSH_AGENT_WORKAROUND before gnome-shell is started. One way to do this is to add the line <code>GSM_SKIP_SSH_AGENT_WORKAROUND	DEFAULT=1</code> to <code>~/.pam_environment</code>.</div>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Integration_with_applications">Integration with applications</span></h3>
+<ul><li><a href="../../Firefox.html#KDE.2FGNOME_integration" title="Firefox">Firefox</a></li></ul>
+<h3><span class="mw-headline" id="Flushing_passphrases">Flushing passphrases</span></h3>
+<pre>gnome-keyring-daemon -r -d
+</pre>
+<p>This command starts gnome-keyring-daemon, shutting down previously running instances.
+</p>
+<h3><span class="mw-headline" id="Git_integration">Git integration</span></h3>
+<p>The GNOME keyring is useful in conjuction with <a href="../../Git.html" title="Git">Git</a> when you are pushing over HTTPS.
+</p>
+<p><a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsecret">libsecret</a></span> package. 
+</p>
+<p>Set Git up to use the helper:
+</p>
+<pre>$ git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+</pre>
+<p>Next time you do a <i>git push</i>, you are asked to unlock your keyring, if not unlocked already.
+</p>
+<h3><span class="mw-headline" id="GnuPG_integration">GnuPG integration</span></h3>
+<p>Several applications which use GnuPG require a <code>pinentry-program</code> to be set. Set the following to use Gnome 3 pinentry for Gnome Keyring to manage passphrase prompts.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.gnupg/gpg-agent.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">pinentry-program /usr/bin/pinentry-gnome3
+</pre>
+<p>Another option is to <a href="../../GnuPG.html#Unattended_passphrase" title="GnuPG">force loopback for GPG</a> which should allow the passphrase to be entered in the application.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Passwords_are_not_remembered">Passwords are not remembered</span></h3>
+<p>If you get a password prompt every time you login, and you find that passwords are not saved, you might need to create/set a default keyring.
+</p>
+<p>Ensure that the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=seahorse">seahorse</a></span> package is <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a>, open it ("Passwords and Keys" in system settings) and select <i>View</i> &gt; <i>By Keyring</i>.
+If there is no keyring in the left column (it will be marked with a lock icon), go to <i>File</i> &gt; <i>New</i> &gt; <i>Password Keyring</i> and give it a name. You will be asked to enter a password. If you do not give the keyring a password it will be unlocked automatically, even when using autologin, but passwords will not be stored securely. Finally, right-click on the keyring you just created and select "Set as default".
+</p>
+<h3><span class="mw-headline" id="Resetting_the_keyring">Resetting the keyring</span></h3>
+<p>If you get the error "The password you use to login to your computer no longer matches that of your login keyring", you'll need to change the keyring password. You can do this using seahorse, by right-clicking on "default keyring", and selecting "Change Password".
+</p>
+<p>Alternatively, you can remove "login.keyring" and "user.keystore" from <i>/home/{username}/.local/share/keyrings/</i>. Be warned that this will permanently delete all saved keys. After removing the files, simply log out and log in again.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow"  href="https://wiki.gnome.org/action/show/Projects/GnomeKeyring">GNOME wiki</a></li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:GNOME.html" title="Category:GNOME">GNOME</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=GNOME/Keyring&amp;oldid=610560">https://wiki.archlinux.org/index.php?title=GNOME/Keyring&amp;oldid=610560</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 4 May 2020, at 13:28.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

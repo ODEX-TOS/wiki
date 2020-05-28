@@ -1,0 +1,147 @@
+<!--
+    title: Lenovo_ThinkPad_X140e
+    description: Migration of Lenovo_ThinkPad_X140e from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Lenovo ThinkPad X140e</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Lenovo_ThinkPad_X100e.html" class="mw-redirect" title="IBM ThinkPad X100e">IBM ThinkPad X100e</a></li>
+<li><a href="../Lenovo_ThinkPad_X120e.html" class="mw-redirect" title="IBM ThinkPad X120e">IBM ThinkPad X120e</a></li>
+</ul>
+</div>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../Laptop/Lenovo.html" title="Laptop/Lenovo">Laptop/Lenovo</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> <span style="color:red;">please use the second argument of the template to provide more detailed indications.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Lenovo_ThinkPad_X140e">Talk:Lenovo ThinkPad X140e#</a>)</div>
+</div>
+<p>Installation instructions for the Lenovo ThinkPad X140e. Should work for E145 as well.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Video_drivers"><span >1</span> <span >Video drivers</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Wireless"><span >2</span> <span >Wireless</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Input"><span >3</span> <span >Input</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#TrackPoint_scrolling_(wheel_emulation)"><span >3.1</span> <span >TrackPoint scrolling (wheel emulation)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#TrackPad"><span >3.2</span> <span >TrackPad</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#TrackPoint_speed_and_sensitivity"><span >3.3</span> <span >TrackPoint speed and sensitivity</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Power_saving"><span >4</span> <span >Power saving</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Disable_Bluetooth"><span >4.1</span> <span >Disable Bluetooth</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#ATI_video_card_powersaving"><span >4.2</span> <span >ATI video card powersaving</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Issues_with_suspend"><span >4.3</span> <span >Issues with suspend</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Video_drivers">Video drivers</span></h2>
+<p>Users have the choice between the open source <a href="../ATI.html" title="ATI">ATI</a> video driver or the closed source <a href="../AMD_Catalyst.html" class="mw-redirect" title="Catalyst">Catalyst</a> video driver.
+</p>
+<p>As of 3.15 kernel, the open source drivers are very suitable for this chips' GPU. 3.16 is a mild improvement over that.
+</p>
+<p>The HD8330 video device on this laptop is part of the Sea Islands family (Kabini chipset) of AMD GPUs. As the new <a href="../AMDGPU.html" title="AMDGPU">AMDGPU</a> kernel driver is now needed as of Linux kernel 4.13 for GL support, adding `amdgpu.cik_support=1 radeon.cik_support=0`  kernel parameters is required to boot with full OpenGL support.
+</p>
+<h2><span class="mw-headline" id="Wireless">Wireless</span></h2>
+<p>The Thinkpad x140e is available from Lenovo with one of two wireless cards:
+</p>
+<ul>
+<li>A BGN solution of unknown chipset.</li>
+<li>A Broadcom ABGN Wifi / BT4.0 card which is currently not supported by the <code>b43</code> driver. Ideally, use driver <code>broadcom-wl</code>. See <a href="../Broadcom_wireless.html" title="Broadcom wireless">Broadcom wireless</a> for details.</li>
+</ul>
+<p>As of BIOS 2.05, the X140e supports Lenovo branded mPCIe Intel 802.11 ac/a/b/g/n. However no X140e is currently sold with this wifi option. This card is supported out of the box by TOS. The only tested and confirmed FRU is 04W3814.
+</p>
+<h2><span class="mw-headline" id="Input">Input</span></h2>
+<h3>
+<span id="TrackPoint_scrolling_.28wheel_emulation.29"></span><span class="mw-headline" id="TrackPoint_scrolling_(wheel_emulation)">TrackPoint scrolling (wheel emulation)</span>
+</h3>
+<p>See <a href="../Lenovo_ThinkPad_X120e.html#TrackPoint_scrolling_(wheel_emulation)" title="Lenovo ThinkPad X120e">Lenovo ThinkPad X120e#TrackPoint scrolling (wheel emulation)</a>.
+</p>
+<h3><span class="mw-headline" id="TrackPad">TrackPad</span></h3>
+<p>See <a href="../Touchpad_Synaptics.html" title="Touchpad Synaptics">Touchpad Synaptics</a>.
+</p>
+<h3><span class="mw-headline" id="TrackPoint_speed_and_sensitivity">TrackPoint speed and sensitivity</span></h3>
+<p>See <a href="../Lenovo_ThinkPad_X120e.html#TrackPoint_speed_and_sensitivity" title="Lenovo ThinkPad X120e">Lenovo ThinkPad X120e#TrackPoint speed and sensitivity</a>.
+</p>
+<h2><span class="mw-headline" id="Power_saving">Power saving</span></h2>
+<p>Use TLP. Should average 9~ hours.
+</p>
+<p>See <a href="../Power_management.html" class="mw-redirect" title="Power saving">power saving</a>.
+</p>
+<h3><span class="mw-headline" id="Disable_Bluetooth">Disable Bluetooth</span></h3>
+<p>See <a href="../Power_management.html#Bluetooth" class="mw-redirect" title="Power saving">Power saving#Bluetooth</a>.
+</p>
+<h3><span class="mw-headline" id="ATI_video_card_powersaving">ATI video card powersaving</span></h3>
+<p>For the open-source driver, follow the information in <a href="../ATI.html#Powersaving" title="ATI">ATI#Powersaving</a>.
+</p>
+<h3><span class="mw-headline" id="Issues_with_suspend">Issues with suspend</span></h3>
+<p>If your X140e hangs on suspend, use the following: echo 0 &gt; /sys/power/pm_async and try again.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Lenovo.html" title="Category:Lenovo">Lenovo</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Lenovo_ThinkPad_X140e&amp;oldid=510815">https://wiki.archlinux.org/index.php?title=Lenovo_ThinkPad_X140e&amp;oldid=510815</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 February 2018, at 20:24.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

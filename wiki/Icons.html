@@ -1,0 +1,139 @@
+<!--
+    title: Icons
+    description: Migration of Icons from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Icons</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Cursor_themes.html" title="Cursor themes">Cursor themes</a></li>
+<li><a href="../Xfce.html" title="Xfce">Xfce</a></li>
+</ul>
+</div>
+<p>The freedesktop project provides the <a rel="nofollow"  href="http://specifications.freedesktop.org/icon-theme-spec/latest/">Icon Theme Specification</a>, which applies to most linux-tosdesktop environments and tries to unify the look of a whole bunch of icons in an <i>icon-theme</i>.
+Freedesktop also provides the <a rel="nofollow"  href="http://specifications.freedesktop.org/icon-naming-spec/latest/">Icon Naming Specification</a>, which defines a standard naming scheme for icons believed to be installed on any system. The default theme <i>hicolor</i> should include them all. 
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Icons_and_emblems"><span >1.1</span> <span >Icons and emblems</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Mime_type_icons"><span >1.2</span> <span >Mime type icons</span></a></li>
+<li class="toclevel-2 tocsection-4">
+<a href="#Icon_themes"><span >1.3</span> <span >Icon themes</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#From_a_package"><span >1.3.1</span> <span >From a package</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Manually"><span >1.3.2</span> <span >Manually</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#fstab_/_gvfs"><span >2</span> <span >fstab / gvfs</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Icons_and_emblems">Icons and emblems</span></h3>
+<p>To append a custom icon to an existing icon theme <code>xdg-icon-resource</code> can be used. This will resize and copy the icon to <code>$HOME/.local/share/icons/</code>. With this method, custom emblems can also be added. Examples:
+</p>
+<pre>$ xdg-icon-resource install --size 128 --context emblems archuser-example.png # add as emblem
+$ xdg-icon-resource install --size 128 archuser-example.png # add as normal icon
+</pre>
+<h3><span class="mw-headline" id="Mime_type_icons">Mime type icons</span></h3>
+<p>Todays file managers do not rely on the traditional mime type which <code>file --mime</code> outputs. Instead definitions from <code>/usr/share/mime/</code> are used. Calling an icon according to the definition found there and copying it to <code>~/.local/share/icons</code> will cause the file manager to display the custom mime type icon. This command illustrates the method:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">Creates a custom icon for keepass database files (*.kdb)</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># grep kdb /usr/share/mime/globs | egrep -o '.+\/[^:]+' | tr '/' '-'
+application-x-keepass ;# rename your icon according to this output
+xdg-icon-resource install --size 128 --context mimetypes application-x-keepass.png
+
+</pre>
+<h3><span class="mw-headline" id="Icon_themes">Icon themes</span></h3>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> It is recommended to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hicolor-icon-theme">hicolor-icon-theme</a></span> package as many programs will deposit their icons in <code>/usr/share/icons/hicolor</code> and most other icon themes will inherit icons from the Hicolor icon theme.</div>
+<h4><span class="mw-headline" id="From_a_package">From a package</span></h4>
+<ul>
+<li>
+<a href="../Official_repositories.html" title="Official repositories">Official repositories</a> — <a rel="nofollow"  href="https://www.archlinux.org/packages/?sort=&amp;q=icon-theme&amp;maintainer=&amp;last_update=&amp;flagged=&amp;limit=50">"icon-theme" search</a>.</li>
+<li>
+<a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> — <a rel="nofollow"  href="https://aur.archlinux.org/packages.php?O=0&amp;L=0&amp;C=17&amp;K=icon-theme&amp;SeB=nd&amp;SB=n&amp;SO=a&amp;PP=50&amp;do_Search=Go">"icon-theme" search</a>.</li>
+</ul>
+<h4><span class="mw-headline" id="Manually">Manually</span></h4>
+<p>If you cannot find a package for the icon theme you are looking for, you will need to install it manually.
+</p>
+<ul><li>Firstly, find and download your desired icon pack. Many different icon themes can be downloaded from the following sites: <a rel="nofollow"  href="http://www.customize.org">Customize.org</a>, <a rel="nofollow"  href="http://opendesktop.org">Opendesktop.org</a> and <a rel="nofollow"  href="http://xfce-look.org/">Xfce-look.org</a>.</li></ul>
+<ul><li>Then navigate to the directory which contains the icon pack and extract it. Example <code>tar -xzf /home/user/downloads/icon-pack.tar.gz</code>.</li></ul>
+<ul><li>Move the extracted folder containing the icons to either <code>~/.icons</code> or <code>~/.local/share/icons</code> (user only) or to <code>/usr/share/icons</code> (systemwide).</li></ul>
+<ul><li>Optional: run <code>gtk-update-icon-cache -f -t ~/.icons/&lt;theme_name&gt;</code> to update the icon cache.</li></ul>
+<ul><li>Select the icon theme using the appropriate configuration tool for your <a href="../Desktop_environment.html" title="Desktop environment">desktop environment</a> or <a href="../Window_manager.html" title="Window manager">window manager</a>.</li></ul>
+<h2>
+<span id="fstab_.2F_gvfs"></span><span class="mw-headline" id="fstab_/_gvfs">fstab / gvfs</span>
+</h2>
+<p>According to this <a rel="nofollow"  href="https://github.com/GNOME/gvfs/blob/mainline/monitor/udisks2/what-is-shown.txt">document</a> file managers using <a href="../File_manager_functionality.html#Mounting" class="mw-redirect" title="GVFS">GVFS</a> (like <a href="../GNOME/Files.html" class="mw-redirect" title="GNOME Files">GNOME Files</a> or <a href="../Thunar.html" title="Thunar">Thunar</a>) can display icons for custom locations, like <a href="../NFS.html" title="NFS">NFS</a> shares. All you need are some extended mount options inside <code>/etc/fstab</code> with icon names supported by your selected icon theme:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">hostname:/ /mnt/ nfs4 defaults,_netdev,user,rw,exec,comment=x-gvfs-show,x-gvfs-name=Network%20Attached%20Storage,x-gvfs-icon=network-server,x-gvfs-symbolic-icon=network-server,timeo=14,noatime 0 0
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:X_server.html" title="Category:X server">X server</a></li>
+<li><a href="../Category:Eye_candy.html" title="Category:Eye candy">Eye candy</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Icons&amp;oldid=589861">https://wiki.archlinux.org/index.php?title=Icons&amp;oldid=589861</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 November 2019, at 13:19.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

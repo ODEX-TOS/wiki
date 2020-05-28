@@ -1,0 +1,241 @@
+<!--
+    title: HP_Envy_x360_13z-ag000
+    description: Migration of HP_Envy_x360_13z-ag000 from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">HP Envy x360 13z-ag000</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><br>
+The HP Envy X360 13z-ag000 was released in 2018. It has variable processors/ram and displays, from a Ryzen Mobile 2300U to a 2700U, from 4GB RAM to 16GB RAM, and a 1080p display to a 4K display.
+</p>
+<p>The specs of my particular model are:
+</p>
+<ul>
+<li>2500U with 16GB RAM</li>
+<li>4K display</li>
+<li>Realtek RTL8822BE wireless chip</li>
+</ul>
+<table  style="float: right;">
+<tbody>
+<tr>
+<td><b>Device</b></td>
+<td><b>Model</b></td>
+<td><b>Status</b></td>
+<td>
+<b>Modules</b>
+</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>AMD Vega IGPU</td>
+<td style="color:green"><b>Working</b></td>
+<td>xf86-video-amdgpu;  Backlight works
+</td>
+</tr>
+<tr>
+<td>Wifi</td>
+<td>Realtek RTL8822BE</td>
+<td style="color:green"><b>Working</b></td>
+<td>r8822be
+</td>
+</tr>
+<tr>
+<td>Bluetooth</td>
+<td>Realtek RTL8822BE</td>
+<td style="color:green"><b>Working</b></td>
+<td>btusb
+</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td></td>
+<td style="color:green"><b>Working</b></td>
+<td>snd_hda_intel
+</td>
+</tr>
+<tr>
+<td>Touchpad</td>
+<td>Synaptics</td>
+<td style="color:green"><b>Working</b></td>
+<td>synaptics
+</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td>Normal 1080p + IR 336x340</td>
+<td style="color:green"><b>Working</b></td>
+<td>uvcvideo
+</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td>STM Sensor hub</td>
+<td style="color:red"><b>Not Working</b></td>
+<td>On Windows used for orientation sensing and hard drive drop protection
+</td>
+</tr>
+<tr>
+<td>USB C</td>
+<td>AMD xHCI Host Controller</td>
+<td style="color:red"><b>Not Working</b></td>
+<td>Data and DP working
+</td>
+</tr>
+</tbody>
+</table>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installing_TOS"><span >1</span> <span >Installing TOS</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Battery_and_Power_Management"><span >2</span> <span >Battery and Power Management</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Display,_Video_Card"><span >3</span> <span >Display, Video Card</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Audio"><span >4</span> <span >Audio</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Touchscreen_and_Stylus"><span >5</span> <span >Touchscreen and Stylus</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Orientation_Sensor"><span >6</span> <span >Orientation Sensor</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Wireless_Networking"><span >7</span> <span >Wireless Networking</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Bluetooth"><span >8</span> <span >Bluetooth</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Hard_Drive"><span >9</span> <span >Hard Drive</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Dual_Boot"><span >10</span> <span >Dual Boot</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installing_TOS">Installing TOS</span></h2>
+<p>This laptop has secure boot enabled by default. To start the installer you need to disable it in the UEFI. Then you can just boot the installer in UEFI mode and just install like a normal UEFI system.
+</p>
+<p>There appears to be an option to use your own Secureboot keys. I've not yet investigated that.
+</p>
+<h2><span class="mw-headline" id="Battery_and_Power_Management">Battery and Power Management</span></h2>
+<p>a 4 hour battery life because of the 4K display. Currently I'm running a patched 4.17 kernel; 4.18 might improve battery life somewhat.
+</p>
+<h2>
+<span id="Display.2C_Video_Card"></span><span class="mw-headline" id="Display,_Video_Card">Display, Video Card</span>
+</h2>
+<p>The integrated Vega GPU works with the AMDGPU drivers. `GDK_SCALE=2` is somewhat necessary for most applications.
+</p>
+<h2><span class="mw-headline" id="Audio">Audio</span></h2>
+<p>The"Bang &amp; Olufsen" top-soundbar is by default disabled. You can activate it by using the "hdajackretask" utility provided by alsa-tools. More information can be found in this thread: <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=189331">https://bugzilla.kernel.org/show_bug.cgi?id=189331</a>
+</p>
+<p>The exact pinout can be found in this attachment: <a rel="nofollow"  href="https://bugzilla.kernel.org/attachment.cgi?id=282109&amp;action=edit">https://bugzilla.kernel.org/attachment.cgi?id=282109&amp;action=edit</a>
+</p>
+<p><code>
+</code></p>
+<code><pre>   Options : [x] Show unconnected
+             [ ] Set model  =  auto
+             [X] Advanced ovveride
+             [ ] Parser hints
+</pre></code><code><pre>   Pin ID; 0x14 
+   [x] Override
+   Connectivity : Jack; Location : Internal; Device : Speaker; Jack : Other Analog
+   Color : Unknown; Jack detection : Not present; Channel group : 5; Channel : Front
+</pre></code><code><pre>   Pin ID: 0x17
+   [X] Override
+   Connectivity : Jack; Location : Internal; Device : Speaker; Jack : Other
+   Color : Unknown; Jack detection : Not present; Channel group : 5; Channel : Back
+</pre></code><code></code><p><code></code>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> that the top-soundbar only fires when using close to the max volume.</div>
+<h2><span class="mw-headline" id="Touchscreen_and_Stylus">Touchscreen and Stylus</span></h2>
+<p>Kernel 4.19.5 or greater is needed. <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=198715#c14">[1]</a> <a rel="nofollow"  href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.5">[2]</a>
+</p>
+<p>The built in ELAN digitizer doesn't use the wacom driver by default, but it can be configured to do so. Switching to the wacom driver allows easier configuration of the digitizer and pen through tools like xsetwacom. This can be achieved with the following xorg configuration file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/99-ELAN-stylus.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "InputClass"
+    Identifier "Elan driver override"
+    MatchUSBID "04f3:*"
+    MatchDevicePath "/dev/input/event*"
+    MatchIsTablet "true"
+    Driver "wacom"
+EndSection
+</pre>
+<p>After a reboot xsetwacom should now correctly register the device.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">xsetwacom --list devices</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ELAN0732:00 04F3:262A stylus    	id: 13	type: STYLUS    
+ELAN0732:00 04F3:262A eraser    	id: 18	type: ERASER
+</pre>
+<p>You can use xinput to probe the different devices and find out what actions get triggered by which buttons. For instance the "wacom bamboo ink" pen triggers the eraser device while touching the screen while maintaining the second side button pressed.
+</p>
+<pre>xinput test $deviceID
+</pre>
+<p>The following simple example script will bind rightclick to the eraser device.
+</p>
+<pre>device=$(xsetwacom --list | grep -i "eraser" |  awk '{print $(NF-2)}') 
+xsetwacom --set "$device" button 1 3
+</pre>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Orientation_Sensor">Orientation Sensor</span></h2>
+<p>No `iio` sensors are enumerated as of 4.18-rc7, with all possible iio modules compiled. `iio-sensor-proxy` returns no sensors detected.
+</p>
+<h2><span class="mw-headline" id="Wireless_Networking">Wireless Networking</span></h2>
+<p>Works out of the box. `aspm=0` seems to prevent the card from dropping offline as much, but also worsens battery life.
+</p>
+<h2><span class="mw-headline" id="Bluetooth">Bluetooth</span></h2>
+<p>Works out of the box with Motorola Pulse Escape on kernel 4.19.5.
+</p>
+<h2><span class="mw-headline" id="Hard_Drive">Hard Drive</span></h2>
+<p>Built-in NVME drive works with advertised speed. Blockdevices are located at /dev/nvme0n1p*.
+</p>
+<h2><span class="mw-headline" id="Dual_Boot">Dual Boot</span></h2>
+<p>Untested, but there shouldn't any difficulties.
+</p>
+<p>Tested on the 13ag-0005ng, which is identical in specs (Ryzen 5 2500U, 16GB DDR4), except for the display, which is 1080p instead of 4k. Dual Booting with Windows 10 works just like it does on other devices. No difficulties.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:HP.html" title="Category:HP">HP</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=HP_Envy_x360_13z-ag000&amp;oldid=598083">https://wiki.archlinux.org/index.php?title=HP_Envy_x360_13z-ag000&amp;oldid=598083</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 February 2020, at 18:34.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

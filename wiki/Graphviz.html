@@ -1,0 +1,165 @@
+<!--
+    title: Graphviz
+    description: Migration of Graphviz from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Graphviz</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From <a href="https://en.wikipedia.org/wiki/Graphviz"  title="wikipedia:Graphviz">Wikipedia</a>:
+</p>
+<dl><dd>"Graphviz (short for Graph Visualization Software)  is a package of open-source tools [...] for drawing graphs specified in <a href="https://en.wikipedia.org/wiki/DOT_(graph_description_language)"  title="wikipedia:DOT (graph description language)">DOT language</a> scripts."</dd></dl>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Font"><span >2</span> <span >Font</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Example"><span >3</span> <span >Example</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=graphviz">graphviz</a></span> package.
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xdot">xdot</a></span> for an interactive GTK-based graph viewer.
+</p>
+<h2><span class="mw-headline" id="Font">Font</span></h2>
+<p>You need to install a font to include strings in the graph. For information how to install fonts, see <a href="../Fonts.html" title="Fonts">Fonts</a>.
+</p>
+<p>To see what fonts are available:
+</p>
+<pre>$ fc-list
+</pre>
+<p>To see what fonts dot is using:
+</p>
+<pre>$ dot example.dot -Tpng -o foo.png -v 2&gt;&amp;1 | grep font
+</pre>
+<h2><span class="mw-headline" id="Example">Example</span></h2>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> For interactive graph development try the <span class="plainlinks archwiki-template-man" title="$ man 1 vimdot"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/vimdot.1">vimdot(1)</a></span> command.</div>
+<p>Here is a dot file example.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">example.dot</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">digraph graph_name {
+  graph [
+    charset = "UTF-8";
+    label = "sample graph",
+    labelloc = "t",
+    labeljust = "c",
+    bgcolor = "#343434",
+    fontcolor = white,
+    fontsize = 18,
+    style = "filled",
+    rankdir = TB,
+    margin = 0.2,
+    splines = spline,
+    ranksep = 1.0,
+    nodesep = 0.9
+  ];
+
+  node [
+    colorscheme = "rdylgn11"
+    style = "solid,filled",
+    fontsize = 16,
+    fontcolor = 6,
+    fontname = "Migu 1M",
+    color = 7,
+    fillcolor = 11,
+    fixedsize = true,
+    height = 0.6,
+    width = 1.2
+  ];
+
+  edge [
+    style = solid,
+    fontsize = 14,
+    fontcolor = white,
+    fontname = "Migu 1M",
+    color = white,
+    labelfloat = true,
+    labeldistance = 2.5,
+    labelangle = 70
+  ];
+
+  // node define
+  alpha [shape = box];
+  beta [shape = box];
+  gamma [shape = Msquare];
+  delta [shape = box];
+  epsilon [shape = trapezium];
+  zeta [shape = Msquare];
+  eta;
+  theta [shape = doublecircle];
+
+  // edge define
+  alpha -&gt; beta [label = "a-b", arrowhead = normal];
+  alpha -&gt; gamma [label = "a-g"];
+  beta -&gt; delta [label = "b-d"];
+  beta -&gt; epsilon [label = "b-e", arrowhead = tee];
+  gamma -&gt; zeta [label = "g-z"];
+  gamma -&gt; eta [label = "g-e", style = dotted];
+  delta -&gt; theta [arrowhead = crow];
+  zeta -&gt; theta [arrowhead = crow];
+}</pre>
+<p>To generate a png image from this file:
+</p>
+<pre>$ dot -Tpng example.dot -o example.png
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow"  href="http://www.graphviz.org/">The official Graphviz website</a></li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Applications.html" title="Category:Applications">Applications</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Graphviz&amp;oldid=602242">https://wiki.archlinux.org/index.php?title=Graphviz&amp;oldid=602242</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 March 2020, at 16:20.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

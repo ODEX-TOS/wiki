@@ -1,0 +1,143 @@
+<!--
+    title: Budgie
+    description: Migration of Budgie from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Budgie</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Desktop_environment.html" title="Desktop environment">Desktop environment</a></li>
+<li><a href="../Display_manager.html" title="Display manager">Display manager</a></li>
+<li><a href="../Window_manager.html" title="Window manager">Window manager</a></li>
+<li><a href="../GTK.html" title="GTK">GTK</a></li>
+</ul>
+</div>
+<p>Budgie is the default desktop of Solus Operating System, written from scratch. Besides a more modern design, Budgie can emulate the look and feel of the GNOME 2 desktop.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Starting"><span >2</span> <span >Starting</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Usage"><span >3</span> <span >Usage</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Configuration"><span >4</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Changing_button_layout"><span >4.1</span> <span >Changing button layout</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Enable_lock_screen"><span >4.2</span> <span >Enable lock screen</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Use_a_different_window_manager"><span >4.3</span> <span >Use a different window manager</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=budgie-desktop">budgie-desktop</a></span> package for the latest stable or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/budgie-desktop-git/">budgie-desktop-git</a></span><sup><small>AUR</small></sup> for current git master. It's recommended to install its optional dependencies also to get a more complete desktop environment. It's recommended also to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/gnome/">gnome</a></span> group, which contains applications required for the standard GNOME experience.
+</p>
+<h2><span class="mw-headline" id="Starting">Starting</span></h2>
+<p>Choose <i>Budgie Desktop</i> session from a <a href="../Display_manager.html" title="Display manager">display manager</a> of choice, or modify <a href="../Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a> to include Budgie Desktop:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">export XDG_CURRENT_DESKTOP=Budgie:GNOME
+exec budgie-desktop
+</pre>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>You can see the notification messages, set volume, and modify the look and feel of the desktop with the sidebar called "Raven". It can be accessed with <code>Super+N</code> key or by clicking on the Status Indicator applet.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Configuration of Budgie Desktop is done through the sidebar and changes to system settings are made through <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-control-center">gnome-control-center</a></span>
+</p>
+<h3><span class="mw-headline" id="Changing_button_layout">Changing button layout</span></h3>
+<p>Window button layout can be changed using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dconf">dconf</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dconf-editor">dconf-editor</a></span> or gsettings.
+</p>
+<p>For example:
+</p>
+<pre>gsettings set com.solus-project.budgie-wm button-layout 'close,minimize,maximize:appmenu'
+gsettings set com.solus-project.budgie-helper.workarounds fix-button-layout 'close,minimize,maximize:menu'
+</pre>
+<h3><span class="mw-headline" id="Enable_lock_screen">Enable lock screen</span></h3>
+<p>To enable lock screen after a certain amount of inactivity, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gnome-screensaver">gnome-screensaver</a></span>.
+</p>
+<h3><span class="mw-headline" id="Use_a_different_window_manager">Use a different window manager</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Many window managers don't support --replace. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Budgie">Talk:Budgie#</a>)</div>
+</div>
+<p>It is possible to use an alternative <a href="../Window_manager.html" title="Window manager">window manager</a> with the Budgie. Either define a <a href="../GNOME/Tips_and_tricks.html#Custom_GNOME_sessions" title="GNOME/Tips and tricks">custom GNOME session</a> which replaces <i>budgie-wm</i> with another window manager or <a href="../GNOME.html#Autostart" title="GNOME">autostart</a> <code><i>my-wm</i> --replace</code> where <i>my-wm</i> is the executable name of the window manager you wish to use.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Budgie_(desktop_environment)"  title="wikipedia:Budgie (desktop environment)">Wikipedia:Budgie (desktop environment)</a></li>
+<li><a rel="nofollow"  href="https://budgie-desktop.org/">Official Budgie Desktop website</a></li>
+<li><a rel="nofollow"  href="https://github.com/solus-project/">Official git repositories for Solus development</a></li>
+<li>
+<a rel="nofollow"  href="https://build.solus-project.com/">Build status for Solus projects</a><sup title="Last check status: domain name not resolved">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-28 ⓘ]</sup>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Desktop_environments.html" title="Category:Desktop environments">Desktop environments</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Budgie&amp;oldid=602946">https://wiki.archlinux.org/index.php?title=Budgie&amp;oldid=602946</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 March 2020, at 16:50.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

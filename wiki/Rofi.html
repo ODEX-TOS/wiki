@@ -1,0 +1,176 @@
+<!--
+    title: Rofi
+    description: Migration of Rofi from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Rofi</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../List_of_applications/Other.html#Application_launchers" title="List of applications/Other">List of applications/Other#Application launchers</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://github.com/DaveDavenport/rofi">Rofi</a> is a window switcher, run dialog, ssh-launcher and <a href="../Dmenu.html" title="Dmenu">dmenu</a> replacement that started as a clone of <a rel="nofollow"  href="https://github.com/seanpringle/simpleswitcher">simpleswitcher</a>, written by <a rel="nofollow"  href="https://github.com/seanpringle">Sean Pringle</a> and later expanded by <a rel="nofollow"  href="https://github.com/DaveDavenport">Dave Davenport</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Icons"><span >2.1</span> <span >Icons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Rofi_as_dmenu_replacement"><span >3</span> <span >Rofi as dmenu replacement</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Execute_shell_commands_from_rofi"><span >4</span> <span >Execute shell commands from rofi</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Custom_Themes"><span >5</span> <span >Custom Themes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Contributed_Themes"><span >5.1</span> <span >Contributed Themes</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rofi">rofi</a></span> package.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>There are currently four methods of setting configuration options:
+</p>
+<ul>
+<li>Local configuration. Normally, depending on XDG, in <code>~/.config/rofi/config</code>. This uses the Xresources format.</li>
+<li>New theme format, which can have a configuration block. <code>~/.config/rofi/config.rasi</code>
+</li>
+<li>Xresources: A method of storing key values in the Xserver.</li>
+<li>Command line options</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Xresources format will be obsolete in future rofi versions</div>
+<p>So
+</p>
+<pre>$ rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi
+</pre>
+<p>can be expressed in a config file like this (New theme format):
+</p>
+<pre>configuration {
+ modi: "window,drun,ssh,combi";
+ theme: "solarized";
+ font: "hack 10";
+ combi-modi: "window,drun,ssh";
+ }
+</pre>
+<p>To get a full list of options for <code>config.rasi</code> file run <code>rofi -dump-config</code>. You can write the output of the command directly to your <code>config</code> file while running <code>rofi -dump-config &gt; ~/.config/rofi/config.rasi</code>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> i3 users be aware that putting commas in i3 config can cause issues. To bind a key to launch rofi, either use a config file or replace the commas with <code>#</code> eg <code>rofi -combi-modi window#drun#ssh</code>
+</div>
+<h3><span class="mw-headline" id="Icons">Icons</span></h3>
+<p>It is possible to use icons to display with their corresponding entries. Assuming you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=papirus-icon-theme">papirus-icon-theme</a></span> installed, with <code>-show-icons</code> and defining the icon theme with <code>-icon-theme</code>, you can have rofi diplay icons and do the following:
+</p>
+<pre>$ rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi -icon-theme "Papirus" -show-icons
+</pre>
+<h2><span class="mw-headline" id="Rofi_as_dmenu_replacement">Rofi as dmenu replacement</span></h2>
+<p>If called as dmenu (via a symlink), rofi acts like dmenu. You may want to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rofi-dmenu/">rofi-dmenu</a></span><sup><small>AUR</small></sup>, which symlinks dmenu to rofi. Then programs that call dmenu from a script (like passmenu from <a href="../Pass.html" title="Pass">pass</a>) will use rofi instead of dmenu.
+</p>
+<p>If you prefer the look of dmenu, this approximates it:
+</p>
+<pre>rofi -show run -modi run -location 1 -width 100 \
+		 -lines 2 -line-margin 0 -line-padding 1 \
+		 -separator-style none -font "mono 10" -columns 9 -bw 0 \
+		 -disable-history \
+		 -hide-scrollbar \
+		 -color-window "#222222, #222222, #b1b4b3" \
+		 -color-normal "#222222, #b1b4b3, #222222, #005577, #b1b4b3" \
+		 -color-active "#222222, #b1b4b3, #222222, #007763, #b1b4b3" \
+		 -color-urgent "#222222, #b1b4b3, #222222, #77003d, #b1b4b3" \
+		 -kb-row-select "Tab" -kb-row-tab ""
+</pre>
+<h2><span class="mw-headline" id="Execute_shell_commands_from_rofi">Execute shell commands from rofi</span></h2>
+<p>If you want the ability to run shell commands or use your own scripts directly from rofi with seeing the output, then ensure following:
+</p>
+<ul>
+<li>configure the PATH variable in <code>~/.profile</code> (instead of e.g. <code>~/.bashrc</code>) and then logout and re-login to your window manager/desktop environment</li>
+<li>define <code>-run-shell-command '{terminal} -e \\"{cmd}; read -n 1 -s"'</code>. This allows you to enter the command on the inputbar followed by SHIFT+ENTER. The terminal stays open until the next keypress.</li>
+</ul>
+<p>This is an example with the recommended escaping sequence for i3:
+</p>
+<pre> bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+</pre>
+<h2><span class="mw-headline" id="Custom_Themes">Custom Themes</span></h2>
+<p>You can preview and apply themes for rofi with
+</p>
+<pre> rofi-theme-selector
+</pre>
+<p>Customizations may be saved to your <a href="../X_resources.html" title="X resources">.Xresources file</a> (requires the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xrdb">xorg-xrdb</a></span> package).
+To apply changes reload .Xresources with <code>xrdb -load ~/.Xresources</code>.
+</p>
+<h3><span class="mw-headline" id="Contributed_Themes">Contributed Themes</span></h3>
+<p>See the official <a rel="nofollow"  href="https://github.com/DaveDavenport/rofi-themes">rofi-themes</a> repository for a list of custom themes.
+</p>
+<p>Download one of the .rasi themes and place it in <code>~/.config/rofi/example.rasi</code>. Then load up the theme on the command line or in a config file:
+</p>
+<pre> rofi &lt;options&gt; -theme example
+</pre>
+<p>or in your configuration file
+</p>
+<pre> rofi.theme:    example
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Application_launchers.html" title="Category:Application launchers">Application launchers</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Rofi&amp;oldid=612199">https://wiki.archlinux.org/index.php?title=Rofi&amp;oldid=612199</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 10 May 2020, at 20:30.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

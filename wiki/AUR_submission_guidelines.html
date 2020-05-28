@@ -1,0 +1,194 @@
+<!--
+    title: AUR_submission_guidelines
+    description: Migration of AUR_submission_guidelines from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">AUR submission guidelines</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
+<li><a href="../TOS_package_guidelines.html" title="TOS package guidelines">TOS package guidelines</a></li>
+<li><a href="../AUR_Trusted_User_Guidelines.html" title="AUR Trusted User Guidelines">AUR Trusted User Guidelines</a></li>
+</ul>
+</div>
+<p>Users can <b>share</b> PKGBUILDs using the <a href="../TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>.  It does not contain any binary packages but allows users to upload PKGBUILDs that can be downloaded by others. These PKGBUILDs are completely unofficial and have not been thoroughly vetted, so they should be used at your own risk.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Submitting_packages"><span >1</span> <span >Submitting packages</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Rules_of_submission"><span >1.1</span> <span >Rules of submission</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Authentication"><span >1.2</span> <span >Authentication</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Creating_package_repositories"><span >1.3</span> <span >Creating package repositories</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Publishing_new_package_content"><span >1.4</span> <span >Publishing new package content</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Maintaining_packages"><span >2</span> <span >Maintaining packages</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Requests"><span >3</span> <span >Requests</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Submitting_packages">Submitting packages</span></h2>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Before attempting to submit a package you are expected to familiarize yourself with <a href="../TOS_package_guidelines.html" class="mw-redirect" title="TOS packaging standards">TOS packaging standards</a> and all the articles under "Related articles". <b>Verify carefully</b> that what you are uploading is correct. Packages that violate the rules may be <b>deleted</b> without warning.</div>
+<p>If you are unsure in any way about the package or the build/submission process even after reading this section twice, submit the PKGBUILD to the <a rel="nofollow"  href="https://mailman.archlinux.org/mailman/listinfo/aur-general">AUR mailing list</a>, the <a rel="nofollow"  href="https://bbs.archlinux.org/viewforum.php?id=4">AUR forum</a> on the TOS forums, or ask on our <a href="../TOS_IRC_channels.html" class="mw-redirect" title="IRC channel">IRC channel</a> for public review before adding it to the AUR.
+</p>
+<h3><span class="mw-headline" id="Rules_of_submission">Rules of submission</span></h3>
+<p>When submitting a package to the AUR, observe the following rules:
+</p>
+<ul><li>The submitted PKGBUILDs must not build applications <b>already in any</b> of the <b>official</b> binary <b>repositories</b> under any circumstances. Check the <a rel="nofollow"  href="https://www.archlinux.org/packages/">official package database</a> for the package. If any version of it exists, <b>do not</b> submit the package. If the official package is out-of-date, flag it as such. If the official package is broken or is lacking a feature, then please file a <a rel="nofollow"  href="https://bugs.archlinux.org/">bug report</a>.</li></ul>
+<dl><dd>
+<b>Exception</b> to this strict rule may only be packages having <b>extra features</b> enabled and/or <b>patches</b> in comparison to the official ones. In such an occasion the <code>pkgname</code> should be different to express that difference. For example, a package for GNU screen containing the sidebar patch could be named <code>screen-sidebar</code>. Additionally the <code>provides=('screen')</code> array should be used in order to avoid conflicts with the official package.</dd></dl>
+<ul><li>
+<b>Check the AUR</b> if the package <b>already exists</b>. If it is currently maintained, changes can be submitted in a comment for the maintainer's attention. If it is unmaintained or the maintainer is unresponsive, the package can be adopted and updated as required. Do not create duplicate packages.</li></ul>
+<ul><li>Make sure the package you want to upload is <b>useful</b>. Will anyone else want to use this package? Is it extremely specialized? If more than a few people would find this package useful, it is appropriate for submission.</li></ul>
+<dl><dd>The AUR and official repositories are intended for packages which install generally software and software-related content, including one or more of the following: executable(s); config file(s); online or offline documentation for specific software or the TOS Linux distribution as a whole; media intended to be used directly by software.</dd></dl>
+<ul><li>Do not use <code>replaces</code> in an AUR PKGBUILD unless the package is to be renamed, for example when <i>Ethereal</i> became <i>Wireshark</i>. If the package is an <b>alternate version of an already existing package</b>, use <code>conflicts</code> (and <code>provides</code> if that package is required by others). The main difference is: after syncing (-Sy) pacman immediately wants to replace an installed, 'offending' package upon encountering a package with the matching <code>replaces</code> anywhere in its repositories; <code>conflicts</code>, on the other hand, is only evaluated when actually installing the package, which is usually the desired behavior because it is less invasive.</li></ul>
+<ul><li>Packages that use <b>prebuilt</b> <a href="https://en.wikipedia.org/wiki/Deliverable"  title="wikipedia:Deliverable">deliverables</a>, when the sources are available, must use the <code>-bin</code> suffix. An exception to this is with <a href="../Java_package_guidelines.html#Java_packaging_on_TOS_Linux" title="Java package guidelines">Java</a>. The AUR should not contain the binary tarball created by makepkg, nor should it contain the filelist.</li></ul>
+<ul><li>Please add a <b>comment line</b> to the top of the <code>PKGBUILD</code> file which contains information about the current <b>maintainers</b> and previous <b>contributors</b>, respecting the following format. Remember to disguise your email to protect against spam. Additional or unneeded lines are facultative.</li></ul>
+<dl>
+<dd>If you are assuming the role of maintainer for an existing PKGBUILD, add your name to the top like this</dd>
+<dd><pre># Maintainer: Your Name &lt;address at domain dot tld&gt;
+</pre></dd>
+<dd>If there were previous maintainers, put them as contributors. The same applies for the original submitter if this is not you. If you are a co-maintainer, add the names of the other current maintainers as well.</dd>
+<dd><pre># Maintainer: Your name &lt;address at domain dot tld&gt;
+# Maintainer: Other maintainer's name &lt;address at domain dot tld&gt;
+# Contributor: Previous maintainer's name &lt;address at domain dot tld&gt;
+# Contributor: Original submitter's name &lt;address at domain dot tld&gt;
+</pre></dd>
+</dl>
+<h3><span class="mw-headline" id="Authentication">Authentication</span></h3>
+<p>For write access to the AUR, you need to have an <a href="../SSH_keys.html" title="SSH keys">SSH key pair</a>. The content of the public key needs to be copied to your profile in <i>My Account</i>, and the corresponding private key configured for the <code>aur.archlinux.org</code> host. For example:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.ssh/config</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Host aur.archlinux.org
+  IdentityFile ~/.ssh/aur
+  User aur</pre>
+<p>You should <a href="../SSH_keys.html#Generating_an_SSH_key_pair" title="SSH keys">create a new key pair</a> rather than use an existing one, so that you can selectively revoke the keys should something happen:
+</p>
+<pre>$ ssh-keygen -f ~/.ssh/aur
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> You can add multiple public keys to your profile by separating them with a newline in the input field.</div>
+<h3><span class="mw-headline" id="Creating_package_repositories">Creating package repositories</span></h3>
+<p>If you are <a href="../Creating_packages.html" title="Creating packages">creating a new package</a> from scratch, establish a local Git repository and an AUR remote by <a href="../Git.html#Getting_a_Git_repository" title="Git">cloning</a> the intended <a href="../PKGBUILD.html#pkgbase" title="PKGBUILD">pkgbase</a>. If the package does not yet exist, the following warning is expected:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ git clone ssh://aur@aur.archlinux.org/<i>pkgbase</i>.git</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Cloning into '<i>pkgbase</i>'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The repository will not be empty if <code><i>pkgbase</i></code> matches a <a href="#Requests">deleted</a> package.</div>
+<p>If you already have a package, <a href="../Git.html#Getting_a_Git_repository" title="Git">initialize it</a> as a Git repository if it is not one, and add an AUR remote:
+</p>
+<pre>$ git remote add <i>label</i> ssh://aur@aur.archlinux.org/<i>pkgbase</i>.git
+</pre>
+<p>Then <a href="../Git.html#Using_remotes" title="Git">fetch</a> this remote to initialize it in the AUR.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <a rel="nofollow"  href="https://git-scm.com/docs/git-pull#git-pull---rebasefalsetruemergespreserveinteractive">Pull and rebase</a> to resolve conflicts if <code><i>pkgbase</i></code> matches a deleted package.</div>
+<h3><span class="mw-headline" id="Publishing_new_package_content">Publishing new package content</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Your commits will be authored with your <a href="../Git.html#Configuration" title="Git">global Git name and email address</a>. It is very difficult to change commits after pushing them (<a rel="nofollow"  href="https://bugs.archlinux.org/task/45425">FS#45425</a>). If you want to push to the AUR under different credentials, you can change them per package with <code>git config user.name "..."</code> and <code>git config user.email "..."</code>.</div>
+<p>When releasing a new version of the packaged software, update the <a href="../PKGBUILD.html#pkgver" title="PKGBUILD">pkgver</a> or <a href="../PKGBUILD.html#pkgrel" title="PKGBUILD">pkgrel</a> variables to notify all users that an upgrade is needed. Do not update those values if only minor changes to the <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> such as the correction of a typo are being published.
+</p>
+<p>Be sure to regenerate <a href="../.SRCINFO.html" title=".SRCINFO">.SRCINFO</a> whenever <code>PKGBUILD</code> metadata changes, such as <code>pkgver()</code> updates; otherwise the AUR will not show updated version numbers.
+</p>
+<p>To upload or update a package, <a href="../Git.html#Staging_changes" title="Git">add</a> <i>at least</i> <code>PKGBUILD</code> and <code>.SRCINFO</code>, then any additional new or modified helper files (such as <a href="../PKGBUILD.html#install" title="PKGBUILD"><i>.install</i></a> files or <a href="../PKGBUILD.html#source" title="PKGBUILD">local source files</a> such as <a href="../Patching_packages.html" title="Patching packages">patches</a>), <a href="../Git.html#Committing_changes" title="Git">commit</a> with a meaningful commit message, and finally <a href="../Git.html#Push_to_a_repository" title="Git">push</a> the changes to the AUR.
+</p>
+<p>For example:
+</p>
+<pre>$ makepkg --printsrcinfo &gt; .SRCINFO
+$ git add PKGBUILD .SRCINFO
+$ git commit -m "<i>useful commit message</i>"
+$ git push
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If <code>.SRCINFO</code> was not included in your first commit, add it by <a rel="nofollow"  href="https://git-scm.com/docs/git-rebase#git-rebase---root">rebasing with --root</a> or <a rel="nofollow"  href="https://git-scm.com/docs/git-filter-branch#git-filter-branch---tree-filterltcommandgt">filtering the tree</a> so the AUR will permit your initial push.</div>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> To keep the working directory and commits as clean as possible, create a <span class="plainlinks archwiki-template-man" title="$ man 5 gitignore"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gitignore.5">gitignore(5)</a></span> that excludes all files and force-add files as needed.</div>
+<h2><span class="mw-headline" id="Maintaining_packages">Maintaining packages</span></h2>
+<ul>
+<li>Check for feedback and comments from other users and try to incorporate any improvements they suggest; consider it a learning process!</li>
+<li>Please do not leave a comment containing the version number every time you update the package. This keeps the comment section usable for valuable content mentioned above.</li>
+<li>Please do not just submit and forget about packages! It is the maintainer's job to maintain the package by checking for updates and improving the PKGBUILD.</li>
+<li>If you do not want to continue to maintain the package for some reason, <code>disown</code> the package using the AUR web interface and/or post a message to the AUR Mailing List. If all maintainers of an AUR package disown it, it will become an <a rel="nofollow"  href="https://aur.archlinux.org/packages/?SB=n&amp;do_Orphans=Orphans">"orphaned"</a> package.</li>
+</ul>
+<h2><span class="mw-headline" id="Requests">Requests</span></h2>
+<p>Orphan, deletion and merge requests can be created by clicking on the "Submit Request" link under "Package Actions" on the right hand side. This automatically sends a notification email to the current package maintainer and to the <a rel="nofollow"  href="https://mailman.archlinux.org/mailman/listinfo/aur-requests">aur-requests mailing list</a> for discussion. <a href="../Trusted_Users.html" title="Trusted Users">Trusted Users</a> will then either accept or reject the request. 
+</p>
+<ul>
+<li>Orphan requests will be granted after two weeks if the current maintainer did not react.</li>
+<li>Merge requests are to delete the package base and transfer its votes and comments to another package base. The name of the package base to merge into is required. Note this has nothing to do with 'git merge' or GitLab's merge requests.</li>
+<li>Deletion requests require the following information:
+<ul>
+<li>A short note explaining the reason for deletion. Note that a package's comments does not sufficiently point out the reasons why a package is up for deletion. Because as soon as a TU takes action, the only place where such information can be obtained is the aur-requests mailing list.</li>
+<li>Supporting details, like when a package is provided by another package, if you are the maintainer yourself, it is renamed and the original owner agreed, etc.</li>
+<li>After a package is deleted, its Git repository remains available in the AUR.</li>
+</ul>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:About_TOS.html" title="Category:About TOS">About TOS</a></li>
+<li><a href="../Category:Package_development.html" title="Category:Package development">Package development</a></li>
+<li><a href="../Category:Package_management.html" title="Category:Package management">Package management</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=AUR_submission_guidelines&amp;oldid=599332">https://wiki.archlinux.org/index.php?title=AUR_submission_guidelines&amp;oldid=599332</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 February 2020, at 12:19.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

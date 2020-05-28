@@ -1,0 +1,377 @@
+<!--
+    title: TOS_package_guidelines
+    description: Migration of TOS_package_guidelines from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">TOS package guidelines</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Creating_packages.html" title="Creating packages">Creating packages</a></li>
+<li><a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a></li>
+<li><a href="../Makepkg.html" title="Makepkg">makepkg</a></li>
+<li><a href="../TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
+<li><a href="../TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
+<li><a href="../Security_package_guidelines.html" title="Security package guidelines">Security package guidelines</a></li>
+</ul>
+</div>
+<p>When building packages for TOS Linux, <b>adhere to the package guidelines</b> below, especially if the intention is to <b>contribute</b> a new package to TOS Linux. You should also see the <span class="plainlinks archwiki-template-man" title="$ man 5 PKGBUILD"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/PKGBUILD.5">PKGBUILD(5)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 8 makepkg"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/makepkg.8">makepkg(8)</a></span> manpages.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#PKGBUILD_prototype"><span >1</span> <span >PKGBUILD prototype</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Package_etiquette"><span >2</span> <span >Package etiquette</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Package_naming"><span >3</span> <span >Package naming</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Package_versioning"><span >4</span> <span >Package versioning</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Package_dependencies"><span >5</span> <span >Package dependencies</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Package_relations"><span >6</span> <span >Package relations</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Package_sources"><span >7</span> <span >Package sources</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Working_with_upstream"><span >8</span> <span >Working with upstream</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Directories"><span >9</span> <span >Directories</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Makepkg_duties"><span >10</span> <span >Makepkg duties</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#TOSitectures"><span >11</span> <span >TOSitectures</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Licenses"><span >12</span> <span >Licenses</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Additional_guidelines"><span >13</span> <span >Additional guidelines</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="PKGBUILD_prototype">PKGBUILD prototype</span></h2>
+<pre># Maintainer: Your Name &lt;youremail@domain.com&gt;
+pkgname=NAME
+pkgver=VERSION
+pkgrel=1
+pkgdesc=""
+arch=()
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=($pkgname-$pkgver.tar.gz)
+noextract=()
+md5sums=() #autofill using updpkgsums
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir/" install
+}</pre>
+<p>Other prototypes are found in <code>/usr/share/pacman/</code> from the pacman and abs packages.
+</p>
+<h2><span class="mw-headline" id="Package_etiquette">Package etiquette</span></h2>
+<ul>
+<li>Packages should <b>never</b> be installed to <code>/usr/local/</code>
+</li>
+<li>
+<b>Do not introduce new variables or functions</b> into <code>PKGBUILD</code> build scripts, unless the package cannot be built without doing so, as these could possibly <b>conflict</b> with variables and functions used in makepkg itself.</li>
+<li>If a new variable or a new function is absolutely required, <b>prefix its name with an underscore</b> (<code>_</code>), e.g. <pre>_customvariable=</pre>
+</li>
+<li>
+<b>Avoid</b> using <code>/usr/libexec/</code> for anything. Use <code>/usr/lib/$pkgname/</code> instead.</li>
+<li>The <code>packager</code> field from the package meta file can be <b>customized</b> by the package builder by modifying the appropriate option in the <code>/etc/makepkg.conf</code> file, or alternatively override it by creating <code>~/.makepkg.conf</code>.</li>
+<li>
+<b>Do not use makepkg subroutines</b> (e.g. <code>error</code>, <code>msg</code>, <code>msg2</code>, <code>plain</code>, <code>warning</code>) as they might change at any time. To print data, use <code>printf</code> or <code>echo</code>.</li>
+<li>All important messages should be echoed during install using an <b>.install file</b>. For example, if a package needs extra setup to work, directions should be included.</li>
+<li>
+<b>Dependencies</b> are the most common packaging error. Please take the time to verify them carefully, for example by running <code>ldd</code> on dynamic executables, checking tools required by scripts or looking at the documentation of the software. The <a href="../Namcap.html" title="Namcap">namcap</a> utility can help you in this regard. This tool can analyze both PKGBUILD and the resulting package tarball and will warn you about bad permissions, missing dependencies, redundant dependencies, and other common mistakes.</li>
+<li>Any <b>optional dependencies</b> that are not needed to run the package or have it generally function should not be included in the <b>depends</b> array; instead the information should be added to the <b>optdepends</b> array:</li>
+</ul>
+<dl>
+<dd><pre>optdepends=('cups: printing support'
+            'sane: scanners support'
+            'libgphoto2: digital cameras support'
+            'alsa-lib: sound support'
+            'giflib: GIF images support'
+            'libjpeg: JPEG images support'
+            'libpng: PNG images support')
+</pre></dd>
+<dd>The above example is taken from the <b>wine</b> package in <code>extra</code>. The optdepends information is automatically printed out on installation/upgrade so one should <b>not</b> keep this kind of information in <code>.install</code> files.</dd>
+</dl>
+<ul>
+<li>When creating a <b>package description</b> for a package, do not include the package name in a self-referencing way.  For example, "Nedit is a text editor for X11" could be simplified to "A text editor for X11".  Also try to keep the descriptions to ~80 characters or less.</li>
+<li>Try to keep the <b>line length</b> in the PKGBUILD below ~100 characters.</li>
+<li>Where possible, <b>remove empty lines</b> from the <code>PKGBUILD</code> (<code>provides</code>, <code>replaces</code>, etc.)</li>
+<li>It is common practice to <b>preserve the order</b> of the <code>PKGBUILD</code> fields as shown above. However, this is not mandatory, as the only requirement in this context is <b>correct bash syntax</b>.</li>
+<li>
+<b>Quote</b> variables which may contain spaces, such as <code>"$pkgdir"</code> and <code>"$srcdir"</code>.</li>
+<li>To ensure the <b>integrity</b> of packages, make sure that the <a href="../PKGBUILD.html#Integrity" title="PKGBUILD">integrity variables</a> contain correct values. These can be updated using the <code>updpkgsums</code> tool.</li>
+</ul>
+<h2><span class="mw-headline" id="Package_naming">Package naming</span></h2>
+<ul>
+<li>Package names can contain only alphanumeric characters and any of <code>@</code>, <code>.</code>, <code>_</code>, <code>+</code>, <code>-</code>. Names are not allowed to start with hyphens or dots. All letters should be lowercase.</li>
+<li>Package names should NOT be suffixed with the upstream major release version number (e.g. we do not want libfoo2 if upstream calls it libfoo v2.3.4) in case the library and its dependencies are expected to be able to keep using the most recent library version with each respective upstream release. However, for some software or dependencies, this can not be assumed. In the past this has been especially true for widget toolkits such as GTK and Qt. Software that depends on such toolkits can usually not be trivially ported to a new major version. As such, in cases where software can not trivially keep rolling alongside its dependencies, package names should carry the major version suffix (e.g. gtk2, gtk3, qt4, qt5). For cases where most dependencies can keep rolling along the newest release but some cannot (for instance closed source that needs libpng12 or similar), a deprecated version of that package might be called libfoo1 while the current version is just libfoo.</li>
+</ul>
+<h2><span class="mw-headline" id="Package_versioning">Package versioning</span></h2>
+<ul>
+<li>Package versions (i.e. <a href="../PKGBUILD.html#pkgver" title="PKGBUILD">PKGBUILD#pkgver</a>) <b>should be the same as the version released by the author</b>. Versions can include letters if need be (eg, nmap's version is 2.54BETA32). <b>Version tags may not include hyphens!</b> Letters, numbers, and periods only.</li>
+<li>
+<b>Stable packages package stable releases</b>: Release candidates (i.e. <code>1.0.0-rc1</code>), alpha (e.g. <code>1.0.0-alpha1</code>) and beta (e.g. <code>1.0.0-beta1</code>) releases are not allowed and are only to be used under the following circumstances:
+<ul>
+<li>The non-stable release holds <b>urgent</b> security fixes (and backporting is non-trivial).</li>
+<li>The non-stable release allows for the package to be built (e.g. problems introduced due to updated dependencies) and those changes can not otherwise be backported easily.</li>
+<li>The non-stable release allows the distribution to drop an EOL component (e.g. qt4, python2).</li>
+</ul>
+</li>
+<li>Package releases (i.e. <a href="../PKGBUILD.html#pkgrel" title="PKGBUILD">PKGBUILD#pkgrel</a>) are <b>specific to TOS Linux packages</b>. These allow users to differentiate between newer and older package builds. When a new package version is first released, the <b>release count starts at 1</b>. Then as fixes and optimizations are made, the package will be <b>re-released</b> to the TOS Linux public and the <b>release number will increment</b>. When a new version comes out, the release count resets to 1. Package release tags follow the <b>same naming restrictions as version tags</b>.</li>
+</ul>
+<h2><span class="mw-headline" id="Package_dependencies">Package dependencies</span></h2>
+<ul>
+<li>
+<b>Do not rely on <a href="https://en.wikipedia.org/wiki/Transitive_dependency"  title="wikipedia:Transitive dependency">transitive dependencies</a></b> in any of the <a href="../PKGBUILD.html#Dependencies" title="PKGBUILD">PKGBUILD#Dependencies</a>, as they might break, if one of the dependencies is updated.</li>
+<li>List all direct library dependencies. To identify them <span class="plainlinks archwiki-template-man" title="$ man 1 find-libdeps"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/find-libdeps.1">find-libdeps(1)</a></span> (part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span>) can be used.</li>
+</ul>
+<h2><span class="mw-headline" id="Package_relations">Package relations</span></h2>
+<ul>
+<li>Do not add <code>$pkgname</code> to <a href="../PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a>, as it is always implicitely provided by the package.</li>
+<li>List all external shared libraries of a package in <a href="../PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a> (e.g. <code>'libsomething.so'</code>). To identify them <span class="plainlinks archwiki-template-man" title="$ man 1 find-libprovides"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/find-libprovides.1">find-libprovides(1)</a></span> (part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span>) can be used.</li>
+</ul>
+<h2><span class="mw-headline" id="Package_sources">Package sources</span></h2>
+<ul>
+<li>HTTPS sources (<code>https://</code> for tarballs, <code>git+https://</code> for git sources) should be used wherever possible</li>
+<li>Sources should be verified using PGP signatures wherever possible (this might entail building from a git tag instead of a source tarball, if upstream signs commits and tags but not the tarballs)</li>
+<li>
+<b>Do not diminish the security or validity of a package</b> (e.g. by removing a checksum check or by removing PGP signature verification), because an upstream release is broken or suddenly lacks a certain feature (e.g. PGP signature missing for a new release)</li>
+<li>Sources have to be unique in <code>srcdir</code> (this might require renaming them when downloading, e.g. <code>"${pkgname}-${pkgver}.tar.gz::https://${pkgname}.tld/download/${pkgver}.tar.gz"</code>)</li>
+<li>Avoid using specific mirrors (e.g. on sourceforge) to download, as they might become unavailable</li>
+</ul>
+<h2><span class="mw-headline" id="Working_with_upstream">Working with upstream</span></h2>
+<p>It is considered best-practice to work closely with upstream wherever possible. This entails reporting problems about building and testing a package.
+</p>
+<ul>
+<li>Report problems to upstream right away.</li>
+<li>Upstream patches wherever possible.</li>
+<li>Add comments with links to relevant (upstream) bug tracker tickets in the <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> (this is particularly important, as it ensures, that other packagers can understand changes and work with a package as well).</li>
+</ul>
+<p>It is recommended to track upstream with tools such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvchecker">nvchecker</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=urlwatch">urlwatch</a></span> to be informed about new stable releases.
+</p>
+<h2><span class="mw-headline" id="Directories">Directories</span></h2>
+<ul>
+<li>
+<b>Configuration files</b> should be placed in the <code>/etc</code> directory. If there is more than one configuration file, it is customary to <b>use a subdirectory</b> in order to keep the <code>/etc</code> area as clean as possible. Use <code>/etc/{pkgname}/</code>  where <code>{pkgname}</code> is the name of the package (or a suitable alternative, eg, apache uses <code>/etc/httpd/</code>).</li>
+<li>Package files should follow these <b>general directory guidelines</b>:</li>
+</ul>
+<dl><dd><table>
+
+<tbody>
+<tr>
+<td>
+<code>/etc</code>
+</td>
+<td>
+<b>System-essential</b> configuration files
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/bin</code>
+</td>
+<td>Binaries
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/lib</code>
+</td>
+<td>Libraries
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/include</code>
+</td>
+<td>Header files
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/lib/{pkg}</code>
+</td>
+<td>Modules, plugins, etc.
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/share/doc/{pkg}</code>
+</td>
+<td>Application documentation
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/share/info</code>
+</td>
+<td>GNU Info system files
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/share/man</code>
+</td>
+<td>Manpages
+</td>
+</tr>
+<tr>
+<td>
+<code>/usr/share/{pkg}</code>
+</td>
+<td>Application data
+</td>
+</tr>
+<tr>
+<td>
+<code>/var/lib/{pkg}</code>
+</td>
+<td>Persistent application storage
+</td>
+</tr>
+<tr>
+<td>
+<code>/etc/{pkg}</code>
+</td>
+<td>Configuration files for <code>{pkg}</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>/opt/{pkg}</code>
+</td>
+<td>Large self-contained packages
+</td>
+</tr>
+</tbody>
+</table></dd></dl>
+<ul><li>Packages should not contain any of the following directories:
+<ul>
+<li><code>/bin</code></li>
+<li><code>/sbin</code></li>
+<li><code>/dev</code></li>
+<li><code>/home</code></li>
+<li><code>/srv</code></li>
+<li><code>/media</code></li>
+<li><code>/mnt</code></li>
+<li><code>/proc</code></li>
+<li><code>/root</code></li>
+<li><code>/selinux</code></li>
+<li><code>/sys</code></li>
+<li><code>/tmp</code></li>
+<li><code>/var/tmp</code></li>
+<li><code>/run</code></li>
+</ul>
+</li></ul>
+<h2><span class="mw-headline" id="Makepkg_duties">Makepkg duties</span></h2>
+<p>When <a href="../Makepkg.html" title="Makepkg">makepkg</a> is used to build a package, it does the following automatically:
+</p>
+<ol>
+<li>Checks if package <b>dependencies</b> and <b>makedepends</b> are installed</li>
+<li>
+<b>Downloads source</b> files from servers</li>
+<li>
+<b>Checks the integrity</b> of source files</li>
+<li>
+<b>Unpacks</b> source files</li>
+<li>Does any necessary <b>patching</b>
+</li>
+<li>
+<b>Builds</b> the software and installs it in a fake root</li>
+<li>
+<b>Strips</b> symbols from binaries</li>
+<li>
+<b>Strips</b> debugging symbols from libraries</li>
+<li>
+<b>Compresses</b> manual and, or info pages</li>
+<li>Generates the <b>package meta file</b> which is included with each package</li>
+<li>
+<b>Compresses</b> the fake root into the package file</li>
+<li>
+<b>Stores</b> the package file in the configured destination directory (<span title="Current Working Directory" style="border-bottom: 1px dotted">cwd</span> by default)</li>
+</ol>
+<h2><span class="mw-headline" id="TOSitectures">TOSitectures</span></h2>
+<p>The <code>arch</code> array should contain <code>'x86_64'</code> if the compiled package is architecture-specific. Otherwise, use <code>'any'</code> for architecture independent packages.
+</p>
+<h2><span class="mw-headline" id="Licenses">Licenses</span></h2>
+<p>See <a href="../PKGBUILD.html#license" title="PKGBUILD">PKGBUILD#license</a>.
+</p>
+<h2><span class="mw-headline" id="Additional_guidelines">Additional guidelines</span></h2>
+<p>Be sure to read the above guidelines first - important points are listed on this page that will not be repeated in the following guideline pages. These specific guidelines are intended as an addition to the standards listed on this page.
+</p>
+<div  style="display:block; text-align: center; margin-bottom: 1em;">
+<b><a class="mw-selflink selflink">TOS package guidelines</a></b>
+<hr>
+<p><a href="../32-bit_package_guidelines.html" title="32-bit package guidelines">32-bit</a> – <a href="../CLR_package_guidelines.html" title="CLR package guidelines">CLR</a> – <a href="../CMake_package_guidelines.html" title="CMake package guidelines">CMake</a> – <a href="../Cross-compiling_tools_package_guidelines.html" title="Cross-compiling tools package guidelines">Cross</a> – <a href="../Eclipse_plugin_package_guidelines.html" title="Eclipse plugin package guidelines">Eclipse</a> – <a href="../Electron_package_guidelines.html" title="Electron package guidelines">Electron</a> – <a href="../Font_package_guidelines.html" class="mw-redirect" title="Font packaging guidelines">Font</a> – <a href="../Free_Pascal_package_guidelines.html" title="Free Pascal package guidelines">Free Pascal</a> – <a href="../GNOME_package_guidelines.html" title="GNOME package guidelines">GNOME</a> – <a href="../Go_package_guidelines.html" title="Go package guidelines">Go</a> – <a href="../Haskell_package_guidelines.html" title="Haskell package guidelines">Haskell</a> – <a href="../Java_package_guidelines.html" title="Java package guidelines">Java</a> – <a href="../KDE_package_guidelines.html" title="KDE package guidelines">KDE</a> – <a href="../Kernel_module_package_guidelines.html" title="Kernel module package guidelines">Kernel</a> – <a href="../Lisp_package_guidelines.html" title="Lisp package guidelines">Lisp</a> – <a href="../MinGW_package_guidelines.html" title="MinGW package guidelines">MinGW</a> – <a href="../Node.js_package_guidelines.html" title="Node.js package guidelines">Node.js</a> – <a href="../Nonfree_applications_package_guidelines.html" title="Nonfree applications package guidelines">Nonfree</a> – <a href="../OCaml_package_guidelines.html" title="OCaml package guidelines">OCaml</a> – <a href="../Perl_package_guidelines.html" title="Perl package guidelines">Perl</a> – <a href="../PHP_package_guidelines.html" title="PHP package guidelines">PHP</a> – <a href="../Python_package_guidelines.html" title="Python package guidelines">Python</a> – <a href="../R_package_guidelines.html" title="R package guidelines">R</a> – <a href="../Ruby_Gem_package_guidelines.html" title="Ruby Gem package guidelines">Ruby</a> – <a href="../Rust_package_guidelines.html" title="Rust package guidelines">Rust</a> – <a href="../VCS_package_guidelines.html" title="VCS package guidelines">VCS</a> – <a href="../Web_application_package_guidelines.html" title="Web application package guidelines">Web</a> – <a href="../Wine_package_guidelines.html" title="Wine package guidelines">Wine</a>
+</p>
+</div>
+<p>Packages submitted to the AUR must additionally comply with <a href="../AUR_submission_guidelines.html" title="AUR submission guidelines">AUR submission guidelines</a>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:TOS_package_guidelines.html" title="Category:TOS package guidelines">TOS package guidelines</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=TOS_package_guidelines&amp;oldid=606288">https://wiki.archlinux.org/index.php?title=TOS_package_guidelines&amp;oldid=606288</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 April 2020, at 11:21.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

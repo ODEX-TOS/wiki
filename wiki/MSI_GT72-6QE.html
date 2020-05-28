@@ -1,0 +1,118 @@
+<!--
+    title: MSI_GT72-6QE
+    description: Migration of MSI_GT72-6QE from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">MSI GT72-6QE</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Needs an intro. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:MSI_GT72-6QE">Talk:MSI GT72-6QE#</a>)</div>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#BIOS"><span >1</span> <span >BIOS</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span >2</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Networking"><span >3</span> <span >Networking</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Troubleshooting"><span >4</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Frequent_Kernel_Panics"><span >4.1</span> <span >Frequent Kernel Panics</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="BIOS">BIOS</span></h2>
+<p>Ensure that you have the latest BIOS and EC firmware from <a rel="nofollow"  href="https://www.msi.com/product/notebook/support/GT72-6QE-DOMINATOR-PRO-G.html#!type=download">MSI's website</a>. Once you have updated, disable C-States and <a href="../Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> in the BIOS.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>This notebook has a physical hardware button to switch between the Intel and discrete (Nvidia 980m) GPU. Before installing TOS, boot into Windows and use the button to switch to the Intel display adapter. Also <a href="#Networking">#Networking</a> in Linux might not work out of the box, so you may need to use a USB networking dongle or prepare your own.
+</p>
+<p>Now you can follow the <a href="../Installation_guide.html" title="Installation guide">installation guide</a> as usual. Remember to install the <a href="../NVIDIA.html" title="NVIDIA">NVIDIA</a> driver as well (<a href="../Nouveau.html" title="Nouveau">Nouveau</a> might not work). After installing, boot back into Windows and use the button to switch the display adapter back to the NVIDIA GPU.
+</p>
+<h2><span class="mw-headline" id="Networking">Networking</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Will the firmware update be added to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span> eventually? Is it expected in a specific release? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:MSI_GT72-6QE">Talk:MSI GT72-6QE#</a>)</div>
+</div>
+<p>This notebook comes with "Killer" Ethernet and Wireless PCI adapters (Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter (rev 32) Subsystem: Bigfoot Networks, Inc. Device 1535). Wireless uses the Ath10k driver library which is included in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a></span>, though you may need to download the latest firmware files from <a rel="nofollow"  href="https://github.com/FireWalkerX/ath10k-firmware">Github</a> in order to get it working after installation.
+</p>
+<ol>
+<li>Download <a rel="nofollow"  href="https://github.com/FireWalkerX/ath10k-firmware/blob/7e56cbb94182a2fdab110cf5bfeded8fd1d44d30/QCA6174/hw3.0/board-2.bin">board-2.bin</a> and <a rel="nofollow"  href="https://github.com/FireWalkerX/ath10k-firmware/blob/7e56cbb94182a2fdab110cf5bfeded8fd1d44d30/QCA6174/hw3.0/firmware-4.bin_WLAN.RM.2.0-00180-QCARMSWPZ-1">firmware-4.bin_WLAN.RM.2.0-00180-QCARMSWPZ-1</a>
+</li>
+<li>Rename them to <code>board.bin</code> and <code>firmware-4.bin</code>, respectively, and mark them as executable (<code>chmod +x</code>).</li>
+<li>Move both files to <code>/lib/firmware/ath10k/QCA6174/hw3.0/</code>
+</li>
+</ol>
+<p>Reboot and then the built-in wireless NIC should work.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Frequent_Kernel_Panics">Frequent Kernel Panics</span></h3>
+<p>By default, the linux-toskernel may have issues with the Intel Skylake architecture of this notebook resulting in frequent kernel panics. To resolve this issue, you may need to disable <a href="../Kernel_mode_setting.html" class="mw-redirect" title="KMS">KMS</a> and the high resolution clock by adding the following <a href="../Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>: <code>nomodeset nohz=off clocksource=tsc</code>
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:MSI.html" title="Category:MSI">MSI</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=MSI_GT72-6QE&amp;oldid=516235">https://wiki.archlinux.org/index.php?title=MSI_GT72-6QE&amp;oldid=516235</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 April 2018, at 02:11.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

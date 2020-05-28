@@ -1,0 +1,174 @@
+<!--
+    title: Install_TOS_Linux_via_SSH
+    description: Migration of Install_TOS_Linux_via_SSH from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Install TOS Linux via SSH</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article is intended to show users how to install TOS remotely via an <a href="../Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> connection. Consider this approach when the host is located remotely or you wish to use the copy/paste ability of an SSH client to do the TOS install.
+</p>
+<h2>
+<span id="On_the_remote_.28target.29_machine"></span><span class="mw-headline" id="On_the_remote_(target)_machine">On the remote (target) machine</span>
+</h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> These steps require physical access to the machine. If the host is physically located elsewhere, this may need to be coordinated with another person.</div>
+<p>Boot the target machine into a live TOS environment via the <a href="../Installation_guide.html" class="mw-redirect" title="Getting and installing TOS">Live CD/USB image</a>: this will log the user in as root.
+</p>
+<p>At this point, setup the network on the target machine as for example suggested in <a href="../Installation_guide.html#Connect_to_the_internet" title="Installation guide">Installation guide#Connect to the internet</a>.
+</p>
+<p>Secondly, setup a root password which is needed for an SSH connection, since the default TOS password for root is empty:
+</p>
+<pre># passwd
+</pre>
+<p>Now check that <code>PermitRootLogin yes</code> is present (and uncommented) in <code>/etc/ssh/sshd_config</code>. This setting allows root login with password authentication on the SSH server.
+</p>
+<p>Finally, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the openssh daemon with <code>sshd.service</code>, which is included by default on the live CD.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Unless required, after installation it is recommended to remove <code>PermitRootLogin yes</code> from <code>/etc/ssh/sshd_config</code>.</div>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> If the target machine is behind a NAT router, and you require external access, the SSH port (22 by default) will need to be forwarded to the target machine's LAN IP address.</div>
+<h2><span class="mw-headline" id="On_the_local_machine">On the local machine</span></h2>
+<p>On the local machine, connect to the target machine via SSH with the following command:
+</p>
+<pre>$ ssh root@<i>ip.address.of.target</i>
+</pre>
+<p>From here one is presented with the live environment's welcome message and is able to administer the target machine as if sitting at the physical keyboard. At this point, if the intent is to simply install TOS from the live media, follow the guide at <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>. If the intent is to edit an existing Linux install that got broken, follow the <a href="../Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a> wiki article.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> Consider installing a <a href="../List_of_applications.html#Terminal_multiplexers" title="List of applications">terminal multiplexer</a> on the target machine's live (in memory) system, so that if you are disconnected you can reattach to your multiplexer's session.</div>
+<h2><span class="mw-headline" id="Installation_on_a_headless_server">Installation on a headless server</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> These steps require physical access to the USB port of the headless machine. Somebody has to insert the bootable USB stick and power up the headless server.</div>
+<p>This section describes installation of TOS Linux on a headless server (in my case an Intel NUC box) without a keyboard, mouse or display. It involves three steps:
+</p>
+<ol>
+<li>Create a modified TOS Linux live image using <a href="../TOSiso.html" title="TOSiso">TOSiso</a>. The modification is designed to do three things:
+<ol>
+<li>Automatically connect to the (possibly password protected) WiFi network at boot time.</li>
+<li>Run the SSH daemon at boot time</li>
+<li>Create an <code>/root/.ssh/authorized_keys</code> file for root containing your public key. The default <code>/etc/ssh/sshd_config</code> allows root to log in over SSH using public key authentication.</li>
+</ol>
+</li>
+<li>Boot the headless machine into a live TOS environment by inserting the  installation medium containing the above modified boot image and powering it up.</li>
+<li>Wait for a minute or so to allow the headless machine time to boot up and connect to the WiFi network. From your existing machine (with keyboard and display) SSH into the live TOS environment on the headless server and complete the installation as described in the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>.</li>
+</ol>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> To belabor the obvious, all the WiFi and SSH configuration that was carried out in the boot image needs to be done again in the actual TOS Linux installation to allow WiFi SSH access to the headless machine after installation.</div>
+<p>The rest of this section describes the first step of creating a modified live image. All of this done on a machine with an existing TOS Linux installation which will typically also be the machine from which you plan to SSH into the headless machine.
+</p>
+<ul><li>Install <a href="../TOSiso.html" title="TOSiso">TOSiso</a> and then as explained in <a href="../TOSiso.html#Setup" title="TOSiso">TOSiso#Setup</a> copy the <i>releng</i> profile to a suitable folder:</li></ul>
+<pre>cp -r /usr/share/archiso/configs/releng/ /root/archlive
+</pre>
+<ul><li>Create a file defining your network SSID, password and public key file. This can be merged into the script file described below, but I prefer to keep some separation between code and data.</li></ul>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/root/archlive/my-build-config.sh</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SSID=your_wifi_network_ssid
+PASSWORD=your_wifi_network_password
+PUBLIC_KEY=/path/to/your/public/key</pre>
+<ul><li>Create a customized build script that installs requisite packages, enables desired services and copies the public key file to the boot image. This script does several modifications in the boot image:
+<ul>
+<li>It copies the public key into root's <code>.ssh/authorized_keys</code>. As explained in <a href="../TOSiso.html#Adding_files_to_image" title="TOSiso">TOSiso#Adding files to image</a>, this has to be done by creating a <code>skel</code> directory within <code>airootfs/</code> and copy the files there. SSH is very particular about file permissions and we must set these permissions as well.</li>
+<li>It sets up the boot image to connect to the WiFi network at boot using <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> and its command line interface <a href="../NetworkManager.html#nmcli_examples" title="NetworkManager">nmcli</a>. There are several steps involved in this:
+<ul>
+<li>Install <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> as well as the <a href="../Network_configuration/Wireless.html#Troubleshooting_drivers_and_firmware" class="mw-redirect" title="Wireless">Wireless drivers and firmware</a> which in my case is <a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a>. As explained in <a href="../TOSiso.html#Installing_packages" title="TOSiso">TOSiso#Installing packages</a>, installation of additional packages is accomplished by adding these packages to the lists of packages in <code>packages.x86_64</code>.</li>
+<li>Start the <code>NetworkManager.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="../TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
+</li>
+<li>Ensure that the requisite <code>nmcli dev wifi connect</code> command is executed automatically on booting. The boot image is by default set up to auto login to root at boot. When root (or any other user logs in), the scripts in <code>/etc/profile.d</code> are executed. So all that we need to do is to create an executable script in <code>/etc/profile.d</code> with the requisite <code>nmcli dev wifi connect</code> command. In the script below, the password is enclosed in an arcane set of quotes; this quoting is necessary only if the password is actually a passphrase (with embedded spaces).</li>
+</ul>
+</li>
+<li>Start the <code>sshd.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="../TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
+</li>
+<li>Finally, the customized build script must run the original build script (<code>./build.sh</code>) to create the boot image.</li>
+</ul>
+</li></ul>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/root/archlive/my-build.sh</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># source values of SSID PASSWORD PUBLIC_KEY
+source my-build-config.sh
+
+# copy PUBLIC_KEY to authorized_keys 
+mkdir -p airootfs/etc/skel/.ssh
+cp $PUBLIC_KEY airootfs/etc/skel/.ssh/authorized_keys
+chmod 700 airootfs/etc/skel/.ssh
+chmod 600 airootfs/etc/skel/.ssh/authorized_keys
+
+# install networkmanager
+echo networkmanager &gt;&gt; packages.x86_64
+# install linux-firmware (required for the Intel NUC)
+echo linux-firmware &gt;&gt; packages.x86_64
+
+# enable sshd and NetworkManager
+echo systemctl enable sshd.service NetworkManager.service \
+     &gt;&gt; airootfs/root/customize_airootfs.sh
+# connect to WiFi network at login
+mkdir -p airootfs/etc/profile.d
+echo nmcli dev wifi connect "$SSID" password '"'"$PASSWORD"'"' \
+     &gt;&gt; airootfs/etc/profile.d/connect-wifi.sh
+chmod +x airootfs/etc/profile.d/connect-wifi.sh
+
+# run the original build script
+./build.sh</pre>
+<p>Make the script executable and run it
+</p>
+<pre>cd /root/archlive
+chmod +x my-build.sh
+./my-build.sh
+</pre>
+<p>The modified boot image is now ready (in the <code>/root/archlive/out/</code> folder) and can be copied to an installation medium (USB drive) using <code>dd</code>:
+</p>
+<pre>dd bs=4M if=out/archlinux_xxxxxx of=/dev/sdxx status=progress oflag=sync</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="../Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Install_TOS_Linux_via_SSH&amp;oldid=616440">https://wiki.archlinux.org/index.php?title=Install_TOS_Linux_via_SSH&amp;oldid=616440</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2020, at 07:32.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

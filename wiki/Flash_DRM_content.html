@@ -1,0 +1,158 @@
+<!--
+    title: Flash_DRM_content
+    description: Migration of Flash_DRM_content from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Flash DRM content</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>DRM content on Flash still requires HAL to play. If you attempt to play a DRM-protected content without HAL, you may see the following error: <code>an error occurred and your player could not be updated</code>.
+</p>
+<p>To deliver DRM-protected content, Flash calls several functions provided by the HAL daemon and its libraries. While Flash-based players remain popular, HAL has been deprecated and is not commonly installed on newer systems. To provide the necessary HAL functionality on such systems, you can either install the full HAL package and run the HAL daemon or install a modified HAL library "stub" that uses the modern UDisks daemon instead.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The NPAPI plugin <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flashplugin">flashplugin</a></span> supported DRM until version 11.2.202.644. The PPAPI <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pepper-flash">pepper-flash</a></span> has never supported DRM at all. As of May 2017, there is no known way to use Flash DRM content with the current versions both plugins.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Using_the_HAL_package"><span >1</span> <span >Using the HAL package</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Running_the_HAL_daemon"><span >1.1</span> <span >Running the HAL daemon</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Using_the_modified_libhal_stub"><span >2</span> <span >Using the modified libhal stub</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Installing_UDisks_and_hal-flash"><span >2.1</span> <span >Installing UDisks and hal-flash</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Running_UDisks"><span >2.2</span> <span >Running UDisks</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Remove_Flash_Player_cached_files"><span >3</span> <span >Remove Flash Player cached files</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Using_the_HAL_package">Using the HAL package</span></h2>
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hal/">hal</a></span><sup><small>AUR</small></sup> package from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. You will need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hal-info/">hal-info</a></span><sup><small>AUR</small></sup> first as it is a dependency for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hal/">hal</a></span><sup><small>AUR</small></sup>.
+</p>
+<h3><span class="mw-headline" id="Running_the_HAL_daemon">Running the HAL daemon</span></h3>
+<p>The HAL daemon is managed by <code>hal.service</code>, which can be controlled by <a href="../Systemd.html#Using_units" title="Systemd">systemctl</a>.
+</p>
+<p>Alternatively, one can use the following script, which also takes care of <a href="#Remove_Flash_Player_cached_files">cleaning the cache</a>.
+</p>
+<pre>#!/bin/bash
+
+## written by Mark Lee &lt;bluerider&gt;
+## using information from &lt;https://wiki.archlinux.org/index.php/Chromium#Google_Play_.26_Flash&gt;
+
+## Start and stop Hal service on command for Google Play Movie service
+
+function main () {  ## run the main insertion function
+     clear-cache;  ## remove adobe cache
+     start-hal;  ## start the hal daemon
+     read -p "Press 'enter' to stop hal";  ## pause the command line with a read line
+     stop-hal;  ## stop the hal daemon
+}
+
+function clear-cache () {  ## remove adobe cache
+     cd ~/.adobe/Flash_Player;  ## go to Flash player user directory
+     rm -rf NativeCache AssetCache APSPrivateData2;  ## remove cache
+}
+
+function start-hal () {  ## start the hal daemon
+     sudo systemctl start hal.service &amp;&amp; ( ## systemd : start hal daemon
+          echo "Started hal service..."
+) || (
+          echo "Failed to start hal service!") 
+}
+
+function stop-hal () {  ## stop the hal daemon
+sudo systemctl stop hal.service &amp;&amp; (  ## systemd : stop hal daemon
+          echo "Stopped hal service..."
+     ) || (
+          echo "Failed to stop hal service!"
+     )
+}
+
+main;  ## run the main insertion function
+</pre>
+<h2><span class="mw-headline" id="Using_the_modified_libhal_stub">Using the modified libhal stub</span></h2>
+<p>As an alternative to installing all of HAL, you can install a modified version of the libhal library from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> that uses the modern UDisks daemon instead of the deprecated HAL. Note that this libhal provides just enough of the HAL functionality to meet Flash's needs for copy-protected delivery: if you have other programs that require HAL, this stub probably won't satisfy them and you should use the full hal package instead.
+</p>
+<h3><span class="mw-headline" id="Installing_UDisks_and_hal-flash">Installing UDisks and hal-flash</span></h3>
+<p>You will need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/hal-flash/">hal-flash</a></span><sup><small>AUR</small></sup> from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>, which relies on <a href="../Udisks.html" title="Udisks">Udisks</a>.
+</p>
+<h3><span class="mw-headline" id="Running_UDisks">Running UDisks</span></h3>
+<p>Since the libhal stub passes its calls to UDisks, UDisks should be running before you attempt to play DRM-protected Flash videos.
+</p>
+<p>Make sure that <code>udisks2.service</code> is started, see <a href="../Systemd.html#Using_units" title="Systemd">systemd#Using units</a> for details.
+</p>
+<h2><span class="mw-headline" id="Remove_Flash_Player_cached_files">Remove Flash Player cached files</span></h2>
+<p>To get a fresh start after installing the package(s), remove some Flash Player cached files:
+</p>
+<pre>$ rm -rf ~/.adobe/Flash_Player/{NativeCache,AssetCache,APSPrivateData2}
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow"  href="http://isenmann.blogspot.gr/2012/08/watching-movies-from-google-play-with.html">Watching movies from Google Play on TOS Linux</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>
+</li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Video.html" title="Category:Video">Video</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Flash_DRM_content&amp;oldid=603031">https://wiki.archlinux.org/index.php?title=Flash_DRM_content&amp;oldid=603031</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 March 2020, at 07:31.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

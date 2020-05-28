@@ -1,0 +1,497 @@
+<!--
+    title: Status
+    description: Migration of Status from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Reproducible Builds/Status</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../Reproducible_Builds.html" title="Reproducible Builds">Reproducible Builds</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>TOS Linux is constantly rebuilding <a href="../../Official_repositories.html#core" class="mw-redirect" title="Core">core</a> and <a href="../../Official_repositories.html#extra" class="mw-redirect" title="Extra">extra</a> packages and has a <a rel="nofollow"  href="https://reproducible.archlinux.org">status page</a>. This page contains a status of bad packages and what needs to be fixed.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Issues"><span >1</span> <span >Issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#General"><span >1.1</span> <span >General</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#File_order_rebuild_FTBFS"><span >1.2</span> <span >File order rebuild FTBFS</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#%5Bcore%5D"><span >1.3</span> <span >[core]</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#%5Bextra%5D"><span >1.4</span> <span >[extra]</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Issues">Issues</span></h2>
+<h3><span class="mw-headline" id="General">General</span></h3>
+<ul><li>A rebuild is required for all packages build with pacman &lt; 5.2 to resolve file order issues and a btrfs size bug. For the file order issue the affecting <code>[extra]</code> packages can be found running the following one liner on a mirror directory:</li></ul>
+<pre>for i in /srv/ftp/extra/os/x86_64/*.pkg.tar.??; do
+   bsdtar -tf $i | grep "^\." &gt; pkg-order
+   sort pkg-order &gt; sort-order
+   if ! diff pkg-order sort-order &amp;&gt;/dev/null; then
+     echo $i;
+   fi
+   rm pkg-order sort-order
+done
+</pre>
+<h3><span class="mw-headline" id="File_order_rebuild_FTBFS">File order rebuild FTBFS</span></h3>
+<pre>accounts-qml-module-0.7-2-x86_64.pkg.tar.xz
+archboot-2019.03-1-any.pkg.tar.xz
+capi4hylafax-010300-11-x86_64.pkg.tar.xz
+cmark-0.29.0-1-x86_64.pkg.tar.xz
+gtk-sharp-2-2.12.45-2-x86_64.pkg.tar.xz
+gtksourceview3-3.24.11-1-x86_64.pkg.tar.xz
+guile1.8-1.8.8-7-x86_64.pkg.tar.xz
+hyphen-it-20071127-4-any.pkg.tar.xz
+java11-openjfx-11.0.3.u1-1-x86_64.pkg.tar.xz
+java11-openjfx-doc-11.0.3.u1-1-x86_64.pkg.tar.xz
+java11-openjfx-src-11.0.3.u1-1-x86_64.pkg.tar.xz
+java8-openjfx-8.u202-3-x86_64.pkg.tar.xz
+java8-openjfx-doc-8.u202-3-x86_64.pkg.tar.xz
+java8-openjfx-src-8.u202-3-x86_64.pkg.tar.xz
+java-openjfx-13.u14-1-x86_64.pkg.tar.xz
+java-openjfx-doc-13.u14-1-x86_64.pkg.tar.xz
+java-openjfx-src-13.u14-1-x86_64.pkg.tar.xz
+jdk10-openjdk-10.0.2.u13-2-x86_64.pkg.tar.xz
+jre10-openjdk-10.0.2.u13-2-x86_64.pkg.tar.xz
+jre10-openjdk-headless-10.0.2.u13-2-x86_64.pkg.tar.xz
+jsonrpc-glib-3.34.0-1-x86_64.pkg.tar.xz
+kexi-3.2.0-1-x86_64.pkg.tar.xz
+libktorrent-2.1.1-1-x86_64.pkg.tar.xz
+libmusicbrainz5-5.1.0-3-x86_64.pkg.tar.xz
+libutempter-1.1.6-3-x86_64.pkg.tar.xz
+libva-vdpau-driver-0.7.4-4-x86_64.pkg.tar.xz
+liferea-1.12.7-1-x86_64.pkg.tar.xz
+linux-atm-2.5.2-6-x86_64.pkg.tar.xz
+misdnuser-2.0.22-2-x86_64.pkg.tar.xz
+mono-tools-4.2-2-x86_64.pkg.tar.xz
+npapi-sdk-0.27.2-2-any.pkg.tar.xz
+nss_ldap-265-7-x86_64.pkg.tar.xz
+openjdk10-doc-10.0.2.u13-2-x86_64.pkg.tar.xz
+openjdk10-src-10.0.2.u13-2-x86_64.pkg.tar.xz
+pam_ldap-186-6-x86_64.pkg.tar.xz
+perl-perl4-corelibs-0.004-4-any.pkg.tar.xz
+pkgfile-21-1-x86_64.pkg.tar.xz
+portaudio-1:19.6.0-6-x86_64.pkg.tar.xz
+qtav-1.13.0-1-x86_64.pkg.tar.xz
+spandsp-0.0.6-2-x86_64.pkg.tar.xz - upstream appears dead.
+tamu-anova-0.2.1-6-x86_64.pkg.tar.xz - upstream appears dead.
+</pre>
+<h3>
+<span id=".5Bcore.5D"></span><span class="mw-headline" id="[core]">[core]</span>
+</h3>
+<table >
+<tbody>
+<tr>
+<th>Package
+</th>
+<th>Issue
+</th>
+<th>Solution/Patch
+</th>
+<th>Assignee
+</th>
+<th>Solved
+</th>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnssec-anchors">dnssec-anchors</a></span></td>
+<td>
+<code>/etc/trusted-key.key</code> differs</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glibc">glibc</a></span></td>
+<td>sorting differences within info pages - made with <code>LANGUAGE=C LC_ALL=C makeinfo</code> - repro issue (works in makechrootpkg)</td>
+<td>tooling issue</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=groff">groff</a></span></td>
+<td>
+<a rel="nofollow"  href="https://pkgbuild.com/~jelle/groff.txt">diff</a> Reproducible with makerepropkg</td>
+<td>tooling issue</td>
+<td>none</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-docs">linux-docs</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-docs">linux-lts-docs</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-headers">linux-lts-headers</a></span></td>
+<td>???</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss">nss</a></span></td>
+<td>Binary differences in <code>/usr/lib/lib{freebl3,freeblpriv3,softokn3}.chk</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssl">openssl</a></span></td>
+<td>
+<code>etc/ssl/misc/CA.pl</code> has a strange difference... <code>my $CATOP = "./demoCA"</code> in repo vs <code>my $CATOP = "/etc/ssl"</code>;
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">1.1.1.g-2
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl">perl</a></span></td>
+<td><a rel="nofollow"  href="https://pkgbuild.com/~jelle/perl.txt">timestamp, uname encoded in build</a></td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pinentry">pinentry</a></span></td>
+<td>unreproducible, missing <code>pinentry-gtk3</code> when rebuilding.  Reproduces with makerepropkg</td>
+<td>tooling issue</td>
+<td>none</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<span id=".5Bextra.5D"></span><span class="mw-headline" id="[extra]">[extra]</span>
+</h3>
+<table >
+<tbody>
+<tr>
+<th>Package
+</th>
+<th>Issue
+</th>
+<th>Solution/Patch
+</th>
+<th>Assignee
+</th>
+<th>Solved
+</th>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=autogen">autogen</a></span></td>
+<td>Timestamp in man pages, <code>sr/share/autogen/libopts-42.1.17.tar.gz</code> with different file ownership, and a small binary change in <code>usr/bin/autogen</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=breezy">breezy</a></span></td>
+<td>
+<i>.pyc</i> files</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=colord">colord</a></span></td>
+<td>Profile ID differs in <code>usr/share/color/icc/colord/{Crayons,x11-colors}.icc</code> and binary differences in <code>usr/lib/colord</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fontconfig">fontconfig</a></span></td>
+<td>FTBFS with repro.  Timestamp man pages</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lftp">lftp</a></span></td>
+<td>FTBFS under repro.  makerepropkg reproduces</td>
+<td>tooling issue</td>
+<td>none</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libakonadi">libakonadi</a></span></td>
+<td>user/group names of files in <code>usr/share/kdevappwizard/templates/akonadi{resource,serializer}.tar.bz2</code>
+</td>
+<td>rebuild</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libbluray">libbluray</a></span></td>
+<td>file attribute(?) differences in <code>usr/share/java/{libbluray{,-awt}-j2se-1.2.0.jar</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libcryptui">libcryptui</a></span></td>
+<td>FTBFS under repro.  makerepropkg reproduces</td>
+<td>tooling issue</td>
+<td>none</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libepoxy">libepoxy</a></span></td>
+<td>some file differences, section deleted from <code>usr/share/doc/epoxy/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libfido2">libfido2</a></span></td>
+<td>man pages have gzip timestamp</td>
+<td><a rel="nofollow"  href="https://github.com/Yubico/libfido2/pull/160">https://github.com/Yubico/libfido2/pull/160</a></td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libjpeg-turbo">libjpeg-turbo</a></span></td>
+<td>FTBFS under repro.  makerepropkg - many differences everywhere...</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libgee">libgee</a></span></td>
+<td>Binary differences in <code>usr/lib/libgee-0.8.so.2.6.1</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libgtop">libgtop</a></span></td>
+<td>uname in <code>/usr/bin/libgtop_server2</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libibus">libibus</a></span></td>
+<td>
+<code>/usr/lib/python2.7/site-packages/gi/overrides/IBus.pyc</code> and <code>.pyo</code> have differences</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libmp4v2">libmp4v2</a></span></td>
+<td>timestamp in <code>usr/include/mp4v2/project.h</code> &amp; <code>usr/lib/libmp4v2.so.2.0.0</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libxml%2B%2B-docs">libxml++-docs</a></span></td>
+<td>Missing sections in html docs</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lirc">lirc</a></span></td>
+<td>timestamp in yaml files, <code>usr/share/lirc/lirc-0.10.1.tar.gz</code> has lots of timestamp differences, repro causes poll() detection issue not found in makerepropkg</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=meson">meson</a></span></td>
+<td>.pyc files, also some test .pyc files missing</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r">r</a></span></td>
+<td>Lots of timestamps in files, gzip timestamps, randomly(?) generated paths in <code>/tmp/</code>, binary differences...</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-gtk">transmission-gtk</a></span></td>
+<td>uname in <code>usr/bin/transmission-gtk</code>, build with vendored depencies (miniupncpc which contains uname -r)</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x2goclient">x2goclient</a></span></td>
+<td>FTBFS under repro. man pages have gzip timestamp</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=x2goserver">x2goserver</a></span></td>
+<td>man pages have gzip timestamp</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zabbix-agent2">zabbix-agent2</a></span></td>
+<td>Timestamp in <code>/usr/bin/zabbix_agent2</code>
+</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zeitgeist">zeitgeist</a></span></td>
+<td>
+<a rel="nofollow"  href="https://gist.github.com/allanmcrae/01cff033e51d593d3bc841d64221f9fe">diff</a> Weird text differences in /usr/lib/libzeitgeist-2.0.so.0.0.0</td>
+<td>none</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pkgfile">pkgfile</a></span></td>
+<td>tar file ordering issues</td>
+<td>rebuild</td>
+<td>none</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../../Category:Package_management.html" title="Category:Package management">Package management</a></li>
+<li><a href="../../Category:Package_development.html" title="Category:Package development">Package development</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Reproducible_Builds/Status&amp;oldid=616505">https://wiki.archlinux.org/index.php?title=Reproducible_Builds/Status&amp;oldid=616505</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2020, at 09:26.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

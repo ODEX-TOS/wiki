@@ -1,0 +1,157 @@
+<!--
+    title: Feh
+    description: Migration of Feh from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Feh</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Nitrogen.html" title="Nitrogen">Nitrogen</a></li>
+<li><a href="../Sxiv.html" title="Sxiv">sxiv</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="http://feh.finalrewind.org/">feh</a> is a lightweight and powerful image viewer that can also be used to manage the desktop wallpaper for standalone window managers lacking such features.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Usage"><span >2</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Browse_images"><span >2.1</span> <span >Browse images</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Set_the_wallpaper"><span >2.2</span> <span >Set the wallpaper</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Open_SVG_images"><span >2.3</span> <span >Open SVG images</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Random_background_image"><span >2.4</span> <span >Random background image</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=feh">feh</a></span> package.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>feh is highly configurable. For a full list of options, run <code>feh --help</code> or see the <span class="plainlinks archwiki-template-man" title="$ man 1 feh"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/feh.1">feh(1)</a></span> <a href="../Man_page.html" title="Man page">man page</a>.
+</p>
+<h3><span class="mw-headline" id="Browse_images">Browse images</span></h3>
+<p>To quickly browse images in a specific directory, you can launch feh with the following arguments:
+</p>
+<pre>$ feh -g 640x480 -d -S filename /path/to/directory
+</pre>
+<ul>
+<li>The <code>-g</code> flag forces the images to appear no larger than 640x480</li>
+<li>The <code>-d</code> flag draws the file name</li>
+<li>The <code>-S filename</code> flag sorts the images by file name</li>
+</ul>
+<p>This is just one example; there are many more options available should you desire more flexibility.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> The <code>--start-at</code> option will display a selected image in feh while allowing to browse all other images in the directory as well, in their default order, i.e. as if you had run "feh *" and cycled through to the selected image. For example, <code>feh --start-at ./foo.jpg .</code> views all images in the current directory, starting with <code><i>foo</i>.jpg</code>.</div>
+<p>If you are browsing photos from a modern camera with EXIF data, it is interesting to use the <code>--auto-rotate</code> option to automatically rotate images. This does not alter the file.
+</p>
+<h3><span class="mw-headline" id="Set_the_wallpaper">Set the wallpaper</span></h3>
+<p><code>feh</code> can be used to set the desktop wallpaper, for example for <a href="../Window_manager.html" title="Window manager">window managers</a> without this feature such as <a href="../Openbox.html" title="Openbox">Openbox</a>, <a href="../Fluxbox.html" title="Fluxbox">Fluxbox</a>, and <a href="../Xmonad.html" title="Xmonad">xmonad</a>.
+</p>
+<p>The following command is an example of how to set the initial background:
+</p>
+<pre>$ feh --bg-scale /path/to/image.file
+</pre>
+<p>Other scaling options include:
+</p>
+<pre>--bg-tile FILE
+--bg-center FILE
+--bg-max FILE
+--bg-fill FILE
+</pre>
+<p>To restore the background on the next session, add the following to your startup file (e.g. <code>~/.xinitrc</code>, <code>~/.config/openbox/autostart</code>, etc.):
+</p>
+<pre>~/.fehbg &amp;
+</pre>
+<p>To change the background image, edit the file <code>~/.fehbg</code> which gets created after running the command <code>feh --bg-scale /path/to/image.file</code> mentioned above.
+</p>
+<p>One can explicitly disable the creation of the <code>~/.fehbg</code>, by passing the <code>--no-fehbg</code> flag as well.
+</p>
+<p>To setup different wallpapers for different monitors one should pass as many file paths as many monitors are available. For example, for a dual monitor setup it would be:
+</p>
+<pre>$ feh --bg-center path/to/file/for/first/monitor path/to/file/for/second/monitor
+</pre>
+<h3><span class="mw-headline" id="Open_SVG_images">Open SVG images</span></h3>
+<pre>$ feh --conversion-timeout 1 file.svg</pre>
+<p>Note that this requires the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=imagemagick">imagemagick</a></span> package.
+</p>
+<h3><span class="mw-headline" id="Random_background_image">Random background image</span></h3>
+<p>You can have feh set a random wallpaper using the <code>--randomize</code> option with one of the <code>--bg-foo</code> options, for example:
+</p>
+<pre>$ feh --bg-fill --randomize ~/.wallpaper/*</pre>
+<p>The above command tells feh to randomize the list of files in the <code>~/.wallpaper/</code> directory and set the backgrounds for all available desktops to whichever images are at the front of the randomized list (one unique image for each desktop). You can also do this recursively, if you have your wallpapers divided into subfolders:
+</p>
+<pre>$ feh --recursive --randomize --bg-fill ~/.wallpaper</pre>
+<p>To set a different random wallpaper from <code>~/.wallpaper</code> each session, add the following to your <code>.xinitrc</code>:
+</p>
+<pre>$ feh --bg-max --randomize ~/.wallpaper/* &amp;</pre>
+<p>Another way to set a random wallpaper on each x.org session is to edit your <code>.fehbg</code> as following.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$HOME/.fehbg</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> feh --bg-max --randomize --no-fehbg ~/.wallpaper/* 
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> To change wallpapers periodically, use a script (see <a href="https://mywiki.wooledge.org/BashGuide/TestsAndConditionals#Conditional_Loops_.28while.2C_until_and_for.29"  title="gregswiki:BashGuide/TestsAndConditionals">while loop</a>), <a href="../Cron.html" title="Cron">cron</a> job, or <a href="../Systemd/Timers.html" title="Systemd/Timers">systemd timer</a> to execute the command at the desired interval.</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Image.html" title="Category:Image">Image</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Feh&amp;oldid=613987">https://wiki.archlinux.org/index.php?title=Feh&amp;oldid=613987</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 17 May 2020, at 19:00.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,333 @@
+<!--
+    title: Keyboard_shortcuts
+    description: Migration of Keyboard_shortcuts from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Keyboard shortcuts</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article provides a list of (not commonly known) default keyboard shortcuts and provides information about user customization.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Standard_shortcuts"><span >1</span> <span >Standard shortcuts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kernel"><span >1.1</span> <span >Kernel</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Virtual_console"><span >1.2</span> <span >Virtual console</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Xorg_and_Wayland"><span >1.3</span> <span >Xorg and Wayland</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Customization"><span >2</span> <span >Customization</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Readline"><span >2.1</span> <span >Readline</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Zsh"><span >2.2</span> <span >Zsh</span></a></li>
+<li class="toclevel-2 tocsection-8">
+<a href="#Xorg"><span >2.3</span> <span >Xorg</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#sxhkd"><span >2.3.1</span> <span >sxhkd</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#actkbd"><span >2.3.2</span> <span >actkbd</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#xbindkeys"><span >2.3.3</span> <span >xbindkeys</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Desktop_environments"><span >2.4</span> <span >Desktop environments</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Windows_managers"><span >2.5</span> <span >Windows managers</span></a></li>
+<li class="toclevel-2 tocsection-14">
+<a href="#Key_binding_for_X-selection-paste"><span >2.6</span> <span >Key binding for X-selection-paste</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#XMonad_Window_Manager"><span >2.6.1</span> <span >XMonad Window Manager</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Tips_and_tricks"><span >3</span> <span >Tips and tricks</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Standard_shortcuts">Standard shortcuts</span></h2>
+<h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
+<p>There are several low level shortcuts that are implemented in the kernel which can be used for debugging and recovering from an unresponsive system. Whenever possible, it is recommended that you use these shortcuts instead of doing a hard shutdown (holding down the power button to completely power off the system).
+</p>
+<p>To use these, they must first be activated with either <code>sysctl kernel.sysrq=1</code> or <code>echo "1" &gt; /proc/sys/kernel/sysrq</code>. Values greater than 1 can be used to partially enable certain features, see the <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html">Linux kernel documentation</a> for details. If you wish to have it enabled during boot, add the appropriate setting to your <a href="../Sysctl.html#Configuration" title="Sysctl">sysctl configuration</a>. If you want to make sure it will be enabled even before the partitions are mounted and in the initrd, then add <code>sysrq_always_enabled=1</code> to your <a href="../Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+</p>
+<p>A common idiom to remember this is "<b>R</b>eboot <b>E</b>ven <b>I</b>f <b>S</b>ystem <b>U</b>tterly <b>B</b>roken" (also referred to as "REISUB"). Alternatively, think of it as "BUSIER"  backwards.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Please be aware that "REISUB" itself is just a mnemonic thing, is not any kind of general recommendation of key press sequence to take back control of unresponsive system, you shouldn't blindly press in this sequence each time without knowing their actual function as noted below.</div>
+<table >
+<tbody>
+<tr>
+<th>Keyboard Shortcut
+</th>
+<th>Description
+</th>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+r</code> Unraw
+</td>
+<td>Take control of keyboard back from X.
+</td>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+e</code> Terminate
+</td>
+<td>Send SIGTERM to all processes, allowing them to terminate gracefully.
+</td>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+i</code> Kill
+</td>
+<td>Send SIGKILL to all processes, forcing them to terminate immediately.
+</td>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+s</code> Sync
+</td>
+<td>Flush data to disk.
+</td>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+u</code> Unmount
+</td>
+<td>Unmount and remount all filesystems read-only.
+</td>
+</tr>
+<tr>
+<td>
+<code>Alt+SysRq+b</code> Reboot
+</td>
+<td>Reboot
+</td>
+</tr>
+</tbody>
+</table>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>If you are using a <a href="../Display_manager.html" title="Display manager">display manager</a> and after <code>Alt+SysRq+e</code> you are presented with the login screen (or full desktop if autologin is enabled), it is most likely caused by <code>Restart=always</code> directive in the relevant <a href="../Systemd.html" title="Systemd">service file</a>. If necessary, <a href="../Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit the unit">edit the unit</a>, however this should not prevent the "REISUB" sequence from working.</li>
+<li>If all the above combinations work except <code>Alt+SysRq+b</code>, try using the contralateral <code>Alt</code> key.</li>
+<li>On laptops that use <code>Fn</code> key to differentiate <code>SysRq</code> from <code>PrtScrn</code>, it may not actually be necessary to use the <code>Fn</code> key (i.e., <code>Alt+PrtSc+<i>letter</i></code> could work).</li>
+<li>On Lenovo laptops <code>SysRq</code> is often configured as <code>Fn+S</code>. To use it press and hold <code>Alt</code> then press <code>Fn+s</code>, <b>release</b> <code>Fn</code> and <code>s</code> still holding <code>Alt</code> followed by the keys above.</li>
+<li>You may need to press <code>Ctrl</code> along with <code>Alt</code>. So for example, full key shortcut would be <code>Ctrl+Alt+SysRq+b</code>.</li>
+</ul>
+</div>
+<p>See <a href="https://en.wikipedia.org/wiki/Magic_SysRq_key"  title="wikipedia:Magic SysRq key">Wikipedia:Magic SysRq key</a> for more details.
+</p>
+<h3><span class="mw-headline" id="Virtual_console">Virtual console</span></h3>
+<p>See <a href="../Linux_console.html#Keyboard_shortcuts" title="Linux console">Linux console#Keyboard shortcuts</a>.
+</p>
+<h3><span class="mw-headline" id="Xorg_and_Wayland">Xorg and Wayland</span></h3>
+<table >
+<tbody>
+<tr>
+<th>Keyboard Shortcut
+</th>
+<th>Description
+</th>
+<th>Notes
+</th>
+</tr>
+<tr>
+<td>
+<code>Ctrl+Alt+F1</code>, <code>F2</code>, <code>F3</code>, ...
+</td>
+<td>Switch to <i>n</i>-th virtual console
+</td>
+<td>If it does not work, try <code>Ctrl+Fn+Alt+F…</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>Shift+Insert</code> <br> <code>Mouse Button 2</code>
+</td>
+<td>Paste text from the <a href="../Clipboard.html" title="Clipboard">PRIMARY buffer</a>
+</td>
+<td>By default, Qt maps <code>Shift+Insert</code> to CLIPBOARD instead of the PRIMARY buffer (see e.g. <a rel="nofollow"  href="http://doc.qt.io/qt-5/qlineedit.html#details">[1]</a>) and <code>Ctrl+Shift+Insert</code> is mapped to the PRIMARY buffer.
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Customization">Customization</span></h2>
+<h3><span class="mw-headline" id="Readline">Readline</span></h3>
+<p><a href="../Readline.html" title="Readline">Readline</a> is a commonly used library for line-editing; it is used for example by <a href="../Bash.html" title="Bash">Bash</a>, FTP, and many more (see the details of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=readline">readline</a></span> package under "Required By" for more examples). It has <a href="../Emacs.html" title="Emacs">Emacs</a>-like and <a href="../Vi.html" title="Vi">vi</a>-like editing modes which can be customized with escape sequences. Default key bindings are listed in the <a rel="nofollow"  href="https://tiswww.cwru.edu/php/chet/readline/rluserman.html">Info documentation</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>.
+</p>
+<h3><span class="mw-headline" id="Zsh">Zsh</span></h3>
+<p><a href="../Zsh.html" title="Zsh">Zsh</a> uses <a href="../Zsh.html#Key_bindings" title="Zsh">ZLE</a> to link shortcuts to widgets, scripts and commands.
+</p>
+<h3><span class="mw-headline" id="Xorg">Xorg</span></h3>
+<p>See <a href="../Xorg/Keyboard_configuration.html#Frequently_used_XKB_options" title="Xorg/Keyboard configuration">Xorg/Keyboard configuration#Frequently used XKB options</a> for some common shortcuts, that are disabled by default.
+</p>
+<p>When we are in a graphical environment we may want to execute a command when certain key combination is pressed (i.e. bind a command to a <i>keysym</i>). There are multiple ways to do that:
+</p>
+<ul>
+<li>The most portable way using low level tools, such as <a href="../Acpid.html" title="Acpid">acpid</a>. Not all keys are supported, but configuration in uniform way is possible for keyboard keys, power adapter connection and even headphone jack (un)plugging events. It is also difficult to run programs inside X session correctly.</li>
+<li>The universal way using <a href="../Xorg.html" title="Xorg">Xorg</a> utilities (e.g. <a href="../Xbindkeys.html" title="Xbindkeys">xbindkeys</a>) and eventually your desktop environment or window manager tools.</li>
+<li>The quicker way using a third-party program to do everything in GUI, such as the Gnome Control Center.</li>
+</ul>
+<h4><span class="mw-headline" id="sxhkd">sxhkd</span></h4>
+<p>A simple X hotkey daemon with a powerful and compact configuration syntax. See <a href="../Sxhkd.html" title="Sxhkd">sxhkd</a> for details.
+</p>
+<h4><span class="mw-headline" id="actkbd">actkbd</span></h4>
+<p>From <a rel="nofollow"  href="http://users.softlab.ece.ntua.gr/~thkala/projects/actkbd/">actkbd home page</a>:
+</p>
+<dl><dd>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/actkbd/">actkbd</a></span><sup><small>AUR</small></sup> (available in <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>) is a simple daemon that binds actions to keyboard events. It recognises key combinations and can handle press, repeat and release events. Currently it only supports the linux-2.6 evdev interface. It uses a plain-text configuration file which contains all the bindings.</dd></dl>
+<p>A sample configuration and guide is available <a rel="nofollow"  href="http://users.softlab.ece.ntua.gr/~thkala/projects/actkbd/latest/README">here</a>.
+</p>
+<h4><span class="mw-headline" id="xbindkeys">xbindkeys</span></h4>
+<p><a href="../Xbindkeys.html" title="Xbindkeys">xbindkeys</a> allows advanced mapping of keysyms to actions independently of the Desktop Environment.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong>  If you find <code>xbindkeys</code> difficult to use, try the graphical manager <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xbindkeys_config-gtk2/">xbindkeys_config-gtk2</a></span><sup><small>AUR</small></sup> from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.</div>
+<h3><span class="mw-headline" id="Desktop_environments">Desktop environments</span></h3>
+<ul>
+<li><a href="../LXDE.html#Bindings" title="LXDE">LXDE#Bindings</a></li>
+<li><a href="../Xfce.html#Keyboard_Shortcuts" title="Xfce">Xfce#Keyboard Shortcuts</a></li>
+</ul>
+<h3><span class="mw-headline" id="Windows_managers">Windows managers</span></h3>
+<ul>
+<li><a href="../Fluxbox.html#Hotkeys" title="Fluxbox">Fluxbox#Hotkeys</a></li>
+<li><a href="../Openbox.html#Keybinds" title="Openbox">Openbox#Keybinds</a></li>
+</ul>
+<h3><span class="mw-headline" id="Key_binding_for_X-selection-paste">Key binding for X-selection-paste</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <code>Shift+Insert</code> pastes the PRIMARY buffer. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Keyboard_shortcuts">Talk:Keyboard shortcuts#</a>)</div>
+</div>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Why the 100ms delay? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Keyboard_shortcuts">Talk:Keyboard shortcuts#</a>)</div>
+</div>
+<p>Users who prefer to work with the keyboard rather than the mouse may benefit from a key binding to the paste operation of the middle mouse button. This is especially useful in a keyboard-centered environment. A workflow example is:
+</p>
+<ol>
+<li>In Firefox, select a string you want to google for (with the mouse).</li>
+<li>Hit <code>Ctrl+k</code> to enter the "search engine" field.</li>
+<li>Hit <code>F9</code> to paste the buffer, instead of moving the mouse pointer to the field and middle-click to paste.</li>
+</ol>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <code>Shift+Insert</code> has a similar yet different functionality, see <a href="#Xorg">#Xorg</a>: <code>Shift+Insert</code> inserts the clipboard buffer, not the x-selection-paste buffer. In some applications, these two buffers are mirrored.</div>
+<p>The method suggested here uses the following three packages::
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xsel">xsel</a></span> to give access to the x-selection-buffer content.</li>
+<li>
+<a href="../Xbindkeys.html" title="Xbindkeys">Xbindkeys</a> to bind a key-stroke to an action.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xvkbd/">xvkbd</a></span><sup><small>AUR</small></sup> to pass the buffer string to the application by emulating keyboard input.</li>
+</ul>
+<p>This example binds the x-selection-paste operation to the <code>F9</code> key:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">.xbindkeysrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">"xvkbd -no-jump-pointer -xsendevent -text "\D1`xsel`" 2&gt;/dev/null"
+    F9
+</pre>
+<p>The <code>"\D1"</code> code prefixes a 100 ms pause to inserting the selection buffer (see the <a rel="nofollow"  href="http://t-sato.in.coocan.jp/xvkbd/">xvkbd home page</a>).
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Depending on your X configuration, you may need to drop the <code>-xsendevent</code> argument to xvkbd.</div>
+<p>The key codes for keys other than <code>F9</code> can be determined using <code>xbindkeys -k</code>.
+</p>
+<p>References:
+</p>
+<ul>
+<li><a rel="nofollow"  href="http://unix.stackexchange.com/questions/11889/pasting-x-selection-not-clipboard-contents-with-keyboard">Pasting X selection (not clipboard) contents with keyboard</a></li>
+<li>
+<a rel="nofollow"  href="http://homepage3.nifty.com/tsato/xvkbd/">xvkbd home page</a><sup title="Last check status: domain name not resolved">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>
+</li>
+</ul>
+<h4><span class="mw-headline" id="XMonad_Window_Manager">XMonad Window Manager</span></h4>
+<p>In the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xmonad">xmonad</a></span> window manager there is a built-in function to paste the x-selection-buffer content.  In order to bind that function to a key-stroke (here <code>Insert</code> key) the following configuration can be used:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">xmonad.hs</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">import XMonad.Util.Paste
+...
+  -- X-selection-paste buffer
+  , ((0,                     xK_Insert), pasteSelection) ]
+</pre>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<ul><li>If you like a keyboard-centered workflow, you might also appreciate a <a href="../Window_manager.html#Tiling_window_managers" title="Window manager">tiling window manager</a>.</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html">The Linux Magic System Request Key - Kernel documentation</a></li>
+<li><a rel="nofollow"  href="http://lnag.sourceforge.net/lnag_html/node5.html">Linux Newbie Administrator Guide - Shortcuts and Commands</a></li>
+<li><a rel="nofollow"  href="http://tldp.org/HOWTO/Keyboard-and-Console-HOWTO.html">The Linux keyboard and console HOWTO</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li>
+<li><a href="../Category:X_server.html" title="Category:X server">X server</a></li>
+<li><a href="../Category:Accessibility.html" title="Category:Accessibility">Accessibility</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Keyboard_shortcuts&amp;oldid=603122">https://wiki.archlinux.org/index.php?title=Keyboard_shortcuts&amp;oldid=603122</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 March 2020, at 17:47.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

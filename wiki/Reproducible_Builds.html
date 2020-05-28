@@ -1,0 +1,133 @@
+<!--
+    title: Reproducible_Builds
+    description: Migration of Reproducible_Builds from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Reproducible Builds</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>TOS Linux is currently working on making all packages reproducible. This lets users and researchers verify the distributed packages from TOS Linux. For the exact definition of reproducible builds and its benefits take a look at the <a rel="nofollow"  href="https://reproducible-builds.org/">project website</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Verification_builds"><span >1</span> <span >Verification builds</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Helping_out"><span >2</span> <span >Helping out</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Tooling"><span >2.1</span> <span >Tooling</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Running_a_Rebuilder_instance"><span >2.2</span> <span >Running a Rebuilder instance</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Verifying_packages_with_repro_and_findings_issues"><span >2.3</span> <span >Verifying packages with repro and findings issues</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Work_on_issues_in_the_TOS_Linux_test_infrastructure"><span >2.4</span> <span >Work on issues in the TOS Linux test infrastructure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Known_issues"><span >3</span> <span >Known issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#GPG_verification"><span >3.1</span> <span >GPG verification</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Contact"><span >4</span> <span >Contact</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Verification_builds">Verification builds</span></h2>
+<p>An experimental <a rel="nofollow"  href="https://github.com/kpcyrd/rebuilderd/">rebuilderd</a> instance has been setup on our own infrastructure with a <a rel="nofollow"  href="https://reproducible.archlinux.org">status page</a>. Rebuilderd rebuilds our repository packages and checks if they are bit for bit identical. If they are not reproducible there is either a bug in the tooling, the package is not reproducible or the package has not been build cleanly.
+</p>
+<p>A list of known issues is located on <a href="../Reproducible_Builds/Status.html" title="Reproducible Builds/Status">Reproducible Builds/Status</a>.
+</p>
+<h2><span class="mw-headline" id="Helping_out">Helping out</span></h2>
+<h3><span class="mw-headline" id="Tooling">Tooling</span></h3>
+<p>Help out on fixing bugs and adding features for <a rel="nofollow"  href="https://github.com/archlinux/archlinux-repro">repro</a>.
+</p>
+<h3><span class="mw-headline" id="Running_a_Rebuilder_instance">Running a Rebuilder instance</span></h3>
+<p><a href="../Rebuilderd.html" title="Rebuilderd">Setting up rebuilderd</a> to build TOS Linux packages helps to independently verify repository packages.
+</p>
+<h3><span class="mw-headline" id="Verifying_packages_with_repro_and_findings_issues">Verifying packages with repro and findings issues</span></h3>
+<p>A create way to help out is to find an unreproducible package and figuring out how it can be made reproducible.
+</p>
+<ul>
+<li>Download an TOS Linux package or get one from the <a href="../TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>
+</li>
+<li>Run repro on the downloaded package or a package from your pacman cache. Ideally with <code>repro -d</code> to get diffoscope output</li>
+<li>Investigate if it is an issue with TOS Linux packaging or upstream, issues can be added on the <a href="../Reproducible_Builds/Status.html" title="Reproducible Builds/Status">status page</a>. More information can be found on the <a rel="nofollow"  href="https://reproducible-builds.org/docs/">reproducible builds website</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="Work_on_issues_in_the_TOS_Linux_test_infrastructure">Work on issues in the TOS Linux test infrastructure</span></h3>
+<p>TOS users can help contribute to Reproducible Build issues by looking at the <a rel="nofollow"  href="https://tests.reproducible-builds.org/archlinux/archlinux.html">continuous reproducing environment</a>. There are various issues which can be sorted out:
+</p>
+<ul>
+<li>FTBS (failed to build from source): reproduce the build failure locally and create a bug report if the package cannot be <a href="../DeveloperWiki:Building_in_a_clean_chroot.html" title="DeveloperWiki:Building in a clean chroot">built from a clean chroot</a> (<code>extra-x86_64-build</code> or <code>multilib-build</code>).</li>
+<li>Failed to download sources, reproduce the issue (<code>makepkg -o -d</code>) and create a bug report on the TOS bugtracker.</li>
+<li>Failed to reproduce. Locally you can reproduce packages using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=reprotest">reprotest</a></span>. Note that not all variations can be used. For simple time related testing: <pre>$ reprotest --variations '+time' 'sudo extra-x86_64-build' '*.pkg.tar.xz'</pre>
+</li>
+</ul>
+<p>There might be various reasons for a package to not be reproducible, but before digging in take a look at the upstream repository or the reproducible status in <a rel="nofollow"  href="https://tests.reproducible-builds.org/debian/reproducible.html">Debian</a>
+</p>
+<ul><li>Failed to run tests, these failures are heavily on the testing environment. Most likely due to to <code>LANG=C</code> being set and TOS not supporting <code>LANG=C.UTF-8</code>.</li></ul>
+<p>If you are interested in the code which runs the continuous reproducing environment, the first build code starts here on <a rel="nofollow"  href="https://salsa.debian.org/qa/jenkins.debian.net/blob/master/bin/reproducible_build_archlinux_pkg.sh#L115">salsa</a>
+</p>
+<h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
+<h3><span class="mw-headline" id="GPG_verification">GPG verification</span></h3>
+<p>There is a possible rebuild scenario where GPG keys will not verify as the packager was removed from the keyring or revoked as we use the latest keyring and a package in the archive which we need might need be signed by a revoked key we are unable to verify it and the build will fail.
+</p>
+<h2><span class="mw-headline" id="Contact">Contact</span></h2>
+<ul><li>
+<a rel="nofollow"  href="ircs://chat.freenode.net/archlinux-projects">#archlinux-reproducible</a> — Main channel for the progress of Reproducible Builds on TOS Linux</li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Package_management.html" title="Category:Package management">Package management</a></li>
+<li><a href="../Category:Package_development.html" title="Category:Package development">Package development</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Reproducible_Builds&amp;oldid=614491">https://wiki.archlinux.org/index.php?title=Reproducible_Builds&amp;oldid=614491</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 May 2020, at 08:51.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

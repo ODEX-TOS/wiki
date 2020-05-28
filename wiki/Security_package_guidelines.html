@@ -1,0 +1,237 @@
+<!--
+    title: Security_package_guidelines
+    description: Migration of Security_package_guidelines from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Security package guidelines</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page describes security packaging guidelines for TOS Linux packages. For C/C++ projects the compiler and linker can apply security hardening options. TOS Linux by default applies PIE, Fortify source, stack protector, nx and relro. Hardening protections can be reviewed by running <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=checksec">checksec</a></span>.
+</p>
+<pre>$ checksec --file=/usr/bin/cat
+</pre>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#RELRO"><span >1</span> <span >RELRO</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Haskell"><span >1.1</span> <span >Haskell</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Stack_canary"><span >2</span> <span >Stack canary</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#NX"><span >3</span> <span >NX</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#C/C++"><span >3.1</span> <span >C/C++</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#PIE"><span >4</span> <span >PIE</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#C/C++_2"><span >4.1</span> <span >C/C++</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Golang"><span >4.2</span> <span >Golang</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Haskell_2"><span >4.3</span> <span >Haskell</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#RPATH/RUNPATH"><span >5</span> <span >RPATH/RUNPATH</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#FORTIFY"><span >6</span> <span >FORTIFY</span></a></li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Systemd_services"><span >7</span> <span >Systemd services</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#File_access"><span >7.1</span> <span >File access</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#User"><span >7.2</span> <span >User</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Memory"><span >7.3</span> <span >Memory</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#System_calls"><span >7.4</span> <span >System calls</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Network"><span >7.5</span> <span >Network</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Various"><span >7.6</span> <span >Various</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="RELRO">RELRO</span></h2>
+<p>RELRO is a generic mitigation technique to harden the data sections of an ELF binary/process. When a program is loaded several ELF memory sections need to be written to by the linker. but can be turned read-only before turning control over to the program. This prevents attackers of overriding some ELF sections. There are two different RELRO modes:
+</p>
+<ul><li>Partial RELRO (<code>-Wl,-z,relro</code>) some sections are marked as read-only after program load except the GOT (.got.plt) is still writeable.</li></ul>
+<ul><li>Full RELRO (<code>-Wl,-z,now</code>) during program load all dynamic symbols are resolved, allowing for the complete GOT to be marked read-only.</li></ul>
+<p>If an application reports partial relro, investigate if the build toolchain passes our LDFLAGS or allows overriding LDFLAGS. For Go packages investigate if the build method uses "build.go" as pure golang Makefile replacement which does not allow passing of LDFLAGS.
+</p>
+<h3><span class="mw-headline" id="Haskell">Haskell</span></h3>
+<p>For Haskell it's not clear how to achieve Full RELRO at the moment.
+</p>
+<h2><span class="mw-headline" id="Stack_canary">Stack canary</span></h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Stack_canary"  title="wikipedia:Stack canary">stack canary</a> is added by the compiler between the buffer and control data on the stack. If this well known value is corrupted, a buffer overflow occurred and the running program segfaults to prevent possible arbitrary code execution.
+</p>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcc">gcc</a></span> package has it enabled stack protection by default with the <a rel="nofollow"  href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/gcc#n120">--enable-default-ssp</a> compile option.
+</p>
+<h2><span class="mw-headline" id="NX">NX</span></h2>
+<h3>
+<span id="C.2FC.2B.2B"></span><span class="mw-headline" id="C/C++">C/C++</span>
+</h3>
+<p>Executable-space protection marks memory regions as non-executable, such that an attempt to execute machine code in these regions will cause an exception. It makes use of hardware features such as the NX bit (no-execute bit), or in some cases software emulation of those features.
+</p>
+<h2><span class="mw-headline" id="PIE">PIE</span></h2>
+<h3>
+<span id="C.2FC.2B.2B_2"></span><span class="mw-headline" id="C/C++_2">C/C++</span>
+</h3>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcc">gcc</a></span> package has it enabled by default for C/C++ with <a rel="nofollow"  href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/gcc#n119">--enable-default-pie</a>.
+</p>
+<h3><span class="mw-headline" id="Golang">Golang</span></h3>
+<p>Pass the following flags to <i>go build</i>
+</p>
+<pre>export GOFLAGS='-buildmode=pie'
+export CGO_CPPFLAGS="-D_FORTIFY_SOURCE=2"
+export CGO_LDFLAGS="-Wl,-z,relro,-z,now"
+</pre>
+<h3><span class="mw-headline" id="Haskell_2">Haskell</span></h3>
+<p>Pass the following flag to <i>runhaskell</i> Setup configure
+</p>
+<pre>--ghc-option='-pie'
+</pre>
+<h2>
+<span id="RPATH.2FRUNPATH"></span><span class="mw-headline" id="RPATH/RUNPATH">RPATH/RUNPATH</span>
+</h2>
+<p>RUNPATH/RPATH provides further search paths for the object it is listed in (it can be used both for executable and for shared objects).
+</p>
+<pre>$ objdump -x /usr/bin/perl | egrep 'RPATH|RUNPATH'
+</pre>
+<p>If the RPATH value contains a path within an attackers control it can possibly execute code by installing a malicious library in that directory for example <a rel="nofollow"  href="https://nvd.nist.gov/vuln/detail/CVE-2006-1566">CVE-2006-1566</a> <a rel="nofollow"  href="https://www.cvedetails.com/cve/CVE-2005-4280/">CVE-2005-4280</a>.
+</p>
+<p>The RPATH entry is set by the linker by passing for example the following string to LDFLAGS <code>-Wl,-rpath -Wl,/usr/local/lib</code>. To make an RUNPATH entry append <code>--enable-new-dtags</code> to the linker flags.
+</p>
+<h2><span class="mw-headline" id="FORTIFY">FORTIFY</span></h2>
+<p>Fortify source is a macro that adds buffer overflow protection in various functions that perform operations on memory and strings. It checks whether an attacker tries to copy more bytes to overflow a buffer and then stops the execution of the program. This protection is enabled with the default CPPFLAGS in <code>makepkg.conf</code>:
+</p>
+<pre>CPPFLAGS="-D_FORTIFY_SOURCE=2"
+</pre>
+<h2><span class="mw-headline" id="Systemd_services">Systemd services</span></h2>
+<p>If a systemd service file is shipped with the package due to upstream not providing any, look into applying the following systemd service hardening features. Systemd provides a way to analyse security features which are enabled for a service.
+</p>
+<pre>$ systemd-analyze security pacman.service
+</pre>
+<h3><span class="mw-headline" id="File_access">File access</span></h3>
+<p>A service can be hardened by restricting file system access.
+</p>
+<p>Set up a new file system namespace for the executed process and mounts private <code>/tmp</code> and var/tmp directories inside it that is not shared by processes outside the namespace. Useful for programs which write data to <code>/tmp</code>.
+</p>
+<pre>PrivateTmp=true
+</pre>
+<p>ProtectSystem has three different varieties of mounting directories as read-only for the executed process. The "full" option mounts <code>/usr</code>, <code>/boot</code> and <code>/etc</code> read only. ProtectHome makes <code>/home</code>, <code>/root</code> and <code>/run/user</code> inaccessible to the executed process.
+</p>
+<pre>ProtectSystem=strict
+ProtectHome=true
+</pre>
+<p>Sets up a new <code>/dev</code> namespace for the executed process and only adds API pseudo devices such as <code>/dev/null</code>, <code>/dev/zero</code> or <code>/dev/random</code>, but not for physical devices or system memory, system ports and others. This is useful to secure the execute process from writing directly to physical devices, systemd also adds a system call filter for calls within the <code>@raw-io</code> set.
+</p>
+<pre>PrivateDevices=true
+</pre>
+<p>These options make the executed process unable to change kernel variables accessible through <code>/proc/sys</code>, <code>/sys</code>, etc. ProtectControlGroups makes the <code>/sys/fs/cgroup</code> hierarchy read-only.
+</p>
+<pre>ProtectKernelTunables=true
+ProtectControlGroups=true
+</pre>
+<p>More detailed information can be found in <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.exec"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.exec.5">systemd.exec(5)</a></span>.
+</p>
+<h3><span class="mw-headline" id="User">User</span></h3>
+<p>Ensure that the executed process and it's children can never gain new privileges through <code>execve()</code>.
+</p>
+<pre>NoNewPrivileges=true
+</pre>
+<h3><span class="mw-headline" id="Memory">Memory</span></h3>
+<p>Prohibit attempts to create memory mappings that are both writable and executable, to change mappings to be executable or to crate executable shared memory. This sandboxes a process against allowing an attacker to write in to memory which is also executed. Note that enabling this is not compatible with all applications which rely on a JIT.
+</p>
+<pre>MemoryDenyWriteExecute=true
+</pre>
+<h3><span class="mw-headline" id="System_calls">System calls</span></h3>
+<p>Locks down the <span class="plainlinks archwiki-template-man" title="$ man 2 personality"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/personality.2">personality(2)</a></span> system call so that the kernel execution domain can not be changed.
+</p>
+<pre>LockPersonality=true
+</pre>
+<p>System calls can be restricted in a service as well, systemd can display syscalls to filter on:
+</p>
+<pre>$ systemd-analyze syscall-filter
+</pre>
+<p>Predefined groups are available, eg to use the recommended starting point for whitelisting system calls for system services use:
+</p>
+<pre>SystemCallFilter=@system-service
+</pre>
+<h3><span class="mw-headline" id="Network">Network</span></h3>
+<p>If the running process does not require any network access it can be fully disabled by setting up a new network namespace for the process and only configuration a loopback interface.
+</p>
+<pre>PrivateNetwork=true
+</pre>
+<p>If network is required, the type of address families used can be restricted for the <span class="plainlinks archwiki-template-man" title="$ man 2 socket"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/socket.2">socket(2)</a></span> system call by for example only allowing UNIX sockets.
+</p>
+<pre>RestrictAddressFamilies=AF_UNIX
+</pre>
+<p>For when only network to localhost or specific IP ranges is required a process can be restricted by only allowing network access to localhost. 
+</p>
+<pre>IPAddressAllow=localhost
+IPAddressDeny=any
+</pre>
+<p>More information about network filtering can be found in <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.resource-control"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.resource-control.5">systemd.resource-control(5)</a></span>.
+</p>
+<h3><span class="mw-headline" id="Various">Various</span></h3>
+<p>Sets up a new UTS namespace for the execute process and disallows changing the hostname or domainname.
+</p>
+<pre>ProtectHostname=true
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:TOS_package_guidelines.html" title="Category:TOS package guidelines">TOS package guidelines</a></li>
+<li><a href="../Category:Security.html" title="Category:Security">Security</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Security_package_guidelines&amp;oldid=608744">https://wiki.archlinux.org/index.php?title=Security_package_guidelines&amp;oldid=608744</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 April 2020, at 07:11.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

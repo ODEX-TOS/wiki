@@ -1,0 +1,127 @@
+<!--
+    title: TalkingTOS
+    description: Migration of TalkingTOS from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">TalkingTOS</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page describes a bootable CD / USB image customized for blind users. The modified version is mostly equivalent to the official TOSiso image, but the system should start speaking as soon as you boot with it. Speech is provided via the sound card, using the eSpeak-ng software synthesizer and the Speakup screenreader.  It is also possible to use a braille display, via brltty. You can obtain the image <a rel="nofollow"  href="https://talkingarch.info/">from this page</a>.
+</p>
+<p>Like the TOSiso image, this image is compatible with the x86_64 architecture.  Also, it is suitable for either a recordable CD or a USB stick.  Just download it and write it to the medium of your choice.
+</p>
+<p>A detached GPG signature is provided on the download page.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Credits"><span >1</span> <span >Credits</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing_from_the_CD"><span >2</span> <span >Installing from the CD</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Braille_support"><span >3</span> <span >Braille support</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Maintaining_your_speech-enabled_TOS_Linux_installation"><span >4</span> <span >Maintaining your speech-enabled TOS Linux installation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Mastering_speech-enabled_ISO_images"><span >5</span> <span >Mastering speech-enabled ISO images</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Further_resources"><span >6</span> <span >Further resources</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Disclaimer"><span >7</span> <span >Disclaimer</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Credits">Credits</span></h3>
+<p>The build system, which is a respin of the TOSiso releng configuration, is maintained by Alexander Epaneshnikov.
+</p>
+<p>Thanks to Kelly Prescott, Kyle and Chris Brannon, the past maintainers, and to the following people for submitting valuable feedback regarding this project: Chuck Hallenbeck, Julien Claassen, Alastair Irving, Tyler Spivey,  Keith Hinton, and many others.  Thanks also go to Tyler Littlefield, who previously hosted the files.
+</p>
+<h2><span class="mw-headline" id="Installing_from_the_CD">Installing from the CD</span></h2>
+<p>The following list of steps is a brief guide to installing TOS Linux using this CD. The instructions assume that your root partition will be mounted on <code>/mnt</code>.
+</p>
+<ol>
+<li>You can just press <code>enter</code> at the boot prompt, or wait for the bootloader to time-out.  The boot process will begin at that point. or you can, wait about 10 to 20 seconds after the CD starts spinning, or about 3 to 5 seconds after the system begins to boot from USB, and then press <code>enter</code> to boot the image.</li>
+<li>You are strongly encouraged to read the TOS Linux documentation, especially the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>.  Do the installation procedure described in the <a href="../Installation_guide.html" title="Installation guide">Installation guide</a>, as modified by the instructions below.</li>
+<li>You'll need to install the <code>espeakup</code> and <code>alsa-utils</code> packages.  The <a href="../Installation_guide.html" title="Installation guide">Installation guide</a> mentions that you can install additional packages by appending their names to the pacstrap command.  For example, <code>pacstrap /mnt base espeakup alsa-utils</code>
+</li>
+<li>If you heard a voice recording informing you that multiple sound cards were detected, and you selected a card by pressing enter at the beep, a /etc/asound.conf file was generated that will configure ALSA to use your selected card as the default. You will need to copy this file by executing <code>cp /etc/asound.conf /mnt/etc</code>
+</li>
+<li>While in the arch-chroot, Enable the espeakup systemd service by executing <code>systemctl enable espeakup.service</code>
+</li>
+<li>When you boot the system from the hard disk, it should start speaking.</li>
+</ol>
+<h2><span class="mw-headline" id="Braille_support">Braille support</span></h2>
+<p>The latest image includes brltty, for those who own braille displays.  The brltty package available on the CD was compiled with as few dependencies as possible.  It is packaged as brltty-minimal in the TOS User Repository.  If you wish to use braille, you will need to supply the brltty parameter at the boot prompt.  Alternatively, you can start brltty from the shell, after the system has booted.
+</p>
+<p>The brltty boot-time parameter consists of three comma-separated fields: driver, device, and table.  The first is the driver for your display, the second is the name of the device file, and the third is a relative path to a translation table.  You can use "auto" to specify that the driver should be automatically detected.  I encourage you to read the brltty documentation for a fuller explanation of the program.
+</p>
+<p>For example, suppose that you have a device connected to /dev/ttyS0, the first serial port.  You wish to use the US English text table, and the driver should be automatically detected.  Here is what you should type at the boot prompt:
+</p>
+<pre>brltty=auto,ttyS0,en_US
+</pre>
+<p>Once brltty is running, you may wish to disable speech.  You can do so via the "print screen" key, also known as sysrq.  On my qwerty keyboard, that key is located directly above the insert key, between F12 and scroll lock.
+</p>
+<h2><span class="mw-headline" id="Maintaining_your_speech-enabled_TOS_Linux_installation">Maintaining your speech-enabled TOS Linux installation</span></h2>
+<p>You shouldn't need to do anything extraordinary to maintain the installation. Everything should just seamlessly work.
+</p>
+<h2><span class="mw-headline" id="Mastering_speech-enabled_ISO_images">Mastering speech-enabled ISO images</span></h2>
+<p>look at <a rel="nofollow"  href="https://github.com/alex19EP/talkingarch/">talkingarch github page</a>
+</p>
+<h2><span class="mw-headline" id="Further_resources">Further resources</span></h2>
+<p>TalkingTOS has an IRC channel at #talkingarch on irc.talkabout.cf. Feel free to drop in and talk to the maintainers or anyone else in the channel.
+</p>
+<h2><span class="mw-headline" id="Disclaimer">Disclaimer</span></h2>
+<p>This is not an official release.  It is not endorsed by anyone other than its maintainers.  It is provided solely for the convenience of blind and visually impaired users, and it comes with absolutely no warranty.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="../Category:Accessibility.html" title="Category:Accessibility">Accessibility</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=TalkingTOS&amp;oldid=596394">https://wiki.archlinux.org/index.php?title=TalkingTOS&amp;oldid=596394</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 January 2020, at 17:50.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

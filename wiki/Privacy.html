@@ -1,0 +1,326 @@
+<!--
+    title: Privacy
+    description: Migration of Privacy from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Firefox/Privacy</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../Firefox.html" title="Firefox">Firefox</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../../Firefox.html" title="Firefox">Firefox</a></li>
+<li><a href="../../Tor.html" title="Tor">Tor</a></li>
+<li><a href="../../Browser_extensions.html" title="Browser extensions">Browser extensions</a></li>
+<li><a href="../../Browser_plugins.html" class="mw-redirect" title="Browser Plugins">Browser Plugins</a></li>
+<li><a href="../../Firefox/Tweaks.html" title="Firefox/Tweaks">Firefox/Tweaks</a></li>
+<li><a href="../../Firefox/Profile_on_RAM.html" title="Firefox/Profile on RAM">Firefox/Profile on RAM</a></li>
+</ul>
+</div>
+<p>This article overviews how to configure Firefox to enhance security and privacy.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Configuration"><span >1</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Anti-fingerprinting"><span >1.1</span> <span >Anti-fingerprinting</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Tracking_protection"><span >1.2</span> <span >Tracking protection</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Change_browser_time_zone"><span >1.3</span> <span >Change browser time zone</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Change_user_agent_and_platform"><span >1.4</span> <span >Change user agent and platform</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#WebRTC_exposes_LAN_IP_address"><span >1.5</span> <span >WebRTC exposes LAN IP address</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Disable_HTTP_referer"><span >1.6</span> <span >Disable HTTP referer</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Disable_telemetry"><span >1.7</span> <span >Disable telemetry</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Enable_Do_Not_Track_Header_(DNT)"><span >1.8</span> <span >Enable Do Not Track Header (DNT)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Disable/Enforce_Trusted_Recursive_Resolver"><span >1.9</span> <span >Disable/Enforce Trusted Recursive Resolver</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Disable_geolocation"><span >1.10</span> <span >Disable geolocation</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Disable_Safe_Browsing_service"><span >1.11</span> <span >Disable Safe Browsing service</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Disable_WebGL"><span >1.12</span> <span >Disable WebGL</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Enterprise_policies"><span >2</span> <span >Enterprise policies</span></a></li>
+<li class="toclevel-1 tocsection-15">
+<a href="#Extensions"><span >3</span> <span >Extensions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Remove_system-wide_hidden_extensions"><span >3.1</span> <span >Remove system-wide hidden extensions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17">
+<a href="#Sanitized_profiles"><span >4</span> <span >Sanitized profiles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#prefs.js"><span >4.1</span> <span >prefs.js</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#extensions.json"><span >4.2</span> <span >extensions.json</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Removal_of_subsystems"><span >5</span> <span >Removal of subsystems</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Hardened_user.js_templates"><span >6</span> <span >Hardened user.js templates</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The following are privacy-focused configuration tweaks to prevent <a rel="nofollow"  href="https://panopticlick.eff.org/">browser fingerprinting</a> and tracking.
+</p>
+<h3><span class="mw-headline" id="Anti-fingerprinting">Anti-fingerprinting</span></h3>
+<p>Mozilla has started an <a href="https://wiki.mozilla.org/Security/Fingerprinting"  title="mozillawiki:Security/Fingerprinting">anti-fingerprinting project in Firefox</a>, as part of a project to upstream features from <a href="../../Tor.html" class="mw-redirect" title="Tor Browser">Tor Browser</a>. Many of these anti-fingerprinting features are enabled by setting <code>about:config</code>:
+</p>
+<ul><li>
+<code>privacy.resistFingerprinting</code> <code>true</code>
+</li></ul>
+<p>There is no user-facing documentation about this flag, and Mozilla does not recommend users enable it, since it will break a few websites (it exists mostly to make life easier for the Tor Browser developers). But it does automatically enable many of the features listed below (such as changing your reported timezone and user agent), as well as protection against other, lesser-known fingerprinting techniques. See the <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1333933">tracking bug</a> that lists many of these features.
+</p>
+<h3><span class="mw-headline" id="Tracking_protection">Tracking protection</span></h3>
+<p>Firefox gained an option for <a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/tracking-protection-firefox">tracking protection</a>. It can be enabled by setting <code>about:config</code>:
+</p>
+<ul><li>
+<code>privacy.trackingprotection.enabled</code> <code>true</code>
+</li></ul>
+<p>Apart from privacy benefits, enabling <a rel="nofollow"  href="http://venturebeat.com/2015/05/24/firefoxs-optional-tracking-protection-reduces-load-time-for-top-news-sites-by-44/">tracking protection</a> may also reduce load time by 44%.
+</p>
+<p>Note that this is not a replacement for ad blocking extensions such as <a href="../../Browser_extensions.html#Content_blockers" title="Browser extensions">uBlock Origin</a> and it may or may not work with <a href="../../List_of_applications/Internet.html#Firefox_spin-offs" title="List of applications/Internet">Firefox forks</a>. If you are already running such an ad blocker with the correct lists, tracking protection might be redundant.
+</p>
+<h3><span class="mw-headline" id="Change_browser_time_zone">Change browser time zone</span></h3>
+<p>The time zone of your system can be used in browser fingerprinting. To set Firefox's time zone to UTC launch it as:
+</p>
+<pre>$ TZ=UTC firefox
+</pre>
+<p>Or, set a script to launch the above (for example, at <code>/usr/local/bin/firefox</code>).
+</p>
+<h3><span class="mw-headline" id="Change_user_agent_and_platform">Change user agent and platform</span></h3>
+<p>You can override Firefox's user agent with the <code>general.useragent.override</code> preference in <code>about:config</code>.
+</p>
+<p>The value for the key is your browser's user agent. Select a known common one.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>The value <code>Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0</code> is used as the user agent for the Tor browser, thus being very common.</li>
+<li>The <a href="#Anti-fingerprinting">#Anti-fingerprinting</a> option also enables the Tor browser user agent and changes your browser platform automatically.</li>
+</ul>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Changing the user agent without changing to a corresponding platform will make your browser nearly unique.</div>
+<p>To change the platform for firefox, add the following <code>string</code> key in <code>about:config</code>:
+</p>
+<pre>general.platform.override
+</pre>
+<p>Select a known common platform that corresponds with your user agent.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> The value <code>Win32</code> is used as the platform for the Tor browser, corresponding with the user agent provided above.</div>
+<h3><span class="mw-headline" id="WebRTC_exposes_LAN_IP_address">WebRTC exposes LAN IP address</span></h3>
+<p>To prevent websites from getting your local IP address via <a href="https://en.wikipedia.org/wiki/WebRTC"  title="wikipedia:WebRTC">WebRTC</a>'s peer-to-peer (and JavaScript), open <code>about:config</code> and set:
+</p>
+<ul>
+<li>
+<code>media.peerconnection.ice.default_address_only</code> to <code>true</code>
+</li>
+<li>
+<code>media.peerconnection.enabled</code> to <code>false</code>. (only if you want to completely disable WebRTC)</li>
+</ul>
+<p>You can use this <a rel="nofollow"  href="http://net.ipcalf.com/">WebRTC test page</a> and <a rel="nofollow"  href="https://ipleak.net/">WebRTC IP Leak VPN / Tor IP Test</a> to confirm that your internal/external IP address is no longer leaked.
+</p>
+<h3><span class="mw-headline" id="Disable_HTTP_referer">Disable HTTP referer</span></h3>
+<p><a href="https://en.wikipedia.org/wiki/HTTP_referer"  title="wikipedia:HTTP referer">HTTP referer</a> is an optional HTTP header field that identifies the address of the previous webpage from which a link to the currently requested page was followed.
+</p>
+<p>Set <code>network.http.sendRefererHeader</code> to <code>0</code>.
+</p>
+<h3><span class="mw-headline" id="Disable_telemetry">Disable telemetry</span></h3>
+<p>Set <code>toolkit.telemetry.enabled</code> to <code>false</code> and/or disable it under <i>Preferences &gt; Privacy &amp; Security &gt; Firefox Data Collection and Use</i>.
+</p>
+<h3>
+<span id="Enable_Do_Not_Track_Header_.28DNT.29"></span><span class="mw-headline" id="Enable_Do_Not_Track_Header_(DNT)">Enable Do Not Track Header (DNT)</span>
+</h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The remote server may choose to not honour the Do Not Track request.</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The Do Not Track header may be used to fingerprint your browser, since most users leave the option disabled.</div>
+<p>Set <code>privacy.donottrackheader.enabled</code> to <code>true</code> or toggle it in <i>Preferences &gt; Privacy &amp; Security &gt; Tracking Protection</i>
+</p>
+<h3>
+<span id="Disable.2FEnforce_Trusted_Recursive_Resolver"></span><span class="mw-headline" id="Disable/Enforce_Trusted_Recursive_Resolver">Disable/Enforce Trusted Recursive Resolver</span>
+</h3>
+<p>Firefox 60 introduced a feature called <a href="https://wiki.mozilla.org/Trusted_Recursive_Resolver"  title="mozillawiki:Trusted Recursive Resolver">Trusted Recursive Resolver</a> (TRR). It circumvents DNS servers configured in your system, instead sending all DNS requests over HTTPS to Cloudflare servers. While this is significantly more secure (as "classic" DNS requests are sent in plain text over the network, and everyone along the way can snoop on these), this also makes all your DNS requests readable by Cloudflare, providing TRR servers.
+</p>
+<ul>
+<li>If you trust DNS servers you've configured yourself more than Cloudflare's, you can disable TRR in <code>about:config</code> by setting <code>network.trr.mode</code> (integer, create it it it doesn't exist) to <code>5</code>. (A value of 0 means disabled by default, and might be overridden by future updates - a value of 5 is disabled by choice and will not be overridden.)</li>
+<li>If you trust Cloudflare DNS servers and would prefer extra privacy (thanks to encrypted DNS requests), you can enforce TRR by setting <code>network.trr.mode</code> to <code>3</code> (which completely disables classic DNS requests) or <code>2</code> (uses TRR by default, falls back to classic DNS requests if that fails). Keep in mind that if you're using any intranet websites or trying to access computers in your local networks by their hostnames, enabling TRR may break name resolving in such cases.</li>
+<li>If you want to encrypt your DNS requests but not use Cloudflare servers, you can point to a new DNS over HTTPS server by setting <code>network.trr.uri</code> to your resolver URL. A list of currently available resolvers can be found in the <a rel="nofollow"  href="https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers">curl wiki</a>, along with other configuration options for TRR.</li>
+</ul>
+<h3><span class="mw-headline" id="Disable_geolocation">Disable geolocation</span></h3>
+<p>Set <code>geo.enabled</code> to <code>false</code> in <code>about:config</code>.
+</p>
+<h3><span class="mw-headline" id="Disable_Safe_Browsing_service">Disable Safe Browsing service</span></h3>
+<p>Safe Browsing offers phishing protection and malware checks, however it may send user information (e.g. URL, file hashes, etc.) to third parties like Google.
+</p>
+<p>To disable the Safe Browsing service, in <code>about:config</code> set: 
+</p>
+<ul>
+<li>
+<code>browser.safebrowsing.malware.enabled</code> to <code>false</code>
+</li>
+<li>
+<code>browser.safebrowsing.phishing.enabled</code> to <code>false</code>
+</li>
+</ul>
+<p>In addition disable download checking, by setting <code>browser.safebrowsing.downloads.enabled</code> to <code>false</code>.
+</p>
+<h3><span class="mw-headline" id="Disable_WebGL">Disable WebGL</span></h3>
+<p>WebGL is a potential security risk.<a rel="nofollow"  href="http://security.stackexchange.com/questions/13799/is-webgl-a-security-concern">[1]</a> Set <code>webgl.disabled</code> to <code>true</code> in <code>about:config</code> if you want to disable it.
+</p>
+<h2><span class="mw-headline" id="Enterprise_policies">Enterprise policies</span></h2>
+<p>Network and system-wide policies may be established through the use of <a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/managing-policies-linux-desktops">enterprise policies</a> which both supplements and overrides user configuration preferences. For example, there is no documented user preference to disable the checking of updates for beta channel releases. However, there exists an enterprise policy which can be effectively deployed as a workaround. Single and/or multiple policies may be administered through <code>policies.json</code> as follows:
+</p>
+<ul>
+<li>Disable application updates</li>
+<li>Force-enable hardware acceleration</li>
+</ul>
+<pre>{
+ "policies": {
+  "DisableAppUpdate": true,
+  "HardwareAcceleration": true
+ }
+}
+</pre>
+<p>Verify that <code>Enterprise Policies</code> is set to <code>Active</code> under <a rel="nofollow"  href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/The_about_protocol">about:support</a> and review release-specific policies under <a rel="nofollow"  href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/The_about_protocol">about:policies</a>.
+</p>
+<h2><span class="mw-headline" id="Extensions">Extensions</span></h2>
+<p>See <a href="../../Browser_extensions.html#Privacy" title="Browser extensions">Browser extensions#Privacy</a>.
+</p>
+<h3><span class="mw-headline" id="Remove_system-wide_hidden_extensions">Remove system-wide hidden extensions</span></h3>
+<p>Several extensions, hidden to the user, are installed by default in <code>/usr/lib/firefox/browser/features</code>. Many can be safely removed via <code>rm <i>extension-name</i>.xpi</code> in order to completely remove unwanted features. Many of these extensions are not enabled by default and have a menu option for enabling or disabling. <code>about:support</code> lists all combined user and system extensions. Note that any files removed will return upon update of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firefox">firefox</a></span> package. To keep these extensions removed, consider adding the directories to <code>NoExtract=</code> in <code>pacman.conf</code>, see <a href="../../Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">Pacman#Skip files from being installed to system</a>. Below are a few examples of these extensions and their features.
+</p>
+<ul><li>
+<code>activity-stream@mozilla.org.xpi</code> - "Activity Stream" which replaces the new tab page. See <a rel="nofollow"  href="https://github.com/mozilla/activity-stream">[2]</a>
+</li></ul>
+<ul><li>
+<code>firefox@getpocket.com.xpi</code> - <a rel="nofollow"  href="https://getpocket.com/firefox/">Pocket</a>
+</li></ul>
+<ul><li>
+<code>followonsearch@mozilla.com.xpi</code> - Search telemetry. See also <a href="#Disable_telemetry">#Disable telemetry</a>.</li></ul>
+<ul><li>
+<code>shield-recipe-client@mozilla.org.xpi</code>  <a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/shield">SHIELD studies</a>
+</li></ul>
+<p>Firefox installations to paths such as the default release installed to <code>/opt</code> have system extensions installed at <code>/firefox/firefox/browser/features</code>
+</p>
+<p>See also <a rel="nofollow"  href="https://dxr.mozilla.org/mozilla-release/source/browser/extensions/">[3]</a> for a full list of system extensions including README files describing their functions.
+</p>
+<h2><span class="mw-headline" id="Sanitized_profiles">Sanitized profiles</span></h2>
+<h3><span class="mw-headline" id="prefs.js">prefs.js</span></h3>
+<p>Files which constitute a Firefox profile can be be stripped of certain metadata. For example, a typical <code>prefs.js</code> contains strings which identify the client and/or the user. 
+</p>
+<pre>user_pref("app.normandy.user_id", "6f469186-12b8-50fb-bdf2-209ebc482c263");
+user_pref("security.sandbox.content.tempDirSuffix", "2a02902b-f25c-a9df-17bb-501350287f27");
+user_pref("toolkit.telemetry.cachedClientID", "22e251b4-0791-44f5-91ec-a44d77255f4a");
+</pre>
+<p>There are multiple approaches by which these strings can be reset with the caveat that a master <code>prefs.js</code> must first be created without such identifiers and synced into a working profile. The simplest solution is close Firefox before copying its <code>prefs.js</code> to a separate location:
+</p>
+<pre>$ cp ~/.mozilla/firefox/example.default-release/prefs.js ~/prefs.sanitized.js
+</pre>
+<p>Strip out any and all identfier strings and date codes by either setting them to 0 or removing the entries outright from the copied <code>prefs.js</code>. Sync the now sanitized <code>prefs.js</code> to the working profile as required:
+</p>
+<pre>$ rsync -v ~/.prefs.sanitized.js ~/.mozilla/firefox/example.default-release/prefs.js
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Required identifier and date code entries and/or strings will automatically be repopulated and reset to new values during the next launch of Firefox</div>
+<p>A secondary privacy effect is also incurred which can be witnessed by examining the string results between a sanitized <code>prefs.js</code> versus a working <code>prefs.js</code> at <a rel="nofollow"  href="https://fingerprintjs.com/demo">Fingerprint JS API Demo</a>.
+</p>
+<h3><span class="mw-headline" id="extensions.json">extensions.json</span></h3>
+<p>Assuming that extensions are installed, the <code>extensions.json</code> file lists all profile extensions and their settings. Of note is the location of the user home directory where the <code>.mozilla</code> and <code>extensions</code> folder exist by default. Unwanted background updates may be disabled by setting <code>applyBackgroundUpdates</code> to the appropriate <code>0</code> value. Of minor note are <code>installDate</code> and <code>updateDate</code>. <a href="../../Bubblewrap.html#Firefox" title="Bubblewrap">Bubblewrap</a> can effectively mask the username and location of the home directory at which time the <code>extensions.json</code> file may be sanitized and modified to point to the sandboxed <code>HOME</code> location.
+</p>
+<pre>{"schemaVersion":31,"addons":[{"id":"uBlock0@raymondhill.net","syncGUID":"{0}","version":"0","type":"extension","optionsURL":"dashboard.html","optionsType":3,"optionsBrowserStyle":true,"visible":true,"active":true,"userDisabled":false,"appDisabled":false,"embedderDisabled":false,"installDate":0,"updateDate":0,"applyBackgroundUpdates":0,"path":"/home/r/.mozilla/firefox/example.default-release/extensions/uBlock0@raymondhill.net.xpi","skinnable":false,"softDisabled":false,"foreignInstall":true,"strictCompatibility":true}}
+</pre>
+<p>Removal of similar metadata from <code>addonStartup.json.lz4</code> and <code>search.json.mozlz4</code> can also be accomplished. <a rel="nofollow"  href="https://github.com/jusw85/mozlz4">mozlz4</a> is a command-line tool which provides compression/decompression support for Mozilla (non-standard) LZ4 files.
+</p>
+<h2><span class="mw-headline" id="Removal_of_subsystems">Removal of subsystems</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> The deleted files will be back after upgrading the package, add them to <a href="../../Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">NoExtract</a> instead. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Firefox/Privacy">Talk:Firefox/Privacy#</a>)</div>
+</div>
+<p>Telemetry related to <a rel="nofollow"  href="https://firefox-source-docs.mozilla.org/toolkit/crashreporter/crashreporter/index.html">crash reporting</a> may be disabled by removing the following:
+</p>
+<pre>/usr/lib/firefox/crashreporter
+/usr/lib/firefox/minidump-analyzer
+/usr/lib/firefox/pingsender
+</pre>
+<p>For those who have opted to install Firefox manually from official Mozilla sources, the updater system may be disabled by removing <code>updater</code> in the <code>firefox</code> directory.
+</p>
+<h2><span class="mw-headline" id="Hardened_user.js_templates">Hardened user.js templates</span></h2>
+<p>Several active projects maintain comprehensive hardened Firefox configurations in the form of a <code>user.js</code> config that can be dropped to Firefox profile directory:
+</p>
+<ul>
+<li><a rel="nofollow"  href="https://github.com/pyllyukko/user.js">pyllyukko/user.js</a></li>
+<li><a rel="nofollow"  href="https://github.com/ghacksuserjs/ghacks-user.js">ghacksuserjs/ghacks-user.js</a></li>
+<li>
+<a rel="nofollow"  href="https://ffprofile.com/">ffprofile.com</a> (<a rel="nofollow"  href="https://github.com/allo-/firefox-profilemaker">github</a>) - online user.js generator. You select which features you want to enable and disable and in the end you get a download link for a zip-file with your profile template. You can for example disable some functions, which send data to Mozilla and Google, or disable several annoying Firefox functions like Mozilla Hello or the Pocket integration.</li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.privacytools.io/#addons">privacytools.io Firefox Privacy Add-ons</a></li>
+<li><a rel="nofollow"  href="https://prism-break.org/categories/gnu-linux/#web-browser-addons">prism-break.org Web Browser Addons</a></li>
+<li>
+<a href="https://wiki.mozilla.org/Privacy/Privacy_Task_Force/firefox_about_config_privacy_tweeks"  title="mozillawiki:Privacy/Privacy Task Force/firefox about config privacy tweeks">MozillaWiki:Privacy/Privacy Task Force/firefox about config privacy tweeks</a> - a wiki page maintained by Mozilla with descriptions of privacy specific settings.</li>
+<li>
+<a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections">How to stop Firefox from making automatic connections</a> - Is an annotated list of corresponding Firefox functionality and settings to disable it case-by-case.</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Web_browser.html" title="Category:Web browser">Web browser</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Firefox/Privacy&amp;oldid=608754">https://wiki.archlinux.org/index.php?title=Firefox/Privacy&amp;oldid=608754</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 April 2020, at 08:29.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

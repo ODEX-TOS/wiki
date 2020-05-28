@@ -1,0 +1,179 @@
+<!--
+    title: Keycloak
+    description: Migration of Keycloak from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Keycloak</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a href="https://en.wikipedia.org/wiki/Keycloak"  title="wikipedia:Keycloak">Keycloak</a> is an identity management solution implemented in Java that can be used as an authentication backend for many different applications.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Running"><span >2</span> <span >Running</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Creating_an_admin_user"><span >3</span> <span >Creating an admin user</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Configuration"><span >4</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#H2_configuration"><span >4.1</span> <span >H2 configuration</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#PostgreSQL_configuration"><span >4.2</span> <span >PostgreSQL configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#External_links"><span >5</span> <span >External links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=keycloak">keycloak</a></span> package.
+</p>
+<h2><span class="mw-headline" id="Running">Running</span></h2>
+<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>keycloak.service</code>. In the default configuration, it will start in standalone mode which is not recommended for production environments but will be used in this article for the sake of simplicity.
+</p>
+<h2><span class="mw-headline" id="Creating_an_admin_user">Creating an admin user</span></h2>
+<p>The recommended way to create a Keycloak admin user is via the included <code>add-user-keycloak.sh</code> utility as Keycloak does not have to be running for that operation.
+</p>
+<pre>/opt/keycloak/bin/add-user-keycloak.sh -u my-keycloak-user -p my-keycloak-password
+</pre>
+<p>This command creates a file at <code>/opt/keycloak/standalone/configuration/keycloak-add-user.json</code> that contains your user information.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The default standalone configuration can be found at <code>/etc/keycloak/standalone/configuration/standalone.xml</code>.
+</p>
+<p>The ports used by the service can found in that file, albeit in a slightly unusual format:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/keycloak/standalone/configuration/standalone.xml</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">    &lt;socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}"&gt;
+        &lt;socket-binding name="ajp" port="${jboss.ajp.port:8009}"/&gt;
+        &lt;socket-binding name="http" port="${jboss.http.port:8080}"/&gt;
+        &lt;socket-binding name="https" port="${jboss.https.port:8443}"/&gt;   
+        &lt;socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/&gt;
+        &lt;socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/&gt;
+        &lt;socket-binding name="txn-recovery-environment" port="4712"/&gt;
+        &lt;socket-binding name="txn-status-manager" port="4713"/&gt;
+        &lt;outbound-socket-binding name="mail-smtp"&gt;
+            &lt;remote-destination host="localhost" port="25"/&gt;
+        &lt;/outbound-socket-binding&gt;
+    &lt;/socket-binding-group&gt;
+</pre>
+<h3><span class="mw-headline" id="H2_configuration">H2 configuration</span></h3>
+<p>Keycloak's <code>standalone.xml</code> file is preconfigured with two <a rel="nofollow"  href="https://www.h2database.com/html/main.html">h2</a> datasources. One is "ExampleDS", and can be safely removed. The other is "KeycloakDS" and is used to store Keycloak's configuration. (<code>jboss.home.dir</code> refers to <code>/opt/keycloak</code> in the Keycloak package)
+</p>
+<p>Example configuration parts for the H2 file-based database:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/keycloak/standalone/configuration/standalone.xml</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">        &lt;subsystem xmlns="urn:jboss:domain:datasources:5.0"&gt;
+            &lt;datasources&gt;
+                &lt;datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"&gt;
+                    &lt;connection-url&gt;jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE&lt;/connection-url&gt;
+                    &lt;driver&gt;h2&lt;/driver&gt;
+                    &lt;security&gt;
+                        &lt;user-name&gt;sa&lt;/user-name&gt;
+                        &lt;password&gt;sa&lt;/password&gt;
+                    &lt;/security&gt;
+                &lt;/datasource&gt;
+                &lt;datasource jndi-name="java:jboss/datasources/KeycloakDS" pool-name="KeycloakDS" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"&gt;
+                    &lt;connection-url&gt;jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=TRUE&lt;/connection-url&gt;
+                    &lt;driver&gt;h2&lt;/driver&gt;
+                    &lt;security&gt;
+                        &lt;user-name&gt;sa&lt;/user-name&gt;
+                        &lt;password&gt;sa&lt;/password&gt;
+                    &lt;/security&gt;
+                &lt;/datasource&gt;
+                &lt;drivers&gt;
+                    &lt;driver name="h2" module="com.h2database.h2"&gt;
+                        &lt;xa-datasource-class&gt;org.h2.jdbcx.JdbcDataSource&lt;/xa-datasource-class&gt;
+                    &lt;/driver&gt;
+                &lt;/drivers&gt;
+            &lt;/datasources&gt;
+        &lt;/subsystem&gt;
+   ...
+            &lt;default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/KeycloakDS" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/&gt;
+</pre>
+<h3><span class="mw-headline" id="PostgreSQL_configuration">PostgreSQL configuration</span></h3>
+<p>The official TOS Linux Keycloak package already comes with inbuilt PostgreSQL support.
+</p>
+<p>Example configuration parts for PostgreSQL:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/keycloak/standalone/configuration/standalone.xml</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">        &lt;subsystem xmlns="urn:jboss:domain:datasources:5.0"&gt;
+            &lt;datasources&gt;
+                &lt;datasource jndi-name="java:jboss/datasources/KeycloakDS" pool-name="KeycloakDS" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"&gt;
+                    &lt;connection-url&gt;jdbc:postgresql://localhost:5432/keycloak&lt;/connection-url&gt;
+                    &lt;driver&gt;postgresql&lt;/driver&gt;
+                    &lt;security&gt;
+                        &lt;user-name&gt;keycloak&lt;/user-name&gt;
+                        &lt;password&gt;keycloak&lt;/password&gt;
+                    &lt;/security&gt;
+                &lt;/datasource&gt;
+                &lt;drivers&gt;
+                    &lt;driver name="postgresql" module="org.postgresql"&gt;
+                        &lt;xa-datasource-class&gt;org.postgresql.xa.PGXADataSource&lt;/xa-datasource-class&gt;
+                    &lt;/driver&gt;
+                &lt;/drivers&gt;
+            &lt;/datasources&gt;
+        &lt;/subsystem&gt;
+   ...
+            &lt;default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/KeycloakDS" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/&gt;
+</pre>
+<h2><span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://devopstales.github.io/sso/keycloak2/">Configuring Keycloak with Postgres</a></li>
+<li><a rel="nofollow"  href="https://www.keycloak.org/docs/">Official Keycloak documentation</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Authentication.html" title="Category:Authentication">Authentication</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Keycloak&amp;oldid=601873">https://wiki.archlinux.org/index.php?title=Keycloak&amp;oldid=601873</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 17 March 2020, at 09:40.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

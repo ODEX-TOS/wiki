@@ -1,0 +1,160 @@
+<!--
+    title: Fingerprint_GUI
+    description: Migration of Fingerprint_GUI from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Fingerprint GUI</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Fprint.html" title="Fprint">Fprint</a></li>
+<li><a href="../ThinkFinger.html" title="ThinkFinger">ThinkFinger</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://github.com/RogueScholar/fingerprint-gui">Fingerprint GUI</a> is a program that provides an interface and drivers for fingerprint readers. The package includes drivers from the open-source project <a href="../Fprint.html" title="Fprint">fprint</a> as well as proprietary drivers not included in fprint.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Registering_Fingerprints"><span >2</span> <span >Registering Fingerprints</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Authentication"><span >3</span> <span >Authentication</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Verification"><span >4</span> <span >Verification</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Exporting"><span >5</span> <span >Exporting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Password"><span >6</span> <span >Password</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>The package is available on the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> :
+</p>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fingerprint-gui/">fingerprint-gui</a></span><sup><small>AUR</small></sup>
+</li></ul>
+<p>The package includes an installation guide in HTML at <code>/usr/share/doc/fingerprint-gui/Manual_en.html</code>.
+</p>
+<p>If you are using <a href="../GNOME.html" title="GNOME">GNOME</a> or <a href="../KDE.html" title="KDE">KDE</a> follow the instructions pacman gives and remove the following files:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/xdg/autostart/</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">polkit-gnome-authentication-agent-1.desktop
+polkit-kde-authentication-agent-1.desktop
+</pre>
+<p>If you are using a <a href="../Window_manager.html" title="Window manager">window manager</a>, you may need an <a href="../Polkit.html#Authentication_agents" title="Polkit">authentication agent</a>. The package includes an authentication agent <code>/lib/fingerprint-gui/fingerprint-polkit-agent</code>. If your window manager is fully XDG compliant, this agent will <a href="../XDG_Autostart.html" title="XDG Autostart">autostart</a>. An agent is only needed when enrolling fingers, not when identifying.
+</p>
+<h2><span class="mw-headline" id="Registering_Fingerprints">Registering Fingerprints</span></h2>
+<p>After installation, test if your hardware is recognized and correctly working by launching the configuration utility:
+</p>
+<pre>$ fingerprint-gui -d
+</pre>
+<p>The '-d' is for debugging, and simply creates a verbose log of events. If you are comfortable without the debug info, you may safely omit the flag.
+</p>
+<p>If your device is not recognized, you might need to reboot in order for udev to set the correct permissions for the device. You may need to add your user to the plugdev and scanner groups.
+</p>
+<p>To start registering your fingerprints with the configuration utility, select the tab <b>Finger</b>, select a finger and choose next.
+</p>
+<h2><span class="mw-headline" id="Authentication">Authentication</span></h2>
+<p>Once your fingerprints have been registered, you may notice that in the setup procedure that the "test" section does not yet work. This is because the necessary authentication has not been approved in the appropriate <code>pam.d</code> files.
+</p>
+<p>As an example of how to set up fingerprint authetication for a given service, we will first start with <a href="../Sudo.html" title="Sudo">sudo</a>. Open <code>/etc/pam.d/sudo</code> in your  <a href="../List_of_applications.html#Text_editors" class="mw-redirect" title="Text editor">text editor</a> and insert the following <b>bold text</b>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/sudo</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#%PAM-1.0
+<b>auth		sufficient	pam_fingerprint-gui.so</b>
+auth		required	pam_unix.so
+auth		required	pam_nologin.so</pre>
+<p>Keep in mind that your 'sudo' file may contain more entries.
+</p>
+<p>Some users may not have (or want to have) <a href="../Sudo.html" title="Sudo">sudo</a> installed on their systems. In this case, it is still possible to use your fingerprint to authenticate <a href="../Su.html" title="Su">su</a>. This can be done just like the sudo example, of course instead adding an entry to <code>/etc/pam.d/su</code>. Again, add the following <b>bold text</b>.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/su</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> #%PAM-1.0
+ auth		sufficient	pam_rootok.so
+ <b>auth		sufficient	pam_fingerprint-gui.so</b>
+ auth		required	pam_unix.so
+ account		required	pam_unix.so
+ session		required	pam_unix.so</pre>
+<p>One may also configure such things as GDM, KDM, LightDM and the Gnome-Screensaver. Again, if more information or instruction is needed, please refer to the included manual. The <a rel="nofollow"  href="http://www.ullrich-online.cc/fingerprint/doc/Step-by-step-manual.html">Package Maintainer's Manual</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup> might provide further information that cannot be obtained by the included manual.
+</p>
+<h2><span class="mw-headline" id="Verification">Verification</span></h2>
+<p>Now that the necessary authentication has been added to pam, you may wish the confirm the functionality of your setup. The easiest way to do this is to, again, launch the fingerprint-gui. Rather than go through the steps (as your fingerprints should already be established), click directly on the <i>Settings</i> tab. From here you may select the function you wish to test (ie. sudo, su, gdm, etc).
+</p>
+<p>There is also an included utility to simply confirm that your registered fingerprints are recognized. This can be done by simply running:
+</p>
+<pre>$ fingerprint-identifier
+</pre>
+<p>and following the onscreen instructions.
+</p>
+<h2><span class="mw-headline" id="Exporting">Exporting</span></h2>
+<p>If you wish to save your user's fingerprint data to a file, simply use the <i>Export</i> button in the <i>Settings</i> tab. A file Fingerprints.tar.gz" will be created in the desired directory. The saved file appears to be of little use, however, as an "Import" function has not yet been discovered (as of May 2018).
+</p>
+<h2><span class="mw-headline" id="Password">Password</span></h2>
+<p>In some cases, using your fingerprint to log into the system may inhibit certain other functions of the desktop environment. For example, <a href="../GNOME/Keyring.html" class="mw-redirect" title="GNOME Keyring">GNOME Keyring</a> is dependent on your password, as it is used to encrypt the data in your keyring. To overcome this, Fingerprint GUI contains a feature that allows you to store your encrypted password on removable media (USB). You may then use the key to decrypt your keychain by authenticating your fingerprint while the removable media is plugged in.
+</p>
+<p>The manual indicates that to use this function, mount your USB drive and ensure that you have write access to it. Under the "Password" tab of Fingerprint GUI, indicate the appropriate path to your device where it says "Save to directory" (ie. if using gvfs it should be under <code>/run/media/<i>your_uid</i>/<i>device</i></code>). Enter your password and re-enter it and select "save". This will create a hidden directory on your removable media <code>/.fingerprints</code> and create a file <code><i>username</i>@<i>hostname</i>.xml</code>. On the local machine, this will also create the file <code>/var/lib/fingerprint-gui/<i>username</i>/config.xml</code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Everyone who has access to both, your computer and the external media, can decrypt the password-file! Never leave the computer and the media unattended at the same place! Connect this media only while logon and don't use it if other persons have root-access to your computer.</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Input_devices.html" title="Category:Input devices">Input devices</a></li>
+<li><a href="../Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Fingerprint_GUI&amp;oldid=612760">https://wiki.archlinux.org/index.php?title=Fingerprint_GUI&amp;oldid=612760</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 May 2020, at 09:57.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

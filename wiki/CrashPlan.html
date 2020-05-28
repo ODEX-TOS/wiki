@@ -1,0 +1,178 @@
+<!--
+    title: CrashPlan
+    description: Migration of CrashPlan from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">CrashPlan</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://www.crashplan.com/en-us/">CrashPlan</a> is a <a href="../Synchronization_and_backup_programs.html" class="mw-redirect" title="Backup program">backup program</a> that backs up data to remote servers, other computers, or hard drives. Backing up to the cloud servers requires a monthly subscription.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Basic_Usage"><span >2</span> <span >Basic Usage</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Running_Crashplan_on_a_headless_server"><span >3</span> <span >Running Crashplan on a headless server</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#X11_forwarding_over_SSH"><span >3.1</span> <span >X11 forwarding over SSH</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Local_client"><span >3.2</span> <span >Local client</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Troubleshooting"><span >4</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Waiting_for_Backup"><span >4.1</span> <span >Waiting for Backup</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Restore_stuck_preparing"><span >4.2</span> <span >Restore stuck preparing</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Desktop_GUI_Crashes_on_startup"><span >4.3</span> <span >Desktop GUI Crashes on startup</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Out_of_Memory"><span >4.4</span> <span >Out of Memory</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Real_time_protection"><span >4.5</span> <span >Real time protection</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#JRE_Version_Update"><span >4.6</span> <span >JRE Version Update</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>There are <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/crashplan-pro/">crashplan-pro</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/crashplan-pro-e/">crashplan-pro-e</a></span><sup><small>AUR</small></sup> available which are the paid enterprise packages.
+</p>
+<h2><span class="mw-headline" id="Basic_Usage">Basic Usage</span></h2>
+<p>Before accessing CrashPlan's graphical user interface, you should <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>crashplan.service</code> unit.
+</p>
+<p>CrashPlan can be configured entirely through its graphical user interface. To start the graphical interface:
+</p>
+<pre>$ CrashPlanDesktop
+</pre>
+<p>To make CrashPlan automatically start upon system startup, <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the systemd unit.
+</p>
+<h2><span class="mw-headline" id="Running_Crashplan_on_a_headless_server">Running Crashplan on a headless server</span></h2>
+<p>Running CrashPlan on a headless server is not officially supported. However, it is possible to do so.
+</p>
+<p>The CrashPlan daemon's configuration files (in <code>/opt/crashplan/conf</code>) are in an obscure XML format, and they are meant to be edited programmatically by the CrashPlan client.
+</p>
+<p>CrashPlan 5 introduced a new client app which unfortunately dropped support for configuring a remote server with a local client, so you'll need to use X11 forwarding.
+</p>
+<h3><span class="mw-headline" id="X11_forwarding_over_SSH">X11 forwarding over SSH</span></h3>
+<p>Ensure that <code>X11Forwarding</code> is set to <code>yes</code> in the headless server's <code>/etc/ssh/sshd_config</code> and from another machine running X11, SSH to the headless machine with <code>-Y</code>, and from the remote shell run <code>CrashPlanDesktop</code>. The headless machine's windows will appear on the local X11 server. If you have problems, check <code>/opt/crashplan/log/ui_error.log</code>.
+</p>
+<h3><span class="mw-headline" id="Local_client">Local client</span></h3>
+<p>On CrashPlan v4.x and below, the client and daemon communicate on port 4243 by default. Thus, an easy way of configuring the CrashPlan daemon on a headless server is to create an SSH tunnel:
+</p>
+<ol>
+<li>
+<a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> the CrashPlan daemon on the server.</li>
+<li>Create an SSH tunnel. On the client: <code>ssh -N -L 4243:localhost:4243 headless.example.com</code>.</li>
+<li>Start the CrashPlan client. (Again, the executable is named <code>CrashPlanDesktop</code>.)</li>
+</ol>
+<p>Note that the authentication token (located in <code>/var/lib/crashplan/.ui_info</code>) on the local and remote servers must match. More ideas can be found on these websites:
+</p>
+<ul>
+<li>The CrashPlan support site <a rel="nofollow"  href="http://support.code42.com/CrashPlan/Latest/Configuring/Configuring_A_Headless_Client">details</a> a slightly more complicated method of tunneling traffic from the client (CrashPlan Desktop) to the daemon (CrashPlan Engine) through an SSH tunnel.</li>
+<li>A <a rel="nofollow"  href="http://www.liquidstate.net/how-to-manage-your-crashplan-server-remotely/">post by Bryan Ross</a> details how to make CrashPlan Desktop connect directly to CrashPlan Engine. Note that this method can be less secure than tunneling traffic through an SSH tunnel.</li>
+</ul>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Waiting_for_Backup">Waiting for Backup</span></h3>
+<p>If the backup is stuck on «Waiting for Backup» even after you engage it manually, it might be that CrashPlan cannot access the tempdir or it is mounted as <code>noexec</code>. It uses the default Java tmp dir which is normally <code>/tmp</code>. You can either remove the <code>noexec</code> mount option (not recommended) or change the tmpdir CrashPlan is using.
+</p>
+<p>To change the tmpdir CrashPlan uses, open <code>/opt/crashplan/bin/run.conf</code> and insert <code>-Djava.io.tmpdir=/new-tempdir</code> to <code>SRV_JAVA_OPTS</code>, for example:
+</p>
+<pre>SRV_JAVA_OPTS="-Djava.io.tmpdir=/var/tmp/crashplan -Dfile.encoding=UTF-8 …
+</pre>
+<p>Make sure to create the new tmpdir and verify CrashPlan's user has access to it.
+</p>
+<pre># mkdir /var/tmp/crashplan
+</pre>
+<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> CrashPlan.
+</p>
+<h3><span class="mw-headline" id="Restore_stuck_preparing">Restore stuck preparing</span></h3>
+<p>If a restore gets stuck at «Preparing», it may be due to a permission restriction on <code>/tmp</code> that causes communication between the restore tool and backup engine to fail. This can be caused by the sysctl variable <code>fs.protected_fifos</code> restricting the engine (running as <code>root</code>) from connecting to a named pipe owned by the desktop user contained in <code>/tmp</code> (similar to <a href="../Tmpfs.html#Opening_symlinks_in_tmpfs_as_root_fails" title="Tmpfs">tmpfs#Opening symlinks in tmpfs as root fails</a>).
+</p>
+<p>The protection can be disabled to permit the restore to occur with
+</p>
+<pre># sysctl fs.protected_fifos=0
+</pre>
+<p>See <a href="../Sysctl.html" title="Sysctl">Sysctl</a> for instructions on making the change permanent.
+</p>
+<h3><span class="mw-headline" id="Desktop_GUI_Crashes_on_startup">Desktop GUI Crashes on startup</span></h3>
+<p>On systems with Gnome 3 installed, or with libwebkit-gtk installed, there may be an issue where the GUI crashes on launch. This can be fixed by following the instructions <a rel="nofollow"  href="https://support.code42.com/CrashPlan/Latest/Troubleshooting/CrashPlan_Client_Closes_In_Some_Linux_Installations">here</a>.
+</p>
+<h3><span class="mw-headline" id="Out_of_Memory">Out of Memory</span></h3>
+<p>For backup sets containing large numbers of files (more than 100,000 or so), the default maximum heap size of 512M may be too small. If this is filled, the server will silently restart, and will usually get stuck restarting as it continually reaches the memory limit. The only sign of this happening is the creation of many small log files in <code>/opt/crashplan/bin</code> for each service restart (potentially hundreds of thousands, depending on how long it takes to notice the problem). To increase the heap size limit, adjust the <code>-Xmx</code> option in <code>/opt/crashplan/bin/run.conf</code> to a reasonable value for your system.
+</p>
+<h3><span class="mw-headline" id="Real_time_protection">Real time protection</span></h3>
+<p>If you use real time protection for your backup set and have a lot of files to backup, the default system configuration might not be able to allocate all required handles to follow all files in real time. This issue can manifest itself with logs like "inotify_add_watch: No space left on device" in the syslog journal. 
+CrashPlan Support has instructions <a rel="nofollow"  href="https://support.crashplan.com/Troubleshooting/Real-Time_Backup_For_Network-Attached_Drives">here</a> describing how to modify inotify max_user_watches to a bigger value to fix the issue. <b>You cannot follow their instructions directly though</b>, you need to create a new file in /etc/sysctl.d as /etc/sysctl.conf is now ignored by systemd. See <a href="../Sysctl.html#Configuration" title="Sysctl">sysctl#Configuration</a> for more information.
+</p>
+<h3><span class="mw-headline" id="JRE_Version_Update">JRE Version Update</span></h3>
+<p>If, during upgrade, CrashPlan is attempting to upgrade the self-installed JRE version and the upgrade never gets passed downloading the JRE from CrashPlan (checking in logs/upgrade&lt;unique_number&gt;.log, the last message is a curl/wget for the "latest" JRE tgz), it's possible to stop CrashPlan, download the JRE (from the ugprade log) manually and replace the jre folder in the CrashPlan install with the upgrade version. This should allow CrashPlan to get past being stuck trying to upgrade the JRE.
+</p>
+<pre> cd &lt;crashplan/install/dir&gt;
+ ./bin/CrashPlanEngine stop
+ rm -rf jre
+ curl &lt;jre url from crashplan log&gt;
+ tar xzvf &lt;jre.tgz&gt;
+ ./bin/CrashPlanEngine start
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://www.code42.com/crashplan/">CrashPlan home page</a></li>
+<li><a rel="nofollow"  href="http://support.code42.com/CrashPlan/Latest/Configuring/Using_CrashPlan_On_A_Headless_Computer">CrashPlan On A Headless Server - Code42Support</a></li>
+<li><a href="https://en.wikipedia.org/wiki/CrashPlan"  title="wikipedia:CrashPlan">Wikipedia:CrashPlan</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Backup.html" title="Category:Backup">Backup</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=CrashPlan&amp;oldid=615398">https://wiki.archlinux.org/index.php?title=CrashPlan&amp;oldid=615398</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 24 May 2020, at 08:36.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

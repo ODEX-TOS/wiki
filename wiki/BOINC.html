@@ -1,0 +1,224 @@
+<!--
+    title: BOINC
+    description: Migration of BOINC from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">BOINC</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From the <a rel="nofollow"  href="http://boinc.berkeley.edu/">BOINC website</a>:
+</p>
+<dl><dd>Use the idle time on your computer (Windows, Mac, or Linux) to cure diseases, study global warming, discover pulsars, and do many other types of scientific research. It's safe, secure, and easy.</dd></dl>
+<p>From <a href="https://en.wikipedia.org/wiki/BOINC"  title="wikipedia:BOINC">Wikipedia:BOINC</a>:
+</p>
+<dl><dd>The Berkeley Open Infrastructure for Network Computing (BOINC) is a non-commercial middleware system for volunteer and grid computing. It was originally developed to support the SETI@home project before it became useful as a platform for other distributed applications in areas as diverse as mathematics, medicine, molecular biology, climatology, and astrophysics. The intent of BOINC is to make it possible for researchers to tap into the enormous processing power of personal computers around the world.</dd></dl>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Using_BOINC"><span >2</span> <span >Using BOINC</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#BOINC_via_the_GUI"><span >2.1</span> <span >BOINC via the GUI</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Projects_using_GPU"><span >2.1.1</span> <span >Projects using GPU</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#BOINC_via_the_CLI"><span >2.2</span> <span >BOINC via the CLI</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Log_files"><span >3</span> <span >Log files</span></a></li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Considerations_when_choosing_a_project"><span >4</span> <span >Considerations when choosing a project</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Running_on_TOS64"><span >4.1</span> <span >Running on TOS64</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Troubleshooting"><span >5</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#GPU_missing"><span >5.1</span> <span >GPU missing</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Laptop_overheating_and_battery_duration_reduction"><span >5.2</span> <span >Laptop overheating and battery duration reduction</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> either the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boinc">boinc</a></span> or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boinc-nox">boinc-nox</a></span> package. The latter omits <a href="../Xorg.html" title="Xorg">Xorg</a> dependencies, and is therefore suited for use on headless servers.
+</p>
+<p>Both packages install a <a href="../Systemd.html#Using_units" title="Systemd">unit</a> file named <code>boinc-client.service</code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> In <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boinc">boinc</a></span> 7.10.3-1, the unit was renamed from <code>boinc.service</code> to <code>boinc-client.service</code>.</div>
+<p>You will also need to add yourself to the <code>boinc</code> group in order for the manager to connect:
+</p>
+<pre># usermod -a -G boinc $(whoami)
+</pre>
+<p>To generate the necessary files referenced in the next section, make sure to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>boinc-client.service</code>.
+</p>
+<h2><span class="mw-headline" id="Using_BOINC">Using BOINC</span></h2>
+<h3><span class="mw-headline" id="BOINC_via_the_GUI">BOINC via the GUI</span></h3>
+<p>By default, a password is created in <code>/var/lib/boinc/gui_rpc_auth.cfg</code> for connecting to the daemon. To simplify connection of the GUI to the daemon, cd to your home directory, create a link to the file, and change permissions to allow read access to boinc group members.
+</p>
+<pre>$ cd ~/
+$ ln -s /var/lib/boinc/gui_rpc_auth.cfg gui_rpc_auth.cfg
+# chmod 640 gui_rpc_auth.cfg
+</pre>
+<p>If you prefer a different password, or none at all, you can edit <code>/var/lib/boinc/gui_rpc_auth.cfg</code>. Then restart BOINC daemon.
+</p>
+<p>If you do not like the idea of having this file in your home directory, there is an alternative approach.  BOINC Manager will also look for a readable gui_rpc_auth.cfg file in the current working directory.  If you make the file readable by the <b>boinc</b> group and ensure that the manager is run with <code>/var/lib/boinc</code> as the working directory, you should find that the client connects to the daemon automatically, as desired.  This can usually be achieved via the menu editor in your desktop environment of choice.
+</p>
+<p>To start the GUI, use the <i>boincmgr</i> command
+</p>
+<pre>$ boincmgr
+</pre>
+<p>BOINC should now take you through the process of attaching to a project. NB, some projects will let you create an account remotely via the GUI while some may require you to first create an account via their website. You can attach to multiple projects if you have the resources (disk space, time, CPU power). Do this via menu option <i>Tools / Attach to project</i>.
+</p>
+<p>If BOINC did not ask you to connect to a project, then make sure you are connected to the daemon. Go to menu option <i>Advanced / Select computer</i>, choose your machine's name and enter the password. (To avoid this, make sure the above steps regarding gui_rpc_auth.cfg have been done.)
+</p>
+<h4><span class="mw-headline" id="Projects_using_GPU">Projects using GPU</span></h4>
+<p>If you want to use your GPU, you may need the proprietary nvidia or amd drivers. For ATI/AMD Cards you may also need <a href="../AMD_Catalyst.html" class="mw-redirect" title="Catalyst">Catalyst</a> driver for stock kernel which you can get from AUR.
+For newer AMD systems such as the Ryzen 5 2400G you can simply install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/opencl-amd/">opencl-amd</a></span><sup><small>AUR</small></sup> on top of the open source <a href="../AMDGPU.html" title="AMDGPU">AMDGPU</a> to provide OpenCL capability for GPU work.
+For Nvidia, you also need the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opencl-nvidia">opencl-nvidia</a></span> located in extra. To prevent computing errors on x86_64 you most likely need the <i>OpenGL (Multilib)</i> package listed in <a href="../Xorg.html#Driver_installation" title="Xorg">Xorg#Driver installation</a>.
+</p>
+<p>In addition, the boinc user should be in the video group:
+</p>
+<pre># gpasswd -a boinc video
+</pre>
+<p>In order to suspend GPU computing when the computer is in use, the boinc user should have access to your X session so that mouse/keyboard input can be communicated to the client. This can be accomplished by installing the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xhost">xorg-xhost</a></span> (Extra) and executing the following command:
+</p>
+<pre>$ xhost si:localuser:boinc
+</pre>
+<p>You may want to <a href="../Autostarting.html#On_Xorg_startup" title="Autostarting">autostart that on Xorg startup</a>.
+</p>
+<h3><span class="mw-headline" id="BOINC_via_the_CLI">BOINC via the CLI</span></h3>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boinc-nox">boinc-nox</a></span> to use BOINC on a headless system. Two command-line management tools are available: <code>boinccmd</code> and <code>boinc</code>. <code>boinccmd</code> is recommended. To use <code>boinccmd</code>, you must:
+</p>
+<ol>
+<li>Start the BOINC service.</li>
+<li>Provide <code>boinccmd</code> with a password for communicating with the service's RPC API.</li>
+</ol>
+<p>To start the BOINC service, use the provided <code>boinc-client.service</code> unit file. (For more information, see <a href="../Systemd.html#Using_units" title="Systemd">Systemd#Using units</a>.) The first time BOINC starts, it will generate a password and save it to <code>/var/lib/boinc/gui_rpc_auth.cfg</code>. To provide <code>boinccmd</code> with this password, consider one of the following:
+</p>
+<ul>
+<li>Provide the password as a command-line flag, e.g. <code>boinccmd --passwd abc123 --get_host_info</code>.</li>
+<li>Ensure a file named <code>gui_rpc_auth.cfg</code> is present in the current directory.</li>
+</ul>
+<p>That done, you can register with a project and attach BOINC to the project.
+</p>
+<p>To register with a project, you may be able to use the command-line client, or you may need to register with a separate website. To register with a project from the command-line, pick a project from <a rel="nofollow"  href="https://boinc.berkeley.edu/projects.php">BOINC Project List</a>, and execute a command like <code>boinccmd --passwd abc123 --create_account ${project_url} ${my_email} ${project_password} ${project_username} </code>. Regardless of how you register, you must obtain a key for each project you'd like BOINC to attach to. To attach BOINC to a project, execute a command like <code>boinccmd --passwd abc123 --project_attach ${project_url} ${project_key} </code>.
+</p>
+<p>By default, BOINC uses at most 60% of available CPU time. If you wish to let boinc do more work, edit the CPU-related options in its configuration file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/lib/boinc/global_prefs.xml</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;global_preferences&gt;
+    &lt;cpu_usage_limit&gt;100.0&lt;/cpu_usage_limit&gt;
+    ...
+&lt;/global_preferences&gt;</pre>
+<p>You can see other available <a rel="nofollow"  href="https://boinc.berkeley.edu/wiki/PreferencesXml">XML configuration options</a> in the BOINC project's documentation.
+</p>
+<h2><span class="mw-headline" id="Log_files">Log files</span></h2>
+<p>NB, BOINC places log files in <code>/var/lib/boinc/</code>
+</p>
+<pre>/var/lib/boinc/stderrdae.txt
+/var/lib/boinc/stdoutdae.txt
+</pre>
+<h2><span class="mw-headline" id="Considerations_when_choosing_a_project">Considerations when choosing a project</span></h2>
+<p>Projects have different minimum hardware requirements (CPU, disk space), and different times to taken to run each work unit. If you do not finish a work unit before the deadline it will sent out to someone else, but it is better to look around to see what projects suit your machine and your uptime patterns to avoid this happening.  
+</p>
+<p>Also, if it is important to you, check if the project makes the data and results publicly available.
+</p>
+<h3><span class="mw-headline" id="Running_on_TOS64">Running on TOS64</span></h3>
+<p>Some projects provide only 32bit applications which may require 32bit libraries to run work units or show graphics.  You will find most of these libraries in the [multilib] repository.
+</p>
+<dl>
+<dt>To run WUs (e.g. Climateprediction)</dt>
+<dd>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glib2">lib32-glib2</a></span>
+</dd>
+<dt>To show graphics (e.g. Several projects of WCG, Climateprediction, Quake-Catcher Network)</dt>
+<dd>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-pango">lib32-pango</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libxi">lib32-libxi</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-mesa">lib32-mesa</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libjpeg6-turbo">lib32-libjpeg6-turbo</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libxmu">lib32-libxmu</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glu">lib32-glu</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-freeglut">lib32-freeglut</a></span>
+</dd>
+</dl>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="GPU_missing">GPU missing</span></h3>
+<p>If you get this error :
+</p>
+<pre>GPU Missing</pre>
+<p>and the Work Unit does not start, you should <a href="../Daemons.html" title="Daemons">restart</a> the <code>boinc-client.service</code> daemon.
+</p>
+<p>This will happen if the BOINC daemon starts before the an X session is fully initialized.
+</p>
+<h3><span class="mw-headline" id="Laptop_overheating_and_battery_duration_reduction">Laptop overheating and battery duration reduction</span></h3>
+<p>If you run BIONC on a laptop with the ondemand governor (the default), it will keep the CPUs at their maximum frequencies (over)heating them and decreasing battery duration. The best way to fix this is to tell the ondemand to not rise the CPU frequencies for BOINC:
+</p>
+<pre># echo 1 &gt;/sys/devices/system/cpu/cpufreq/ondemand/ignore_nice_load</pre>
+<p>To do this on boot, create the following tmpfiles.d config:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/ondemand-ignore-nice.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w /sys/devices/system/cpu/cpufreq/ondemand/ignore_nice_load - - - - 1</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://boinc.berkeley.edu/">BOINC homepage</a></li>
+<li><a rel="nofollow"  href="http://boinc.berkeley.edu/projects.php">List of BOINC projects</a></li>
+<li><a href="https://en.wikipedia.org/wiki/BOINC"  title="wikipedia:BOINC">Wikipedia entry</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Volunteer_computing.html" title="Category:Volunteer computing">Volunteer computing</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=BOINC&amp;oldid=602411">https://wiki.archlinux.org/index.php?title=BOINC&amp;oldid=602411</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 March 2020, at 15:08.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

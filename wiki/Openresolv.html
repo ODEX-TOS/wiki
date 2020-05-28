@@ -1,0 +1,157 @@
+<!--
+    title: Openresolv
+    description: Migration of Openresolv from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">openresolv</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><span></span>
+</p>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Systemd-resolved.html#Automatically" class="mw-redirect" title="Systemd-resolvconf">systemd-resolvconf</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://roy.marples.name/projects/openresolv">Openresolv</a> is a <a href="https://en.wikipedia.org/wiki/resolvconf"  title="wikipedia:resolvconf">resolvconf</a> implementation, i.e. a <a href="../Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> management framework.
+</p>
+<p>Although openresolv is most known for allowing multiple applications to modify <code>/etc/resolv.conf</code>, it is currently the only standard way to implement:
+</p>
+<ul>
+<li>dynamic control of a DNS resolver (other than glibc),</li>
+<li>dynamic <a href="../Domain_name_resolution.html#Conditional_forwarding" class="mw-redirect" title="Resolv.conf">conditional forwarding</a>.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> An alternative implementation is <a href="../Systemd-resolved.html#Automatically" class="mw-redirect" title="Systemd-resolvconf">systemd-resolvconf</a>, but it can only be used with <a href="../Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Usage"><span >2</span> <span >Usage</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Users"><span >3</span> <span >Users</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Subscribers"><span >4</span> <span >Subscribers</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Tips_and_tricks"><span >5</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Defining_multiple_values_for_options"><span >5.1</span> <span >Defining multiple values for options</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span>  package.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Openresolv provides <span class="plainlinks archwiki-template-man" title="$ man 8 resolvconf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolvconf.8">resolvconf(8)</a></span> and is configured in <code>/etc/resolvconf.conf</code>. See <span class="plainlinks archwiki-template-man" title="$ man 5 resolvconf.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolvconf.conf.5">resolvconf.conf(5)</a></span> for supported options.
+</p>
+<p>Running <code>resolvconf -u</code> will generate <code>/etc/resolv.conf</code>.
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Provide common usage examples. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Openresolv">Talk:Openresolv#</a>)</div>
+</div>
+<h2><span class="mw-headline" id="Users">Users</span></h2>
+<p><a href="../Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> clients:
+</p>
+<ul>
+<li>
+<a href="../Dhcpcd.html" title="Dhcpcd">dhcpcd</a> has a hook which uses <i>resolvconf</i> if it is installed.</li>
+<li><a href="../Iwd.html#Enable_built-in_network_configuration" title="Iwd">iwd#Enable built-in network configuration</a></li>
+</ul>
+<p><a href="../Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">Network managers</a>:
+</p>
+<ul>
+<li>
+<a href="../Netctl.html" title="Netctl">netctl</a> (used by default)</li>
+<li>
+<a href="../NetworkManager.html#Use_openresolv" title="NetworkManager">NetworkManager#Use openresolv</a> (limited to a single interface)</li>
+</ul>
+<p><a href="../Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> clients:
+</p>
+<ul>
+<li><a href="../OpenConnect.html" title="OpenConnect">OpenConnect</a></li>
+<li><a href="../OpenVPN.html#DNS" title="OpenVPN">OpenVPN#DNS</a></li>
+<li><a href="../StrongSwan.html" title="StrongSwan">strongSwan</a></li>
+<li><a href="../WireGuard.html" title="WireGuard">WireGuard</a></li>
+</ul>
+<h2><span class="mw-headline" id="Subscribers">Subscribers</span></h2>
+<p>Openresolv can be configured to pass name servers and search domains to DNS resolvers. The supported resolvers are:
+</p>
+<ul>
+<li><a href="../BIND.html" title="BIND">BIND</a></li>
+<li><a href="../Dnsmasq.html#openresolv" title="Dnsmasq">dnsmasq#openresolv</a></li>
+<li><a href="../Pdnsd.html" title="Pdnsd">pdnsd</a></li>
+<li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdns-recursor">powerdns-recursor</a></span></li>
+<li><a href="../Unbound.html" title="Unbound">Unbound</a></li>
+</ul>
+<p>See the <a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">official documentation</a> for instructions.
+</p>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Defining_multiple_values_for_options">Defining multiple values for options</span></h3>
+<p>The man page does not mention it, but to define multiple values, for options that support it (e.g. <code>name_servers</code>, <code>resolv_conf_options</code> etc.) in <code>/etc/resolvconf.conf</code>, you need to write them space separated inside quotes. E.g.:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/resolvconf.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">resolv_conf_options="edns0 single-request"
+name_servers="192.168.35.1 fd7b:d0bd:7a6e::1"</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Openresolv&amp;oldid=598118">https://wiki.archlinux.org/index.php?title=Openresolv&amp;oldid=598118</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 February 2020, at 09:48.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

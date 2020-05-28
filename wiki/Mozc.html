@@ -1,0 +1,311 @@
+<!--
+    title: Mozc
+    description: Migration of Mozc from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Mozc</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From the project <a rel="nofollow"  href="https://github.com/google/mozc">home page</a>:
+</p>
+<dl><dd>
+<b>Mozc</b> is a Japanese <a href="../Localization.html#Input_methods" class="mw-redirect" title="Input method">input method</a> editor (IME) designed for multi-platform such as Android OS, Apple OS X, Chromium OS, GNU/Linux and Microsoft Windows. This OpenSource project originates from <a rel="nofollow"  href="http://www.google.com/intl/ja/ime/">Google Japanese Input</a>. […] Detailed differences between Google Japanese Input and Mozc are described in <a rel="nofollow"  href="https://github.com/google/mozc/blob/master/docs/about_branding.md">About Branding</a>.</dd></dl>
+<p>(In short, Mozc does not have equivalent conversion quality to Google Japanese Input).
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#IBus"><span >2.1</span> <span >IBus</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#uim"><span >2.2</span> <span >uim</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Fcitx"><span >2.3</span> <span >Fcitx</span></a></li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Mozc_for_Emacs"><span >2.4</span> <span >Mozc for Emacs</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Disabling_XIM_on_Emacs"><span >2.4.1</span> <span >Disabling XIM on Emacs</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Tips_and_tricks"><span >3</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Confirming_Mozc_version_which_you_are_using_now"><span >3.1</span> <span >Confirming Mozc version which you are using now</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Launching_Mozc_tools_from_command_line"><span >3.2</span> <span >Launching Mozc tools from command line</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Use_CapsLock_as_Eisu_toggle_key_on_ASCII_layout_keyboard"><span >3.3</span> <span >Use CapsLock as Eisu_toggle key on ASCII layout keyboard</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Troubleshooting"><span >4</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Building_Mozc_fails_(process_is_killed)"><span >4.1</span> <span >Building Mozc fails (process is killed)</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#New_version_of_Mozc_does_not_appear_though_I_upgraded_Mozc_and_restarted_X_or_Input_Method_Framework_(not_rebooted)"><span >4.2</span> <span >New version of Mozc does not appear though I upgraded Mozc and restarted X or Input Method Framework (not rebooted)</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#mozc_server_becomes_defunct"><span >4.3</span> <span >mozc_server becomes defunct</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#mozc_emacs_helper_not_found_in_emacs"><span >4.4</span> <span >mozc_emacs_helper not found in emacs</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Depending on your target setup, there are several available Mozc packages to choose from. Firstly, you will likely need to install both the Mozc core package and an integration for the Input Method Framework of your choice (such as <a href="../Fcitx.html" title="Fcitx">Fcitx</a>, <a href="../IBus.html" title="IBus">IBus</a>, or <a href="../Uim.html" title="Uim">Uim</a>), though some Fcitx packages come bundled with the core. Secondly, there exist some unofficial dictionaries: The <b>UT</b> (discontinued) and <b>UT2</b> dictionaries, which are combined from several sources with hit numbers coming from Google/Yahoo and Wikipedia, respectively, and the <b>NEologd UT</b> dictionary based on the mecab-ipadic-NEologd Neologism dictionary.
+</p>
+<p>The following table shows the packages corresponding to certain combinations of the components and dictionaries; colored cells indicate split packages. Some of the packages are also available from the <a href="../Unofficial_user_repositories.html#pnsft-pur" class="mw-redirect" title="Unofficial user repository">pnsft-pur</a> repository.
+</p>
+<table >
+<caption>IMF integration packages
+</caption>
+<tbody>
+<tr>
+<th>Dictionary</th>
+<th><a href="../Fcitx.html" title="Fcitx">Fcitx</a></th>
+<th><a href="../IBus.html" title="IBus">IBus</a></th>
+<th><a href="../Emacs.html" title="Emacs">Emacs</a></th>
+<th>
+<a href="../Uim.html" title="Uim">Uim</a>
+</th>
+</tr>
+<tr>
+<th>Official
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fcitx-mozc">fcitx-mozc</a></span>
+</td>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ibus-mozc/">ibus-mozc</a></span><sup><small>AUR</small></sup>
+</td>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/emacs-mozc/">emacs-mozc</a></span><sup><small>AUR</small></sup>
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/uim-mozc/">uim-mozc</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<th>
+<a rel="nofollow"  href="http://linuxplayers.g1.xrea.com/mozc-ut.html">UT</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fcitx-mozc-ut/">fcitx-mozc-ut</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<th>
+<a rel="nofollow"  href="http://linuxplayers.g1.xrea.com/mozc-ut2.html">UT2</a>
+</th>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fcitx-mozc-ut2/">fcitx-mozc-ut2</a></span><sup><small>AUR</small></sup>
+</td>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ibus-mozc-ut2/">ibus-mozc-ut2</a></span><sup><small>AUR</small></sup>
+</td>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/emacs-mozc-ut2/">emacs-mozc-ut2</a></span><sup><small>AUR</small></sup>
+</td>
+<td style="background:#d7d7ff">
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/uim-mozc-ut2/">uim-mozc-ut2</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<th>
+<a rel="nofollow"  href="http://linuxplayers.g1.xrea.com/mozc-neologd-ut.html">NEologd UT</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fcitx-mozc-neologd-ut/">fcitx-mozc-neologd-ut</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Some of the above packages also contain definitions at the top of their respective <a href="../PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> that can be altered to (de)activate certain features. Most notably, to build the Emacs packages you need to uncomment the <code>_emacs_mozc</code> line:
+</p>
+<pre>## If you will be using mozc.el on Emacs, uncomment below.
+_emacs_mozc="yes"
+</pre>
+<p>Likewise, you must also enable uim-mozc-ut2 manually to build it.
+</p>
+<p>Once Mozc is installed, you might need to restart X or your Input Method Framework before you can use it.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="IBus">IBus</span></h3>
+<p><i>See also <a href="../IBus.html" title="IBus">IBus</a> for IBus configuration.</i>
+</p>
+<p>If you use Mozc by default, set it via <i>ibus-setup</i>:
+</p>
+<pre>$ ibus-setup
+</pre>
+<p>Choose <i>Input Method</i> tab and move <i>Mozc</i> to top of the list.
+</p>
+<p>You can switch input method by <code>Alt+Shift_L</code> (by IBus default).
+</p>
+<h3><span class="mw-headline" id="uim">uim</span></h3>
+<p><i>See also <a href="../Uim.html" title="Uim">Uim</a> for uim configuration.</i>
+</p>
+<p>Configure uim preferences by running:
+</p>
+<pre>$ uim-pref-gtk (Or, uim-pref-gtk3/uim-pref-qt4)
+</pre>
+<p>which brings forth a GUI.
+</p>
+<p>Choose your preferring input method as <i>Default input method</i>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Mozc will be not listed in <i>Default input method</i> at first time so you will need to add it into <i>Enabled input methods</i> to use.</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> You <b>must</b> run the following command whenever you upgrade or (re-)install <b>uim</b>.<br>
+ # uim-module-manager --register mozc</div>
+<h3><span class="mw-headline" id="Fcitx">Fcitx</span></h3>
+<p><i>See also <a href="../Fcitx.html" title="Fcitx">Fcitx</a> for Fcitx configuration.</i>
+</p>
+<p>Open the configuration dialog of Fcitx by running:
+</p>
+<pre>$ fcitx-configtool
+</pre>
+<p>In the <i>Input Method</i> tab, click on the plus sign and choose Mozc from the list in the dialog. Depending on your configuration, you might need to disable the <i>Only Show Current Language</i> option for Mozc to be available. After confirming the dialog, you can activate Mozc as input method using the usual keyboard shortcuts.
+</p>
+<h3><span class="mw-headline" id="Mozc_for_Emacs">Mozc for Emacs</span></h3>
+<p>You can use mozc.el (mozc-mode) to input Japanese via LEIM (Library of Emacs Input Method). To use mozc-mode, write the following into your <code>.emacs.d/init.el</code> or some other file for Emacs customizing:
+</p>
+<pre>(require 'mozc)  ; or (load-file "/path/to/mozc.el")
+(setq default-input-method "japanese-mozc")
+</pre>
+<p>mozc.el provides "overlay" mode in the styles of showing candidates (from mozc r77) which shows a candidate window in box style close to the point. If you want to use it by default, add the following:
+</p>
+<pre>(setq mozc-candidate-style 'overlay)
+</pre>
+<p><code>C-\</code> (<i>toggle-input-method</i>) enables and disables use of mozc-mode.
+</p>
+<h4><span class="mw-headline" id="Disabling_XIM_on_Emacs">Disabling XIM on Emacs</span></h4>
+<p>When you are using input method on your desktop and assigning activation/deactivation of input method to C-SPC, you will be not able to use C-SPC/C-@ as set-mark-command on Emacs. To avoid this problem, add the following into your <code>~/.Xresources</code> or <code>~/.Xdefaults</code>. xim will be disabled on Emacs.
+</p>
+<pre>Emacs*UseXIM: false
+</pre>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Confirming_Mozc_version_which_you_are_using_now">Confirming Mozc version which you are using now</span></h3>
+<p>Type "ばーじょん" ("version") and convert it while activating Mozc. The version number of Mozc will be shown in the candidate list like follows:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"><u>ばーじょん</u></pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">バージョン
+ヴァージョン
+ばーじょん
+Mozc-1.6.1187.102  <i>⇐ Current version of Mozc</i>
+...</pre>
+<h3><span class="mw-headline" id="Launching_Mozc_tools_from_command_line">Launching Mozc tools from command line</span></h3>
+<p>The followings are commands to launch Mozc tools.
+</p>
+<ul>
+<li>Mozc Settings: <code>$ /usr/lib/mozc/mozc_tool --mode=config_dialog</code>
+</li>
+<li>Mozc Dictionary Tool: <code>$ /usr/lib/mozc/mozc_tool --mode=dictionary_tool</code>
+</li>
+<li>Mozc Word Register: <code>$ /usr/lib/mozc/mozc_tool --mode=word_register_dialog</code>
+</li>
+<li>Mozc Hand Writing: <code>$ /usr/lib/mozc/mozc_tool --mode=hand_writing</code>
+</li>
+<li>Mozc Character Palette: <code>$ /usr/lib/mozc/mozc_tool --mode=character_palette</code>
+</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If the handwriting window displays an error when attempting to input handwriting, mozc may not have a handwriting module. One possible solution is to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tegaki-models-zinnia-japanese/">tegaki-models-zinnia-japanese</a></span><sup><small>AUR</small></sup> and re-open the window.</div>
+<h3><span class="mw-headline" id="Use_CapsLock_as_Eisu_toggle_key_on_ASCII_layout_keyboard">Use CapsLock as Eisu_toggle key on ASCII layout keyboard</span></h3>
+<p>In all of the preset keymap styles of Mozc, the command <i>Toggle alphanumeric mode</i> on <i>Composition</i> mode is assigned to the <code>Eisu</code> (Eisu_toggle), <code>Hiragana/Katakana</code> or <code>Muhenkan</code> key, but the ASCII keyboard has none of them.
+</p>
+<p>One solution for it is to use Caps Lock key as Eisu_toggle (Mozc does not recognize the Caps Lock key as of r124). The following is a way to assign Eisu_toggle to <code>Caps Lock</code> (without any modifier keys) and Caps_Lock to <code>Shift+CapsLock</code>, as on the OADG keyboard layout.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This will affect all applications.</div>
+<p>Edit <code>~/.Xmodmap</code> as follows:
+</p>
+<pre>keycode 66 = Eisu_toggle Caps_Lock
+clear Lock
+</pre>
+<p>Then, restart X or run <i>xmodmap</i> to apply the changes immediately:
+</p>
+<pre>$ xmodmap ~/.Xmodmap
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3>
+<span id="Building_Mozc_fails_.28process_is_killed.29"></span><span class="mw-headline" id="Building_Mozc_fails_(process_is_killed)">Building Mozc fails (process is killed)</span>
+</h3>
+<p>If the build process fails with an error message like the following:
+</p>
+<pre>...
+/bin/sh: line 1:  xxxx killed
+...
+make: *** [xxx/xxx...] error 137
+...
+</pre>
+<p>Make sure you have not run out of memory.
+</p>
+<h3>
+<span id="New_version_of_Mozc_does_not_appear_though_I_upgraded_Mozc_and_restarted_X_or_Input_Method_Framework_.28not_rebooted.29"></span><span class="mw-headline" id="New_version_of_Mozc_does_not_appear_though_I_upgraded_Mozc_and_restarted_X_or_Input_Method_Framework_(not_rebooted)">New version of Mozc does not appear though I upgraded Mozc and restarted X or Input Method Framework (not rebooted)</span>
+</h3>
+<p>The old version of Mozc may be still on your memory. Try to kill the existing <i>mozc_server</i> process:
+</p>
+<pre>$ killall mozc_server
+</pre>
+<h3><span class="mw-headline" id="mozc_server_becomes_defunct">mozc_server becomes defunct</span></h3>
+<p>Mozc cannot run in root. Start X in normal user.
+</p>
+<h3><span class="mw-headline" id="mozc_emacs_helper_not_found_in_emacs">mozc_emacs_helper not found in emacs</span></h3>
+<p>When installing mozc.el you need to install a helper program called <code>mozc_emacs_helper</code>.
+</p>
+<p>You need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/emacs-mozc/">emacs-mozc</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/emacs-mozc-ut2/">emacs-mozc-ut2</a></span><sup><small>AUR</small></sup> for this helper program.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Input_methods.html" title="Category:Input methods">Input methods</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Mozc&amp;oldid=601167">https://wiki.archlinux.org/index.php?title=Mozc&amp;oldid=601167</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 12 March 2020, at 13:48.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

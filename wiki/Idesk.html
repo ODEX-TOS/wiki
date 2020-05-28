@@ -1,0 +1,130 @@
+<!--
+    title: Idesk
+    description: Migration of Idesk from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Idesk</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="http://idesk.sourceforge.net/html/index.html">Idesk</a> is a simple program for adding icons to your X desktop. It can also manage your wallpaper with a built in changer similar to that found in Windows 7.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Background_options"><span >2.1</span> <span >Background options</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Icons"><span >2.2</span> <span >Icons</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Idesktool"><span >2.3</span> <span >Idesktool</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/idesk/">idesk</a></span><sup><small>AUR</small></sup>. Then copy the necessary configuration files to your home directory as shown below:
+</p>
+<pre>$ mkdir ~/.idesktop
+$ cp /usr/share/idesk/dot.ideskrc ~/.ideskrc
+</pre>
+<p>optional:
+</p>
+<pre>$ cp /usr/share/idesk/default.lnk ~/.idesktop/
+</pre>
+<p>(This adds the default icon which just runs Xdialog to display a welcome message. It can be used as a template for other icons.)
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/idesk/">idesk</a></span><sup><small>AUR</small></sup> package does not come with a man page, but it does come with a readme file: <code>/usr/share/idesk/README</code>. There is also documentation on <a rel="nofollow"  href="http://idesk.sourceforge.net/html/usage.html"><b>SourceForge.net</b></a> however most of the configuration options should be self-explanatory.
+</p>
+<h3><span class="mw-headline" id="Background_options">Background options</span></h3>
+<p>If you are using another wallpaper setter such as <a href="../Feh.html" title="Feh">Feh</a> or <a href="../Nitrogen.html" title="Nitrogen">Nitrogen</a>, Idesk's background settings do not need to be modified.
+</p>
+<p>If you are using Idesk's own background setter, supported wallpaper formats include JPEG, PNG, GIF, and XPM. Using either <code>Background.File</code> or <code>Background.Source</code>, specify the path to the image file you wish to use as a wallaper.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> <code>Background.Source</code> seems to take precedence over <code>Background.File</code>; however, it is ignored if <code>Background.Delay</code> is set to 0.</div>
+<h3><span class="mw-headline" id="Icons">Icons</span></h3>
+<p>Idesk looks in <code>~/.idesktop</code> for files which names end with <code>.lnk</code> for icons. Each file should define one icon If you attempt to define a second icon it will be silently ignored. Aside from ending with <code>.lnk</code>, the files' names are not important.
+</p>
+<p>Example for Chromium:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">chromium.lnk</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">table Icon
+  Caption: Chromium
+  ToolTip.Caption: Google's OSS Web Browser
+  Icon: /usr/share/icons/hicolor/32x32/apps/chromium.png
+  Width: 32
+  Height: 32
+  X: 977
+  Y: 369
+  Command[0]: chromium
+end</pre>
+<p><code>Width</code> and <code>Height</code> should match the actual dimensions of the icon. <code>X</code> and <code>Y</code> will be modified by idesk to reflect the icon's actual position.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>Most system icons can be found in the following locations: <code>/usr/share/icons/hicolor</code>, <code>/usr/share/icons/gnome</code> and <code>/usr/share/pixmaps</code>.</li>
+<li>Many icon themes provide a variety of different sizes of icon - 48x48 is a commonly used size for desktop icons.</li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="Idesktool">Idesktool</span></h3>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/idesk-extras/">idesk-extras</a></span><sup><small>AUR</small></sup> package provides a graphical configuration tool for Idesk. It can be started by running the <code>idesktool</code> command. Users can use Idesktool to create and remove icons, modify settings and restart Idesk.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:X_server.html" title="Category:X server">X server</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Idesk&amp;oldid=506340">https://wiki.archlinux.org/index.php?title=Idesk&amp;oldid=506340</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 January 2018, at 09:37.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

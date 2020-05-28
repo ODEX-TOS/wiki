@@ -1,0 +1,736 @@
+<!--
+    title: Secure_Boot
+    description: Migration of Secure_Boot from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Unified Extensible Firmware Interface/Secure Boot</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Need to explain the relationship with Win8 which is already documented in <a href="../../Dual_boot_with_Windows.html#UEFI_Secure_Boot" title="Dual boot with Windows">Dual boot with Windows#UEFI Secure Boot</a>. Not sure how to integrate the info without duplication. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../../Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></li>
+</ul>
+</div>
+<p>For an overview about Secure Boot in Linux see <a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html">Rodsbooks' Secure Boot</a>  article. This article focuses on how to set up Secure Boot in TOS Linux. 
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Secure Boot is in no way related to LUKS. Secure Boot has dbx for blacklisting keys and hashes. Using a unified kernel image signed with a custom key, althought the most secure, is not the only way to use Secure Boot. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<p><i>Secure Boot</i> is a security feature of modern motherboards, which can protect boot manager, kernel and initramfs from tampering: e.g. from installing an keylogger or bootkit able to steal your LUKS master key. Minimal configuration in which using <i>Secure boot</i> worth time spent:
+</p>
+<ol>
+<li>UEFI considered trusted, despite it still can have backdoors or being vulnerable to Evil Maid able to flash your hardware</li>
+<li>User <i>must not</i> use 3rd party keys, especially from Microsoft (there is at least one known boot manager, signed by Microsoft, able to load anything <a rel="nofollow"  href="https://habr.com/ru/post/446238/">[1]</a>)</li>
+<li>UEFI loads <a href="../../EFISTUB.html" title="EFISTUB">EFISTUB</a> with <i>both</i> kernel+initram signed by user <i>Image Signing Key</i>, so no one can tamper it</li>
+<li>Kernel mounts encrypted root and home filesystems (<a href="../../Dm-crypt/Encrypting_an_entire_system.html#LVM_on_LUKS" title="Dm-crypt/Encrypting an entire system">LVM on LUKS</a>), so no one can tamper them, read mentioned private keys, password hashes or user sensitive data</li>
+</ol>
+<p>In future, Evil Maid attack can be potentially prevented by using a <a href="../../Trusted_Platform_Module.html" class="mw-redirect" title="TPM">TPM</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Secure_Boot_status"><span >1</span> <span >Secure Boot status</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2">
+<a href="#Check_the_status"><span >1.1</span> <span >Check the status</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Before_booting_the_OS"><span >1.1.1</span> <span >Before booting the OS</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#After_booting_the_OS"><span >1.1.2</span> <span >After booting the OS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Change_the_status"><span >1.2</span> <span >Change the status</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Using_a_signed_boot_loader"><span >2</span> <span >Using a signed boot loader</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7">
+<a href="#PreLoader"><span >2.1</span> <span >PreLoader</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8">
+<a href="#Set_up_PreLoader"><span >2.1.1</span> <span >Set up PreLoader</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#Fallback"><span >2.1.1.1</span> <span >Fallback</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-10"><a href="#How_to_use_while_booting?"><span >2.1.2</span> <span >How to use while booting?</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Remove_PreLoader"><span >2.1.3</span> <span >Remove PreLoader</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12">
+<a href="#shim"><span >2.2</span> <span >shim</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13">
+<a href="#Set_up_shim"><span >2.2.1</span> <span >Set up shim</span></a>
+<ul>
+<li class="toclevel-4 tocsection-14"><a href="#shim_with_hash"><span >2.2.1.1</span> <span >shim with hash</span></a></li>
+<li class="toclevel-4 tocsection-15">
+<a href="#shim_with_key"><span >2.2.1.2</span> <span >shim with key</span></a>
+<ul>
+<li class="toclevel-5 tocsection-16"><a href="#shim_with_key_and_GRUB"><span >2.2.1.2.1</span> <span >shim with key and GRUB</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-17"><a href="#Remove_shim"><span >2.2.2</span> <span >Remove shim</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18">
+<a href="#Using_your_own_keys"><span >3</span> <span >Using your own keys</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19">
+<a href="#Custom_keys"><span >3.1</span> <span >Custom keys</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Creating_keys"><span >3.1.1</span> <span >Creating keys</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Updating_keys"><span >3.1.2</span> <span >Updating keys</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22">
+<a href="#Signing_EFI_binaries"><span >3.2</span> <span >Signing EFI binaries</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23">
+<a href="#Signing_the_kernel_and_boot_manager"><span >3.2.1</span> <span >Signing the kernel and boot manager</span></a>
+<ul>
+<li class="toclevel-4 tocsection-24"><a href="#Signing_the_kernel_with_a_pacman_hook"><span >3.2.1.1</span> <span >Signing the kernel with a pacman hook</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="#Put_firmware_in_%22Setup_Mode%22"><span >3.3</span> <span >Put firmware in "Setup Mode"</span></a></li>
+<li class="toclevel-2 tocsection-26">
+<a href="#Enroll_keys_in_firmware"><span >3.4</span> <span >Enroll keys in firmware</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#Using_firmware_setup_utility"><span >3.4.1</span> <span >Using firmware setup utility</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Using_KeyTool"><span >3.4.2</span> <span >Using KeyTool</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29">
+<a href="#Dual_booting_with_other_operating_systems"><span >3.5</span> <span >Dual booting with other operating systems</span></a>
+<ul>
+<li class="toclevel-3 tocsection-30"><a href="#Microsoft_Windows"><span >3.5.1</span> <span >Microsoft Windows</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31"><a href="#Disable_Secure_Boot"><span >4</span> <span >Disable Secure Boot</span></a></li>
+<li class="toclevel-1 tocsection-32"><a href="#Booting_an_install_media"><span >5</span> <span >Booting an install media</span></a></li>
+<li class="toclevel-1 tocsection-33"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Secure_Boot_status">Secure Boot status</span></h2>
+<h3><span class="mw-headline" id="Check_the_status">Check the status</span></h3>
+<h4><span class="mw-headline" id="Before_booting_the_OS">Before booting the OS</span></h4>
+<p>At this point, one has to look at the firmware setup. If the machine was booted and is running, in most cases it will have to be rebooted.   
+</p>
+<p>You may access the firmware configuration by pressing a special key during the boot process. The key to use depends on the firmware. It is usually one of <code>Esc</code>, <code>F2</code>, <code>Del</code> or possibly another <code>F<i>n</i></code> key. Sometimes the right key is displayed for a short while at the beginning of the boot process. The motherboard manual usually records it. You might want to press the key, and keep pressing it, immediately following powering on the machine, even before the screen actually displays anything.
+</p>
+<p>After entering the firmware setup, be careful not to change any settings without prior intention. Usually there are navigation instructions, and short help for the settings, at the bottom of each setup screen. The setup itself might be composed of several pages. You will have to navigate to the correct place. The interesting setting might be simply denoted by secure boot, which can be set on or off.
+</p>
+<h4><span class="mw-headline" id="After_booting_the_OS">After booting the OS</span></h4>
+<p>To check if the machine was booted with Secure Boot, use this command:
+</p>
+<pre>$ od --address-radix=n --format=u1 /sys/firmware/efi/efivars/SecureBoot*
+</pre>
+<p>If Secure Boot is enabled, this command returns <code>1</code> as the final integer in a list of five, for example:
+</p>
+<pre>6  0  0  0  1
+</pre>
+<p>For a verbose status, another way is to execute:
+</p>
+<pre>$ bootctl status
+</pre>
+<h3><span class="mw-headline" id="Change_the_status">Change the status</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Layout quick steps how an TOS install can gain Secure Boot with either <a href="#Using_a_signed_boot_loader">#Using a signed boot loader</a> or <a href="#Using_your_own_keys">#Using your own keys</a>. In the steps it is best mentioned that the structure of those two sections relies on having booted into TOS, i.e. <a href="#Disable_Secure_Boot">#Disable Secure Boot</a> first. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<h2><span class="mw-headline" id="Using_a_signed_boot_loader">Using a signed boot loader</span></h2>
+<p>Using a signed boot loader means using a boot loader signed with Microsoft's key. There are two known signed boot loaders PreLoader and shim, their purpose is to chainload other EFI binaries (usually <a href="../../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loaders</a>). Since Microsoft would never sign a boot loader that automatically launches any unsigned binary, PreLoader and shim use a whitelist called Machine Owner Key list, abbreviated MokList. If the SHA256 hash of the binary (Preloader and shim) or key the binary is signed with (shim) is in the MokList they execute it, if not they launch a key management utility which allows enrolling the hash or key.
+</p>
+<h3><span class="mw-headline" id="PreLoader">PreLoader</span></h3>
+<p>When run, PreLoader tries to launch <code>loader.efi</code>. If the hash of <code>loader.efi</code> is not in MokList, PreLoader will launch <code>HashTool.efi</code>. In HashTool you must enroll the hash of the EFI binaries you want to launch, that means your <a href="../../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> (<code>loader.efi</code>) and kernel.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Each time you update any of the binaries (e.g. boot loader or kernel) you will need to enroll their new hash.</div>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> The <a href="../../REFInd.html" title="REFInd">rEFInd</a> boot manager's <code>refind-install</code> script can copy the rEFInd and PreLoader EFI binaries to the ESP. See <a href="../../REFInd.html#Using_PreLoader" title="REFInd">rEFInd#Using PreLoader</a> for instructions.</div>
+<h4><span class="mw-headline" id="Set_up_PreLoader">Set up PreLoader</span></h4>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <code>PreLoader.efi</code> and <code>HashTool.efi</code> in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efitools">efitools</a></span> package are not signed, so their usefulness is limited. You can get a signed <code>PreLoader.efi</code> and <code>HashTool.efi</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/preloader-signed/">preloader-signed</a></span><sup><small>AUR</small></sup> or <a rel="nofollow"  href="https://blog.hansenpartnership.com/linux-foundation-secure-boot-system-released/">download them manually</a>.</div>
+<p><a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/preloader-signed/">preloader-signed</a></span><sup><small>AUR</small></sup> and copy <code>PreLoader.efi</code> and <code>HashTool.efi</code> to the <a href="../../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> directory; for <a href="../../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> use:
+</p>
+<pre># cp /usr/share/preloader-signed/{PreLoader,HashTool}.efi <i>esp</i>/EFI/systemd
+</pre>
+<p>Now copy over the boot loader binary and rename it to <code>loader.efi</code>; for <a href="../../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> use:
+</p>
+<pre># cp <i>esp</i>/EFI/systemd/systemd-bootx64.efi <i>esp</i>/EFI/systemd/loader.efi
+</pre>
+<p>Finally, create a new NVRAM entry to boot <code>PreLoader.efi</code>:
+</p>
+<pre># efibootmgr --verbose --disk /dev/sd<i><b>X</b></i> --part <i><b>Y</b></i> --create --label "PreLoader" --loader /EFI/systemd/PreLoader.efi
+</pre>
+<p>Replace <code><i>X</i></code> with the drive letter and replace <code><i>Y</i></code> with the partition number of the <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>.
+</p>
+<p>This entry should be added to the list as the first to boot; check with the <code>efibootmgr</code> command and adjust the boot-order if necessary.
+</p>
+<h5><span class="mw-headline" id="Fallback">Fallback</span></h5>
+<p>If there are problems booting the custom NVRAM entry, copy <code>HashTool.efi</code> and <code>loader.efi</code> to the default loader location booted automatically by UEFI systems:
+</p>
+<pre># cp /usr/share/preloader-signed/HashTool.efi <i>esp</i>/EFI/Boot
+# cp <i>esp</i>/EFI/systemd/systemd-bootx64.efi <i>esp</i>/EFI/Boot/loader.efi
+</pre>
+<p>Copy over <code>PreLoader.efi</code> and rename it:
+</p>
+<pre># cp /usr/share/preloader-signed/PreLoader.efi <i>esp</i>/EFI/Boot/bootx64.efi
+</pre>
+<p>For particularly intransigent UEFI implementations, copy <code>PreLoader.efi</code> to the default loader location used by Windows systems:
+</p>
+<pre># mkdir -p <i>esp</i>/EFI/Microsoft/Boot
+# cp /usr/share/preloader-signed/PreLoader.efi <i>esp</i>/EFI/Microsoft/Boot/bootmgfw.efi
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If dual-booting with Windows, backup the original <code>bootmgfw.efi</code> first as replacing it may cause problems with Windows updates.</div>
+<p>As before, copy <code>HashTool.efi</code> and <code>loader.efi</code> to <code><i>esp</i>/EFI/Microsoft/Boot/</code>.
+</p>
+<p>When the system starts with Secure Boot enabled, follow the steps above to enroll <code>loader.efi</code> and <code>/vmlinuz-linux</code> (or whichever kernel image is being used).
+</p>
+<h4>
+<span id="How_to_use_while_booting.3F"></span><span class="mw-headline" id="How_to_use_while_booting?">How to use while booting?</span>
+</h4>
+<p>A message will show up that says <code>Failed to Start loader... I will now execute HashTool.</code> To use HashTool for enrolling the hash of <code>loader.efi</code> and <code>vmlinuz.efi</code>, follow these steps. These steps assume titles for a remastered archiso installation media. The exact titles you will get depends on your boot loader setup.
+</p>
+<ul>
+<li>Select <i>OK</i>
+</li>
+<li>In the HashTool main menu, select <i>Enroll Hash</i>, choose <code>\loader.efi</code> and confirm with <i>Yes</i>. Again, select <i>Enroll Hash</i> and <code>archiso</code> to enter the archiso directory, then select <code>vmlinuz.efi</code> and confirm with <i>Yes</i>. Then choose <i>Exit</i> to return to the boot device selection menu.</li>
+<li>In the boot device selection menu choose <i>TOS Linux archiso x86_64 UEFI CD</i>
+</li>
+</ul>
+<h4><span class="mw-headline" id="Remove_PreLoader">Remove PreLoader</span></h4>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Since you are going to remove stuff, is a good idea to backup it.</div>
+<p><a href="../../Pacman.html#Removing_packages" class="mw-redirect" title="Uninstall">Uninstall</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/preloader-signed/">preloader-signed</a></span><sup><small>AUR</small></sup> and simply remove the copied files and revert configuration; for <a href="../../Systemd-boot.html" title="Systemd-boot">systemd-boot</a> use:
+</p>
+<pre># rm <i>esp</i>/EFI/systemd/{PreLoader,HashTool}.efi
+# rm <i>esp</i>/EFI/systemd/loader.efi
+# efibootmgr --verbose --bootnum <i>N</i> --delete-bootnum
+# bootctl update
+</pre>
+<p>Where <code><i>N</i></code> is the NVRAM boot entry created for booting <code>PreLoader.efi</code>.
+Check with the <i>efibootmgr</i> command and adjust the boot-order if necessary.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The above commands cover the easiest case; if you have created, copied, renamed or edited further files probably you have to handle with them, too. If PreLoader was your operational boot entry, you obviously also need to <a href="#Disable_Secure_Boot">#Disable Secure Boot</a>.</div>
+<h3><span class="mw-headline" id="shim">shim</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Testing needed. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot#shim">Talk:Unified Extensible Firmware Interface/Secure Boot#shim</a>)</div>
+</div>
+<p>When run, shim tries to launch <code>grubx64.efi</code>. If MokList does not contain the hash of <code>grubx64.efi</code> or the key it is signed with, shim will launch MokManager (<code>mmx64.efi</code>). In MokManager you must enroll the hash of the EFI binaries you want to launch (your <a href="../../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> (<code>grubx64.efi</code>) and kernel) or enroll the key they are signed with.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you use <a href="#shim_with_hash">#shim with hash</a>, each time you update any of the binaries (e.g. boot loader or kernel) you will need to enroll their new hash.</div>
+<h4><span class="mw-headline" id="Set_up_shim">Set up shim</span></h4>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> The <a href="../../REFInd.html" title="REFInd">rEFInd</a> boot manager's <code>refind-install</code> script can sign rEFInd EFI binaries and copy them along with shim and the MOK certificates to the ESP. See <a href="../../REFInd.html#Using_shim" title="REFInd">rEFInd#Using shim</a> for instructions.</div>
+<p><a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/shim-signed/">shim-signed</a></span><sup><small>AUR</small></sup>.
+</p>
+<p>Rename your current <a href="../../TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> to <code>grubx64.efi</code>
+</p>
+<pre># mv <i>esp</i>/EFI/BOOT/BOOTX64.efi <i>esp</i>/EFI/BOOT/grubx64.efi
+</pre>
+<p>Copy <i>shim</i> and <i>MokManager</i> to your boot loader directory on ESP; use previous filename of your boot loader as as the filename for <code>shimx64.efi</code>:
+</p>
+<pre># cp /usr/share/shim-signed/shimx64.efi <i>esp</i>/EFI/BOOT/BOOTX64.efi
+# cp /usr/share/shim-signed/mmx64.efi <i>esp</i>/EFI/BOOT/
+</pre>
+<p><i>shim</i> can authenticate binaries by Machine Owner Key or hash stored in MokList.
+</p>
+<dl>
+<dt>Machine Owner Key (MOK)</dt>
+<dd>A key that a user generates and uses to sign EFI binaries.</dd>
+<dt>hash</dt>
+<dd>A SHA256 hash of an EFI binary.</dd>
+</dl>
+<p>Using hash is simpler, but each time you update your boot loader or kernel you will need to add their hashes in MokManager. With MOK you only need to add the key once, but you will have to sign the boot loader and kernel each time it updates.
+</p>
+<h5><span class="mw-headline" id="shim_with_hash">shim with hash</span></h5>
+<p>If <i>shim</i> does not find the SHA256 hash of <code>grubx64.efi</code> in MokList it will launch MokManager (<code>mmx64.efi</code>).
+</p>
+<p>In <i>MokManager</i> select <i>Enroll hash from disk</i>, find <code>grubx64.efi</code> and add it to MokList. Repeat the steps and add your kernel <code>vmlinuz-linux</code>. When done select <i>Continue boot</i> and your boot loader will launch and it will be capable launching the kernel.
+</p>
+<h5><span class="mw-headline" id="shim_with_key">shim with key</span></h5>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sbsigntools">sbsigntools</a></span>.
+</p>
+<p>You will need:
+</p>
+<dl>
+<dt><i>.key</i></dt>
+<dd>PEM format <b>private</b> key for EFI binary signing.</dd>
+<dt><i>.crt</i></dt>
+<dd>PEM format certificate for <i>sbsign</i>.</dd>
+<dt><i>.cer</i></dt>
+<dd>DER format certificate for <i>MokManager</i>.</dd>
+</dl>
+<p>Create a Machine Owner Key:
+</p>
+<pre>$ openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days <i>3650</i> -subj "/CN=<i>my Machine Owner Key</i>/" -out MOK.crt
+$ openssl x509 -outform DER -in MOK.crt -out MOK.cer
+</pre>
+<p>Sign your boot loader (named <code>grubx64.efi</code>) and kernel:
+</p>
+<pre># sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux-tos/boot/vmlinuz-linux
+# sbsign --key MOK.key --cert MOK.crt --output <i>esp</i>/EFI/BOOT/grubx64.efi <i>esp</i>/EFI/BOOT/grubx64.efi
+</pre>
+<p>You will need to do this each time they are updated. You can automate the kernel signing with a <a href="../../Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>, e.g.:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/999-sign_kernel_for_secureboot.hook</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux
+
+[Action]
+Description = Signing kernel with Machine Owner Key for Secure Boot
+When = PostTransaction
+Exec = /usr/bin/find /boot/ -maxdepth 1 -name 'vmlinuz-*' -exec /usr/bin/sh -c 'if ! /usr/bin/sbverify --list {} 2&gt;/dev/null | /usr/bin/grep -q "signature certificates"; then /usr/bin/sbsign --key MOK.key --cert MOK.crt --output {} {}; fi' ;
+Depends = sbsigntools
+Depends = findutils
+Depends = grep</pre>
+<p>Copy <code>MOK.cer</code> to a <a href="../../FAT.html" title="FAT">FAT</a> formatted file system (you can use <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>).
+</p>
+<p>Reboot and enable Secure Boot. If <i>shim</i> does not find the certificate <code>grubx64.efi</code> is signed with in MokList it will launch MokManager (<code>mmx64.efi</code>).
+</p>
+<p>In <i>MokManager</i> select <i>Enroll key from disk</i>, find <code>MOK.cer</code> and add it to MokList. When done select <i>Continue boot</i> and your boot loader will launch and it will be capable launching any binary signed with your Machine Owner Key.
+</p>
+<h6><span class="mw-headline" id="shim_with_key_and_GRUB">shim with key and GRUB</span></h6>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Too long, written like a blog post. Also many formatting issues, see <a href="../../Help:Style.html" title="Help:Style">Help:Style</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> With secureboot active GRUB can't chainload EFI binaries even if they are signed.</div>
+<p>For signing you can for example use the grub2-signing extension:
+<a rel="nofollow"  href="https://github.com/Bandie/grub2-signing-extension">[2]</a>
+</p>
+<p>There is also a package in the aur: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/grub2-signing-extension/">grub2-signing-extension</a></span><sup><small>AUR</small></sup>
+</p>
+<p><br>
+Run <code>gpg --gen-key</code> as root to create a keypair.
+</p>
+<p>If you get a permission denied error try:
+</p>
+<pre># chown root:root $(tty)
+# export GPG_TTY"="$(tty)
+</pre>
+<p>Activate the gpg-agent:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"> /root/.gnupg/gpg.conf </pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"> use-agent </pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"> /root/.gnupg/gpg-agent.conf </pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">pinentry-program /usr/bin/pinentry
+no-grab
+default-cache-ttl 1800
+</pre>
+<p>Export your public key:
+</p>
+<pre>gpg --export -o ~/pubkey</pre>
+<p>Mount your boot partition.
+(Re)install GRUB2:
+</p>
+<pre># grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB -k /root/pubkey --modules="gcry_sha256 gcry_dsa gcry_rsa"
+</pre>
+<p>Copy your publickey to your boot partiton.
+</p>
+<pre>cp /root/pubkey /boot/pubkey</pre>
+<p><br>
+Edit your GRUB custom config and add:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/grub.d/40_Custom</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">insmod verify
+insmod gcry_sha256
+insmod gcry_dsa gcry_rsa
+set check_signatures=enforce
+trust (crypto0)/pubkey
+insmod shim_lock</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> (crypt0) is the name of the partition in GRUB.</div>
+<p><br>
+Rebuild your grub config:
+</p>
+<pre>grub-mkconfig &gt; /boot/grub/grub.cfg</pre>
+<p>Ensure that you created <code>MOK.key</code> and signed your <code>kernel</code> and <code>grubx64.efi</code> like 
+described in <b>shim with key</b>.
+</p>
+<p><br>
+Sign the grub files: <code>grub-sign</code>
+</p>
+<p>Run <code>grub-verify</code> and check if there are errors.
+</p>
+<p>Here is a simple unsign hook:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">10-unsign-grub-before-update.hook</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = linux
+Target = linux-lts
+Target = linux-zen
+Target = grub
+Target = intel-ucode
+Target = amd-ucode
+
+[Action]
+Description = Unsigning GRUB
+When = PreTransaction
+Exec = /usr/bin/grub-unsign</pre>
+<p>And a bash script you can use to sign again after the update.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"> .bashrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">function sign-update () {
+   /usr/bin/grub-unsign
+   if [ $? -ne 0 ]; then return 1; fi
+   /usr/bin/find /boot/ -maxdepth 1 -name 'vmlinuz-*' -not -name "*.sig" -exec /usr/bin/sh -c \
+   'if ! /usr/bin/sbverify --list {} 2&gt;/dev/null | /usr/bin/grep -q "signature certificates"; \
+   then echo "Signing with sbsign."; /usr/bin/sbsign --key MOK.key --cert MOK.crt --output {} {}; fi' \;
+   /usr/bin/grub-sign
+   /usr/bin/find /boot/ -maxdepth 1 -name 'vmlinuz-*' -not -name "*.sig" -exec /usr/bin/sh -c \
+   'echo ""; echo {}; /usr/bin/sbverify --list {};' \;
+}
+</pre>
+<h4><span class="mw-headline" id="Remove_shim">Remove shim</span></h4>
+<p><a href="../../Pacman.html#Removing_packages" class="mw-redirect" title="Uninstall">Uninstall</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/shim-signed/">shim-signed</a></span><sup><small>AUR</small></sup>, remove the copied <i>shim</i> and <i>MokManager</i> files and rename back your boot loader.
+</p>
+<h2><span class="mw-headline" id="Using_your_own_keys">Using your own keys</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> instructions needed, testing too, a subsection on backing up existing keys prior to replacing them should be added (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>It is advised to read <a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/controlling-sb.html">Rod Smith's Controlling Secure Boot</a>.</li>
+<li>You can use <code>cryptboot-efikeys</code> script from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cryptboot/">cryptboot</a></span><sup><small>AUR</small></sup> package for simplified creating keys, enrolling keys, signing bootloader and verifying signatures.
+<ul><li>Note that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cryptboot/">cryptboot</a></span><sup><small>AUR</small></sup> requires the encrypted <code>/boot</code> partition to be specified in <code>/etc/crypttab</code> before it runs, and if you are using it in combination with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sbupdate-git/">sbupdate-git</a></span><sup><small>AUR</small></sup>, <i>sbupdate</i> expects the <code>/boot/efikeys/db.*</code> files created by <i>cryptboot</i> to be capitalized like <code>DB.*</code> unless otherwise configured in <code>/etc/sbupdate.conf</code>. Users who do not use systemd to handle encryption may not have anything in their <code>/etc/crypttab</code> file and would need to create an entry.</li></ul>
+</li>
+</ul>
+</div>
+<p>Secure Boot implementations use these keys:
+</p>
+<dl>
+<dt>Platform Key (PK)</dt>
+<dd>Top-level key.</dd>
+<dt>Key Exchange Key (KEK)</dt>
+<dd>Keys used to sign Signatures Database and Forbidden Signatures Database updates.</dd>
+<dt>Signature Database (db)</dt>
+<dd>Contains keys and/or hashes of allowed EFI binaries.</dd>
+<dt>Forbidden Signatures Database (dbx)</dt>
+<dd>Contains keys and/or hashes of blacklisted EFI binaries.</dd>
+</dl>
+<p>See <a rel="nofollow"  href="https://blog.hansenpartnership.com/the-meaning-of-all-the-uefi-keys/">The Meaning of all the UEFI Keys</a> for a more detailed explanation.
+</p>
+<h3><span class="mw-headline" id="Custom_keys">Custom keys</span></h3>
+<p>To use Secure Boot you need at least <b>PK</b>, <b>KEK</b> and <b>db</b> keys. While you can add multiple KEK, db and dbx certificates, only one Platform Key is allowed.
+</p>
+<p>Once Secure Boot is in "User Mode" keys can only be updated by signing the update (using <i>sign-efi-sig-list</i>) with a higher level key. Platform key can be signed by itself.
+</p>
+<h4><span class="mw-headline" id="Creating_keys">Creating keys</span></h4>
+<p>To generate keys, <a href="../../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efitools">efitools</a></span> and perform the following steps. As an alternative, install and run <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sbkeys/">sbkeys</a></span><sup><small>AUR</small></sup> to generate a new set of keys automatically.
+</p>
+<p>You will need private keys and certificates in multiple formats:
+</p>
+<dl>
+<dt><i>.key</i></dt>
+<dd>PEM format <b>private</b> keys for EFI binary and EFI signature list signing.</dd>
+<dt><i>.crt</i></dt>
+<dd>PEM format certificates for <span class="plainlinks archwiki-template-man" title="$ man 1 sbsign"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sbsign.1">sbsign(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 1 sbvarsign"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sbvarsign.1">sbvarsign(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 sign-efi-sig-list"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sign-efi-sig-list.1">sign-efi-sig-list(1)</a></span>.</dd>
+<dt><i>.cer</i></dt>
+<dd>DER format certificates for firmware.</dd>
+<dt><i>.esl</i></dt>
+<dd>Certificates in an EFI Signature List for <span class="plainlinks archwiki-template-man" title="$ man 1 sbvarsign"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sbvarsign.1">sbvarsign(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 1 efi-updatevar"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/efi-updatevar.1">efi-updatevar(1)</a></span>, <i>KeyTool</i> and firmware.</dd>
+<dt><i>.auth</i></dt>
+<dd>Certificates in an EFI Signature List with an authentication header (i.e. a signed certificate update file) for <span class="plainlinks archwiki-template-man" title="$ man 1 efi-updatevar"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/efi-updatevar.1">efi-updatevar(1)</a></span>, <i>sbkeysync</i>, <i>KeyTool</i> and firmware.</dd>
+</dl>
+<p>Create a <a href="https://en.wikipedia.org/wiki/Globally_unique_identifier"  title="wikipedia:Globally unique identifier">GUID</a> for owner identification:
+</p>
+<pre>$ uuidgen --random &gt; GUID.txt
+</pre>
+<p>Platform key:
+</p>
+<pre>$ openssl req -newkey rsa:4096 -nodes -keyout PK.key -new -x509 -sha256 -days <i>3650</i> -subj "/CN=<i>my Platform Key</i>/" -out PK.crt
+$ openssl x509 -outform DER -in PK.crt -out PK.cer
+$ cert-to-efi-sig-list -g "$(&lt; GUID.txt)" PK.crt PK.esl
+$ sign-efi-sig-list -g "$(&lt; GUID.txt)" -k PK.key -c PK.crt PK PK.esl PK.auth
+</pre>
+<p>Sign an empty file to allow removing Platform Key when in "User Mode":
+</p>
+<pre>$ sign-efi-sig-list -g "$(&lt; GUID.txt)" -c PK.crt -k PK.key PK /dev/null rm_PK.auth
+</pre>
+<p>Key Exchange Key:
+</p>
+<pre>$ openssl req -newkey rsa:4096 -nodes -keyout KEK.key -new -x509 -sha256 -days <i>3650</i> -subj "/CN=<i>my Key Exchange Key</i>/" -out KEK.crt
+$ openssl x509 -outform DER -in KEK.crt -out KEK.cer
+$ cert-to-efi-sig-list -g "$(&lt; GUID.txt)" KEK.crt KEK.esl
+$ sign-efi-sig-list -g "$(&lt; GUID.txt)" -k PK.key -c PK.crt KEK KEK.esl KEK.auth
+</pre>
+<p>Signature Database key:
+</p>
+<pre>$ openssl req -newkey rsa:4096 -nodes -keyout db.key -new -x509 -sha256 -days <i>3650</i> -subj "/CN=<i>my Signature Database key</i>/" -out db.crt
+$ openssl x509 -outform DER -in db.crt -out db.cer
+$ cert-to-efi-sig-list -g "$(&lt; GUID.txt)" db.crt db.esl
+$ sign-efi-sig-list -g "$(&lt; GUID.txt)" -k KEK.key -c KEK.crt db db.esl db.auth
+</pre>
+<h4><span class="mw-headline" id="Updating_keys">Updating keys</span></h4>
+<p>Once Secure Boot is in "User Mode" any changes to KEK, db and dbx need to be signed with a higher level key.
+</p>
+<p>For example, if you wanted to replace your db key with a new one:
+</p>
+<ol>
+<li>
+<a href="#Creating_keys">Create the new key</a>,</li>
+<li>Convert it to EFI Signature List,</li>
+<li>Sign the EFI Signature List,</li>
+<li>Enroll the signed certificate update file.</li>
+</ol>
+<pre>$ cert-to-efi-sig-list -g "$(&lt; GUID.txt)" <i>new_db</i>.crt <i>new_db</i>.esl
+$ sign-efi-sig-list -g "$(&lt; GUID.txt)" -k KEK.key -c KEK.crt db <i>new_db</i>.esl <i>new_db</i>.auth
+</pre>
+<p>If instead of replacing your db key, you want to <b>add</b> another one to the Signature Database, you need to use the option <code>-a</code> (see <span class="plainlinks archwiki-template-man" title="$ man 1 sign-efi-sig-list"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sign-efi-sig-list.1">sign-efi-sig-list(1)</a></span>):
+</p>
+<pre>$ sign-efi-sig-list <b>-a</b> -g "$(&lt; GUID.txt)" -k KEK.key -c KEK.crt db <i>new_db</i>.esl <i>new_db</i>.auth
+</pre>
+<p>When <code><i>new_db</i>.auth</code> is created, <a href="#Enroll_keys_in_firmware">enroll it</a>.
+</p>
+<h3><span class="mw-headline" id="Signing_EFI_binaries">Signing EFI binaries</span></h3>
+<p>When <i>Secure Boot</i> is active (i.e. in "User Mode"), only signed EFI binaries (e.g. applications, <a href="../../Unified_Extensible_Firmware_Interface.html#UEFI_drivers" title="Unified Extensible Firmware Interface">drivers</a>, <a href="../../Systemd-boot.html#Preparing_a_unified_kernel_image" class="mw-redirect" title="Unified kernel image">unified kernel images</a>) can be launched. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sbsigntools">sbsigntools</a></span> to sign EFI binaries with <span class="plainlinks archwiki-template-man" title="$ man 1 sbsign"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sbsign.1">sbsign(1)</a></span>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>To check if a binary is signed and list its signatures use <code>sbverify --list <i>/path/to/binary</i></code>.</li>
+<li>The <a href="../../REFInd.html" title="REFInd">rEFInd</a> boot manager's <code>refind-install</code> script can sign rEFInd EFI binaries and copy them together with the db certificates to the ESP. See <a href="../../REFInd.html#Using_your_own_keys" title="REFInd">rEFInd#Using your own keys</a> for instructions.</li>
+</ul>
+</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If running <i>sbsign</i> without <code>--output</code> the resulting file will be <code><i>filename</i>.signed</code>. See <span class="plainlinks archwiki-template-man" title="$ man 1 sbsign"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sbsign.1">sbsign(1)</a></span> for more information.</div>
+<h4><span class="mw-headline" id="Signing_the_kernel_and_boot_manager">Signing the kernel and boot manager</span></h4>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Signing kernel only will not protect the initramfs from tampering.</div>
+<p>To sign your kernel and boot manager use <i>sbsign</i>. E.g.:
+</p>
+<pre># sbsign --key db.key --cert db.crt --output /boot/vmlinuz-linux-tos/boot/vmlinuz-linux
+# sbsign --key db.key --cert db.crt --output <i>esp</i>/EFI/BOOT/BOOTX64.EFI <i>esp</i>/EFI/BOOT/BOOTX64.EFI
+</pre>
+<h5><span class="mw-headline" id="Signing_the_kernel_with_a_pacman_hook">Signing the kernel with a pacman hook</span></h5>
+<p>You can also use mkinitcpio's <a href="../../Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a> to sign the kernel on install and updates.
+</p>
+<p>Copy <code>/usr/share/libalpm/hooks/90-mkinitcpio-install.hook</code> to <code>/etc/pacman.d/hooks/90-mkinitcpio-install.hook</code> and <code>/usr/share/libalpm/scripts/mkinitcpio-install</code> to <code>/usr/local/share/libalpm/scripts/mkinitcpio-install</code>.
+</p>
+<p>In <code>/etc/pacman.d/hooks/90-mkinitcpio-install.hook</code>, replace:
+</p>
+<pre>Exec = /usr/share/libalpm/scripts/mkinitcpio-install
+</pre>
+<p>with:
+</p>
+<pre>Exec = /usr/local/share/libalpm/scripts/mkinitcpio-install
+</pre>
+<p>In <code>/usr/local/share/libalpm/scripts/mkinitcpio-install</code>, replace:
+</p>
+<pre>install -Dm644 "${line}" "/boot/vmlinuz-${pkgbase}"
+</pre>
+<p>with:
+</p>
+<pre>sbsign --key <i>/path/to/</i>db.key --cert <i>/path/to/</i>db.crt --output "/boot/vmlinuz-${pkgbase}" "${line}"
+</pre>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../../Systemd-boot.html" title="Systemd-boot">systemd-boot</a>.</b><a href="../../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Out of scope. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<p>If you need a boot manager, you might want to trigger the hook when the former is updated. Here is an example with systemd-boot:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/99-secureboot.hook</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux
+Target = systemd
+
+[Action]
+Description = Signing Kernel for SecureBoot
+When = PostTransaction
+Exec = /usr/bin/sh -c "/usr/bin/find /boot/ -type f \( -name 'vmlinuz-*' -o -name 'systemd*' \) -exec /usr/bin/sh -c 'if ! /usr/bin/sbverify --list {} 2&gt;/dev/null</pre>
+<p>The <code>Target</code> needs to be duplicated each time you want to add a new package. Wrt. the <code>find</code> statement, since we had a condition with the filenames and APLM hooks are being split on spaces, we had to surround the whole statement by quotes in order for the hook to be parsed properly. Since systemd-boot is located in sub-folders, the depth needed to be adjusted as well so that we removed the <code>-maxdepth</code> argument. In order to avoid hassle, if you are unsure, try to reinstall the package you want to test to see if the hook and signing part are processed successfully. See <a href="../../Pacman.html#Hooks" title="Pacman">Pacman#Hooks</a> or <span class="plainlinks archwiki-template-man" title="$ man 5 alpm-hooks"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/alpm-hooks.5">alpm-hooks(5)</a></span> for more info.
+</p>
+<h3>
+<span id="Put_firmware_in_.22Setup_Mode.22"></span><span class="mw-headline" id='Put_firmware_in_"Setup_Mode"'>Put firmware in "Setup Mode"</span>
+</h3>
+<p>Secure Boot is in Setup Mode when the Platform Key is removed. To put firmware in Setup Mode, enter firmware setup utility and find an option to delete or clear certificates. How to enter the setup utility is described in <a href="#Before_booting_the_OS">#Before booting the OS</a>.
+</p>
+<h3><span class="mw-headline" id="Enroll_keys_in_firmware">Enroll keys in firmware</span></h3>
+<p>Copy all <code>*.cer</code>, <code>*.esl</code>, <code>*.auth</code> to a <a href="../../FAT.html" title="FAT">FAT</a> formatted file system (you can use <a href="../../EFI_system_partition.html" title="EFI system partition">EFI system partition</a>).
+</p>
+<p>Launch firmware setup utility or KeyTool and enroll <b>db</b>, <b>KEK</b> and <b>PK</b> certificates.
+</p>
+<p>If the used tool supports it prefer using <i>.auth</i> and <i>.esl</i> over <i>.cer</i>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Enrolling Platform Key sets Secure Boot in "User Mode", leaving "Setup Mode", so it should be enrolled last in sequence.</div>
+<h4><span class="mw-headline" id="Using_firmware_setup_utility">Using firmware setup utility</span></h4>
+<p>Firmwares have various different interfaces, see <a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/controlling-sb.html#setuputil">Replacing Keys Using Your Firmware's Setup Utility</a> for example how to enroll keys.
+</p>
+<h4><span class="mw-headline" id="Using_KeyTool">Using KeyTool</span></h4>
+<p><code>KeyTool.efi</code> is in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efitools">efitools</a></span> package, copy it to ESP. To use it after enrolling keys, sign it with <code>sbsign</code>.
+</p>
+<pre># sbsign --key db.key --cert db.crt --output <i>esp</i>/KeyTool-signed.efi /usr/share/efitools/efi/KeyTool.efi
+</pre>
+<p>Launch <code>KeyTool-signed.efi</code> using firmware setup utility, boot loader or <a href="../../Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">UEFI Shell</a> and enroll keys.
+</p>
+<p>See <a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/controlling-sb.html#keytool">Replacing Keys Using KeyTool</a> for explanation of KeyTool menu options.
+</p>
+<h3><span class="mw-headline" id="Dual_booting_with_other_operating_systems">Dual booting with other operating systems</span></h3>
+<h4><span class="mw-headline" id="Microsoft_Windows">Microsoft Windows</span></h4>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Is it possible to boot Windows by signing its bootloader with a <a href="#Creating_keys">custom key</a>? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unified_Extensible_Firmware_Interface/Secure_Boot">Talk:Unified Extensible Firmware Interface/Secure Boot#</a>)</div>
+</div>
+<p>To <a href="../../Dual_boot_with_Windows.html" title="Dual boot with Windows">dual boot with Windows</a>, you would need to add Microsoft's certificates to the Signature Database. <a rel="nofollow"  href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance#14-signature-databases-db-and-dbx">Microsoft has two db certificates</a>:
+</p>
+<ul>
+<li>
+<a rel="nofollow"  href="https://www.microsoft.com/pkiops/certs/MicWinProPCA2011_2011-10-19.crt">Microsoft Windows Production PCA 2011</a> for Windows</li>
+<li>
+<a rel="nofollow"  href="https://www.microsoft.com/pkiops/certs/MicCorUEFCA2011_2011-06-27.crt">Microsoft Corporation UEFI CA 2011</a> for third-party binaries like UEFI drivers, option ROMs etc.</li>
+</ul>
+<p>Create EFI Signature Lists from Microsoft's DER format certificates using Microsoft's GUID (<code>77fa9abd-0359-4d32-bd60-28f4e78f784b</code>) and combine them in one file for simplicity:
+</p>
+<pre>$ sbsiglist --owner 77fa9abd-0359-4d32-bd60-28f4e78f784b --type x509 --output MS_Win_db.esl MicWinProPCA2011_2011-10-19.crt
+$ sbsiglist --owner 77fa9abd-0359-4d32-bd60-28f4e78f784b --type x509 --output MS_UEFI_db.esl MicCorUEFCA2011_2011-06-27.crt
+$ cat MS_Win_db.esl MS_UEFI_db.esl &gt; MS_db.esl
+</pre>
+<p>Sign a db update with your KEK. Use <code>sign-efi-sig-list</code> with option <code>-a</code> to <b>add</b> not replace a db certificate:
+</p>
+<pre>$ sign-efi-sig-list -a -g 77fa9abd-0359-4d32-bd60-28f4e78f784b -k KEK.key -c KEK.crt db MS_db.esl add_MS_db.auth
+</pre>
+<p>Follow <a href="#Enroll_keys_in_firmware">#Enroll keys in firmware</a> to add <code>add_MS_db.auth</code> to Signature Database.
+</p>
+<h2><span class="mw-headline" id="Disable_Secure_Boot">Disable Secure Boot</span></h2>
+<p>The Secure Boot feature can be disabled via the UEFI firmware interface. How to access the firmware configuration is described in <a href="#Before_booting_the_OS">#Before booting the OS</a>.
+</p>
+<p>If using a hotkey did not work and you can boot Windows, you can force a reboot into the firmware configuration in the following way (for Windows 10): <i>Settings &gt; Update &amp; Security &gt; Recovery &gt; Advanced startup (Restart now) &gt; Troubleshoot &gt; Advanced options &gt; UEFI Firmware settings &gt; restart</i>.
+</p>
+<p>Note that some motherboards (this is the case in a Packard Bell laptop) only allow to disable secure boot if you have set an administrator password (that can be removed afterwards). See also <a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html#disable">Rod Smith's Disabling Secure Boot</a>.
+</p>
+<h2><span class="mw-headline" id="Booting_an_install_media">Booting an install media</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The official installation image does not support Secure Boot (<a rel="nofollow"  href="https://bugs.archlinux.org/task/53864">FS#53864</a>). To successfully boot the installation medium you will need to <a href="#Disable_Secure_Boot">disable Secure Boot</a>.</div>
+<p>Secure Boot support was initially added in <code>archlinux-2013.07.01-dual.iso</code> and later removed in <code>archlinux-2016.06.01-dual.iso</code>. At that time <i>prebootloader</i> was replaced with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efitools">efitools</a></span>, even though the later uses unsigned EFI binaries. There has been no support for Secure Boot in the official installation medium ever since.
+</p>
+<p>One might want to <a href="../../Remastering_the_Install_ISO.html" title="Remastering the Install ISO">remaster the Install ISO</a> in a way described by previous topics of this article. For example, the signed EFI applications <code>PreLoader.efi</code> and <code>HashTool.efi</code> from <a href="#PreLoader">#PreLoader</a> can be adopted to here. Note that up to this point, the article assumed one can access the <a href="../../EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a> of the machine. But when installing a machine that never had an OS before, there is no ESP present. You should explore other articles, for example <a href="../../Unified_Extensible_Firmware_Interface.html#Create_UEFI_bootable_USB_from_ISO" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Create UEFI bootable USB from ISO</a>, to learn how this situation should be handled.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#Secure_boot"  title="wikipedia:Unified Extensible Firmware Interface">Wikipedia:Unified Extensible Firmware Interface#Secure boot</a></li>
+<li>
+<a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html">Dealing with Secure Boot</a> by Rod Smith</li>
+<li>
+<a rel="nofollow"  href="http://www.rodsbooks.com/efi-bootloaders/controlling-sb.html">Controlling Secure Boot</a> by Rod Smith</li>
+<li>
+<a rel="nofollow"  href="https://mjg59.dreamwidth.org/5850.html">UEFI secure booting (part 2)</a> by Matthew Garrett</li>
+<li>
+<a rel="nofollow"  href="https://blog.hansenpartnership.com/uefi-secure-boot/">UEFI Secure Boot</a> by James Bottomley</li>
+<li><a rel="nofollow"  href="https://git.kernel.org/cgit/linux/kernel/git/jejb/efitools.git/tree/README">efitools README</a></li>
+<li>
+<a rel="nofollow"  href="https://www.fsf.org/campaigns/secure-boot-vs-restricted-boot">Will your computer's "Secure Boot" turn out to be "Restricted Boot"?</a> — Free Software Foundation</li>
+<li><a rel="nofollow"  href="https://www.fsf.org/campaigns/secure-boot-vs-restricted-boot/statement/campaigns/secure-boot-vs-restricted-boot/whitepaper-web">Free Software Foundation recommendations for free operating system distributions considering Secure Boot</a></li>
+<li>
+<a rel="nofollow"  href="https://firmware.intel.com/messages/219">Intel's UEFI Secure Boot Tutorial</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup>
+</li>
+<li><a rel="nofollow"  href="http://dreamhack.it/linux/2015/12/03/secure-boot-signed-modules-and-signed-elf-binaries.html">Secure Boot, Signed Modules and Signed ELF Binaries</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+<li><a href="../../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Unified_Extensible_Firmware_Interface/Secure_Boot&amp;oldid=615293">https://wiki.archlinux.org/index.php?title=Unified_Extensible_Firmware_Interface/Secure_Boot&amp;oldid=615293</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 May 2020, at 15:52.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

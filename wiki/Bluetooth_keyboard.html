@@ -1,0 +1,281 @@
+<!--
+    title: Bluetooth_keyboard
+    description: Migration of Bluetooth_keyboard from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Bluetooth keyboard</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article describes how to set up a <a href="../Bluetooth.html" title="Bluetooth">Bluetooth</a> HID keyboard with TOS Linux, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez">bluez</a></span> version 5.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Pairing_process"><span >1</span> <span >Pairing process</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Legacy_method_for_auto-connect"><span >2</span> <span >Legacy method for auto-connect</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Manually_enabling_a_Bluetooth_Keyboard"><span >2.1</span> <span >Manually enabling a Bluetooth Keyboard</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Automatically_enabling_a_Bluetooth_Keyboard"><span >2.2</span> <span >Automatically enabling a Bluetooth Keyboard</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Xorg"><span >4</span> <span >Xorg</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Pairing_process">Pairing process</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../Bluetooth.html" title="Bluetooth">Bluetooth</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Pairing process, and some troubleshooting related to it, are redundant with general device setup on Bluetooth page, and should be merged there. Keyboard-specific info would stay on this page. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Bluetooth#Merging_general_setup_from_Keyboard,_Mouse,_Headset_pages">Talk:Bluetooth#Merging general setup from Keyboard, Mouse, Headset pages</a>)</div>
+</div>
+<p>Login to the affected computer by a wired keyboard or by ssh.
+</p>
+<p>First, make sure the local BT controller (e.g. a BT dongle the built in BT radio) is recognized:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># lsusb</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Bus 001 Device 004: ID 0a12:0001 Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode)
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp. SMSC9512/9514 Fast Ethernet Adapter
+Bus 001 Device 002: ID 0424:9512 Standard Microsystems Corp. LAN9500 Ethernet 10/100 Adapter / SMSC9512/9514 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</pre>
+<p>The above output is from a Raspberry-Pi revision 'B' with archlinux-arm and a Keysonic BT Dongle.
+</p>
+<p>Three items worth remembering:
+</p>
+<ul>
+<li>BT devices (keyboard) and controllers (dongle) need to be paired once.</li>
+<li>The BT controller needs to be powered up after every boot.</li>
+<li>The BT controller needs to be told to connect to the keyboard after every boot.</li>
+</ul>
+<p><i>Pairing</i> is a one time process, required only once. There are BT keyboards sold with a BT dongle which come already paired, but that's not certain.  We will use the <code>bluetoothctl</code> command from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bluez-utils">bluez-utils</a></span> to pair our dongle and the keyboard. 
+</p>
+<p><i>Power up</i> can be done with <code>bluetoothctl</code>, or automatically in <code>/etc/bluetooth/main.conf</code>, see below.
+</p>
+<p>Same for <i>connecting</i>, either <code>bluetoothctl</code> or <code>hcitool</code> can be used, the latter is more useful for scripting.
+</p>
+<p>We will use <code>bluetoothctl</code> for the pairing process. Run the command to get at the <code>[bluetooth]#</code> prompt.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># bluetoothctl</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[bluetooth]#
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you are on a color console: the word "bluetooth" is in the default color as long as no devices are available, and blue as soon as required devices and/or controllers have been found.</div>
+<p>While in <i>bluetoothctl</i> power up the controller:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# power on</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Changing power on succeeded
+[CHG] Controller 06:05:04:03:02:01 Powered: yes
+</pre>
+<p>Next, tell <code>bluetoothctl</code> to look only for keyboards, and make that the default agent:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# agent KeyboardOnly</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Agent registered
+</pre>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# default-agent</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Default agent request successful
+</pre>
+<p>Next, put your controller (the local dongle) in <i>pairable</i> mode:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# pairable on</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Changing pairable on succeeded
+</pre>
+<p>Next, put your keyboard in an active mode, where it is <i>discoverable</i>, i.e. pairable. Some keyboards have a special button for this on the underside, or require a special key combination to be pressed. See the documentation of your keyboard. Please note that this <i>discoverability</i> of a device is time limited, some devices are only visible 30 seconds, other for 2 minutes. Your mileage may vary.
+</p>
+<p>Next, let the controller scan the BT frequencies for a suitable device:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# scan on</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Discovery started
+[CHG] Controller 06:05:04:03:02:01 Discovering: yes
+</pre>
+<p>After a few seconds the adress of the keyboard should be listed as found. This line will repeat over and over, but won't stop you from entering new commands.
+</p>
+<p>Next, actually do the pairing. The address used is the BT-MAC address of the keyboard:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# pair 01:02:03:04:05:06</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Pairing successful
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong>  Some keyboards, such as Microsoft Surface Ergonomic, will send a pass code (e.g. "[agent] Passkey: 501334") which has to be typed in on the bluetooth keyboard followed by the key Enter in order to pair successfully. Use "paired-devices" command to double check if the pairing succeeded.</div>
+<p>Next, make this a trusted device (this allows the device to establish the connection on itself). Again, the BT-MAC address is the address of the keyboard device:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# trust 01:02:03:04:05:06</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Trusted 
+</pre>
+<p>Next and finally connect to the device (keyboard). Again, the BT-MAC address is the address of the keyboard device:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[bluetooth]# connect 01:02:03:04:05:06</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Connection successful
+</pre>
+<p>Done. Leave the <code>bluetoothctl</code> utility:
+</p>
+<pre>[bluetooth]# quit
+</pre>
+<p>Now the external device (i.e. keyboard) and the USB BT dongle are paired permanently, unless you break the pairing intentionally. This does not mean that the keyboard will connect automatically to your BT device after a boot. This is mainly due to the fact that the bluetooth controller will be automatically turned off after each reboot. To automatically connect the keyboard after a reboot, see <a href="../Bluetooth.html#Auto_power-on_after_boot" title="Bluetooth">Bluetooth#Auto power-on after boot</a>.
+</p>
+<h2><span class="mw-headline" id="Legacy_method_for_auto-connect">Legacy method for auto-connect</span></h2>
+<p>Before Bluez added the feature to automatically power on the bluetooth controller after a reboot, it was necessary to run two commands manually or automatically via a systemd service or a udev rule to <i>Power up</i> the controller and <i>connect</i> device and controller. In the following, those legacy methods are demonstrated if the new method yields any problems.
+</p>
+<h3><span class="mw-headline" id="Manually_enabling_a_Bluetooth_Keyboard">Manually enabling a Bluetooth Keyboard</span></h3>
+<p>Although the device and the controller are now paired (see above), you need to connect them every time the computer starts. 
+</p>
+<p>First the BT controller (i.e. BT Dongle) needs to be powered up. This is done with the <code>hciconfig</code> utility. We assume that you have only one BT device connected, and this one has the symbolic name <code>hci0</code>. 
+</p>
+<pre># hciconfig hci0 up
+</pre>
+<p>Next, make the connection, now using the <code>hcitool</code> utility. Make sure that the keyboard is powered up and connectable, i.e. not in a power saving sleep state.
+</p>
+<pre># hcitool cc 01:02:03:04:05:06
+</pre>
+<p>Your BT keyboard should be useable now, even if an error message ("Can't create connection: Input/output error") is shown. Next we will discuss how to automate this process with <a href="../Systemd.html" title="Systemd">systemd</a>.
+</p>
+<h3><span class="mw-headline" id="Automatically_enabling_a_Bluetooth_Keyboard">Automatically enabling a Bluetooth Keyboard</span></h3>
+<p>Remember that you have to pair and trust your device in bluetoothctl to cause autoconnect. Then you can power up your adapter automatically in several ways:
+</p>
+<p><b>Custom systemd service file:</b>
+</p>
+<p>Create a config file <code>/etc/btkbd.conf</code>
+</p>
+<pre># Config file for btkbd.service
+# change when required (e.g. keyboard hardware changes, more hci devices are connected)
+BTKBDMAC = ''mac_address_of_your_device''
+HCIDEVICE = ''hci_device_identifier''
+</pre>
+<p><code><i>mac_address_of_your_device</i></code> can be found with the <code>scan on</code> command of the <i>bluetoothctl</i> utility.
+</p>
+<p><code><i>hci_device_identifier</i></code> can be found with:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># hcitool dev</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Devices:
+   hci0   06:05:04:03:02:01
+</pre>
+<p>We are looking for the identifier <code>hci0</code> in this case. The MAC address shown here is the address of the controller, not the address of the keyboard itself.
+</p>
+<p>Next, create a new service file at <code>/etc/systemd/system/btkbd.service</code>. 
+</p>
+<pre>[Unit]
+Description=systemd Unit to automatically start a Bluetooth keyboard
+Documentation=https://wiki.archlinux.org/index.php/Bluetooth_Keyboard
+ConditionPathExists=/etc/btkbd.conf
+ConditionPathExists=/usr/local/bin/hcitool
+ConditionPathExists=/usr/local/sbin/hciconfig
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/btkbd.conf
+ExecStart=
+ExecStart=/usr/local/sbin/hciconfig ${HCIDEVICE} up
+# ignore errors on connect, spurious problems with bt? so start next command with -
+ExecStart=-/usr/local/bin/hcitool cc ${BTKBDMAC}
+
+[Install]
+WantedBy=bluetooth.target
+</pre>
+<p>And then enable this service with systemd's tools.
+</p>
+<p>Or <b>udev rule:</b>
+</p>
+<p>Create new file <code>/etc/udev/rules.d/10-local.rules</code>
+</p>
+<pre># Set bluetooth power up
+ACTION=="add", KERNEL=="hci0", RUN+="/usr/bin/hciconfig hci0 up"
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> TBD (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Bluetooth_keyboard">Talk:Bluetooth keyboard#</a>)</div>
+</div>
+<p>What if the BT controller does not show up in <code>lsusb</code> ?
+</p>
+<ul><li>Load generic bluetooth driver:</li></ul>
+<pre># modprobe btusb
+</pre>
+<ul><li>Is it an USB adapter or integral to the system? Use <code>lspci</code> for integral adapters</li></ul>
+<p>What if the BT controller is not visible in <code>bluetoothctl</code> ?
+</p>
+<ul><li>Check: <code>bluetoothctl</code> is started:</li></ul>
+<pre>systemctl status bluetooth
+</pre>
+<ul><li>Check: You run the command with superuser privileges using <code>su</code> or <code>sudo</code>. Otherwise you have blue <i>[bluetooth]#</i> prompt and get the following message when powering on the controller:</li></ul>
+<pre>[bluetooth]# power on
+No default controller available
+</pre>
+<p>My BT keyboard still does not work. What to do?
+</p>
+<ul>
+<li>Check: Does it have power?</li>
+<li>Check: Did it connect to the BT controller? If not, try with another controller or your smart phone.</li>
+</ul>
+<p>All went fine but when I type I'm getting "Bluetooth: hci0 ACL packet for unknown connection handle 4"
+</p>
+<ul><li>Try reset: hciconfig hci0 reset</li></ul>
+<h2><span class="mw-headline" id="Xorg">Xorg</span></h2>
+<p>Device should be added as <code>/dev/input/event*</code> and your Xorg should add it automatically if you did not disable such feature.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Bluetooth.html" title="Category:Bluetooth">Bluetooth</a></li>
+<li><a href="../Category:Keyboards.html" title="Category:Keyboards">Keyboards</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Bluetooth_keyboard&amp;oldid=532136">https://wiki.archlinux.org/index.php?title=Bluetooth_keyboard&amp;oldid=532136</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 2 August 2018, at 08:38.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,289 @@
+<!--
+    title: Remastering_the_Install_ISO
+    description: Migration of Remastering_the_Install_ISO from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Remastering the Install ISO</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../TOSiso.html" title="TOSiso">TOSiso</a></li>
+</ul>
+</div>
+<p>Remastering the official TOS Linux install ISO image is not necessary for most applications. However, it may be desirable in some cases.
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> This article is out of date.  It was built with the 2012.09 iso.  The instructions found here are no longer valid.  Follow the <a href="../TOSiso.html" title="TOSiso">TOSiso</a> method instead. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Remastering_the_Install_ISO">Talk:Remastering the Install ISO#</a>)</div>
+</div>
+<ul>
+<li>Basic hardware is not supported by the core install. (rare)</li>
+<li>Installation on a non-internet capable machine.</li>
+<li>Deployment of TOS Linux on many similar machines, requiring the same installation procedure.</li>
+</ul>
+<p>As these ISOs are bootable, they can also be used for system rescue, testing, project demos, and more.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#TOSiso"><span >1</span> <span >TOSiso</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Manually"><span >2</span> <span >Manually</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#How_it_works"><span >2.1</span> <span >How it works</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Extracting_the_ISO"><span >2.2</span> <span >Extracting the ISO</span></a></li>
+<li class="toclevel-2 tocsection-5">
+<a href="#Customization"><span >2.3</span> <span >Customization</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Modifying_the_x86_64_system"><span >2.3.1</span> <span >Modifying the x86_64 system</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Modifying_the_EFI_boot_image"><span >2.3.2</span> <span >Modifying the EFI boot image</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Create_a_new_ISO"><span >2.4</span> <span >Create a new ISO</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="TOSiso">TOSiso</span></h2>
+<p>It is often preferable to rebuild the installation ISO with <a href="../TOSiso.html" title="TOSiso">TOSiso</a>, instead of remastering an existing ISO.
+</p>
+<h2><span class="mw-headline" id="Manually">Manually</span></h2>
+<h3><span class="mw-headline" id="How_it_works">How it works</span></h3>
+<p>The root filesystems of the live system is stored in <code>arch/x86_64/airootfs.sfs</code> in the ISO. The kernel and initramfs are in <code>arch/boot/x86_64</code>.
+</p>
+<p>When booting, the initramfs will search for the device it was booted from via its label, <code>ARCH_201410</code> for example, and will mount the root filesystem for the architecture.
+</p>
+<h3><span class="mw-headline" id="Extracting_the_ISO">Extracting the ISO</span></h3>
+<p>To remaster the TOS Linux ISO, you will need a copy of the original ISO image. Download it from the <a rel="nofollow"  href="https://www.archlinux.org/download/">download page</a>
+</p>
+<p>Now, create a new directory to mount the ISO:
+</p>
+<pre># mkdir /mnt/archiso
+</pre>
+<p>Mount the ISO to this directory (due to the nature of ISOs, the result is read-only):
+</p>
+<pre># mount -t iso9660 -o loop /path/to/archISO /mnt/archiso
+</pre>
+<p>Copy the contents to another directory, where they can be edited:
+</p>
+<pre>$ cp -a /mnt/archiso ~/customiso
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Make sure <code>customiso</code> does not exist beforehand, otherwise this will create a subdirectory called <code>archiso</code> inside <code>customiso</code>.</div>
+<h3><span class="mw-headline" id="Customization">Customization</span></h3>
+<h4><span class="mw-headline" id="Modifying_the_x86_64_system">Modifying the x86_64 system</span></h4>
+<p>Change into the directory of the x86_64 system:
+</p>
+<pre>$ cd ~/customiso/arch/x86_64
+</pre>
+<p>Unsquash <code>airootfs.sfs</code> (to <code>squashfs-root</code>):
+</p>
+<pre>$ unsquashfs airootfs.sfs
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You need <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=squashfs-tools">squashfs-tools</a></span> in order to do that.</div>
+<p>If you will need to run <code>mkinitcpio</code> within <code>arch-chroot</code>, you need to temporarily copy the kernel over:
+</p>
+<pre>$ cp ../boot/x86_64/vmlinuz squashfs-root/boot/vmlinuz-linux
+</pre>
+<p>Now you can modify the content of the system in <code>squashfs-root</code>. You can also chroot into this system to install packages etc.:
+</p>
+<pre># arch-chroot squashfs-root /bin/bash
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>
+<code>arch-chroot</code> is part of the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>.</li>
+<li>If the <code>arch-chroot</code> script is not available in your system (e.g, when remastering from other distributions), mount the API file systems and copy over your DNS details. See <a href="../Chroot.html#Using_chroot" title="Chroot">Chroot#Using chroot</a>.</li>
+</ul>
+</div>
+<p>To be able to install package, you have to initialise the pacman keyring:
+</p>
+<pre>(chroot) # pacman-key --init
+(chroot) # pacman-key --populate archlinux
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This step can take quite a while, be patient. See <a href="../Pacman/Package_signing.html#Initializing_the_keyring" title="Pacman/Package signing">Pacman/Package signing#Initializing the keyring</a>.</div>
+<p>If the kernel or initrd is updated, additional steps are required. In this case you have to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archiso">archiso</a></span> inside the chroot and change the content of <code>/etc/mkinitcpio.conf</code>:
+</p>
+<pre>(chroot) # pacman -Syu --force archiso linux
+(chroot) # nano /etc/mkinitcpio.conf
+</pre>
+<p>Change the line that says <code>HOOKS="...</code> to:
+</p>
+<pre>HOOKS="base udev memdisk archiso_shutdown archiso archiso_loop_mnt archiso_pxe_common archiso_pxe_nbd archiso_pxe_http archiso_pxe_nfs archiso_kms block filesystems keyboard"
+</pre>
+<p>Now update the initramfs:
+</p>
+<pre>(chroot) # mkinitcpio -p linux
+</pre>
+<p>When you are done, create a list of all installed packages, clean the pacman cache and exit the chroot:
+</p>
+<pre>(chroot) # LANG=C pacman -Sl | awk '/\[installed\]$/ {print $1 "/" $2 "-" $3}' &gt; /pkglist.txt
+(chroot) # pacman -Scc
+(chroot) # exit
+</pre>
+<p>If you updated the kernel or the initramfs, move them over to the system, and remove the fallback initramfs (the install ISO does not use this):
+</p>
+<pre>$ mv squashfs-root/boot/vmlinuz-linux-tos~/customiso/arch/boot/x86_64/vmlinuz
+$ mv squashfs-root/boot/initramfs-linux.img ~/customiso/arch/boot/x86_64/archiso.img
+$ rm squashfs-root/boot/initramfs-linux-fallback.img
+</pre>
+<p>Move the list of packages:
+</p>
+<pre>$ mv squashfs-root/pkglist.txt ~/customiso/arch/pkglist.x86_64.txt
+</pre>
+<p>Now recreate <code>airootfs.sfs</code>:
+</p>
+<pre>$ rm airootfs.sfs
+$ mksquashfs squashfs-root airootfs.sfs
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The monthly install ISO uses the <code>-comp xz</code> option on <code>mksquashfs</code> to significantly reduce size, but it also takes longer</div>
+<p>Cleanup:
+</p>
+<pre># rm -r squashfs-root
+</pre>
+<p>Now update the SHA512 checksum of <code>airootfs.sfs</code>:
+</p>
+<pre>$ sha512sum airootfs.sfs &gt; airootfs.sha512
+</pre>
+<h4><span class="mw-headline" id="Modifying_the_EFI_boot_image">Modifying the EFI boot image</span></h4>
+<p>If you have updated the kernel or the initramfs and wish to boot on EFI systems, update the EFI boot image.
+You will need <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dosfstools">dosfstools</a></span> as the EFI boot image is a <code>FAT16</code> filesystem.
+</p>
+<pre>$ mkdir mnt
+# mount -t vfat -o loop ~/customiso/EFI/archiso/efiboot.img mnt
+# cp ~/customiso/arch/boot/x86_64/vmlinuz mnt/EFI/archiso/vmlinuz.efi
+# cp ~/customiso/arch/boot/x86_64/archiso.img mnt/EFI/archiso/archiso.img
+</pre>
+<p>If you see <code>No space left on device</code> errors, you might need to resize <code>efiboot.img</code>.
+You can also create a new <code>efiboot.img</code> and copy the old files (replace <code>50</code> with the required size).
+</p>
+<pre>$ dd if=/dev/zero bs=1M count=50 of=efiboot-new.img
+$ mkfs.fat -n "ARCHISO_EFI" efiboot-new.img
+$ mkdir new
+# mount -t fat -o loop efiboot-new.img new
+$ cp -r mnt/* new/
+# umount new mnt
+$ mv efiboot-new.img ~/customiso/EFI/archiso/efiboot.img
+</pre>
+<p>And use the new <code>efiboot.img</code> as above.
+</p>
+<h3><span class="mw-headline" id="Create_a_new_ISO">Create a new ISO</span></h3>
+<p>Create a new ISO image with <code>genisoimage</code>, which is part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cdrtools">cdrtools</a></span>, as a symlink to <code>mkisofs</code>.
+</p>
+<pre>$ genisoimage -l -r -J -V "ARCH_201209" -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o ../arch-custom.iso ./
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>The ISO label must remain the same as the original label (in this case <code>ARCH_201209</code>) for the image to boot successfully.</li>
+<li>The <code>-b</code> and <code>-c</code> options expect paths relative to the root of the ISO.</li>
+</ul>
+</div>
+<p>The resulting ISO image will boot only from CD, DVD or BD. For booting from USB stick or hard disk, it needs the <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/Isohybrid">isohybrid</a> feature.
+This can be achieved by postprocessing the ISO by program isohybrid included in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span>.
+Officially, the version of installed SYSLINUX has to be the same as the version of <code>/isolinux/isolinux.bin</code> in the ISO. It is not known whether really incompatible version combinations exist.
+</p>
+<p>An alternative to genisoimage plus isohybrid can be derived from the xorriso run of mkarchiso.
+</p>
+<pre>$ iso_label="ARCH_201209"
+$ xorriso -as mkisofs \
+       -iso-level 3 \  
+       -full-iso9660-filenames \
+       -volid "${iso_label}" \
+       -eltorito-boot isolinux/isolinux.bin \
+       -eltorito-catalog isolinux/boot.cat \
+       -no-emul-boot -boot-load-size 4 -boot-info-table \
+       -isohybrid-mbr ~/customiso/isolinux/isohdpfx.bin \
+       -output arch-custom.iso \ 
+       ~/customiso
+</pre>
+<p>Option <code>-isohybrid-mbr</code> needs an <a href="../Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> template file. Most probably there is already such a file <code>/isolinux/isohdpfx.bin</code> in the original ISO, which matches the SYSLINUX version used in the ISO.
+Only if this file is missing in the copied ISO content, it has to be cut out of the original ISO image file, before above xorriso run is performed:
+</p>
+<pre>$ dd if=/path/to/archISO bs=512 count=1 of=~/customiso/isolinux/isohdpfx.bin
+</pre>
+<p>If the original ISO supports bootability via EFI, this can be activated in the new ISO by inserting the following options between the lines <code>-isohybrid-mbr ...</code> and <code>-output ...</code>:
+</p>
+<pre>       -eltorito-alt-boot \
+       -e EFI/archiso/efiboot.img \
+       -no-emul-boot -isohybrid-gpt-basdat \
+</pre>
+<p>The file <code>/EFI/archiso/efiboot.img</code> is a FAT filesystem image file. If it is missing in the original ISO, then there was no UEFI support in that ISO.
+</p>
+<p>The newly created ISO image <code>arch-custom.iso</code> is found in the home directory. You can write the ISO image to a USB stick as explained in <a href="../USB_flash_installation_media.html" class="mw-redirect" title="USB Installation Media">USB Installation Media</a>. Alternatively you can burn the ISO image on a CD, DVD, or BD with your preferred software. On TOS, that is covered in the <a href="../Optical_disc_drive.html#Burning_an_ISO_image_to_CD,_DVD,_or_BD" title="Optical disc drive">article about burning an ISO image</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://knoppix.net/wiki3/index.php?title=KnoppixRemasteringHowto">Knoppix Remastering Howto</a></li>
+<li><a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=ISOLINUX">ISOLINUX</a></li>
+<li><a rel="nofollow"  href="https://busybox.net/">BusyBox</a></li>
+<li><a rel="nofollow"  href="https://www.linux-live.org/">Linux Live Kit</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Remastering_the_Install_ISO&amp;oldid=615057">https://wiki.archlinux.org/index.php?title=Remastering_the_Install_ISO&amp;oldid=615057</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 May 2020, at 22:11.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

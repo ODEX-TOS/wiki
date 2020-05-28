@@ -1,0 +1,140 @@
+<!--
+    title: Puppet_server
+    description: Migration of Puppet_server from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Puppet server</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Puppet.html" title="Puppet">Puppet</a></li>
+<li><a href="../Puppet_Dashboard.html" title="Puppet Dashboard">Puppet Dashboard</a></li>
+</ul>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Tuning_the_server_for_lower_memory_usage"><span >2.1</span> <span >Tuning the server for lower memory usage</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Installing_support_for_hiera_eyaml"><span >2.2</span> <span >Installing support for hiera eyaml</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Accessing_the_puppet_server_web_interface"><span >3</span> <span >Accessing the puppet server web interface</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>To install puppet server install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/puppetserver/">puppetserver</a></span><sup><small>AUR</small></sup> package. Note: Puppet Labs updated their GPG keys in January 2017 <a rel="nofollow"  href="https://puppet.com/blog/updated-puppet-gpg-signing-key">[1]</a>. You may need to import their new keys.
+</p>
+<pre>$ gpg --fetch-keys <a rel="nofollow"  href="https://yum.puppetlabs.com/RPM-GPG-KEY-puppet">https://yum.puppetlabs.com/RPM-GPG-KEY-puppet</a>
+</pre>
+<p>Then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>puppetserver</code> service.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The Puppet Server's configuration files are stored in <code>/etc/puppetlabs/puppetserver/</code>:
+</p>
+<pre>.
+|-- conf.d
+|   |-- auth.conf
+|   |-- global.conf
+|   |-- puppetserver.conf
+|   |-- web-routes.conf
+|   `-- webserver.conf
+|-- logback.xml
+|-- request-logging.xml
+`-- services.d
+    `-- ca.cfg
+</pre>
+<p>in conf.d there are:
+</p>
+<ul>
+<li>auth.conf which allows you to configure what puppet nodes (clients) are allowed to request from the server.</li>
+<li>global.conf by default just contains the path to the logging configuration file.</li>
+<li>puppetserver.conf is the main configuration file for the server, it allows you to set the JRuby load path, JRuby gem home path, the puppet master-conf-dir, master-code-dir, master-var-dir, master-run-dir, master-log-dir and most importantly the max-active-instances. It also has a section for adjusting the http-client allowed protocols which enable you to enable or disable the various SSL cipher suites and protocols.</li>
+<li>web-routes.conf allows you to configure the puppet server's web-routes.</li>
+<li>webserver.conf allows you to set the listen address, port, authentication type and log file path for the puppet server web interface.</li>
+</ul>
+<p>Additionally, there is the <code>/etc/default/puppetserver</code> configuration file that allows you to tweak the Java Virtual Machine's startup settings, set the user and group the server runs as, the path to the puppet server's files and the configuration path.
+</p>
+<h3><span class="mw-headline" id="Tuning_the_server_for_lower_memory_usage">Tuning the server for lower memory usage</span></h3>
+<p>By default the puppet server allocates 2 gigabytes of RAM for itself, this can be adjusted in <code>/etc/default/puppetserver</code> by editing the JAVA_ARGS.
+</p>
+<p>By default it is:
+</p>
+<pre>-Xms2g -Xmx2g -XX:MaxPermSize=256m
+</pre>
+<p>But if you are using a server that does not have sufficient RAM spare you can set it to as little as 512 megabytes. Keep in mind though that this will only cater for a small amount of managed servers and you will also need to change the maximum active instances of puppet to 1 in <code>/etc/puppetlabs/puppetserver/puppetserver.conf</code> which limits the number of server's that the server is able to communicate with at once.
+</p>
+<h3><span class="mw-headline" id="Installing_support_for_hiera_eyaml">Installing support for hiera eyaml</span></h3>
+<p>If you wish to use Hiera eyaml on the puppet server you should install the gems for it on the puppet server using the following command:
+</p>
+<pre>puppetserver gem install hiera-eyaml
+</pre>
+<p>and then restart puppet server.
+</p>
+<h2><span class="mw-headline" id="Accessing_the_puppet_server_web_interface">Accessing the puppet server web interface</span></h2>
+<p>The web interface by default listens on https port 8140 on all interfaces. This can be changed by editing the ssl-host and ssl-port configuration options in <code>/etc/puppetlabs/conf.d/webserver.conf</code>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Configuration_management.html" title="Category:Configuration management">Configuration management</a></li>
+<li><a href="../Category:Servers.html" title="Category:Servers">Servers</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Puppet_server&amp;oldid=548968">https://wiki.archlinux.org/index.php?title=Puppet_server&amp;oldid=548968</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 October 2018, at 17:44.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

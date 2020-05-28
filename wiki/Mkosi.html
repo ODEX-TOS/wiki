@@ -1,0 +1,304 @@
+<!--
+    title: Mkosi
+    description: Migration of Mkosi from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">mkosi</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><span></span>
+</p>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="../Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="../Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+<li><a href="../Docker.html" title="Docker">Docker</a></li>
+</ul>
+</div>
+<p><b><a rel="nofollow"  href="https://github.com/systemd/mkosi">mkosi</a></b> stands for <i>Make Operating System Image</i>, and is a tool for generating an OS tree or image that can be booted.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Basic_usage"><span >2</span> <span >Basic usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Example:_Create_and_boot_a_Debian-Image"><span >2.1</span> <span >Example: Create and boot a Debian-Image</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#2._Example:_Using_Config-files"><span >2.2</span> <span >2. Example: Using Config-files</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Configurations"><span >2.3</span> <span >Configurations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkosi/">mkosi</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkosi-git/">mkosi-git</a></span><sup><small>AUR</small></sup>. Depending on what Distribution you want to build install further packages:
+</p>
+<table >
+<tbody>
+<tr>
+<th>Distribution
+</th>
+<th>Package
+</th>
+</tr>
+<tr>
+<td>TOS
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>
+</td>
+</tr>
+<tr>
+<td>Debian
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=debootstrap">debootstrap</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=debian-archive-keyring">debian-archive-keyring</a></span>
+</td>
+</tr>
+<tr>
+<td>Ubuntu
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=debootstrap">debootstrap</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ubuntu-keyring">ubuntu-keyring</a></span>
+</td>
+</tr>
+<tr>
+<td>Fedora
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dnf/">dnf</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+<tr>
+<td>OpenSUSE
+</td>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zypper-git/">zypper-git</a></span><sup><small>AUR</small></sup>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Basic_usage">Basic usage</span></h2>
+<p>You can create an image by calling mkosi as root
+</p>
+<pre># mkosi
+</pre>
+<p>You can specify option as arguments or by editing files in the current folder.
+</p>
+<h3><span class="mw-headline" id="Example:_Create_and_boot_a_Debian-Image">Example: Create and boot a Debian-Image</span></h3>
+<p>The following command will create a bootable image with latest debian-version and the package openssh-clients installed:
+</p>
+<pre>$ mkosi -d debian -t gpt_ext4 -b --checksum --password password --package openssh-clients,vim -o image.raw
+</pre>
+<p>you can boot it with systemd-nspawn:
+</p>
+<pre># systemd-nspawn -b -i image.raw
+</pre>
+<p>or boot it virtualized with qemu and 
+</p>
+<pre>$ qemu-system-x86_64 -m 512 -smp 2 -bios /usr/share/ovmf/x64/OVMF_CODE.fd -drive format=raw,file=image.raw
+</pre>
+<p>You can also write this image to an usb-drive and use it to boot you computer.
+</p>
+<h3><span class="mw-headline" id="2._Example:_Using_Config-files">2. Example: Using Config-files</span></h3>
+<p>The same image can be created by creating a config-file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">mkosi.default</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Files]
+[Distribution]
+Distribution=debian
+Release=stretch
+
+[Output]
+Format=gpt_ext4
+Bootable=yes
+Output=image.raw
+
+[Packages]
+Packages=
+         openssh-client
+         vim
+
+[Validation]
+Password=password
+
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> If you create a folder mkosi.cache in current working dir, mkosi will save all downloaded packages there, so you can recreate images faster.</div>
+<h3><span class="mw-headline" id="Configurations">Configurations</span></h3>
+<p>Basic options can be specified as commandline argument or in a file called mkosi.default in your current folder.
+Most important Options:
+</p>
+<table  style="width:100%">
+<tbody>
+<tr>
+<th>Argument
+</th>
+<th>Option in mkosi.default
+</th>
+<th>Description
+</th>
+</tr>
+<tr>
+<td>-d
+</td>
+<td>[Distribution]
+<p>Distribution=
+</p>
+</td>
+<td>Wich distribution should be installed: fedora,debian,ubuntu,arch,opensuse
+</td>
+</tr>
+<tr>
+<td>-r
+</td>
+<td>[Distribution]
+<p>Release=
+</p>
+</td>
+<td>The version of the distribution: jessie, 21, …
+</td>
+</tr>
+<tr>
+<td>-t
+</td>
+<td>[Output]
+<p>Format=
+</p>
+</td>
+<td>Format of the image to create:
+<ul>
+<li>
+<b>gpt_ext4</b>: Imagefile with GPT-Partiontable and ext4-Filesystem</li>
+<li>
+<b>gpt_btrfs</b>: Imagefile with GPT-Partiontable and btrfs-Filesystem</li>
+<li>
+<b>gpt_squashfs</b>: Imagefile with GPT-Partiontable and squashfs-Filesystem</li>
+<li>
+<b>directory</b>: A plain directory</li>
+<li>
+<b>subvolume</b>: A btrfs subvolume</li>
+<li>
+<b>tar</b>: A tar-ball of a plain directory</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>-b
+</td>
+<td>[Output]
+<p>Bootable=yes
+</p>
+</td>
+<td>make the image bootable
+</td>
+</tr>
+<tr>
+<td>--root-size
+</td>
+<td>[Output]
+<p>RootSize=
+</p>
+</td>
+<td>Size of the root-filesystem
+</td>
+</tr>
+<tr>
+<td>-p
+</td>
+<td>[Packages]
+<p>Packages=
+</p>
+</td>
+<td>List of packages to be installed into the image
+</td>
+</tr>
+<tr>
+<td>-o
+</td>
+<td>[Output]
+<p>Output=
+</p>
+</td>
+<td>File/directory-Name
+</td>
+</tr>
+<tr>
+<td>--password
+</td>
+<td>[Validation]
+<p>Password=test
+</p>
+</td>
+<td>Set the initial Root-Password
+</td>
+</tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://github.com/systemd/mkosi">Mkosi on Github</a></li>
+<li><a rel="nofollow"  href="http://0pointer.net/blog/mkosi-a-tool-for-generating-os-images.html">Longer introduction</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Mkosi&amp;oldid=603760">https://wiki.archlinux.org/index.php?title=Mkosi&amp;oldid=603760</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 2 April 2020, at 19:30.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

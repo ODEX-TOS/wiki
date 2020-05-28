@@ -1,0 +1,264 @@
+<!--
+    title: LXD
+    description: Migration of LXD from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">LXD</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><b><a rel="nofollow"  href="https://linuxcontainers.org/lxd/">LXD</a></b> is a container and virtual-machine "hypervisor" and a new user experience for <a href="../Linux_Containers.html" title="Linux Containers">Linux Containers</a>.
+</p>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+</ul>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Setup"><span >1</span> <span >Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Required_software"><span >1.1</span> <span >Required software</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Alternative_installation_method"><span >1.2</span> <span >Alternative installation method</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Configure_LXD"><span >1.3</span> <span >Configure LXD</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Accessing_LXD_as_a_unprivileged_user"><span >1.4</span> <span >Accessing LXD as a unprivileged user</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Usage"><span >2</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Create_container"><span >2.1</span> <span >Create container</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#LXD_Networking"><span >2.2</span> <span >LXD Networking</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#lxd-agent_inside_VM"><span >2.3</span> <span >lxd-agent inside VM</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Check_kernel_config"><span >3.1</span> <span >Check kernel config</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Launching_container_without_CONFIG_USER_NS"><span >3.2</span> <span >Launching container without CONFIG_USER_NS</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Resource_limits_are_not_applied_when_viewed_from_inside_a_container"><span >3.3</span> <span >Resource limits are not applied when viewed from inside a container</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Starting_a_VM_fails"><span >3.4</span> <span >Starting a VM fails</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#No_IPv4_with_systemd-networkd"><span >3.5</span> <span >No IPv4 with systemd-networkd</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Uninstall"><span >4</span> <span >Uninstall</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Setup">Setup</span></h2>
+<h3><span class="mw-headline" id="Required_software">Required software</span></h3>
+<p>Install <a href="../Linux_Containers.html" class="mw-redirect" title="LXC">LXC</a> and the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lxd">lxd</a></span> package, then <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>lxd.service</code>.
+</p>
+<p>See <a href="../Linux_Containers.html#Enable_support_to_run_unprivileged_containers_(optional)" title="Linux Containers">Linux Containers#Enable support to run unprivileged containers (optional)</a> if you want to run <i>unprivileged</i> containers. Otherwise see <a href="#Launching_container_without_CONFIG_USER_NS">#Launching container without CONFIG_USER_NS</a>.
+</p>
+<h3><span class="mw-headline" id="Alternative_installation_method">Alternative installation method</span></h3>
+<p>An alternative method of installation is via <a href="../Snap.html" class="mw-redirect" title="Snapd">snapd</a>, by installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapd/">snapd</a></span><sup><small>AUR</small></sup> package and running:
+</p>
+<pre># snap install lxd
+</pre>
+<h3><span class="mw-headline" id="Configure_LXD">Configure LXD</span></h3>
+<p>LXD needs to configure a storage pool, and (if you want internet access) network configuration. To do so, run the following as root:
+</p>
+<pre># lxd init
+</pre>
+<h3><span class="mw-headline" id="Accessing_LXD_as_a_unprivileged_user">Accessing LXD as a unprivileged user</span></h3>
+<p>By default the LXD daemon allows users in the <code>lxd</code> group access, so add your user to the group:
+</p>
+<pre># usermod -a -G lxd &lt;user&gt;
+</pre>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Anyone added to the <code>lxd</code> group is root equivalent. More information <a rel="nofollow"  href="https://github.com/lxc/lxd#security">here</a> and <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/lxd/+bug/1829071">here</a>.</div>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<h3><span class="mw-headline" id="Create_container">Create container</span></h3>
+<p>LXD has two parts, the daemon (the lxd binary), and the client (the lxc binary). Now that the daemon is all configured and running, you can create a container:
+</p>
+<pre>$ lxc launch ubuntu:16.04
+</pre>
+<p>Alternatively, you can also use a remote LXD host as a source of images. One comes pre-configured in LXD, called "images" (images.linuxcontainers.org)
+</p>
+<pre>$ lxc launch images:centos/7/amd64 centos
+</pre>
+<p>To create an amd64 TOS container:
+</p>
+<pre>$ lxc launch images:archlinux/current/amd64 arch
+</pre>
+<h3><span class="mw-headline" id="LXD_Networking">LXD Networking</span></h3>
+<p>LXD uses LXC's networking capabilities. By default it connects containers to the <code>lxcbr0</code> network device. Refer to the LXC documentation on <a href="../Linux_Containers.html#Host_network_configuration" title="Linux Containers">network configuration</a> to set up a bridge for your containers.
+</p>
+<p>If you want to use a different interface than <code>lxcbr0</code> edit the default using the lxc command line tool:
+</p>
+<pre>$ lxc profile edit default
+</pre>
+<p>An editor will open with a config file that by default contains:
+</p>
+<pre>name: default
+config: {}
+devices:
+  eth0:
+    name: eth0
+    nictype: bridged
+    parent: lxcbr0
+    type: nic
+</pre>
+<p>You can set the <code>parent</code> parameter to whichever bridge you want LXD to attach the containers to by default.
+</p>
+<h3><span class="mw-headline" id="lxd-agent_inside_VM">lxd-agent inside VM</span></h3>
+<p>Inside VMs <code>lxd-agent</code> is not installed by default on the OS. This can be installed on the host by mounting a <code>9p</code> network share. This requires console access with a valid user.
+</p>
+<pre>   $ lxc console v1
+   To detach from the console, press: &lt;ctrl&gt;+a q
+   
+   Ubuntu 18.04.3 LTS v1 ttyS0
+   
+   v1 login: ubuntu
+   Password: 
+   Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-74-generic x86_64)
+   
+   ubuntu@v1:~$ sudo -i
+   root@v1:~# mount -t 9p config /mnt/
+   root@v1:~# cd /mnt/
+   root@v1:/mnt# ./install.sh 
+   Created symlink /etc/systemd/system/multi-user.target.wants/lxd-agent.service → /lib/systemd/system/lxd-agent.service.
+   Created symlink /etc/systemd/system/multi-user.target.wants/lxd-agent-9p.service → /lib/systemd/system/lxd-agent-9p.service.
+   
+   LXD agent has been installed, reboot to confirm setup.
+   To start it now, unmount this filesystem and run: systemctl start lxd-agent-9p lxd-agent
+   root@v1:/mnt# reboot
+</pre>
+<p>Afterwards the <code>lxd-agent</code> is available and <code>lxc exec</code> works inside the VM.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Check_kernel_config">Check kernel config</span></h3>
+<p>By default TOS Linux kernel is compiled correctly for Linux Containers and its frontend LXD. However, if you're using a custom kernel, or changed kernel options the kernel might be configured incorrectly. Verify that the running kernel is properly configured to run a container:
+</p>
+<pre>$ lxc-checkconfig
+</pre>
+<h3><span class="mw-headline" id="Launching_container_without_CONFIG_USER_NS">Launching container without CONFIG_USER_NS</span></h3>
+<p>For launching images you must provide <code>security.privileged=true</code> during image creation:
+</p>
+<pre>$ lxc launch ubuntu:16.04 ubuntu -c security.privileged=true
+</pre>
+<p>Or for already existed image you may edit config:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ lxc config edit ubuntu</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">name: ubuntu
+profiles:
+- default
+config:
+  ...
+  security.privileged: "true"
+  ...
+devices:
+  root:
+    path: /
+    type: disk
+ephemeral: false
+</pre>
+<p>Or to enable <code>security.privileged=true</code> for new containers, edit the config for the default profile:
+</p>
+<pre>$ lxc profile edit default
+</pre>
+<h3><span class="mw-headline" id="Resource_limits_are_not_applied_when_viewed_from_inside_a_container">Resource limits are not applied when viewed from inside a container</span></h3>
+<p>The service lxcfs (found in the Community repository) needs to be installed and started :
+</p>
+<pre>$ systemctl start lxcfs
+</pre>
+<p>lxd will need to be restarted. Enable lxcfs for the service to be started at boot time.
+</p>
+<h3><span class="mw-headline" id="Starting_a_VM_fails">Starting a VM fails</span></h3>
+<p>TOS Linux does not distribute secure boot signed ovmf firmware, to boot VMs you need to disable secure boot for the time being.
+</p>
+<pre>$ lxc launch ubuntu:18.04 test-vm --vm -c security.secureboot=false
+</pre>
+<p>This can also be added to the default profile.
+</p>
+<h3><span class="mw-headline" id="No_IPv4_with_systemd-networkd">No IPv4 with systemd-networkd</span></h3>
+<p>Starting with version version 244.1, systemd detects if <code>/sys</code> is writable by containers. If it is, udev is automatically started and breaks IPv4 in unprivileged containers. See <a rel="nofollow"  href="https://github.com/systemd/systemd-stable/commit/96d7083c5499b264ecebd6a30a92e0e8fda14cd5">commit bf331d8</a> and <a rel="nofollow"  href="https://discuss.linuxcontainers.org/t/no-ipv4-on-arch-linux-containers/6395">discussion on linuxcontainers</a>.
+</p>
+<p>On containers created past 2020, there should already be a <code>systemd.networkd.service</code> override to work around this issue, create it if it is not:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/systemd-networkd.service.d/lxc.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
+BindReadOnlyPaths=/sys</pre>
+<p>You could also work around this issue by setting <code>raw.lxc: lxc.mount.auto = proc:rw sys:ro</code> in the profile of the container to ensure <code>/sys</code> is read-only for the entire container, although this may be problematic, as per the linked discussion above.
+</p>
+<h2><span class="mw-headline" id="Uninstall">Uninstall</span></h2>
+<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Stop">Stop</a> and disable <code>lxd.service</code> and <code>lxd.socket</code>:
+</p>
+<p>Then uninstall the package via pacman:
+</p>
+<pre> # pacman -R lxd
+</pre>
+<p>If you uninstalled the package without disabling the service, you might have a lingering broken symlink at <code>/etc/systemd/system/multi-user.wants/lxd.service</code>.
+</p>
+<p>If you want to remove all data:
+</p>
+<pre> # rm -r /var/lib/lxd
+</pre>
+<p>If you used any of the example networking configs, you should remove those as well.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://lxd.readthedocs.io">Official documentation</a></li>
+<li><a rel="nofollow"  href="https://linuxcontainers.org/lxd/">The official LXD homepage</a></li>
+<li><a rel="nofollow"  href="https://github.com/lxc/lxd">The LXD GitHub page</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=LXD&amp;oldid=597151">https://wiki.archlinux.org/index.php?title=LXD&amp;oldid=597151</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 10 February 2020, at 11:46.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

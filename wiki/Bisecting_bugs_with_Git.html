@@ -1,0 +1,163 @@
+<!--
+    title: Bisecting_bugs_with_Git
+    description: Migration of Bisecting_bugs_with_Git from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Bisecting bugs with Git</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Often when reporting bugs encountered with projects such as Mesa or Linux kernel, a user may be asked to bisect between the last known version that worked for them and the newer version which is causing them problems in order to see what is the troublesome commit. On TOS this can be done fairly trivially thanks to the functionality of the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Reverting_to_an_older_release"><span >1</span> <span >Reverting to an older release</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Building_package_from_git"><span >2</span> <span >Building package from git</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Setting_up_the_Bisect"><span >3</span> <span >Setting up the Bisect</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Bisecting"><span >4</span> <span >Bisecting</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Speeding_up_builds"><span >5</span> <span >Speeding up builds</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Building_smaller_kernel"><span >5.1</span> <span >Building smaller kernel</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Ccache"><span >5.2</span> <span >Ccache</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Restoring_package"><span >6</span> <span >Restoring package</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Reverting_to_an_older_release">Reverting to an older release</span></h2>
+<p>It might be useful to confirm that it is the new package release that is causing the problem. <a href="../Downgrading_packages.html" title="Downgrading packages">Downgrading packages</a> on TOS can be accomplished trivially as long as an older version of the package is still stored as cache on your system, or you can use <a href="../TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Even if the older version fixes the problem it is still possible that is not a bug within the program, but a problem with the packages as provided by TOS.</div>
+<h2><span class="mw-headline" id="Building_package_from_git">Building package from git</span></h2>
+<p>In order to bisect we are going to need to build a version of package from <a href="../Git.html" title="Git">git</a>. This can be accomplished by building the <i>-git</i> package from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<h2><span class="mw-headline" id="Setting_up_the_Bisect">Setting up the Bisect</span></h2>
+<p>Once package is successfully built you need to change into the git root directory in the <code>src/</code> directory. The name of the git root directory is often the same as <code><i>pkgname</i></code> (or without the <code>-git</code> suffix):
+</p>
+<pre>$ cd src/<i>git_root</i>
+</pre>
+<p>From there you can start the process of bisecting:
+</p>
+<pre>$ git bisect start
+</pre>
+<p>The following command will show you all the tags you can use to specify where to bisect:
+</p>
+<pre>$ git tag
+</pre>
+<p>Following on from the earlier example, we will assume that the version <i>oldver</i> worked for us while <i>newver</i> did not:
+</p>
+<pre>$ git bisect good <i>oldver</i>
+$ git bisect bad <i>newver</i>
+</pre>
+<p>Now that we have our good and bad versions tagged we can proceed to test commits.
+</p>
+<h2><span class="mw-headline" id="Bisecting">Bisecting</span></h2>
+<p>Change back into the directory with the PKGBUILD. If you are still in the directory mentioned in the previous section this can be accomplished like so:
+</p>
+<pre>$ cd ../..
+</pre>
+<p>You can now rebuild and install the specific revision of the package:
+</p>
+<pre>$ makepkg -efsi
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> It is very important to keep the <code>-e</code> prefix intact as otherwise it will remove all the changes you have made.</div>
+<p>Once the new package is installed you can test for your previously discovered error. Return to the directory you were in the previous section:
+</p>
+<pre>$ cd src/<i>git_root</i>
+</pre>
+<p>If you encountered your problem, tell that the revision was bad:
+</p>
+<pre>$ git bisect bad
+</pre>
+<p>If you did not encounter your problem, tell that the revision it was good:
+</p>
+<pre>$ git bisect good
+</pre>
+<p>Then do as described at the beginning of this section again and repeat until git bisect names the troublesome commit.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You may need to run a make clean after issuing the git bisect command.</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> It will actually count down the number of steps all the way down to zero, so it is important not to stop until it actually names the first bad commit.</div>
+<h2><span class="mw-headline" id="Speeding_up_builds">Speeding up builds</span></h2>
+<h3><span class="mw-headline" id="Building_smaller_kernel">Building smaller kernel</span></h3>
+<p>You can shorten kernel build times by building only the modules required by the local system using <a href="../Modprobed-db.html" title="Modprobed-db">modprobed-db</a>, or by <code>make localmodconfig</code>. Of course you can completely drop irrelevant drivers, for example sound drivers to debug a network problem.
+</p>
+<h3><span class="mw-headline" id="Ccache">Ccache</span></h3>
+<p>If you are bisecting a large project built using <code>gcc</code>, it might be possible to reduce build times by enabling <a href="../Ccache.html" title="Ccache">ccache</a>. It may take several build iterations before you start to see benefits from the cache, however. The likelihood of cache hits generally increases as the distance between bisection points decreases.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Ccache is effective <i>only when</i> compiling <i>exactly identical</i> sourecs. And to bisect the kernel, it is <i>not</i> necessary to do <code>make clean</code>, meaning ccache is a complete waste.</div>
+<h2><span class="mw-headline" id="Restoring_package">Restoring package</span></h2>
+<p>Reverting to an original version of the package can be done by installing the package from repositories with <a href="../Pacman.html" title="Pacman">pacman</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://git-scm.com/docs/git-bisect-lk2009.html">Fighting regressions with git bisect</a></li>
+<li><a rel="nofollow"  href="https://www.kernel.org/pub/software/scm/git/docs/git-bisect.html">git-bisect(1)</a></li>
+<li>
+<a rel="nofollow"  href="https://wiki.gentoo.org/wiki/Kernel_git-bisect">Kernel git-bisect</a> - Gentoo wiki article</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Package_management.html" title="Category:Package management">Package management</a></li>
+<li><a href="../Category:Version_Control_System.html" title="Category:Version Control System">Version Control System</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Bisecting_bugs_with_Git&amp;oldid=538462">https://wiki.archlinux.org/index.php?title=Bisecting_bugs_with_Git&amp;oldid=538462</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 August 2018, at 07:13.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

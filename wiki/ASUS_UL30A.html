@@ -1,0 +1,154 @@
+<!--
+    title: ASUS_UL30A
+    description: Migration of ASUS_UL30A from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">ASUS UL30A</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#About_the_laptop"><span >1</span> <span >About the laptop</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Compatibility"><span >2</span> <span >Compatibility</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Powersaving"><span >3</span> <span >Powersaving</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Fun"><span >4</span> <span >Fun</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Freezes_while/after_booting"><span >5</span> <span >Freezes while/after booting</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#lspci"><span >6</span> <span >lspci</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#lsusb"><span >7</span> <span >lsusb</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="About_the_laptop">About the laptop</span></h2>
+<ul>
+<li>13.3" LED Screen 1366 x 768.</li>
+<li>4GB DDR3</li>
+<li>1.3Ghz Dual core.</li>
+<li>320GB HDD.</li>
+<li>8-cell battery 84wh.</li>
+<li>HDMI</li>
+</ul>
+<h2><span class="mw-headline" id="Compatibility">Compatibility</span></h2>
+<p>Everything in this laptop is Linux compatible, therefore you will not have any issues installing Linux. I recommend <a href="../Xbindkeys.html" title="Xbindkeys">Xbindkeys</a> for sound buttons. Every other fn-X button works. Suspend, wifi, brightness works. The video out button does not work, use xrandr instead. HDMI works as well. The battery is properly read. Use <a href="../Laptop.html#Laptop_mode_tools" title="Laptop">laptop-mode-tools</a><sup>[<a href="../TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> for power saving. You can run xorg without config file. xf86-video-intel is the package you need. I could not run x with vesa on this chipset, it just froze completely. HDMI and VGA out works, but not via fn-F8. You can use lxrandr, GUI for xrandr for setting up video out. You can make fn-f8 work by configuring <a href="../Acpid.html" title="Acpid">Acpid</a>.
+</p>
+<h2><span class="mw-headline" id="Powersaving">Powersaving</span></h2>
+<p>See <a href="../Power_management.html" class="mw-redirect" title="Power saving">power saving</a>.
+</p>
+<h2><span class="mw-headline" id="Fun">Fun</span></h2>
+<p>This computer has an extra power button on the left, you can configure this with <a href="../Xbindkeys.html" title="Xbindkeys">Xbindkeys</a> and run something useful. Like I use it for switching songs. The extra button is originally for powering up with Asus Express gate.
+</p>
+<h2>
+<span id="Freezes_while.2Fafter_booting"></span><span class="mw-headline" id="Freezes_while/after_booting">Freezes while/after booting</span>
+</h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Phrases like "current TOS" have absolutely no meaning, please make reference to the kernel version. If the issue is specific to Manjaro, it has no place on the TOS Wiki. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:ASUS_UL30A">Talk:ASUS UL30A#</a>)</div>
+</div>
+<p>On my UL30A current TOS or Manjaro install won't boot (freeze somewhere along the process) unless I pass <code>processor.nocst</code> as kernel parameter. This deactivates a certain APIC feature to determine the C-state but shouldn't affect performance or stability since a legacy one is used instead. Don't forget to add that to your GRUB config afterwards as well.
+</p>
+<p>Other things I pass to the kernel to improve battery life are <code>nmi_watchdog=0</code> and <code>pcie_aspm=force</code>. You have to see how well those work for you.
+</p>
+<p>In general if you encounter freezes during boot APIC and ACPI should be looked into and deactivated if a solution can't be found.
+</p>
+<h2><span class="mw-headline" id="lspci">lspci</span></h2>
+<pre>[brain@Brain_NoteBook ~]$ lspci
+00:00.0 Host bridge: Intel Corporation Mobile 4 Series Chipset Memory Controller Hub (rev 07)
+00:02.0 VGA compatible controller: Intel Corporation Mobile 4 Series Chipset Integrated Graphics Controller (rev 07)
+00:02.1 Display controller: Intel Corporation Mobile 4 Series Chipset Integrated Graphics Controller (rev 07)
+00:1a.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #4 (rev 03)
+00:1a.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #5 (rev 03)
+00:1a.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #6 (rev 03)
+00:1a.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2 EHCI Controller #2 (rev 03)
+00:1b.0 Audio device: Intel Corporation 82801I (ICH9 Family) HD Audio Controller (rev 03)
+00:1c.0 PCI bridge: Intel Corporation 82801I (ICH9 Family) PCI Express Port 1 (rev 03)
+00:1c.1 PCI bridge: Intel Corporation 82801I (ICH9 Family) PCI Express Port 2 (rev 03)
+00:1c.5 PCI bridge: Intel Corporation 82801I (ICH9 Family) PCI Express Port 6 (rev 03)
+00:1d.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #1 (rev 03)
+00:1d.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #2 (rev 03)
+00:1d.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #3 (rev 03)
+00:1d.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2 EHCI Controller #1 (rev 03)
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev 93)
+00:1f.0 ISA bridge: Intel Corporation ICH9M-E LPC Interface Controller (rev 03)
+00:1f.2 SATA controller: Intel Corporation 82801IBM/IEM (ICH9M/ICH9M-E) 4 port SATA Controller [AHCI mode] (rev 03)
+02:00.0 Network controller: Intel Corporation WiMAX/WiFi Link 5150
+03:00.0 Ethernet controller: Atheros Communications Inc. AR8132 Fast Ethernet (rev c0)
+</pre>
+<h2><span class="mw-headline" id="lsusb">lsusb</span></h2>
+<pre>[brain@Brain_NoteBook ~]$ lsusb
+Bus 001 Device 003: ID 064e:a136 Suyin Corp. Asus Integrated Webcam [CN031B]
+Bus 001 Device 004: ID 8086:0180 Intel Corp. WiMAX Connection 2400m
+Bus 002 Device 002: ID 0b05:1751 ASUSTek Computer, Inc. BT-253 Bluetooth Adapter
+Bus 005 Device 002: ID 0458:00b5 KYE Systems Corp. (Mouse Systems) 
+Bus 008 Device 003: ID 058f:6366 Alcor Micro Corp. Multi Flash Reader
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 007 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 008 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:ASUS.html" title="Category:ASUS">ASUS</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=ASUS_UL30A&amp;oldid=601558">https://wiki.archlinux.org/index.php?title=ASUS_UL30A&amp;oldid=601558</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 March 2020, at 16:10.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

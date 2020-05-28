@@ -1,0 +1,145 @@
+<!--
+    title: Demlo
+    description: Migration of Demlo from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Demlo</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="http://ambrevar.bitbucket.io/demlo/">Demlo</a> is a batch music tagger and library organizer powered by Lua and <a href="../FFmpeg.html" title="FFmpeg">FFmpeg</a>. It supports transcoding, case checking, cue sheets, online tagging with MusicBrainz, manual tag editing with you favorite editor, cover downloading and processing, and more.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuration"><span >2</span> <span >Configuration</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scripts"><span >3</span> <span >Scripts</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Usage"><span >4</span> <span >Usage</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/demlo/">demlo</a></span><sup><small>AUR</small></sup> package from the <a href="../TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The package provides a configuration sample. It is a good idea to start from there:
+</p>
+<pre> $ install -Dm644 /usr/share/demlo/demlorc -t ~/.config/demlo
+</pre>
+<h2><span class="mw-headline" id="Scripts">Scripts</span></h2>
+<p>Demlo runs a chain of Lua scripts of the files passed as arguments.
+You can select which scripts from the config file or at run-time.
+</p>
+<p>Each script can access an <code>input</code> table and modify an <code>output</code> table with information such as the path, tags, covers and encoding properties.
+</p>
+<p>Demlo comes with its set of official scripts to choose from.
+</p>
+<p>If you want to write a temporary script (for instance a script that makes sense for one album only), you can create a script in the local folder, call it from command line, then remove it.
+</p>
+<p>For more persistent user scripts, you can store them in Demlo's configuration folder.
+</p>
+<p>You can derive your scripts from the official ones as for the configuration:
+</p>
+<pre> $ install -Dm644 /usr/share/demlo/scripts/tag.lua -t ~/.config/demlo/scripts/
+</pre>
+<p>The user script folder has precedence over the system script folder: if two scripts share the same basename, the user script will be used.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>By default Demlo only previews changes. Use the <code>-p</code> commandline flag to confirm processing.
+</p>
+<p>See <code>demlo -h</code> for all options and parameters, the <a rel="nofollow"  href="https://godoc.org/gitlab.com/ambrevar/demlo">demlo manual</a> is also available.
+</p>
+<p>Usage examples:
+</p>
+<p>Run Demlo over a set of file to preview the changes:
+</p>
+<pre> $ demlo *.ogg <i>album</i>/ <i>other-album</i>/*.flac
+</pre>
+<p>Set the script chain to change the result:
+</p>
+<pre> $ demlo -s tag -s ./my-script.lua -s encoding <i>input-files</i>
+</pre>
+<p>If you need fine-grained tuning, you can run Lua commands before and after the script chain from command line:
+</p>
+<pre> $ demlo -pre 'o.artist="John Doe";o.disc=output.filename:match("Disc (\d+)")' -post 'output.format="ogg"' <i>input-files</i>
+</pre>
+<p>To process the files, use the <code>-p</code> parameter.
+Demlo uses all available cores by default. You can restrict it:
+</p>
+<pre> $ demlo -cores 2 -p <i>input-files</i>
+</pre>
+<p>If you just want to fetch covers online:
+</p>
+<pre> $ demlo -c -s cover -s 90-rmsrc -p <i>input-files</i>
+</pre>
+<p>If you want to edit tags or properties manually (in case scripts would not be able to fix them automatically), you can export the changes to an index file:
+</p>
+<pre> $ demlo <i>some-tuning</i> <i>input-files</i> &gt;&gt; ./index.json
+</pre>
+<p>You can stack different output to the same index file, Demlo does not mind. You can edit this file with your favorite editor. To apply the changes, call Demlo over the desired set of files with the <code>-i</code> option. Scripts can still be called or they can be left out if you do not want to perform any additional change.
+</p>
+<pre> $ demlo -i ./index.json -r '' -post 'o.artist,o.album_artist=o.album_artist,artist' <i>input-files</i>
+</pre>
+<p>Index files can be used to interface Demlo with other programs, both as input and output.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=186890">TOS Linux forum thread</a></li>
+<li><a rel="nofollow"  href="https://github.com/Ambrevar/demlo">Development page</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Music.html" title="Category:Music">Music</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Demlo&amp;oldid=558255">https://wiki.archlinux.org/index.php?title=Demlo&amp;oldid=558255</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 3 December 2018, at 23:50.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

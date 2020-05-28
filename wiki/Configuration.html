@@ -1,0 +1,726 @@
+<!--
+    title: Configuration
+    description: Migration of Configuration from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Compiz/Configuration</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../Compiz.html" title="Compiz">Compiz</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../../Compiz.html" title="Compiz">Compiz</a></li>
+<li><a href="../../Window_manager.html" title="Window manager">Window manager</a></li>
+</ul>
+</div>
+<p>This article details more advanced Compiz configuration. It is assumed that you have successfully installed Compiz and have a basic, working configuration. For information on installation, basic configuration and troubleshooting, please consult the <a href="../../Compiz.html" title="Compiz">Compiz</a> article.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Settings_storage_options"><span >1</span> <span >Settings storage options</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Configuration_backends"><span >1.1</span> <span >Configuration backends</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Profiles"><span >1.2</span> <span >Profiles</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Window_decoration_themes"><span >2</span> <span >Window decoration themes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Emerald"><span >2.1</span> <span >Emerald</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#GTK_Window_Decorator"><span >2.2</span> <span >GTK Window Decorator</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#KDE_Window_Decorator"><span >2.3</span> <span >KDE Window Decorator</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Workspaces_and_Viewports"><span >3</span> <span >Workspaces and Viewports</span></a></li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Keyboard_shortcuts"><span >4</span> <span >Keyboard shortcuts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Edge_bindings"><span >4.1</span> <span >Edge bindings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#Plugins"><span >5</span> <span >Plugins</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Grid"><span >5.1</span> <span >Grid</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Scale"><span >5.2</span> <span >Scale</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Widget_Layer"><span >5.3</span> <span >Widget Layer</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Screen_Magnification"><span >5.4</span> <span >Screen Magnification</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Crash_handler"><span >5.5</span> <span >Crash handler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17">
+<a href="#Compiz_configuration_without_CCSM"><span >6</span> <span >Compiz configuration without CCSM</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Flat-file_sample_configuration"><span >6.1</span> <span >Flat-file sample configuration</span></a></li>
+<li class="toclevel-2 tocsection-19">
+<a href="#GSettings_configuration"><span >6.2</span> <span >GSettings configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Enabling_or_disabling_a_Compiz_plugin_using_GSettings"><span >6.2.1</span> <span >Enabling or disabling a Compiz plugin using GSettings</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Settings_storage_options">Settings storage options</span></h2>
+<h3><span class="mw-headline" id="Configuration_backends">Configuration backends</span></h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>Depending on what packages you have installed, not all of the Compiz backends may be available.</li>
+<li>The GConf backend was dropped from Compiz 0.9.12 (<a rel="nofollow"  href="http://bazaar.launchpad.net/~compiz-team/compiz/0.9.12/revision/3991">revision 3991</a>).</li>
+</ul>
+</div>
+<p>By default, Compiz stores its configuration settings in a plain text file <code>~/.config/compiz-1/compizconfig/Default.ini</code>. In CCSM this is known as <i>Flat-file Configuration Backend</i>.
+</p>
+<p>Compiz can also store its settings in the GSettings or GConf databases. To change how Compiz saves its settings open CCSM and click on the <i>Preferences</i> tab in the left hand column. Then choose your desired backend from the list under <i>Backend</i>.
+</p>
+<p>You can also change the backend manually by editing the <code>~/.config/compiz-1/compizconfig/config</code> file.
+</p>
+<p>Edit the line below:
+</p>
+<pre>backend = ini
+</pre>
+<ul>
+<li>ini = <i>Flat File Configuration Backend</i>
+</li>
+<li>gsettings = <i>GSettings Configuration Backend</i>
+</li>
+<li>gconf = <i>GConf Configuration Backend</i>
+</li>
+</ul>
+<p>Once you have edited and saved the file the change will take place immediately. There is no need to log out.
+</p>
+<h3><span class="mw-headline" id="Profiles">Profiles</span></h3>
+<p>Profiles allow you to switch between different sets of Compiz settings easily. To create a new profile open CCSM and click on the <i>Preferences</i> tab. Under <i>Profile</i> click the plus sign to add a new profile or the minus sign to delete one. All changes made in CCSM will be written to your current profile. 
+</p>
+<p>Profiles are specific to the backend you are using. For instance, if you are using the GSettings backend then any new profile you create will be a GSettings profile. If you switch to a different backend then your current profile will not work and you will automatically switch to a profile available for that backend.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you see more than one profile named <i>Default</i> this is probably because you have used more than one backend e.g. you will have a default profile for ini and a default profile for GSettings or GConf.</div>
+<h2><span class="mw-headline" id="Window_decoration_themes">Window decoration themes</span></h2>
+<h3><span class="mw-headline" id="Emerald">Emerald</span></h3>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> For installing Emerald, see <a href="../../Compiz.html#Extras" title="Compiz">Compiz#Extras</a>.</div> 
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Some themes may cause Emerald to crash if they are selected. See <a href="../../Compiz.html#Emerald_crashes_when_selecting_a_theme" title="Compiz">Compiz#Emerald crashes when selecting a theme</a>.</div>
+<p>Many Emerald themes are available for download on <a rel="nofollow"  href="https://www.compiz-themes.org/browse/cat/117/ord/latest/">compiz-themes.org</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-28 ⓘ]</sup>. Emerald themes can be installed, selected, removed and edited using the <i>emerald-theme-manager</i> program. For downloaded themes, unzip the tarball and then install it using the <i>Import</i> option in the theme manager.
+</p>
+<p>Emerald themes are store in two locations:
+</p>
+<ul>
+<li>
+<code>/usr/share/emerald/themes</code> -- system</li>
+<li>
+<code>~/.emerald/themes</code> -- user</li>
+</ul>
+<p>The currently selected Emerald theme is copied into the <code>~/.emerald/theme</code> directory.
+</p>
+<p>Emerald settings such as window button pulse can be configured in <code>emerald-theme-manager</code> and are written to the <code>~/.emerald/settings.ini</code> file.
+</p>
+<h3><span class="mw-headline" id="GTK_Window_Decorator">GTK Window Decorator</span></h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> It is not necessary for Compiz to be using the GConf or GSettings backends in order for Compiz to read Metacity settings stored in the GConf or GSettings databases.</div>
+<p>The GTK Window Decorator can be compiled with support for the Metacity or Marco window managers (depending on the Compiz version). If it is compiled with this support, the theme used by Metacity or Marco will also be used by GTK Window Decorator. If GTK Window Decorator is not compiled with Metacity or Marco support, a builtin fallback theme will be used.
+</p>
+<p>Many Metacity themes are available for download on <a rel="nofollow"  href="https://www.gnome-look.org/browse/cat/125/ord/latest/">gnome-look.org</a>. Once downloaded, they should be unpacked into a directory such as <code>/usr/local/share/themes</code> (for Metacity) or <code>~/.themes</code> (for Marco).
+</p>
+<dl><dt>Compiz 0.9</dt></dl>
+<p>The GTK Window Decorator provided by Compiz 0.9 can be compiled with Metacity (version 3) support. Assuming this support is compiled in, change the Metacity theme using the commands below:
+</p>
+<ul><li>In a GNOME Flashback session</li></ul>
+<p>Firstly, ensure that the theme type is set to metacity:
+</p>
+<pre>$ gsettings set org.gnome.metacity.theme type metacity
+</pre>
+<p>Then the theme can be set with the following command:
+</p>
+<pre>$ gsettings set org.gnome.metacity.theme name <i>theme-name</i>
+</pre>
+<ul><li>In a MATE session</li></ul>
+<p>Use the following command:
+</p>
+<pre>$ gsettings set org.mate.Marco.general theme <i>theme-name</i>
+</pre>
+<ul><li>In any other session</li></ul>
+<p>Use the following command:
+</p>
+<pre>$ gsettings set org.gnome.desktop.wm.preferences theme <i>theme-name</i>
+</pre>
+<dl><dt>Compiz 0.8</dt></dl>
+<p>The GTK Window Decorator included in the Compiz provided by the Compiz-Reloaded upstream (versions 0.8.10 and higher) can be compiled with Marco support. Assuming this support is compiled in, use the command below to change the Marco theme:
+</p>
+<pre>$ gsettings set org.mate.Marco.general theme <i>theme-name</i>
+</pre>
+<p>The GTK Window Decorator included in the Compiz provided by the original Compiz upstream (versions 0.8.9 and below) can be compiled with Metacity (version 2) support. This GTK Window Decorator version expects the theme to be defined as a GConf setting. Assuming this support is compiled in, use the command below to change the Metacity theme:
+</p>
+<pre>$ gconftool-2 -s /apps/metacity/general/theme -t string <i>theme-name</i>
+</pre>
+<h3><span class="mw-headline" id="KDE_Window_Decorator">KDE Window Decorator</span></h3>
+<p>Kwin themes can be downloaded, installed and managed using the <a href="../../KDE.html" title="KDE">KDE</a> <i>systemsettings</i> panel.
+</p>
+<h2><span class="mw-headline" id="Workspaces_and_Viewports">Workspaces and Viewports</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> There was once a <i>Number of Desktops</i> option under CCSM -&gt; <i>General Options</i> -&gt; <i>Desktop Size</i> which made it possible to use multiple workspaces along with viewports (though this was incompatible with many Compiz plugins such as <i>Cube</i>). As of Compiz 0.9.11 (<a rel="nofollow"  href="http://bazaar.launchpad.net/~compiz-team/compiz/0.9.12/revision/3857">revision 3857</a>) the <i>Number of Desktops</i> option has been removed.</div>
+<p>Unlike many other window managers, Compiz does not use multiple workspaces. Instead, it uses one workspace but splits it into multiple sections known as viewports. See <a rel="nofollow"  href="http://www.circuitousroot.com/artifice/programming/useful/fvwm/viewports/index.html">[1]</a> for more information.
+</p>
+<p>The number and layout of viewports can be configured in CCSM -&gt; <i>General Options</i> -&gt; <i>Desktop Size</i>. Changing the <i>Horizontal Virtual Size</i> will change the number of viewports in a row. Changing the <i>Vertical Virtual Size</i> will add or remove rows of viewports.
+</p>
+<p>If you are using the <i>Desktop Cube</i> plugin, you will not be to use the rows of viewports added by increasing the <i>Vertical Virtual Size</i>. To take advantage of multiple rows of viewports, use the <i>Desktop Wall</i> plugin instead.
+</p>
+<h2><span class="mw-headline" id="Keyboard_shortcuts">Keyboard shortcuts</span></h2>
+<p>Below is a list of the default keyboard shortcuts for Compiz.
+</p>
+<ul>
+<li>Switch windows = <code>Alt+Tab</code>.</li>
+<li>Switch to next desktops = <code>Ctrl+Alt+←</code>.</li>
+<li>Switch to previous desktop = <code>Ctrl+Alt+→</code>.</li>
+<li>Move window = <code>Alt+Left click</code>.</li>
+<li>Resize window = <code>Alt+Right click</code>.</li>
+</ul>
+<p>A more detailed list can be found under <a rel="nofollow"  href="http://wiki.compiz.org/CommonKeyboardShortcuts">CommonKeyboardShortcuts</a> in the Compiz wiki or you can always just look at your plugin's configuration.
+</p>
+<p>Extra shortcuts can be added using the commands plugin in CCSM.
+</p>
+<h3><span class="mw-headline" id="Edge_bindings">Edge bindings</span></h3>
+<p>Besides mouse and key bindings, Compiz can also assign commands to certain actions involving the screen edges, for example: dragging a window to the screen edge. For instance: the <i>Rotate Cube</i> plugin has an option to switch to the next <a href="#Workspaces_and_Viewports">viewport</a> if a window is dragged to the screen edge. Edge bindings can usually be disabled, through CCSM, by unticking <i>Edge Flip</i> options in the plugin's settings section or by disabling actions which have the screen icon next to them in the <i>Bindings</i> section of the relevant plugin.
+</p>
+<h2><span class="mw-headline" id="Plugins">Plugins</span></h2>
+<p>Almost all Compiz functionality is implemented using plugins. Some plugins must be enabled for standard window manager functionality - see <a href="../../Compiz.html#Enabling_important_plugins" title="Compiz">Compiz#Enabling important plugins</a>. Plugins that provide extra functionality, above and beyond standard window management, are discussed here.
+</p>
+<h3><span class="mw-headline" id="Grid">Grid</span></h3>
+<p>If you want to compare two windows side by side by dragging them to the edges of the screen, similar to the "Aero Snap" feature introduced in Windows 7, enable the <i>Grid</i> plugin in CCSM. If you are using the <i>Desktop Wall</i> or <i>Rotate Cube</i> plugin then disable the <i>Edge Flip</i> options in that plugin's section to ensure that windows do not move to the next desktop when dragged to the screen edge.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>The plugin in CCSM labelled <i>Snapping Windows</i> merely adds resistance to the edges of the screen. It does not resize windows that are dragged to the screen edge.</li>
+<li>The <i>Grid</i> plugin in Compiz 0.8 does not support resizing windows by dragging them to the screen edge. Windows can only be compared by using keyboard shortcuts.</li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="Scale">Scale</span></h3>
+<p>The <i>Scale</i> plugin provides an option to view scaled thumbnails of all windows in the current viewport, similar to the "Present Windows" feature in <a href="../../KDE.html" title="KDE">KDE</a> or the "Overview Mode" in <a href="../../GNOME.html" title="GNOME">GNOME</a> Shell. Once the plugin is enabled, the view can be accessed by moving the mouse cursor into the top right corner of the screen. The active corner can be configured in the <i>Bindings</i> tab of the plugin's settings section.
+</p>
+<h3><span class="mw-headline" id="Widget_Layer">Widget Layer</span></h3>
+<p>The <i>Widget Layer</i> plugin allows you to define certain windows as widgets. Widget windows are shown on a separate "layer" of the screen. When the widget layer is hidden, all windows defined as widget windows will be iconified. By default, the widget layer is shown and hidden using <code>F9</code> key. 
+</p>
+<p>To define a window as a widget, open CCSM and navigate to the <i>Widget Layer</i> plugin. Click on the <i>Behaviour</i> tab and click on the plus sign button next to the <i>Widget Windows</i> field. In the dialog box that appears, choose <i>Window Title</i> from the <i>Type</i> menu. In the <i>Value</i> field enter the title for the window you wish to define as a widget, for example: <i>galculator</i>.
+</p>
+<h3><span class="mw-headline" id="Screen_Magnification">Screen Magnification</span></h3>
+<p>There are two Compiz plugins that can provide magnification functionality. The first is <i>Magnifier</i> which acts much like a magnifying glass (everything within the rectangular box will be zoomed). The magnifier can be used by enabling the plugin in CCSM and pressing <code>Super+m</code>.
+</p>
+<p>The other plugin is called <i>Enhanced Desktop Zoom</i>. When this plugin is enabled, pressing the <code>Super</code> key and scrolling the middle mouse button will magnify the part of the desktop that is under the mouse cursor.
+</p>
+<h3><span class="mw-headline" id="Crash_handler">Crash handler</span></h3>
+<p>It is a good idea to enable the <i>Crash handler</i> plugin in CCSM. This plugin ensures that if, for whatever reason, Compiz fails to start with the session or crashes at some point during the session, crash logs will be dumped and an alternative window manager will be started. To specify a window manager that can replace Compiz in the event of a crash, click on the <i>Crash handler</i> plugin and tick the <i>Start Other Window Manager</i> option. Then, in the <i>Window Manager Command Line</i> field, enter a command to start the window manager of choice, for instance: <code>xfwm4 --replace</code>.
+</p>
+<h2><span class="mw-headline" id="Compiz_configuration_without_CCSM">Compiz configuration without CCSM</span></h2>
+<p>Compiz does not have to be configured through CCSM. Settings can be changed by editing the profile directly. For Flat File profiles, this will mean making editing changes to the <code>~/.config/compiz-1/compizconfig/Default.ini</code> file or similar. For GSettings or GConf profiles, this will mean making changes to the DConf or GConf databases using the <i>gsettings</i> or <i>gconftool-2</i> tools.
+</p>
+<h3><span class="mw-headline" id="Flat-file_sample_configuration">Flat-file sample configuration</span></h3>
+<p>Features of this sample configuration:
+</p>
+<ul>
+<li>
+<code>Ctrl+Alt+<i>[numpad]</i></code> arranges the current window.</li>
+<li>Left and right bottom corner shows taskbar.</li>
+<li>Mouse control for everything (but typing).</li>
+<li>Some effects.</li>
+</ul>
+<pre>[core]
+as_active_plugins = core;session;glib;grid;notification;workarounds;place;put;wall;regex;blur;dbus;fs;inotify;widget;animation;resize;text;mousepoll;obs;expo;fade;move;staticswitcher;mag;scale;scaleaddon;
+s0_hsize = 2
+s0_vsize = 2
+
+[wall]
+as_show_switcher = false
+s0_edgeflip_dnd = true
+as_flip_down_edge = 
+
+[expo]
+as_reflection = false
+as_vp_brightness = 100.000000
+as_expo_edge = 
+as_expo_button = Button9
+as_mipmaps = true
+as_zoom_time = 0.150000
+as_vp_distance = 0.000000
+
+[scale]
+as_initiate_edge = 
+as_initiate_all_button = Button8
+s0_darken_back = false
+s0_opacity = 100
+s0_overlay_icon = 0
+s0_multioutput_mode = 1
+as_show_desktop = false
+s0_hover_time = 100
+s0_spacing = 4
+s0_timestep = 0.100000
+s0_speed = 2.615500
+
+[scaleaddon]
+s0_window_highlight = true
+s0_highlight_color = #ffffff08
+s0_window_title = 0
+
+[mag]
+as_zoom_in_button = &lt;TopEdge&gt;Button4
+as_zoom_out_button = &lt;TopEdge&gt;Button5
+s0_mode = 2
+s0_radius = 600
+
+[place]
+s0_multioutput_mode = 3
+s0_mode = 2
+
+[workarounds]
+as_notification_daemon_fix = true
+as_firefox_menu_fix = true
+as_legacy_fullscreen = true
+as_qt_fix = true
+as_convert_urgency = true
+
+[move]
+as_opacity = 85 
+
+[blur]
+s0_filter = 1
+s0_independent_tex = true
+s0_mipmap_lod = 1.700000
+s0_gaussian_radius = 7
+s0_alpha_blur_match = (any) &amp; !(class=Conky)
+
+[put]
+as_put_next_output_button = Button10
+s0_speed = 10.441400
+s0_timestep = 0.100000 
+
+[obs]
+s0_opacity_matches = type=dock | Tooltip | Menu | PopupMenu | DropdownMenu;(any) &amp; !(class=Whaawmp.py | class=Gimp | class=Inkscape | class=Xfdesktop | class=Ristretto);
+s0_opacity_values = 70;90;
+
+[animation]
+s0_close_effects = animation:Dream;animation:Fade;animation:Fade;
+s0_open_effects = animation:Magic Lamp;animation:Fade;animation:Fade;
+s0_focus_effects = animation:Dodge;
+s0_open_durations = 150;100;100;
+s0_close_durations = 150;100;100;
+s0_minimize_durations = 150;
+s0_shade_durations = 150;
+s0_focus_durations = 150;
+
+[widget]
+s0_bg_brightness = 100
+s0_fade_time = 0.250000
+s0_match = type=Dock
+as_toggle_edge = BottomLeft|BottomRight
+s0_end_on_click = false
+
+[staticswitcher]
+s0_highlight_mode = 2
+s0_highlight_rect_hidden = 2
+as_next_key = Disabled
+as_next_no_popup_key = &lt;Alt&gt;Tab
+as_prev_all_key = Disabled
+</pre>
+<h3><span class="mw-headline" id="GSettings_configuration">GSettings configuration</span></h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>Most Compiz schemas are <i>relocatable</i>. This means that a path needs to provided along with the schema name itself - in this case, the path to the Compiz profile, for example: <code>:/org/compiz/profiles/<b>Default</b>/plugins/</code>.</li>
+<li>That a Compiz plugin's schema is installed does not guarantee that the plugin itself is installed.</li>
+</ul>
+</div>
+<p>List all of the available Compiz profiles:
+</p>
+<pre>$ gsettings list-recursively org.compiz | grep existing-profiles
+</pre>
+<p>Show the active Compiz profile:
+</p>
+<pre>$ gsettings list-recursively org.compiz | grep current-profile
+</pre>
+<p>Set the active Compiz profile:
+</p>
+<pre>$ gsettings set org.compiz current-profile <i>profile-name</i>
+</pre>
+<p>List all the available Compiz plugins schemas:
+</p>
+<pre>$ gsettings list-relocatable-schemas | grep org.compiz
+</pre>
+<p>View all of the available settings for a Compiz plugin and their values (this example will show the settings of <i>Static Application Switcher</i>):
+</p>
+<pre>$ gsettings list-recursively org.compiz.staticswitcher:/org/compiz/profiles/Default/plugins/staticswitcher/
+</pre>
+<p>View the value for a specific Compiz setting (this example checks the whether the <i>Icon</i> option in <i>Static Application Switcher</i> is enabled:
+</p>
+<pre>$ gsettings get org.compiz.staticswitcher:/org/compiz/profiles/Default/plugins/staticswitcher/ icon
+</pre>
+<p>Change the value for a Compiz plugin setting (this will disable icons in <i>Static Application Switcher</i>):
+</p>
+<pre>$ gsettings set org.compiz.staticswitcher:/org/compiz/profiles/Default/plugins/staticswitcher/ icon false
+</pre>
+<h4><span class="mw-headline" id="Enabling_or_disabling_a_Compiz_plugin_using_GSettings">Enabling or disabling a Compiz plugin using GSettings</span></h4>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>Do not forget to place quotation marks around the array when overwriting the <i>active-plugins</i> value, e.g. <code><b>"</b>['core']<b>"</b></code>.</li>
+<li>If you enter an invalid plugin name or the name of a plugin that is not installed, the command will complete without error but the invalid name will automatically be removed from the array.</li>
+</ul>
+</div>
+<p>Two steps are required. Firstly, get the list of active Compiz plugins using the command below:
+</p>
+<pre>$ gsettings get org.compiz.core:/org/compiz/profiles/Default/plugins/core/ active-plugins
+</pre>
+<p>This should return an output similar to the one below:
+</p>
+<pre>['core', 'composite', 'opengl', 'compiztoolbox', 'decor', 'vpswitch', 'snap', 'mousepoll', 'resize', 'place', 'move', 'wall', 'grid', 'regex', 'imgpng', 'session', 'gnomecompat', 'animation', 'fade', 'workarounds']
+</pre>
+<p>Copy and paste the output and add it to the command to set the active plugins, adding or removing plugins from the array as appropriate. The example below will enable the <i>Static Application Switcher:</i>
+</p>
+<pre>$ gsettings set org.compiz.core:/org/compiz/profiles/Default/plugins/core/ active-plugins "['core', 'composite', 'opengl', 'compiztoolbox', 'decor', 'vpswitch', 'snap', 'mousepoll', 'resize', 'place', 'move', 'wall', 'grid', 'regex', 'imgpng', 'session', 'gnomecompat', 'animation', 'fade', 'workarounds', '<b>staticswitcher'</b>]"
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow"  href="http://wiki.compiz.org/Decorators/Emerald">Compiz Wiki</a>, (wiki is unmaintained)</li>
+<li>
+<a rel="nofollow"  href="http://compiz-themes.org/">Compiz-Themes.org</a><sup>[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-02-28]</sup>, including Emerald themes, Metacity themes, Kwin themes and more</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../../Category:Eye_candy.html" title="Category:Eye candy">Eye candy</a></li>
+<li><a href="../../Category:Stacking_WMs.html" title="Category:Stacking WMs">Stacking WMs</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../../Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Compiz/Configuration&amp;oldid=602970">https://wiki.archlinux.org/index.php?title=Compiz/Configuration&amp;oldid=602970</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 March 2020, at 21:45.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
+<!--
+    title: Configuration
+    description: Migration of Configuration from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">PulseAudio/Configuration</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"><span >&lt; <a href="../../PulseAudio.html" title="PulseAudio">PulseAudio</a></span></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../../PulseAudio.html" title="PulseAudio">PulseAudio</a>.</b><a href="../../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Most of the valuable information has been merged; when it is done completely, please <a href="../../Help:Editing.html#Redirects" title="Help:Editing">redirect</a> this page to <a href="../../PulseAudio.html#Configuration" title="PulseAudio">PulseAudio#Configuration</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PulseAudio/Configuration">Talk:PulseAudio/Configuration#</a>)</div>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Easy_configuration"><span >1</span> <span >Easy configuration</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Advanced_configuration"><span >2</span> <span >Advanced configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Configuration_files"><span >2.1</span> <span >Configuration files</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#default.pa"><span >2.1.1</span> <span >default.pa</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#client.conf"><span >2.1.2</span> <span >client.conf</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Connection_&amp;_authentication"><span >2.2</span> <span >Connection &amp; authentication</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Environment_variables"><span >2.2.1</span> <span >Environment variables</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#X11_properties"><span >2.2.2</span> <span >X11 properties</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Modules"><span >3</span> <span >Modules</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Protocols"><span >3.1</span> <span >Protocols</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#ALSA"><span >3.2</span> <span >ALSA</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#JACK"><span >3.3</span> <span >JACK</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Filters_&amp;_Routing"><span >3.4</span> <span >Filters &amp; Routing</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Easy_configuration">Easy configuration</span></h2>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=paprefs">paprefs</a></span>
+<ul>
+<li>Simultaneous output to all sound cards</li>
+<li>Network device streaming and discovery (requires <a href="../../Avahi.html" title="Avahi">Avahi</a> daemon to be installed and running): play sound on any computer on your network from any computer.</li>
+</ul>
+</li></ul>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pavucontrol">pavucontrol</a></span>
+<ul>
+<li>Per-application volume control</li>
+<li>Manage input and output devices volumes and outputs</li>
+<li>Sound card configuration to select input/output ports to use and enable/disable devices</li>
+</ul>
+</li></ul>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Do <b>not</b> attempt to change the ALSA configuration files while using the default PulseAudio configuration. The default configuration grabs the hardware devices directly in order to allow all the on-the-fly configurations using the GUIs. Changes to the ALSA configurations will very likely be ignored by PulseAudio and ALSA applications will break randomly while trying to access an ALSA device already used by PulseAudio. If you intend to change the ALSA configurations, also configure PulseAudio manually to output to your own ALSA device and play nice with your configuration.</div>
+<h2><span class="mw-headline" id="Advanced_configuration">Advanced configuration</span></h2>
+<h3><span class="mw-headline" id="Configuration_files">Configuration files</span></h3>
+<h4><span class="mw-headline" id="default.pa">default.pa</span></h4>
+<p>In order to configure the daemon, you will mostly only need the very basic commands:
+</p>
+<table >
+<caption>Basic PA commands
+</caption>
+<tbody><tr>
+<th>Command</th>
+<th>Action
+</th>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>load-module module-name option1=value1 option2=value2</code></td>
+<td>Loads a module called <code>module-name</code> with two options called <code>option1</code> and <code>option2</code>
+</td>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td>
+<code>unload-module 42</code> or <code>unload-module module-alsa-sink</code>
+</td>
+<td>Unloads a module by its index (returned by the load-module command) or all modules by name.
+</td>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>.nofail</code></td>
+<td>Allows all commands after this statement to fail without interrupting the script and shutting down the daemon. This is useful when you know some commands could fail and would not affect overall operation, like loading modules for removable devices or network devices that can potentially get unreachable.
+</td>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>.fail</code></td>
+<td>Reverse of .nofail: failing commands after this statement will interrupt the script and will cause the daemon to return an error.
+</td>
+</tr></tbody>
+</table>
+<p>There are plenty more commands available that are useful at runtime to control the daemon, see the <code>pactl</code> manpage for more details. Everything that can be made in <code>pavucontrol</code> can also be made on the command line, useful for bash scripts.
+</p>
+<h4><span class="mw-headline" id="client.conf">client.conf</span></h4>
+<table >
+<caption>Useful client.conf options
+</caption>
+<tbody><tr>
+<th>Option</th>
+<th>Description
+</th>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td>autospawn</td>
+<td>If enabled, clients will automatically start PulseAudio if it is not already running when a client attempts to connect to it. This can be useful if you do not want PulseAudio to always be running to conserve system resources. Otherwise, you really should have it start with your X11 session.
+</td>
+</tr></tbody>
+</table>
+<h3>
+<span id="Connection_.26_authentication"></span><span class="mw-headline" id="Connection_&amp;_authentication">Connection &amp; authentication</span>
+</h3>
+<p>Since PulseAudio runs as a daemon as the current user, clients needs to know where to find the daemon socket to connect to it as well as a shared random cookie file clients use to authenticate with it. By default, clients should be able to locate the daemon without problem using environment variables, X11 root window properties and finally by trying the default location (<code>unix:/run/user/$ID/pulse/native</code>). However, if you have clients that needs to access PulseAudio outside of your X11 session like <a href="../../Music_Player_Daemon.html" class="mw-redirect" title="Mpd">mpd</a> running as a different user, you will need to tell it how to connect to your PulseAudio instance. See <a href="../../PulseAudio/Examples.html#Allowing_multiple_users_to_use_PulseAudio_at_the_same_time" title="PulseAudio/Examples">PulseAudio/Examples#Allowing multiple users to use PulseAudio at the same time</a> for a complete example. An authentication cookie containing random bytes is enabled by default to ensure audio does not leak from one user to another on a multi-user system. If you already control who can access the server using user/group permissions, you can disable the cookie by passing <code>auth-cookie-enabled=0</code> to <code>module-native-protocol-unix</code>.
+</p>
+<h4><span class="mw-headline" id="Environment_variables">Environment variables</span></h4>
+<p>These two variables are the important ones in order for libpulse clients to locate PulseAudio if you moved its socket to somewhere else. See <span class="plainlinks archwiki-template-man" title="$ man 1 pulseaudio"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pulseaudio.1">pulseaudio(1)</a></span> for more details and other useful environment variables clients will read.
+</p>
+<table >
+<tbody><tr>
+<th>Variable</th>
+<th>Definition
+</th>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>PULSE_SERVER</code></td>
+<td>Defines where the server is. It takes a protocol prefix like <code>unix:</code> or <code>tcp</code> followed by the path or IP of the server. Example: <code>unix:/home/pulse/native-sock</code>.
+</td>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>PULSE_COOKIE</code></td>
+<td>Point this to the location of a file that contains the random cookie generated by PulseAudio. This file will be read by clients and its content sent to the server, thus the file has to be readable by all audio clients. It does not need to be the same file, as long as its content matches the one the daemon uses.
+</td>
+</tr></tbody>
+</table>
+<h4><span class="mw-headline" id="X11_properties">X11 properties</span></h4>
+<p>PulseAudio also uses window properties on the root window of the X11 server to help find the daemon. Since environment variables cannot be modified after child processes are started, X11 properties are more flexible because they are more easily changed because they are globally shared. As long as applications receive a <code>DISPLAY=</code> environment variable, it can read the most up-to-date values. X11 properties can be queried using <code>xprop -root</code>, or with <code>pax11publish -d</code> to read pulse-specific properties. <code>pax11publish</code> can also be used to update the properties from environment variables (<code>pax11publish -e</code>, or <code>pax11publish -r</code> to remove them entirely). If possible, it is recommended to let PulseAudio do it by itself using the module-x11-publish module or the <code>start-pulseaudio-x11</code> command. The following table is there only for completeness, you should not ever need to manually set these variables by hand.
+</p>
+<table >
+<tbody><tr>
+<th>Variable</th>
+<th>Definition
+</th>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>PULSE_SERVER</code></td>
+<td>String value (<code>xprop -root -f PULSE_SERVER 8s -set PULSE_SERVER "unix:/tmp/pulse-sock"</code>), works the same as the environment variable of the same name.
+</td>
+</tr></tbody>
+<caption>
+</caption>
+<tbody><tr>
+<td><code>PULSE_COOKIE</code></td>
+<td>String value that contains the hexadecimal representation of the authentication cookie.
+</td>
+</tr></tbody>
+</table>
+<h2><span class="mw-headline" id="Modules">Modules</span></h2>
+<h3><span class="mw-headline" id="Protocols">Protocols</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Local sound, network sound, file sounds, streaming servers (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PulseAudio/Configuration">Talk:PulseAudio/Configuration#</a>)</div>
+</div>
+<h3><span class="mw-headline" id="ALSA">ALSA</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> TODO: Explain both static ALSA configuration and automatic detection. How to use ALSA plugins. Mention that PulseAudio likes real hardware way better than plugins for latency and power-saving controls (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PulseAudio/Configuration">Talk:PulseAudio/Configuration#</a>)</div>
+</div>
+<h3><span class="mw-headline" id="JACK">JACK</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Jack auto-detection or static Jack client (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PulseAudio/Configuration">Talk:PulseAudio/Configuration#</a>)</div>
+</div>
+<h3>
+<span id="Filters_.26_Routing"></span><span class="mw-headline" id="Filters_&amp;_Routing">Filters &amp; Routing</span>
+</h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Collection of useful modules for audio processing (EQ) and routing (combining card, splitting cards, imitating JACK features (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PulseAudio/Configuration">Talk:PulseAudio/Configuration#</a>)</div>
+</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="../../Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=PulseAudio/Configuration&amp;oldid=602500">https://wiki.archlinux.org/index.php?title=PulseAudio/Configuration&amp;oldid=602500</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 March 2020, at 01:19.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

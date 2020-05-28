@@ -1,0 +1,88 @@
+<!--
+    title: Tox
+    description: Migration of Tox from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Tox</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From the project <a rel="nofollow"  href="https://tox.chat/">home page</a>: "Tox is a distributed, secure messenger with audio and video chat capabilities."
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>In order to use Tox, you should <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> a <a rel="nofollow"  href="https://wiki.tox.chat/clients">Tox client</a>. See <a href="../List_of_applications/Internet.html#Tox_clients" title="List of applications/Internet">List of applications/Internet#Tox clients</a>.
+</p>
+<h2><span class="mw-headline" id="Proxy">Proxy</span></h2>
+<p>To connect via <a href="../Tor.html" title="Tor">Tor</a>, first start it with:
+</p>
+<pre>sudo -u tor /usr/bin/tor
+</pre>
+<p>Then configure your Tox client. For example:
+</p>
+<pre>toxic -t -p 127.0.0.1 9050
+</pre>
+<h2><span class="mw-headline" id="Run_a_node">Run a node</span></h2>
+<p>To be able to connect to others, Tox needs to connect to a <a rel="nofollow"  href="https://wiki.tox.chat/users/nodes">DHT node</a> first. All DHT nodes are connected to each other, and since everyone is connected to at least one DHT node, you can connect to others one way or the other.
+</p>
+<p>The package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=toxcore">toxcore</a></span> creates user <i>tox-bootstrapd</i> and includes a systemd unit file in <code>/usr/lib/systemd/system/tox-bootstrapd.service</code> and a configuration file in <code>/etc/tox-bootstrapd.conf</code>.
+</p>
+<p>Edit the configuration file and add appropriate nodes from <a rel="nofollow"  href="https://wiki.tox.chat/users/nodes">Tox wiki</a> or <a rel="nofollow"  href="https://nodes.tox.chat/">Node status page</a>.
+</p>
+<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and start <code>tox-bootstrapd.service</code> and check if it is running fine and port has been bound:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># ss --listening --numeric --processes | grep <i>node_port</i></pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">udp        0      0 *:<i>node_port</i>                 *:*                                 576/DHT_bootstrap</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../Category:Instant_messaging.html" title="Category:Instant messaging">Instant messaging</a></li>
+<li><a href="../Category:Voice_over_IP.html" title="Category:Voice over IP">Voice over IP</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Tox&amp;oldid=556797">https://wiki.archlinux.org/index.php?title=Tox&amp;oldid=556797</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 November 2018, at 12:38.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

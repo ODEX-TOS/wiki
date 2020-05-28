@@ -1,0 +1,184 @@
+<!--
+    title: Pam_usb
+    description: Migration of Pam_usb from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">pam_usb</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Security.html" title="Security">Security</a></li>
+<li><a href="../Pam_mount.html" title="Pam mount">pam_mount</a></li>
+<li><a href="../Pam_abl.html" title="Pam abl">pam_abl</a></li>
+<li><a href="../Pam_oath.html" title="Pam oath">pam_oath</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://github.com/aluzzardi/pam_usb">pam_usb</a> provides hardware authentication for Linux using ordinary USB Flash Drives.
+</p>
+<p>It works with any application supporting <a href="../PAM.html" title="PAM">PAM</a>, such as <a href="../Su.html" title="Su">su</a> and <a href="../Display_manager.html" title="Display manager">Display manager</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Setting_up_Devices_and_Users"><span >2.1</span> <span >Setting up Devices and Users</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Check_the_configuration"><span >2.2</span> <span >Check the configuration</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Setting_up_the_PAM_module"><span >2.3</span> <span >Setting up the PAM module</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#su_fails_to_use_pam_usb"><span >3.1</span> <span >su fails to use pam_usb</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pam_usb/">pam_usb</a></span><sup><small>AUR</small></sup> package. 
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Setting up pam_usb requires the following, once pam_usb is installed:
+</p>
+<ol>
+<li>Set up devices and users</li>
+<li>Configuring PAM for system authentication</li>
+</ol>
+<h3><span class="mw-headline" id="Setting_up_Devices_and_Users">Setting up Devices and Users</span></h3>
+<p>Once you've connected your USB device to the computer, use pamusb-conf to add it to the configuration file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># pamusb-conf --add-device MyDevice</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Please select the device you wish to add.
+* Using "SanDisk Corp. Cruzer Titanium (SNDKXXXXXXXXXXXXXXXX)" (only option)
+Which volume would you like to use for storing data ?
+* Using "/dev/sda1 (UUID: &lt;6F6B-42FC&gt;)" (only option)
+Name            : MyDevice
+Vendor          : SanDisk Corp.
+Model           : Cruzer Titanium
+Serial          : SNDKXXXXXXXXXXXXXXXX
+Volume UUID     : 6F6B-42FC (/dev/sda1)
+Save to /etc/pamusb.conf ?
+[Y/n] y
+Done.</pre>
+<p>Note that <code>MyDevice</code> can be any arbitrary name you'd like. Also, you can add as many devices as you want.
+</p>
+<p>Next, configure users you want to be able to authenticate with pam_usb:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># pamusb-conf --add-user root</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">      
+Which device would you like to use for authentication ?
+* Using "MyDevice" (only option)
+User            : root
+Device          : MyDevice
+Save to /etc/pamusb.conf ?
+[Y/n] y
+Done.</pre>
+<h3><span class="mw-headline" id="Check_the_configuration">Check the configuration</span></h3>
+<p>You can run <code>pamusb-check</code> anytime to check if everything is correctly worked. This tool will simulate an authentication request (requires your device to be connected, otherwise it will fail).
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># pamusb-check root</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">* Authentication request for user "root" (pamusb-check)
+* Device "MyDevice" is connected (good).
+* Performing one time pad verification...
+* Verification match, updating one time pads...
+* Access granted.</pre>
+<h3><span class="mw-headline" id="Setting_up_the_PAM_module">Setting up the PAM module</span></h3>
+<p>To add pam_usb into the system authentication process, we need to edit <code>/etc/pam.d/system-auth</code>
+</p>
+<p>The default PAM configuration file should include the following line:
+</p>
+<pre>auth    required        pam_unix.so nullok_secure</pre>
+<p>Change it to:
+</p>
+<pre>auth    sufficient      pam_usb.so
+auth    required        pam_unix.so nullok_secure</pre>
+<p>The <code>sufficient</code> keyword means that if pam_usb allows the authentication, then no password will be asked. If the authentication fails, then the default password-based authentication will be used as fallback.
+</p>
+<p>If you change it to <code>required</code>, it means that both the USB flash drive and the password will be required to grant access to the system.
+</p>
+<p>Now you should be able to authenticate with the relevant USB device plugged-in.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ su</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">* pam_usb v.SVN
+* Authentication request for user "root" (su)
+* Device "MyDevice" is connected (good).
+* Performing one time pad verification...
+* Verification match, updating one time pads...
+* Access granted.</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="su_fails_to_use_pam_usb">su fails to use pam_usb</span></h3>
+<p>If you set:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/system-auth</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth          sufficient   pam_usb.so</pre>
+<p>and <code>su</code> prompts for a password, and does not use pam_usb, add the same line at the beginning of <code>/etc/pam.d/su</code>. This may be required for other pam-aware applications as well.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://github.com/aluzzardi/pam_usb">Github repository</a></li>
+<li><a rel="nofollow"  href="https://github.com/aluzzardi/pam_usb/wiki">Github wiki</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Authentication.html" title="Category:Authentication">Authentication</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Pam_usb&amp;oldid=548899">https://wiki.archlinux.org/index.php?title=Pam_usb&amp;oldid=548899</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 October 2018, at 16:28.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

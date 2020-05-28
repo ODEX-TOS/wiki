@@ -1,0 +1,98 @@
+<!--
+    title: Advanced_Format
+    description: Migration of Advanced_Format from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Advanced Format</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>The <a href="https://en.wikipedia.org/wiki/Advanced_Format"  title="wikipedia:Advanced Format">Advanced Format</a> is a generic term pertaining to any disk sector format used to store data on magnetic disks in <a href="https://en.wikipedia.org/wiki/hard_disk_drives"  title="w:hard disk drives">hard disk drives</a> (HDDs) that uses 4 kilobyte sectors instead of the traditional 512 byte sectors. The main idea behind using 4096-byte sectors is to increase the bit density on each track by reducing the number of gaps which hold Sync/DAM and ECC (Error Correction Code) information between data sectors. The old format gave a format efficiency of 88.7%, whereas Advanced Format results in a format efficiency of 97.3%.
+</p>
+<p>There are two types of AF drives:
+</p>
+<ul>
+<li>Advanced Format drives, marked with an orange "AF" logo: internally, they use 4k sectors, but provide an emulation layer for compatibility with OSes which lack support for them.</li>
+<li>Advanced Format 4k native drives, marked with a blue "4Kn" logo: they require OS support (Windows 8+, or Linux 2.6.31+). Because they do not need a translation layer, they are cheaper, however they might be incompatible with old tools.</li>
+</ul>
+<h2><span class="mw-headline" id="How_to_determine_if_HDD_employ_a_4k_sector">How to determine if HDD employ a 4k sector</span></h2>
+<p>The physical and logical sector size of hard disk <code>/dev/sd<i>X</i></code> can be determined by reading the following sysfs entries:
+</p>
+<pre>$ cat /sys/class/block/sd<i>X</i>/queue/physical_block_size
+$ cat /sys/class/block/sd<i>X</i>/queue/logical_block_size
+</pre>
+<p>Drives with a translation layer (see above) will usually report a logical block size of 512 (for backwards compatibility) and a physical block size of 4096 (indicating they are AF drives).
+</p>
+<p>Tools which will report the sector of a drive (provided the drive will report it correctly) includes:
+</p>
+<ul><li>
+<a href="../Fdisk.html" title="Fdisk">fdisk</a>:</li></ul>
+<pre># fdisk -l /dev/sd<i>X</i> | grep 'Sector size'
+</pre>
+<ul><li>
+<a href="../S.M.A.R.T..html" title="S.M.A.R.T.">smartmontools</a> since 5.41:</li></ul>
+<pre># smartctl -a /dev/sd<i>X</i> | grep 'Sector Sizes:'
+</pre>
+<ul><li>
+<a href="../Hdparm.html" title="Hdparm">hdparm</a> since 9.12:</li></ul>
+<pre># hdparm -I /dev/sd<i>X</i> | grep 'Sector size:'
+</pre>
+<p>Note that both works even for USB-attached discs (if the USB bridge supports SAT aka SCSI/ATA Translation, ANSI INCITS 431-2007).
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://www.anandtech.com/Show/Index/2888">Western Digital’s Advanced Format: The 4K Sector Transition Begins</a></li>
+<li><a rel="nofollow"  href="http://www.wdc.com/wdproducts/library/WhitePapers/ENG/2579-771430.pdf">White paper entitled "Advanced Format Technology."</a></li>
+<li>Failure to align one's HDD results in poor read/write performance.  See <a rel="nofollow"  href="http://www.linuxconfig.org/linux-wd-ears-advanced-format">this article</a> for specific examples.</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Storage.html" title="Category:Storage">Storage</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Advanced_Format&amp;oldid=594996">https://wiki.archlinux.org/index.php?title=Advanced_Format&amp;oldid=594996</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 January 2020, at 11:44.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,109 @@
+<!--
+    title: Logwatch
+    description: Migration of Logwatch from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Logwatch</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Use <a href="../Template:Ic.html" title="Template:Ic">Template:ic</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Logwatch">Talk:Logwatch#</a>)</div>
+</div>
+<p><a rel="nofollow"  href="https://sourceforge.net/projects/logwatch/">Logwatch</a> is a powerful and versatile log parser and analyzer. Logwatch is designed to give a unified report of all activity on a server, which can be delivered through the command line or email.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=logwatch">logwatch</a></span>.
+</p>
+<p>In addition to the logwatch binaries, scripts and config files, the pacman package used to include a <a href="../Cron.html" title="Cron">cron</a> job that was installed as <code>/etc/cron.daily/0logwatch</code>. Recent versions create a <a href="../Systemd/Timers.html" title="Systemd/Timers">systemd timer</a>, which needs to be started and/or enabled for regular logwatch reports :
+</p>
+<pre>start logwatch.timer
+enable logwatch.timer
+</pre>
+<p>Also note that logwatch scripts use <a href="../Perl.html" title="Perl">perl</a>, which is a dependency of the logwatch package.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Logwatch has a tiered configuration approach. There are several locations where configuration details can be specified, with each one superseding the previous one:
+</p>
+<ul>
+<li>/usr/share/logwatch/default.conf/*</li>
+<li>/etc/logwatch/conf/dist.conf/*</li>
+<li>/etc/logwatch/conf/*</li>
+<li>The script / command line arguments</li>
+</ul>
+<p>Logwatch will parse all these location when called.
+</p>
+<p>Within these directories, there are several areas of configuration. The logwatch.conf files are where most of the high-level settings are, which allow you to set where your reports are sent, how they are formatted, etc. The conf file at /usr/share/logwatch/default.conf/logwatch.conf contains all the default settings and comments on what they do. It is recommended to leave the default conf alone and instead re-define a setting variable you want to change in /etc/logwatch/conf/logwatch.conf. 
+</p>
+<p>Within the logfiles/ directory of any of the conf locations are config files detailing specific log files. By default, most of the common log files found in a Linux system are already accounted for. If you have some esoteric application that does not have a log file conf already, copy an existing one from the default.conf/logfiles/ directory and customize it for your application.
+</p>
+<p>The services/ folder contains similar conf definitions, but these one define the various services reported by logwatch. This is necessary because often multiple services will report to the same log (e.g. messages, dmesg, boot, etc.). For more information, examine some of the default services/ conf files.
+</p>
+<p>Note that if you want logwatch messages delivered by email, you need to install a package that provides a sendmail frontend. <a href="../Postfix.html" title="Postfix">Postfix</a> is a good choice.
+</p>
+<p>There is a helpful document supplied with the package to give further information on configuration. It is located at /usr/share/logwatch/HOWTO-Customize-LogWatch.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="systemd_journal_support">systemd journal support</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Logwatch 7.5.0 now supports querying the systemd journal via journalctl.</div>
+<p>Older versions of Logwatch do not support querying the systemd journal directly. For this reason, a logger like syslog-ng is required to duplicate the journal output into external log files (such as in <code>/var/log</code>). A <a rel="nofollow"  href="http://sourceforge.net/p/logwatch/patches/34/">patch</a> is under development to support the systemd journal. Alternately, a custom script could duplicate some of the logwatch functionality by directly querying the journal and sending email(s), as done in a Python script in <a rel="nofollow"  href="https://tim.siosm.fr/blog/2014/02/24/journald-log-scanner-python/">this blog post</a>.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Logging.html" title="Category:Logging">Logging</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Logwatch&amp;oldid=613991">https://wiki.archlinux.org/index.php?title=Logwatch&amp;oldid=613991</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 17 May 2020, at 21:04.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

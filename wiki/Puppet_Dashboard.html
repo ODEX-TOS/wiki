@@ -1,0 +1,134 @@
+<!--
+    title: Puppet_Dashboard
+    description: Migration of Puppet_Dashboard from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Puppet Dashboard</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="/index.php?title=User:Synthead/Puppet_Dashboard&amp;action=edit&amp;redlink=1"  title="User:Synthead/Puppet Dashboard (page does not exist)">User:Synthead/Puppet Dashboard</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Not packaged; article is a WIP since 2012‎. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Puppet_Dashboard">Talk:Puppet Dashboard#</a>)</div>
+</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This wiki entry is a work-in-progress.</div>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Puppet.html" title="Puppet">Puppet</a></li>
+</ul>
+</div>
+<p>From the <a rel="nofollow"  href="http://projects.puppetlabs.com/projects/dashboard/">Puppet Dashboard website</a>:
+</p>
+<dl><dd><i>The Puppet Dashboard is a web interface and reporting tool for your Puppet installation. Dashboard facilitates management and configuration tasks, provides a quick visual snapshot of important system information, and delivers valuable reports.</i></dd></dl>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Setting_up_a_database_for_Puppet_Dashboard"><span >1</span> <span >Setting up a database for Puppet Dashboard</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Create_a_MySQL_database"><span >1.1</span> <span >Create a MySQL database</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Create_a_MySQL_user_and_grant_privileges"><span >1.2</span> <span >Create a MySQL user and grant privileges</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Create_a_database.yml_file_that_matches_your_database"><span >1.3</span> <span >Create a database.yml file that matches your database</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Setting_up_a_database_for_Puppet_Dashboard">Setting up a database for Puppet Dashboard</span></h2>
+<p>Setting up a database for Puppet Dashboard is the same as most other Ruby on Rails projects:
+</p>
+<ol>
+<li>Create a MySQL database.</li>
+<li>Create a MySQL user and grant privileges.</li>
+<li>Create a database.yml file that matches your database.</li>
+<li>Run db:migrate from within the Rails root.</li>
+</ol>
+<p>You will need to decide on a database name and a Puppet Dashboard MySQL user and password.  The user (and password) will never be used for authentication to the end-user.  This guide assumes the database name puppet_dashboard with a username of puppet_dashboard and a random password, as described below.
+</p>
+<h3><span class="mw-headline" id="Create_a_MySQL_database">Create a MySQL database</span></h3>
+<p>First, make sure that a <a href="../MySQL.html" title="MySQL">MySQL</a> server is installed and running.  Log into MySQL as the root user, like so:
+</p>
+<pre>$ mysql -u root
+</pre>
+<p>Or, if you have set a root password:
+</p>
+<pre>$ mysql -u root -p
+</pre>
+<p>When logged in, create a database for Puppet Dashboard:
+</p>
+<pre>mysql&gt; create database `puppet_dashboard` default charset utf8;
+</pre>
+<h3><span class="mw-headline" id="Create_a_MySQL_user_and_grant_privileges">Create a MySQL user and grant privileges</span></h3>
+<p>As mentioned, the MySQL user for Puppet Dashboard will never be available to the end-user, so it is a good idea to make a robust password.  This is easily done by using pwgen (available in the mirrors as a part of the pwgen package).  To get a randomly-generated, 50-character password, run it like this:
+</p>
+<pre>$ pwgen -N 1 -s 50
+s5ODn3iaX97mv5Ky6VmW2Z4rBitX1JxWgFNAFQbdtTrcytM8vL
+</pre>
+<p>This will be the password used for the MySQL user.  While at a MySQL prompt, run the following:
+</p>
+<pre>mysql&gt; grant all on `puppet_dashboard`.* to 'puppet_dashboard'@'localhost' identified by 's5ODn3iaX97mv5Ky6VmW2Z4rBitX1JxWgFNAFQbdtTrcytM8vL';
+</pre>
+<p>Your database is now configured.
+</p>
+<h3><span class="mw-headline" id="Create_a_database.yml_file_that_matches_your_database">Create a database.yml file that matches your database</span></h3>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Configuration_management.html" title="Category:Configuration management">Configuration management</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Puppet_Dashboard&amp;oldid=548967">https://wiki.archlinux.org/index.php?title=Puppet_Dashboard&amp;oldid=548967</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 October 2018, at 17:44.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

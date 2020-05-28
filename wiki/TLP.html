@@ -1,0 +1,192 @@
+<!--
+    title: TLP
+    description: Migration of TLP from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">TLP</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Laptop.html" title="Laptop">Laptop</a></li>
+<li><a href="../Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a></li>
+</ul>
+</div>
+<p>From the <a rel="nofollow"  href="http://linrunner.de/tlp/tlp.html">project page</a>:
+</p>
+<dl><dd>TLP brings you the benefits of advanced power management for Linux without the need to understand every technical detail. TLP comes with a default configuration already optimized for battery life, so you may just install and forget it. Nevertheless TLP is highly customizable to fulfill your specific requirements.</dd></dl>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Radio_Device_Wizard_(tlp-rdw)"><span >1.1</span> <span >Radio Device Wizard (tlp-rdw)</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#ThinkPads_only"><span >1.2</span> <span >ThinkPads only</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Front_end"><span >1.3</span> <span >Front end</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Force_battery_(BAT)_configuration"><span >2.1</span> <span >Force battery (BAT) configuration</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Btrfs"><span >2.2</span> <span >Btrfs</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Bumblebee_with_NVIDIA_driver"><span >2.3</span> <span >Bumblebee with NVIDIA driver</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Command_line"><span >2.4</span> <span >Command line</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Debugging"><span >3</span> <span >Debugging</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Features_intentionally_excluded"><span >4</span> <span >Features intentionally excluded</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tlp">tlp</a></span> package. Installing the optional dependencies may help provide additional power saving.
+</p>
+<p><a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a>/<a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>tlp.service</code>.
+</p>
+<h3>
+<span id="Radio_Device_Wizard_.28tlp-rdw.29"></span><span class="mw-headline" id="Radio_Device_Wizard_(tlp-rdw)">Radio Device Wizard (tlp-rdw)</span>
+</h3>
+<p>When using the Radio Device Wizard (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tlp-rdw">tlp-rdw</a></span>), it is required to use <a href="../NetworkManager.html" title="NetworkManager">NetworkManager</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> <code>NetworkManager-dispatcher.service</code>.
+</p>
+<p>One should also <a href="../Systemd.html#Using_units" class="mw-redirect" title="Mask">mask</a> the service <code>systemd-rfkill.service</code> and socket <code>systemd-rfkill.socket</code> to avoid conflicts and assure proper operation of TLP's radio device switching options.
+</p>
+<p>See <a rel="nofollow"  href="http://linrunner.de/tlp/docs/tlp-configuration.html#rdw">TLP configuration</a> for details.
+</p>
+<h3><span class="mw-headline" id="ThinkPads_only">ThinkPads only</span></h3>
+<p>For advanced battery functions, i.e. charge thresholds and recalibration, install the following package(s):
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tp_smapi">tp_smapi</a></span> – tp-smapi is needed for battery charge thresholds, recalibration and specific status output of tlp-stat</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi_call">acpi_call</a></span> – acpi-call is needed for battery charge thresholds and recalibration on Sandy Bridge and newer models (X220/T420, X230/T430 et al.). Use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi_call-dkms">acpi_call-dkms</a></span> if not running kernels from <a href="../Official_repositories.html" title="Official repositories">official repositories</a>.</li>
+</ul>
+<p>See the TLP FAQ, section <a rel="nofollow"  href="http://linrunner.de/tlp/docs/tlp-faq.html#kernmod">"Which kernel module?"</a>, for details.
+</p>
+<p>Controlling the charge thresholds using D-Bus without root privileges is possible using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/threshy/">threshy</a></span><sup><small>AUR</small></sup> and it's example Qt user interface <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/threshy-gui/">threshy-gui</a></span><sup><small>AUR</small></sup>.
+</p>
+<h3><span class="mw-headline" id="Front_end">Front end</span></h3>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tlpui-git/">tlpui-git</a></span><sup><small>AUR</small></sup> is a <a href="../GTK.html" title="GTK">GTK</a> user interface for TLP written in Python. As of May 2020, the software is still in beta.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>The configuration file is located at <code>/etc/tlp.conf</code> and provides a "largely" optimized power saving by default. For a full explanation of options see: <a rel="nofollow"  href="http://linrunner.de/tlp/docs/tlp-configuration.html">TLP configuration</a>.
+</p>
+<h3>
+<span id="Force_battery_.28BAT.29_configuration"></span><span class="mw-headline" id="Force_battery_(BAT)_configuration">Force battery (BAT) configuration</span>
+</h3>
+<p>When no power supply can be detected, the setting for AC will be used (e.g. on desktops and embedded hardware).
+</p>
+<p>You may want to force the battery (BAT) settings when using TLP on these devices to enable more power saving:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tlp.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Operation mode when no power supply can be detected: AC, BAT.
+TLP_DEFAULT_MODE=BAT
+
+# Operation mode select: 0=depend on power source, 1=always use TLP_DEFAULT_MODE
+TLP_PERSISTENT_DEFAULT=1</pre>
+<h3><span class="mw-headline" id="Btrfs">Btrfs</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Hardware/kernel-specific quirk (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:TLP#Btrfs">Talk:TLP#Btrfs</a>)</div>
+</div>
+<p>To avoid filesystem corruption on btrfs formatted partitions, set:
+</p>
+<pre>SATA_LINKPWR_ON_BAT=max_performance
+</pre>
+<p>See also these links for discussion on this topic: <a rel="nofollow"  href="https://github.com/linrunner/TLP/issues/128">Github bug report</a>, <a rel="nofollow"  href="https://www.reddit.com/r/archlinux/comments/4f5xvh/saving_power_is_the_btrfs_dataloss_warning_still/">Reddit follow-up discussion</a>.
+</p>
+<h3><span class="mw-headline" id="Bumblebee_with_NVIDIA_driver">Bumblebee with NVIDIA driver</span></h3>
+<p>If you're running <a href="../Bumblebee.html" title="Bumblebee">Bumblebee</a> with NVIDIA driver, you need to disable power management for the GPU in TLP in order to make Bumblebee control the power of the GPU.
+</p>
+<p>If you are running TLP version prior to 0.9, run <code>lspci</code> to determine the address of the GPU (such as 01:00.0), then set the value:
+</p>
+<pre> RUNTIME_PM_BLACKLIST="01:00.0"
+</pre>
+<p>If your TLP version is 1.0 or above, then  set, according to the driver you are using:
+</p>
+<pre> RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia" 
+</pre>
+<h3><span class="mw-headline" id="Command_line">Command line</span></h3>
+<p>TLP provides several command line tools. See <a rel="nofollow"  href="http://linrunner.de/tlp/docs/tlp-linux-advanced-power-management.html#commands">TLP commands</a>.
+</p>
+<h2><span class="mw-headline" id="Debugging">Debugging</span></h2>
+<p>You can display information about the currently used Mode(AC/BAT) and applied configurations:
+</p>
+<pre> # tlp-stat
+</pre>
+<h2><span class="mw-headline" id="Features_intentionally_excluded">Features intentionally excluded</span></h2>
+<ul><li>Fan control. See <a href="../Fan_speed_control.html" title="Fan speed control">Fan speed control</a>
+</li></ul>
+<ul><li>Backlight brightness. See <a href="../Backlight.html" title="Backlight">Backlight</a>
+</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow"  href="http://linrunner.de/tlp">TLP - Linux Advanced Power Management</a> - Project homepage &amp; documentation.</li>
+<li>
+<a rel="nofollow"  href="https://linrunner.de/tlp/docs/tlp-faq.html">Project FAQ</a> - Project FAQ</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Power_management.html" title="Category:Power management">Power management</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=TLP&amp;oldid=612852">https://wiki.archlinux.org/index.php?title=TLP&amp;oldid=612852</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 May 2020, at 16:03.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

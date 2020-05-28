@@ -1,0 +1,123 @@
+<!--
+    title: Allow_users_to_shutdown
+    description: Migration of Allow_users_to_shutdown from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Allow users to shutdown</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../Power_management.html" title="Power management">Power management</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> No need to split this off from the main article (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Allow_users_to_shutdown">Talk:Allow users to shutdown#</a>)</div>
+</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Button_and_Lid_events"><span >1</span> <span >Button and Lid events</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Using_systemd-logind"><span >2</span> <span >Using systemd-logind</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Using_sudo"><span >3</span> <span >Using sudo</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Users_without_sudo_privileges"><span >3.1</span> <span >Users without sudo privileges</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Creating_aliases"><span >4</span> <span >Creating aliases</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Button_and_Lid_events">Button and Lid events</span></h2>
+<p>The suspend, poweroff and hibernate button presses and lid close events are handled by <i>logind</i> as described in <a href="../Power_management.html#ACPI_events" title="Power management">Power management#ACPI events</a> page.
+</p>
+<h2><span class="mw-headline" id="Using_systemd-logind">Using systemd-logind</span></h2>
+<p>If you're using <a href="../Systemd.html" title="Systemd">systemd</a> (which is default in TOS Linux) and <a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=polkit">polkit</a></span>, users with non-remote session can issue power-related commands as long as <a href="../General_troubleshooting.html#Session_permissions" title="General troubleshooting">the session is not broken</a>.
+</p>
+<p>To check if your session is active
+</p>
+<pre>$ loginctl show-session $XDG_SESSION_ID --property=Active
+</pre>
+<p>The user can then use <i>systemctl</i> commands in the command line, or add them to menus:
+</p>
+<pre>$ systemctl poweroff
+$ systemctl reboot
+</pre>
+<p>Other commands can be used as well, including <code>systemctl suspend</code> and <code>systemctl hibernate</code>. See the <i>System Commands</i> section in <span class="plainlinks archwiki-template-man" title="$ man 1 systemctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemctl.1">systemctl(1)</a></span>.
+</p>
+<h2><span class="mw-headline" id="Using_sudo">Using sudo</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sudo">sudo</a></span>, and give the user <a href="../Sudo.html" title="Sudo">sudo privileges</a>. The user will then be able to use the <code>sudo systemctl</code> commands (e.g. <code>sudo systemctl poweroff</code>, <code>sudo systemctl reboot</code>, <code>sudo systemctl suspend</code> and <code>sudo systemctl hibernate</code>). See the <i>System Commands</i> section in <span class="plainlinks archwiki-template-man" title="$ man 1 systemctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemctl.1">systemctl(1)</a></span>
+</p>
+<h3><span class="mw-headline" id="Users_without_sudo_privileges">Users without sudo privileges</span></h3>
+<p>If users should only be allowed to use shutdown commands, but not have other sudo privileges, then, as root, add the following to the end of <code>/etc/sudoers</code> using the <code>visudo</code> command. Substitute <i>user</i> for your username and <i>hostname</i> for the machine's hostname.
+</p>
+<pre><i>user</i> <i>hostname</i> =NOPASSWD: /usr/bin/systemctl poweroff,/usr/bin/systemctl halt,/usr/bin/systemctl reboot
+</pre>
+<p>Now your user can shutdown with <code>sudo systemctl poweroff</code>, and reboot with <code>sudo systemctl reboot</code>. Users wishing to power down a system can also use <code>sudo systemctl halt</code>. Use the <code>NOPASSWD:</code> tag only if you do not want to be prompted for your password.
+</p>
+<h2><span class="mw-headline" id="Creating_aliases">Creating aliases</span></h2>
+<p>For convenience, you can add these <a href="../Bash.html#Aliases" title="Bash">aliases</a> to your user's <code>~/.bashrc</code> if you have it enabled (or to <code>/etc/bash.bashrc</code> for system-wide settings):
+</p>
+<pre>alias reboot="sudo systemctl reboot"
+alias poweroff="sudo systemctl poweroff"
+alias halt="sudo systemctl halt"
+</pre>
+<p>This can also be done by installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-sysvcompat">systemd-sysvcompat</a></span>. This package creates symbolic links of the respective name to systemctl.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Allow_users_to_shutdown&amp;oldid=578723">https://wiki.archlinux.org/index.php?title=Allow_users_to_shutdown&amp;oldid=578723</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 1 August 2019, at 18:21.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

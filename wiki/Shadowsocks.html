@@ -1,0 +1,282 @@
+<!--
+    title: Shadowsocks
+    description: Migration of Shadowsocks from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:44:33.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Shadowsocks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../Trojan.html" title="Trojan">Trojan</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://shadowsocks.org/">Shadowsocks</a> is a lightweight socks5 proxy, originally written in Python.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Setup"><span >2</span> <span >Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Client"><span >2.1</span> <span >Client</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#From_the_command_line"><span >2.1.1</span> <span >From the command line</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Using_systemd"><span >2.1.2</span> <span >Using systemd</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#GUI_client"><span >2.1.3</span> <span >GUI client</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7">
+<a href="#Server"><span >2.2</span> <span >Server</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#From_the_command_line_2"><span >2.2.1</span> <span >From the command line</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Using_systemd_2"><span >2.2.2</span> <span >Using systemd</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Encryption"><span >2.3</span> <span >Encryption</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadowsocks-libev">shadowsocks-libev</a></span>(c) or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadowsocks">shadowsocks</a></span>(python). <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadowsocks-libev">shadowsocks-libev</a></span> is recommended.
+</p>
+<h2><span class="mw-headline" id="Setup">Setup</span></h2>
+<p>Shadowsocks configuration may be done with a JSON formatted file. Example configuration:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/shadowsocks/example.json</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">{
+    "server":"my_server_ip",
+    "server_port":8388,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"mypassword",
+    "timeout":300,
+    "method":"chacha20-ietf-poly1305",
+    "fast_open": false,
+    "workers": 1
+}
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> To specify multiple server IPs, the following syntax can be used <code>"server":["1.1.1.1","2.2.2.2"],</code>
+</div>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> To find out the fastest method running on your machine, you can benchmark with the script <a rel="nofollow"  href="https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/0437e05aa8ec7f36f1eeb8c366dfd2b2b3b0288b/scripts/iperf.sh">iperf.sh</a>
+</div>
+<table >
+<tbody>
+<tr>
+<th>Name</th>
+<th>Explanation
+</th>
+</tr>
+<tr>
+<td>server</td>
+<td>the address your server listens
+</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td>server port
+</td>
+</tr>
+<tr>
+<td>local_address</td>
+<td>the address your local listens
+</td>
+</tr>
+<tr>
+<td>local_port</td>
+<td>local port
+</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password used for encryption
+</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>in seconds
+</td>
+</tr>
+<tr>
+<td>method</td>
+<td>see <a rel="nofollow"  href="https://shadowsocks.org/spec/Stream-Ciphers.html">Stream Ciphers</a> and <a rel="nofollow"  href="https://shadowsocks.org/spec/AEAD-Ciphers.html">AEAD Ciphers</a>
+</td>
+</tr>
+<tr>
+<td>fast_open</td>
+<td>use <a rel="nofollow"  href="https://github.com/clowwindy/shadowsocks/wiki/TCP-Fast-Open">TCP-Fast-Open</a>, true / false
+</td>
+</tr>
+<tr>
+<td>workers</td>
+<td>number of workers
+</td>
+</tr>
+</tbody>
+</table>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> refer to CONFIG FILE section of <a rel="nofollow"  href="https://manpages.debian.org/testing/shadowsocks-libev/shadowsocks-libev.8.en.html#CONFIG_FILE">shadowsocks-libev(8)</a> for JSON syntax</div>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Client">Client</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=udns">udns</a></span> package is used as a stub resolver for DNS. In order to prevent DNS request leaking of client applications (like browsers), further applications must be employed. For example, <a href="../Privoxy.html" title="Privoxy">privoxy</a> or a full DNS resolver on the client.<a rel="nofollow"  href="https://github.com/shadowsocks/shadowsocks-libev/issues/1542">[1]</a> <a rel="nofollow"  href="https://github.com/shadowsocks/shadowsocks-libev/issues/1641">[2]</a>
+</div>
+<h4><span class="mw-headline" id="From_the_command_line">From the command line</span></h4>
+<p>The client is started with the <code>ss-local</code> command.
+To start it using the configuration file <code>/etc/shadowsocks/config.json</code>:
+</p>
+<pre>$ ss-local -c /etc/shadowsocks/config.json
+</pre>
+<p>Alternatively, the configuration may be specified directly on the command:
+</p>
+<pre>$ ss-local -s <i>server_address</i> -p <i>server_port</i> -l <i>local_port</i> -k <i>password</i> -m <i>encryption_method</i>
+</pre>
+<p>To use verbose log, add <code>-v</code> to the command:
+</p>
+<pre>$ ss-local -s <i>server_address</i> -p <i>server_port</i> -l <i>local_port</i> -k <i>password</i> -m <i>encryption_method</i> -v
+</pre>
+<h4><span class="mw-headline" id="Using_systemd">Using systemd</span></h4>
+<p>Make sure that the configuration file is in <code>/etc/shadowsocks</code>. For example, the configuration file is <code>/etc/shadowsocks/foo.json</code>.
+</p>
+<p>The Shadowsocks client can be controlled with an instance of <code>shadowsocks@.service</code>:
+</p>
+<p>start shadowsocks:
+</p>
+<pre># systemctl start shadowsocks@foo
+</pre>
+<p>autostart shadowsocks:
+</p>
+<pre># systemctl enable shadowsocks@foo
+</pre>
+<p>start shadowsocks-libev:
+</p>
+<pre># systemctl start shadowsocks-libev@foo
+</pre>
+<p>autostart shadowsocks-libev:
+</p>
+<pre># systemctl enable shadowsocks-libev@foo
+</pre>
+<p>start shadowsocks-libev after Network is already:
+</p>
+<pre>see <a href="../Systemd.html#Running_services_after_the_network_is_up" title="Systemd">Running services after the network is up</a>
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> use <code>journalctl -u shadowsocks@foo</code> to see the log</div>
+<h4><span class="mw-headline" id="GUI_client">GUI client</span></h4>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadowsocks-qt5">shadowsocks-qt5</a></span>.
+</p>
+<h3><span class="mw-headline" id="Server">Server</span></h3>
+<h4><span class="mw-headline" id="From_the_command_line_2">From the command line</span></h4>
+<p>The server is started with the <code>ss-server</code>(shadowsocks-libev) or <code>ssserver</code>(shadowsocks) command.
+</p>
+<p>To start it in the foreground using the configuration file <code>/etc/shadowsocks/config.json</code>:
+</p>
+<p>shadowsocks-libev
+</p>
+<pre>$ ss-server -c /etc/shadowsocks/config.json
+</pre>
+<p>shadowsocks
+</p>
+<pre>$ ssserver -c /etc/shadowsocks/config.json
+</pre>
+<p>To run in the background:
+</p>
+<p>shadowsocks-libev
+</p>
+<pre>$ ss-server -c /etc/shadowsocks/config.json -d start
+$ ss-server -c /etc/shadowsocks/config.json -d stop
+</pre>
+<p>shadowsocks
+</p>
+<pre>$ ssserver -c /etc/shadowsocks/config.json -d start
+$ ssserver -c /etc/shadowsocks/config.json -d stop
+</pre>
+<h4><span class="mw-headline" id="Using_systemd_2">Using systemd</span></h4>
+<p>The Shadowsocks server can be controlled with an instance of <code>shadowsocks-server@.service</code>.
+</p>
+<p>For example, to <a href="../Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the service using the configuration file <code>/etc/shadowsocks/config.json</code>, use the service <code>shadowsocks-libev-server@config.service</code>(shadowsocks-libev) or <code>shadowsocks-server@config.service</code>(shadowsocks).
+</p>
+<p>To bind Shadowsocks to a privileged port (less than 1024), the server should be started as user root:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/shadowsocks-server@.service.d/start-as-root.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
+User=root
+</pre>
+<h3><span class="mw-headline" id="Encryption">Encryption</span></h3>
+<p>Installing the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python2-m2crypto">python2-m2crypto</a></span> package will make encryption a little faster.
+</p>
+<p>To use <a href="https://en.wikipedia.org/wiki/Salsa20"  title="wikipedia:Salsa20">Salsa20</a> or <i>ChaCha20</i> ciphers, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsodium">libsodium</a></span> package.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://shadowsocks.org">Shadowsocks website</a></li>
+<li><a rel="nofollow"  href="https://pypi.python.org/pypi/shadowsocks">Python package</a></li>
+<li>
+<a rel="nofollow"  href="https://github.com/shadowsocks/shadowsocks/wiki">GitHub wiki</a> (some suggestions for optimization)</li>
+<li>
+<a rel="nofollow"  href="https://github.com/shadowsocks-backup/shadowsocks">Backup GitHub project</a> (the original project has been "removed according to regulations" in August 2015)</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../Category:Proxy_servers.html" title="Category:Proxy servers">Proxy servers</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Shadowsocks&amp;oldid=612883">https://wiki.archlinux.org/index.php?title=Shadowsocks&amp;oldid=612883</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 May 2020, at 23:59.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
