@@ -2,7 +2,7 @@
     title: PhpMyAdmin
     description: Migration of PhpMyAdmin from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -65,18 +65,18 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=phpmyadmin">phpmyadmin</a></span> package.
+<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=phpmyadmin">phpmyadmin</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Running">Running</span></h2>
 <h3><span class="mw-headline" id="PHP">PHP</span></h3>
-<p>Make sure the PHP <a href="../wiki/PHP.html#MySQL/MariaDB" title="PHP">mysql</a> extension(s) have been enabled.
+<p>Make sure the PHP <a href="/Usage/Configuration/P/PHP.html#MySQL/MariaDB" title="PHP">mysql</a> extension(s) have been enabled.
 </p>
 <p>Optionally you can enable <code>extension=bz2</code> and <code>extension=zip</code> for compression support.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If <code>open_basedir</code> has been set, make sure to include <code>/usr/share/webapps</code> and <code>/etc/webapps</code> to <code>open_basedir</code> in <code>/etc/php/php.ini</code>. See <a href="../wiki/PHP.html#Configuration" title="PHP">PHP#Configuration</a>.</div>
+<strong>Note:</strong> If <code>open_basedir</code> has been set, make sure to include <code>/usr/share/webapps</code> and <code>/etc/webapps</code> to <code>open_basedir</code> in <code>/etc/php/php.ini</code>. See <a href="/Usage/Configuration/P/PHP.html#Configuration" title="PHP">PHP#Configuration</a>.</div>
 <h3><span class="mw-headline" id="Apache">Apache</span></h3>
-<p>Set up Apache to use PHP as outlined in the <a href="../wiki/Apache_HTTP_Server.html#PHP" title="Apache HTTP Server">Apache HTTP Server#PHP</a> article.
+<p>Set up Apache to use PHP as outlined in the <a href="/Usage/Configuration/P/Apache_HTTP_Server.html#PHP" title="Apache HTTP Server">Apache HTTP Server#PHP</a> article.
 </p>
 <p>Create the Apache configuration file:
 </p>
@@ -94,18 +94,18 @@
 Include conf/extra/phpmyadmin.conf
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> By default, everyone who can reach the Apache Web Server can see the phpMyAdmin login page under this URL. To change this, edit <code>/etc/httpd/conf/extra/phpmyadmin.conf</code> to your liking. For example, if you only want to be able to access it from the same machine, replace <code>Require all granted</code> by <code>Require local</code>. Beware that this will disallow connecting to PhpMyAdmin on a remote server. If you still want to access PhpMyAdmin on a remote server securely, you might want to consider setting up an <a href="../wiki/OpenSSH.html#Encrypted_SOCKS_tunnel" title="OpenSSH">OpenSSH#Encrypted SOCKS tunnel</a>.</div>
-<p>After making changes to the Apache configuration file, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>httpd.service</code>.
+<strong>Note:</strong> By default, everyone who can reach the Apache Web Server can see the phpMyAdmin login page under this URL. To change this, edit <code>/etc/httpd/conf/extra/phpmyadmin.conf</code> to your liking. For example, if you only want to be able to access it from the same machine, replace <code>Require all granted</code> by <code>Require local</code>. Beware that this will disallow connecting to PhpMyAdmin on a remote server. If you still want to access PhpMyAdmin on a remote server securely, you might want to consider setting up an <a href="/Usage/Configuration/P/OpenSSH.html#Encrypted_SOCKS_tunnel" title="OpenSSH">OpenSSH#Encrypted SOCKS tunnel</a>.</div>
+<p>After making changes to the Apache configuration file, <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>httpd.service</code>.
 </p>
 <h3><span class="mw-headline" id="Lighttpd">Lighttpd</span></h3>
-<p>Configuring <a href="../wiki/Lighttpd.html" title="Lighttpd">Lighttpd</a>, make sure it is able to serve PHP files and <code>mod_alias</code> has been enabled.
+<p>Configuring <a href="/Usage/Configuration/P/Lighttpd.html" title="Lighttpd">Lighttpd</a>, make sure it is able to serve PHP files and <code>mod_alias</code> has been enabled.
 </p>
 <p>Add the following alias for PhpMyAdmin to the config:
 </p>
 <pre> alias.url = ( "/phpmyadmin" =&gt; "/usr/share/webapps/phpMyAdmin/")
 </pre>
 <h3><span class="mw-headline" id="Nginx">Nginx</span></h3>
-<p>Make sure to set up <a href="../wiki/Nginx.html#FastCGI" title="Nginx">nginx#FastCGI</a> and use <a href="../wiki/Nginx.html#Server_blocks" title="Nginx">server blocks</a> to make management easier.
+<p>Make sure to set up <a href="/Usage/Configuration/P/Nginx.html#FastCGI" title="Nginx">nginx#FastCGI</a> and use <a href="/Usage/Configuration/P/Nginx.html#Server_blocks" title="Nginx">server blocks</a> to make management easier.
 </p>
 <p>By preference; access phpMyAdmin by subdomain, e.g. <code><a rel="nofollow"  href="https://pma.domain.tld">https://pma.domain.tld</a></code>:
 </p>
@@ -201,12 +201,12 @@ Include conf/extra/phpmyadmin.conf
 <p>The main configuration file is located at <code>/usr/share/webapps/phpMyAdmin/config.inc.php</code>.
 </p>
 <h3><span class="mw-headline" id="Define_a_remote_MySQL_server">Define a remote MySQL server</span></h3>
-<p>If the <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> server is a remote host, append the following line to the config file:
+<p>If the <a href="/Usage/Configuration/P/MySQL.html" title="MySQL">MySQL</a> server is a remote host, append the following line to the config file:
 </p>
 <pre>$cfg['Servers'][$i]['host'] = 'example.com';
 </pre>
 <h3><span class="mw-headline" id="Using_setup_script">Using setup script</span></h3>
-<p>To allow the usage of the phpMyAdmin setup script (e.g. <a rel="nofollow"  href="http://localhost/phpmyadmin/setup">http://localhost/phpmyadmin/setup</a>), make sure <code>/usr/share/webapps/phpMyAdmin</code> is writable for the <code>http</code> <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a>:
+<p>To allow the usage of the phpMyAdmin setup script (e.g. <a rel="nofollow"  href="http://localhost/phpmyadmin/setup">http://localhost/phpmyadmin/setup</a>), make sure <code>/usr/share/webapps/phpMyAdmin</code> is writable for the <code>http</code> <a href="/Usage/Configuration/P/Users_and_groups.html" class="mw-redirect" title="User">user</a>:
 </p>
 <pre># mkdir /usr/share/webapps/phpMyAdmin/config
 # chown http:http /usr/share/webapps/phpMyAdmin/config
@@ -298,7 +298,7 @@ GRANT SELECT (Host, Db, User, Table_name, Table_priv, Column_priv)
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Web_admin_interfaces.html" title="Category:Web admin interfaces">Web admin interfaces</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Web_admin_interfaces.html" title="Category:Web admin interfaces">Web admin interfaces</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -315,9 +315,9 @@ GRANT SELECT (Host, Db, User, Table_name, Table_priv, Column_priv)
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: WebDAV
     description: Migration of WebDAV from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -24,9 +24,9 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a href="https://en.wikipedia.org/wiki/WebDAV"  title="wikipedia:WebDAV">WebDAV</a> <i>(Web Distributed Authoring and Versioning)</i> is an extension of HTTP 1.1 and therefore can be considered to be a protocol. It contains a set of concepts and accompanying extension methods to allow read and write across the HTTP 1.1 protocol. Instead of using <a href="../wiki/NFS.html" title="NFS">NFS</a> or <a href="../wiki/Samba.html" class="mw-redirect" title="SMB">SMB</a>, WebDAV offers file transfers via HTTP. 
+<p><a href="https://en.wikipedia.org/wiki/WebDAV"  title="wikipedia:WebDAV">WebDAV</a> <i>(Web Distributed Authoring and Versioning)</i> is an extension of HTTP 1.1 and therefore can be considered to be a protocol. It contains a set of concepts and accompanying extension methods to allow read and write across the HTTP 1.1 protocol. Instead of using <a href="/Usage/Configuration/W/NFS.html" title="NFS">NFS</a> or <a href="/Usage/Configuration/W/Samba.html" class="mw-redirect" title="SMB">SMB</a>, WebDAV offers file transfers via HTTP. 
 </p>
-<p>The goal of this how to is to setup a simple WebDAV configuration using a <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a>.
+<p>The goal of this how to is to setup a simple WebDAV configuration using a <a href="/Usage/Configuration/W/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -60,7 +60,7 @@
 
 <h2><span class="mw-headline" id="Server">Server</span></h2>
 <h3><span class="mw-headline" id="Apache">Apache</span></h3>
-<p>Install the <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>.
+<p>Install the <a href="/Usage/Configuration/W/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>.
 </p>
 <p>Uncomment the modules for DAV:
 </p>
@@ -89,14 +89,14 @@ LoadModule dav_lock_module modules/mod_dav_lock.so
 </p>
 <pre># mkdir -p /home/httpd/DAV
 </pre>
-<p>Check the permissions of DavLockDB's directory and ensure it is writable by the webserver <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> <code>http</code>:
+<p>Check the permissions of DavLockDB's directory and ensure it is writable by the webserver <a href="/Usage/Configuration/W/Users_and_groups.html" class="mw-redirect" title="User">user</a> <code>http</code>:
 </p>
 <pre># chown -R http:http /home/httpd/DAV
 # mkdir -p /home/httpd/html/dav
 # chown -R http:http /home/httpd/html/dav
 </pre>
 <h3><span class="mw-headline" id="Nginx">Nginx</span></h3>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx-mainline">nginx-mainline</a></span> (the mainline variant of <a href="../wiki/Nginx.html" title="Nginx">nginx</a>) and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nginx-mainline-mod-dav-ext/">nginx-mainline-mod-dav-ext</a></span><sup><small>AUR</small></sup>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx-mainline">nginx-mainline</a></span> (the mainline variant of <a href="/Usage/Configuration/W/Nginx.html" title="Nginx">nginx</a>) and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nginx-mainline-mod-dav-ext/">nginx-mainline-mod-dav-ext</a></span><sup><small>AUR</small></sup>.
 </p>
 <p>At the top of your <code>/etc/nginx/nginx.conf</code> and outside any blocks, add
 </p>
@@ -127,7 +127,7 @@ LoadModule dav_lock_module modules/mod_dav_lock.so
 </p>
 <h2><span class="mw-headline" id="Client">Client</span></h2>
 <h3><span class="mw-headline" id="Cadaver">Cadaver</span></h3>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cadaver">cadaver</a></span>.
+<p><a href="/Usage/Configuration/W/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cadaver">cadaver</a></span>.
 </p>
 <p>After installation, test the WebDAV server:
 </p>
@@ -139,12 +139,12 @@ Listing collection `/dav/': succeeded.
 Coll: test
 </pre>
 <h3><span class="mw-headline" id="Thunar">Thunar</span></h3>
-<p>In <a href="../wiki/Thunar.html" title="Thunar">Thunar</a> just press <code>Ctrl+l</code> and enter the address with <i>dav</i> or <i>davs</i> protocol specified:
+<p>In <a href="/Usage/Configuration/W/Thunar.html" title="Thunar">Thunar</a> just press <code>Ctrl+l</code> and enter the address with <i>dav</i> or <i>davs</i> protocol specified:
 </p>
 <pre>davs://webdav.yandex.ru
 </pre>
 <h3><span class="mw-headline" id="Nautilus">Nautilus</span></h3>
-<p>In <a href="../wiki/GNOME/Files.html" class="mw-redirect" title="Nautilus">Nautilus</a> just choose "connect to server" and enter the address:
+<p>In <a href="/Usage/Configuration/W/GNOME/Files.html" class="mw-redirect" title="Nautilus">Nautilus</a> just choose "connect to server" and enter the address:
 </p>
 <pre>dav://127.0.0.1/dav
 </pre>
@@ -208,7 +208,7 @@ htpasswd -c /etc/httpd/conf/passwd <b>username</b>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/W/Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -225,9 +225,9 @@ htpasswd -c /etc/httpd/conf/passwd <b>username</b>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/W/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/W/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/W/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

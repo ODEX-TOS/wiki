@@ -2,7 +2,7 @@
     title: Cgroups
     description: Migration of Cgroups from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,10 +29,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
-<li><a href="../wiki/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
-<li><a href="../wiki/Docker.html" title="Docker">Docker</a></li>
-<li><a href="../wiki/Limits.conf.html" title="Limits.conf">limits.conf</a></li>
+<li><a href="/Usage/Configuration/C/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+<li><a href="/Usage/Configuration/C/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="/Usage/Configuration/C/Docker.html" title="Docker">Docker</a></li>
+<li><a href="/Usage/Configuration/C/Limits.conf.html" title="Limits.conf">limits.conf</a></li>
 </ul>
 </div>
 <p><b>Control groups</b> (or <b>cgroups</b> as they are commonly known) are a feature provided by the Linux kernel to manage, restrict, and audit groups of processes. Compared to other approaches like the <span class="plainlinks archwiki-template-man" title="$ man 1 nice"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nice.1">nice(1)</a></span> command or <code>/etc/security/limits.conf</code>, cgroups are more flexible as they can operate on (sub)sets of processes (possibly with different system users).
@@ -40,11 +40,11 @@
 <p>Control groups can be accessed with various tools:
 </p>
 <ul>
-<li>using directives in <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit files to specify limits for services and slices;</li>
+<li>using directives in <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a> unit files to specify limits for services and slices;</li>
 <li>by accessing the <code>cgroup</code> filesystem directly;</li>
 <li>via tools like <code>cgcreate</code>, <code>cgexec</code> and <code>cgclassify</code> (part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libcgroup/">libcgroup</a></span><sup><small>AUR</small></sup> package);</li>
 <li>using the "rules engine daemon" to automatically move certain users/groups/commands to groups (<code>/etc/cgrules.conf</code> and <code>/usr/lib/systemd/system/cgconfig.service</code>) (part of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libcgroup/">libcgroup</a></span><sup><small>AUR</small></sup> package); and</li>
-<li>through other software such as <a href="../wiki/Linux_Containers.html" title="Linux Containers">Linux Containers</a> (LXC) virtualization.</li>
+<li>through other software such as <a href="/Usage/Configuration/C/Linux_Containers.html" title="Linux Containers">Linux Containers</a> (LXC) virtualization.</li>
 </ul>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cgmanager">cgmanager</a></span> is <a rel="nofollow"  href="https://github.com/lxc/cgmanager/issues/32">deprecated</a> and unsupported as it does not work with systemd versions 232 and above.
 </p>
@@ -110,7 +110,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installing">Installing</span></h2>
-<p>Make sure you have one of these packages <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> for automated cgroup handling:
+<p>Make sure you have one of these packages <a href="/Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> for automated cgroup handling:
 </p>
 <ul>
 <li>
@@ -191,7 +191,7 @@ CPUQuota=30%</pre>
 </p>
 <h3><span class="mw-headline" id="As_service">As service</span></h3>
 <h4><span class="mw-headline" id="Service_unit_file">Service unit file</span></h4>
-<p>Resources can be directly specified in service definition or as a <a href="../wiki/Systemd.html#Drop-in_files" title="Systemd">Systemd#Drop-in files</a>
+<p>Resources can be directly specified in service definition or as a <a href="/Usage/Configuration/C/Systemd.html#Drop-in_files" title="Systemd">Systemd#Drop-in files</a>
 </p>
 <pre>[Service]
 MemoryMax=1G # Limit service to 1 gigabyte</pre>
@@ -219,7 +219,7 @@ Slice=my.slice</pre>
 <h4><span class="mw-headline" id="Disabling_v1_cgroups">Disabling v1 cgroups</span></h4>
 <p>TOS Linux enables both v1 and v2 cgroups by default.
 </p>
-<p>To disable v1 cgroups, the <code>$ cgroup_no_v1="all"</code> <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a> can be used.
+<p>To disable v1 cgroups, the <code>$ cgroup_no_v1="all"</code> <a href="/Usage/Configuration/C/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a> can be used.
 </p>
 <p>Verify that v1 cgroups have been disabled:
 </p>
@@ -324,7 +324,7 @@ Delegate=yes</pre>
 <pre>$ systemctl set-property user.slice IPAddressDeny=any
 </pre>
 <h2><span class="mw-headline" id="With_libcgroup">With libcgroup</span></h2>
-<p>You can <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>cgconfig</code> service with systemd. This allows you to track any errors in <code>cgconfig.conf</code> more easily.
+<p>You can <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>cgconfig</code> service with systemd. This allows you to track any errors in <code>cgconfig.conf</code> more easily.
 </p>
 <h3><span class="mw-headline" id="Ad-hoc_groups">Ad-hoc groups</span></h3>
 <p>One of the powers of cgroups is that you can create "ad-hoc" groups on the fly. You can even grant the privileges to create custom groups to regular users. <code>groupname</code> is the cgroup name:
@@ -377,7 +377,7 @@ $ cat /proc/13244/cgroup
 </pre>
 <h3><span class="mw-headline" id="Persistent_group_configuration">Persistent group configuration</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> when using <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> &gt; = 205 to manage cgroups, you can ignore this file entirely.
+<strong>Note:</strong> when using <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">Systemd</a> &gt; = 205 to manage cgroups, you can ignore this file entirely.
 </div>
 <p>If you want your cgroups to be created at boot, you can define them in <code>/etc/cgconfig.conf</code> instead. For example, the "groupname" has a permission for <code>$USER</code> and <i>users</i> of group <code>$GROUP</code> to manage limits and add tasks. A  <i>subgroup</i> "groupname/foo" group definitions would look like this: 
 </p>
@@ -411,7 +411,7 @@ group <b>groupname/foo</b> {
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>Comments should begin at the start of a line! The <b>#</b> character for comments must appear as the first character of a line. Else, <i>cgconfigparser</i> will have problem parsing it but will only report <code>cgroup change of group failed</code> as the error, unless you started <i>cgconfig</i> with <a href="../wiki/Systemd.html" title="Systemd">Systemd</a>
+<li>Comments should begin at the start of a line! The <b>#</b> character for comments must appear as the first character of a line. Else, <i>cgconfigparser</i> will have problem parsing it but will only report <code>cgroup change of group failed</code> as the error, unless you started <i>cgconfig</i> with <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">Systemd</a>
 </li>
 <li>The permissions section is optional.</li>
 <li>The <code>/sys/fs/cgroup/</code> hierarchy directory containing all <i>controllers</i> sub-directories is already created and mounted at boot as a virtual file system. This gives the ability to create a new group entry with the <code><i>$CONTROLLER-NAME { }</i></code> command. If for any reason you want to create and mount hierachies in another place, you will then need to write a second entry in <code>/etc/cgconfig.conf</code> following this way :</li>
@@ -448,7 +448,7 @@ group <b>groupname/foo</b> {
 </pre>
 <h2><span class="mw-headline" id="Examples">Examples</span></h2>
 <h3><span class="mw-headline" id="Matlab">Matlab</span></h3>
-<p>Doing large calculations in <a href="../wiki/MATLAB.html" title="MATLAB">MATLAB</a> can crash your system, because Matlab does not have any protection against taking all your machine's memory or CPU. The following examples show a <i>cgroup</i> that constrains Matlab to first 6 CPU cores and 5 GB of memory.
+<p>Doing large calculations in <a href="/Usage/Configuration/C/MATLAB.html" title="MATLAB">MATLAB</a> can crash your system, because Matlab does not have any protection against taking all your machine's memory or CPU. The following examples show a <i>cgroup</i> that constrains Matlab to first 6 CPU cores and 5 GB of memory.
 </p>
 <h4><span class="mw-headline" id="With_systemd_2">With systemd</span></h4>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/systemd/user/matlab.slice</pre>
@@ -504,11 +504,11 @@ MemoryHigh=6G</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
-<li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -526,9 +526,9 @@ MemoryHigh=6G</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

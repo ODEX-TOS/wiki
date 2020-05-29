@@ -2,7 +2,7 @@
     title: Snap
     description: Migration of Snap from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,15 +27,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Flatpak.html" title="Flatpak">Flatpak</a></li>
-<li><a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a></li>
+<li><a href="/Usage/Configuration/S/Flatpak.html" title="Flatpak">Flatpak</a></li>
+<li><a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://snapcraft.io/">Snap</a> is a software deployment and package management system. The packages are called 'snaps' and the tool for using them is 'snapd', which works across a range of Linux distributions and allows, therefore, distro-agnostic upstream software deployment. Snap was originally designed and built by Canonical.
 </p>
 <p><a rel="nofollow"  href="https://github.com/snapcore/snapd">snapd</a> is a REST API daemon for managing snap packages. Users can interact with it by using the <i>snap</i> client, which is part of the same package. 
 </p>
-<p>Snaps can be confined using <a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a> which is now enabled in the default kernel. Consult relevant wiki pages to find steps for enabling <a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a> in your system.
+<p>Snaps can be confined using <a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a> which is now enabled in the default kernel. Consult relevant wiki pages to find steps for enabling <a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a> in your system.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -68,21 +68,21 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapd/">snapd</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapd/">snapd</a></span><sup><small>AUR</small></sup> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> <code>snapd</code> installs a script in <code>/etc/profile.d/snapd.sh</code> to export the paths of binaries installed with the snapd package and desktop entries. Reboot once to make this change take effect.</div>
-<p>Since version 2.36, <code>snapd</code> enabled AppArmor support for TOS Linux. In order to use it, you have to enable AppArmor in your system, see <a href="../wiki/AppArmor.html#Installation" title="AppArmor">AppArmor#Installation</a>.
+<p>Since version 2.36, <code>snapd</code> enabled AppArmor support for TOS Linux. In order to use it, you have to enable AppArmor in your system, see <a href="/Usage/Configuration/S/AppArmor.html#Installation" title="AppArmor">AppArmor#Installation</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If AppArmor isn't enabled in your system then all snaps will run in <code>devel</code> mode which mean they will have same, unrestricted access to your system as apps installed from TOS Linux repositories.</div>
-<p>If you are using <a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a>:
+<p>If you are using <a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a>:
 </p>
 <pre> # systemctl enable --now apparmor.service
  # systemctl enable --now snapd.apparmor.service
 </pre>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>To launch the <code>snapd</code> daemon when <i>snap</i> tries to use it, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and/or <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>snapd.socket</code>.
+<p>To launch the <code>snapd</code> daemon when <i>snap</i> tries to use it, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and/or <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>snapd.socket</code>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>The <i>snap</i> tool is used to manage the snaps.
@@ -137,7 +137,7 @@ Once that is done you should find it in the list of installed snaps together wit
 <pre># ln -s /var/lib/snapd/snap /snap
 </pre>
 <h3><span class="mw-headline" id="Confinement">Confinement</span></h3>
-<p>When using <a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a>, snapd (2.36+) will generate the same profiles for snaps as on Ubuntu. The <a href="../wiki/AppArmor.html" title="AppArmor">AppArmor</a> parser is smart enough to drop the rules that are not yet supported by the mainline kernel.
+<p>When using <a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a>, snapd (2.36+) will generate the same profiles for snaps as on Ubuntu. The <a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a> parser is smart enough to drop the rules that are not yet supported by the mainline kernel.
 </p>
 <p>To verify that basic confinement is working, install <i>hello-world</i> snap. Then run the following:
 </p>
@@ -190,7 +190,7 @@ Once that is done you should find it in the list of installed snaps together wit
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Development.html" title="Category:Development">Development</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Development.html" title="Category:Development">Development</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -207,9 +207,9 @@ Once that is done you should find it in the list of installed snaps together wit
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

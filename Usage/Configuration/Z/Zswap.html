@@ -2,7 +2,7 @@
     title: Zswap
     description: Migration of Zswap from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a></li>
-<li><a href="../wiki/Mkinitcpio.html" title="Mkinitcpio">Mkinitcpio</a></li>
+<li><a href="/Usage/Configuration/Z/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a></li>
+<li><a href="/Usage/Configuration/Z/Mkinitcpio.html" title="Mkinitcpio">Mkinitcpio</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/zswap"  title="wikipedia:zswap">Zswap</a> is a kernel feature that provides a compressed RAM cache for swap pages. 
 Pages which would otherwise be swapped out to disk are instead compressed and stored into a memory pool in RAM. Once the pool is full or the RAM is exhausted, the least recently used (<a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_.28LRU.29"  title="wikipedia:Cache replacement policies">LRU</a>) page is decompressed and written to disk, as if it had not been intercepted. After the page has been decompressed into the swap cache, the compressed version in the pool can be freed.
 </p>
-<p>The <a href="../wiki/Improving_performance.html#Zram_or_zswap" title="Improving performance">difference compared to zram</a> is that zswap works in conjunction with a <a href="../wiki/Swap.html" title="Swap">swap</a> device while <i>zram</i> is a swap device in RAM that does not require a backing swap device.
+<p>The <a href="/Usage/Configuration/Z/Improving_performance.html#Zram_or_zswap" title="Improving performance">difference compared to zram</a> is that zswap works in conjunction with a <a href="/Usage/Configuration/Z/Swap.html" title="Swap">swap</a> device while <i>zram</i> is a swap device in RAM that does not require a backing swap device.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -69,10 +69,10 @@ Pages which would otherwise be swapped out to disk are instead compressed and st
 </p>
 <pre># echo 1 &gt; /sys/module/zswap/parameters/enabled
 </pre>
-<p>To enable zswap permanently, add <code>zswap.enabled=1</code> to your <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-zen">linux-zen</a></span> has zswap enabled by default.
+<p>To enable zswap permanently, add <code>zswap.enabled=1</code> to your <a href="/Usage/Configuration/Z/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-zen">linux-zen</a></span> has zswap enabled by default.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Alternatively, you can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-swap">systemd-swap</a></span> which is a script to manage swap spaces, in this case the line <code>zswap_enabled=1</code> must be present in <code>/etc/systemd/swap.conf</code> and you must <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-swap.service</code>.</div>
+<strong>Tip:</strong> Alternatively, you can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-swap">systemd-swap</a></span> which is a script to manage swap spaces, in this case the line <code>zswap_enabled=1</code> must be present in <code>/etc/systemd/swap.conf</code> and you must <a href="/Usage/Configuration/Z/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>systemd-swap.service</code>.</div>
 <h2><span class="mw-headline" id="Customizing_zswap">Customizing zswap</span></h2>
 <h3><span class="mw-headline" id="Current_parameters">Current parameters</span></h3>
 <p>Zswap has several customizable parameters. The live settings can be displayed using:
@@ -121,10 +121,10 @@ With the <i>zbud</i> data allocator, 2 compressed objects are stored into 1 page
 <p>There is no issue setting the compression to <i>lz4</i> at runtime using <i>sysfs</i> or via <i>systemd-swap</i> but zswap starts in this case with <i>lzo</i> and switches at a later stage to <i>lz4</i>. To use zswap with <i>lz4</i> straight away, this must be defined in the kernel boot parameter and the <i>lz4</i> module must be loaded early by the kernel. This can be achieved by following these steps:
 </p>
 <ol>
-<li>Add <code>lz4 lz4_compress</code> to the <a href="../wiki/Mkinitcpio.html#MODULES" title="Mkinitcpio">mkinitcpio#MODULES</a> array.</li>
+<li>Add <code>lz4 lz4_compress</code> to the <a href="/Usage/Configuration/Z/Mkinitcpio.html#MODULES" title="Mkinitcpio">mkinitcpio#MODULES</a> array.</li>
 <li>Replace the ramdisk environment with a newly generated one: <pre># mkinitcpio -g /boot/<i>initramfs</i>.img</pre>
 </li>
-<li>Add <code>zswap.compressor=lz4</code> to your <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.</li>
+<li>Add <code>zswap.compressor=lz4</code> to your <a href="/Usage/Configuration/Z/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.</li>
 </ol>
 <p>On next reboot, see <a href="#Current_parameters">#Current parameters</a> to check if zswap now uses <i>lz4</i> as compressor.
 </p>
@@ -144,7 +144,7 @@ With the <i>zbud</i> data allocator, 2 compressed objects are stored into 1 page
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/Z/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -161,9 +161,9 @@ With the <i>zbud</i> data allocator, 2 compressed objects are stored into 1 page
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/Z/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/Z/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/Z/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

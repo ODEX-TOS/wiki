@@ -2,7 +2,7 @@
     title: Easy-RSA
     description: Migration of Easy-RSA from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -24,20 +24,20 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>The first step when setting up <a href="../wiki/OpenVPN.html" title="OpenVPN">OpenVPN</a> is to create a <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure"  title="wikipedia:Public key infrastructure">Public Key Infrastructure (PKI)</a>.  In summary, this consists of:
+<p>The first step when setting up <a href="/Usage/Configuration/E/OpenVPN.html" title="OpenVPN">OpenVPN</a> is to create a <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure"  title="wikipedia:Public key infrastructure">Public Key Infrastructure (PKI)</a>.  In summary, this consists of:
 </p>
 <ul>
 <li>A public master <a href="https://en.wikipedia.org/wiki/Certificate_Authority"  title="wikipedia:Certificate Authority">Certificate Authority (CA)</a> certificate and a private key.</li>
 <li>A separate public certificate and private key pair for each server.</li>
 <li>A separate public certificate and private key pair for each client.</li>
 </ul>
-<p>One can think of the key-based authentication in terms similar to that of how <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a> work with the added layer of a signing authority (the CA).  OpenVPN relies on a bidirectional authentication strategy, so the client must authenticate the server's certificate and in parallel, the server must authenticate the client's certificate.  This is accomplished by the 3rd party's signature (the CA) on both the client and server certificates.  Once this is established, further checks are performed before the authentication is complete.  For more details, see <a rel="nofollow"  href="https://www.secure-computing.net/openvpn/howto.php#pki">secure-computing's guide</a>.
+<p>One can think of the key-based authentication in terms similar to that of how <a href="/Usage/Configuration/E/SSH_keys.html" title="SSH keys">SSH keys</a> work with the added layer of a signing authority (the CA).  OpenVPN relies on a bidirectional authentication strategy, so the client must authenticate the server's certificate and in parallel, the server must authenticate the client's certificate.  This is accomplished by the 3rd party's signature (the CA) on both the client and server certificates.  Once this is established, further checks are performed before the authentication is complete.  For more details, see <a rel="nofollow"  href="https://www.secure-computing.net/openvpn/howto.php#pki">secure-computing's guide</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>The process outlined below requires users to securely transfer private key files to/from machines. For the purposes of this guide, using scp is shown, but readers may employ alternative methods as well.  Since the TOS default is to deny the root user over ssh, using scp requires transferring ownership of the files to be exported to a non-root user called <i>foo</i> throughout the guide.</li>
-<li>Avoid generating keys on devices without a good entropy source. See <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/GettingStartedwithOVPN#Configuringencryption">[1]</a>. Sometimes, <a href="../wiki/Random_number_generation.html#Alternatives" title="Random number generation">cryptographically secure pseudorandom number generators</a> can be used.</li>
+<li>Avoid generating keys on devices without a good entropy source. See <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/GettingStartedwithOVPN#Configuringencryption">[1]</a>. Sometimes, <a href="/Usage/Configuration/E/Random_number_generation.html#Alternatives" title="Random number generation">cryptographically secure pseudorandom number generators</a> can be used.</li>
 </ul>
 </div>
 <div id="toc" >
@@ -253,7 +253,7 @@ For the server:
 <pre># mkdir /etc/easy-rsa/pki/signed
 # mv /tmp/client1.crt /etc/easy-rsa/pki/signed
 </pre>
-<p>That is it.  To generate the client profile. See: <a href="../wiki/OpenVPN.html#ovpngen" title="OpenVPN">OpenVPN#ovpngen</a>.
+<p>That is it.  To generate the client profile. See: <a href="/Usage/Configuration/E/OpenVPN.html#ovpngen" title="OpenVPN">OpenVPN#ovpngen</a>.
 </p>
 <h2><span class="mw-headline" id="Revoking_certificates_and_alerting_the_OpenVPN_server">Revoking certificates and alerting the OpenVPN server</span></h2>
 <h3><span class="mw-headline" id="Revoke_a_certificate">Revoke a certificate</span></h3>
@@ -278,7 +278,7 @@ For the server:
 <pre># mv /tmp/crl.pem /etc/openvpn/server/
 # chown root:root /etc/openvpn/server/crl.pem
 </pre>
-<p>Edit <code>/etc/openvpn/server/server.conf</code> uncommenting the crl-verify directive, then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> openvpn-server@server.service to re-read it:
+<p>Edit <code>/etc/openvpn/server/server.conf</code> uncommenting the crl-verify directive, then <a href="/Usage/Configuration/E/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> openvpn-server@server.service to re-read it:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/openvpn/server/server.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">.
@@ -286,7 +286,7 @@ crl-verify /etc/openvpn/server/crl.pem
 .
 </pre>
 <h2><span class="mw-headline" id="Abbreviated_example_specifically_for_containerized_Openvpn">Abbreviated example specifically for containerized Openvpn</span></h2>
-<p>This section is specifically for users wanting to run Openvpn in a Linux container (<a href="../wiki/Linux_Containers.html" class="mw-redirect" title="LXC">LXC</a>).  The code below is designed to be  pasted into a root shell; the standard hash has been omitted to allow for easy copy/paste operations.  It is recommended to have two different shell windows open, one for the host and one for the container.
+<p>This section is specifically for users wanting to run Openvpn in a Linux container (<a href="/Usage/Configuration/E/Linux_Containers.html" class="mw-redirect" title="LXC">LXC</a>).  The code below is designed to be  pasted into a root shell; the standard hash has been omitted to allow for easy copy/paste operations.  It is recommended to have two different shell windows open, one for the host and one for the container.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -324,7 +324,7 @@ mkdir /var/lib/lxc/$CONTAINERNAME/rootfs/etc/easy-rsa/pki/issued/
 mkdir /var/lib/lxc/$CONTAINERNAME/rootfs/etc/easy-rsa/pki/signed/
 cp /etc/easy-rsa/pki/issued/*.crt /var/lib/lxc/$CONTAINERNAME/rootfs/etc/easy-rsa/pki/issued/
 </pre>
-<p>That will provide the needed files to make an OpenVPN compatible tunnel profile for the client, and the needed server key files for the server.  To generate a client profile, refer to  <a href="../wiki/OpenVPN.html#ovpngen" title="OpenVPN">OpenVPN#ovpngen</a>.
+<p>That will provide the needed files to make an OpenVPN compatible tunnel profile for the client, and the needed server key files for the server.  To generate a client profile, refer to  <a href="/Usage/Configuration/E/OpenVPN.html#ovpngen" title="OpenVPN">OpenVPN#ovpngen</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -336,7 +336,7 @@ cp /etc/easy-rsa/pki/issued/*.crt /var/lib/lxc/$CONTAINERNAME/rootfs/etc/easy-rs
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/E/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -353,9 +353,9 @@ cp /etc/easy-rsa/pki/issued/*.crt /var/lib/lxc/$CONTAINERNAME/rootfs/etc/easy-rs
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

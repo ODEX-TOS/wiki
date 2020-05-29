@@ -2,7 +2,7 @@
     title: HP_Zbook_Studio_G3
     description: Migration of HP_Zbook_Studio_G3 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -57,7 +57,7 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>Installation is generally pretty straight forward, however, there are some things to consider.
-Follow the general instructions of the <a href="../wiki/Installation_guide.html" title="Installation guide">installation|guide</a>
+Follow the general instructions of the <a href="/Usage/Configuration/H/Installation_guide.html" title="Installation guide">installation|guide</a>
 </p>
 <h3><span class="mw-headline" id="Using_hybrid_graphics">Using hybrid graphics</span></h3>
 <p>Due to a kernel issue, use of nouveau or bbswitch may result in lockups. To prevent this, add <code>acpi_osi=! acpi_osi="Windows 2009"</code> to your kernel command line (<a rel="nofollow"  href="https://github.com/Bumblebee-Project/Bumblebee/issues/764#issuecomment-234494238">source</a>, <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=156341">Kernel bug 156341</a>).
@@ -74,33 +74,33 @@ Follow the general instructions of the <a href="../wiki/Installation_guide.html"
 </pre>
 <h3><span class="mw-headline" id="Dual_boot_with_windows">Dual boot with windows</span></h3>
 <p>This laptop usually comes pre-loaded with windows 7.
-Although the laptop boots in <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> mode, it appears as though the Windows bootloader is present in the MBR of the hard drive (there is no EFI system partition).
-It may be wise to install TOS with an MBR bootloader if you wish to preserve the <a href="../wiki/Dual_boot_with_Windows.html" title="Dual boot with Windows">windows installation</a>.
+Although the laptop boots in <a href="/Usage/Configuration/H/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> mode, it appears as though the Windows bootloader is present in the MBR of the hard drive (there is no EFI system partition).
+It may be wise to install TOS with an MBR bootloader if you wish to preserve the <a href="/Usage/Configuration/H/Dual_boot_with_Windows.html" title="Dual boot with Windows">windows installation</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="X_config">X config</span></h3>
-<p>Install the <a href="../wiki/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver.
-If you are using the system in discrete graphics mode, you may need to run nvidia-xconfig as root to be able to run <a href="../wiki/Xorg.html" class="mw-redirect" title="X">X</a>.
+<p>Install the <a href="/Usage/Configuration/H/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver.
+If you are using the system in discrete graphics mode, you may need to run nvidia-xconfig as root to be able to run <a href="/Usage/Configuration/H/Xorg.html" class="mw-redirect" title="X">X</a>.
 </p>
 <h3><span class="mw-headline" id="HiDPI_configuration">HiDPI configuration</span></h3>
-<p>If you are using a desktop environments such as gnome or KDE, they should have their own <a href="../wiki/HiDPI.html#Desktop_environments" title="HiDPI">management tools</a>.
-If you are using more power-user type window managers such as <a href="../wiki/I3.html" title="I3">i3</a>, you may need to add the following line in your .xinitrc file
+<p>If you are using a desktop environments such as gnome or KDE, they should have their own <a href="/Usage/Configuration/H/HiDPI.html#Desktop_environments" title="HiDPI">management tools</a>.
+If you are using more power-user type window managers such as <a href="/Usage/Configuration/H/I3.html" title="I3">i3</a>, you may need to add the following line in your .xinitrc file
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">xrdb -merge ~/.Xresources
 xrandr --output eDP-1 --dpi 288
 exec i3</pre>
-<p>The name of the output device depends on the graphics adapter and driver. Use <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a> to find out the actual name. 
+<p>The name of the output device depends on the graphics adapter and driver. Use <a href="/Usage/Configuration/H/Xrandr.html" title="Xrandr">xrandr</a> to find out the actual name. 
 </p>
 <h3><span class="mw-headline" id="Touchpad_configuration">Touchpad configuration</span></h3>
 <p>The touchpad may be "hijacked" by the <code>i2c_hid</code> device driver. Although the touchpad is working, its configuration is fixed to two buttons, two-finger natural scrolling and no tapping; Any changes with <code>xinput</code> or other tools will have no effect.
 </p>
-<p>To prevent this you have to <a href="../wiki/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> <code>i2c_hid</code> by adding the following lines to a <code>*.conf</code> file in <code>/etc/modprobe.d</code> (<a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1602689#p1602689">source</a>):
+<p>To prevent this you have to <a href="/Usage/Configuration/H/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> <code>i2c_hid</code> by adding the following lines to a <code>*.conf</code> file in <code>/etc/modprobe.d</code> (<a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1602689#p1602689">source</a>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/touchpad.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">blacklist i2c_hid
 install i2c_hid /bin/false</pre>
-<p>After a reboot (unloading <code>i2c_hid</code>, if possible, may be sufficient) the touchpad should be fully configurable <a href="../wiki/Libinput.html#Configuration" title="Libinput">libinput device</a>.
+<p>After a reboot (unloading <code>i2c_hid</code>, if possible, may be sufficient) the touchpad should be fully configurable <a href="/Usage/Configuration/H/Libinput.html#Configuration" title="Libinput">libinput device</a>.
 </p>
 <h3><span class="mw-headline" id="Mute_button_LED_indicator">Mute button LED indicator</span></h3>
 <p>
@@ -110,7 +110,7 @@ To fix the mute button LED, create a file </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -127,9 +127,9 @@ To fix the mute button LED, create a file </p>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

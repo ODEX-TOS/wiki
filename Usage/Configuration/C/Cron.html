@@ -2,7 +2,7 @@
     title: Cron
     description: Migration of Cron from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a></li>
+<li><a href="/Usage/Configuration/C/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a></li>
 </ul>
 </div>
 <p>From <a href="https://en.wikipedia.org/wiki/Cron"  title="wikipedia:Cron">Wikipedia</a>:
@@ -80,7 +80,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>There are many cron implementations, but none of them are installed by default as the base system uses <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> instead. See the Gentoo's <a rel="nofollow"  href="http://www.gentoo.org/doc/wiki/cron-guide.xml">cron guide</a>, which offers comparisons.
+<p>There are many cron implementations, but none of them are installed by default as the base system uses <a href="/Usage/Configuration/C/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> instead. See the Gentoo's <a rel="nofollow"  href="http://www.gentoo.org/doc/wiki/cron-guide.xml">cron guide</a>, which offers comparisons.
 </p>
 <p>Packages available:
 </p>
@@ -99,7 +99,7 @@
 </ul>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Activation_and_autostart">Activation and autostart</span></h3>
-<p>After installation, the daemon will not be enabled by default. The installed package likely provides a service, which can be controlled by <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemctl</a>. For example, <i>cronie</i> uses <code>cronie.service</code>.
+<p>After installation, the daemon will not be enabled by default. The installed package likely provides a service, which can be controlled by <a href="/Usage/Configuration/C/Systemd.html#Using_units" title="Systemd">systemctl</a>. For example, <i>cronie</i> uses <code>cronie.service</code>.
 </p>
 <p>Check <code>/etc/cron.daily/</code> and similar directories to see which jobs are present. Activating cron service will trigger all of them.
 </p>
@@ -109,16 +109,16 @@
 <p>cron registers the output from <i>stdout</i> and <i>stderr</i> and attempts to send it as email to the user's spools via the <code>sendmail</code> command. Cronie disables mail output if <code>/usr/bin/sendmail</code> is not found. In order for mail to be written to a user's spool, there must be an smtp daemon running on the system, e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensmtpd">opensmtpd</a></span>. Otherwise, you can install a package that provides the sendmail command, and configure it to send mail to a remote mail exchanger. You can also log the messages by using the <code>-m</code> option and writing a custom script.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> One can send the output to local system users using <a href="../wiki/Postfix.html#Local_mail" title="Postfix">Postfix#Local mail</a>.</div>
+<strong>Tip:</strong> One can send the output to local system users using <a href="/Usage/Configuration/C/Postfix.html#Local_mail" title="Postfix">Postfix#Local mail</a>.</div>
 <ol>
 <li>
-<a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> the <code>cronie.service</code> unit.</li>
-<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/esmtp/">esmtp</a></span><sup><small>AUR</small></sup>, <a href="../wiki/Msmtp.html" title="Msmtp">msmtp</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensmtpd">opensmtpd</a></span>, <a href="../wiki/SSMTP.html" title="SSMTP">ssmtp</a>, or write a custom script.</li>
+<a href="/Usage/Configuration/C/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> the <code>cronie.service</code> unit.</li>
+<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/esmtp/">esmtp</a></span><sup><small>AUR</small></sup>, <a href="/Usage/Configuration/C/Msmtp.html" title="Msmtp">msmtp</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensmtpd">opensmtpd</a></span>, <a href="/Usage/Configuration/C/SSMTP.html" title="SSMTP">ssmtp</a>, or write a custom script.</li>
 </ol>
 <h4><span class="mw-headline" id="Example_with_ssmtp">Example with ssmtp</span></h4>
 <p>ssmtp is a send-only sendmail emulator which delivers email from a local computer to an smtp server.  While there are currently no active maintainers, it is still by far the simplest way to transfer mail to a configured mailhub.  There are no daemons to run, and configuration can be as simple as editing 3 lines in a single configuration file (if your host is trusted to relay unauthenticated email through your mailhub).  ssmtp does not receive mail, expand aliases, or manage a queue. 
 </p>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ssmtp/">ssmtp</a></span><sup><small>AUR</small></sup>, which creates a symbolic link from <code>/usr/bin/sendmail</code> to <code>/usr/bin/ssmtp</code>. You must then edit <code>/etc/ssmtp/ssmtp.conf</code>.  See <a href="../wiki/SSMTP.html" title="SSMTP">ssmtp</a> for details.  Creating a symbolic link to <code>/usr/bin/sendmail</code> insures that programs like <a href="../wiki/S-nail.html" title="S-nail">S-nail</a> (or any package which provides <code>/usr/bin/mail</code> will just work without modification.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ssmtp/">ssmtp</a></span><sup><small>AUR</small></sup>, which creates a symbolic link from <code>/usr/bin/sendmail</code> to <code>/usr/bin/ssmtp</code>. You must then edit <code>/etc/ssmtp/ssmtp.conf</code>.  See <a href="/Usage/Configuration/C/SSMTP.html" title="SSMTP">ssmtp</a> for details.  Creating a symbolic link to <code>/usr/bin/sendmail</code> insures that programs like <a href="/Usage/Configuration/C/S-nail.html" title="S-nail">S-nail</a> (or any package which provides <code>/usr/bin/mail</code> will just work without modification.
 </p>
 <p>Restart <code>cronie</code> to insure that it detects that you now have a <code>/usr/bin/sendmail</code> installed.
 </p>
@@ -139,7 +139,7 @@
 # Optional:
 default: your@email.com
 </pre>
-<p>Then <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">modify the configuration</a> of <i>cronie</i> daemon by replacing the <code>ExecStart</code> command with:
+<p>Then <a href="/Usage/Configuration/C/Systemd.html#Editing_provided_units" title="Systemd">modify the configuration</a> of <i>cronie</i> daemon by replacing the <code>ExecStart</code> command with:
 </p>
 <pre>ExecStart=/usr/bin/crond -n -m '/usr/bin/msmtp -t'
 </pre>
@@ -193,11 +193,11 @@ Then repeat the test with <code>message.txt</code> exactly as before.</div>
 action "local" mbox alias &lt;aliases&gt;
 match for local action "local"
 </pre>
-<p>You can proceed to test it. First <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>smtpd.service</code>. Then do:
+<p>You can proceed to test it. First <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>smtpd.service</code>. Then do:
 </p>
 <pre>$ echo test | sendmail user
 </pre>
-<p><i>user</i> can check his/her mail in with any <a href="../wiki/Category:Email_clients.html" title="Category:Email clients">reader</a> able to handle mbox format, or just have a look at the file <code>/var/spool/mail/<i>user</i></code>. If everything goes as expected, you can <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> opensmtpd for future boots.
+<p><i>user</i> can check his/her mail in with any <a href="/Usage/Configuration/C/Category:Email_clients.html" title="Category:Email clients">reader</a> able to handle mbox format, or just have a look at the file <code>/var/spool/mail/<i>user</i></code>. If everything goes as expected, you can <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> opensmtpd for future boots.
 </p>
 <p>This approach has the advantage of not sending local cron notifications to a remote server. On the downside, you need a new daemon running.
 </p>
@@ -205,7 +205,7 @@ match for local action "local"
 <strong>Note:</strong> 
 <ul>
 <li>At the moment of writing the TOS opensmtpd package does not create all needed directories under <code>/var/spool/smtpd</code>, but the daemon will warn about that specifying the required ownerships and permissions. Just create them as suggested.</li>
-<li>Even though the suggested configuration does not accept remote connections, it's a healthy precaution to add an additional layer of security blocking port 25 with <a href="../wiki/Iptables.html" title="Iptables">iptables</a> or similar.</li>
+<li>Even though the suggested configuration does not accept remote connections, it's a healthy precaution to add an additional layer of security blocking port 25 with <a href="/Usage/Configuration/C/Iptables.html" title="Iptables">iptables</a> or similar.</li>
 </ul>
 </div>
 <h4><span class="mw-headline" id="Long_cron_job">Long cron job</span></h4>
@@ -321,7 +321,7 @@ From their respective man page:
 <pre>$ crontab -e
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> By default the <code>crontab</code> command uses the <code>vi</code> editor. To change it, <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Export">export</a> <code>EDITOR</code> or <code>VISUAL</code>, or specify the editor directly: <code>EDITOR=vim crontab -e</code>.</div>
+<strong>Note:</strong> By default the <code>crontab</code> command uses the <code>vi</code> editor. To change it, <a href="/Usage/Configuration/C/Environment_variables.html" class="mw-redirect" title="Export">export</a> <code>EDITOR</code> or <code>VISUAL</code>, or specify the editor directly: <code>EDITOR=vim crontab -e</code>.</div>
 <p>To remove their crontabs, they should use:
 </p>
 <pre>$ crontab -r
@@ -386,7 +386,7 @@ From their respective man page:
 @yearly echo "Happy New Year!"
 </pre>
 <h2><span class="mw-headline" id="Default_editor">Default editor</span></h2>
-<p>To use an alternate default editor, define the <code>EDITOR</code> environment variable in a shell initialization script as described in <a href="../wiki/Environment_variables.html" title="Environment variables">Environment variables</a>.
+<p>To use an alternate default editor, define the <code>EDITOR</code> environment variable in a shell initialization script as described in <a href="/Usage/Configuration/C/Environment_variables.html" title="Environment variables">Environment variables</a>.
 </p>
 <p>As a regular user, <code>su</code> will need to be used instead of <code>sudo</code> for the environment variable to be pulled correctly:
 </p>
@@ -435,7 +435,7 @@ See also the <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id
 <h3><span class="mw-headline" id="Anacron">Anacron</span></h3>
 <p>Anacron is a full replacement for <i>dcron</i> which processes jobs asynchronously.
 </p>
-<p>It is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cronie">cronie</a></span>. The configuration file is <code>/etc/anacrontab</code>. Information on the format can be found in the <code>anacrontab(5)</code> <a href="../wiki/Man_page.html" title="Man page">man page</a>. Running <code>anacron -T</code> will test <code>/etc/anacrontab</code> for validity.
+<p>It is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cronie">cronie</a></span>. The configuration file is <code>/etc/anacrontab</code>. Information on the format can be found in the <code>anacrontab(5)</code> <a href="/Usage/Configuration/C/Man_page.html" title="Man page">man page</a>. Running <code>anacron -T</code> will test <code>/etc/anacrontab</code> for validity.
 </p>
 <h3><span class="mw-headline" id="Fcron">Fcron</span></h3>
 <p>Like <i>anacron</i>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fcron">fcron</a></span> assumes the computer is not always running and, unlike <i>anacron</i>, it can schedule events at intervals shorter than a single day which may be useful for systems which suspend/hibernate regularly (such as a laptop). Like cronwhip, fcron can run jobs that should have been run during the computer's downtime.
@@ -529,7 +529,7 @@ You can also set <code>MAILTO=””</code> variable in your crontab file to  di
 </ol>
 <p>The crontab files themselves are usually stored as <code>/var/spool/cron/username</code>. For example, root's crontab is found at <code>/var/spool/cron/root</code>
 </p>
-<p>See the crontab <a href="../wiki/Man_page.html" title="Man page">man page</a> for further information and configuration examples.
+<p>See the crontab <a href="/Usage/Configuration/C/Man_page.html" title="Man page">man page</a> for further information and configuration examples.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -540,7 +540,7 @@ You can also set <code>MAILTO=””</code> variable in your crontab file to  di
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Daemons.html" title="Category:Daemons">Daemons</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Daemons.html" title="Category:Daemons">Daemons</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -557,9 +557,9 @@ You can also set <code>MAILTO=””</code> variable in your crontab file to  di
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: System_backup
     description: Migration of System_backup from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Synchronization_and_backup_programs.html" title="Synchronization and backup programs">Synchronization and backup programs</a></li>
-<li><a href="../wiki/System_maintenance.html#Backup" title="System maintenance">System maintenance#Backup</a></li>
-<li><a href="../wiki/Data-at-rest_encryption.html#Backup_for_disk_encryption_scenarios" title="Data-at-rest encryption">Data-at-rest encryption#Backup for disk encryption scenarios</a></li>
-<li><a href="../wiki/Disk_cloning.html" title="Disk cloning">Disk cloning</a></li>
-<li><a href="../wiki/Migrate_installation_to_new_hardware.html" title="Migrate installation to new hardware">Migrate installation to new hardware</a></li>
-<li><a href="../wiki/File_recovery.html" title="File recovery">File recovery</a></li>
+<li><a href="/Usage/Configuration/S/Synchronization_and_backup_programs.html" title="Synchronization and backup programs">Synchronization and backup programs</a></li>
+<li><a href="/Usage/Configuration/S/System_maintenance.html#Backup" title="System maintenance">System maintenance#Backup</a></li>
+<li><a href="/Usage/Configuration/S/Data-at-rest_encryption.html#Backup_for_disk_encryption_scenarios" title="Data-at-rest encryption">Data-at-rest encryption#Backup for disk encryption scenarios</a></li>
+<li><a href="/Usage/Configuration/S/Disk_cloning.html" title="Disk cloning">Disk cloning</a></li>
+<li><a href="/Usage/Configuration/S/Migrate_installation_to_new_hardware.html" title="Migrate installation to new hardware">Migrate installation to new hardware</a></li>
+<li><a href="/Usage/Configuration/S/File_recovery.html" title="File recovery">File recovery</a></li>
 </ul>
 </div>
 <p>It is important to regularly backup system and user data stored for example in <code>/etc</code>, <code>/home</code>, <code>/root</code>, <code>/var</code> and for server installations, also <code>/srv</code>.
@@ -60,19 +60,19 @@
 </div>
 
 <h2><span class="mw-headline" id="Using_Btrfs_snapshots">Using Btrfs snapshots</span></h2>
-<p>See <a href="../wiki/Btrfs.html#Snapshots" title="Btrfs">Btrfs#Snapshots</a> and <a href="../wiki/Snapper.html" title="Snapper">Snapper</a>.
+<p>See <a href="/Usage/Configuration/S/Btrfs.html#Snapshots" title="Btrfs">Btrfs#Snapshots</a> and <a href="/Usage/Configuration/S/Snapper.html" title="Snapper">Snapper</a>.
 </p>
 <h2><span class="mw-headline" id="Using_LVM_snapshots">Using LVM snapshots</span></h2>
-<p>See <a href="../wiki/LVM.html#Snapshots" title="LVM">LVM#Snapshots</a> and <a href="../wiki/Create_root_filesystem_snapshots_with_LVM.html" title="Create root filesystem snapshots with LVM">Create root filesystem snapshots with LVM</a>.
+<p>See <a href="/Usage/Configuration/S/LVM.html#Snapshots" title="LVM">LVM#Snapshots</a> and <a href="/Usage/Configuration/S/Create_root_filesystem_snapshots_with_LVM.html" title="Create root filesystem snapshots with LVM">Create root filesystem snapshots with LVM</a>.
 </p>
 <h2><span class="mw-headline" id="Using_rsync">Using rsync</span></h2>
-<p>See <a href="../wiki/Rsync.html#As_a_backup_utility" title="Rsync">rsync#As a backup utility</a>.
+<p>See <a href="/Usage/Configuration/S/Rsync.html#As_a_backup_utility" title="Rsync">rsync#As a backup utility</a>.
 </p>
 <h2><span class="mw-headline" id="Using_tar">Using tar</span></h2>
-<p>See <a href="../wiki/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a>.
+<p>See <a href="/Usage/Configuration/S/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a>.
 </p>
 <h2><span class="mw-headline" id="Using_SquashFS">Using SquashFS</span></h2>
-<p>See <a href="../wiki/Full_system_backup_with_SquashFS.html" title="Full system backup with SquashFS">Full system backup with SquashFS</a>.
+<p>See <a href="/Usage/Configuration/S/Full_system_backup_with_SquashFS.html" title="Full system backup with SquashFS">Full system backup with SquashFS</a>.
 </p>
 <h2><span class="mw-headline" id="Bootable_backup">Bootable backup</span></h2>
 <p>Having a bootable backup can be useful in case the filesystem becomes corrupt or if an update breaks the system. The backup can also be used as a test bed for updates, with the <i>testing</i> repo enabled, etc. If you transferred the system to a different partition or drive and you want to boot it, the process is as simple as updating the backup's <code>/etc/fstab</code> and your bootloader's configuration file.
@@ -80,7 +80,7 @@
 <p>This section assumes that you backed up the system to another drive or partition, that your current bootloader is working fine, and that you want to boot from the backup as well.
 </p>
 <h3><span class="mw-headline" id="Update_the_fstab">Update the fstab</span></h3>
-<p>Without rebooting, edit the backup's <a href="../wiki/Fstab.html" title="Fstab">fstab</a> by commenting out or removing any existing entries. Add one entry for the partition containing the backup like the example here:
+<p>Without rebooting, edit the backup's <a href="/Usage/Configuration/S/Fstab.html" title="Fstab">fstab</a> by commenting out or removing any existing entries. Add one entry for the partition containing the backup like the example here:
 </p>
 <pre>/dev/sda<i>X</i>    /             <i>ext4</i>      defaults                 0   1
 </pre>
@@ -89,13 +89,13 @@
 <h3>
 <span id="Update_the_bootloader.27s_configuration_file"></span><span class="mw-headline" id="Update_the_bootloader's_configuration_file">Update the bootloader's configuration file</span>
 </h3>
-<p>For <a href="../wiki/Syslinux.html" title="Syslinux">Syslinux</a>, all you need to do is duplicate the current entry, except pointing to a different drive or partition.
+<p>For <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">Syslinux</a>, all you need to do is duplicate the current entry, except pointing to a different drive or partition.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Instead of editing <code>syslinux.cfg</code>, you can also temporarily edit the menu during boot. When the menu shows up, press the <code>Tab</code> key and change the relevant entries. Partitions are counted from one, drives are counted from zero.</div>
-<p>For <a href="../wiki/GRUB.html" title="GRUB">GRUB</a>, it is recommended that you automatically <a href="../wiki/GRUB.html#Generate_the_main_configuration_file" title="GRUB">re-generate the main configuration file</a>.  If you want to freshly install all GRUB files to somewhere other than <code>/boot</code>, such as <code>/mnt/newroot/boot</code>, use the <code>--boot-directory</code> flag.
+<p>For <a href="/Usage/Configuration/S/GRUB.html" title="GRUB">GRUB</a>, it is recommended that you automatically <a href="/Usage/Configuration/S/GRUB.html#Generate_the_main_configuration_file" title="GRUB">re-generate the main configuration file</a>.  If you want to freshly install all GRUB files to somewhere other than <code>/boot</code>, such as <code>/mnt/newroot/boot</code>, use the <code>--boot-directory</code> flag.
 </p>
-<p>Also verify the new menu entry in <code>/boot/grub/grub.cfg</code>. Make sure the UUID is matching the new partition, otherwise it could still boot the old system. Find the UUID of a partition with <a href="../wiki/Device_file.html#lsblk" class="mw-redirect" title="Lsblk">lsblk</a>:
+<p>Also verify the new menu entry in <code>/boot/grub/grub.cfg</code>. Make sure the UUID is matching the new partition, otherwise it could still boot the old system. Find the UUID of a partition with <a href="/Usage/Configuration/S/Device_file.html#lsblk" class="mw-redirect" title="Lsblk">lsblk</a>:
 </p>
 <pre>$ lsblk -no NAME,UUID /dev/sd<i>XY</i>
 </pre>
@@ -111,7 +111,7 @@
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Backup.html" title="Category:Backup">Backup</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Backup.html" title="Category:Backup">Backup</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -128,9 +128,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: S.M.A.R.T.
     description: Migration of S.M.A.R.T. from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -63,7 +63,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Smartmontools">Smartmontools</span></h2>
-<p>The smartmontools package contains two utility programs for analyzing and monitoring storage devices: <code>smartctl</code> and <code>smartd</code>. <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span> package to use these tools.
+<p>The smartmontools package contains two utility programs for analyzing and monitoring storage devices: <code>smartctl</code> and <code>smartd</code>. <a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span> package to use these tools.
 </p>
 <p>SMART support must be available and enabled on each storage device to effectively use these tools. You can use <a href="#smartctl">#smartctl</a> to check for and enable SMART support. That done, you can manually <a href="#Run_a_test">#Run a test</a> and <a href="#View_test_results">#View test results</a>, or you can use <a href="#smartd">#smartd</a> to automatically run tests and email notifications.
 </p>
@@ -122,9 +122,9 @@ recommended polling time:        (   2) minutes.
 <p>The smartd daemon monitors SMART statuses and emits notifications when something goes wrong. It can be managed with systemd and configured using the <code>/etc/smartd.conf</code> configuration file. The configuration file syntax is esoteric, and this wiki page provides only a quick reference. For more complete information, read the examples and comments within the configuration file, or read <span class="plainlinks archwiki-template-man" title="$ man 5 smartd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smartd.conf.5">smartd.conf(5)</a></span>.
 </p>
 <h4><span class="mw-headline" id="daemon_management">daemon management</span></h4>
-<p>To start the daemon, check its status, make it auto-start on system boot and read recent log file entries, simply <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>smartd.service</code> systemd unit.
+<p>To start the daemon, check its status, make it auto-start on system boot and read recent log file entries, simply <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>smartd.service</code> systemd unit.
 </p>
-<p>smartd respects all the usual systemctl and journalctl commands. For more information on using systemctl and journalctl, see <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemd#Using units</a> and <a href="../wiki/Systemd/Journal.html" title="Systemd/Journal">systemd/Journal</a>.
+<p>smartd respects all the usual systemctl and journalctl commands. For more information on using systemctl and journalctl, see <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">systemd#Using units</a> and <a href="/Usage/Configuration/S/Systemd/Journal.html" title="Systemd/Journal">systemd/Journal</a>.
 </p>
 <h4><span class="mw-headline" id="Define_the_devices_to_monitor">Define the devices to monitor</span></h4>
 <p>To monitor for all possible SMART errors on all disks, the following setting must be added in the configuration file. 
@@ -162,7 +162,7 @@ lrwxrwxrwx 1 root root  10 Nov  5 22:41 fe9e886a-8031-439f-a909-ad06c494fadb -&g
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/smartd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">DEVICESCAN -m address@domain.com
 </pre>
-<p>To be able to send the email externally (i.e. not to the root mail account) a MTA (Mail Transport Agent) or a MUA (Mail User Agent) will need to be installed and configured.  Common MTAs are <a href="../wiki/Msmtp.html" title="Msmtp">Msmtp</a> and <a href="../wiki/SSMTP.html" title="SSMTP">SSMTP</a>, but perhaps the easiest <a href="../wiki/Dma.html" title="Dma">dma</a> will suffice. Common MTUs are sendmail and <a href="../wiki/Postfix.html" title="Postfix">Postfix</a>. It is enough to simply configure <a href="../wiki/S-nail.html" title="S-nail">S-nail</a> if you do not want anything else, but you will need to follow <a rel="nofollow"  href="//dominicm.com/configure-email-notifications-on-arch-linux/">these instructions</a>.
+<p>To be able to send the email externally (i.e. not to the root mail account) a MTA (Mail Transport Agent) or a MUA (Mail User Agent) will need to be installed and configured.  Common MTAs are <a href="/Usage/Configuration/S/Msmtp.html" title="Msmtp">Msmtp</a> and <a href="/Usage/Configuration/S/SSMTP.html" title="SSMTP">SSMTP</a>, but perhaps the easiest <a href="/Usage/Configuration/S/Dma.html" title="Dma">dma</a> will suffice. Common MTUs are sendmail and <a href="/Usage/Configuration/S/Postfix.html" title="Postfix">Postfix</a>. It is enough to simply configure <a href="/Usage/Configuration/S/S-nail.html" title="S-nail">S-nail</a> if you do not want anything else, but you will need to follow <a rel="nofollow"  href="//dominicm.com/configure-email-notifications-on-arch-linux/">these instructions</a>.
 </p>
 <p>The <code>-M test</code> option causes a test email to be sent each time the smartd daemon starts:
 </p>
@@ -188,7 +188,7 @@ wall "$SMARTD_MESSAGE"
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
 
 sudo -u <i>X_user</i> DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/<i>X_userid</i>/bus notify-send "S.M.A.R.T Error ($SMARTD_FAILTYPE)" "$SMARTD_MESSAGE" --icon=dialog-warning</pre>
-<p>This requires <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libnotify">libnotify</a></span> and a compatible desktop environment. See <a href="../wiki/Desktop_notifications.html" title="Desktop notifications">Desktop notifications</a> for more details.
+<p>This requires <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libnotify">libnotify</a></span> and a compatible desktop environment. See <a href="/Usage/Configuration/S/Desktop_notifications.html" title="Desktop notifications">Desktop notifications</a> for more details.
 </p>
 <p>You can also put your custom scripts into <code>/usr/share/smartmontools/smartd_warning.d/</code>:
 </p>
@@ -306,7 +306,7 @@ Device: /dev/sdb [SAT], no ATA CHECK POWER STATUS support, ignoring -n Directive
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Storage.html" title="Category:Storage">Storage</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Storage.html" title="Category:Storage">Storage</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -323,9 +323,9 @@ Device: /dev/sdb [SAT], no ATA CHECK POWER STATUS support, ignoring -n Directive
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

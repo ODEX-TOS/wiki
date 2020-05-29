@@ -2,7 +2,7 @@
     title: Nextcloud
     description: Migration of Nextcloud from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
-<li><a href="../wiki/Nginx.html" title="Nginx">Nginx</a></li>
-<li><a href="../wiki/OpenSSL.html" title="OpenSSL">OpenSSL</a></li>
-<li><a href="../wiki/WebDAV.html" title="WebDAV">WebDAV</a></li>
+<li><a href="/Usage/Configuration/N/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
+<li><a href="/Usage/Configuration/N/Nginx.html" title="Nginx">Nginx</a></li>
+<li><a href="/Usage/Configuration/N/OpenSSL.html" title="OpenSSL">OpenSSL</a></li>
+<li><a href="/Usage/Configuration/N/WebDAV.html" title="WebDAV">WebDAV</a></li>
 </ul>
 </div>
 <p>From <a href="https://en.wikipedia.org/wiki/Nextcloud"  title="wikipedia:Nextcloud">Wikipedia:Nextcloud</a>:
@@ -165,12 +165,12 @@
 <p>Nextcloud requires several components:<a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html#server">[1]</a>
 </p>
 <ul>
-<li>A web server: <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="../wiki/Nginx.html" title="Nginx">nginx</a>
+<li>A web server: <a href="/Usage/Configuration/N/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">nginx</a>
 </li>
-<li>A database: <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a>/MySQL, <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, <a href="../wiki/SQLite.html" title="SQLite">SQLite</a> or <a href="../wiki/Oracle_Database.html" title="Oracle Database">Oracle Database</a>
+<li>A database: <a href="/Usage/Configuration/N/MariaDB.html" title="MariaDB">MariaDB</a>/MySQL, <a href="/Usage/Configuration/N/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, <a href="/Usage/Configuration/N/SQLite.html" title="SQLite">SQLite</a> or <a href="/Usage/Configuration/N/Oracle_Database.html" title="Oracle Database">Oracle Database</a>
 </li>
 <li>
-<a href="../wiki/PHP.html" title="PHP">PHP</a> with <a href="#PHP_setup">additional modules</a>
+<a href="/Usage/Configuration/N/PHP.html" title="PHP">PHP</a> with <a href="#PHP_setup">additional modules</a>
 </li>
 </ul>
 <p>These will be configured in <a href="#Setup">#Setup</a>.
@@ -178,10 +178,10 @@
 <p>Make sure the required components are installed before proceeding.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nextcloud">nextcloud</a></span> package.
+<p><a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nextcloud">nextcloud</a></span> package.
 </p>
 <h3><span class="mw-headline" id="Pacman_hook">Pacman hook</span></h3>
-<p>To upgrade the Nextcloud database automatically on updates, you may want to create a <a href="../wiki/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>:
+<p>To upgrade the Nextcloud database automatically on updates, you may want to create a <a href="/Usage/Configuration/N/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/nextcloud.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -202,18 +202,18 @@ additionally, you must configure a database and a webserver.
 <h3><span class="mw-headline" id="PHP_setup">PHP setup</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> For all prerequisite PHP modules, see <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#prerequisites-label">upstream documentation</a>.</div>
-<p>Make sure that <code>session.save_path</code> is configured. Install <a href="../wiki/PHP.html#gd" title="PHP">PHP#gd</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-intl">php-intl</a></span> as additional modules. Configure <a href="../wiki/PHP.html#OPCache" title="PHP">OPcache</a> as recommended by <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#enable-php-opcache">the documentation</a>.
+<p>Make sure that <code>session.save_path</code> is configured. Install <a href="/Usage/Configuration/N/PHP.html#gd" title="PHP">PHP#gd</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-intl">php-intl</a></span> as additional modules. Configure <a href="/Usage/Configuration/N/PHP.html#OPCache" title="PHP">OPcache</a> as recommended by <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#enable-php-opcache">the documentation</a>.
 </p>
 <p>Some apps (e.g. <i>News</i>) require the <code>iconv</code> extension. If you wish to use these apps, uncomment the extension in <code>/etc/php/php.ini</code>.
 </p>
 <p>Depending on which database backend will be used:
 </p>
 <ul>
-<li>For <a href="../wiki/MySQL.html" title="MySQL">MySQL</a>, see <a href="../wiki/PHP.html#MySQL/MariaDB" title="PHP">PHP#MySQL/MariaDB</a>.</li>
-<li>For <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, see <a href="../wiki/PHP.html#PostgreSQL" title="PHP">PHP#PostgreSQL</a>.</li>
-<li>For <a href="../wiki/SQLite.html" title="SQLite">SQLite</a>, see <a href="../wiki/PHP.html#Sqlite" title="PHP">PHP#Sqlite</a>.</li>
+<li>For <a href="/Usage/Configuration/N/MySQL.html" title="MySQL">MySQL</a>, see <a href="/Usage/Configuration/N/PHP.html#MySQL/MariaDB" title="PHP">PHP#MySQL/MariaDB</a>.</li>
+<li>For <a href="/Usage/Configuration/N/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>, see <a href="/Usage/Configuration/N/PHP.html#PostgreSQL" title="PHP">PHP#PostgreSQL</a>.</li>
+<li>For <a href="/Usage/Configuration/N/SQLite.html" title="SQLite">SQLite</a>, see <a href="/Usage/Configuration/N/PHP.html#Sqlite" title="PHP">PHP#Sqlite</a>.</li>
 </ul>
-<p>Performance may be improved through the implementation of <a href="../wiki/PHP.html#Caching" title="PHP">caching</a>, see <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/caching_configuration.html">Configuring Memory Caching</a> on the official documentation for details.
+<p>Performance may be improved through the implementation of <a href="/Usage/Configuration/N/PHP.html#Caching" title="PHP">caching</a>, see <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/caching_configuration.html">Configuring Memory Caching</a> on the official documentation for details.
 </p>
 <h3><span class="mw-headline" id="Database_setup">Database setup</span></h3>
 <p>An SQL database must be setup and used for your Nextcloud installation. After setting up the database here,
@@ -225,7 +225,7 @@ you will be prompted for its information when you first create an administrator 
 <p>If you want to use Emojis, replace the following CREATE DATABASE... with:
 </p>
 <pre>mysql&gt; CREATE DATABASE <b>nextcloud</b> DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';</pre>
-<p>It is recommended to set up an own database and user when using <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a>:
+<p>It is recommended to set up an own database and user when using <a href="/Usage/Configuration/N/MariaDB.html" title="MariaDB">MariaDB</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ mysql -u root -p</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">mysql&gt; CREATE DATABASE <b>nextcloud</b> DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
@@ -233,7 +233,7 @@ mysql&gt; GRANT ALL PRIVILEGES ON <b>nextcloud</b>.* TO '<b>nextcloud'</b>@'loca
 mysql&gt; FLUSH PRIVILEGES;
 mysql&gt; \q</pre>
 <h4><span class="mw-headline" id="PostgreSQL">PostgreSQL</span></h4>
-<p>The following is an example of setting up a <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> user and database:
+<p>The following is an example of setting up a <a href="/Usage/Configuration/N/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> user and database:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">[postgres]$ createuser -h localhost -P nextcloud</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Enter password for new role:
@@ -242,11 +242,11 @@ Enter it again:</pre>
 </pre>
 <h3><span class="mw-headline" id="Web_server_setup">Web server setup</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> It is recommended to use HTTPS instead of plain HTTP, see <a href="../wiki/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> or <a href="../wiki/Nginx.html#TLS" title="Nginx">Nginx#TLS</a> for examples and implement this in the examples given below.</div>
-<p>Depending on which <a href="../wiki/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> you are using, further setup is required, indicated below.
+<strong>Warning:</strong> It is recommended to use HTTPS instead of plain HTTP, see <a href="/Usage/Configuration/N/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> or <a href="/Usage/Configuration/N/Nginx.html#TLS" title="Nginx">Nginx#TLS</a> for examples and implement this in the examples given below.</div>
+<p>Depending on which <a href="/Usage/Configuration/N/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> you are using, further setup is required, indicated below.
 </p>
 <h4><span class="mw-headline" id="Apache">Apache</span></h4>
-<p>If you have not already, install <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and install and enable <a href="../wiki/Apache_HTTP_Server.html#PHP" title="Apache HTTP Server">Apache's PHP module</a>
+<p>If you have not already, install <a href="/Usage/Configuration/N/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and install and enable <a href="/Usage/Configuration/N/Apache_HTTP_Server.html#PHP" title="Apache HTTP Server">Apache's PHP module</a>
 </p>
 <p>Copy the Apache configuration file to the configuration directory:
 </p>
@@ -263,21 +263,21 @@ Enter it again:</pre>
 <p>Now restart Apache (<code>httpd.service</code>).
 </p>
 <h5><span class="mw-headline" id="WebDAV">WebDAV</span></h5>
-<p>Nextcloud comes with its own <a href="../wiki/WebDAV.html" title="WebDAV">WebDAV</a> implementation enabled, which may conflict with the one shipped with Apache. If you have enabled WebDAV in Apache (not enabled by default), disable the modules <code>mod_dav</code> and <code>mod_dav_fs</code> in <code>/etc/httpd/conf/httpd.conf</code>. See <a rel="nofollow"  href="https://forum.owncloud.org/viewtopic.php?f=17&amp;t=7240">[3]</a> for details.
+<p>Nextcloud comes with its own <a href="/Usage/Configuration/N/WebDAV.html" title="WebDAV">WebDAV</a> implementation enabled, which may conflict with the one shipped with Apache. If you have enabled WebDAV in Apache (not enabled by default), disable the modules <code>mod_dav</code> and <code>mod_dav_fs</code> in <code>/etc/httpd/conf/httpd.conf</code>. See <a rel="nofollow"  href="https://forum.owncloud.org/viewtopic.php?f=17&amp;t=7240">[3]</a> for details.
 </p>
 <h4><span class="mw-headline" id="Nginx">Nginx</span></h4>
-<p>Make sure PHP-FPM has been configured correctly as described in <a href="../wiki/Nginx.html#FastCGI" title="Nginx">Nginx#FastCGI</a>. Uncomment <code>env[PATH]</code> in <code>/etc/php/php-fpm.d/www.conf</code> as it is required by Nextcloud.
+<p>Make sure PHP-FPM has been configured correctly as described in <a href="/Usage/Configuration/N/Nginx.html#FastCGI" title="Nginx">Nginx#FastCGI</a>. Uncomment <code>env[PATH]</code> in <code>/etc/php/php-fpm.d/www.conf</code> as it is required by Nextcloud.
 </p>
 <p>Remember to set up <code>env[TMP]</code> in <code>/etc/php/php-fpm.d/www.conf</code> and make sure the directory is writable from the Nginx user.
 </p>
-<p>Create a <a href="../wiki/Nginx.html#Server_blocks" title="Nginx">server block</a> and add the content according to the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html">Nextcloud documentation</a>:
+<p>Create a <a href="/Usage/Configuration/N/Nginx.html#Server_blocks" title="Nginx">server block</a> and add the content according to the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html">Nextcloud documentation</a>:
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Use <code>unix:/run/php-fpm/php-fpm.sock;</code> as <code>server</code> in the <code>upstream php-handler</code> block if you use the default configuration of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Use <code>/usr/share/webapps/nextcloud</code> as <code>root</code> location when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nextcloud">nextcloud</a></span>.</div>
 <h4><span class="mw-headline" id="lighttpd">lighttpd</span></h4>
-<p>Enable <a href="../wiki/Lighttpd.html#FastCGI" title="Lighttpd">lighttpd#FastCGI</a>, e.g. by adding <code>server.modules += ( "mod_fastcgi" )</code> to <code>/etc/lighttpd/lighttpd.conf</code>.
+<p>Enable <a href="/Usage/Configuration/N/Lighttpd.html#FastCGI" title="Lighttpd">lighttpd#FastCGI</a>, e.g. by adding <code>server.modules += ( "mod_fastcgi" )</code> to <code>/etc/lighttpd/lighttpd.conf</code>.
 </p>
 <p>Create a link to <code>/usr/share/webapps/nextcloud</code> in your <code>/srv/http/</code> directory (or configured root).
 </p>
@@ -285,7 +285,7 @@ Enter it again:</pre>
 <p>Nextcloud needs a directory to store all user files, which has to be writable for the web server. It is recommended to put this directory somewhere outside of <code>/usr</code>, e.g. <code>/var/nextcloud</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Replace <code>http</code> when using a different <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> for the web server.</div>
+<strong>Note:</strong> Replace <code>http</code> when using a different <a href="/Usage/Configuration/N/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/N/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> for the web server.</div>
 <pre># mkdir /var/nextcloud
 # chown http:http /var/nextcloud
 # chmod 750 /var/nextcloud
@@ -294,7 +294,7 @@ Enter it again:</pre>
 <p>To give the web server read/write access to the <i>apps</i> directory (e.g. on "Cannot write into "apps" directory"), setup the correct permissions:
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Replace <code>http</code> when using a different <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> for the web server.</div>
+<strong>Note:</strong> Replace <code>http</code> when using a different <a href="/Usage/Configuration/N/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/N/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> for the web server.</div>
 <pre># mkdir -p /usr/share/webapps/nextcloud/data
 # chown -R http:http /usr/share/webapps/nextcloud/{apps,data}
 # chmod 750 /usr/share/webapps/nextcloud/{apps,data}
@@ -316,7 +316,7 @@ ReadWritePaths = /etc/webapps/nextcloud/config
 
 # Replace the following path with the Nextcloud data directory
 ReadWritePaths = /var/nextcloud</pre>
-<p>Afterwards <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>php-fpm</code> service.
+<p>Afterwards <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>php-fpm</code> service.
 </p>
 <h2><span class="mw-headline" id="Initialize">Initialize</span></h2>
 <p>Open the address where you have installed Nextcloud in a web browser (e.g., <a rel="nofollow"  href="https://www.example.com/nextcloud">https://www.example.com/nextcloud</a>). Enter the database details and the location of the data directory (e.g. <code>/var/nextcloud</code>) set up above.
@@ -324,13 +324,13 @@ ReadWritePaths = /var/nextcloud</pre>
 <p>If you get the error message "Cannot write into "apps" directory", make sure you followed <a href="#Fix_apps_directory_permissions">#Fix apps directory permissions</a> above.
 </p>
 <h3><span class="mw-headline" id="Configure_caching">Configure caching</span></h3>
-<p>It is recommended to <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/caching_configuration.html">enable caching</a>. The Nextcloud documentation provides instructions on <a href="../wiki/Redis.html" title="Redis">Redis</a>, Memcached and <a href="../wiki/PHP.html#APCu" title="PHP">APCu</a>.
+<p>It is recommended to <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/caching_configuration.html">enable caching</a>. The Nextcloud documentation provides instructions on <a href="/Usage/Configuration/N/Redis.html" title="Redis">Redis</a>, Memcached and <a href="/Usage/Configuration/N/PHP.html#APCu" title="PHP">APCu</a>.
 </p>
 <h2><span class="mw-headline" id="Security_Hardening">Security Hardening</span></h2>
-<p>See the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/harden_server.html">Nextcloud documentation</a> and <a href="../wiki/Security.html" title="Security">Security</a>. Nextcloud additionally provides a <a rel="nofollow"  href="https://scan.nextcloud.com/">Security scanner</a>.
+<p>See the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/installation/harden_server.html">Nextcloud documentation</a> and <a href="/Usage/Configuration/N/Security.html" title="Security">Security</a>. Nextcloud additionally provides a <a rel="nofollow"  href="https://scan.nextcloud.com/">Security scanner</a>.
 </p>
 <h3><span class="mw-headline" id="uWSGI">uWSGI</span></h3>
-<p>You can run Nextcloud in its own process and service by using the <a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> application server with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=uwsgi-plugin-php">uwsgi-plugin-php</a></span>. This allows you to define a <a href="../wiki/PHP.html#Configuration" title="PHP">PHP  configuration</a> only for this instance of PHP, without the need to edit the global <code>php.ini</code> and thus keeping your web application configurations compartmentalized. <i>uWSGI</i> itself has a wealth of features to limit the resource use and to harden the security of the application, and by being a separate process it can run under its own user.
+<p>You can run Nextcloud in its own process and service by using the <a href="/Usage/Configuration/N/UWSGI.html" title="UWSGI">uWSGI</a> application server with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=uwsgi-plugin-php">uwsgi-plugin-php</a></span>. This allows you to define a <a href="/Usage/Configuration/N/PHP.html#Configuration" title="PHP">PHP  configuration</a> only for this instance of PHP, without the need to edit the global <code>php.ini</code> and thus keeping your web application configurations compartmentalized. <i>uWSGI</i> itself has a wealth of features to limit the resource use and to harden the security of the application, and by being a separate process it can run under its own user.
 </p>
 <p>The only part that differs from <a href="#Nginx">#Nginx</a> is the <code>location ~ \.php(?:$|/) {}</code> block:
 </p>
@@ -444,26 +444,26 @@ cron2 = minute=-15,unique=1 /usr/bin/php -f /usr/share/webapps/nextcloud/cron.ph
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> * Do not forget to set your timezone and uncomment the required database connector in the uWSGI config file
 <ul>
-<li>The <a href="../wiki/PHP.html#Configuration" title="PHP">open_basedir</a> directive is optional and commented out. You can uncomment to harden security. Be aware that it may <a rel="nofollow"  href="https://github.com/owncloud/core/search?q=open_basedir&amp;type=Issues">occasionally break things</a>.</li>
+<li>The <a href="/Usage/Configuration/N/PHP.html#Configuration" title="PHP">open_basedir</a> directive is optional and commented out. You can uncomment to harden security. Be aware that it may <a rel="nofollow"  href="https://github.com/owncloud/core/search?q=open_basedir&amp;type=Issues">occasionally break things</a>.</li>
 <li>Use <code>php-docroot = /usr/share/webapps</code> if placing nextcloud in /nextcloud subdirectory.</li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The way the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html">Nextcloud background job</a> is currently set up with <a rel="nofollow"  href="https://uwsgi-docs.readthedocs.org/wiki/latest/Cron.html">uWSGI cron</a> will make use of the default global configuration from <code>/etc/php/php.ini</code>. This means that none of the specific parameters defined (e.g. required modules) will be enabled, <a rel="nofollow"  href="https://github.com/owncloud/core/issues/12678#issuecomment-66114448">leading to various issues</a>. One solution is to copy <code>/etc/php/php.ini</code> to e.g. <code>/etc/uwsgi/cron-php.ini</code>, make the required modifications there (mirroring <code>/etc/uwsgi/nextcloud.ini</code> parameters) and referencing it in the cron directive by adding the <code>-c /etc/uwsgi/cron-php.ini</code> option to <i>php</i> invocation.</div>
 <h4><span class="mw-headline" id="Activation">Activation</span></h4>
-<p><a href="../wiki/UWSGI.html" title="UWSGI">uWSGI</a> provides a <a href="../wiki/Systemd.html#Using_units" title="Systemd">template unit</a> that allows to start and enable application using their configuration file name as instance identifier. For example, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> <code>uwsgi@nextcloud.socket</code> would start it on demand referencing the configuration file <code>/etc/uwsgi/nextcloud.ini</code>. 
+<p><a href="/Usage/Configuration/N/UWSGI.html" title="UWSGI">uWSGI</a> provides a <a href="/Usage/Configuration/N/Systemd.html#Using_units" title="Systemd">template unit</a> that allows to start and enable application using their configuration file name as instance identifier. For example, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">starting</a> <code>uwsgi@nextcloud.socket</code> would start it on demand referencing the configuration file <code>/etc/uwsgi/nextcloud.ini</code>. 
 </p>
-<p>To enable the uwsgi service by default at start-up, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>uwsgi@nextcloud.socket</code>.
+<p>To enable the uwsgi service by default at start-up, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>uwsgi@nextcloud.socket</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Here we make use of <a rel="nofollow"  href="http://0pointer.de/blog/projects/socket-activation.html">systemd socket activation</a> to prevent unnecessary resources consumption when no connections are made to the instance. If you would rather have it constantly active, simply remove the <code>.socket</code> part to start and enable the service instead.</div>
-<p>See also <a href="../wiki/UWSGI.html#Running_uWSGI" title="UWSGI">UWSGI#Running uWSGI</a>.
+<p>See also <a href="/Usage/Configuration/N/UWSGI.html#Running_uWSGI" title="UWSGI">UWSGI#Running uWSGI</a>.
 </p>
 <h3><span class="mw-headline" id="Setting_strong_permissions_for_the_filesystem">Setting strong permissions for the filesystem</span></h3>
 <p>You should set the permissions for <code>config/</code>, <code>data/</code> and <code>apps/</code> as strict possible. That means that your HTTP user (<i>http</i> in case of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apache">apache</a></span>) should own them, and the should have <code>700</code> permissions. You can use the following script to achieve this.
 </p>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/N/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Complex script for trivial one-time task. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Nextcloud">Talk:Nextcloud#</a>)</div>
 </div>
@@ -510,24 +510,24 @@ fi
 <h2><span class="mw-headline" id="Synchronization">Synchronization</span></h2>
 <h3><span class="mw-headline" id="Desktop">Desktop</span></h3>
 <p>The official client can be installed with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=owncloud-client">owncloud-client</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nextcloud-client">nextcloud-client</a></span> package.
-Alternative versions are available in the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/owncloud-client-git/">owncloud-client-git</a></span><sup><small>AUR</small></sup>. All of them use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qtkeychain">qtkeychain</a></span> to store and retrieve account-specific access tokens. To achieve auto-login when the client starts, one of optional dependencies of <i>qtkeychain</i> should be installed as well. Moreover, if you choose <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsecret">libsecret</a></span> as the backend for <i>qtkeychain</i>, a service that provides <a rel="nofollow"  href="https://www.archlinux.org/packages/?q=org.freedesktop.secrets">org.freedesktop.secrets</a> should be running when the client starts.
+Alternative versions are available in the <a href="/Usage/Configuration/N/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/owncloud-client-git/">owncloud-client-git</a></span><sup><small>AUR</small></sup>. All of them use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qtkeychain">qtkeychain</a></span> to store and retrieve account-specific access tokens. To achieve auto-login when the client starts, one of optional dependencies of <i>qtkeychain</i> should be installed as well. Moreover, if you choose <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsecret">libsecret</a></span> as the backend for <i>qtkeychain</i>, a service that provides <a rel="nofollow"  href="https://www.archlinux.org/packages/?q=org.freedesktop.secrets">org.freedesktop.secrets</a> should be running when the client starts.
 </p>
 <h4><span class="mw-headline" id="Calendar">Calendar</span></h4>
-<p>To access your Nextcloud calendars using Mozilla <a href="../wiki/Thunderbird.html" title="Thunderbird">Thunderbird</a>'s Lightning calendar you would use the following URL:
+<p>To access your Nextcloud calendars using Mozilla <a href="/Usage/Configuration/N/Thunderbird.html" title="Thunderbird">Thunderbird</a>'s Lightning calendar you would use the following URL:
 </p>
 <pre>https://ADDRESS/remote.php/caldav/calendars/USERNAME/CALENDARNAME
 </pre>
-<p>To access your Nextcloud calendars using CalDAV-compatible programs like Kontact or <a href="../wiki/GNOME/Evolution.html" class="mw-redirect" title="Evolution">Evolution</a>, you would use the following URL:
+<p>To access your Nextcloud calendars using CalDAV-compatible programs like Kontact or <a href="/Usage/Configuration/N/GNOME/Evolution.html" class="mw-redirect" title="Evolution">Evolution</a>, you would use the following URL:
 </p>
 <pre>https://ADDRESS/remote.php/caldav
 </pre>
 <p>For details see the <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/user_manual/pim/index.html">official documentation</a>.
 </p>
 <h4><span class="mw-headline" id="Contacts">Contacts</span></h4>
-<p>To sync contacts with <a href="../wiki/Thunderbird.html" title="Thunderbird">Thunderbird</a>, see <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/user_manual/pim/sync_thunderbird.html">these instructions</a> from the official doc.
+<p>To sync contacts with <a href="/Usage/Configuration/N/Thunderbird.html" title="Thunderbird">Thunderbird</a>, see <a rel="nofollow"  href="https://docs.nextcloud.com/server/latest/user_manual/pim/sync_thunderbird.html">these instructions</a> from the official doc.
 </p>
 <h4><span class="mw-headline" id="Mounting_files_with_davfs2">Mounting files with davfs2</span></h4>
-<p>If you want to mount your Nextcloud using WebDAV, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=davfs2">davfs2</a></span> (as described in <a href="../wiki/Davfs2.html" title="Davfs2">davfs2</a>).
+<p>If you want to mount your Nextcloud using WebDAV, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=davfs2">davfs2</a></span> (as described in <a href="/Usage/Configuration/N/Davfs2.html" title="Davfs2">davfs2</a>).
 </p>
 <p>To mount your Nextcloud, use:
 </p>
@@ -539,9 +539,9 @@ Alternative versions are available in the <a href="../wiki/TOS_User_Repository.h
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">https://<i>your_domain</i>/nextcloud/remote.php/dav/files/<i>username</i>/ /path/to/mount davfs rw,user,noauto 0 0
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> In order to allow automount you can also store your username (and password if you like) in a file as described in <a href="../wiki/Davfs2.html#Storing_credentials" title="Davfs2">davfs2#Storing credentials</a>.</div>
+<strong>Tip:</strong> In order to allow automount you can also store your username (and password if you like) in a file as described in <a href="/Usage/Configuration/N/Davfs2.html#Storing_credentials" title="Davfs2">davfs2#Storing credentials</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If creating/copying files is not possible, while the same operations work on directories, see <a href="../wiki/Davfs2.html#Creating/copying_files_not_possible_and/or_freezes" title="Davfs2">davfs2#Creating/copying files not possible and/or freezes</a>.</div>
+<strong>Note:</strong> If creating/copying files is not possible, while the same operations work on directories, see <a href="/Usage/Configuration/N/Davfs2.html#Creating/copying_files_not_possible_and/or_freezes" title="Davfs2">davfs2#Creating/copying files not possible and/or freezes</a>.</div>
 <h3>
 <span id="Mounting_files_in_GNOME_Files_.28Nautilus.29"></span><span class="mw-headline" id="Mounting_files_in_GNOME_Files_(Nautilus)">Mounting files in GNOME Files (Nautilus)</span>
 </h3>
@@ -655,7 +655,7 @@ location ^~ /nextcloud {
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  Do not forget to configure the <code>.well-known</code> URLs for service discovery. For more information please see <a rel="nofollow"  href="https://docs.nextcloud.com/server/18/admin_manual/issues/general_troubleshooting.html#service-discovery">General troubleshooting and service discovery section of Nextcloud documentation</a>. </div>
 <h3><span class="mw-headline" id="Docker">Docker</span></h3>
-<p>See the <a rel="nofollow"  href="https://hub.docker.com/_/owncloud/">ownCloud</a> or <a rel="nofollow"  href="https://github.com/nextcloud/docker">Nextcloud</a> repository for <a href="../wiki/Docker.html" title="Docker">Docker</a>.
+<p>See the <a rel="nofollow"  href="https://hub.docker.com/_/owncloud/">ownCloud</a> or <a rel="nofollow"  href="https://github.com/nextcloud/docker">Nextcloud</a> repository for <a href="/Usage/Configuration/N/Docker.html" title="Docker">Docker</a>.
 </p>
 <h3><span class="mw-headline" id="Upload_and_share_from_File_Manager">Upload and share from File Manager</span></h3>
 <p><a rel="nofollow"  href="https://github.com/schiesbn/shareLinkCreator">shareLinkCreator</a> provides the ability to upload a file to
@@ -663,8 +663,8 @@ OwnCloud via a supported file manager and receive a link to the uploaded file wh
 </p>
 <h3><span class="mw-headline" id="Defining_Background_Jobs">Defining Background Jobs</span></h3>
 <p>Nextcloud requires scheduled execution of some tasks, and by default it achieves this by using AJAX,
-however AJAX is the least reliable method, and it is recommended to use <a href="../wiki/Cron.html" title="Cron">Cron</a> instead. However,
-TOSLinux ships with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>, so the preferred way of executing scheduled tasks is a <a href="../wiki/Systemd.html#Timers" title="Systemd">systemd timer</a>. 
+however AJAX is the least reliable method, and it is recommended to use <a href="/Usage/Configuration/N/Cron.html" title="Cron">Cron</a> instead. However,
+TOSLinux ships with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>, so the preferred way of executing scheduled tasks is a <a href="/Usage/Configuration/N/Systemd.html#Timers" title="Systemd">systemd timer</a>. 
 </p>
 <h4><span class="mw-headline" id="Manual_install">Manual install</span></h4>
 <p>First create a service:
@@ -695,7 +695,7 @@ Unit=nextcloudcron.service
 WantedBy=timers.target
 </pre>
 <h4><span class="mw-headline" id="Activate_timer">Activate timer</span></h4>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>nextcloudcron.timer</code>.
+<p><a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>nextcloudcron.timer</code>.
 </p>
 <p>Confirm that it is running by running
 </p>
@@ -722,7 +722,7 @@ WantedBy=timers.target
 <h4><span class="mw-headline" id="Solution_with_Docker">Solution with Docker</span></h4>
 <p>The first, install a <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=docker">docker</a></span> package to provide collabora files and setup a Collabora server.
 </p>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>docker.service</code>.
+<p><a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>docker.service</code>.
 </p>
 <p>Then, download the official Docker image:
 </p>
@@ -805,7 +805,7 @@ server {
 </p>
 <pre># nginx -s reload
 </pre>
-<p>or <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>nginx.service</code>.
+<p>or <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>nginx.service</code>.
 </p>
 <p><b>Apache setup example:</b>
 </p>
@@ -856,7 +856,7 @@ ProxyPass           /lool https://127.0.0.1:9980/lool
 ProxyPassReverse    /lool https://127.0.0.1:9980/lool
 &lt;/VirtualHost&gt;
 </pre>
-<p>After configuring these do restart your apache by <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restarting</a> <code>httpd.service</code>.
+<p>After configuring these do restart your apache by <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Restart">restarting</a> <code>httpd.service</code>.
 </p>
 <p><b>Install the Nextcloud app</b>
 </p>
@@ -888,7 +888,7 @@ ProxyPassReverse    /lool https://127.0.0.1:9980/lool
 </div>
 <ul>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>loolwsd.service</code>;</li>
+<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>loolwsd.service</code>;</li>
 <li>configure Nginx as showed in <code>/usr/share/doc/loolwsd/example.nginx.conf</code>, and restart it.</li>
 </ul>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
@@ -906,13 +906,13 @@ ProxyPassReverse    /lool https://127.0.0.1:9980/lool
 </pre>
 <h3><span class="mw-headline" id="Self-signed_certificate_not_accepted">Self-signed certificate not accepted</span></h3>
 <p>ownCloud uses <a href="https://en.wikipedia.org/wiki/cURL"  title="wikipedia:cURL">Wikipedia:cURL</a> and <a href="https://en.wikipedia.org/wiki/SabreDAV"  title="wikipedia:SabreDAV">Wikipedia:SabreDAV</a> to check if WebDAV is enabled.
-If you use SSL/TLS with a self-signed certificate, e.g. as shown in <a href="../wiki/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a>, and access ownCloud's admin panel, you will see the following error message:
+If you use SSL/TLS with a self-signed certificate, e.g. as shown in <a href="/Usage/Configuration/N/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a>, and access ownCloud's admin panel, you will see the following error message:
 </p>
 <pre>Your web server is not yet properly setup to allow files synchronization because the WebDAV interface seems to be broken.
 </pre>
-<p>Assuming that you followed the <a href="../wiki/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a> tutorial, execute the following steps:
+<p>Assuming that you followed the <a href="/Usage/Configuration/N/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a> tutorial, execute the following steps:
 </p>
-<p>Create a local directory for non-distribution certificates and copy <a href="../wiki/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMPs</a> certificate there. This will prevent <code>ca-certificates</code>-updates from overwriting it.
+<p>Create a local directory for non-distribution certificates and copy <a href="/Usage/Configuration/N/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMPs</a> certificate there. This will prevent <code>ca-certificates</code>-updates from overwriting it.
 </p>
 <pre># cp /etc/httpd/conf/server.crt /usr/share/ca-certificates/<i>WWW.EXAMPLE.COM.crt</i>
 </pre>
@@ -927,7 +927,7 @@ If you use SSL/TLS with a self-signed certificate, e.g. as shown in <a href="../
 <p>Restart the httpd service to activate your certificate.
 </p>
 <h3><span class="mw-headline" id="Self-signed_certificate_for_Android_devices">Self-signed certificate for Android devices</span></h3>
-<p>Once you have followed the setup for SSL, as on <a href="../wiki/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> for example, early versions of DAVdroid will
+<p>Once you have followed the setup for SSL, as on <a href="/Usage/Configuration/N/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> for example, early versions of DAVdroid will
 reject the connection because the certificate is not trusted. A certificate can be made as follows on your server:
 </p>
 <pre># openssl x509 -req -days 365 -in /etc/httpd/conf/server.csr -signkey /etc/httpd/conf/server.key -extfile android.txt -out CA.crt
@@ -979,7 +979,7 @@ you will find it in <i>Settings &gt; Security &gt; Credential storage &gt; Trust
 </pre>
 <p>you can disable the troubling app.
 </p>
-<p>Alternatively, you can either use <a href="../wiki/PhpMyAdmin.html" title="PhpMyAdmin">phpMyAdmin</a> to edit the <code>oc_appconfig</code> table (if you got lucky and the table has an edit option), or do it by hand with mysql:
+<p>Alternatively, you can either use <a href="/Usage/Configuration/N/PhpMyAdmin.html" title="PhpMyAdmin">phpMyAdmin</a> to edit the <code>oc_appconfig</code> table (if you got lucky and the table has an edit option), or do it by hand with mysql:
 </p>
 <pre>mysql -u root -p owncloud
 MariaDB [owncloud]&gt; <b>delete from</b> oc_appconfig <b>where</b> appid='&lt;nameOfExtension&gt;' <b>and</b> configkey='enabled' <b>and</b> configvalue='yes';
@@ -1022,7 +1022,7 @@ Then in <code>config.php</code> make the following changes:
         'timeout' =&gt; 0.0,
          ),
 </pre>
-<p>and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>redis.service</code>.
+<p>and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>redis.service</code>.
 </p>
 <p>Finally, disable the File Locking App, as the Transational File Locking will take care of it (and would conflict).
 </p>
@@ -1112,15 +1112,15 @@ Or the following for KDE, <span class="plainlinks archwiki-template-pkg"><a rel=
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:File_sharing.html" title="Category:File sharing">File sharing</a></li>
-<li><a href="../wiki/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="/Usage/Configuration/N/Category:File_sharing.html" title="Category:File sharing">File sharing</a></li>
+<li><a href="/Usage/Configuration/N/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -1139,9 +1139,9 @@ Or the following for KDE, <span class="plainlinks archwiki-template-pkg"><a rel=
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

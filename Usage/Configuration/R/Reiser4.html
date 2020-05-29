@@ -2,7 +2,7 @@
     title: Reiser4
     description: Migration of Reiser4 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/R/File_systems.html" title="File systems">File systems</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Reiser4"  title="wikipedia:Reiser4">Reiser4</a> is the successor filesystem for <a href="https://en.wikipedia.org/wiki/ReiserFS"  title="wikipedia:ReiserFS">ReiserFS</a>, initially designed and developed entirely from scratch by <a href="https://en.wikipedia.org/wiki/Namesys"  title="wikipedia:Namesys">Namesys</a> and <a href="https://en.wikipedia.org/wiki/Hans_Reiser"  title="wikipedia:Hans Reiser">Hans Reiser</a>. 
@@ -56,7 +56,7 @@ However, current lead developer, mathematician and programmer <b>PhD Edward Shis
 <p>It's core design is very modular and allows for easy integration of new modules (called "plugins"). 
 According to the developers, because of the modular design, Reiser4 can quite easily be ported to other operating systems like <a href="https://en.wikipedia.org/wiki/FreeBSD"  title="wikipedia:FreeBSD">FreeBSD</a>. As of 2019, Linux is still the only operating system Reiser4 is known to be compatible with.
 </p>
-<p>Synthetic benchmarks and speed comparisons between <b>Reiser4</b>, <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a> and <a href="../wiki/Ext4.html" title="Ext4">Ext4</a> are <a rel="nofollow"  href="https://www.phoronix.com/scan.php?page=article&amp;item=reiser4_benchmarks&amp;num=1">available</a>, as well as <a rel="nofollow"  href="https://openbenchmarking.org/result/1510278-BE-REISER4VS69">benchmarks</a> that include comparisons between the different <b>transaction models</b> and with/without the <b>cryptcompress</b> plugin.
+<p>Synthetic benchmarks and speed comparisons between <b>Reiser4</b>, <a href="/Usage/Configuration/R/Btrfs.html" title="Btrfs">Btrfs</a> and <a href="/Usage/Configuration/R/Ext4.html" title="Ext4">Ext4</a> are <a rel="nofollow"  href="https://www.phoronix.com/scan.php?page=article&amp;item=reiser4_benchmarks&amp;num=1">available</a>, as well as <a rel="nofollow"  href="https://openbenchmarking.org/result/1510278-BE-REISER4VS69">benchmarks</a> that include comparisons between the different <b>transaction models</b> and with/without the <b>cryptcompress</b> plugin.
 </p>
 <p><br>
 More information about the features, plugins, design and mkfs or mount options is described in detail <a rel="nofollow"  href="https://reiser4.wiki.kernel.org/index.php/Main_Page">here</a>.
@@ -93,20 +93,20 @@ More information about the features, plugins, design and mkfs or mount options i
 
 <h2><span class="mw-headline" id="Important_Notes">Important Notes</span></h2>
 <ul>
-<li>Reiser4 requires a patched kernel. A custom <a href="../wiki/Linux-ck.html" title="Linux-ck">Linux-ck</a> based kernel with Reiser4 patches is available as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-ck-reiser4/">linux-ck-reiser4</a></span><sup><small>AUR</small></sup><sup>[<a href="../wiki/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup>
+<li>Reiser4 requires a patched kernel. A custom <a href="/Usage/Configuration/R/Linux-ck.html" title="Linux-ck">Linux-ck</a> based kernel with Reiser4 patches is available as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-ck-reiser4/">linux-ck-reiser4</a></span><sup><small>AUR</small></sup><sup>[<a href="/Usage/Configuration/R/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup>
 </li>
-<li>It consumes a little more CPU than other filesystems (just like <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a>). To avoid having issues on laptops using <a href="../wiki/TLP.html" title="TLP">TLP</a> for power saving, it is recommended to disable the options for <b>SATA Link</b> power saving in <b>/etc/default/tlp</b> (again, as with <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a>).</li>
-<li>Even <a href="../wiki/LILO.html" title="LILO">LILO</a> as the only bootloader officially supporting Reiser4 seems to have issues with it when <code>/boot</code> is formatted as Reiser4</li>
+<li>It consumes a little more CPU than other filesystems (just like <a href="/Usage/Configuration/R/Btrfs.html" title="Btrfs">Btrfs</a>). To avoid having issues on laptops using <a href="/Usage/Configuration/R/TLP.html" title="TLP">TLP</a> for power saving, it is recommended to disable the options for <b>SATA Link</b> power saving in <b>/etc/default/tlp</b> (again, as with <a href="/Usage/Configuration/R/Btrfs.html" title="Btrfs">Btrfs</a>).</li>
+<li>Even <a href="/Usage/Configuration/R/LILO.html" title="LILO">LILO</a> as the only bootloader officially supporting Reiser4 seems to have issues with it when <code>/boot</code> is formatted as Reiser4</li>
 <li>It is still not included in the official Linux kernel, but patches for <b>Linux-5.x</b> is already available.</li>
 <li>
-<a href="../wiki/Access_Control_Lists.html" title="Access Control Lists">Access Control Lists</a> is not implemented and as of linux-5.x.x requires that <a href="../wiki/Systemd/Journal.html" title="Systemd/Journal">Systemd/Journal</a> either logs to a seperate logging <a href="../wiki/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> or to <a href="../wiki/Tmpfs.html" title="Tmpfs">Tmpfs</a>. Another workaround is to compile systemD by source without ACL support, but is not recommended.</li>
+<a href="/Usage/Configuration/R/Access_Control_Lists.html" title="Access Control Lists">Access Control Lists</a> is not implemented and as of linux-5.x.x requires that <a href="/Usage/Configuration/R/Systemd/Journal.html" title="Systemd/Journal">Systemd/Journal</a> either logs to a seperate logging <a href="/Usage/Configuration/R/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> or to <a href="/Usage/Configuration/R/Tmpfs.html" title="Tmpfs">Tmpfs</a>. Another workaround is to compile systemD by source without ACL support, but is not recommended.</li>
 </ul>
 <p><br>
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> <a rel="nofollow"  href="http://gparted.sourceforge.net/livecd.php">Gparted LiveCD</a> is a small Linux distribution booting straight into Gparted. It also supports Reiser4 and can be used to migrate from an existing filesystem to Reiser4</div>
 <h2><span class="mw-headline" id="Packages">Packages</span></h2>
-<p>1. <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/reiser4progs/">reiser4progs</a></span><sup><small>AUR</small></sup> package which provides utilities for creating, fsck'ing and debugging Reiser4 volumes.
+<p>1. <a href="/Usage/Configuration/R/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/reiser4progs/">reiser4progs</a></span><sup><small>AUR</small></sup> package which provides utilities for creating, fsck'ing and debugging Reiser4 volumes.
 </p>
 <p>2. You will need a Reiser4 patched kernel. Patches can be found <a rel="nofollow"  href="https://sourceforge.net/projects/reiser4/files/">here</a> or at the more recently created Git <a rel="nofollow"  href="https://github.com/edward6/reiser4">repository</a> which is maintained by it's current lead developer, the mathematician and programmer <b>Edward Shishkin</b>.
 </p>
@@ -114,21 +114,21 @@ More information about the features, plugins, design and mkfs or mount options i
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Backing up your bootloader configuration file should be considered if one is going to have /boot residing on a Reiser4 volume.</div>
-<p>a) <b>Recommended:</b> make a small (as mentioned above, 20-200mb) partition for <code>/boot</code> with a filesystem other than Reiser4 with <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a>, and then copy your <code>/boot</code> folder to the partition. Update your bootloader config accordingly, eg. with <a href="../wiki/GRUB.html" class="mw-redirect" title="Grub2">Grub2</a> do:
+<p>a) <b>Recommended:</b> make a small (as mentioned above, 20-200mb) partition for <code>/boot</code> with a filesystem other than Reiser4 with <a href="/Usage/Configuration/R/Parted.html" class="mw-redirect" title="GParted">GParted</a>, and then copy your <code>/boot</code> folder to the partition. Update your bootloader config accordingly, eg. with <a href="/Usage/Configuration/R/GRUB.html" class="mw-redirect" title="Grub2">Grub2</a> do:
 </p>
 <pre># grub-mkconfig -o /boot/grub/grub.cfg. 
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="EFI">EFI</a> systems in general require a <a href="../wiki/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> partition for booting the kernel and thus it may be advantageous or unproblematic to have the /boot directory residing on that partition instead of only the EFI directory. Many EFI-users have their whole /boot directory on their <a href="../wiki/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>
+<strong>Note:</strong> <a href="/Usage/Configuration/R/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="EFI">EFI</a> systems in general require a <a href="/Usage/Configuration/R/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> partition for booting the kernel and thus it may be advantageous or unproblematic to have the /boot directory residing on that partition instead of only the EFI directory. Many EFI-users have their whole /boot directory on their <a href="/Usage/Configuration/R/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>
 </div>
-<p>b) If you do not use <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="EFI">EFI</a> and wish to put everything including <code>/boot</code> on a Reiser4 partition (not recommended) you will need to use <a href="../wiki/LILO.html" title="LILO">LILO</a>. This is not advised, as you will probably get an error when trying to update <code>lilo.conf</code>:
+<p>b) If you do not use <a href="/Usage/Configuration/R/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="EFI">EFI</a> and wish to put everything including <code>/boot</code> on a Reiser4 partition (not recommended) you will need to use <a href="/Usage/Configuration/R/LILO.html" title="LILO">LILO</a>. This is not advised, as you will probably get an error when trying to update <code>lilo.conf</code>:
 </p>
 <pre># lilo
 </pre>
 <p>4. Reboot
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The following steps are for using Reiser4 as your / (root, including /boot). If you just want to use Reiser4 as root with /boot mounted on the <a href="../wiki/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a> you should modify the following instructions according to your needs.</div>
+<strong>Note:</strong> The following steps are for using Reiser4 as your / (root, including /boot). If you just want to use Reiser4 as root with /boot mounted on the <a href="/Usage/Configuration/R/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a> you should modify the following instructions according to your needs.</div>
 <h2><span class="mw-headline" id="Moving_to_Reiser4">Moving to Reiser4</span></h2>
 <p>In the next steps we will copy the data from your current root partition to the new Reiser4 partitions. Make
 sure you have enough disk space on the Reiser4 partition with:
@@ -279,9 +279,9 @@ read-only
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/R/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -299,9 +299,9 @@ read-only
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

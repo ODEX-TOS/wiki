@@ -2,7 +2,7 @@
     title: Resizing_LVM-on-LUKS
     description: Migration of Resizing_LVM-on-LUKS from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -25,9 +25,9 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/R/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Notes:</b> This howto only aggregates information from other articles (thus duplicating it) for a too specific case: if some explanations are clearer here, they should be merged into <a href="../wiki/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a>, and then the little remaining wrapping part about dm-crypt should be merged into <a href="../wiki/Dm-crypt/Specialties.html" title="Dm-crypt/Specialties">Dm-crypt/Specialties</a> with a link to <a href="../wiki/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a> for the LVM resizing. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Resizing_LVM-on-LUKS">Talk:Resizing LVM-on-LUKS#</a>)</div>
+<b>Notes:</b> This howto only aggregates information from other articles (thus duplicating it) for a too specific case: if some explanations are clearer here, they should be merged into <a href="/Usage/Configuration/R/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a>, and then the little remaining wrapping part about dm-crypt should be merged into <a href="/Usage/Configuration/R/Dm-crypt/Specialties.html" title="Dm-crypt/Specialties">Dm-crypt/Specialties</a> with a link to <a href="/Usage/Configuration/R/LVM.html#Shrink_logical_volume" title="LVM">LVM#Shrink logical volume</a> for the LVM resizing. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Resizing_LVM-on-LUKS">Talk:Resizing LVM-on-LUKS#</a>)</div>
 </div>
 <p>This article follows the process of resizing and shrinking an LVM-on-LUKS-on-GPT partition, such that an extra (plain) partition can be added in the unused space cleared up on the end of the hard drive.
 </p>
@@ -88,14 +88,14 @@ sda                   8:0    0 111.8G  0 disk
 <strong>Note:</strong> It is highly recommended to write out the exact transition plan so that at each step you know exactly which partition size you're going to need.</div>
 <h2><span class="mw-headline" id="Shrink_LVM-on-LUKS">Shrink LVM-on-LUKS</span></h2>
 <h3><span class="mw-headline" id="Boot_and_setup">Boot and setup</span></h3>
-<p>Boot into your live <a href="../wiki/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a>.
+<p>Boot into your live <a href="/Usage/Configuration/R/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a>.
 </p>
 <p>Decrypt the LUKS volume:
 </p>
 <pre># cryptsetup luksOpen /dev/sda2 cryptdisk
 </pre>
 <h3><span class="mw-headline" id="Resize_filesystem_and_LVM_logical_volume">Resize filesystem and LVM logical volume</span></h3>
-<p>Follow <a href="../wiki/LVM.html#Resizing_the_logical_volume_and_file_system_in_one_go" title="LVM">these instructions</a>.
+<p>Follow <a href="/Usage/Configuration/R/LVM.html#Resizing_the_logical_volume_and_file_system_in_one_go" title="LVM">these instructions</a>.
 </p>
 <p>You can run a <code>fsck</code> just to make sure nothing broke:
 </p>
@@ -181,7 +181,7 @@ size:    952762368 sectors
 <p><code>primary partition(LUKS device{volume group[(logical partition1)(logical partition2--&gt;)]})</code>
 </p>
 <h3><span class="mw-headline" id="Preparation">Preparation</span></h3>
-<p>Create a new partition on the new hard disk of wanted size, f.i. by using <a href="../wiki/Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a>, and clone the old partition <code>sdX1</code>, containing your LUKS container, into the new partition <code>sdY1</code>:
+<p>Create a new partition on the new hard disk of wanted size, f.i. by using <a href="/Usage/Configuration/R/Parted.html" class="mw-redirect" title="GNU Parted">GNU Parted</a>, and clone the old partition <code>sdX1</code>, containing your LUKS container, into the new partition <code>sdY1</code>:
 </p>
 <pre># dd if=/dev/sdX1 of=/dev/sdY1 bs=4M
 </pre>
@@ -263,9 +263,9 @@ size:    952762368 sectors
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/R/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -283,9 +283,9 @@ size:    952762368 sectors
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

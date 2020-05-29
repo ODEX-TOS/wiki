@@ -2,7 +2,7 @@
     title: Lenovo_Yoga_2_11
     description: Migration of Lenovo_Yoga_2_11 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -97,7 +97,7 @@
 <pre>iwlist wlp1s0 scan
 </pre>
 <p>confirmed the wifi card was working.  I was able to get a connection by setting up a
-<a href="../wiki/Netctl.html" title="Netctl">netctl</a> profile manually.
+<a href="/Usage/Configuration/L/Netctl.html" title="Netctl">netctl</a> profile manually.
 </p>
 <h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
 <p>Tested model 20332 on <b>Kernel 3.16.1</b> (stable) and <b>Kernel 4.14.3</b> (stable).
@@ -177,10 +177,10 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-wacom">xf86-input-wacom</a></span>) may also be used, and provides two-finger right-click,
 scroll, and pinch to zoom.
 </p>
-<p>The packages <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/easystroke/">easystroke</a></span><sup><small>AUR</small></sup> or <a href="../wiki/Touchegg.html" title="Touchegg">touchegg</a> can also be used with X11 to provide further input gestures.
+<p>The packages <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/easystroke/">easystroke</a></span><sup><small>AUR</small></sup> or <a href="/Usage/Configuration/L/Touchegg.html" title="Touchegg">touchegg</a> can also be used with X11 to provide further input gestures.
 </p>
 <h3><span class="mw-headline" id="Video">Video</span></h3>
-<p>See <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a>, <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a> and <a href="../wiki/Backlight.html" title="Backlight">Backlight</a>.
+<p>See <a href="/Usage/Configuration/L/Intel_graphics.html" title="Intel graphics">Intel graphics</a>, <a href="/Usage/Configuration/L/Xrandr.html" title="Xrandr">xrandr</a> and <a href="/Usage/Configuration/L/Backlight.html" title="Backlight">Backlight</a>.
 </p>
 <h3><span class="mw-headline" id="Wireless">Wireless</span></h3>
 <p>Works out of the box.
@@ -197,7 +197,7 @@ scroll, and pinch to zoom.
 shutdown.  This appears to be an
 <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=66171">xhci-hcd kernel module bug</a>
 and can be worked around by unloading the xhci_hcd module before shutdown.  This
-can be done via <a href="../wiki/Systemd.html" title="Systemd">systemd</a> by creating a unit file
+can be done via <a href="/Usage/Configuration/L/Systemd.html" title="Systemd">systemd</a> by creating a unit file
 /etc/systemd/system/xhci.service containing
 </p>
 <pre>[Unit]
@@ -232,16 +232,16 @@ WantedBy=default.target
 <p>The problem has not recurred since installing rfkill.
 </p>
 <h3><span class="mw-headline" id="ACPI">ACPI</span></h3>
-<p><a href="../wiki/Acpid.html" title="Acpid">acpid</a> appears to work.
+<p><a href="/Usage/Configuration/L/Acpid.html" title="Acpid">acpid</a> appears to work.
 </p>
 <h3><span class="mw-headline" id="Laptop_Mode_Tools">Laptop Mode Tools</span></h3>
-<p><a href="../wiki/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a> provides power saving features.  I found it didn't work too well out of the box, and ran into the following issues.  In the end I switched it for <a href="../wiki/TLP.html" title="TLP">TLP</a>.  The laptop mode tools problems are listed below.
+<p><a href="/Usage/Configuration/L/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a> provides power saving features.  I found it didn't work too well out of the box, and ran into the following issues.  In the end I switched it for <a href="/Usage/Configuration/L/TLP.html" title="TLP">TLP</a>.  The laptop mode tools problems are listed below.
 </p>
 <p>The use of HAL ends up disabling the touchscreen.  HAL can be disabled by
 editing /etc/laptop-mode/conf.d/hal-polling.conf and changing
 CONTROL_HAL_POLLING to 0.
 </p>
-<p>The <a href="../wiki/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> did not work: the frequency governer remained on "powersave" at all times.
+<p>The <a href="/Usage/Configuration/L/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> did not work: the frequency governer remained on "powersave" at all times.
 </p>
 <p>The wireless power saving setting resulted in an "Operation not supported" error
 at boot.  It can be disabled by editing
@@ -249,7 +249,7 @@ at boot.  It can be disabled by editing
 CONTROL_WIRELESS_POWER_SAVING to 0.
 </p>
 <h3><span class="mw-headline" id="CPU_Frequency_Scaling">CPU Frequency Scaling</span></h3>
-<p>By default the CPUs use the intel_pstate driver and provide the following governors: powersave, performance.  Packages such as <a href="../wiki/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a> and <a href="../wiki/TLP.html" title="TLP">TLP</a> assumed "ondemand" as the default powersaving option, hence must be configured to use powersave instead.
+<p>By default the CPUs use the intel_pstate driver and provide the following governors: powersave, performance.  Packages such as <a href="/Usage/Configuration/L/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a> and <a href="/Usage/Configuration/L/TLP.html" title="TLP">TLP</a> assumed "ondemand" as the default powersaving option, hence must be configured to use powersave instead.
 </p>
 <h3><span class="mw-headline" id="KVM">KVM</span></h3>
 <p>KVM can be enabled in the BIOS via the "Intel Virtual Technology" option.
@@ -265,7 +265,7 @@ reported when the button is released (in tandem with the key release event).
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Lenovo.html" title="Category:Lenovo">Lenovo</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/L/Category:Lenovo.html" title="Category:Lenovo">Lenovo</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -282,9 +282,9 @@ reported when the button is released (in tandem with the key release event).
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

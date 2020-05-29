@@ -2,7 +2,7 @@
     title: Package_signing
     description: Migration of Package_signing from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../wiki/Pacman.html" title="Pacman">Pacman</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/P/Pacman.html" title="Pacman">Pacman</a></span></div>
 		
 		
 		
@@ -29,7 +29,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../../wiki/GnuPG.html" title="GnuPG">GnuPG</a></li>
+<li><a href="..//Usage/Configuration/P/GnuPG.html" title="GnuPG">GnuPG</a></li>
 <li><a href="../../DeveloperWiki:Package_signing.html" title="DeveloperWiki:Package signing">DeveloperWiki:Package signing</a></li>
 </ul>
 </div>
@@ -118,7 +118,7 @@ Include = /etc/pacman.d/mirrorlist
 <p>The randomness created is used to initialize the keyring (<code>/etc/pacman.d/gnupg</code>) and the GPG signing key of your system.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you need to run <code>pacman-key --init</code> on computer that does not generate much entropy (e.g. a headless server), key generation may take a very long time. To generate pseudo-entropy, install either <a href="../../wiki/Haveged.html" title="Haveged">haveged</a> or <a href="../../wiki/Rng-tools.html" title="Rng-tools">rng-tools</a> on the target machine and start the corresponding service before running <code>pacman-key --init</code>.</div>
+<strong>Note:</strong> If you need to run <code>pacman-key --init</code> on computer that does not generate much entropy (e.g. a headless server), key generation may take a very long time. To generate pseudo-entropy, install either <a href="..//Usage/Configuration/P/Haveged.html" title="Haveged">haveged</a> or <a href="..//Usage/Configuration/P/Rng-tools.html" title="Rng-tools">rng-tools</a> on the target machine and start the corresponding service before running <code>pacman-key --init</code>.</div>
 <h2><span class="mw-headline" id="Managing_the_keyring">Managing the keyring</span></h2>
 <h3><span class="mw-headline" id="Verifying_the_master_keys">Verifying the master keys</span></h3>
 <p>The initial setup of keys is achieved using:
@@ -130,14 +130,14 @@ Include = /etc/pacman.d/mirrorlist
 <p>PGP keys are too large (2048 bits or more) for humans to work with, so they are usually hashed to create a 40-hex-digit fingerprint which can be used to check by hand that two keys are the same. The last eight digits of the fingerprint serve as a name for the key known as the '(short) key ID' (the last <i>sixteen</i> digits of the fingerprint would be the 'long key ID').
 </p>
 <h3><span class="mw-headline" id="Adding_developer_keys">Adding developer keys</span></h3>
-<p>The official developer and <a href="../../wiki/Trusted_Users.html" title="Trusted Users">Trusted Users</a> <i>(TU)</i> keys are signed by the master keys, so you do not need to use <i>pacman-key</i> to sign them yourself. Whenever <i>pacman</i> encounters a key it does not recognize, it will prompt to download it from a <code>keyserver</code> configured in <code>/etc/pacman.d/gnupg/gpg.conf</code> (or by using the <code>--keyserver</code> option on the command line). Wikipedia maintains a <a href="https://en.wikipedia.org/wiki/Key_server_(cryptographic)"  title="wikipedia:Key server (cryptographic)">list of keyservers</a>.
+<p>The official developer and <a href="..//Usage/Configuration/P/Trusted_Users.html" title="Trusted Users">Trusted Users</a> <i>(TU)</i> keys are signed by the master keys, so you do not need to use <i>pacman-key</i> to sign them yourself. Whenever <i>pacman</i> encounters a key it does not recognize, it will prompt to download it from a <code>keyserver</code> configured in <code>/etc/pacman.d/gnupg/gpg.conf</code> (or by using the <code>--keyserver</code> option on the command line). Wikipedia maintains a <a href="https://en.wikipedia.org/wiki/Key_server_(cryptographic)"  title="wikipedia:Key server (cryptographic)">list of keyservers</a>.
 </p>
 <p>Once you have downloaded a developer key, you will not have to download it again, and it can be used to verify any other packages signed by that developer.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package, which is a dependency of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pacman">pacman</a></span>, contains the latest keys. However keys can also be updated manually using <code>pacman-key --refresh-keys</code> (as root). While doing <code>--refresh-keys</code>, your local key will also be looked up on the remote keyserver, and you will receive a message about it being not found. This is nothing to be concerned about.</div>
 <h3><span class="mw-headline" id="Adding_unofficial_keys">Adding unofficial keys</span></h3>
-<p>This method can be utilized to add a key to the <i>pacman</i> keyring, or to enable signed <a href="../../wiki/Unofficial_user_repositories.html" title="Unofficial user repositories">unofficial user repositories</a>.
+<p>This method can be utilized to add a key to the <i>pacman</i> keyring, or to enable signed <a href="..//Usage/Configuration/P/Unofficial_user_repositories.html" title="Unofficial user repositories">unofficial user repositories</a>.
 </p>
 <p>First, get the <b>key ID</b> (<code><i>keyid</i></code>) from its owner. Then add it to the keyring using one of the two methods:
 </p>
@@ -164,12 +164,12 @@ Include = /etc/pacman.d/mirrorlist
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="..//Usage/Configuration/P/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Instructions could be clearer (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Pacman/Package_signing">Talk:Pacman/Package signing#</a>)</div>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> <i>pacman-key</i> depends on <a href="../../wiki/System_time.html" title="System time">system time</a>. If your system clock is wrong, you'll get:
+<strong>Warning:</strong> <i>pacman-key</i> depends on <a href="..//Usage/Configuration/P/System_time.html" title="System time">system time</a>. If your system clock is wrong, you'll get:
 <pre>error: PackageName: signature from "User &lt;email@archlinux.org&gt;" is invalid
 error: failed to commit transaction (invalid or corrupted package (PGP signature))
 Errors occured, no packages were upgraded.
@@ -186,10 +186,10 @@ Errors occured, no packages were upgraded.
 <li>
 <code>dirmngr</code> is not correctly configured</li>
 </ul>
-<p>You might be stuck because of outdated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package when doing an upgrade synchronization. Try if <a href="../../wiki/Pacman.html#Upgrading_packages" title="Pacman">upgrading the system</a> can fix it first.
+<p>You might be stuck because of outdated <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archlinux-keyring">archlinux-keyring</a></span> package when doing an upgrade synchronization. Try if <a href="..//Usage/Configuration/P/Pacman.html#Upgrading_packages" title="Pacman">upgrading the system</a> can fix it first.
 </p>
 <div class="noprint archwiki-template-message">
-<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="..//Usage/Configuration/P/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Silly "if that does not work, try this" list. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Pacman/Package_signing">Talk:Pacman/Package signing#</a>)</div>
 </div>
@@ -249,7 +249,7 @@ Errors occured, no packages were upgraded.
 <a href="#Resetting_all_the_keys">resetting all the keys</a>.</li>
 </ul>
 <h3><span class="mw-headline" id="Updating_keys_via_proxy">Updating keys via proxy</span></h3>
-<p>In order to use a proxy when updating keys the <code>honor-http-proxy</code> option must be set in both <code>/etc/gnupg/dirmngr.conf</code> and <code>/etc/pacman.d/gnupg/dirmngr.conf</code>. See <a href="../../wiki/GnuPG.html#Use_a_keyserver" title="GnuPG">GnuPG#Use a keyserver</a> for more information.
+<p>In order to use a proxy when updating keys the <code>honor-http-proxy</code> option must be set in both <code>/etc/gnupg/dirmngr.conf</code> and <code>/etc/pacman.d/gnupg/dirmngr.conf</code>. See <a href="..//Usage/Configuration/P/GnuPG.html#Use_a_keyserver" title="GnuPG">GnuPG#Use a keyserver</a> for more information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If <i>pacman-key</i> is used without the <code>honor-http-proxy</code> option and fails, a reboot may solve the issue.</div>
@@ -265,9 +265,9 @@ Errors occured, no packages were upgraded.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/P/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -285,9 +285,9 @@ Errors occured, no packages were upgraded.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

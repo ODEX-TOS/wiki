@@ -2,7 +2,7 @@
     title: Mounting_at_login
     description: Migration of Mounting_at_login from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="../../wiki/Dm-crypt.html" title="Dm-crypt">Dm-crypt</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/M/Dm-crypt.html" title="Dm-crypt">Dm-crypt</a></span></div>
 		
 		
 		
@@ -29,12 +29,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../../wiki/Pam_mount.html" title="Pam mount">pam_mount</a></li>
+<li><a href="..//Usage/Configuration/M/Pam_mount.html" title="Pam mount">pam_mount</a></li>
 </ul>
 </div>
-<p>It is possible to configure <a href="../../wiki/PAM.html" title="PAM">PAM</a> and <a href="../../wiki/Systemd.html" title="Systemd">systemd</a> to automatically mount a <a href="../../wiki/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> encrypted home partition when its owner logs in, and to unmount it when they log out.
+<p>It is possible to configure <a href="..//Usage/Configuration/M/PAM.html" title="PAM">PAM</a> and <a href="..//Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> to automatically mount a <a href="..//Usage/Configuration/M/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> encrypted home partition when its owner logs in, and to unmount it when they log out.
 </p>
-<p>This tutorial assumes you have already created your encrypted partition, as described in <a href="../../wiki/Dm-crypt/Encrypting_a_non-root_file_system.html" title="Dm-crypt/Encrypting a non-root file system">Dm-crypt/Encrypting a non-root file system</a>.
+<p>This tutorial assumes you have already created your encrypted partition, as described in <a href="..//Usage/Configuration/M/Dm-crypt/Encrypting_a_non-root_file_system.html" title="Dm-crypt/Encrypting a non-root file system">Dm-crypt/Encrypting a non-root file system</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -47,7 +47,7 @@
 <p><i>pam_exec</i> can be used to unlock the device at login. Edit <code>/etc/pam.d/system-login</code> and add the line below emphasized in bold after <code>auth include system-auth</code>:
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> GDM, LightDM, and maybe other display managers might require <code>pam_exec</code> for <code>session</code> as well, see <a href="../../wiki/Talk:Dm-crypt/Mounting_at_login.html#pam_exec_required_for_session_&amp;_using_script" title="Talk:Dm-crypt/Mounting at login">Talk:Dm-crypt/Mounting at login#pam_exec required for session &amp; using script</a>.</div>
+<strong>Note:</strong> GDM, LightDM, and maybe other display managers might require <code>pam_exec</code> for <code>session</code> as well, see <a href="..//Usage/Configuration/M/Talk:Dm-crypt/Mounting_at_login.html#pam_exec_required_for_session_&amp;_using_script" title="Talk:Dm-crypt/Mounting at login">Talk:Dm-crypt/Mounting at login#pam_exec required for session &amp; using script</a>.</div>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/system-login</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
 
@@ -99,7 +99,7 @@ After=home-<i>YOURNAME</i>.mount</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If your desktop environment or some other application does not kill all its processes on logout, you might need to set <code>KillUserProcesses=yes</code> in <code>/etc/systemd/logind.conf</code>.</div>
 <h3><span class="mw-headline" id="Locking">Locking</span></h3>
-<p>After unmounting, the device will still be unlocked, and it will be possible to mount it without re-entering password. You can set up and <a href="../../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> a service that starts when the device gets unlocked (<code>BindsTo=dev-mapper-home\x2d<i>YOURNAME</i>.device</code>) and dies after the device gets unmounted (<code>Requires,Before=home-<i>YOURNAME</i>.mount</code>), locking the device in the process (<code>ExecStop=cryptsetup close</code>):
+<p>After unmounting, the device will still be unlocked, and it will be possible to mount it without re-entering password. You can set up and <a href="..//Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> a service that starts when the device gets unlocked (<code>BindsTo=dev-mapper-home\x2d<i>YOURNAME</i>.device</code>) and dies after the device gets unmounted (<code>Requires,Before=home-<i>YOURNAME</i>.mount</code>), locking the device in the process (<code>ExecStop=cryptsetup close</code>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/cryptsetup-<i>YOURNAME</i>.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -127,9 +127,9 @@ RequiredBy=dev-mapper-home\x2d<i>YOURNAME</i>.device</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../../wiki/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/M/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/M/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -147,9 +147,9 @@ RequiredBy=dev-mapper-home\x2d<i>YOURNAME</i>.device</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

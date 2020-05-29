@@ -2,7 +2,7 @@
     title: F2FS
     description: Migration of F2FS from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/F/File_systems.html" title="File systems">File systems</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/F2FS"  title="wikipedia:F2FS">F2FS</a> (Flash-Friendly File System) is a file system intended for NAND-based flash memory equipped with Flash Translation Layer. Unlike JFFS or UBIFS it relies on FTL to handle write distribution. It is supported from kernel 3.8 onwards.
@@ -60,7 +60,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Creating_a_F2FS_file_system">Creating a F2FS file system</span></h2>
-<p>In order to create a F2FS file system, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=f2fs-tools">f2fs-tools</a></span>.
+<p>In order to create a F2FS file system, <a href="/Usage/Configuration/F/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=f2fs-tools">f2fs-tools</a></span>.
 </p>
 <p>Create the file system:
 </p>
@@ -74,7 +74,7 @@
 <pre># mount /dev/sdxY /mnt/foo
 </pre>
 <h3><span class="mw-headline" id="Implementation_of_discard">Implementation of discard</span></h3>
-<p>By default, F2FS partitions are mounted using a hybrid TRIM mode which behaves as <a href="../wiki/Solid_state_drive.html#Continuous_TRIM" title="Solid state drive">continuous TRIM</a>.  This implementation creates asynchronous discard threads to alleviate long discarding latency among RW IOs.  It keeps candidates in memory, and the thread issues them in idle time <a rel="nofollow"  href="https://sourceforge.net/p/linux-f2fs/mailman/message/36957687">[3]</a>.  As a result of this, users wanting <a href="../wiki/Solid_state_drive.html#Periodic_TRIM" title="Solid state drive">periodic TRIM</a> will need to implicitly set the <code>nodiscard</code> mount option in <code>/etc/fstab</code> or pass it to <a href="../wiki/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> if mounting manually.
+<p>By default, F2FS partitions are mounted using a hybrid TRIM mode which behaves as <a href="/Usage/Configuration/F/Solid_state_drive.html#Continuous_TRIM" title="Solid state drive">continuous TRIM</a>.  This implementation creates asynchronous discard threads to alleviate long discarding latency among RW IOs.  It keeps candidates in memory, and the thread issues them in idle time <a rel="nofollow"  href="https://sourceforge.net/p/linux-f2fs/mailman/message/36957687">[3]</a>.  As a result of this, users wanting <a href="/Usage/Configuration/F/Solid_state_drive.html#Periodic_TRIM" title="Solid state drive">periodic TRIM</a> will need to implicitly set the <code>nodiscard</code> mount option in <code>/etc/fstab</code> or pass it to <a href="/Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> if mounting manually.
 </p>
 <h2><span class="mw-headline" id="Checking_and_repair">Checking and repair</span></h2>
 <p>Checking and repairs to f2fs file systems are accomplished with <code>fsck.f2fs</code> provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=f2fs-tools">f2fs-tools</a></span>. See <span class="plainlinks archwiki-template-man" title="$ man 8 fsck.f2fs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fsck.f2fs.8">fsck.f2fs(8)</a></span> for available switches.
@@ -82,7 +82,7 @@
 <h2><span class="mw-headline" id="Grow_an_F2FS_file_system">Grow an F2FS file system</span></h2>
 <p>When the filesystem is unmounted, it can be grown if the partition is expanded. <a rel="nofollow"  href="https://www.mail-archive.com/linux-f2fs-devel@lists.sourceforge.net/msg04247.html">Shrinking is not currently supported</a>.
 </p>
-<p>First use a <a href="../wiki/Partitioning.html#Partitioning_tools" title="Partitioning">partition tool</a> to resize the partition: for example, suppose the output of the <code>print</code> command in the <code>parted</code> console for your disk is the following:
+<p>First use a <a href="/Usage/Configuration/F/Partitioning.html#Partitioning_tools" title="Partitioning">partition tool</a> to resize the partition: for example, suppose the output of the <code>print</code> command in the <code>parted</code> console for your disk is the following:
 </p>
 <pre>   Number  Start   End     Size        File system     Name                  Flag
     1      1049kB  106MB   105MB       fat32           EFI system partition  boot, esp
@@ -99,7 +99,7 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If you're using GPT, the partition's GUID (seen in <code>/dev/disk/by-partuuid/</code>) might change, but the filesystem UUID (seen in <code>/dev/disk/by-uuid/</code>) should stay the same.</div>
 <h2><span class="mw-headline" id="File-based_encryption_support">File-based encryption support</span></h2>
-<p>Since Linux 4.2, F2FS natively supports file encryption.  Encryption is applied at the directory level, and different directories can use different encryption keys.  This is different from both <a href="../wiki/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which is block-device level encryption, and from <a href="../wiki/ECryptfs.html" title="ECryptfs">eCryptfs</a>, which is a stacked cryptographic filesystem.  To use F2FS's native encryption support, see the <a href="../wiki/Fscrypt.html" title="Fscrypt">fscrypt</a> article.
+<p>Since Linux 4.2, F2FS natively supports file encryption.  Encryption is applied at the directory level, and different directories can use different encryption keys.  This is different from both <a href="/Usage/Configuration/F/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which is block-device level encryption, and from <a href="/Usage/Configuration/F/ECryptfs.html" title="ECryptfs">eCryptfs</a>, which is a stacked cryptographic filesystem.  To use F2FS's native encryption support, see the <a href="/Usage/Configuration/F/Fscrypt.html" title="Fscrypt">fscrypt</a> article.
 </p>
 <h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
 <h3><span class="mw-headline" id="Long_running_fsck_delays_boot">Long running fsck delays boot</span></h3>
@@ -108,7 +108,7 @@
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -125,9 +125,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

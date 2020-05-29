@@ -2,7 +2,7 @@
     title: VirtualGL
     description: Migration of VirtualGL from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -115,7 +115,7 @@
 </p>
 <ul>
 <li>install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualgl">virtualgl</a></span> package on the client side as well <i>(but no need to set it up like on the server side, we just need the <code>vglconnect</code> and <code>vglclient</code> binaries on this end)</i>.</li>
-<li>set up <a href="../wiki/OpenSSH.html#X11_forwarding" class="mw-redirect" title="X11 forwarding">SSH with X11 forwarding</a> <i>(confirm that connecting from the client to the server via <code>ssh -X user@server</code> and running GUI applications in the resulting shell works)</i>
+<li>set up <a href="/Usage/Configuration/V/OpenSSH.html#X11_forwarding" class="mw-redirect" title="X11 forwarding">SSH with X11 forwarding</a> <i>(confirm that connecting from the client to the server via <code>ssh -X user@server</code> and running GUI applications in the resulting shell works)</i>
 </li>
 </ul>
 <p><i><b>2. Connecting</b></i>
@@ -164,14 +164,14 @@
 <li>better support for non-Linux clients, as the architecture does not depend on a client-side X server</li>
 </ul>
 <h3><span class="mw-headline" id="Instructions_2">Instructions</span></h3>
-<p>After setting up VirtualGL on the remote server <a href="#Installation_and_setup">as described above</a>, and establishing a working remote desktop connection using the <a href="../wiki/TigerVNC.html" class="mw-redirect" title="Vncserver">VNC client/server</a> implementation of your choice, no further configuration should be needed.
+<p>After setting up VirtualGL on the remote server <a href="#Installation_and_setup">as described above</a>, and establishing a working remote desktop connection using the <a href="/Usage/Configuration/V/TigerVNC.html" class="mw-redirect" title="Vncserver">VNC client/server</a> implementation of your choice, no further configuration should be needed.
 </p>
 <p>Inside the VNC session (e.g. in a terminal emulator within the VNC desktop or even directly in <code>~/.vnc/xstartup</code>), simply run selected applications with <code>vglrun</code> as described in <a href="#Running_applications">Running Applications</a> below.
 </p>
 <p>You can also run your entire session with <code>vglrun</code>, so that all opengl applications work by default. For example, if you use xfce, you can run <code>vglrun startxfce4</code> instead of <code>startxfce4</code> in your X startup scripts (<code>~/.vnc/xstartup</code>, <code>.xinitrc</code> or equivalent), or copy and edit a .desktop file in /usr/share/xsessions if you're using a display manager.
 </p>
 <h3><span class="mw-headline" id="Choosing_an_appropriate_VNC_package">Choosing an appropriate VNC package</span></h3>
-<p>VirtualGL can provide 3D rendering for <i>any</i> general-purpose <a href="../wiki/TigerVNC.html" class="mw-redirect" title="Vncserver">vncserver</a> implementation (e.g. TightVNC, RealVNC, ...).
+<p>VirtualGL can provide 3D rendering for <i>any</i> general-purpose <a href="/Usage/Configuration/V/TigerVNC.html" class="mw-redirect" title="Vncserver">vncserver</a> implementation (e.g. TightVNC, RealVNC, ...).
 </p>
 <p>However, if you want to really get good performance out of it <i>(e.g. to make it viable to watch videos or play OpenGL games over VNC)</i>, you might want to use one of the VNC implementations that are specifically optimized for this use-case:
 </p>
@@ -179,7 +179,7 @@
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/turbovnc/">turbovnc</a></span><sup><small>AUR</small></sup>: Developed by the same team as VirtualGL, with the explicit goal of providing the best performance in combination with it. However, its vncserver implementation does not support all features a normal Xorg server provides, thus <i>some</i> applications will run unusually slow or not at all in it.</li>
 <li>
-<a href="../wiki/TigerVNC.html" title="TigerVNC">TigerVNC</a>: Also developed with VirtualGL in mind and achieves good performance with it, while providing better Xorg compatibility than TurboVNC.</li>
+<a href="/Usage/Configuration/V/TigerVNC.html" title="TigerVNC">TigerVNC</a>: Also developed with VirtualGL in mind and achieves good performance with it, while providing better Xorg compatibility than TurboVNC.</li>
 </ul>
 <h2><span class="mw-headline" id="Running_applications">Running applications</span></h2>
 <p>Once you have set up your remote desktop connection with VirtualGL support, you can use <code>vglrun</code> to run selected applications with VirtualGL-accelerated rendering of their OpenGL parts:
@@ -278,7 +278,7 @@ ERROR: ld.so: object 'librrfaker.so' from LD_PRELOAD cannot be preloaded: ignore
 <p>...in the shell output, then the dynamic linker is correctly receiving instructions to preload the VirtualGL libraries into the application, but something prevents it from successfully performing this task. Three possible causes are:
 </p>
 <ul><li><b>The VirtualGL libraries for the correct architecture are not installed</b></li></ul>
-<dl><dd>To run a 32-bit application (like <a href="../wiki/Wine.html" title="Wine">Wine</a>) with VirtualGL, you need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-virtualgl">lib32-virtualgl</a></span> from the <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository.</dd></dl>
+<dl><dd>To run a 32-bit application (like <a href="/Usage/Configuration/V/Wine.html" title="Wine">Wine</a>) with VirtualGL, you need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-virtualgl">lib32-virtualgl</a></span> from the <a href="/Usage/Configuration/V/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository.</dd></dl>
 <ul><li><b>The application executable has the setuid/setgid flag set</b></li></ul>
 <dl><dd>You can confirm whether this is the case by inspecting the executable's file permissions using <code>ls -l</code>: It will show the letter <code>s</code> in place of the <i>user executable</i> bit if setuid is set (for example <code>-rw<b>s</b>r-xr-x</code>), and in place of the <i>group executable</i> bit if setgid is set. For such an application any preloading attempts will fail, unless the libraries to be preloaded have the setuid flag set as well. You can set this flag for the VirtualGL libraries in question by executing the following as root:</dd></dl>
 <div style="margin-left:1em;"><pre>$ chmod u+s /usr/lib/lib{rr,dl}faker.so    # for the native-architecture versions provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualgl">virtualgl</a></span>
@@ -315,7 +315,7 @@ display-setup-script=/usr/bin/vglgenkey
 <p>This means that VirtualGL is trying to load a function from the wrong library. You can specify which OpenGL library to use by setting <code>LD_PRELOAD</code> to the path of the library. <code>/usr/lib/libGL.so</code> appears to work for 64-bit applications. Keep in mind that 32-bit applications (like Steam or Wine) will require 32-bit OpenGL. If you need to use both 32-bit and 64-bit libraries, you can load them both with <code>LD_PRELOAD="/path/to/libGL.so /path/to/lib32/libGL.so"</code>.
 </p>
 <h3><span class="mw-headline" id="Problem:_All_applications_run_with_1_frame_per_second">Problem: All applications run with 1 frame per second</span></h3>
-<p>If you use newer Nvidia drivers (e.g., version 440) you might be affected by a screen locking problem, which will reduce the framerate to approx. 1 frame per second according to the <a rel="nofollow"  href="https://groups.google.com/d/msg/virtualgl-users/d8k1ujwKJXo/2faAa9yNAQAJ">VirtualGL mailing list</a>. Instead of downgrading the Nvidia driver one workaround is to set <code>HardDPMS</code> to <code>false</code> in your X server configuration (see <a href="../wiki/NVIDIA/Troubleshooting.html#Driver_415:_HardDPMS" title="NVIDIA/Troubleshooting">NVIDIA/Troubleshooting#Driver 415: HardDPMS</a> for details).
+<p>If you use newer Nvidia drivers (e.g., version 440) you might be affected by a screen locking problem, which will reduce the framerate to approx. 1 frame per second according to the <a rel="nofollow"  href="https://groups.google.com/d/msg/virtualgl-users/d8k1ujwKJXo/2faAa9yNAQAJ">VirtualGL mailing list</a>. Instead of downgrading the Nvidia driver one workaround is to set <code>HardDPMS</code> to <code>false</code> in your X server configuration (see <a href="/Usage/Configuration/V/NVIDIA/Troubleshooting.html#Driver_415:_HardDPMS" title="NVIDIA/Troubleshooting">NVIDIA/Troubleshooting#Driver 415: HardDPMS</a> for details).
 </p>
 <h3>
 <span id="Problem:_rendering_glitches.2C_unusually_poor_performance.2C_or_application_errors"></span><span class="mw-headline" id="Problem:_rendering_glitches,_unusually_poor_performance,_or_application_errors">Problem: rendering glitches, unusually poor performance, or application errors</span>
@@ -341,11 +341,11 @@ VGL_SYNC=1  # use VNC with this one, it is very slow with X11 forwarding
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
-<li><a href="../wiki/Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li>
+<li><a href="/Usage/Configuration/V/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
+<li><a href="/Usage/Configuration/V/Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/V/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -363,9 +363,9 @@ VGL_SYNC=1  # use VNC with this one, it is very slow with X11 forwarding
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/V/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/V/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/V/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

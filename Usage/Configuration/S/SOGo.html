@@ -2,7 +2,7 @@
     title: SOGo
     description: Migration of SOGo from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,15 +27,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
-<li><a href="../wiki/Dovecot.html" title="Dovecot">Dovecot</a></li>
-<li><a href="../wiki/MySQL.html" title="MySQL">MySQL</a></li>
-<li><a href="../wiki/Nginx.html" title="Nginx">Nginx</a></li>
-<li><a href="../wiki/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a></li>
-<li><a href="../wiki/Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a></li>
-<li><a href="../wiki/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a></li>
-<li><a href="../wiki/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
+<li><a href="/Usage/Configuration/S/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
+<li><a href="/Usage/Configuration/S/Dovecot.html" title="Dovecot">Dovecot</a></li>
+<li><a href="/Usage/Configuration/S/MySQL.html" title="MySQL">MySQL</a></li>
+<li><a href="/Usage/Configuration/S/Nginx.html" title="Nginx">Nginx</a></li>
+<li><a href="/Usage/Configuration/S/OpenLDAP.html" title="OpenLDAP">OpenLDAP</a></li>
+<li><a href="/Usage/Configuration/S/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="/Usage/Configuration/S/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a></li>
+<li><a href="/Usage/Configuration/S/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a></li>
+<li><a href="/Usage/Configuration/S/Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube.html" class="mw-redirect" title="Virtual user mail system">Virtual user mail system</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
@@ -168,23 +168,23 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="Considerations">Considerations</span></h3>
-<p>SOGo can use many different sources for user authentication including, but not limited to, Active Directory, OpenLDAP, MySQL/MariaDB, PostgreSQL, and probably many others if you include PAM. This article will focus on using a centrally managed user database (following on from the <a href="../wiki/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a> article initially -- hopefully others will contribute OpenLDAP/MySQL/PostgreSQL user configs) for both authentication, and to provide a global address list.
+<p>SOGo can use many different sources for user authentication including, but not limited to, Active Directory, OpenLDAP, MySQL/MariaDB, PostgreSQL, and probably many others if you include PAM. This article will focus on using a centrally managed user database (following on from the <a href="/Usage/Configuration/S/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a> article initially -- hopefully others will contribute OpenLDAP/MySQL/PostgreSQL user configs) for both authentication, and to provide a global address list.
 </p>
 <p>Additionally, either <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mariadb">mariadb</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span> must be used to store the users' calendars and address books. As of this writing, the SOGo documentation has a clear preference for MariaDB (or MySQL), but if you have an existing PostgreSQL installation, it might make sense to use it. Other SQL implementations might also be supported, but are not currently covered.
 </p>
 <p>Finally, there are currently two versions of SOGo that are being actively maintained. SOGo-2.x is uses a look and feel that is similar to a desktop client, while SOGo-3.x uses a more modern interface, taking cues from Google using AngularJS. Instructions and configuration are interchangeable between the two versions.
 </p>
 <h3><span class="mw-headline" id="Prerequisites">Prerequisites</span></h3>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sogo/">sogo</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sogo2/">sogo2</a></span><sup><small>AUR</small></sup>.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sogo/">sogo</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sogo2/">sogo2</a></span><sup><small>AUR</small></sup>.
 </p>
 <ul>
-<li>For a local database install <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> or <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.</li>
-<li>For a local mail server install <a href="../wiki/Dovecot.html" title="Dovecot">Dovecot</a> and <a href="../wiki/Postfix.html" title="Postfix">Postfix</a>.</li>
-<li>For a local web server install <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="../wiki/Nginx.html" title="Nginx">nginx</a>.</li>
+<li>For a local database install <a href="/Usage/Configuration/S/MySQL.html" title="MySQL">MySQL</a> or <a href="/Usage/Configuration/S/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.</li>
+<li>For a local mail server install <a href="/Usage/Configuration/S/Dovecot.html" title="Dovecot">Dovecot</a> and <a href="/Usage/Configuration/S/Postfix.html" title="Postfix">Postfix</a>.</li>
+<li>For a local web server install <a href="/Usage/Configuration/S/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> or <a href="/Usage/Configuration/S/Nginx.html" title="Nginx">nginx</a>.</li>
 </ul>
 <h2><span class="mw-headline" id="Initial_web_server_configuration">Initial web server configuration</span></h2>
 <h3><span class="mw-headline" id="Apache">Apache</span></h3>
-<p>If using <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> for the web server, add SOGo to the Apache configuration appending the following lines at the end of <code>/etc/httpd/conf/httpd.conf</code>:
+<p>If using <a href="/Usage/Configuration/S/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> for the web server, add SOGo to the Apache configuration appending the following lines at the end of <code>/etc/httpd/conf/httpd.conf</code>:
 </p>
 <pre>...
 # Include SOGo configuration
@@ -205,7 +205,7 @@ include conf/extra/SOGo.conf
 ...
 </pre>
 <h3><span class="mw-headline" id="nginx">nginx</span></h3>
-<p>If using <a href="../wiki/Nginx.html" title="Nginx">nginx</a> for the web server, you will only configure on 443, SSL certificates must be in place prior to configuration.
+<p>If using <a href="/Usage/Configuration/S/Nginx.html" title="Nginx">nginx</a> for the web server, you will only configure on 443, SSL certificates must be in place prior to configuration.
 Add the following to <code>/etc/nginx/nginx.conf</code>:
 </p>
 <pre>   server {
@@ -356,7 +356,7 @@ $ createdb -O sogo sogo
 </p>
 <h2><span class="mw-headline" id="Configuring_user_databases">Configuring user databases</span></h2>
 <h3><span class="mw-headline" id="Active_Directory">Active Directory</span></h3>
-<p>If using Active Directory for user authentication, whether using Samba (following the <a href="../wiki/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a> article) or using a Microsoft server, the needed attributes for mail users are already present in the default schema. Users, however, need to have both <i>mail</i> and <i>proxyAddresses</i> attributes set. The <i>proxyAddress</i> attribute labeled <b>SMTP</b> (as opposed to smtp) is the default mail address. If using internal and external domains, you will need to set SMTP to the user's external address as this will be the SMTP from address and envelope sender in outgoing messages. Additionally, the <i>mail</i> attribute must also be set to the user's external email address.
+<p>If using Active Directory for user authentication, whether using Samba (following the <a href="/Usage/Configuration/S/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a> article) or using a Microsoft server, the needed attributes for mail users are already present in the default schema. Users, however, need to have both <i>mail</i> and <i>proxyAddresses</i> attributes set. The <i>proxyAddress</i> attribute labeled <b>SMTP</b> (as opposed to smtp) is the default mail address. If using internal and external domains, you will need to set SMTP to the user's external address as this will be the SMTP from address and envelope sender in outgoing messages. Additionally, the <i>mail</i> attribute must also be set to the user's external email address.
 </p>
 <p>For Samba, you can use the <i>ldbedit</i> command to edit users. In this example, we'll modify the "Administrator" user and add aliases for postmaster, as well as internal and external email addresses. Replace <i>vim</i> in the following command with your preferred editor:
 </p>
@@ -1074,11 +1074,11 @@ ProxyPass /Microsoft-Server-ActiveSync \
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Groupware.html" title="Category:Groupware">Groupware</a></li>
-<li><a href="../wiki/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="/Usage/Configuration/S/Category:Groupware.html" title="Category:Groupware">Groupware</a></li>
+<li><a href="/Usage/Configuration/S/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -1096,9 +1096,9 @@ ProxyPass /Microsoft-Server-ActiveSync \
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

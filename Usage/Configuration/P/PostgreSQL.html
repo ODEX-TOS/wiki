@@ -2,7 +2,7 @@
     title: PostgreSQL
     description: Migration of PostgreSQL from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/PhpPgAdmin.html" title="PhpPgAdmin">PhpPgAdmin</a></li>
+<li><a href="/Usage/Configuration/P/PhpPgAdmin.html" title="PhpPgAdmin">PhpPgAdmin</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.postgresql.org/">PostgreSQL</a> is an open source, community driven, standard compliant object-relational database system.
@@ -79,11 +79,11 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/P/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Don't duplicate <a href="../wiki/Sudo.html" title="Sudo">sudo</a> and <a href="../wiki/Su.html" title="Su">su</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PostgreSQL">Talk:PostgreSQL#</a>)</div>
+<b>Reason:</b> Don't duplicate <a href="/Usage/Configuration/P/Sudo.html" title="Sudo">sudo</a> and <a href="/Usage/Configuration/P/Su.html" title="Su">su</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PostgreSQL">Talk:PostgreSQL#</a>)</div>
 </div>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span> package. It will also create a system user called <i>postgres</i>.
+<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql">postgresql</a></span> package. It will also create a system user called <i>postgres</i>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> See <a href="#Upgrading_PostgreSQL">#Upgrading PostgreSQL</a> for necessary steps before installing new versions of the PostgreSQL packages.</div>
@@ -91,9 +91,9 @@
 <strong>Note:</strong> Commands that should be run as the <i>postgres</i> user are prefixed by <code>[postgres]$</code> in this article.</div>
 <p>You can switch to the PostgreSQL user by executing the following command:
 </p>
-<ul><li>If you have <a href="../wiki/Sudo.html" title="Sudo">sudo</a> and are in <a href="../wiki/Sudo.html#Configuration" class="mw-redirect" title="Sudoers">sudoers</a>:</li></ul>
+<ul><li>If you have <a href="/Usage/Configuration/P/Sudo.html" title="Sudo">sudo</a> and are in <a href="/Usage/Configuration/P/Sudo.html#Configuration" class="mw-redirect" title="Sudoers">sudoers</a>:</li></ul>
 <dl><dd><pre>$ sudo -iu postgres</pre></dd></dl>
-<ul><li>Otherwise using <a href="../wiki/Su.html" title="Su">su</a>:</li></ul>
+<ul><li>Otherwise using <a href="/Usage/Configuration/P/Su.html" title="Su">su</a>:</li></ul>
 <dl><dd><pre>$ su
 # su -l postgres
 </pre></dd></dl>
@@ -106,12 +106,12 @@
 </pre>
 <p>Where <code>-D</code> is the default location where the database cluster must be stored (see <a href="#Change_default_data_directory">#Change default data directory</a> if you want to use a different one).
 </p>
-<p>Note that by default, the locale and the encoding for the database cluster are derived from your current environment (using <a href="../wiki/Locale.html#LANG:_default_locale" title="Locale">$LANG</a> value). <a rel="nofollow"  href="https://www.postgresql.org/docs/current/static/locale.html">[1]</a>
+<p>Note that by default, the locale and the encoding for the database cluster are derived from your current environment (using <a href="/Usage/Configuration/P/Locale.html#LANG:_default_locale" title="Locale">$LANG</a> value). <a rel="nofollow"  href="https://www.postgresql.org/docs/current/static/locale.html">[1]</a>
 However, depending on your settings and use cases this might not be what you want, and you can override the defaults using:
 </p>
 <ul>
 <li>
-<code>--locale=<i>locale</i></code>, where <i>locale</i> is to be chosen amongst the system's <a href="../wiki/Locale.html#Generating_locales" title="Locale">available locales</a>;</li>
+<code>--locale=<i>locale</i></code>, where <i>locale</i> is to be chosen amongst the system's <a href="/Usage/Configuration/P/Locale.html#Generating_locales" title="Locale">available locales</a>;</li>
 <li>
 <code>-E <i>encoding</i></code> for the encoding (which must match the chosen locale);</li>
 </ul>
@@ -153,15 +153,15 @@ Success. You can now start the database server using:
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> To read more about this <code>WARNING</code>, see <a href="#Restricts_access_rights_to_the_database_superuser_by_default">#Restricts access rights to the database superuser by default</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If you change the root to something other than <code>/var/lib/postgres</code>, you will have to <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service file. If the root is under <code>home</code>, make sure to set <code>ProtectHome</code> to false.</div>
+<strong>Tip:</strong> If you change the root to something other than <code>/var/lib/postgres</code>, you will have to <a href="/Usage/Configuration/P/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service file. If the root is under <code>home</code>, make sure to set <code>ProtectHome</code> to false.</div>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
 <ul>
-<li>If the database resides on a <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a> file system, you should consider disabling <a href="../wiki/Btrfs.html#Copy-on-Write_(CoW)" title="Btrfs">Copy-on-Write</a> for the directory before creating any database.</li>
-<li>If the database resides on a <a href="../wiki/ZFS.html" title="ZFS">ZFS</a> file system, you should consult <a href="../wiki/ZFS.html#Databases" title="ZFS">ZFS#Databases</a> before creating any database.</li>
+<li>If the database resides on a <a href="/Usage/Configuration/P/Btrfs.html" title="Btrfs">Btrfs</a> file system, you should consider disabling <a href="/Usage/Configuration/P/Btrfs.html#Copy-on-Write_(CoW)" title="Btrfs">Copy-on-Write</a> for the directory before creating any database.</li>
+<li>If the database resides on a <a href="/Usage/Configuration/P/ZFS.html" title="ZFS">ZFS</a> file system, you should consult <a href="/Usage/Configuration/P/ZFS.html#Databases" title="ZFS">ZFS#Databases</a> before creating any database.</li>
 </ul>
 </div>
-<p>Finally, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>postgresql.service</code>.
+<p>Finally, <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the <code>postgresql.service</code>.
 </p>
 <h2>
 <span id="Create_your_first_database.2Fuser"></span><span class="mw-headline" id="Create_your_first_database/user">Create your first database/user</span>
@@ -239,7 +239,7 @@ local   all             postgres                                peer</pre>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/lib/postgres/data/postgresql.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">listen_addresses = ''</pre>
 <p>This will disable network listening completely.
-After this you should <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code> for the changes to take effect.
+After this you should <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code> for the changes to take effect.
 </p>
 <h3><span class="mw-headline" id="Configure_PostgreSQL_to_be_accessible_from_remote_hosts">Configure PostgreSQL to be accessible from remote hosts</span></h3>
 <p>In the connections and authentications section, set the <code>listen_addresses</code> line to your needs:
@@ -249,7 +249,7 @@ After this you should <a href="../wiki/Systemd.html#Using_units" class="mw-redir
 <p>You can use <code>'*'</code> to listen on all available addresses.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> PostgreSQL uses TCP port <code>5432</code> by default for remote connections. Make sure this port is open in your <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> and able to receive incoming connections. You can also change it in the configuration file, right below <code>listen_addresses</code>
+<strong>Note:</strong> PostgreSQL uses TCP port <code>5432</code> by default for remote connections. Make sure this port is open in your <a href="/Usage/Configuration/P/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> and able to receive incoming connections. You can also change it in the configuration file, right below <code>listen_addresses</code>
 </div>
 <p>Then add a line like the following to the authentication config:
 </p>
@@ -263,14 +263,14 @@ host    all             all             <i>ip_address</i>/32   md5</pre>
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Neither sending your plain password nor the md5 hash (used in the example above) over the Internet is secure if it is not done over an SSL-secured connection. See <a rel="nofollow"  href="https://www.postgresql.org/docs/current/static/ssl-tcp.html">Secure TCP/IP Connections with SSL</a> for how to configure PostgreSQL with SSL.</div>
-<p>After this you should <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code> for the changes to take effect.
+<p>After this you should <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code> for the changes to take effect.
 </p>
 <p>For troubleshooting take a look in the server log file:
 </p>
 <pre>$ journalctl -u postgresql.service
 </pre>
 <h3><span class="mw-headline" id="Configure_PostgreSQL_authenticate_against_PAM">Configure PostgreSQL authenticate against PAM</span></h3>
-<p>PostgreSQL offers a number of authentication methods. If you would like to allow users to authenticate with their system password, additional steps are necessary. First you need to enable <a href="../wiki/PAM.html" title="PAM">PAM</a> for the connection.
+<p>PostgreSQL offers a number of authentication methods. If you would like to allow users to authenticate with their system password, additional steps are necessary. First you need to enable <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> for the connection.
 </p>
 <p>For example, the same configuration as above, but with PAM enabled:
 </p>
@@ -293,7 +293,7 @@ host   all   all   <i>my_remote_client_ip_address</i>/32   pam</pre>
 </p>
 <pre>[postgres]$ initdb -D /pathto/pgroot/data
 </pre>
-<p><a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> <code>postgresql.service</code> to create a drop-in file and override the <code>Environment</code> and <code>PIDFile</code> settings. For example:
+<p><a href="/Usage/Configuration/P/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> <code>postgresql.service</code> to create a drop-in file and override the <code>Environment</code> and <code>PIDFile</code> settings. For example:
 </p>
 <pre>[Service]
 Environment=PGROOT=<i>/pathto/pgroot</i>
@@ -348,7 +348,7 @@ template1 | postgres | UTF8      | C         | C     |
 </pre>
 <h2><span class="mw-headline" id="Graphical_tools">Graphical tools</span></h2>
 <ul><li>
-<b><a href="../wiki/PhpPgAdmin.html" title="PhpPgAdmin">phpPgAdmin</a></b> — Web-based administration tool for PostgreSQL.</li></ul>
+<b><a href="/Usage/Configuration/P/PhpPgAdmin.html" title="PhpPgAdmin">phpPgAdmin</a></b> — Web-based administration tool for PostgreSQL.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://phppgadmin.sourceforge.net">http://phppgadmin.sourceforge.net</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=phppgadmin">phppgadmin</a></span>
 </dd></dl>
@@ -362,11 +362,11 @@ template1 | postgres | UTF8      | C         | C     |
 <dl><dd>
 <a rel="nofollow"  href="https://pgmodeler.io/">https://pgmodeler.io/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pgmodeler/">pgmodeler</a></span><sup><small>AUR</small></sup>
 </dd></dl>
-<p>For tools supporting multiple DBMSs, see <a href="../wiki/List_of_applications/Documents.html#Database_tools" title="List of applications/Documents">List of applications/Documents#Database tools</a>.
+<p>For tools supporting multiple DBMSs, see <a href="/Usage/Configuration/P/List_of_applications/Documents.html#Database_tools" title="List of applications/Documents">List of applications/Documents#Database tools</a>.
 </p>
 <h2><span class="mw-headline" id="Upgrading_PostgreSQL">Upgrading PostgreSQL</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/P/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Don't show basic systemctl commands, etc. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:PostgreSQL">Talk:PostgreSQL#</a>)</div>
 </div>
@@ -390,7 +390,7 @@ template1 | postgres | UTF8      | C         | C     |
 </p>
 <pre># cat /var/lib/postgres/data/PG_VERSION
 </pre>
-<p>To ensure you do not accidentally upgrade the database to an incompatible version, it is recommended to <a href="../wiki/Pacman.html#Skip_package_from_being_upgraded" title="Pacman">skip updates</a> to the PostgreSQL packages:
+<p>To ensure you do not accidentally upgrade the database to an incompatible version, it is recommended to <a href="/Usage/Configuration/P/Pacman.html#Skip_package_from_being_upgraded" title="Pacman">skip updates</a> to the PostgreSQL packages:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -445,7 +445,7 @@ IgnorePkg = postgresql postgresql-libs
 <strong>Note:</strong> 
 <ul>
 <li>Below are the commands for upgrading from PostgreSQL 11. You can find similar commands in <code>/opt/</code> for your version of PostgreSQL cluster, provided you have matching version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=postgresql-old-upgrade">postgresql-old-upgrade</a></span> package installed.</li>
-<li>If you had customized your <code>pg_hba.conf</code> file, you may have to temporarily modify it to allow full access to old database cluster from local system. After upgrade is complete set your customization to new database cluster as well and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code>.</li>
+<li>If you had customized your <code>pg_hba.conf</code> file, you may have to temporarily modify it to allow full access to old database cluster from local system. After upgrade is complete set your customization to new database cluster as well and <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>postgresql.service</code>.</li>
 </ul>
 </div>
 <pre># systemctl stop postgresql.service
@@ -477,11 +477,11 @@ IgnorePkg = postgresql postgresql-libs
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Relational_DBMSs.html" title="Category:Relational DBMSs">Relational DBMSs</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Relational_DBMSs.html" title="Category:Relational DBMSs">Relational DBMSs</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -500,9 +500,9 @@ IgnorePkg = postgresql postgresql-libs
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

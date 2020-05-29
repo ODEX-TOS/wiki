@@ -2,7 +2,7 @@
     title: HP_Folio_13
     description: Migration of HP_Folio_13 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -175,13 +175,13 @@
 <p>If you wish to have all 128GB of space available on the SSD, first backup the factory partition using HP's backup tool (available when you login to the pre-installed Win 7) - you will need a 16GB USB drive to do so. You can then totally wipe/repartition the SSD during TOS installation, with the 16GB USB available to do a factory reinstall (although why would you want to!?). Of course if you don't want a backup USB, go ahead and just repartition the drive.
 </p>
 <h3><span class="mw-headline" id="CPU">CPU</span></h3>
-<p>Works out of the box. See <a href="../wiki/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> for more information on power saving. Both cpufrequtils and cpupower work. Latter is recommended for additional features.
+<p>Works out of the box. See <a href="/Usage/Configuration/H/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> for more information on power saving. Both cpufrequtils and cpupower work. Latter is recommended for additional features.
 </p>
 <h3><span class="mw-headline" id="Video">Video</span></h3>
 <p>This laptop has integrated HD3000 Intel Video. Works with xorg-intel driver (see above). Plays HD video fine, no graphical anomalies on the desktop (gnome-shell tested). Visual effects work fine.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> In order to prevent the screen from turning off/black at startup, you need to add <code>i915.modeset=1 acpi_backlight=vendor</code> to <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a>
+<strong>Note:</strong> In order to prevent the screen from turning off/black at startup, you need to add <code>i915.modeset=1 acpi_backlight=vendor</code> to <a href="/Usage/Configuration/H/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a>
 </div>
 <p>As the brightness adjustment Fn keys don't work [updated: as of kernel 3.10 brightness and other Fn keys do all work], and the laptop defaults to 100% brightness, in order to save power and extend battery life, you may want to reduce the screen brightness at boot up. To do so, enter the following into /etc/rc.local:
 </p>
@@ -197,7 +197,7 @@
 <h3><span class="mw-headline" id="Touchpad">Touchpad</span></h3>
 <p>More correctly, the HP Folio has what is known as a clickpad i.e. no actual physical buttons exist. It mostly works out of the box with a few niggles: the pointer can jump around a bit (this seems improved in recent drivers) and the button areas are quite stiff (it does improve with use). 
 </p>
-<p>See <a href="../wiki/Touchpad_Synaptics.html#Buttonless_touchpads_(aka_ClickPads)" title="Touchpad Synaptics">Touchpad Synaptics#Buttonless touchpads (aka ClickPads)</a> for details.
+<p>See <a href="/Usage/Configuration/H/Touchpad_Synaptics.html#Buttonless_touchpads_(aka_ClickPads)" title="Touchpad Synaptics">Touchpad Synaptics#Buttonless touchpads (aka ClickPads)</a> for details.
 </p>
 <h3><span class="mw-headline" id="Suspend_to_RAM">Suspend to RAM</span></h3>
 <p>Suspending manually (pm-suspend) works, comes back with all devices OK. Lid switch ACPI events do not work. However, the state of the lid is reported in the file `/proc/acpi/button/lid/LID0/state.` Though this is not the preferred way to manage services, it is possible to read this file in an infinite loop and trigger a command to sleep or hibernate when the lid is closed. An example script might look like this:
@@ -217,7 +217,7 @@
 </p>
 <pre> # chmod +x /usr/local/bin/lid`
 </pre>
-<p>It is preferable to run this script as a daemon (see <a href="../wiki/Systemd.html" title="Systemd">systemd</a>). Alternatively, it is possible to launch this in userspace, such as in ~/.xinitrc or other startup system. If so, the `cmd` variable may need to be prefixed with `sudo` and one must allow the command to be executed by a regular user as detailed at <a href="../wiki/TOS Wiki:TOSive.html#Suspend/hibernate_as_regular_user" class="mw-redirect" title="Pm-utils">Pm-utils#Suspend/hibernate as regular user</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>. Users may increase the delay_time to decrease system calls or change the command to be executed when the lid is closed.
+<p>It is preferable to run this script as a daemon (see <a href="/Usage/Configuration/H/Systemd.html" title="Systemd">systemd</a>). Alternatively, it is possible to launch this in userspace, such as in ~/.xinitrc or other startup system. If so, the `cmd` variable may need to be prefixed with `sudo` and one must allow the command to be executed by a regular user as detailed at <a href="/Usage/Configuration/H/TOS Wiki:TOSive.html#Suspend/hibernate_as_regular_user" class="mw-redirect" title="Pm-utils">Pm-utils#Suspend/hibernate as regular user</a><sup>[<a href="/Usage/Configuration/H/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>. Users may increase the delay_time to decrease system calls or change the command to be executed when the lid is closed.
 </p>
 <p>This is a hacky solution, only to be used, if at all, until acpid registers lid events. Nonetheless, the HP Folio 13 is sufficiently powerful that the extra load created by checking a file every few seconds has no perceptible impact on the user experience.
 </p>
@@ -257,9 +257,9 @@ blacklist brcmsmac
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/H/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -277,9 +277,9 @@ blacklist brcmsmac
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

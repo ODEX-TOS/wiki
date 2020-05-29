@@ -2,7 +2,7 @@
     title: Huawei_E173s
     description: Migration of Huawei_E173s from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -52,7 +52,7 @@
 <p>Before using a brand new SIM (or a USB stick with SIM included) for the first time in Linux it may need to be activated first by using the Windows-only software on the stick, otherwise it won't connect no matter how many times you try (was true in my case).
 </p>
 <h2><span class="mw-headline" id="Checking_modem">Checking modem</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usbutils">usbutils</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usbutils">usbutils</a></span>.
 </p>
 <p>Plug in the modem and run lsusb:
 </p>
@@ -65,7 +65,7 @@
 <p>The ID 12d1:1c0b refers to vendor id and product id. If you get different values, it means your modem is not Huawei E173s (of course, you can always open the USB stick to double check).
 </p>
 <h2><span class="mw-headline" id="Set_up_usb_modeswitch">Set up usb_modeswitch</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usb_modeswitch">usb_modeswitch</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usb_modeswitch">usb_modeswitch</a></span>.
 </p>
 <p>At this point, if you remove your modem and re-insert it udev should switch to modem mode automatically but sometimes it just doesn't work (on my system for example) so you have to do it manually as root:
 </p>
@@ -83,9 +83,9 @@
 <h2><span class="mw-headline" id="Connecting">Connecting</span></h2>
 <p>One way to connect is with sakis3g. This script has an interactive mode which tries to guide, and lead the user by hand.
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ppp">ppp</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ppp">ppp</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=net-tools">net-tools</a></span>.
 </p>
-<p>Download and install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sakis3g/">sakis3g</a></span><sup><small>AUR</small></sup>. See <a href="../wiki/TOS_User_Repository.html#Installing_packages" class="mw-redirect" title="Aur">aur#Installing packages</a> in case you are new to the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="Aur">aur</a>. Then run sakis3g:
+<p>Download and install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sakis3g/">sakis3g</a></span><sup><small>AUR</small></sup>. See <a href="/Usage/Configuration/H/TOS_User_Repository.html#Installing_packages" class="mw-redirect" title="Aur">aur#Installing packages</a> in case you are new to the <a href="/Usage/Configuration/H/TOS_User_Repository.html" class="mw-redirect" title="Aur">aur</a>. Then run sakis3g:
 </p>
 <pre>$ sakis3g --interactive
 </pre>
@@ -107,22 +107,22 @@ APN_PASS="tm"
 <p>This configuration file works very well on my system but you may have to adjust CUSTOM_TTY as well if you have more than one USB modem. Note that it's also modem-independent - if you start using a different modem you shouldn't have to change anything.
 </p>
 <h3><span class="mw-headline" id="Running_sakis3g_at_system_startup">Running sakis3g at system startup</span></h3>
-<p>What you need to do is to run sakis3g connect at system startup. With <a href="../wiki/SysVinit.html" title="SysVinit">SysVinit</a>, one can add these lines to /etc/rc.local (it doesn't always work, I don't know why):
+<p>What you need to do is to run sakis3g connect at system startup. With <a href="/Usage/Configuration/H/SysVinit.html" title="SysVinit">SysVinit</a>, one can add these lines to /etc/rc.local (it doesn't always work, I don't know why):
 </p>
 <pre>sakis3g connect --console
 sleep 3
 </pre>
-<p>The second line gives you time to examine the output of sakis3g at system startup to see if everything is working as it should. If it is, you can just remove it later. If using <a href="../wiki/Xorg.html" class="mw-redirect" title="X">X</a> with an <a href="../wiki/Xinit.html#xinitrc" title="Xinit">xinit#xinitrc</a>, and without a <a href="../wiki/Display_manager.html" title="Display manager">display manager</a> like <a href="../wiki/GDM.html" title="GDM">GDM</a>, one can add 
+<p>The second line gives you time to examine the output of sakis3g at system startup to see if everything is working as it should. If it is, you can just remove it later. If using <a href="/Usage/Configuration/H/Xorg.html" class="mw-redirect" title="X">X</a> with an <a href="/Usage/Configuration/H/Xinit.html#xinitrc" title="Xinit">xinit#xinitrc</a>, and without a <a href="/Usage/Configuration/H/Display_manager.html" title="Display manager">display manager</a> like <a href="/Usage/Configuration/H/GDM.html" title="GDM">GDM</a>, one can add 
 </p>
 <pre>sudo sakis3g connect &amp;
 </pre>
 <p>to <code>.xinitrc</code>.
-Although if you are using <a href="../wiki/GNOME.html" title="GNOME">GNOME</a>, you should add it in gnome-session-properties instead:
+Although if you are using <a href="/Usage/Configuration/H/GNOME.html" title="GNOME">GNOME</a>, you should add it in gnome-session-properties instead:
 </p>
 <pre>Name: sakis3g
 Command: sudo sakis3g connect
 </pre>
-<p>For both of these to work you need the <a href="../wiki/Users_and_groups.html#Overview" class="mw-redirect" title="Root user">root user</a> privileges. Or a substitute. With the <a href="../wiki/Sudo.html" title="Sudo">sudo</a> substitution, add the following line to <a href="../wiki/Sudo.html#Configuration" title="Sudo">sudo#Configuration</a>:
+<p>For both of these to work you need the <a href="/Usage/Configuration/H/Users_and_groups.html#Overview" class="mw-redirect" title="Root user">root user</a> privileges. Or a substitute. With the <a href="/Usage/Configuration/H/Sudo.html" title="Sudo">sudo</a> substitution, add the following line to <a href="/Usage/Configuration/H/Sudo.html#Configuration" title="Sudo">sudo#Configuration</a>:
 </p>
 <pre><i>username</i> ALL=(ALL) NOPASSWD:/usr/bin/sakis3g
 </pre>
@@ -134,9 +134,9 @@ Command: sudo sakis3g connect
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Modems.html" title="Category:Modems">Modems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:Modems.html" title="Category:Modems">Modems</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/H/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -154,9 +154,9 @@ Command: sudo sakis3g connect
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

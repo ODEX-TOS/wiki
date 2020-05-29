@@ -2,7 +2,7 @@
     title: Syslinux
     description: Migration of Syslinux-tosfrom the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/TOS_boot_process.html" title="TOS boot process">TOS boot process</a></li>
+<li><a href="/Usage/Configuration/S/TOS_boot_process.html" title="TOS boot process">TOS boot process</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/SYSLINUX"  title="wikipedia:SYSLINUX">Syslinux</a> is a collection of boot loaders capable of booting from drives, CDs, and over the network via <a href="../wiki/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>. Some of the supported <a href="../wiki/File_systems.html" title="File systems">file systems</a> are <a href="https://en.wikipedia.org/wiki/File_Allocation_Table"  title="wikipedia:File Allocation Table">FAT</a>, <a href="https://en.wikipedia.org/wiki/ext2"  title="wikipedia:ext2">ext2</a>, <a href="../wiki/Ext3.html" title="Ext3">ext3</a>, <a href="../wiki/Ext4.html" title="Ext4">ext4</a>, and uncompressed single-device <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a>.
+<p><a href="https://en.wikipedia.org/wiki/SYSLINUX"  title="wikipedia:SYSLINUX">Syslinux</a> is a collection of boot loaders capable of booting from drives, CDs, and over the network via <a href="/Usage/Configuration/S/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>. Some of the supported <a href="/Usage/Configuration/S/File_systems.html" title="File systems">file systems</a> are <a href="https://en.wikipedia.org/wiki/File_Allocation_Table"  title="wikipedia:File Allocation Table">FAT</a>, <a href="https://en.wikipedia.org/wiki/ext2"  title="wikipedia:ext2">ext2</a>, <a href="/Usage/Configuration/S/Ext3.html" title="Ext3">ext3</a>, <a href="/Usage/Configuration/S/Ext4.html" title="Ext4">ext4</a>, and uncompressed single-device <a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">Btrfs</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> As of Syslinux-tos6.03, some of the features of the supported file systems are not supported by the bootloader. See <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/Filesystem">[1]</a> for more information.</div>
@@ -129,14 +129,14 @@
 <h3><span class="mw-headline" id="Boot_process_overview">Boot process overview</span></h3>
 <ol>
 <li>
-<b>Stage 1 : Part 1</b> - <b>Load MBR</b> - At boot, the BIOS loads the 440 byte <a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> boot code at the start of the disk (<code>/usr/lib/syslinux/bios/mbr.bin</code> or <code>/usr/lib/syslinux/bios/gptmbr.bin</code>).</li>
+<b>Stage 1 : Part 1</b> - <b>Load MBR</b> - At boot, the BIOS loads the 440 byte <a href="/Usage/Configuration/S/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> boot code at the start of the disk (<code>/usr/lib/syslinux/bios/mbr.bin</code> or <code>/usr/lib/syslinux/bios/gptmbr.bin</code>).</li>
 <li>
 <b>Stage 1 : Part 2</b> - <b>Search active partition</b>. The <b>Stage 1 MBR boot code</b> looks for the partition that is marked as active (boot flag in MBR disks). Let us assume this is the <code>/boot</code> partition, for example.</li>
 <li>
 <b>Stage 2 : Part 1</b> - <b>Execute volume boot record</b> - The <b>Stage 1 MBR boot code</b> executes the Volume Boot Record (VBR) of the <code>/boot</code> partition. In the case of Syslinux, the VBR boot code is the starting sector of <code>/boot/syslinux/ldlinux.sys</code> which is created by the <code>extlinux-tos--install</code> command. Note that <code>ldlinux.sys</code> is not the same as <code>ldlinux.c32</code>.</li>
 <li>
 <b>Stage 2 : Part 2</b> - <b>Execute <code>/boot/syslinux/ldlinux.sys</code></b> - The VBR will load the rest of <code>/boot/syslinux/ldlinux.sys</code>. The sector location of <code>/boot/syslinux/ldlinux.sys</code> should not change, otherwise syslinux-toswill not boot. <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> In the case of <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a>, the above method will not work since files move around resulting in changing of the sector location of <code>ldlinux.sys</code>. Therefore, in Btrfs the entire <code>ldlinux.sys</code> code is embedded in the space following the VBR and is not installed at <code>/boot/syslinux/ldlinux.sys</code> unlike the case of other filesystems.</div>
+<strong>Note:</strong> In the case of <a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">Btrfs</a>, the above method will not work since files move around resulting in changing of the sector location of <code>ldlinux.sys</code>. Therefore, in Btrfs the entire <code>ldlinux.sys</code> code is embedded in the space following the VBR and is not installed at <code>/boot/syslinux/ldlinux.sys</code> unlike the case of other filesystems.</div>
 </li>
 <li>
 <b>Stage 3</b> - <b>Load <code>/boot/syslinux/ldlinux.c32</code></b> - The <code>/boot/syslinux/ldlinux.sys</code> will load the <code>/boot/syslinux/ldlinux.c32</code> (core module) that contains the rest of the <b>core</b> part of syslinux-tosthat could not be fit into <code>ldlinux.sys</code> (due to file-size constraints). The <code>ldlinux.c32</code> file should be present in every Syslinux installation and should match the version of <code>ldlinux.sys</code> installed in the partition. Otherwise Syslinux will fail to boot. See <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=7">https://bugzilla.syslinux.org/show_bug.cgi?id=7</a> for more info.</li>
@@ -144,14 +144,14 @@
 <b>Stage 4</b> - <b>Search and Load configuration file</b> - Once Syslinux-tosis fully loaded, it looks for <code>/boot/syslinux/syslinux.cfg</code> (or <code>/boot/syslinux/extlinux.conf</code> in some cases) and loads it if it is found. If no configuration file is found, you will be dropped to a Syslinux <code>boot:</code> prompt. This step and the rest of <b>non-core</b> parts of Syslinux (<code>/boot/syslinux/*.c32</code> modules, excluding <code>lib*.c32</code> and <code>ldlinux.c32</code>) require <code>/boot/syslinux/lib*.c32</code> (library) modules to be present (<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/Common_Problems#ELF">https://wiki.syslinux.org/wiki/index.php/Common_Problems#ELF</a>). The <code>lib*.c32</code> library modules and non-core <code>*.c32</code> modules should match the version of <code>ldlinux.sys</code> installed in the partition.</li>
 </ol>
 <h3><span class="mw-headline" id="Installation_on_BIOS">Installation on BIOS</span></h3>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> is required for <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> support following the <a href="#Automatic_install">#Automatic install</a> section.</li>
-<li>If your boot partition is <a href="../wiki/FAT.html" title="FAT">FAT</a>, you will also need <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mtools">mtools</a></span>.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> is required for <a href="/Usage/Configuration/S/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> support following the <a href="#Automatic_install">#Automatic install</a> section.</li>
+<li>If your boot partition is <a href="/Usage/Configuration/S/FAT.html" title="FAT">FAT</a>, you will also need <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mtools">mtools</a></span>.</li>
 </ul>
 </div>
 <p>Installing the package is not the same as installing the bootloader. After installing the relevant package(s), the bootloader code itself needs to be installed (to the adequate area, usually the VBR) so to be able to boot the system; the following sections provide alternative instructions depending on the characteristics of your particular system.
@@ -162,7 +162,7 @@
 <ul><li>After executing the <code>syslinux-install_update</code> script, do not forget to edit <code>/boot/syslinux/syslinux.cfg</code> by following <a href="#Configuration">#Configuration</a> and <a href="#Kernel_parameters">#Kernel parameters</a>.</li></ul>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The <code>syslinux-install_update</code> script sets a default root partition that possibly will not match your particular system. It is important to point Syslinux-tosto the correct root partition by editing <code>/boot/syslinux/syslinux.cfg</code>, or the OS will fail to boot. See <a href="#Kernel_parameters">#Kernel parameters</a>.</div>
-<p>The <code>syslinux-install_update</code> script will install the bootloader code (usually to the VBR), copy <code>*.c32</code> modules to <code>/boot/syslinux/</code>, set the boot flag and install the boot code in the MBR. It can handle <a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> and <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> disks along with software RAID:
+<p>The <code>syslinux-install_update</code> script will install the bootloader code (usually to the VBR), copy <code>*.c32</code> modules to <code>/boot/syslinux/</code>, set the boot flag and install the boot code in the MBR. It can handle <a href="/Usage/Configuration/S/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> and <a href="/Usage/Configuration/S/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> disks along with software RAID:
 </p>
 <p>If you use a separate boot partition, make sure that it is mounted. Check with <code>lsblk</code>; if you do not see a <code>/boot</code> mountpoint, mount it before you go any further.
 </p>
@@ -171,7 +171,7 @@
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">extlinux: cannot find device for path /boot/syslinux
 extlinux: cannot open device (null)
 </pre> 
-<p>This can happen, for example, when upgrading from <a href="../wiki/LILO.html" title="LILO">LILO</a> which, while booting a current custom kernel, turned a kernel command line parameter of say <code>root=/dev/sda1</code> into its numeric equivalent <code>root=801</code>, as evidenced by <code>/proc/cmdline</code> and the output of the <code>mount</code> command. Remedy the situation by either continuing with the manual install described below while specifying <code>--device=/dev/sda1</code> to <code>extlinux</code>, or simply by first rebooting into a stock TOS Linux kernel; its use of an initramfs avoids the problem.
+<p>This can happen, for example, when upgrading from <a href="/Usage/Configuration/S/LILO.html" title="LILO">LILO</a> which, while booting a current custom kernel, turned a kernel command line parameter of say <code>root=/dev/sda1</code> into its numeric equivalent <code>root=801</code>, as evidenced by <code>/proc/cmdline</code> and the output of the <code>mount</code> command. Remedy the situation by either continuing with the manual install described below while specifying <code>--device=/dev/sda1</code> to <code>extlinux</code>, or simply by first rebooting into a stock TOS Linux kernel; its use of an initramfs avoids the problem.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -185,7 +185,7 @@ extlinux: cannot open device (null)
 <ul><li>Now is the time to edit <code>/boot/syslinux/syslinux.cfg</code> by following <a href="#Configuration">#Configuration</a> and <a href="#Kernel_parameters">#Kernel parameters</a>.</li></ul>
 <h4><span class="mw-headline" id="Manual_install">Manual install</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you are trying to rescue an installed system with a live CD, be sure to <a href="../wiki/Chroot.html" title="Chroot">chroot</a> into it before executing these commands. If you do not chroot first, you must prepend all file paths (not <code>/dev/</code> paths) with the mount point.</div>
+<strong>Note:</strong> If you are trying to rescue an installed system with a live CD, be sure to <a href="/Usage/Configuration/S/Chroot.html" title="Chroot">chroot</a> into it before executing these commands. If you do not chroot first, you must prepend all file paths (not <code>/dev/</code> paths) with the mount point.</div>
 <p>Your boot partition, on which you plan to install Syslinux, must contain a FAT, ext2, ext3, ext4, or Btrfs file system. You do not have to install it on the root directory of a file system, e.g., with device <code>/dev/sda1</code> mounted on <code>/boot</code>. For example, you can install Syslinux-tosin the <code>syslinux</code> subdirectory:
 </p>
 <pre># mkdir /boot/syslinux
@@ -213,14 +213,14 @@ extlinux: cannot open device (null)
 </ul>
 <p>as described in the next sections.
 </p>
-<p>See <a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a> for further general information.
+<p>See <a href="/Usage/Configuration/S/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a> for further general information.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you are unsure of which partition table you are using (MBR or GPT), you can check using <code>blkid -s PTTYPE -o value /dev/sda</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> For a partitionless install, there is no need to install the Syslinux-tosboot code to the MBR. You could skip below and jump to <a href="#Configuration">#Configuration</a>. See <a rel="nofollow"  href="https://unix.stackexchange.com/questions/103501/boot-partiotionless-disk-with-syslinux">[2]</a>.</div>
 <h5><span class="mw-headline" id="MBR_partition_table">MBR partition table</span></h5>
-<p>For an <a href="../wiki/Partitioning.html#Master_Boot_Record_(partition_table)" title="Partitioning">MBR partition table</a>, ensure your boot partition is marked as "active" in your partition table (the "boot" flag is set). Applications capable of doing this include <a href="../wiki/Fdisk.html" title="Fdisk">fdisk</a> and <a href="../wiki/Parted.html" title="Parted">parted</a>. It should look like this:
+<p>For an <a href="/Usage/Configuration/S/Partitioning.html#Master_Boot_Record_(partition_table)" title="Partitioning">MBR partition table</a>, ensure your boot partition is marked as "active" in your partition table (the "boot" flag is set). Applications capable of doing this include <a href="/Usage/Configuration/S/Fdisk.html" title="Fdisk">fdisk</a> and <a href="/Usage/Configuration/S/Parted.html" title="Parted">parted</a>. It should look like this:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># fdisk -l /dev/sda</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[...]
@@ -239,7 +239,7 @@ extlinux: cannot open device (null)
 <p>In this case, a single byte of value 5 (hexadecimal) is appended to the contents of <code>altmbr.bin</code> and the resulting 440 bytes are written to the MBR on device <code>sda</code>. Syslinux-toswas installed on the first logical partition (<code>/dev/sda5</code>) of the disk.
 </p>
 <h5><span class="mw-headline" id="GUID_partition_table">GUID partition table</span></h5>
-<p>For a <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>, ensure that attribute bit 2 "Legacy BIOS bootable" is set for the <code>/boot</code> partition. For <a href="../wiki/Parted.html" title="Parted">Parted</a> it can be set using the "legacy_boot" flag. Using <a href="../wiki/GPT_fdisk.html" class="mw-redirect" title="Sgdisk">sgdisk</a> the command to set the attribute is:
+<p>For a <a href="/Usage/Configuration/S/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>, ensure that attribute bit 2 "Legacy BIOS bootable" is set for the <code>/boot</code> partition. For <a href="/Usage/Configuration/S/Parted.html" title="Parted">Parted</a> it can be set using the "legacy_boot" flag. Using <a href="/Usage/Configuration/S/GPT_fdisk.html" class="mw-redirect" title="Sgdisk">sgdisk</a> the command to set the attribute is:
 </p>
 <pre># sgdisk /dev/sda --attributes=1:set:2
 </pre>
@@ -257,7 +257,7 @@ extlinux: cannot open device (null)
 <ul>
 <li>
 <code>efi64</code> denotes x86_64 UEFI systems, for IA32 (32-bit) EFI replace <code>efi64</code> with <code>efi32</code> in the below commands.</li>
-<li>For Syslinux, the kernel and initramfs files need to be in the <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (aka ESP), as Syslinux-tosdoes not (currently) have the ability to access files outside its own partition (i.e. outside ESP in this case). For this reason, it is recommended to mount ESP at <code>/boot</code>.</li>
+<li>For Syslinux, the kernel and initramfs files need to be in the <a href="/Usage/Configuration/S/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (aka ESP), as Syslinux-tosdoes not (currently) have the ability to access files outside its own partition (i.e. outside ESP in this case). For this reason, it is recommended to mount ESP at <code>/boot</code>.</li>
 <li>The automatic install script <code>/usr/bin/syslinux-install_update</code> does not support UEFI install.</li>
 <li>The configuration syntax of <code>syslinux.cfg</code> for UEFI is same as that of BIOS.</li>
 </ul>
@@ -270,22 +270,22 @@ extlinux: cannot open device (null)
 </li>
 <li>UEFI Syslinux-tosdoes not support chainloading other EFI applications like <code>UEFI Shell</code> or <code>Windows Boot Manager</code>. Enhancement request: <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=17">[5]</a>
 </li>
-<li>In some cases, UEFI Syslinux-tosmight not boot in some Virtual Machines like <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>/OVMF or <a href="../wiki/VirtualBox.html" title="VirtualBox">VirtualBox</a> or some <a href="../wiki/VMware.html" title="VMware">VMware</a> products/versions and in some UEFI emulation environments like DUET. A Syslinux contributor has confirmed no such issues present on VMware Workstation 10.0.2 and Syslinux-6.02 or later. Bug reports: <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=21">[6]</a>, <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=23">[7]</a> and <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=72">[8]</a>
+<li>In some cases, UEFI Syslinux-tosmight not boot in some Virtual Machines like <a href="/Usage/Configuration/S/QEMU.html" title="QEMU">QEMU</a>/OVMF or <a href="/Usage/Configuration/S/VirtualBox.html" title="VirtualBox">VirtualBox</a> or some <a href="/Usage/Configuration/S/VMware.html" title="VMware">VMware</a> products/versions and in some UEFI emulation environments like DUET. A Syslinux contributor has confirmed no such issues present on VMware Workstation 10.0.2 and Syslinux-6.02 or later. Bug reports: <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=21">[6]</a>, <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=23">[7]</a> and <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=72">[8]</a>
 </li>
 <li>Memdisk is not available for UEFI. Enhancement request: <a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=30">[9]</a>
 </li>
 </ul>
 <h3><span class="mw-headline" id="Installation_on_UEFI">Installation on UEFI</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> In the commands related to UEFI, <code><i>esp</i></code> denotes the mountpoint of the <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> aka ESP.</div>
+<strong>Note:</strong> In the commands related to UEFI, <code><i>esp</i></code> denotes the mountpoint of the <a href="/Usage/Configuration/S/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> aka ESP.</div>
 <ul>
-<li>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efibootmgr">efibootmgr</a></span> packages from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.  Then setup Syslinux-tosin the ESP as follows:</li>
+<li>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efibootmgr">efibootmgr</a></span> packages from the <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>.  Then setup Syslinux-tosin the ESP as follows:</li>
 <li>Copy Syslinux-tosfiles to ESP:</li>
 </ul>
 <pre># mkdir -p <i>esp</i>/EFI/syslinux
 # cp -r /usr/lib/syslinux/efi64/* <i>esp</i>/EFI/syslinux
 </pre>
-<ul><li>Setup boot entry for Syslinux-tosusing <a href="../wiki/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>:</li></ul>
+<ul><li>Setup boot entry for Syslinux-tosusing <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>:</li></ul>
 <pre># efibootmgr --create --disk /dev/sdX --part Y --loader /EFI/syslinux/syslinux.efi --label "Syslinux" --verbose
 </pre>
 <p>where <code>/dev/sdXY</code> is the partition containing the bootloader.
@@ -382,7 +382,7 @@ LABEL archfallback
 <p>Since version 5.00, additional <code>lib*.c32</code> library modules are frequently needed too. See <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Library_modules#Syslinux_modules_working_dependencies">the Syslinux-toswiki</a> for the module dependency tree.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  If you are using <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, make sure to copy from <code>/usr/lib/syslinux/efi64/</code> (or <code>efi32</code> for IA32 (32-bit) EFI systems), otherwise you will be presented with a black screen. In that case, boot from a live medium and use <a href="../wiki/Chroot.html" title="Chroot">chroot</a> to make the appropriate changes.</div>
+<strong>Note:</strong>  If you are using <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, make sure to copy from <code>/usr/lib/syslinux/efi64/</code> (or <code>efi32</code> for IA32 (32-bit) EFI systems), otherwise you will be presented with a black screen. In that case, boot from a live medium and use <a href="/Usage/Configuration/S/Chroot.html" title="Chroot">chroot</a> to make the appropriate changes.</div>
 <p>This configuration uses the same menu design as the TOS Install CD, its config can be found at <a rel="nofollow"  href="https://projects.archlinux.org/archiso.git/tree/configs/releng/syslinux">projects.archlinux.org</a>. The <a rel="nofollow"  href="https://projects.archlinux.org/archiso.git/plain/configs/releng/syslinux/splash.png">TOS Linux background image</a> can be downloaded from there, too. Copy the image to <code>/boot/syslinux/splash.png</code>.
 </p>
 <p>Configuration:
@@ -450,7 +450,7 @@ MENU HSHIFT 10          # moves menu right
 <p>VESA standards are commonly a maximum of 25 rows and 80 columns, so going higher than those values might move the menu off the screen, potentially requiring editing from a rescue CD.
 </p>
 <h3><span class="mw-headline" id="Kernel_parameters">Kernel parameters</span></h3>
-<p>The <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> are set by using the <code>APPEND</code> directive in <code>syslinux.cfg</code>: 
+<p>The <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> are set by using the <code>APPEND</code> directive in <code>syslinux.cfg</code>: 
 for each <code>LABEL</code> entry, a maximum of one <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/Config#APPEND">APPEND</a> line is accepted (i.e. spanning multiple lines is not valid).
 </p>
 <p>It is recommended to make the following changes for the "fallback" entry as well.
@@ -459,11 +459,11 @@ for each <code>LABEL</code> entry, a maximum of one <a rel="nofollow"  href="htt
 </p>
 <pre>APPEND root=/dev/sda2
 </pre>
-<p><b>If you want to use <a href="../wiki/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a></b> for <a href="../wiki/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a> change the <code>APPEND</code> line as follows, substituting <code>1234</code> with the <code>UUID</code> of your root partition:
+<p><b>If you want to use <a href="/Usage/Configuration/S/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a></b> for <a href="/Usage/Configuration/S/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a> change the <code>APPEND</code> line as follows, substituting <code>1234</code> with the <code>UUID</code> of your root partition:
 </p>
 <pre>APPEND root=UUID=<i>1234</i> rw
 </pre>
-<p><b>If you use <a href="../wiki/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> encryption</b> change the <code>APPEND</code> line to use your encrypted volume:
+<p><b>If you use <a href="/Usage/Configuration/S/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> encryption</b> change the <code>APPEND</code> line to use your encrypted volume:
 </p>
 <pre>APPEND root=/dev/mapper/<i>name</i> cryptdevice=/dev/sda2:<i>name</i> rw
 </pre>
@@ -475,7 +475,7 @@ for each <code>LABEL</code> entry, a maximum of one <a rel="nofollow"  href="htt
 </p>
 <pre>APPEND root=LABEL=<i>THEROOTPARTITIONLABEL</i> rw
 </pre>
-<p><b>If booting a <a href="../wiki/Btrfs.html" title="Btrfs">btrfs</a> subvolume</b>, amend the <code>APPEND</code> line with <code>rootflags=subvol=&lt;root subvolume&gt;</code>. For example, where <code>/dev/sda2</code> has been mounted as a btrfs subvolume called 'ROOT' (e.g. <code>mount -o noatime,subvol=ROOT /dev/sda2 /mnt</code>), then the <code>APPEND</code> line would need to be modified as follows:
+<p><b>If booting a <a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">btrfs</a> subvolume</b>, amend the <code>APPEND</code> line with <code>rootflags=subvol=&lt;root subvolume&gt;</code>. For example, where <code>/dev/sda2</code> has been mounted as a btrfs subvolume called 'ROOT' (e.g. <code>mount -o noatime,subvol=ROOT /dev/sda2 /mnt</code>), then the <code>APPEND</code> line would need to be modified as follows:
 </p>
 <pre>APPEND root=/dev/sda2 rw rootflags=subvol=ROOT
 </pre>
@@ -517,7 +517,7 @@ LABEL windows
 <p><code>hd0 3</code> is the third partition on the first BIOS drive - drives are counted from zero, but partitions are counted from one. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For Windows, this skips the system's own boot manager (<code>bootmgr</code>), which is required for a few important updates (<a rel="nofollow"  href="https://support.microsoft.com/kb/2883200">eg.</a>) to complete. In such cases it may be advisable to temporarily set the MBR boot flag to the Windows partition (eg. with <a href="../wiki/Parted.html" class="mw-redirect" title="GParted">GParted</a>), let the update finish installing, and then reset the flag to the Syslinux-tospartition (eg. with Windows's own <a rel="nofollow"  href="https://www.online-tech-tips.com/computer-tips/set-active-partition-vista-xp">DiskPart</a>).</div>
+<strong>Note:</strong> For Windows, this skips the system's own boot manager (<code>bootmgr</code>), which is required for a few important updates (<a rel="nofollow"  href="https://support.microsoft.com/kb/2883200">eg.</a>) to complete. In such cases it may be advisable to temporarily set the MBR boot flag to the Windows partition (eg. with <a href="/Usage/Configuration/S/Parted.html" class="mw-redirect" title="GParted">GParted</a>), let the update finish installing, and then reset the flag to the Syslinux-tospartition (eg. with Windows's own <a rel="nofollow"  href="https://www.online-tech-tips.com/computer-tips/set-active-partition-vista-xp">DiskPart</a>).</div>
 <h4>
 <span id="Chainloading_a_disk.27s_MBR"></span><span class="mw-headline" id="Chainloading_a_disk's_MBR">Chainloading a disk's MBR</span>
 </h4>
@@ -548,7 +548,7 @@ LABEL windows
 <p>For more details about chainloading, see <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/Comboot/chain.c32">the Syslinux-toswiki</a>.
 </p>
 <h4><span class="mw-headline" id="Chainloading_other_boot_loaders">Chainloading other boot loaders</span></h4>
-<p>If you have <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> installed on the same partition, you can chainload it by using: 
+<p>If you have <a href="/Usage/Configuration/S/GRUB.html" title="GRUB">GRUB</a> installed on the same partition, you can chainload it by using: 
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/boot/syslinux/syslinux.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -558,7 +558,7 @@ LABEL grub2
 	APPEND file=../grub/boot.img
 ...
 </pre>
-<p>Alternatively, it is also possible to load <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> as a linux-toskernel by prepending <code>lnxboot.img</code> to <code>core.img</code>. The file <code>lnxboot.img</code> is part of <code>core/grub</code> and can be found in <code>/usr/lib/grub/i386-pc</code>.
+<p>Alternatively, it is also possible to load <a href="/Usage/Configuration/S/GRUB.html" title="GRUB">GRUB</a> as a linux-toskernel by prepending <code>lnxboot.img</code> to <code>core.img</code>. The file <code>lnxboot.img</code> is part of <code>core/grub</code> and can be found in <code>/usr/lib/grub/i386-pc</code>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/boot/syslinux/syslinux.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -616,7 +616,7 @@ LABEL MAIN
 <p>Note that the other Linux entry in <code>&lt;other-OS&gt;/boot/syslinux/syslinux.cfg</code> will need to be edited each time you update this OS's kernel unless it has symlinks to its latest kernel and initrd in <code>/</code>. Since we are booting the kernel directly and not chainloading the other-OS's default bootloader.
 </p>
 <h3><span class="mw-headline" id="Using_memtest">Using memtest</span></h3>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=memtest86%2B">memtest86+</a></span> from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=memtest86%2B">memtest86+</a></span> from the <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <p>Use this <code>LABEL</code> section to launch <a href="https://en.wikipedia.org/wiki/Memtest86"  title="wikipedia:Memtest86">memtest</a>:
 </p>
@@ -714,10 +714,10 @@ LABEL linux
 <p>To actually load PXELINUX, replace <code>filename "/grub/i386-pc/core.0";</code> in <code>/etc/dhcpd.conf</code> with <code>filename "/pxelinux.0"</code> (or with <code>filename "/lpxelinux.0"</code>).
 </p>
 <h3><span class="mw-headline" id="Booting_ISO9660_image_files_with_memdisk">Booting ISO9660 image files with memdisk</span></h3>
-<p>Syslinux-tossupports booting from ISO images directly using the <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/MEMDISK">memdisk</a> module, see <a href="../wiki/Multiboot_USB_drive.html#Using_Syslinux_and_memdisk" title="Multiboot USB drive">Multiboot USB drive#Using Syslinux and memdisk</a> for examples.
+<p>Syslinux-tossupports booting from ISO images directly using the <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/MEMDISK">memdisk</a> module, see <a href="/Usage/Configuration/S/Multiboot_USB_drive.html#Using_Syslinux_and_memdisk" title="Multiboot USB drive">Multiboot USB drive#Using Syslinux and memdisk</a> for examples.
 </p>
 <h3><span class="mw-headline" id="Serial_console">Serial console</span></h3>
-<p>See <a href="../wiki/Working_with_the_serial_console.html#Syslinux" title="Working with the serial console">Working with the serial console#Syslinux</a>.
+<p>See <a href="/Usage/Configuration/S/Working_with_the_serial_console.html#Syslinux" title="Working with the serial console">Working with the serial console#Syslinux</a>.
 </p>
 <h3><span class="mw-headline" id="Boot_another_OS_once">Boot another OS once</span></h3>
 <p>It is possible to temporarily change the default Syslinux-tosaction and boot another label only during the next boot. The following command shows how to boot the <code>archfallback</code> label once:
@@ -751,7 +751,7 @@ One potential reason could be a change in file system tools or in a file system 
 </p>
 <pre>boot: ../vmlinuz-linux-tosroot=/dev/sda2 rw initrd=../initramfs-linux.img
 </pre>
-<p>If you do not have access to <code>boot:</code> in <a href="../wiki/Tmpfs.html" class="mw-redirect" title="Ramdisk">ramfs</a>, and therefore temporarily unable to boot the kernel again,
+<p>If you do not have access to <code>boot:</code> in <a href="/Usage/Configuration/S/Tmpfs.html" class="mw-redirect" title="Ramdisk">ramfs</a>, and therefore temporarily unable to boot the kernel again,
 </p>
 <dl><dd>1. Create a temporary directory, in order to mount your root partition (if it does not exist already):</dd></dl>
 <pre> # mkdir -p /new_root
@@ -774,10 +774,10 @@ One potential reason could be a change in file system tools or in a file system 
 </p>
 <pre># cp /new_root/sbin/tune2fs /sbin/
 </pre>
-<p>Follow the instructions at <a href="../wiki/Fsck.html#ext2fs_:_no_external_journal" title="Fsck">ext2fs: no external journal</a> to create a new journal for the root partition.
+<p>Follow the instructions at <a href="/Usage/Configuration/S/Fsck.html#ext2fs_:_no_external_journal" title="Fsck">ext2fs: no external journal</a> to create a new journal for the root partition.
 </p>
 <h3><span class="mw-headline" id="No_Default_or_UI_found_on_some_computers">No Default or UI found on some computers</span></h3>
-<p>Certain motherboard manufacturers have less compatibility for booting from USB devices than others. While an ext4 formatted USB drive may boot on a more recent computer, some computers may hang if the boot partition containing the <i>kernel</i> and <i>initrd</i> are not on a FAT16 partition. To prevent an older machine from loading <code>ldlinux</code> and failing to read <code>syslinux.cfg</code>, create a partition (≤ 2 GB) and format to <a href="../wiki/FAT.html" class="mw-redirect" title="FAT16">FAT16</a> using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dosfstools">dosfstools</a></span>:
+<p>Certain motherboard manufacturers have less compatibility for booting from USB devices than others. While an ext4 formatted USB drive may boot on a more recent computer, some computers may hang if the boot partition containing the <i>kernel</i> and <i>initrd</i> are not on a FAT16 partition. To prevent an older machine from loading <code>ldlinux</code> and failing to read <code>syslinux.cfg</code>, create a partition (≤ 2 GB) and format to <a href="/Usage/Configuration/S/FAT.html" class="mw-redirect" title="FAT16">FAT16</a> using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dosfstools">dosfstools</a></span>:
 </p>
 <pre># mkfs.fat -F 16 /dev/sda1
 </pre>
@@ -791,7 +791,7 @@ One potential reason could be a change in file system tools or in a file system 
 </ul>
 <pre># cp -a /boot /boot.bak
 </pre>
-<p>and then boot up with the TOS install disk. Next, use <code>cfdisk</code> to delete the <code>/boot</code> partition, and recreate it.  This time it should begin at the proper sector, <b>63</b>. Now mount your partitions and <code>chroot</code> into your mounted system, as described in the <a href="../wiki/Installation_guide.html" title="Installation guide">installation guide</a>. Restore <code>/boot</code> with the command
+<p>and then boot up with the TOS install disk. Next, use <code>cfdisk</code> to delete the <code>/boot</code> partition, and recreate it.  This time it should begin at the proper sector, <b>63</b>. Now mount your partitions and <code>chroot</code> into your mounted system, as described in the <a href="/Usage/Configuration/S/Installation_guide.html" title="Installation guide">installation guide</a>. Restore <code>/boot</code> with the command
 </p>
 <pre># cp -a /boot.bak/ /boot/
 </pre>
@@ -801,7 +801,7 @@ One potential reason could be a change in file system tools or in a file system 
 </pre>
 <p>and reboot.
 </p>
-<p>You will also get this error if you are trying to boot from a md <a href="../wiki/RAID.html" title="RAID">RAID</a> 1 array and created the array with a too new version of the metadata that Syslinux-tosdoes not understand. As of August 2013 by default mdadm will create an array with version 1.2 metadata, but Syslinux does not understand metadata newer than 1.0. If this is the case you will need to recreate your <a href="../wiki/RAID.html" title="RAID">RAID</a> array using the <code>--metadata=1.0</code> flag to mdadm.
+<p>You will also get this error if you are trying to boot from a md <a href="/Usage/Configuration/S/RAID.html" title="RAID">RAID</a> 1 array and created the array with a too new version of the metadata that Syslinux-tosdoes not understand. As of August 2013 by default mdadm will create an array with version 1.2 metadata, but Syslinux does not understand metadata newer than 1.0. If this is the case you will need to recreate your <a href="/Usage/Configuration/S/RAID.html" title="RAID">RAID</a> array using the <code>--metadata=1.0</code> flag to mdadm.
 </p>
 <h3>
 <span id="Windows_boots_up.2C_ignoring_Syslinux"></span><span class="mw-headline" id="Windows_boots_up,_ignoring_Syslinux">Windows boots up, ignoring Syslinux</span>
@@ -814,7 +814,7 @@ One potential reason could be a change in file system tools or in a file system 
 <p>You select a menu entry and it does nothing, it just <i>"refreshes"</i> the menu. This usually means that you have an error in your <code>syslinux.cfg</code> file. Hit <code>Tab</code> to edit your boot parameters. Alternatively, press <code>Esc</code> and type in the <code>LABEL</code> of your boot entry (e.g. <i>arch</i>). Another cause could be that you do not have a kernel installed. Find a way to access your file system (through live CD, etc) and make sure that <code>/mount/vmlinuz-linux</code> exists and does not have a size of 0. If this is the case, reinstall your kernel.
 </p>
 <h3><span class="mw-headline" id="Cannot_remove_ldlinux.sys">Cannot remove ldlinux.sys</span></h3>
-<p>The <code>ldlinux.sys</code> file has the <a href="../wiki/File_permissions_and_attributes.html#File_attributes" title="File permissions and attributes">immutable attribute</a> set, which prevents it from being deleted or overwritten. This is because the sector location of the file must not change or else Syslinux-toshas to be reinstalled. To remove it, run:
+<p>The <code>ldlinux.sys</code> file has the <a href="/Usage/Configuration/S/File_permissions_and_attributes.html#File_attributes" title="File permissions and attributes">immutable attribute</a> set, which prevents it from being deleted or overwritten. This is because the sector location of the file must not change or else Syslinux-toshas to be reinstalled. To remove it, run:
 </p>
 <pre># chattr -i /boot/syslinux/ldlinux.sys
 # rm /boot/syslinux/ldlinux.sys
@@ -857,7 +857,7 @@ One potential reason could be a change in file system tools or in a file system 
 <li>use <code>DEFAULT <i>problematic_label</i></code>
 </li>
 </ul>
-<p>To get more detailed debug log, <a href="../wiki/TOS_Build_System.html" class="mw-redirect" title="ABS">recompile</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package with additional CFLAGS:
+<p>To get more detailed debug log, <a href="/Usage/Configuration/S/TOS_Build_System.html" class="mw-redirect" title="ABS">recompile</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> package with additional CFLAGS:
 </p>
 <pre>-DDEBUG_STDIO=1 -DCORE_DEBUG=1
 </pre>
@@ -881,9 +881,9 @@ extlinux: path /boot/syslinux-tosdoesn't match device /dev/sda1
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -901,9 +901,9 @@ extlinux: path /boot/syslinux-tosdoesn't match device /dev/sda1
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

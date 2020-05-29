@@ -2,7 +2,7 @@
     title: Dell_Inspiron_11_3000_(3162)
     description: Migration of Dell_Inspiron_11_3000_(3162) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -79,7 +79,7 @@
 </table>
 <p>This is an install and configuration guide for the Dell Inspiron 11 3000 (3162) laptop.
 </p>
-<p>For a general overview of laptop-related articles and recommendations, see <a href="../wiki/Laptop.html" title="Laptop">Laptop</a>.
+<p>For a general overview of laptop-related articles and recommendations, see <a href="/Usage/Configuration/D/Laptop.html" title="Laptop">Laptop</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -129,7 +129,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Before_Installation">Before Installation</span></h2>
-<p>This laptop uses UEFI. By default secure boot is enabled. Though is should be possible to set up a secure boot loader (<a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a>), I chose to simple turn off secure boot. Also, though the laptop does support booting from legacy devices I discovered that this causes serious video issues (you can not boot into the CLI with KMS enabled but disabling KMS prevents X from starting). Simply turning off the legacy boot option fixes this issue.
+<p>This laptop uses UEFI. By default secure boot is enabled. Though is should be possible to set up a secure boot loader (<a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a>), I chose to simple turn off secure boot. Also, though the laptop does support booting from legacy devices I discovered that this causes serious video issues (you can not boot into the CLI with KMS enabled but disabling KMS prevents X from starting). Simply turning off the legacy boot option fixes this issue.
 </p>
 <h3><span class="mw-headline" id="Entering_Setup">Entering Setup</span></h3>
 <p>This laptop hides the "Push XXX to enter setup" message during boot.
@@ -160,7 +160,7 @@
 <li>Disable "Load Legacy Option Rom"</li>
 </ol>
 <h2><span class="mw-headline" id="Base_Install">Base Install</span></h2>
-<p>Once setup has been configured, installation using the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a> and <a href="../wiki/General_recommendations.html" title="General recommendations">General recommendations</a> proceeded without issue. As this laptop uses an Intel processor, pay attention to the sections covering microcode updates.
+<p>Once setup has been configured, installation using the <a href="/Usage/Configuration/D/Installation_guide.html" title="Installation guide">Installation guide</a> and <a href="/Usage/Configuration/D/General_recommendations.html" title="General recommendations">General recommendations</a> proceeded without issue. As this laptop uses an Intel processor, pay attention to the sections covering microcode updates.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Video">Video</span></h3>
@@ -168,13 +168,13 @@
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> works without issue.
 </p>
 <h4><span class="mw-headline" id="Brightness">Brightness</span></h4>
-<p>The brightness hotkeys (Fn-F11 &amp; Fn-F12) did not work for me out of the box but they will if you are using a full desktop environment like Gnome or KDE. Still, I had no trouble making the hotkeys work using information found on the <a href="../wiki/Backlight.html" title="Backlight">Backlight</a> and <a href="../wiki/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a> pages and my window manager's documentation. My solution involved configuring my window manager to map the XF86MonBrightnessUp and XF86MonBrightnessDown keys to run the appropriate xbacklight command.
+<p>The brightness hotkeys (Fn-F11 &amp; Fn-F12) did not work for me out of the box but they will if you are using a full desktop environment like Gnome or KDE. Still, I had no trouble making the hotkeys work using information found on the <a href="/Usage/Configuration/D/Backlight.html" title="Backlight">Backlight</a> and <a href="/Usage/Configuration/D/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a> pages and my window manager's documentation. My solution involved configuring my window manager to map the XF86MonBrightnessUp and XF86MonBrightnessDown keys to run the appropriate xbacklight command.
 </p>
 <h3><span class="mw-headline" id="Wireless">Wireless</span></h3>
 <p>Wireless worked with no additional effort on my part. This is fairly important as this model does not include a wired port.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
-<p>Audio using <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> worked immediately after install.
+<p>Audio using <a href="/Usage/Configuration/D/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> worked immediately after install.
 </p>
 <p>If no sound is coming from the headphone jack, try adding
 </p>
@@ -182,7 +182,7 @@
 <p>to <code>/etc/modprobe.d/snd-hda-intel.conf</code>
 </p>
 <h3><span class="mw-headline" id="Keyboard">Keyboard</span></h3>
-<p>Most of the extra keys did not work for me after install. Some or all will work if you use a full desktop environment like Gnome or KDE though. I was able to configure my window manager to run appropriate commands when the extra keys are pressed. The Enable/Disable wireless key did work without any extra work on my part. However, the page up and page down keys (activated by pressing Fn + PageUp or PageDn) do not work as expected. After pressing and releasing them, the scrolling action will be glitched and will not stop. To fix this create the following <a href="../wiki/Map_scancodes_to_keycodes.html#Using_udev" title="Map scancodes to keycodes">hwdb</a>:
+<p>Most of the extra keys did not work for me after install. Some or all will work if you use a full desktop environment like Gnome or KDE though. I was able to configure my window manager to run appropriate commands when the extra keys are pressed. The Enable/Disable wireless key did work without any extra work on my part. However, the page up and page down keys (activated by pressing Fn + PageUp or PageDn) do not work as expected. After pressing and releasing them, the scrolling action will be glitched and will not stop. To fix this create the following <a href="/Usage/Configuration/D/Map_scancodes_to_keycodes.html#Using_udev" title="Map scancodes to keycodes">hwdb</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/hwdb.d/90-custom-keyboard.hwdb</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnInspiron*3162:pvr*
@@ -198,7 +198,7 @@
 </p>
 <p>If your touchpad stops working after suspend, it might be due to a <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1550691#p1550691">problem with the i8042 module</a>.
 </p>
-<p>To make taps work as clicks on the touchpad this file has to be created (see <a href="../wiki/Libinput.html" title="Libinput">libinput</a>):
+<p>To make taps work as clicks on the touchpad this file has to be created (see <a href="/Usage/Configuration/D/Libinput.html" title="Libinput">libinput</a>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/30-touchpad.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "InputClass"
@@ -289,7 +289,7 @@ Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca 
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -306,9 +306,9 @@ Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

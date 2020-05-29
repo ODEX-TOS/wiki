@@ -2,7 +2,7 @@
     title: HiDPI
     description: Migration of HiDPI from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Font_configuration.html" title="Font configuration">Font configuration</a></li>
+<li><a href="/Usage/Configuration/H/Font_configuration.html" title="Font configuration">Font configuration</a></li>
 </ul>
 </div>
 <p>HiDPI (High Dots Per Inch) displays, also known by Apple's "<a href="https://en.wikipedia.org/wiki/Retina_Display"  title="wikipedia:Retina Display">Retina Display</a>" marketing name, are screens with a high resolution in a relatively small format. They are mostly found in high-end laptops and monitors.
@@ -182,9 +182,9 @@ $ gsettings set org.gnome.desktop.interface scaling-factor 2
 <p>then open <i>Settings &gt; Devices &gt; Displays</i> (the new options may only appear after a restart).
 </p>
 <h5><span class="mw-headline" id="Xorg">Xorg</span></h5>
-<p>You can achieve any non-integer scale factor by using a combination of GNOME's <code>scaling-factor</code> and <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a>. This combination keeps the TTF fonts properly scaled so that they do not become blurry if using <code>xrandr</code> alone. You specify zoom-in factor with <code>gsettings</code> and zoom-out factor with <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a>.
+<p>You can achieve any non-integer scale factor by using a combination of GNOME's <code>scaling-factor</code> and <a href="/Usage/Configuration/H/Xrandr.html" title="Xrandr">xrandr</a>. This combination keeps the TTF fonts properly scaled so that they do not become blurry if using <code>xrandr</code> alone. You specify zoom-in factor with <code>gsettings</code> and zoom-out factor with <a href="/Usage/Configuration/H/Xrandr.html" title="Xrandr">xrandr</a>.
 </p>
-<p>First scale GNOME up to the minimum size which is too big. Usually "2" is already too big, otherwise try "3" etc. Then start scaling down by setting zoom-out factor with <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a>. First get the relevant output name, the examples below use <code>eDP1</code>. Start e.g. with zoom-out 1.25 times. If the UI is still too big, increase the scale factor; if it is too small decrease the scale factor.
+<p>First scale GNOME up to the minimum size which is too big. Usually "2" is already too big, otherwise try "3" etc. Then start scaling down by setting zoom-out factor with <a href="/Usage/Configuration/H/Xrandr.html" title="Xrandr">xrandr</a>. First get the relevant output name, the examples below use <code>eDP1</code>. Start e.g. with zoom-out 1.25 times. If the UI is still too big, increase the scale factor; if it is too small decrease the scale factor.
 </p>
 <pre>$ xrandr --output eDP1 --scale 1.25x1.25
 </pre>
@@ -217,7 +217,7 @@ In the source documentation there is another way mentioned to set X settings DPI
 <h5>
 <span id="GTK.2B_vs_Gnome_Shell_elements_on_Xorg"></span><span class="mw-headline" id="GTK+_vs_Gnome_Shell_elements_on_Xorg">GTK+ vs Gnome Shell elements on Xorg</span>
 </h5>
-<p>Adjusting the text scaling as per the above only affects GTK+ elements of the GNOME desktop. This should cover everything on Wayland. However, those on an Xorg session may find that they need to make further adjustments on HiDPI environments, since the GNOME Shell UI (including the top bar, dock, application menus, etc.) relies separately on the <a href="../wiki/St.html" title="St">St</a> toolkit. Note that this is a long-standing issue to which a <a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/gnome-shell/merge_requests/486">patch</a> has been merged and available for Gnome Shell 3.35 onward. For older releases, Xorg users can resolve most of the Gnome shell scaling problems by manually editing the shell theme that they are currently using. The relevant CSS files are normally located at <code>/usr/share/themes/YOUR-THEME/gnome-shell/gnome-shell.css</code>. Users should increase all "font-size" elements in this file in proportion to their display scaling (doubling font sizes for 200% scaling, etc.) For example, the top of an edited CSS file for the <a rel="nofollow"  href="https://github.com/adapta-project/adapta-gtk-theme">Adapta</a> shell theme might look like:
+<p>Adjusting the text scaling as per the above only affects GTK+ elements of the GNOME desktop. This should cover everything on Wayland. However, those on an Xorg session may find that they need to make further adjustments on HiDPI environments, since the GNOME Shell UI (including the top bar, dock, application menus, etc.) relies separately on the <a href="/Usage/Configuration/H/St.html" title="St">St</a> toolkit. Note that this is a long-standing issue to which a <a rel="nofollow"  href="https://gitlab.gnome.org/GNOME/gnome-shell/merge_requests/486">patch</a> has been merged and available for Gnome Shell 3.35 onward. For older releases, Xorg users can resolve most of the Gnome shell scaling problems by manually editing the shell theme that they are currently using. The relevant CSS files are normally located at <code>/usr/share/themes/YOUR-THEME/gnome-shell/gnome-shell.css</code>. Users should increase all "font-size" elements in this file in proportion to their display scaling (doubling font sizes for 200% scaling, etc.) For example, the top of an edited CSS file for the <a rel="nofollow"  href="https://github.com/adapta-project/adapta-gtk-theme">Adapta</a> shell theme might look like:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">usr/share/themes/Adapta/gnome-shell/gnome-shell.css</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">stage { font-size: 20pt; font-family: Roboto, Noto Sans, Sans-Serif; color: #263238; }</pre>
@@ -276,7 +276,7 @@ xfconf-query -c xfwm4 -p /general/theme -s Default-xhdpi
 <p>For E18, go to the E Setting panel. In <i>Look &gt; Scaling</i>, you can control the UI scaling ratios. A ratio of 1.2 seems to work well for the native resolution of the MBPr 15" screen.
 </p>
 <h2><span class="mw-headline" id="X_Resources">X Resources</span></h2>
-<p>If you are not using a desktop environment such as KDE, Xfce, or other that manipulates the X settings for you, you can set the desired DPI setting manually via the <code>Xft.dpi</code> variable in <a href="../wiki/X_resources.html" class="mw-redirect" title="Xresources">Xresources</a>:
+<p>If you are not using a desktop environment such as KDE, Xfce, or other that manipulates the X settings for you, you can set the desired DPI setting manually via the <code>Xft.dpi</code> variable in <a href="/Usage/Configuration/H/X_resources.html" class="mw-redirect" title="Xresources">Xresources</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.Xresources</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Xft.dpi: 192
@@ -290,7 +290,7 @@ Xft.antialias: 1
 Xft.rgba: rgb</pre>
 <p>For <code>Xft.dpi</code>, using integer multiples of 96 usually works best, e.g. 192 for 200% scaling.
 </p>
-<p>Make sure the settings are loaded properly when X starts, for instance in your <code>~/.xinitrc</code> with <code>xrdb -merge ~/.Xresources</code> (see <a href="../wiki/X_resources.html" class="mw-redirect" title="Xresources">Xresources</a> for more information).
+<p>Make sure the settings are loaded properly when X starts, for instance in your <code>~/.xinitrc</code> with <code>xrdb -merge ~/.Xresources</code> (see <a href="/Usage/Configuration/H/X_resources.html" class="mw-redirect" title="Xresources">Xresources</a> for more information).
 </p>
 <p>This will make the font render properly in most toolkits and applications, it will however not affect things such as icon size!
 Setting <code>Xft.dpi</code> at the same time as toolkit scale (e.g. <code>GDK_SCALE</code>) may cause interface elements to be much larger than intended in some programs like firefox.
@@ -312,7 +312,7 @@ Setting <code>Xft.dpi</code> at the same time as toolkit scale (e.g. <code>GDK_S
 </pre>
 <p>This example uses inaccurate dimensions (423mm x 328mm, even though the Dell XPS 9530 has 346mm x 194mm) to have a clean multiple of 96 dpi, in this case 192 dpi. This tends to work better than using the correct DPI — Pango renders fonts crisper in i3 for example.
 </p>
-<p>If the DPI displayed by xdpyinfo is not correct, see <a href="../wiki/Xorg.html#Display_size_and_DPI" title="Xorg">Xorg#Display size and DPI</a> for how to fix it.
+<p>If the DPI displayed by xdpyinfo is not correct, see <a href="/Usage/Configuration/H/Xorg.html#Display_size_and_DPI" title="Xorg">Xorg#Display size and DPI</a> for how to fix it.
 </p>
 <h2><span class="mw-headline" id="GUI_toolkits">GUI toolkits</span></h2>
 <h3><span class="mw-headline" id="Qt_5">Qt 5</span></h3>
@@ -374,7 +374,7 @@ Setting <code>Xft.dpi</code> at the same time as toolkit scale (e.g. <code>GDK_S
 <h2><span class="mw-headline" id="Boot_managers">Boot managers</span></h2>
 <h3><span class="mw-headline" id="GRUB">GRUB</span></h3>
 <h4><span class="mw-headline" id="Lower_the_framebuffer_resolution">Lower the framebuffer resolution</span></h4>
-<p>Set a lower resolution for the framebuffer as explained in <a href="../wiki/GRUB/Tips_and_tricks.html#Setting_the_framebuffer_resolution" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Setting the framebuffer resolution</a>.
+<p>Set a lower resolution for the framebuffer as explained in <a href="/Usage/Configuration/H/GRUB/Tips_and_tricks.html#Setting_the_framebuffer_resolution" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Setting the framebuffer resolution</a>.
 </p>
 <h4><span class="mw-headline" id="Change_GRUB_font_size">Change GRUB font size</span></h4>
 <p>Find a ttf font that you like in <code>/usr/share/fonts/</code>.
@@ -385,16 +385,16 @@ Setting <code>Xft.dpi</code> at the same time as toolkit scale (e.g. <code>GDK_S
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Change the <code>-s 30</code> parameter to modify the font size</div>
-<p>Edit <code>/etc/default/grub</code> to set the new font as shown in <a href="../wiki/GRUB/Tips_and_tricks.html#Background_image_and_bitmap_fonts" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Background image and bitmap fonts</a>:
+<p>Edit <code>/etc/default/grub</code> to set the new font as shown in <a href="/Usage/Configuration/H/GRUB/Tips_and_tricks.html#Background_image_and_bitmap_fonts" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Background image and bitmap fonts</a>:
 </p>
 <pre>GRUB_FONT="/boot/grubfont.pf2"
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <code>GRUB_THEME</code> overrides <code>GRUB_FONT</code> if it is used.</div>
-<p>Finally <a href="../wiki/GRUB.html#Generate_the_main_configuration_file" title="GRUB">regenerate the main configuration file</a>.
+<p>Finally <a href="/Usage/Configuration/H/GRUB.html#Generate_the_main_configuration_file" title="GRUB">regenerate the main configuration file</a>.
 </p>
 <h3><span class="mw-headline" id="systemd-boot">systemd-boot</span></h3>
-<p>Adding the following line and running <code>bootctl update</code> increases font-size in the <a href="../wiki/Systemd-boot.html#Loader_configuration" title="Systemd-boot">systemd-boot</a> menu:
+<p>Adding the following line and running <code>bootctl update</code> increases font-size in the <a href="/Usage/Configuration/H/Systemd-boot.html#Loader_configuration" title="Systemd-boot">systemd-boot</a> menu:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/boot/loader/loader.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">console-mode 1</pre>
@@ -436,7 +436,7 @@ Setting <code>Xft.dpi</code> at the same time as toolkit scale (e.g. <code>GDK_S
 <strong>Warning:</strong> The AutoHiDPI extension is not compatible with Firefox Quantum (version 57 and above).</div>
 <p>If you use a HiDPI monitor such as Retina display together with another monitor, you can use <a rel="nofollow"  href="https://addons.mozilla.org/en-US/firefox/addon/autohidpi/">AutoHiDPI</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup> add-on in order to automatically adjust <code>layout.css.devPixelsPerPx</code> setting for the active screen. Also, since Firefox version 49, it auto-scales based on your screen resolution, making it easier to deal with 2 or more screens. For users of Firefox version 57 and above, the <a rel="nofollow"  href="https://addons.mozilla.org/firefox/addon/ffreszoom/">ffreszoom</a> add-on will adjust the page zoom if it detects you are using a large monitor (zoom level and threshold are configurable). Modifying the internal CSS DPI setting from an extension is currently unsupported <a rel="nofollow"  href="https://bugzilla.mozilla.org/show_bug.cgi?id=1373607">[1]</a>.
 </p>
-<p>If you use Wayland, see <a href="../wiki/Firefox.html#Wayland" title="Firefox">Firefox#Wayland</a> for instructions to enable the optional Wayland backend on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firefox">firefox</a></span>. This is also appicable to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=thunderbird">thunderbird</a></span>.
+<p>If you use Wayland, see <a href="/Usage/Configuration/H/Firefox.html#Wayland" title="Firefox">Firefox#Wayland</a> for instructions to enable the optional Wayland backend on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firefox">firefox</a></span>. This is also appicable to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=thunderbird">thunderbird</a></span>.
 </p>
 <h4>
 <span id="Chromium_.2F_Google_Chrome"></span><span class="mw-headline" id="Chromium_/_Google_Chrome">Chromium / Google Chrome</span>
@@ -500,7 +500,7 @@ java -Dglass.gtk.uiScale=2.0 -jar some_jfx_application.jar
 <p>Some Java applications mix <i>JavaFX</i> and <i>AWT/Swing</i> (via <code>javafx.embed.swing.JFXPanel</code>). In that case, the settings for <i>AWT/Swing</i> will also affect <i>JavaFX</i>, and setting <code>-Dglass.gtk.uiScale</code> will have no effect.
 </p>
 <h3><span class="mw-headline" id="MATLAB">MATLAB</span></h3>
-<p>Recent versions (R2017b) of <a href="../wiki/MATLAB.html" title="MATLAB">MATLAB</a> allow to set the scale factor<a rel="nofollow"  href="https://www.mathworks.com/matlabcentral/answers/406956-does-matlab-support-high-dpi-screens-on-linux">[5]</a>:
+<p>Recent versions (R2017b) of <a href="/Usage/Configuration/H/MATLAB.html" title="MATLAB">MATLAB</a> allow to set the scale factor<a rel="nofollow"  href="https://www.mathworks.com/matlabcentral/answers/406956-does-matlab-support-high-dpi-screens-on-linux">[5]</a>:
 </p>
 <pre>&gt;&gt; s = settings;s.matlab.desktop.DisplayScaleFactor
 &gt;&gt; s.matlab.desktop.DisplayScaleFactor.PersonalValue = 2
@@ -602,15 +602,15 @@ $ tar xf /tmp/yami.tar.gz --strip-components=3 --wildcards '*/UI/data/themes/Yam
 <h3><span class="mw-headline" id="Unsupported_applications">Unsupported applications</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/run_scaled-git/">run_scaled-git</a></span><sup><small>AUR</small></sup> can be used to scale applications (which uses <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xpra">xpra</a></span> internally).
 </p>
-<p>Another approach is to run the application full screen and without decoration in its own VNC desktop. Then scale the viewer. With Vncdesk (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/vncdesk-git/">vncdesk-git</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>) you can set up a desktop per application, then start server and client with a simple command such as <code>vncdesk 2</code>.
+<p>Another approach is to run the application full screen and without decoration in its own VNC desktop. Then scale the viewer. With Vncdesk (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/vncdesk-git/">vncdesk-git</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/H/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>) you can set up a desktop per application, then start server and client with a simple command such as <code>vncdesk 2</code>.
 </p>
-<p><a href="../wiki/X11vnc.html" title="X11vnc">x11vnc</a> has an experimental option <code>-appshare</code>, which opens one viewer per application window. Perhaps something could be hacked up with that.
+<p><a href="/Usage/Configuration/H/X11vnc.html" title="X11vnc">x11vnc</a> has an experimental option <code>-appshare</code>, which opens one viewer per application window. Perhaps something could be hacked up with that.
 </p>
 <h2><span class="mw-headline" id="Multiple_displays">Multiple displays</span></h2>
-<p>The HiDPI setting applies to the whole desktop, so non-HiDPI external displays show everything too large. However, note that setting different scaling factors for different monitors is already supported in <a href="../wiki/Wayland.html" title="Wayland">Wayland</a>.
+<p>The HiDPI setting applies to the whole desktop, so non-HiDPI external displays show everything too large. However, note that setting different scaling factors for different monitors is already supported in <a href="/Usage/Configuration/H/Wayland.html" title="Wayland">Wayland</a>.
 </p>
 <h3><span class="mw-headline" id="Side_display">Side display</span></h3>
-<p>One workaround is to use <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a>'s scale option. To have a non-HiDPI monitor (on DP1) right of an internal HiDPI display (eDP1), one could run:
+<p>One workaround is to use <a href="/Usage/Configuration/H/Xrandr.html" title="Xrandr">xrandr</a>'s scale option. To have a non-HiDPI monitor (on DP1) right of an internal HiDPI display (eDP1), one could run:
 </p>
 <pre>$ xrandr --output eDP-1 --auto --output DP-1 --auto --scale 2x2 --right-of eDP-1
 </pre>
@@ -662,11 +662,11 @@ $ tar xf /tmp/yami.tar.gz --strip-components=3 --wildcards '*/UI/data/themes/Yam
 <p>The <a href="https://en.wikipedia.org/wiki/Linux_console"  title="w:Linux console">Linux console</a> changes the font to <code>TER16x32</code> accordingly based on the resolution of the display. If your monitor is not recognised as hidpi, the default font can be changed. In that case, use <code>fbcon=font:TER16x32</code> on the kernel command line.
 </p>
 <h3><span class="mw-headline" id="Fonts_outside_the_kernel">Fonts outside the kernel</span></h3>
-<p>The largest font present in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kbd">kbd</a></span> package is <code>latarcyrheb-sun32</code> and other packages like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=terminus-font">terminus-font</a></span> contain further alternatives, such as <code>ter-132n</code> (normal) and <code>ter-132b</code> (bold). See <a href="../wiki/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a> for configuration details. Also see <a href="../wiki/Linux_console.html#Persistent_configuration" title="Linux console">Linux console#Persistent configuration</a> in particular for applying the font setting during the early userspace boot sequence.
+<p>The largest font present in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kbd">kbd</a></span> package is <code>latarcyrheb-sun32</code> and other packages like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=terminus-font">terminus-font</a></span> contain further alternatives, such as <code>ter-132n</code> (normal) and <code>ter-132b</code> (bold). See <a href="/Usage/Configuration/H/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a> for configuration details. Also see <a href="/Usage/Configuration/H/Linux_console.html#Persistent_configuration" title="Linux console">Linux console#Persistent configuration</a> in particular for applying the font setting during the early userspace boot sequence.
 </p>
-<p>After changing the font, it is often garbled and unreadable when changing to other virtual consoles (<code>tty2-6</code>). To fix this you can <a href="../wiki/Kernel_mode_setting.html#Forcing_modes_and_EDID" title="Kernel mode setting">force specific mode</a> for KMS, such as <code>video=2560x1600@60</code> (substitute in the native resolution of your HiDPI display), and reboot.
+<p>After changing the font, it is often garbled and unreadable when changing to other virtual consoles (<code>tty2-6</code>). To fix this you can <a href="/Usage/Configuration/H/Kernel_mode_setting.html#Forcing_modes_and_EDID" title="Kernel mode setting">force specific mode</a> for KMS, such as <code>video=2560x1600@60</code> (substitute in the native resolution of your HiDPI display), and reboot.
 </p>
-<p>Users booting though <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> may experience the console and <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> being constrained to a low resolution despite correct <a href="../wiki/Kernel_mode_setting.html" class="mw-redirect" title="KMS">KMS</a> settings being set. This can be caused by legacy/BIOS boot being enabled in UEFI settings. Disabling legacy boot to bypass the compatibility layer should allow the system to boot at the correct resolution.
+<p>Users booting though <a href="/Usage/Configuration/H/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> may experience the console and <a href="/Usage/Configuration/H/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> being constrained to a low resolution despite correct <a href="/Usage/Configuration/H/Kernel_mode_setting.html" class="mw-redirect" title="KMS">KMS</a> settings being set. This can be caused by legacy/BIOS boot being enabled in UEFI settings. Disabling legacy boot to bypass the compatibility layer should allow the system to boot at the correct resolution.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -679,11 +679,11 @@ $ tar xf /tmp/yami.tar.gz --strip-components=3 --wildcards '*/UI/data/themes/Yam
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/H/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/H/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -702,9 +702,9 @@ $ tar xf /tmp/yami.tar.gz --strip-components=3 --wildcards '*/UI/data/themes/Yam
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

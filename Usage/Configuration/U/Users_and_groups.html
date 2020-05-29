@@ -2,7 +2,7 @@
     title: Users_and_groups
     description: Migration of Users_and_groups from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -28,13 +28,13 @@
 <p>Related articles</p>
 <ul>
 <li><a href="../DeveloperWiki:UID_/_GID_Database.html" title="DeveloperWiki:UID / GID Database">DeveloperWiki:UID / GID Database</a></li>
-<li><a href="../wiki/Sudo.html" title="Sudo">Sudo</a></li>
-<li><a href="../wiki/Polkit.html" title="Polkit">Polkit</a></li>
-<li><a href="../wiki/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a></li>
-<li><a href="../wiki/Systemd-homed.html" title="Systemd-homed">systemd-homed</a></li>
+<li><a href="/Usage/Configuration/U/Sudo.html" title="Sudo">Sudo</a></li>
+<li><a href="/Usage/Configuration/U/Polkit.html" title="Polkit">Polkit</a></li>
+<li><a href="/Usage/Configuration/U/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a></li>
+<li><a href="/Usage/Configuration/U/Systemd-homed.html" title="Systemd-homed">systemd-homed</a></li>
 </ul>
 </div>
-<p>Users and groups are used on GNU/Linux for <a href="https://en.wikipedia.org/wiki/access_control#Computer_security"  title="wikipedia:access control">access control</a>—that is, to control access to the system's files, directories, and peripherals. Linux offers relatively simple/coarse access control mechanisms by default. For more advanced options, see <a href="../wiki/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACL</a>, <a href="../wiki/Capabilities.html" title="Capabilities">Capabilities</a> and <a href="../wiki/PAM.html#Configuration_How-Tos" title="PAM">PAM#Configuration How-Tos</a>.
+<p>Users and groups are used on GNU/Linux for <a href="https://en.wikipedia.org/wiki/access_control#Computer_security"  title="wikipedia:access control">access control</a>—that is, to control access to the system's files, directories, and peripherals. Linux offers relatively simple/coarse access control mechanisms by default. For more advanced options, see <a href="/Usage/Configuration/U/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACL</a>, <a href="/Usage/Configuration/U/Capabilities.html" title="Capabilities">Capabilities</a> and <a href="/Usage/Configuration/U/PAM.html#Configuration_How-Tos" title="PAM">PAM#Configuration How-Tos</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -73,7 +73,7 @@
 <h2><span class="mw-headline" id="Overview">Overview</span></h2>
 <p>A <i>user</i> is anyone who uses a computer. In this case, we are describing the names which represent those users. It may be Mary or Bill, and they may use the names Dragonlady or Pirate in place of their real name. All that matters is that the computer has a name for each account it creates, and it is this name by which a person gains access to use the computer. Some system services also run using restricted or privileged user accounts.
 </p>
-<p>Managing users is done for the purpose of security by limiting access in certain specific ways. The <a href="https://en.wikipedia.org/wiki/Superuser"  title="wikipedia:Superuser">superuser</a> (root) has complete access to the operating system and its configuration; it is intended for administrative use only. Unprivileged users can use the <a href="../wiki/Su.html" title="Su">su</a> and <a href="../wiki/Sudo.html" title="Sudo">sudo</a> programs for controlled privilege escalation.
+<p>Managing users is done for the purpose of security by limiting access in certain specific ways. The <a href="https://en.wikipedia.org/wiki/Superuser"  title="wikipedia:Superuser">superuser</a> (root) has complete access to the operating system and its configuration; it is intended for administrative use only. Unprivileged users can use the <a href="/Usage/Configuration/U/Su.html" title="Su">su</a> and <a href="/Usage/Configuration/U/Sudo.html" title="Sudo">sudo</a> programs for controlled privilege escalation.
 </p>
 <p>Any individual may have more than one account as long as they use a different name for each account they create. Further, there are some reserved names which may not be used such as "root".
 </p>
@@ -89,7 +89,7 @@
 <p>From <a rel="nofollow"  href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.597.4699&amp;rep=rep1&amp;type=pdf">Extending UNIX File Abstraction for General-Purpose Networking</a>:
 </p>
 <dl><dd>A fundamental and very powerful, consistent abstraction provided in UNIX and compatible operating systems is the file abstraction. Many OS services and device interfaces are implemented to provide a file or file system metaphor to applications. This enables new uses for, and greatly increases the power of, existing applications — simple tools designed with specific uses in mind can, with UNIX file abstractions, be used in novel ways. A simple tool, such as cat, designed to read one or more files and output the contents to standard output, can be used to read from I/O devices through special device files, typically found under the <code>/dev</code> directory. On many systems, audio recording and playback can be done simply with the commands, "<code>cat /dev/audio &gt; myfile</code>" and "<code>cat myfile &gt; /dev/audio</code>," respectively.</dd></dl>
-<p>Every file on a GNU/Linux system is owned by a user and a group. In addition, there are three types of access permissions: read, write, and execute. Different access permissions can be applied to a file's owning user, owning group, and others (those without ownership). One can determine a file's owners and permissions by viewing the long listing format of the <a href="../wiki/Core_utilities.html#Essentials" class="mw-redirect" title="Ls">ls</a> command:
+<p>Every file on a GNU/Linux system is owned by a user and a group. In addition, there are three types of access permissions: read, write, and execute. Different access permissions can be applied to a file's owning user, owning group, and others (those without ownership). One can determine a file's owners and permissions by viewing the long listing format of the <a href="/Usage/Configuration/U/Core_utilities.html#Essentials" class="mw-redirect" title="Ls">ls</a> command:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ ls -l /boot/</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">total 13740
@@ -124,7 +124,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 </pre>
 <p>Access permissions are displayed in three groups of characters, representing the permissions of the owning user, owning group, and others, respectively. For example, the characters <code>-rw-r--r--</code> indicate that the file's owner has read and write permission, but not execute (<code>rw-</code>), whilst users belonging to the owning group and other users have only read permission (<code>r--</code> and <code>r--</code>). Meanwhile, the characters <code>drwxrwx---</code> indicate that the file's owner and users belonging to the owning group all have read, write, and execute permissions (<code>rwx</code> and <code>rwx</code>), whilst other users are denied access (<code>---</code>). The first character represents the file's type.
 </p>
-<p>List files owned by a user or group with the <a href="../wiki/Core_utilities.html#Essentials" class="mw-redirect" title="Find">find</a> utility:
+<p>List files owned by a user or group with the <a href="/Usage/Configuration/U/Core_utilities.html#Essentials" class="mw-redirect" title="Find">find</a> utility:
 </p>
 <pre># find / -group <i>groupname</i>
 </pre>
@@ -132,7 +132,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 </pre>
 <pre># find / -user <i>user</i>
 </pre>
-<p>A file's owning user and group can be changed with the <a href="../wiki/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> (change owner) command. A file's access permissions can be changed with the <a href="../wiki/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> (change mode) command.
+<p>A file's owning user and group can be changed with the <a href="/Usage/Configuration/U/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a> (change owner) command. A file's access permissions can be changed with the <a href="/Usage/Configuration/U/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> (change mode) command.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 1 chown"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/chown.1">chown(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 1 chmod"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/chmod.1">chmod(1)</a></span>, and <a rel="nofollow"  href="http://www.linux.com/tutorials/understanding-linux-file-permissions">Linux file permissions</a> for additional detail.
 </p>
@@ -142,7 +142,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <div>
 <b>Reason:</b> Mention <code>shadow.timer</code> and <code>shadow.service</code>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Users_and_groups">Talk:Users and groups#</a>)</div>
 </div>
-<p>The user, group and password management tools on TOS Linux come from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadow">shadow</a></span> package, which is a dependency of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span> <a href="../wiki/Meta_package_and_package_group.html#Difference_between_meta_package_and_package_group" class="mw-redirect" title="Meta package">meta package</a>.
+<p>The user, group and password management tools on TOS Linux come from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadow">shadow</a></span> package, which is a dependency of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span> <a href="/Usage/Configuration/U/Meta_package_and_package_group.html#Difference_between_meta_package_and_package_group" class="mw-redirect" title="Meta package">meta package</a>.
 </p>
 <h2><span class="mw-headline" id="File_list">File list</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -195,10 +195,10 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <dt>
 <code>-s</code>/<code>--shell</code>
 </dt>
-<dd>defines the path and file name of the user's default login shell. After the boot process is complete, the default login shell is the one specified here. Ensure the chosen shell package is installed if choosing something other than <a href="../wiki/Bash.html" title="Bash">Bash</a>.</dd>
+<dd>defines the path and file name of the user's default login shell. After the boot process is complete, the default login shell is the one specified here. Ensure the chosen shell package is installed if choosing something other than <a href="/Usage/Configuration/U/Bash.html" title="Bash">Bash</a>.</dd>
 </dl>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> In order to be able to log in, the login shell must be one of those listed in <code>/etc/shells</code>, otherwise the <a href="../wiki/PAM.html" title="PAM">PAM</a> module <code>pam_shell</code> will deny the login request. In particular, do not use the <code>/usr/bin/bash</code> path instead of <code>/bin/bash</code>, unless it is properly configured in <code>/etc/shells</code>; see <a rel="nofollow"  href="https://bugs.archlinux.org/task/33677">FS#33677</a>.</div>
+<strong>Warning:</strong> In order to be able to log in, the login shell must be one of those listed in <code>/etc/shells</code>, otherwise the <a href="/Usage/Configuration/U/PAM.html" title="PAM">PAM</a> module <code>pam_shell</code> will deny the login request. In particular, do not use the <code>/usr/bin/bash</code> path instead of <code>/bin/bash</code>, unless it is properly configured in <code>/etc/shells</code>; see <a rel="nofollow"  href="https://bugs.archlinux.org/task/33677">FS#33677</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The password for the newly created user must then be defined, using <i>passwd</i> as shown in <a href="#Example_adding_a_user">#Example adding a user</a>.</div>
 <p>If an initial login group is specified by name or number, it must refer to an already existing group. If not specified, the behaviour of <i>useradd</i> will depend on the <code>USERGROUPS_ENAB</code> variable contained in <code>/etc/login.defs</code>. The default behaviour (<code>USERGROUPS_ENAB yes</code>) is to create a group with the same name as the username.
@@ -220,7 +220,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 </pre>
 <p>The above <i>useradd</i> command will also automatically create a group called <code>archie</code> and makes this the default group for the user <code>archie</code>. Making each user have their own group (with the group name same as the user name) is the preferred way to add users.
 </p>
-<p>You could also make the default group something else using the <code>-g</code> option, but note that, in multi-user systems, using a single default group (e.g. <code>users</code>) for every user is not recommended. The reason is that typically, the method for facilitating shared write access for specific groups of users is setting user <a href="../wiki/Umask.html" title="Umask">umask</a> value to <code>002</code>, which means that the default group will by default always have write access to any file you create. See also <a rel="nofollow"  href="https://security.ias.edu/how-and-why-user-private-groups-unix">User Private Groups</a>. If a user must be a member of a specific group specify that group as a supplementary group when creating the user.
+<p>You could also make the default group something else using the <code>-g</code> option, but note that, in multi-user systems, using a single default group (e.g. <code>users</code>) for every user is not recommended. The reason is that typically, the method for facilitating shared write access for specific groups of users is setting user <a href="/Usage/Configuration/U/Umask.html" title="Umask">umask</a> value to <code>002</code>, which means that the default group will by default always have write access to any file you create. See also <a rel="nofollow"  href="https://security.ias.edu/how-and-why-user-private-groups-unix">User Private Groups</a>. If a user must be a member of a specific group specify that group as a supplementary group when creating the user.
 </p>
 <p>In the recommended scenario, where the default group has the same name as the user name, all files are by default writeable only for the user who created them. To allow write access to a specific group, shared files/folders can be made writeable by default for everyone in this group and the owning group can be automatically fixed to the group which owns the parent directory by setting the setgid bit on this directory:
 </p>
@@ -231,7 +231,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <p>If a GID change is required temporarily you can also use the <i>newgrp</i> command to change the user's default GID to another GID at runtime. For example, after executing <code>newgrp <i>groupname</i></code> files created by the user will be associated with the <code><i>groupname</i></code> GID, without requiring a re-login. To change back to the default GID, execute <i>newgrp</i> without a groupname.
 </p>
 <h3><span class="mw-headline" id="Example_adding_a_system_user">Example adding a system user</span></h3>
-<p>System users can be used to run processes/daemons under a different user,  protecting (e.g. with <a href="../wiki/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a>) files and/or directories and more examples of computer hardening.
+<p>System users can be used to run processes/daemons under a different user,  protecting (e.g. with <a href="/Usage/Configuration/U/File_permissions_and_attributes.html#Changing_ownership" class="mw-redirect" title="Chown">chown</a>) files and/or directories and more examples of computer hardening.
 </p>
 <p>With the following command a system user without shell access and without a <code>home</code> directory is created (optionally append the  <code>-U</code> parameter to create a group with the same name as the user, and add the user to this group):
 </p>
@@ -262,7 +262,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <pre># usermod -l <i>newname</i> <i>oldname</i>
 </pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Make certain that you are not logged in as the user whose name you are about to change. Open a new tty (e.g. <code>Ctrl+Alt+F6</code>) and log in as root or as another user and <a href="../wiki/General_recommendations.html#Privilege_elevation" title="General recommendations">elevate to root</a>. <i>usermod</i> should prevent you from doing this by mistake.</div>
+<strong>Warning:</strong> Make certain that you are not logged in as the user whose name you are about to change. Open a new tty (e.g. <code>Ctrl+Alt+F6</code>) and log in as root or as another user and <a href="/Usage/Configuration/U/General_recommendations.html#Privilege_elevation" title="General recommendations">elevate to root</a>. <i>usermod</i> should prevent you from doing this by mistake.</div>
 <p>Changing a username is safe and easy when done properly, just use the <a href="#Other_examples_of_user_management">usermod</a> command. If the user is associated to a group with the same name, you can rename this with the <a href="#Group_management">groupmod</a> command.
 </p>
 <p>Alternatively, the <code>/etc/passwd</code> file can be edited directly, see <a href="#User_database">#User database</a> for an introduction to its format.
@@ -270,10 +270,10 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <p>Also keep in mind the following notes:
 </p>
 <ul>
-<li>If you are using <a href="../wiki/Sudo.html" title="Sudo">sudo</a> make sure you update your <code>/etc/sudoers</code> to reflect the new username(s) (via the <i>visudo</i> command as root).</li>
-<li>Personal <a href="../wiki/Cron.html#Crontab_format" title="Cron">crontabs</a> need to be adjusted by renaming the user's file in <code>/var/spool/cron</code> from the old to the new name, and then opening <code>crontab -e</code> to change any relevant paths and have it adjust the file permissions accordingly.</li>
+<li>If you are using <a href="/Usage/Configuration/U/Sudo.html" title="Sudo">sudo</a> make sure you update your <code>/etc/sudoers</code> to reflect the new username(s) (via the <i>visudo</i> command as root).</li>
+<li>Personal <a href="/Usage/Configuration/U/Cron.html#Crontab_format" title="Cron">crontabs</a> need to be adjusted by renaming the user's file in <code>/var/spool/cron</code> from the old to the new name, and then opening <code>crontab -e</code> to change any relevant paths and have it adjust the file permissions accordingly.</li>
 <li>
-<a href="../wiki/Wine.html" title="Wine">Wine's</a> personal folders/files' contents in <code>~/.wine/drive_c/users</code>, <code>~/.local/share/applications/wine/Programs</code> and possibly more need to be manually renamed/edited.</li>
+<a href="/Usage/Configuration/U/Wine.html" title="Wine">Wine's</a> personal folders/files' contents in <code>~/.wine/drive_c/users</code>, <code>~/.local/share/applications/wine/Programs</code> and possibly more need to be manually renamed/edited.</li>
 <li>Certain Thunderbird addons, like <a rel="nofollow"  href="https://www.enigmail.net/index.php/wiki/">Enigmail</a>, may need to be reinstalled.</li>
 <li>Anything on your system (desktop shortcuts, shell scripts, etc.) that uses an absolute path to your home dir (i.e. <code>/home/oldname</code>) will need to be changed to reflect your new name. To avoid these problems in shell scripts, simply use the <code>~</code> or <code>$HOME</code> variables for home directories.</li>
 <li>Also do not forget to edit accordingly the configuration files in <code>/etc/</code> that relies on your absolute path (e.g. Samba, CUPS, so on). A nice way to learn what files you need to update involves using the grep command this way: <code>grep -r <i>old_user</i> *</code>
@@ -324,7 +324,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <code><i>account</i></code> is the user name. This field can not be blank. Standard *NIX naming rules apply.</li>
 <li>
 <code><i>password</i></code> is the user password. <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> The <code>passwd</code> file is world-readable, so storing passwords (hashed or otherwise) in this file is insecure. Instead, TOS Linux uses <a href="../wiki/Security.html#Password_hashes" title="Security">shadowed passwords</a>: the <code>password</code> field will contain a placeholder character (<code>x</code>) indicating that the hashed password is saved in the access-restricted file <code>/etc/shadow</code>. For this reason it is recommended to always change passwords using the <b>passwd</b> command.</div>
+<strong>Warning:</strong> The <code>passwd</code> file is world-readable, so storing passwords (hashed or otherwise) in this file is insecure. Instead, TOS Linux uses <a href="/Usage/Configuration/U/Security.html#Password_hashes" title="Security">shadowed passwords</a>: the <code>password</code> field will contain a placeholder character (<code>x</code>) indicating that the hashed password is saved in the access-restricted file <code>/etc/shadow</code>. For this reason it is recommended to always change passwords using the <b>passwd</b> command.</div>
 </li>
 <li>
 <code><i>UID</i></code> is the numerical user ID. In TOS, the first login name (after root) for a so called normal user, as opposed to services, is UID 1000 by default; subsequent UID entries for users should be greater than 1000.</li>
@@ -335,13 +335,13 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <li>
 <code><i>directory</i></code> is used by the login command to set the <code>$HOME</code> environment variable. Several services with their own users use <code>/</code>, but normal users usually set a folder under <code>/home</code>.</li>
 <li>
-<code><i>shell</i></code> is the path to the user's default <a href="../wiki/Command-line_shell.html" class="mw-redirect" title="Command shell">command shell</a>. This field is optional and defaults to <code>/bin/bash</code>.</li>
+<code><i>shell</i></code> is the path to the user's default <a href="/Usage/Configuration/U/Command-line_shell.html" class="mw-redirect" title="Command shell">command shell</a>. This field is optional and defaults to <code>/bin/bash</code>.</li>
 </ul>
 <p>Example:
 </p>
 <pre>jack:x:1001:1003:Jack Smith,some comment here,,:/home/jack:/bin/bash
 </pre>
-<p>Broken down, this means: user <code>jack</code>, whose password is in <code>/etc/shadow</code>, whose UID is 1001 and whose primary group is 1003. Jack Smith is his full name and there is a comment associated to his account; his home directory is <code>/home/jack</code> and he is using <a href="../wiki/Bash.html" title="Bash">Bash</a>.
+<p>Broken down, this means: user <code>jack</code>, whose password is in <code>/etc/shadow</code>, whose UID is 1001 and whose primary group is 1003. Jack Smith is his full name and there is a comment associated to his account; his home directory is <code>/home/jack</code> and he is using <a href="/Usage/Configuration/U/Bash.html" title="Bash">Bash</a>.
 </p>
 <p>The <i>pwck</i> command can be used to verify the integrity of the user database. It can sort the user list by GID at the same time, which can be helpful for comparison:
 </p>
@@ -413,13 +413,13 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <tr>
 <td>adm</td>
 <td></td>
-<td>Administration group, commonly used to give read access to protected logs. It has full read access to <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journal">journal</a> files.
+<td>Administration group, commonly used to give read access to protected logs. It has full read access to <a href="/Usage/Configuration/U/Systemd/Journal.html" class="mw-redirect" title="Journal">journal</a> files.
 </td>
 </tr>
 <tr>
 <td>ftp</td>
 <td><code>/srv/ftp/</code></td>
-<td>Access to files served by <a href="../wiki/List_of_applications/Internet.html#FTP_servers" title="List of applications/Internet">FTP servers</a>.
+<td>Access to files served by <a href="/Usage/Configuration/U/List_of_applications/Internet.html#FTP_servers" title="List of applications/Internet">FTP servers</a>.
 </td>
 </tr>
 <tr>
@@ -431,25 +431,25 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <tr>
 <td>http</td>
 <td><code>/srv/http/</code></td>
-<td>Access to files served by <a href="../wiki/List_of_applications/Internet.html#Web_servers" title="List of applications/Internet">HTTP servers</a>.
+<td>Access to files served by <a href="/Usage/Configuration/U/List_of_applications/Internet.html#Web_servers" title="List of applications/Internet">HTTP servers</a>.
 </td>
 </tr>
 <tr>
 <td>log</td>
 <td></td>
-<td>Access to log files in <code>/var/log/</code> created by <a href="../wiki/Syslog-ng.html" title="Syslog-ng">syslog-ng</a>.
+<td>Access to log files in <code>/var/log/</code> created by <a href="/Usage/Configuration/U/Syslog-ng.html" title="Syslog-ng">syslog-ng</a>.
 </td>
 </tr>
 <tr>
 <td>rfkill</td>
 <td><code>/dev/rfkill</code></td>
-<td>Right to control wireless devices power state (used by <a href="../wiki/Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Rfkill">rfkill</a>).
+<td>Right to control wireless devices power state (used by <a href="/Usage/Configuration/U/Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Rfkill">rfkill</a>).
 </td>
 </tr>
 <tr>
 <td>sys</td>
 <td></td>
-<td>Right to administer printers in <a href="../wiki/CUPS.html" title="CUPS">CUPS</a>.
+<td>Right to administer printers in <a href="/Usage/Configuration/U/CUPS.html" title="CUPS">CUPS</a>.
 </td>
 </tr>
 <tr>
@@ -469,7 +469,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <tr>
 <td>wheel</td>
 <td></td>
-<td>Administration group, commonly used to give privileges to perform administrative actions. It has full read access to <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Journal">journal</a> files and the right to administer printers in <a href="../wiki/CUPS.html" title="CUPS">CUPS</a>. Can also be used to give access to the <a href="../wiki/Sudo.html" title="Sudo">sudo</a> and <a href="../wiki/Su.html" title="Su">su</a> utilities (neither uses it by default).
+<td>Administration group, commonly used to give privileges to perform administrative actions. It has full read access to <a href="/Usage/Configuration/U/Systemd/Journal.html" class="mw-redirect" title="Journal">journal</a> files and the right to administer printers in <a href="/Usage/Configuration/U/CUPS.html" title="CUPS">CUPS</a>. Can also be used to give access to the <a href="/Usage/Configuration/U/Sudo.html" title="Sudo">sudo</a> and <a href="/Usage/Configuration/U/Su.html" title="Su">su</a> utilities (neither uses it by default).
 </td>
 </tr>
 </tbody>
@@ -504,7 +504,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <td>
 <code>/usr/bin/locate</code>, <code>/var/lib/locate</code>, <code>/var/lib/mlocate</code>, <code>/var/lib/slocate</code>
 </td>
-<td>See <a href="../wiki/Mlocate.html" class="mw-redirect" title="Locate">Locate</a>.
+<td>See <a href="/Usage/Configuration/U/Mlocate.html" class="mw-redirect" title="Locate">Locate</a>.
 </td>
 </tr>
 <tr>
@@ -543,7 +543,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <td>smmsp</td>
 <td></td>
 <td>
-<a href="../wiki/Sendmail.html" title="Sendmail">sendmail</a> group.
+<a href="/Usage/Configuration/U/Sendmail.html" title="Sendmail">sendmail</a> group.
 </td>
 </tr>
 <tr>
@@ -565,7 +565,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 </tbody>
 </table>
 <h3><span class="mw-headline" id="Pre-systemd_groups">Pre-systemd groups</span></h3>
-<p>Before arch migrated to <a href="../wiki/Systemd.html" title="Systemd">systemd</a>, users had to be manually added to these groups in order to be able to access the corresponding devices. This way has been deprecated in favour of <a href="../wiki/Udev.html" title="Udev">udev</a> marking the devices with a <code>uaccess</code> <a rel="nofollow"  href="https://github.com/systemd/systemd/blob/master/src/login/70-uaccess.rules.m4">tag</a> and <i>logind</i> assigning the permissions to users dynamically via <a href="../wiki/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACLs</a> according to which session is currently active. Note that the session must not be broken for this to work (see <a href="../wiki/General_troubleshooting.html#Session_permissions" title="General troubleshooting">General troubleshooting#Session permissions</a> to check it).
+<p>Before arch migrated to <a href="/Usage/Configuration/U/Systemd.html" title="Systemd">systemd</a>, users had to be manually added to these groups in order to be able to access the corresponding devices. This way has been deprecated in favour of <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> marking the devices with a <code>uaccess</code> <a rel="nofollow"  href="https://github.com/systemd/systemd/blob/master/src/login/70-uaccess.rules.m4">tag</a> and <i>logind</i> assigning the permissions to users dynamically via <a href="/Usage/Configuration/U/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACLs</a> according to which session is currently active. Note that the session must not be broken for this to work (see <a href="/Usage/Configuration/U/General_troubleshooting.html#Session_permissions" title="General troubleshooting">General troubleshooting#Session permissions</a> to check it).
 </p>
 <p>There are some notable exceptions which require adding a user to some of these groups: for example if you want to allow users to access the device even when they are not logged in. However, note that adding users to the groups can even cause some functionality to break (for example, the <code>audio</code> group will break fast user switching and allows applications to block software mixing).
 </p>
@@ -582,7 +582,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <td>
 <code>/dev/audio</code>, <code>/dev/snd/*</code>, <code>/dev/rtc0</code>
 </td>
-<td>Direct access to sound hardware, for all sessions. It is still required to make <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> and <a href="../wiki/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> work in remote sessions, see <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html#User_privileges" class="mw-redirect" title="ALSA">ALSA#User privileges</a>. Also used in <a href="../wiki/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> to give users realtime processing permissions.
+<td>Direct access to sound hardware, for all sessions. It is still required to make <a href="/Usage/Configuration/U/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> and <a href="/Usage/Configuration/U/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> work in remote sessions, see <a href="/Usage/Configuration/U/Advanced_Linux_Sound_TOSitecture.html#User_privileges" class="mw-redirect" title="ALSA">ALSA#User privileges</a>. Also used in <a href="/Usage/Configuration/U/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> to give users realtime processing permissions.
 </td>
 </tr>
 <tr>
@@ -608,7 +608,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <tr>
 <td>kvm</td>
 <td><code>/dev/kvm</code></td>
-<td>Access to virtual machines using <a href="../wiki/KVM.html" title="KVM">KVM</a>.
+<td>Access to virtual machines using <a href="/Usage/Configuration/U/KVM.html" title="KVM">KVM</a>.
 </td>
 </tr>
 <tr>
@@ -638,7 +638,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <td>
 <code>/dev/fb/0</code>, <code>/dev/misc/agpgart</code>
 </td>
-<td>Access to video capture devices, 2D/3D hardware acceleration, framebuffer (<a href="../wiki/Xorg.html" class="mw-redirect" title="X">X</a> can be used <i>without</i> belonging to this group).
+<td>Access to video capture devices, 2D/3D hardware acceleration, framebuffer (<a href="/Usage/Configuration/U/Xorg.html" class="mw-redirect" title="X">X</a> can be used <i>without</i> belonging to this group).
 </td>
 </tr>
 </tbody>
@@ -681,7 +681,7 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 <tr>
 <td>network</td>
 <td></td>
-<td>Unused by default. Can be used e.g. for granting access to NetworkManager (see <a href="../wiki/NetworkManager.html#Set_up_PolicyKit_permissions" title="NetworkManager">NetworkManager#Set up PolicyKit permissions</a>).
+<td>Unused by default. Can be used e.g. for granting access to NetworkManager (see <a href="/Usage/Configuration/U/NetworkManager.html#Set_up_PolicyKit_permissions" title="NetworkManager">NetworkManager#Set up PolicyKit permissions</a>).
 </td>
 </tr>
 <tr>
@@ -725,12 +725,12 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/U/Category:Security.html" title="Category:Security">Security</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/U/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/U/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/U/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -749,9 +749,9 @@ drwxrwx--- 1 root vboxsf 16384 Jan 29 11:02 sf_Shared
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/U/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/U/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/U/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

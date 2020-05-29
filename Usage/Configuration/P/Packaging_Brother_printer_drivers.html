@@ -2,7 +2,7 @@
     title: Packaging_Brother_printer_drivers
     description: Migration of Packaging_Brother_printer_drivers from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -25,8 +25,8 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p>Brother supplies Linux drivers for its printers, however they are provided as .RPM and/or .DEB packages only.
-This article explains what adjustments to the contents of the DEB and RPM packages supplied by Brother will need to be made to create a <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> for the printer driver.
-Additional example PKGBUILDs for Brother printers can be found by searching in the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+This article explains what adjustments to the contents of the DEB and RPM packages supplied by Brother will need to be made to create a <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> for the printer driver.
+Additional example PKGBUILDs for Brother printers can be found by searching in the <a href="/Usage/Configuration/P/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -47,7 +47,7 @@ Additional example PKGBUILDs for Brother printers can be found by searching in t
 </div>
 
 <h2><span class="mw-headline" id="Really_short_overview_of_CUPS">Really short overview of CUPS</span></h2>
-<p><a href="../wiki/CUPS.html" title="CUPS">CUPS</a> handles printers using a <code>.ppd</code> file and a filter binary. Once those two files are installed, the printer can be <a href="../wiki/CUPS.html#Usage" title="CUPS">added</a> in CUPS.
+<p><a href="/Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a> handles printers using a <code>.ppd</code> file and a filter binary. Once those two files are installed, the printer can be <a href="/Usage/Configuration/P/CUPS.html#Usage" title="CUPS">added</a> in CUPS.
 </p>
 <h2><span class="mw-headline" id="Preparing_a_PKGBUILD_for_.DEB">Preparing a PKGBUILD for .DEB</span></h2>
 <p>Brother is offering a "Driver Install Tool" as well as two .DEB packages, one being the LPR driver and the other one being a cups wrapper (running on top of lpr driver). Both can be found on brothers "Support &amp; Downloads" page, e.g. for HL-L9200CDW this would be  <a rel="nofollow"  href="https://support.brother.com/g/b/producttop.aspx?c=ca&amp;lang=en&amp;prod=hll9200cdw_us_as_cn">https://support.brother.com/g/b/producttop.aspx?c=ca&amp;lang=en&amp;prod=hll9200cdw_us_as_cn</a> . It is possible to create a PKGBUILD file that will automatically download and install the .DEB packages directly from the URL provided by brother. Therefore you will need to obtain the direct download links for both .DEB packages from brothers website, e.g. for HL-L9200CDW these would be: <a rel="nofollow"  href="https://download.brother.com/welcome/dlf101047/hll9200cdwlpr-1.1.2-1.i386.deb">https://download.brother.com/welcome/dlf101047/hll9200cdwlpr-1.1.2-1.i386.deb</a> and <a rel="nofollow"  href="https://download.brother.com/welcome/dlf101045/hll9200cdwcupswrapper-1.1.3-1.i386.deb">https://download.brother.com/welcome/dlf101045/hll9200cdwcupswrapper-1.1.3-1.i386.deb</a>
@@ -87,7 +87,7 @@ package() {
 }
 </pre>
 <p><br>
-Finally, use <a href="../wiki/Makepkg.html" title="Makepkg">makepkg</a> to test/install your newly created PKGBUILD file(s). If everything works, don't forget to push your new driver to AUR. In order to create a new AUR repository for your printer driver, register an account with <a rel="nofollow"  href="https://aur.archlinux.org">https://aur.archlinux.org</a> then git clone a new non-existing repo that matches your newly chosen package names, e.g.:
+Finally, use <a href="/Usage/Configuration/P/Makepkg.html" title="Makepkg">makepkg</a> to test/install your newly created PKGBUILD file(s). If everything works, don't forget to push your new driver to AUR. In order to create a new AUR repository for your printer driver, register an account with <a rel="nofollow"  href="https://aur.archlinux.org">https://aur.archlinux.org</a> then git clone a new non-existing repo that matches your newly chosen package names, e.g.:
 </p>
 <pre>git clone <i><a rel="nofollow"  href="https://aur.archlinux.org/">https://aur.archlinux.org/</a></i>brother-hll9200cdw-lpr-bin.git<i></i>
 git clone <i><a rel="nofollow"  href="https://aur.archlinux.org/">https://aur.archlinux.org/</a></i>brother-hll9200cdw-cups-bin.git<i></i>
@@ -114,7 +114,7 @@ cd ..
 <ul>
 <li>The CUPS driver is built on top of the lpr driver.</li>
 <li>The CUPS driver package contains a single installation shell script with an embedded ppd and filter. It is executed by rpm during installation. It extracts the ppd and filter, and performs some installation procedures in a Red Hat-specific way.</li>
-<li>The CUPS driver package uses paths that are not compliant with the <a href="../wiki/TOS_package_guidelines.html" class="mw-redirect" title="TOS packaging standards">TOS packaging standards</a>.</li>
+<li>The CUPS driver package uses paths that are not compliant with the <a href="/Usage/Configuration/P/TOS_package_guidelines.html" class="mw-redirect" title="TOS packaging standards">TOS packaging standards</a>.</li>
 </ul>
 <p>These issues can be worked around.
 </p>
@@ -127,7 +127,7 @@ cd ..
 <li>The target file names for the ppd and filter are changed so they are installed into the same directory as the PKGBUILD. Note that paths to the embedded filter where also changed.</li>
 </ol>
 </li>
-<li>To fix the paths to conform to the <a href="../wiki/TOS_package_guidelines.html" class="mw-redirect" title="TOS packaging standards">TOS packaging standards</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sed">sed</a></span> or similar can be used on all text files unpacked from both the lpr and CUPS drivers. Look at the patch in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brother-hl2030/">brother-hl2030</a></span><sup><small>AUR</small></sup> package to check which files are affected.</li>
+<li>To fix the paths to conform to the <a href="/Usage/Configuration/P/TOS_package_guidelines.html" class="mw-redirect" title="TOS packaging standards">TOS packaging standards</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sed">sed</a></span> or similar can be used on all text files unpacked from both the lpr and CUPS drivers. Look at the patch in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brother-hl2030/">brother-hl2030</a></span><sup><small>AUR</small></sup> package to check which files are affected.</li>
 </ul>
 <p>Effectively after the changes described above the script will just output a ppd and a filter to some known location. The PKGBUILD will then copy them to the proper directories in <code>$pkgdir</code>:
 </p>
@@ -155,15 +155,15 @@ cd ..
  +pstops=/usr/lib/cups/filter/pstops
 </pre>
 <h2><span class="mw-headline" id="x86_64">x86_64</span></h2>
-<p>Because some of the supplied binaries are 32 bit only, on an x86_64 system some additional <a href="../wiki/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> packages such as a 32 bit version of glibc (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span>) may need to be installed.
+<p>Because some of the supplied binaries are 32 bit only, on an x86_64 system some additional <a href="/Usage/Configuration/P/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> packages such as a 32 bit version of glibc (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-glibc">lib32-glibc</a></span>) may need to be installed.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -181,9 +181,9 @@ cd ..
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

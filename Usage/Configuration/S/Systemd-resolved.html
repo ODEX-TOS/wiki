@@ -2,7 +2,7 @@
     title: Systemd-resolved
     description: Migration of Systemd-resolved from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,12 +29,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a></li>
-<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
-<li><a href="../wiki/Avahi.html" title="Avahi">Avahi</a></li>
+<li><a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a></li>
+<li><a href="/Usage/Configuration/S/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="/Usage/Configuration/S/Avahi.html" title="Avahi">Avahi</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.freedesktop.org/wiki/Software/systemd/resolved/">systemd-resolved</a> is a <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service that provides network name resolution to local applications via a <a href="../wiki/D-Bus.html" title="D-Bus">D-Bus</a> interface, the <code>resolve</code> <a href="../wiki/Domain_name_resolution.html#Name_Service_Switch" class="mw-redirect" title="Name Service Switch">NSS</a> service (<span class="plainlinks archwiki-template-man" title="$ man 8 nss-resolve"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nss-resolve.8">nss-resolve(8)</a></span>), and a local DNS stub listener on <code>127.0.0.53</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-resolved"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-resolved.8">systemd-resolved(8)</a></span> for the usage.
+<p><a rel="nofollow"  href="https://www.freedesktop.org/wiki/Software/systemd/resolved/">systemd-resolved</a> is a <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service that provides network name resolution to local applications via a <a href="/Usage/Configuration/S/D-Bus.html" title="D-Bus">D-Bus</a> interface, the <code>resolve</code> <a href="/Usage/Configuration/S/Domain_name_resolution.html#Name_Service_Switch" class="mw-redirect" title="Name Service Switch">NSS</a> service (<span class="plainlinks archwiki-template-man" title="$ man 8 nss-resolve"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nss-resolve.8">nss-resolve(8)</a></span>), and a local DNS stub listener on <code>127.0.0.53</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-resolved"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-resolved.8">systemd-resolved(8)</a></span> for the usage.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -77,12 +77,12 @@
 </p>
 <p>The resolver can be configured by editing <code>/etc/systemd/resolved.conf</code> and/or drop-in <i>.conf</i> files in <code>/etc/systemd/resolved.conf.d/</code>. See <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>.
 </p>
-<p>To use <i>systemd-resolved</i> <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-resolved.service</code>.
+<p>To use <i>systemd-resolved</i> <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-resolved.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> To understand the context around the choices and switches, one can turn on detailed debug information for <i>systemd-resolved</i> as described in <a href="../wiki/Systemd.html#Diagnosing_a_service" title="Systemd">systemd#Diagnosing a service</a>.</div>
+<strong>Tip:</strong> To understand the context around the choices and switches, one can turn on detailed debug information for <i>systemd-resolved</i> as described in <a href="/Usage/Configuration/S/Systemd.html#Diagnosing_a_service" title="Systemd">systemd#Diagnosing a service</a>.</div>
 <h3><span class="mw-headline" id="DNS">DNS</span></h3>
-<p><i>systemd-resolved</i> has four different modes for handling the <a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a> (the four modes are described in <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-resolved"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-resolved.8#%2FETC%2FRESOLV.CONF">systemd-resolved(8)</a></span>). We will focus here on the two most relevant modes.
+<p><i>systemd-resolved</i> has four different modes for handling the <a href="/Usage/Configuration/S/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a> (the four modes are described in <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-resolved"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-resolved.8#%2FETC%2FRESOLV.CONF">systemd-resolved(8)</a></span>). We will focus here on the two most relevant modes.
 </p>
 <ol>
 <li>Using the systemd DNS stub file - the systemd DNS stub file <code>/run/systemd/resolve/stub-resolv.conf</code> contains the local stub <code>127.0.0.53</code> as the only DNS server and a list of search domains. This is the <b>recommended</b> mode of operation. The service users are advised to redirect the <code>/etc/resolv.conf</code> file to the local stub DNS resolver file <code>/run/systemd/resolve/stub-resolv.conf</code> managed by <i>systemd-resolved</i>. This propagates the systemd managed configuration to all the clients. This can be done by replacing <code>/etc/resolv.conf</code> with a symbolic link to the systemd stub: <pre># ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf</pre>
@@ -98,9 +98,9 @@
 </pre>
 </div>
 <h5><span class="mw-headline" id="Automatically">Automatically</span></h5>
-<p><i>systemd-resolved</i> will work out of the box with a <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a> using <code>/etc/resolv.conf</code>. No particular configuration is required since <i>systemd-resolved</i> will be detected by following the <code>/etc/resolv.conf</code> symlink. This is going to be the case with <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a>.
+<p><i>systemd-resolved</i> will work out of the box with a <a href="/Usage/Configuration/S/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a> using <code>/etc/resolv.conf</code>. No particular configuration is required since <i>systemd-resolved</i> will be detected by following the <code>/etc/resolv.conf</code> symlink. This is going to be the case with <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> or <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a>.
 </p>
-<p>However, if the <a href="../wiki/Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> and <a href="../wiki/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> clients use the <a href="https://en.wikipedia.org/wiki/resolvconf"  title="wikipedia:resolvconf">resolvconf</a> program to set name servers and search domains (see <a href="../wiki/Openresolv.html#Users" title="Openresolv">openresolv#Users</a> for a list of software that use <i>resolvconf</i>), the additional package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-resolvconf">systemd-resolvconf</a></span> is needed to provide the <code>/usr/bin/resolvconf</code> symlink.
+<p>However, if the <a href="/Usage/Configuration/S/Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> and <a href="/Usage/Configuration/S/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> clients use the <a href="https://en.wikipedia.org/wiki/resolvconf"  title="wikipedia:resolvconf">resolvconf</a> program to set name servers and search domains (see <a href="/Usage/Configuration/S/Openresolv.html#Users" title="Openresolv">openresolv#Users</a> for a list of software that use <i>resolvconf</i>), the additional package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-resolvconf">systemd-resolvconf</a></span> is needed to provide the <code>/usr/bin/resolvconf</code> symlink.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <i>systemd-resolved</i> has a limited <i>resolvconf</i> interface and may not work with all the clients, see <span class="plainlinks archwiki-template-man" title="$ man 1 resolvectl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolvectl.1#COMPATIBILITY_WITH_RESOLVCONF%288%29">resolvectl(1)</a></span> for more information.</div>
@@ -114,10 +114,10 @@ Domains=~.</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Without the <code>Domains=~.</code> option in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>, <i>systemd-resolved</i> might use the per-link DNS servers, if any of them set <code>Domains=~.</code> in the per-link configuration. This option will not affect queries of domain names that match the more specific search domains specified in per-link configuration, they will still be resolved using their respective per-link DNS servers.</div>
 <h5><span class="mw-headline" id="Fallback">Fallback</span></h5>
-<p>If <i>systemd-resolved</i> does not receive DNS server addresses from the <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a> and no DNS servers are configured <a href="#Manually">manually</a> then <i>systemd-resolved</i> falls back to the fallback DNS addresses to ensure that DNS resolution always works.
+<p>If <i>systemd-resolved</i> does not receive DNS server addresses from the <a href="/Usage/Configuration/S/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a> and no DNS servers are configured <a href="#Manually">manually</a> then <i>systemd-resolved</i> falls back to the fallback DNS addresses to ensure that DNS resolution always works.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The fallback DNS are in this order: <a href="../wiki/Alternative_DNS_services.html#Cloudflare" title="Alternative DNS services">Cloudflare</a>, <a href="../wiki/Alternative_DNS_services.html#Quad9" title="Alternative DNS services">Quad9</a> (without filtering and without DNSSEC) and <a href="../wiki/Alternative_DNS_services.html#Google" title="Alternative DNS services">Google</a>; see the <a rel="nofollow"  href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/systemd#n109">systemd PKGBUILD</a> where the servers are defined.</div>
+<strong>Note:</strong> The fallback DNS are in this order: <a href="/Usage/Configuration/S/Alternative_DNS_services.html#Cloudflare" title="Alternative DNS services">Cloudflare</a>, <a href="/Usage/Configuration/S/Alternative_DNS_services.html#Quad9" title="Alternative DNS services">Quad9</a> (without filtering and without DNSSEC) and <a href="/Usage/Configuration/S/Alternative_DNS_services.html#Google" title="Alternative DNS services">Google</a>; see the <a rel="nofollow"  href="https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/systemd#n109">systemd PKGBUILD</a> where the servers are defined.</div>
 <p>The addresses can be changed by setting <code>FallbackDNS=</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>. E.g.:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/resolved.conf.d/fallback_dns.conf</pre>
@@ -129,7 +129,7 @@ FallbackDNS=127.0.0.1 ::1</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Resolve]
 FallbackDNS=</pre>
 <h4><span class="mw-headline" id="DNSSEC">DNSSEC</span></h4>
-<p>By default <a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> validation will only be enabled if the upstream DNS server supports it. If you want to always validate DNSSEC, thus breaking DNS resolution with name servers that do not support it, set <code>DNSSEC=true</code>:
+<p>By default <a href="/Usage/Configuration/S/DNSSEC.html" title="DNSSEC">DNSSEC</a> validation will only be enabled if the upstream DNS server supports it. If you want to always validate DNSSEC, thus breaking DNS resolution with name servers that do not support it, set <code>DNSSEC=true</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/resolved.conf.d/dnssec.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Resolve]
@@ -168,32 +168,32 @@ DNSOverTLS=yes</pre>
 <h3><span class="mw-headline" id="mDNS">mDNS</span></h3>
 <p><i>systemd-resolved</i> is capable of working as a <a href="https://en.wikipedia.org/wiki/Multicast_DNS"  title="wikipedia:Multicast DNS">multicast DNS</a> resolver and responder.
 </p>
-<p>The resolver provides <a href="../wiki/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> resolution using a "<i>hostname</i>.local" naming scheme.
+<p>The resolver provides <a href="/Usage/Configuration/S/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> resolution using a "<i>hostname</i>.local" naming scheme.
 </p>
-<p>mDNS will only be activated for the connection if both the systemd-resolved's global setting (<code>MulticastDNS=</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) and the <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager's</a> per-connection setting is enabled. By default <i>systemd-resolved</i> enables mDNS responder, but both <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> and <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a><a rel="nofollow"  href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/issues/301">[1]</a> do not enable it for connections:
+<p>mDNS will only be activated for the connection if both the systemd-resolved's global setting (<code>MulticastDNS=</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) and the <a href="/Usage/Configuration/S/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager's</a> per-connection setting is enabled. By default <i>systemd-resolved</i> enables mDNS responder, but both <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> and <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a><a rel="nofollow"  href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/issues/301">[1]</a> do not enable it for connections:
 </p>
 <ul>
-<li>For <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> the setting is <code>MulticastDNS=</code> in the <code>[Network]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span>.</li>
-<li>For <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> the setting is <code>mdns=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 nm-settings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5">nm-settings(5)</a></span>.</li>
+<li>For <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> the setting is <code>MulticastDNS=</code> in the <code>[Network]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span>.</li>
+<li>For <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a> the setting is <code>mdns=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 nm-settings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5">nm-settings(5)</a></span>.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If <a href="../wiki/Avahi.html" title="Avahi">Avahi</a> has been installed, consider <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Disabling">disabling</a> <code>avahi-daemon.service</code> and <code>avahi-daemon.socket</code> to prevent conflicts with <i>systemd-resolved</i>.</div>
+<strong>Note:</strong> If <a href="/Usage/Configuration/S/Avahi.html" title="Avahi">Avahi</a> has been installed, consider <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Disabling">disabling</a> <code>avahi-daemon.service</code> and <code>avahi-daemon.socket</code> to prevent conflicts with <i>systemd-resolved</i>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> The default for all <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> connections can be set by creating a configuration file in <code>/etc/NetworkManager/conf.d/</code> and setting <code>connection.mdns=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 NetworkManager.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/NetworkManager.conf.5">NetworkManager.conf(5)</a></span>.</div>
-<p>If you plan to use mDNS and use a <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, make sure to open UDP port <code>5353</code>.
+<strong>Tip:</strong> The default for all <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a> connections can be set by creating a configuration file in <code>/etc/NetworkManager/conf.d/</code> and setting <code>connection.mdns=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 NetworkManager.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/NetworkManager.conf.5">NetworkManager.conf(5)</a></span>.</div>
+<p>If you plan to use mDNS and use a <a href="/Usage/Configuration/S/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, make sure to open UDP port <code>5353</code>.
 </p>
 <h3><span class="mw-headline" id="LLMNR">LLMNR</span></h3>
-<p><a href="https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution"  title="wikipedia:Link-Local Multicast Name Resolution">Link-Local Multicast Name Resolution</a> is a <a href="../wiki/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> resolution protocol created by Microsoft.
+<p><a href="https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution"  title="wikipedia:Link-Local Multicast Name Resolution">Link-Local Multicast Name Resolution</a> is a <a href="/Usage/Configuration/S/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> resolution protocol created by Microsoft.
 </p>
-<p>LLMNR will only be activated for the connection if both the systemd-resolved's global setting (<code>LLMNR=</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) and the <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager's</a> per-connection setting is enabled. By default <i>systemd-resolved</i> enables LLMNR responder; <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> and <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a><a rel="nofollow"  href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/issues/301">[2]</a> enable it for connections.
+<p>LLMNR will only be activated for the connection if both the systemd-resolved's global setting (<code>LLMNR=</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) and the <a href="/Usage/Configuration/S/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager's</a> per-connection setting is enabled. By default <i>systemd-resolved</i> enables LLMNR responder; <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> and <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a><a rel="nofollow"  href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/issues/301">[2]</a> enable it for connections.
 </p>
 <ul>
-<li>For <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> the setting is <code>LLMNR=</code> in the <code>[Network]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span>.</li>
-<li>For <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> the setting is <code>llmnr=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 nm-settings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5">nm-settings(5)</a></span>.</li>
+<li>For <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> the setting is <code>LLMNR=</code> in the <code>[Network]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span>.</li>
+<li>For <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a> the setting is <code>llmnr=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 nm-settings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5">nm-settings(5)</a></span>.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> The default for all <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> connections can be set by creating a configuration file in <code>/etc/NetworkManager/conf.d/</code> and setting <code>connection.llmnr=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 NetworkManager.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/NetworkManager.conf.5">NetworkManager.conf(5)</a></span>.</div>
-<p>If you plan to use LLMNR and use a <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, make sure to open UDP and TCP ports <code>5355</code>.
+<strong>Tip:</strong> The default for all <a href="/Usage/Configuration/S/NetworkManager.html" title="NetworkManager">NetworkManager</a> connections can be set by creating a configuration file in <code>/etc/NetworkManager/conf.d/</code> and setting <code>connection.llmnr=</code> in the <code>[connection]</code> section. See <span class="plainlinks archwiki-template-man" title="$ man 5 NetworkManager.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/NetworkManager.conf.5">NetworkManager.conf(5)</a></span>.</div>
+<p>If you plan to use LLMNR and use a <a href="/Usage/Configuration/S/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, make sure to open UDP and TCP ports <code>5355</code>.
 </p>
 <h2><span class="mw-headline" id="Lookup">Lookup</span></h2>
 <p>To query DNS records, mDNS or LLMNR hosts you can use the <i>resolvectl</i> utility.
@@ -213,8 +213,8 @@ DNSOverTLS=yes</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
-<li><a href="../wiki/Category:Multicast_DNS.html" title="Category:Multicast DNS">Multicast DNS</a></li>
+<li><a href="/Usage/Configuration/S/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
+<li><a href="/Usage/Configuration/S/Category:Multicast_DNS.html" title="Category:Multicast DNS">Multicast DNS</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -232,9 +232,9 @@ DNSOverTLS=yes</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

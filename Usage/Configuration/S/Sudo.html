@@ -2,7 +2,7 @@
     title: Sudo
     description: Migration of Sudo from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Users_and_groups.html" title="Users and groups">Users and groups</a></li>
-<li><a href="../wiki/Su.html" title="Su">su</a></li>
+<li><a href="/Usage/Configuration/S/Users_and_groups.html" title="Users and groups">Users and groups</a></li>
+<li><a href="/Usage/Configuration/S/Su.html" title="Su">su</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.sudo.ws/sudo/">Sudo</a> allows a system administrator to delegate authority to give certain users—or groups of users—the ability to run commands as root or another user while providing an audit trail of the commands and their arguments.
 </p>
-<p>Sudo is an alternative to <a href="../wiki/Su.html" title="Su">su</a> for running commands as root. Unlike <a href="../wiki/Su.html" title="Su">su</a>, which launches a root shell that allows all further commands root access, sudo instead grants temporary privilege escalation to a single command. By enabling root privileges only when needed, sudo usage reduces the likelihood that a typo or a bug in an invoked command will ruin the system.
+<p>Sudo is an alternative to <a href="/Usage/Configuration/S/Su.html" title="Su">su</a> for running commands as root. Unlike <a href="/Usage/Configuration/S/Su.html" title="Su">su</a>, which launches a root shell that allows all further commands root access, sudo instead grants temporary privilege escalation to a single command. By enabling root privileges only when needed, sudo usage reduces the likelihood that a typo or a bug in an invoked command will ruin the system.
 </p>
 <p>Sudo can also be used to run commands as other users; additionally, sudo logs all commands and failed access attempts for security auditing.
 </p>
@@ -89,7 +89,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sudo">sudo</a></span> package.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sudo">sudo</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>To begin using <code>sudo</code> as a non-privileged user, it must be properly configured. See <a href="#Configuration">#Configuration</a>.
@@ -139,7 +139,7 @@
 </pre>
 <p>Alternatively you may edit a copy of the <code>/etc/sudoers</code> file and check it using <code>visudo -c -f <i>/copy/of/sudoers</i></code>. This might come in handy in case you want to circumvent locking the file with visudo.
 </p>
-<p>To change the editor permanently, see <a href="../wiki/Environment_variables.html#Per_user" title="Environment variables">Environment variables#Per user</a>. To change the editor of choice permanently system-wide only for <code>visudo</code>, add the following to <code>/etc/sudoers</code> (assuming <code>nano</code> is your preferred editor):
+<p>To change the editor permanently, see <a href="/Usage/Configuration/S/Environment_variables.html#Per_user" title="Environment variables">Environment variables#Per user</a>. To change the editor of choice permanently system-wide only for <code>visudo</code>, add the following to <code>/etc/sudoers</code> (assuming <code>nano</code> is your preferred editor):
 </p>
 <pre># Reset environment by default
 Defaults      env_reset
@@ -160,7 +160,7 @@ Defaults      editor=/usr/bin/nano, !env_editor
 <pre>%wheel      ALL=(ALL) ALL
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> When creating new administrators, it is often desirable to enable sudo access for the <code>wheel</code> group and <a href="../wiki/Users_and_groups.html#Other_examples_of_user_management" title="Users and groups">add the user to it</a>, since by default <a href="../wiki/Polkit.html#Administrator_identities" title="Polkit">Polkit</a> treats the members of the <code>wheel</code> group as administrators. If the user is not a member of <code>wheel</code>, software using Polkit may ask to authenticate using the root password instead of the user password.</div>
+<strong>Tip:</strong> When creating new administrators, it is often desirable to enable sudo access for the <code>wheel</code> group and <a href="/Usage/Configuration/S/Users_and_groups.html#Other_examples_of_user_management" title="Users and groups">add the user to it</a>, since by default <a href="/Usage/Configuration/S/Polkit.html#Administrator_identities" title="Polkit">Polkit</a> treats the members of the <code>wheel</code> group as administrators. If the user is not a member of <code>wheel</code>, software using Polkit may ask to authenticate using the root password instead of the user password.</div>
 <p>To disable asking for a password for user <code>USER_NAME</code>:
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -245,14 +245,14 @@ to increase <code>timestamp_timeout</code>. Refreshing the timeout can be done w
 %wheel ALL=(ALL) ALL
 </pre>
 <h3><span class="mw-headline" id="Disable_root_login">Disable root login</span></h3>
-<p>Users may wish to disable the root login. Without root, attackers must first guess a user name configured as a sudoer as well as the user password. See for example <a href="../wiki/OpenSSH.html#Deny" title="OpenSSH">OpenSSH#Deny</a>.
+<p>Users may wish to disable the root login. Without root, attackers must first guess a user name configured as a sudoer as well as the user password. See for example <a href="/Usage/Configuration/S/OpenSSH.html#Deny" title="OpenSSH">OpenSSH#Deny</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
 <ul>
 <li>Be careful, you may lock yourself out by disabling root login. Sudo is not automatically installed and its default configuration allows neither passwordless root access nor root access with your own password. Ensure a user is properly configured as a sudoer <i>before</i> disabling the root account!</li>
 <li>If you have changed your sudoers -file to use rootpw as default, then do not disable root login with any of the following commands!</li>
-<li>If you are already locked out, see <a href="../wiki/Reset_lost_root_password.html" class="mw-redirect" title="Password recovery">Password recovery</a> for help.</li>
+<li>If you are already locked out, see <a href="/Usage/Configuration/S/Reset_lost_root_password.html" class="mw-redirect" title="Password recovery">Password recovery</a> for help.</li>
 </ul>
 </div>
 <p>The account can be locked via <code>passwd</code>:
@@ -274,7 +274,7 @@ to increase <code>timestamp_timeout</code>. Refreshing the timeout can be done w
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> To get to an interactive root prompt, even after disabling the <i>root</i> account, use <code>sudo -i</code>.</div>
 <h4><span class="mw-headline" id="kdesu">kdesu</span></h4>
-<p>kdesu may be used under <a href="../wiki/KDE.html" title="KDE">KDE</a> to launch GUI applications with root privileges. It is possible that by default kdesu will try to use su even if the root account is disabled. Fortunately one can tell kdesu to use sudo instead of su. Create/edit the file <code>~/.config/kdesurc</code>:
+<p>kdesu may be used under <a href="/Usage/Configuration/S/KDE.html" title="KDE">KDE</a> to launch GUI applications with root privileges. It is possible that by default kdesu will try to use su even if the root account is disabled. Fortunately one can tell kdesu to use sudo instead of su. Create/edit the file <code>~/.config/kdesurc</code>:
 </p>
 <pre>[super-user-command]
 super-user-command=sudo
@@ -307,7 +307,7 @@ session         required        pam_unix.so
 gpasswd -a joe ssh
 echo 'AllowGroups ssh' &gt;&gt; /etc/ssh/sshd_config
 </pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code>.
 </p>
 <p>Add users to other groups.
 </p>
@@ -383,7 +383,7 @@ admin% screen
 </p>
 <p>This is especially useful for editing files as root without elevating the privilege of your text editor, for more details read <span class="plainlinks archwiki-template-man" title="$ man 8 sudo"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sudo.8#e">sudo(8)</a></span>.
 </p>
-<p>Note that you can set the editor to any program, so for example one can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=meld">meld</a></span> to manage <a href="../wiki/Pacman/Pacnew_and_Pacsave.html" title="Pacman/Pacnew and Pacsave">pacnew</a> files:
+<p>Note that you can set the editor to any program, so for example one can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=meld">meld</a></span> to manage <a href="/Usage/Configuration/S/Pacman/Pacnew_and_Pacsave.html" title="Pacman/Pacnew and Pacsave">pacnew</a> files:
 </p>
 <pre>$ SUDO_EDITOR=meld sudo -e /etc/<i>file</i>{,.pacnew<i>}</i>
 </pre>
@@ -395,7 +395,7 @@ admin% screen
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sudoers</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Defaults insults</pre>
 <h3><span class="mw-headline" id="Play_sound_on_password_prompt">Play sound on password prompt</span></h3>
-<p>To make a beep when the password prompt appears, set the <code>SUDO_PROMPT</code> <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> and include the <a href="https://en.wikipedia.org/wiki/Bell_character"  title="wikipedia:Bell character">bell character</a> <code>\a</code>. For example:
+<p>To make a beep when the password prompt appears, set the <code>SUDO_PROMPT</code> <a href="/Usage/Configuration/S/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> and include the <a href="https://en.wikipedia.org/wiki/Bell_character"  title="wikipedia:Bell character">bell character</a> <code>\a</code>. For example:
 </p>
 <pre>export SUDO_PROMPT=$'\a[sudo] password for %p: '
 </pre>
@@ -420,7 +420,7 @@ admin% screen
 <div>
 <b>Notes:</b> <span style="color:red;">please use the second argument of the template to provide more detailed indications.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Sudo">Talk:Sudo#</a>)</div>
 </div>
-<p>Sudo will union the user's <a href="../wiki/Umask.html" title="Umask">umask</a> value with its own umask (which defaults to 0022). This prevents sudo from creating files with more open permissions than the user's umask allows. While this is a sane default if no custom umask is in use, this can lead to situations where a utility run by sudo may create files with different permissions than if run by root directly. If errors arise from this, sudo provides a means to fix the umask, even if the desired umask is more permissive than the umask that the user has specified. Adding this (using <code>visudo</code>) will override sudo's default behavior:
+<p>Sudo will union the user's <a href="/Usage/Configuration/S/Umask.html" title="Umask">umask</a> value with its own umask (which defaults to 0022). This prevents sudo from creating files with more open permissions than the user's umask allows. While this is a sane default if no custom umask is in use, this can lead to situations where a utility run by sudo may create files with different permissions than if run by root directly. If errors arise from this, sudo provides a means to fix the umask, even if the desired umask is more permissive than the umask that the user has specified. Adding this (using <code>visudo</code>) will override sudo's default behavior:
 </p>
 <pre>Defaults umask = 0022
 Defaults umask_override
@@ -432,13 +432,13 @@ Defaults umask_override
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li>
-<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="/Usage/Configuration/S/Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="/Usage/Configuration/S/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -457,9 +457,9 @@ Defaults umask_override
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

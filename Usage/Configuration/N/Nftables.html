@@ -2,7 +2,7 @@
     title: Nftables
     description: Migration of Nftables from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Iptables.html" title="Iptables">iptables</a></li>
+<li><a href="/Usage/Configuration/N/Iptables.html" title="Iptables">iptables</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://netfilter.org/projects/nftables/">nftables</a> is a netfilter project that aims to replace the existing {ip,ip6,arp,eb}tables framework. It provides a new packet filtering framework, a new user-space utility (nft), and a compatibility layer for {ip,ip6}tables. It uses the existing hooks, connection tracking system, user-space queueing component, and logging subsystem of netfilter.
@@ -135,10 +135,10 @@ The kernel provides a netlink configuration interface, as well as run-time rule-
 <div>
 <b>Reason:</b> Mention <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptables-nft">iptables-nft</a></span>.<a rel="nofollow"  href="https://www.redhat.com/wiki/blog/using-iptables-nft-hybrid-linux-firewall">[1]</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Nftables">Talk:Nftables#</a>)</div>
 </div>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the userspace utilities package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nftables">nftables</a></span> or the git version <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nftables-git/">nftables-git</a></span><sup><small>AUR</small></sup>.
+<p><a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the userspace utilities package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nftables">nftables</a></span> or the git version <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nftables-git/">nftables-git</a></span><sup><small>AUR</small></sup>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Most <a href="../wiki/Iptables.html#Front-ends" title="Iptables">iptables front-ends</a> feature no direct or indirect support of nftables, but may introduce it.<a rel="nofollow"  href="https://www.spinics.net/lists/netfilter/msg58215.html">[2]</a> One graphical front-end that supports both, nftables and iptables, is <a href="../wiki/Firewalld.html" title="Firewalld">firewalld</a>.<a rel="nofollow"  href="https://firewalld.org/2018/07/nftables-backend">[3]</a>
+<strong>Tip:</strong> Most <a href="/Usage/Configuration/N/Iptables.html#Front-ends" title="Iptables">iptables front-ends</a> feature no direct or indirect support of nftables, but may introduce it.<a rel="nofollow"  href="https://www.spinics.net/lists/netfilter/msg58215.html">[2]</a> One graphical front-end that supports both, nftables and iptables, is <a href="/Usage/Configuration/N/Firewalld.html" title="Firewalld">firewalld</a>.<a rel="nofollow"  href="https://firewalld.org/2018/07/nftables-backend">[3]</a>
 </div>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p><b>nftables</b> makes <b>no</b> distinction between temporary rules made in the command line and permanent ones loaded from or saved to a file.
@@ -154,7 +154,7 @@ The kernel provides a netlink configuration interface, as well as run-time rule-
 <h3><span class="mw-headline" id="Simple_firewall">Simple firewall</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nftables">nftables</a></span> comes with simple and secure firewall configuration stored in <code>/etc/nftables.conf</code> file.
 </p>
-<p>The <code>nftables.service</code> will load rules from that file when <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">started or enabled</a>.
+<p>The <code>nftables.service</code> will load rules from that file when <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">started or enabled</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>nftables user-space utility <code>nft</code> performs most of the rule-set evaluation before handing rule-sets to the kernel. Rules are stored in chains, which in turn are stored in tables. The following sections indicate how to create and modify these constructs.
@@ -312,7 +312,7 @@ The kernel provides a netlink configuration interface, as well as run-time rule-
 </p>
 <h4><span class="mw-headline" id="Add_rule">Add rule</span></h4>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> The <i>iptables-translate</i> utility translates <a href="../wiki/Iptables.html" title="Iptables">iptables</a> rules to nftables format.</div>
+<strong>Tip:</strong> The <i>iptables-translate</i> utility translates <a href="/Usage/Configuration/N/Iptables.html" title="Iptables">iptables</a> rules to nftables format.</div>
 <p>To add a rule to a chain do:
 </p>
 <pre># nft add rule <i>family_type</i> <i>table_name</i> <i>chain_name</i> handle <i>handle_value</i> <i>statement</i>
@@ -617,7 +617,7 @@ table inet my_table {
 <div>
 <b>Reason:</b> I think <code>my_postrouting</code> chain will cause the destination computer see that connections are made by router rather than from some global IP. Also this does not masquerade outbound traffic. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Nftables">Talk:Nftables#</a>)</div>
 </div>
-<p>This example will forward ports 22 and 80 to <code><i>destination_ip</i></code>. You will need to set <code>net.ipv4.ip_forward</code> and <code>net.ipv4.conf.<i>wan_interface</i>.forwarding</code> to <code>1</code> via <a href="../wiki/Sysctl.html" title="Sysctl">sysctl</a>.
+<p>This example will forward ports 22 and 80 to <code><i>destination_ip</i></code>. You will need to set <code>net.ipv4.ip_forward</code> and <code>net.ipv4.conf.<i>wan_interface</i>.forwarding</code> to <code>1</code> via <a href="/Usage/Configuration/N/Sysctl.html" title="Sysctl">sysctl</a>.
 </p>
 <pre>table ip my_nat {
   chain my_prerouting {
@@ -647,7 +647,7 @@ table inet my_table {
 <div>
 <b>Reason:</b> This is not a very simple firewall. I would consider what TOS Linux ships in /etc/nftables.conf simple. Recommend replacing this section with that script and give some directions on how to expand it for specific needs. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Nftables">Talk:Nftables#</a>)</div>
 </div>
-<p>See <a href="../wiki/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> for more information.
+<p>See <a href="/Usage/Configuration/N/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> for more information.
 </p>
 <h4><span class="mw-headline" id="Single_machine">Single machine</span></h4>
 <p>Flush the current ruleset:
@@ -721,15 +721,15 @@ table inet my_table {
 <p>Be sure to make your changes permanent when satisifed.
 </p>
 <h3><span class="mw-headline" id="Prevent_brute-force_attacks">Prevent brute-force attacks</span></h3>
-<p><a href="../wiki/Sshguard.html" title="Sshguard">Sshguard</a> is program that can detect brute-force attacks and modify firewalls based on IP addresses it temporarily blacklists. See <a href="../wiki/Sshguard.html#nftables" title="Sshguard">Sshguard#nftables</a> on how to set up nftables to be used with it.
+<p><a href="/Usage/Configuration/N/Sshguard.html" title="Sshguard">Sshguard</a> is program that can detect brute-force attacks and modify firewalls based on IP addresses it temporarily blacklists. See <a href="/Usage/Configuration/N/Sshguard.html#nftables" title="Sshguard">Sshguard#nftables</a> on how to set up nftables to be used with it.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Working_with_Docker">Working with Docker</span></h3>
-<p>Using nftables can interfere with <a href="../wiki/Docker.html" title="Docker">Docker</a> networking (and probably other container runtimes as well). In particular the drop policy for the <code>forward</code> chain will block packets originating in docker containers. If you want to keep the <code>forward</code> rule in your <code>inet</code> table, you can use the following:
+<p>Using nftables can interfere with <a href="/Usage/Configuration/N/Docker.html" title="Docker">Docker</a> networking (and probably other container runtimes as well). In particular the drop policy for the <code>forward</code> chain will block packets originating in docker containers. If you want to keep the <code>forward</code> rule in your <code>inet</code> table, you can use the following:
 </p>
 <ol>
 <li>
-<a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptables-nft">iptables-nft</a></span> to provide an iptables compatible interface for nftables that docker can use.</li>
+<a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptables-nft">iptables-nft</a></span> to provide an iptables compatible interface for nftables that docker can use.</li>
 <li>Use the following for the <code>forward</code> chain in your <code>inet</code> table:
 <dl><dd><pre>chain forward {
   type filter hook forward priority security; policy drop;
@@ -761,11 +761,11 @@ table inet my_table {
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/N/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -784,9 +784,9 @@ table inet my_table {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

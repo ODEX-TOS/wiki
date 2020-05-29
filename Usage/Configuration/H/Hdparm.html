@@ -2,7 +2,7 @@
     title: Hdparm
     description: Migration of Hdparm from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,10 +29,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Securely_wipe_disk.html#hdparm" title="Securely wipe disk">Securely wipe disk#hdparm</a></li>
+<li><a href="/Usage/Configuration/H/Securely_wipe_disk.html#hdparm" title="Securely wipe disk">Securely wipe disk#hdparm</a></li>
 </ul>
 </div>
-<p>hdparm is a command line utility to set and view hardware parameters of <a href="https://en.wikipedia.org/wiki/Hard_disk_drive"  title="wikipedia:Hard disk drive">hard disk drives</a>. It can also be used as a simple <a href="../wiki/Benchmarking.html" title="Benchmarking">benchmarking</a> tool.
+<p>hdparm is a command line utility to set and view hardware parameters of <a href="https://en.wikipedia.org/wiki/Hard_disk_drive"  title="wikipedia:Hard disk drive">hard disk drives</a>. It can also be used as a simple <a href="/Usage/Configuration/H/Benchmarking.html" title="Benchmarking">benchmarking</a> tool.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Changing drive's default parameters can freeze the system or even irreversibly damage the drive.</div>
@@ -73,7 +73,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hdparm">hdparm</a></span> package. For use with SCSI devices, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sdparm">sdparm</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hdparm">hdparm</a></span> package. For use with SCSI devices, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sdparm">sdparm</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <h3><span class="mw-headline" id="Disk_info">Disk info</span></h3>
@@ -82,7 +82,7 @@
 <pre># hdparm -I /dev/sda
 </pre>
 <h3><span class="mw-headline" id="Benchmarking">Benchmarking</span></h3>
-<p>hdparm can be used for <a href="../wiki/Benchmarking.html#hdparm" title="Benchmarking">Benchmarking#hdparm</a>.
+<p>hdparm can be used for <a href="/Usage/Configuration/H/Benchmarking.html#hdparm" title="Benchmarking">Benchmarking#hdparm</a>.
 </p>
 <h3><span class="mw-headline" id="Power_management_configuration">Power management configuration</span></h3>
 <p>Modern hard drives support numerous power management features, the most common ones are summarized in the following table. See <span class="plainlinks archwiki-template-man" title="$ man 8 hdparm"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/hdparm.8">hdparm(8)</a></span> for the complete list.
@@ -134,18 +134,18 @@ Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
 Device is in STANDBY mode, exit(2)
 </pre>
 <h3><span class="mw-headline" id="Persistent_configuration_using_udev_rule">Persistent configuration using udev rule</span></h3>
-<p>To make the setting persistent across reboot, one can use a <a href="../wiki/Udev.html" title="Udev">udev</a> rule:
+<p>To make the setting persistent across reboot, one can use a <a href="/Usage/Configuration/H/Udev.html" title="Udev">udev</a> rule:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/69-hdparm.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ACTION=="add", SUBSYSTEM=="block", KERNEL=="sda", RUN+="/usr/bin/hdparm -B 254 -S 0 /dev/sda"</pre>
-<p>Because a disk device can be assigned randomly to a changing <code>/dev/sd<i>X</i></code>, the disk can also be identified by its serial as explained in <a href="../wiki/Udev.html#Identifying_a_disk_by_its_serial" title="Udev">Udev#Identifying a disk by its serial</a>.
+<p>Because a disk device can be assigned randomly to a changing <code>/dev/sd<i>X</i></code>, the disk can also be identified by its serial as explained in <a href="/Usage/Configuration/H/Udev.html#Identifying_a_disk_by_its_serial" title="Udev">Udev#Identifying a disk by its serial</a>.
 </p>
-<p>Systems with multiple hard drives can apply the rule in a flexible way according to some criteria. For example, to apply power-saving settings to all rotational drives (hard disk with rotational head, excluding in particular <a href="../wiki/Solid_state_drive.html" title="Solid state drive">solid state drives</a>), use the following rule:
+<p>Systems with multiple hard drives can apply the rule in a flexible way according to some criteria. For example, to apply power-saving settings to all rotational drives (hard disk with rotational head, excluding in particular <a href="/Usage/Configuration/H/Solid_state_drive.html" title="Solid state drive">solid state drives</a>), use the following rule:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/69-hdparm.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ACTION=="add|change", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", RUN+="/usr/bin/hdparm -B 127 /dev/%k"</pre>
 <h3><span class="mw-headline" id="Reapplying_configuration_after_wakeup">Reapplying configuration after wakeup</span></h3>
-<p>If the configuration is lost after system suspension/hibernation, it can be reapplied using <a href="../wiki/Power_management.html#Hooks_in_/usr/lib/systemd/system-sleep" title="Power management">systemd-sleep</a>.
+<p>If the configuration is lost after system suspension/hibernation, it can be reapplied using <a href="/Usage/Configuration/H/Power_management.html#Hooks_in_/usr/lib/systemd/system-sleep" title="Power management">systemd-sleep</a>.
 </p>
 <p>Put a script into <code>/usr/lib/systemd/system-sleep</code> and make it executable:
 </p>
@@ -157,7 +157,7 @@ case $1 in post)
         ;;
 esac</pre>
 <h3><span class="mw-headline" id="Putting_a_drive_to_sleep_directly_after_boot">Putting a drive to sleep directly after boot</span></h3>
-<p>A device which is rarely needed can be put to sleep directly at the end of the boot process. This does not work with the above udev rule because it happens too early. In order to issue the command when the boot is completed, just create a <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it:
+<p>A device which is rarely needed can be put to sleep directly at the end of the boot process. This does not work with the above udev rule because it happens too early. In order to issue the command when the boot is completed, just create a <a href="/Usage/Configuration/H/Systemd.html" title="Systemd">systemd</a> service and <a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/hdparm.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -179,7 +179,7 @@ HDIO_DRIVE_CMD(setidle) failed: Invalid argument
 </pre>
 <p>For some other drives, the hdparm command is acknowledged but the drive do not respect the parameters (either APM or spin down timer). This was observed with a Toshiba P300 (model HDWD120) HDD.
 </p>
-<p>Such drives can be spun down using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hd-idle">hd-idle</a></span> which ships with a <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service. One need to edit <code>/etc/conf.d/hd-idle</code> and the <code>HD_IDLE_OPTS</code> value, then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>hd-idle.service</code>.
+<p>Such drives can be spun down using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hd-idle">hd-idle</a></span> which ships with a <a href="/Usage/Configuration/H/Systemd.html" title="Systemd">systemd</a> service. One need to edit <code>/etc/conf.d/hd-idle</code> and the <code>HD_IDLE_OPTS</code> value, then <a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>hd-idle.service</code>.
 </p>
 <p>Example using a 10 min idle time for <code>/dev/sda</code> and a 1 min idle time for <code>/dev/disk/by-uuid/01CF0AC9AA5EAF70</code>:
 </p>
@@ -206,7 +206,7 @@ HDIO_DRIVE_CMD(setidle) failed: Invalid argument
 </div>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="APM_level_reset_after_suspend">APM level reset after suspend</span></h3>
-<p>The APM level may get reset after a suspend requiring it to be re-executed after each resume. This can be automated with the following <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit (adapted from a <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=151640">forum thread</a>):
+<p>The APM level may get reset after a suspend requiring it to be re-executed after each resume. This can be automated with the following <a href="/Usage/Configuration/H/Systemd.html" title="Systemd">systemd</a> unit (adapted from a <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=151640">forum thread</a>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/apm.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -221,7 +221,7 @@ ExecStart=/usr/bin/hdparm -B 254 /dev/sda
 WantedBy=sleep.target</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The <code>sleep.target</code> is pulled by all <code>suspend</code>, <code>hybrid-sleep</code> and <code>hibernate</code> targets, but it finishes starting up <i>before</i> the system is suspended, so the three targets have to be specified explicitly. See <a rel="nofollow"  href="https://wiki.archlinux.org/index.php?title=Talk:Hdparm&amp;oldid=440457#Troubleshooting_APM_settings_after_suspend.2C_hibernate_or_hybrid-sleep">[2]</a>.</div>
-<p>Alternatively, create a <a href="../wiki/Power_management.html#Hooks_in_/usr/lib/systemd/system-sleep" title="Power management">hook in /usr/lib/systemd/system-sleep</a>.
+<p>Alternatively, create a <a href="/Usage/Configuration/H/Power_management.html#Hooks_in_/usr/lib/systemd/system-sleep" title="Power management">hook in /usr/lib/systemd/system-sleep</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li>
@@ -230,8 +230,8 @@ WantedBy=sleep.target</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="../wiki/Category:Storage.html" title="Category:Storage">Storage</a></li>
+<li><a href="/Usage/Configuration/H/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/H/Category:Storage.html" title="Category:Storage">Storage</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -249,9 +249,9 @@ WantedBy=sleep.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

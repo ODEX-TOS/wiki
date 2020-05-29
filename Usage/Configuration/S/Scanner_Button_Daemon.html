@@ -2,7 +2,7 @@
     title: Scanner_Button_Daemon
     description: Migration of Scanner_Button_Daemon from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -62,16 +62,16 @@
 </p>
 <p>To solve this, a second daemon is used (in the so called "manager-mode" of <i>scanbd</i>): <i>scanbm</i> is configured as a "proxy" to access the scanner and, if another application tries to use the scanner, the polling daemon is ordered to disable polling for the time the other scan-application wants to use the scanner.
 </p>
-<p>To make this happen, <i>scanbm</i> is configured instead of <a href="../wiki/SANE.html#Network_scanning" title="SANE">saned</a> as the network scanning daemon. If a scan request arrives on the sane-port, <i>scanbm</i> stops the polling by sending a dbus-signal to the polling <i>scanbd-daemon</i>. Then it starts the real <i>saned</i> which scans and sends the data back to the requesting application. Afterwards the scanbd-manager <i>scanbm</i> restarts the polling by sending another dbus-signal to <i>scanbd</i>.
+<p>To make this happen, <i>scanbm</i> is configured instead of <a href="/Usage/Configuration/S/SANE.html#Network_scanning" title="SANE">saned</a> as the network scanning daemon. If a scan request arrives on the sane-port, <i>scanbm</i> stops the polling by sending a dbus-signal to the polling <i>scanbd-daemon</i>. Then it starts the real <i>saned</i> which scans and sends the data back to the requesting application. Afterwards the scanbd-manager <i>scanbm</i> restarts the polling by sending another dbus-signal to <i>scanbd</i>.
 </p>
-<p>Due to the above, the set up of the <i>scanbd</i> requires changes in default configuration of <a href="../wiki/SANE.html" title="SANE">SANE</a> and also definition of own action scripts (defining what should be done when a button on the scanner is pressed).
+<p>Due to the above, the set up of the <i>scanbd</i> requires changes in default configuration of <a href="/Usage/Configuration/S/SANE.html" title="SANE">SANE</a> and also definition of own action scripts (defining what should be done when a button on the scanner is pressed).
 </p>
 <p>There are also alternatives to <i>scanbd</i>, eg. <a rel="nofollow"  href="http://scanbuttond.sourceforge.net/">scanbuttond</a>, however these seem to be unmaintained nowadays.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/scanbd/">scanbd</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/scanbd/">scanbd</a></span><sup><small>AUR</small></sup> package.
 </p>
-<p>As of version 1.3, scanbd is fully compatible with <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service activation and does not require <b>inet</b> neither <b>xinetd</b> to start scanbm (manager mode of scanbd), though these remain as an alternative (not described here).
+<p>As of version 1.3, scanbd is fully compatible with <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service activation and does not require <b>inet</b> neither <b>xinetd</b> to start scanbm (manager mode of scanbd), though these remain as an alternative (not described here).
 </p>
 <h3><span class="mw-headline" id="Sane_configuration">Sane configuration</span></h3>
 <p>Since <i>scanbd</i> and <i>saned</i> are running on the same machine as the scanner is connected to, we need to have two sets of saned configurations - one in the default location (<code>/etc/sane.d/</code>), which would redirect local applications to a network socket, that systemd is listening on, and another one (e.g. <code>/etc/scanbd/sane.d/</code>), which will be actually used by sane backend to access the attached scanner.
@@ -153,7 +153,7 @@ include(scanner.d/snapscan.conf)
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Digital_imaging.html" title="Category:Digital imaging">Digital imaging</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -170,9 +170,9 @@ include(scanner.d/snapscan.conf)
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

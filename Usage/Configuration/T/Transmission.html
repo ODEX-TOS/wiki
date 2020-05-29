@@ -2,7 +2,7 @@
     title: Transmission
     description: Migration of Transmission from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -79,19 +79,19 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>There are several packages available to <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> Transmission with:
+<p>There are several packages available to <a href="/Usage/Configuration/T/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> Transmission with:
 </p>
 <ul>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-cli">transmission-cli</a></span> – daemon, with CLI, and <a href="#Web_Interface">#Web Interface</a>.</li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-gtk">transmission-gtk</a></span> – <a href="../wiki/GTK.html" title="GTK">GTK</a> 3 graphical interface.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-gtk">transmission-gtk</a></span> – <a href="/Usage/Configuration/T/GTK.html" title="GTK">GTK</a> 3 graphical interface.</li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-qt">transmission-qt</a></span> – <a href="../wiki/Qt.html" title="Qt">Qt</a> 5 graphical interface.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-qt">transmission-qt</a></span> – <a href="/Usage/Configuration/T/Qt.html" title="Qt">Qt</a> 5 graphical interface.</li>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tremc/">tremc</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tremc-git/">tremc-git</a></span><sup><small>AUR</small></sup> – Curses interface for the daemon.</li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-remote-gtk">transmission-remote-gtk</a></span> – <a href="../wiki/GTK.html" title="GTK">GTK</a> 3 graphical interface for the daemon.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=transmission-remote-gtk">transmission-remote-gtk</a></span> – <a href="/Usage/Configuration/T/GTK.html" title="GTK">GTK</a> 3 graphical interface for the daemon.</li>
 </ul>
 <h2><span class="mw-headline" id="Configuring_the_GUI_version">Configuring the GUI version</span></h2>
 <p>Both GUI versions, <i>transmission-gtk</i> and <i>transmission-qt</i>, can function autonomously without a formal back-end daemon. 
@@ -122,7 +122,7 @@
 <h3><span class="mw-headline" id="Starting_and_stopping_the_daemon">Starting and stopping the daemon</span></h3>
 <p>Transmission's daemon can be run:
 </p>
-<ul><li>As the user <i>transmission</i>, by starting/enabling <code>transmission.service</code> using <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemd</a>. The user can be changed as explained in <a href="#Choosing_a_user">#Choosing a user</a>.</li></ul>
+<ul><li>As the user <i>transmission</i>, by starting/enabling <code>transmission.service</code> using <a href="/Usage/Configuration/T/Systemd.html#Using_units" title="Systemd">systemd</a>. The user can be changed as explained in <a href="#Choosing_a_user">#Choosing a user</a>.</li></ul>
 <ul><li>As your own user, by running under your user name:</li></ul>
 <pre>$ transmission-daemon
 </pre>
@@ -198,10 +198,10 @@ systemctl stop transmission</pre>
 <p>Choose how you want to run <code>transmission</code>:
 </p>
 <ul><li>As a separate user, <code>transmission</code> by default (recommended for increased security).</li></ul>
-<p>By default, <i>transmission</i> creates a user and a group <code>transmission</code>, with its home files at <code>/var/lib/transmission/</code>, and runs as this "user". This is a security precaution, so <i>transmission</i>, and its downloads, have no access to files outside of <code>/var/lib/transmission/</code>. Configuration, operation, and access to downloads needs to be done with "root" privileges (e.g. by using <a href="../wiki/Sudo.html" title="Sudo">sudo</a>).
+<p>By default, <i>transmission</i> creates a user and a group <code>transmission</code>, with its home files at <code>/var/lib/transmission/</code>, and runs as this "user". This is a security precaution, so <i>transmission</i>, and its downloads, have no access to files outside of <code>/var/lib/transmission/</code>. Configuration, operation, and access to downloads needs to be done with "root" privileges (e.g. by using <a href="/Usage/Configuration/T/Sudo.html" title="Sudo">sudo</a>).
 </p>
 <ul><li>Under your own user.</li></ul>
-<p>To set this up, <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">override</a> the provided service file and specify your username:
+<p>To set this up, <a href="/Usage/Configuration/T/Systemd.html#Editing_provided_units" title="Systemd">override</a> the provided service file and specify your username:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/transmission.service.d/username.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -242,7 +242,7 @@ Otherwise, you will get a "421 Misdirected Request" error when accessing the ser
 <h4><span class="mw-headline" id="Watch_dir">Watch dir</span></h4>
 <p>If you want to <i>Automatically add .torrent files from a folder</i>, but you find that the <code>watch-dir</code> and <code>watch-dir-enabled</code> options set in the config file do not work, you can start the transmission daemon with the flag <code>-c /path/to/watch/dir</code>.
 </p>
-<p>If you're using systemd, edit the <code>transmission.service</code> unit as described in <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a>.
+<p>If you're using systemd, edit the <code>transmission.service</code> unit as described in <a href="/Usage/Configuration/T/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a>.
 </p>
 <h4><span class="mw-headline" id="Enable_IPv6">Enable IPv6</span></h4>
 <p>By default, the daemon only listens for IPv4 connections. To also listen for IPv6 connections, change the <code>rpc-bind-address</code> option to <code>"::"</code> in <code>settings.json</code>.
@@ -285,7 +285,7 @@ Otherwise, you will get a "421 Misdirected Request" error when accessing the ser
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h4><span class="mw-headline" id="Cannot_access_the_daemon_over_the_network">Cannot access the daemon over the network</span></h4>
-<p>The daemon is started after <code>network.service</code> was initialised. However, if you enable the service <code>dhcpcd</code> as opposed to the device-specific service, such as <code>dhcpcd@enp1s0.service</code> for example, it may happen that Transmission is started too early and cannot bind to the network interface. Thus, the web interface is unreachable. A possible solution is to add the <code>Requires</code> line to the unit's <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">configuration file</a>:
+<p>The daemon is started after <code>network.service</code> was initialised. However, if you enable the service <code>dhcpcd</code> as opposed to the device-specific service, such as <code>dhcpcd@enp1s0.service</code> for example, it may happen that Transmission is started too early and cannot bind to the network interface. Thus, the web interface is unreachable. A possible solution is to add the <code>Requires</code> line to the unit's <a href="/Usage/Configuration/T/Systemd.html#Editing_provided_units" title="Systemd">configuration file</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/transmission.service.d/fixdep.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -308,7 +308,7 @@ Package Builders: to set a custom default at compile time, #define PACKAGE_DATA_
 <pre>UDP Failed to set receive buffer: requested 4194304, got 425984
 UDP Failed to set send buffer: requested 1048576, got 425984
 </pre>
-<p>These can be fixed by setting <code>net.core.rmem_max=4194304</code> and <code>net.core.wmem_max=1048576</code> with <a href="../wiki/Sysctl.html" title="Sysctl">sysctl</a>.
+<p>These can be fixed by setting <code>net.core.rmem_max=4194304</code> and <code>net.core.wmem_max=1048576</code> with <a href="/Usage/Configuration/T/Sysctl.html" title="Sysctl">sysctl</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -319,7 +319,7 @@ UDP Failed to set send buffer: requested 1048576, got 425984
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:BitTorrent.html" title="Category:BitTorrent">BitTorrent</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/T/Category:BitTorrent.html" title="Category:BitTorrent">BitTorrent</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -336,9 +336,9 @@ UDP Failed to set send buffer: requested 1048576, got 425984
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

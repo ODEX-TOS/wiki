@@ -2,7 +2,7 @@
     title: MSI_GS65
     description: Migration of MSI_GS65 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -107,7 +107,7 @@
 </tr>
 </tbody>
 </table>
-<p>For a general overview of laptop-related articles and recommendations, see <a href="../wiki/Laptop.html" title="Laptop">Laptop</a>.
+<p>For a general overview of laptop-related articles and recommendations, see <a href="/Usage/Configuration/M/Laptop.html" title="Laptop">Laptop</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -197,12 +197,12 @@
 <h4><span class="mw-headline" id="2.20.1271">2.20.1271</span></h4>
 <p>At bootup, the BIOS settings page is entered via the delete key, the quick boot select window can be activated via the F11 key, PXE scanning can be activated via the F12 key
 </p>
-<p>In the BIOS setings, the model name can be seen in the Main tab, <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> can be disabled from the Security tab and boot mode can optionally be switched from <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to legacy. Advanced BIOS options can be accessed by going to the 'Advanced' tab and holding down l-alt, then pressing r-ctrl, r-shift, then F2.
+<p>In the BIOS setings, the model name can be seen in the Main tab, <a href="/Usage/Configuration/M/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> can be disabled from the Security tab and boot mode can optionally be switched from <a href="/Usage/Configuration/M/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to legacy. Advanced BIOS options can be accessed by going to the 'Advanced' tab and holding down l-alt, then pressing r-ctrl, r-shift, then F2.
 </p>
 <p>There is no known option to disable the discrete intel GPU, there may be one present after unlocking the advanced options.
 </p>
 <h4><span class="mw-headline" id="E16Q2IMS.110">E16Q2IMS.110</span></h4>
-<p>This BIOS version introduces many ACPI problems (if BIOS is changed from <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to legacy), including a flood of "No handler or method for GPE [00-&gt;6E]" at boot, which can be solved through kernel parameters:
+<p>This BIOS version introduces many ACPI problems (if BIOS is changed from <a href="/Usage/Configuration/M/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> to legacy), including a flood of "No handler or method for GPE [00-&gt;6E]" at boot, which can be solved through kernel parameters:
 </p>
 <ul>
 <li>
@@ -214,18 +214,18 @@
 </ul>
 <h3><span class="mw-headline" id="Video">Video</span></h3>
 <h4><span class="mw-headline" id="Backlight">Backlight</span></h4>
-<p><a href="../wiki/Backlight.html" title="Backlight">Backlight</a> works out of the box
+<p><a href="/Usage/Configuration/M/Backlight.html" title="Backlight">Backlight</a> works out of the box
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># ls /sys/class/backlight/</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">intel_backlight
 </pre>
 <h4><span class="mw-headline" id="Drivers">Drivers</span></h4>
-<p><a href="../wiki/PRIME.html" title="PRIME">PRIME</a> functionality works by using only <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia">nvidia</a></span> and will work without the intel video driver, instead using modsetting.
+<p><a href="/Usage/Configuration/M/PRIME.html" title="PRIME">PRIME</a> functionality works by using only <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia">nvidia</a></span> and will work without the intel video driver, instead using modsetting.
 </p>
 <p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-nouveau">xf86-video-nouveau</a></span> driver does not work well in PRIME configuration (see <a href="#Known_Issues">#Known Issues</a>}).
 </p>
 <h4><span class="mw-headline" id="Multihead">Multihead</span></h4>
-<p>The HDMI and DP ports are wired to the Nvidia GPU, so some additional actions required to make the multihead to work with monitors connected to this ports. Thunderbolt port is wired to Intel GPU thus allowing for external monitor to be used with Nvidia GPU off. See <a href="../wiki/Bumblebee.html#Output_wired_to_the_NVIDIA_chip" title="Bumblebee">Bumblebee#Output wired to the NVIDIA chip</a>, though configuration from there possibly wouldn't work as is.
+<p>The HDMI and DP ports are wired to the Nvidia GPU, so some additional actions required to make the multihead to work with monitors connected to this ports. Thunderbolt port is wired to Intel GPU thus allowing for external monitor to be used with Nvidia GPU off. See <a href="/Usage/Configuration/M/Bumblebee.html#Output_wired_to_the_NVIDIA_chip" title="Bumblebee">Bumblebee#Output wired to the NVIDIA chip</a>, though configuration from there possibly wouldn't work as is.
 </p>
 <p>Instructions to get the external monitor working on the HDMI and DP ports on MSI GS65:
 </p>
@@ -260,7 +260,7 @@ EndSection
 <p>It looks like the only one is inability to use VDPAU hardware video decoding, though to be honest it could be used directly on DISPLAY=:8 as an ugly hack (make sure your WM ignores the external screen first). But NVENC/NVDEC doesn't depend on X and could be used with tools like ffmpeg and gstreamer, and the Intel Quick Sync VAAPI also works, so missing VDPAU is a minor issue.
 </p>
 <h3><span class="mw-headline" id="Webcam">Webcam</span></h3>
-<p>The webcam is device 003 on bus 001. See <a href="../wiki/Webcam_setup.html" title="Webcam setup">Webcam setup</a> for more details.
+<p>The webcam is device 003 on bus 001. See <a href="/Usage/Configuration/M/Webcam_setup.html" title="Webcam setup">Webcam setup</a> for more details.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># lsusb -vs 001:003</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Bus 001 Device 003: ID 5986:211c Acer, Inc 
@@ -286,7 +286,7 @@ Device Descriptor:
 <h3><span class="mw-headline" id="Power_Management">Power Management</span></h3>
 <p>Battery indicator works out of the box.
 </p>
-<p>Sleep and wake also work with the proper configuration (see <a href="../wiki/Power_management.html" title="Power management">Power management</a>).
+<p>Sleep and wake also work with the proper configuration (see <a href="/Usage/Configuration/M/Power_management.html" title="Power management">Power management</a>).
 </p>
 <p>An issue when sleeping is that the networking will be disabled when waking and set to airplane mode. This issue does not affect hibernation.
 </p>
@@ -420,7 +420,7 @@ set-default-source alsa_input.pci-0000_00_1f.3.analog-stereo.echo-cancel
 <li>lspci hangs</li>
 <li>poweroff hangs</li>
 </ul>
-<p><b>Applies to</b>: TOS boot ISO and systems with nouveau or without nvidia driver installed. See <a href="../wiki/NVIDIA_Optimus.html#Lockup_issue_(lspci_hangs)" title="NVIDIA Optimus">NVIDIA Optimus#Lockup issue (lspci hangs)</a>.
+<p><b>Applies to</b>: TOS boot ISO and systems with nouveau or without nvidia driver installed. See <a href="/Usage/Configuration/M/NVIDIA_Optimus.html#Lockup_issue_(lspci_hangs)" title="NVIDIA Optimus">NVIDIA Optimus#Lockup issue (lspci hangs)</a>.
 </p>
 <p><b>Solutions</b>:
 </p>
@@ -533,7 +533,7 @@ lrwxrwxrwx 1 root root  10 Oct 27 11:24 usb-SunplusIT_Inc_HD_Webcam-event-if00 -
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:MSI.html" title="Category:MSI">MSI</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:MSI.html" title="Category:MSI">MSI</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -550,9 +550,9 @@ lrwxrwxrwx 1 root root  10 Oct 27 11:24 usb-SunplusIT_Inc_HD_Webcam-event-if00 -
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

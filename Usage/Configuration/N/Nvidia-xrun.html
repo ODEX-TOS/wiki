@@ -2,7 +2,7 @@
     title: Nvidia-xrun
     description: Migration of Nvidia-xrun from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -24,9 +24,9 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://github.com/Witko/nvidia-xrun">Nvidia-xrun</a> is a utility to allow Nvidia optimus enabled laptops run <a href="../wiki/Xorg.html" class="mw-redirect" title="X server">X server</a> with discrete nvidia graphics on demand. This solution offers full GPU utilization, compatibility and better performance than <a href="../wiki/Bumblebee.html" title="Bumblebee">Bumblebee</a>.
+<p><a rel="nofollow"  href="https://github.com/Witko/nvidia-xrun">Nvidia-xrun</a> is a utility to allow Nvidia optimus enabled laptops run <a href="/Usage/Configuration/N/Xorg.html" class="mw-redirect" title="X server">X server</a> with discrete nvidia graphics on demand. This solution offers full GPU utilization, compatibility and better performance than <a href="/Usage/Configuration/N/Bumblebee.html" title="Bumblebee">Bumblebee</a>.
 </p>
-<p>X server can only be used with integrated graphics or discrete Nvidia graphics, but not both, so user might want to switch to separate <a href="../wiki/Linux_console.html" title="Linux console">virtual console</a> and start another X server using different graphics from what was used for the first X server.
+<p>X server can only be used with integrated graphics or discrete Nvidia graphics, but not both, so user might want to switch to separate <a href="/Usage/Configuration/N/Linux_console.html" title="Linux console">virtual console</a> and start another X server using different graphics from what was used for the first X server.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -60,7 +60,7 @@
 <div>
 <b>Reason:</b> As of <a rel="nofollow"  href="https://github.com/Witko/nvidia-xrun/issues/109">nvidia-xrun release 0.4</a>, the PM fork has been merged and bbswitch is no longer used. There may be changes to AUR packages and bbswitch configuration (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Nvidia-xrun">Talk:Nvidia-xrun#</a>)</div>
 </div>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a>:
+<p><a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a>:
 </p>
 <ul>
 <li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia">nvidia</a></span></li>
@@ -69,12 +69,12 @@
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-xrun/">nvidia-xrun</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-xrun-git/">nvidia-xrun-git</a></span><sup><small>AUR</small></sup>,
 <ul><li>or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-xrun-pm/">nvidia-xrun-pm</a></span><sup><small>AUR</small></sup> if bbswitch doesn't support your hardware (see <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=238389">[1]</a>)</li></ul>
 </li>
-<li>a <a href="../wiki/Window_manager.html" title="Window manager">Window manager</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openbox">openbox</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfce4-session">xfce4-session</a></span>，because running apps directly with <code>nvidia-xrun &lt;application&gt;</code> does not work well.</li>
+<li>a <a href="/Usage/Configuration/N/Window_manager.html" title="Window manager">Window manager</a>, such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openbox">openbox</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfce4-session">xfce4-session</a></span>，because running apps directly with <code>nvidia-xrun &lt;application&gt;</code> does not work well.</li>
 </ul>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Setting_the_right_bus_id">Setting the right bus id</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you installed package from <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>, the bus id has been automatically set in <code>/etc/X11/nvidia-xorg.conf</code>. Make sure the bus ID has been correctly set, otherwise change it (you can find correct bus ID using <code>lspci</code> command). In some cases you need to convert the hex output from <code>lspci</code> to decimal for nvidia-xorg.conf, e.g. 3b:00.0 becomes "PCI:59:0:0"</div>
+<strong>Note:</strong> If you installed package from <a href="/Usage/Configuration/N/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>, the bus id has been automatically set in <code>/etc/X11/nvidia-xorg.conf</code>. Make sure the bus ID has been correctly set, otherwise change it (you can find correct bus ID using <code>lspci</code> command). In some cases you need to convert the hex output from <code>lspci</code> to decimal for nvidia-xorg.conf, e.g. 3b:00.0 becomes "PCI:59:0:0"</div>
 <p>Find your display device bus id:
 </p>
 <pre> $ lspci | grep -i nvidia | awk '{print $1}'
@@ -167,7 +167,7 @@ fi
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>Once the system boots, from the virtual console, login to your user, and run <code>nvidia-xrun &lt;application&gt;</code>.
 </p>
-<p>If above does not work, <a href="../wiki/Keyboard_shortcuts.html#Xorg_and_Wayland" title="Keyboard shortcuts">switch</a> to unused virtual console and try again.
+<p>If above does not work, <a href="/Usage/Configuration/N/Keyboard_shortcuts.html#Xorg_and_Wayland" title="Keyboard shortcuts">switch</a> to unused virtual console and try again.
 </p>
 <p>As mentioned before, running apps directly with <code>nvidia-xrun &lt;application&gt;</code> <b>does not work well</b>, so it is best to create an <code>$XDG_CONFIG_HOME/X11/nvidia-xinitrc</code> as outlined earlier, and use <code>nvidia-xrun</code> to launch your window manager.
 </p>
@@ -175,7 +175,7 @@ fi
 <h3><span class="mw-headline" id="NVIDIA_GPU_fails_to_switch_off_or_is_set_to_be_default">NVIDIA GPU fails to switch off or is set to be default</span></h3>
 <p>See <a href="#Use_bbswitch_to_manage_nvidia">#Use bbswitch to manage nvidia</a>.
 </p>
-<p>If Nvidia GPU still fails to switch off, or is somehow set to be default whenever you use or not <code>nvidia-xrun</code>, then you might likely need to blacklist specific modules (which were previously blacklisted by <a href="../wiki/Bumblebee.html" title="Bumblebee">Bumblebee</a>). Create this file and restart your system:
+<p>If Nvidia GPU still fails to switch off, or is somehow set to be default whenever you use or not <code>nvidia-xrun</code>, then you might likely need to blacklist specific modules (which were previously blacklisted by <a href="/Usage/Configuration/N/Bumblebee.html" title="Bumblebee">Bumblebee</a>). Create this file and restart your system:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/lib/modprobe.d/nvidia-xrun.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">blacklist nvidia
@@ -184,15 +184,15 @@ blacklist nvidia-modeset
 blacklist nvidia-uvm
 blacklist nouveau
 </pre>
-<p>Make sure DRM kernel mode setting is disabled see <a href="../wiki/NVIDIA.html#DRM_kernel_mode_setting" title="NVIDIA">NVIDIA#DRM kernel mode setting</a>
+<p>Make sure DRM kernel mode setting is disabled see <a href="/Usage/Configuration/N/NVIDIA.html#DRM_kernel_mode_setting" title="NVIDIA">NVIDIA#DRM kernel mode setting</a>
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/N/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -210,9 +210,9 @@ blacklist nouveau
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

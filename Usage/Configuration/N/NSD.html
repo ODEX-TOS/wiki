@@ -2,7 +2,7 @@
     title: NSD
     description: Migration of NSD from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -43,17 +43,17 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nsd">nsd</a></span> package.
+<p><a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nsd">nsd</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Migration_to_nsd_for_bind_users">Migration to nsd for bind users</span></h2>
 <p>Once the package is installed there are useful migration notes for users who currently run bind as their dns server in the file:
 </p>
 <pre>/usr/share/doc/nsd/NSD-FOR-BIND-USERS
 </pre>
-<p>Many users will wish to run nsd as their authoritative dns server concurrently with unbound as the validating, recursive, caching dns server on a single machine. It may be useful to refer to the wiki page for <a href="../wiki/Unbound.html" title="Unbound">unbound</a>.
+<p>Many users will wish to run nsd as their authoritative dns server concurrently with unbound as the validating, recursive, caching dns server on a single machine. It may be useful to refer to the wiki page for <a href="/Usage/Configuration/N/Unbound.html" title="Unbound">unbound</a>.
 </p>
 <h2><span class="mw-headline" id="Initial_setup">Initial setup</span></h2>
-<p>Most likely you will run nsd with a DNS caching servers such as <a href="../wiki/Unbound.html" title="Unbound">Unbound</a>. So, to avoid void conflicts, this configuration use port 53530 for nsd, since port 53 is used by the DNS caching server. nsd will listen for requests on <i>localhost</i>. Additionally, the only firewall port that then needs to be open for dns queries coming from external machines (or other machines on the same local network) is port 53.
+<p>Most likely you will run nsd with a DNS caching servers such as <a href="/Usage/Configuration/N/Unbound.html" title="Unbound">Unbound</a>. So, to avoid void conflicts, this configuration use port 53530 for nsd, since port 53 is used by the DNS caching server. nsd will listen for requests on <i>localhost</i>. Additionally, the only firewall port that then needs to be open for dns queries coming from external machines (or other machines on the same local network) is port 53.
 </p>
 <p>When installed, a commented sample configuration file is placed at <code>/etc/nsd/nsd.conf.sample</code>. Below is a minimal working example:
 </p>
@@ -83,7 +83,7 @@ zone:
 </p>
 <pre># nsd-control reload
 </pre>
-<p>In order to start nsd, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>nsd.service</code> systemd service.
+<p>In order to start nsd, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>nsd.service</code> systemd service.
 </p>
 <h2><span class="mw-headline" id="Testing_nsd">Testing nsd</span></h2>
 <p>nsd can be run concurrently with bind during the testing phase. You can check forward and reverse local lookups on the port at 53530 using:
@@ -94,7 +94,7 @@ drill @127.0.0.1 -p 53530 -x w.x.y.z
 <p>where w.x.y.z is a local address within the LAN.
 </p>
 <h2><span class="mw-headline" id="Configuring_unbound">Configuring unbound</span></h2>
-<p>Once this is working then if you are running <a href="../wiki/Unbound.html" title="Unbound">unbound</a> as the caching recursive server then you can switch the unbound configuration to forward queries from local machines on the same network to query nsd by using the following structure in unbound.conf (and see <a href="../wiki/Unbound.html" title="Unbound">unbound</a>), where it is assumed that nsd is listening to port 53530:
+<p>Once this is working then if you are running <a href="/Usage/Configuration/N/Unbound.html" title="Unbound">unbound</a> as the caching recursive server then you can switch the unbound configuration to forward queries from local machines on the same network to query nsd by using the following structure in unbound.conf (and see <a href="/Usage/Configuration/N/Unbound.html" title="Unbound">unbound</a>), where it is assumed that nsd is listening to port 53530:
 </p>
 <pre>do-not-query-localhost: no
 local-zone: "<i>example.com</i>" nodefault
@@ -119,7 +119,7 @@ domain-insecure: "<i>example.com</i>"
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/N/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -136,9 +136,9 @@ domain-insecure: "<i>example.com</i>"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

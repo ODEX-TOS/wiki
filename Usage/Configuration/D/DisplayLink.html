@@ -2,7 +2,7 @@
     title: DisplayLink
     description: Migration of DisplayLink from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -84,15 +84,15 @@
 <h3>
 <span id="USB_2.0_DL-1x5.2C_DL-1x0_Devices"></span><span class="mw-headline" id="USB_2.0_DL-1x5,_DL-1x0_Devices">USB 2.0 DL-1x5, DL-1x0 Devices</span>
 </h3>
-<p>The kernel <a href="https://en.wikipedia.org/wiki/Direct_Rendering_Manager"  title="wikipedia:Direct Rendering Manager">DRM</a> driver for DisplayLink is <code>udl</code>, a rewrite of the original <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/fb/udlfb.html">udlfb</a> driver. It allows configuring DisplayLink monitors using <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a>.
+<p>The kernel <a href="https://en.wikipedia.org/wiki/Direct_Rendering_Manager"  title="wikipedia:Direct Rendering Manager">DRM</a> driver for DisplayLink is <code>udl</code>, a rewrite of the original <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/fb/udlfb.html">udlfb</a> driver. It allows configuring DisplayLink monitors using <a href="/Usage/Configuration/D/Xrandr.html" title="Xrandr">Xrandr</a>.
 </p>
-<p>This should work without any configuration changes on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> 4.14.9-1 and later. If you're using an earlier version of that package or have <code>CONFIG_FB_UDL=m</code> set in your kernel config, you need to <a href="../wiki/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> the old kernel module, <code>udlfb</code>, which may attempt to load itself first.
+<p>This should work without any configuration changes on <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> 4.14.9-1 and later. If you're using an earlier version of that package or have <code>CONFIG_FB_UDL=m</code> set in your kernel config, you need to <a href="/Usage/Configuration/D/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">blacklist</a> the old kernel module, <code>udlfb</code>, which may attempt to load itself first.
 </p>
 <h3>
 <span id="USB_3.0_DL-6xxx.2C_DL-5xxx.2C_DL-41xx.2C_DL-3xxx_Devices"></span><span class="mw-headline" id="USB_3.0_DL-6xxx,_DL-5xxx,_DL-41xx,_DL-3xxx_Devices">USB 3.0 DL-6xxx, DL-5xxx, DL-41xx, DL-3xxx Devices</span>
 </h3>
 <ol>
-<li>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/displaylink/">displaylink</a></span><sup><small>AUR</small></sup> driver. It allows configuring DisplayLink monitors using <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a> in the same manner as the <code>udl</code> driver.</li>
+<li>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/displaylink/">displaylink</a></span><sup><small>AUR</small></sup> driver. It allows configuring DisplayLink monitors using <a href="/Usage/Configuration/D/Xrandr.html" title="Xrandr">Xrandr</a> in the same manner as the <code>udl</code> driver.</li>
 <li>Enable <code>displaylink.service</code>.</li>
 <li>Use the "modesetting" driver with AccelMethod "none" and MatchDriver "evdi".</li>
 </ol>
@@ -121,7 +121,7 @@ Provider 1: id: 0x13c cap: 0x2, Sink Output crtcs: 1 outputs: 1 associated provi
 </p>
 <pre>$ xrandr --setprovideroutputsource 1 0
 </pre>
-<p>and xrandr will add a DVI output you can <a href="../wiki/Xrandr.html#Configuration" title="Xrandr">use as normal with xrandr</a>. This is still experimental but supports hotplugging and when works, it is by far the simplest setup. If it works then everything below is unnecessary.
+<p>and xrandr will add a DVI output you can <a href="/Usage/Configuration/D/Xrandr.html#Configuration" title="Xrandr">use as normal with xrandr</a>. This is still experimental but supports hotplugging and when works, it is by far the simplest setup. If it works then everything below is unnecessary.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>These instructions assume that you already have an up and running X server and are simply adding a monitor to your existing setup.
@@ -149,7 +149,7 @@ udl 2-1.1:1.0: fb1: udldrmfb frame buffer device
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modules-load.d/udl.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">udl</pre>
-<p>For more information on loading kernel modules, see <a href="../wiki/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
+<p>For more information on loading kernel modules, see <a href="/Usage/Configuration/D/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
 </p>
 <h3><span class="mw-headline" id="Configuring_X_Server">Configuring X Server</span></h3>
 <p>Use <code>xrandr</code> or your Desktop Environment's display setup UI to configure your USB monitors running either the <code>udl</code> or <code>displaylink</code> driver.
@@ -185,7 +185,7 @@ DVI-1-0 connected (normal left inverted right x axis y axis)
 <p>If the above does not list the DisplayLink screen, then you will need to offload DisplayLink to the main GPU:
 </p>
 <pre>xrandr --setprovideroutputsource 1 0</pre>
-<p>Once the screen is available, refer to <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a> for info on setting it up. For automating the configuration process, see <a rel="nofollow"  href="https://github.com/nathantypanski/displaylink.sh">displaylink.sh</a>.
+<p>Once the screen is available, refer to <a href="/Usage/Configuration/D/Xrandr.html" title="Xrandr">Xrandr</a> for info on setting it up. For automating the configuration process, see <a rel="nofollow"  href="https://github.com/nathantypanski/displaylink.sh">displaylink.sh</a>.
 </p>
 <h4><span class="mw-headline" id="Enabling_DVI_output_on_startup">Enabling DVI output on startup</span></h4>
 <p>The DisplayLink provider will not be automatically connected to the main provider in most cases, therefore the DVI output device will not be available. It can be helpful to automatically do this when X starts to facilitate automatic display configuration by the window manager.
@@ -194,7 +194,7 @@ DVI-1-0 connected (normal left inverted right x axis y axis)
 </p>
 <pre>$(xrandr --listproviders | grep -q "modesetting") &amp;&amp; xrandr --setprovideroutputsource 1 0
 </pre>
-<p>For example, the appropriate startup configuration file for <a href="../wiki/SDDM.html" title="SDDM">SDDM</a> is <code>/usr/share/sddm/scripts/Xsetup</code>.
+<p>For example, the appropriate startup configuration file for <a href="/Usage/Configuration/D/SDDM.html" title="SDDM">SDDM</a> is <code>/usr/share/sddm/scripts/Xsetup</code>.
 </p>
 <p>Avoid placing these commands in <code>~/.xprofile</code> as this breaks the display configuration of some window managers. Instead these commands should be run prior to any display output or setup.
 </p>
@@ -207,13 +207,13 @@ DVI-1-0 connected (normal left inverted right x axis y axis)
 <p>Currently (displaylink version 1.3.54-1) it is not possible to use displaylink device and nvidia/nouveau driver simultaniously on optimus based laptops.
 Currently to be able to use displaylink device on intel GPU, you should create config file (see troubleshooting section below). However, with that config file it is not possible to use primusrun. Bumblebee service is running, but it cannot work. Also, laptop's fans are becoming very noisy and laptop's temperature becomes very high. When you want to switch back to activate nvidia driver, comment everything in that file and reboot.
 </p>
-<p>To simplify process of switching, you can <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dl-switch/">dl-switch</a></span><sup><small>AUR</small></sup> and add an additional menu entry to your bootloader using the <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>systemd.unit=displaylink.target</code>, thus activating displaylink workaround.
+<p>To simplify process of switching, you can <a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dl-switch/">dl-switch</a></span><sup><small>AUR</small></sup> and add an additional menu entry to your bootloader using the <a href="/Usage/Configuration/D/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>systemd.unit=displaylink.target</code>, thus activating displaylink workaround.
 </p>
 <p>To check which driver is used for your discrete video card, run <code>lspci -nnk -s xx:xx.x</code> (replace xx:xx.x with your nvidia gpu pci id).
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Not_working_configuration">Not working configuration</span></h3>
-<p>These are tested on <a href="../wiki/Xfce.html" title="Xfce">Xfce</a> using Display settings (included in XFCE4 package) and external tool - <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arandr">arandr</a></span>. XFCE4 Display settings are likely to crash, so ARandR might help.
+<p>These are tested on <a href="/Usage/Configuration/D/Xfce.html" title="Xfce">Xfce</a> using Display settings (included in XFCE4 package) and external tool - <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arandr">arandr</a></span>. XFCE4 Display settings are likely to crash, so ARandR might help.
 </p>
 <p>When you connect display link device via USB to your computer, the computer should show monitors in Display settings. There are few troubleshooting steps that you should try:
 </p>
@@ -239,13 +239,13 @@ xrandr --setprovideroutputsource 3 0
 </p>
 <pre>xrandr --newmode "1368x768_59.90"  85.72  1368 1440 1584 1800  768 769 772 795  -HSync +Vsync
 </pre>
-<p>and add it to <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a>:
+<p>and add it to <a href="/Usage/Configuration/D/Xrandr.html" title="Xrandr">Xrandr</a>:
 </p>
 <pre>xrandr --addmode DVI-0 1368x768_59.90
 </pre>
-<p>Then tell the monitor to use that mode for the DisplayLink monitor, and this should fix the redraw issues. Check the <a href="../wiki/Xrandr.html" title="Xrandr">Xrandr</a> page for information on using a different mode.
+<p>Then tell the monitor to use that mode for the DisplayLink monitor, and this should fix the redraw issues. Check the <a href="/Usage/Configuration/D/Xrandr.html" title="Xrandr">Xrandr</a> page for information on using a different mode.
 </p>
-<p>If this does not solve the problem (or if the correct modeline was already in place because of correct DDC data), it can help to run a <a href="../wiki/Xorg.html#Composite" class="mw-redirect" title="Compositor">compositor</a>.
+<p>If this does not solve the problem (or if the correct modeline was already in place because of correct DDC data), it can help to run a <a href="/Usage/Configuration/D/Xorg.html#Composite" class="mw-redirect" title="Compositor">compositor</a>.
 </p>
 <h3><span class="mw-headline" id="DisplayLink_refresh_rate_is_extremely_slow_with_gnome_3">DisplayLink refresh rate is extremely slow with gnome 3</span></h3>
 <p>If once you set up your DisplayLink your entire desktop becomes slow, try setting a "simpler" background image, such as complete black.
@@ -305,7 +305,7 @@ EndSection
 <h3><span class="mw-headline" id="Displays_disconnect_at_random_intervals_when_using_the_Dell_D6000_docking_station">Displays disconnect at random intervals when using the Dell D6000 docking station</span></h3>
 <p>User's have <a rel="nofollow"  href="https://www.displaylink.org/forum/showthread.php?t=65476">reported</a> that when using the Dell D6000 docking station, their display(s) may disconnect at random intervals during usage. This will require physically reconnecting the dock in order to reinitialise the displays.
 </p>
-<p>This issue appears to be caused by <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a>'s <code>module-suspend-on-idle</code> module, which automatically suspends sinks/sources on idle.
+<p>This issue appears to be caused by <a href="/Usage/Configuration/D/PulseAudio.html" title="PulseAudio">PulseAudio</a>'s <code>module-suspend-on-idle</code> module, which automatically suspends sinks/sources on idle.
 </p>
 <p>To disable loading of the <code>module-suspend-on-idle</code> module, comment out the following line in the configuration file in use (<code>~/.config/pulse/default.pa</code> or <code>/etc/pulse/default.pa</code>):
 </p>
@@ -327,7 +327,7 @@ EndSection
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Displays.html" title="Category:Displays">Displays</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Displays.html" title="Category:Displays">Displays</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -344,9 +344,9 @@ EndSection
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

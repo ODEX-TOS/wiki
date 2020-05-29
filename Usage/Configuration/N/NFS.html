@@ -2,7 +2,7 @@
     title: NFS
     description: Migration of NFS from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/NFS/Troubleshooting.html" title="NFS/Troubleshooting">NFS/Troubleshooting</a></li>
+<li><a href="/Usage/Configuration/N/NFS/Troubleshooting.html" title="NFS/Troubleshooting">NFS/Troubleshooting</a></li>
 </ul>
 </div>
 <p>From <a href="https://en.wikipedia.org/wiki/Network_File_System"  title="wikipedia:Network File System">Wikipedia</a>: 
@@ -36,9 +36,9 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>NFS is not encrypted. Tunnel NFS through an encrypted protocol like <a href="../wiki/Kerberos.html" title="Kerberos">Kerberos</a> or (secure) <a href="../wiki/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> when dealing with sensitive data.</li>
-<li>Unlike <a href="../wiki/Samba.html" title="Samba">Samba</a>, NFS does not have any user authentication by default, client access is restricted by their IP-address/<a href="../wiki/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a>.</li>
-<li>NFS expects the <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> and/or <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> ID's are the same on both the client and server. <a href="#Enabling_NFSv4_idmapping">Enable NFSv4 idmapping</a> or overrule the UID/GID manually by using <code>anonuid</code>/<code>anongid</code> together with <code>all_squash</code> in <code>/etc/exports</code>.</li>
+<li>NFS is not encrypted. Tunnel NFS through an encrypted protocol like <a href="/Usage/Configuration/N/Kerberos.html" title="Kerberos">Kerberos</a> or (secure) <a href="/Usage/Configuration/N/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> when dealing with sensitive data.</li>
+<li>Unlike <a href="/Usage/Configuration/N/Samba.html" title="Samba">Samba</a>, NFS does not have any user authentication by default, client access is restricted by their IP-address/<a href="/Usage/Configuration/N/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a>.</li>
+<li>NFS expects the <a href="/Usage/Configuration/N/Users_and_groups.html" class="mw-redirect" title="User">user</a> and/or <a href="/Usage/Configuration/N/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> ID's are the same on both the client and server. <a href="#Enabling_NFSv4_idmapping">Enable NFSv4 idmapping</a> or overrule the UID/GID manually by using <code>anonuid</code>/<code>anongid</code> together with <code>all_squash</code> in <code>/etc/exports</code>.</li>
 </ul>
 </div>
 <div id="toc" >
@@ -97,15 +97,15 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Both client and server only require the <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installation</a> of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nfs-utils">nfs-utils</a></span> package.
+<p>Both client and server only require the <a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installation</a> of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nfs-utils">nfs-utils</a></span> package.
 </p>
-<p>It is <b>highly</b> recommended to use a <a href="../wiki/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon to keep client/server clocks in sync.  Without accurate clocks on all nodes, NFS can introduce unwanted delays.
+<p>It is <b>highly</b> recommended to use a <a href="/Usage/Configuration/N/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon to keep client/server clocks in sync.  Without accurate clocks on all nodes, NFS can introduce unwanted delays.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Server">Server</span></h3>
 <p>Global configuration options are set in <code>/etc/nfs.conf</code>. Users of simple configurations should not need to edit this file.
 </p>
-<p>The NFS server needs a list of exports (see <span class="plainlinks archwiki-template-man" title="$ man 5 exports"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/exports.5">exports(5)</a></span> for details) which are defined in <code>/etc/exports</code> or <code>/etc/exports.d/*.exports</code>. These shares are relative to the so-called NFS root.  A good security practice is to define a NFS root in a discrete directory tree which will keep users limited to that mount point. Bind mounts are used to link the share mount point to the actual directory elsewhere on the <a href="../wiki/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a>.
+<p>The NFS server needs a list of exports (see <span class="plainlinks archwiki-template-man" title="$ man 5 exports"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/exports.5">exports(5)</a></span> for details) which are defined in <code>/etc/exports</code> or <code>/etc/exports.d/*.exports</code>. These shares are relative to the so-called NFS root.  A good security practice is to define a NFS root in a discrete directory tree which will keep users limited to that mount point. Bind mounts are used to link the share mount point to the actual directory elsewhere on the <a href="/Usage/Configuration/N/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a>.
 </p>
 <p>Consider this following example wherein:
 </p>
@@ -117,8 +117,8 @@
 # mount --bind /mnt/music /srv/nfs/music
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="../wiki/ZFS.html" title="ZFS">ZFS</a> filesystems require special handling of bindmounts, see <a href="../wiki/ZFS.html#Bind_mount" title="ZFS">ZFS#Bind mount</a>.</div>
-<p>To make the bind mount persistent across reboots, add it to <a href="../wiki/Fstab.html" title="Fstab">fstab</a>:
+<strong>Note:</strong> <a href="/Usage/Configuration/N/ZFS.html" title="ZFS">ZFS</a> filesystems require special handling of bindmounts, see <a href="/Usage/Configuration/N/ZFS.html#Bind_mount" title="ZFS">ZFS#Bind mount</a>.</div>
+<p>To make the bind mount persistent across reboots, add it to <a href="/Usage/Configuration/N/Fstab.html" title="Fstab">fstab</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/mnt/music /srv/nfs/music  none   bind   0   0
@@ -151,14 +151,14 @@
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> <a rel="nofollow"  href="http://ip2cidr.com/">ip2cidr</a> is a tool to convert an IP ranges to correctly structured CIDR specification.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If the target export is a <a href="../wiki/Tmpfs.html" title="Tmpfs">tmpfs</a> filesystem, the <code>fsid=1</code> option is required.</div>
+<strong>Note:</strong> If the target export is a <a href="/Usage/Configuration/N/Tmpfs.html" title="Tmpfs">tmpfs</a> filesystem, the <code>fsid=1</code> option is required.</div>
 <h4><span class="mw-headline" id="Starting_the_server">Starting the server</span></h4>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>nfs-server.service</code>.
+<p><a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>nfs-server.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> A hard dependency of serving NFS (<code>rpc-gssd.service</code>) will wait until the <a href="../wiki/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> pool is sufficiently initialized possibly delaying the boot process.  This is particularly prevalent on headless servers.  It is <i>highly</i> recommended to populate the entropy pool using a utility such as <a href="../wiki/Rng-tools.html" title="Rng-tools">Rng-tools</a> (if <a href="../wiki/Trusted_Platform_Module.html" class="mw-redirect" title="TPM">TPM</a> is supported) or <a href="../wiki/Haveged.html" title="Haveged">Haveged</a> in these scenarios.</div>
+<strong>Warning:</strong> A hard dependency of serving NFS (<code>rpc-gssd.service</code>) will wait until the <a href="/Usage/Configuration/N/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> pool is sufficiently initialized possibly delaying the boot process.  This is particularly prevalent on headless servers.  It is <i>highly</i> recommended to populate the entropy pool using a utility such as <a href="/Usage/Configuration/N/Rng-tools.html" title="Rng-tools">Rng-tools</a> (if <a href="/Usage/Configuration/N/Trusted_Platform_Module.html" class="mw-redirect" title="TPM">TPM</a> is supported) or <a href="/Usage/Configuration/N/Haveged.html" title="Haveged">Haveged</a> in these scenarios.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If exporting ZFS shares, also <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>zfs-share.service</code>.  Without this, ZFS shares will no longer be exported after a reboot. See <a href="../wiki/ZFS.html#NFS" title="ZFS">ZFS#NFS</a>.</div>
+<strong>Note:</strong> If exporting ZFS shares, also <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>zfs-share.service</code>.  Without this, ZFS shares will no longer be exported after a reboot. See <a href="/Usage/Configuration/N/ZFS.html#NFS" title="ZFS">ZFS#NFS</a>.</div>
 <h4>
 <span id="Restricting_NFS_to_interfaces.2FIPs"></span><span class="mw-headline" id="Restricting_NFS_to_interfaces/IPs">Restricting NFS to interfaces/IPs</span>
 </h4>
@@ -169,10 +169,10 @@
 host=192.168.1.123
 # Alternatively, use the hostname.
 # host=myhostname</pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>nfs-server.service</code> to apply the changes immediately.
+<p><a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>nfs-server.service</code> to apply the changes immediately.
 </p>
 <h4><span class="mw-headline" id="Firewall_configuration">Firewall configuration</span></h4>
-<p>To enable access through a <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, TCP and UDP ports <code>111</code>, <code>2049</code>, and <code>20048</code> may need to be opened when using the default configuration; use <code>rpcinfo -p</code> to examine the exact ports in use on the server:
+<p>To enable access through a <a href="/Usage/Configuration/N/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, TCP and UDP ports <code>111</code>, <code>2049</code>, and <code>20048</code> may need to be opened when using the default configuration; use <code>rpcinfo -p</code> to examine the exact ports in use on the server:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ rpcinfo -p | grep nfs</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">100003    3   tcp   2049  nfs
@@ -214,7 +214,7 @@ host=192.168.1.123
 -A INPUT -p tcp -m tcp --dport 32803 -j ACCEPT
 -A INPUT -p udp -m udp --dport 32765 -j ACCEPT
 -A INPUT -p udp -m udp --dport 32803 -j ACCEPT</pre>
-<p>To apply changes, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>iptables.service</code>.
+<p>To apply changes, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>iptables.service</code>.
 </p>
 <h4><span class="mw-headline" id="Enabling_NFSv4_idmapping">Enabling NFSv4 idmapping</span></h4>
 <div class="noprint archwiki-template-message">
@@ -230,7 +230,7 @@ host=192.168.1.123
 <li>NFSv4 idmapping needs to be enabled on <b>both</b> the client and server.</li>
 <li>Another option is to make sure the user and group IDs (UID and GID) match on both the client and server.</li>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enabling">Enabling</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>nfs-idmapd.service</code> should not be needed as it has been replaced with a new id mapper:</li>
+<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enabling">Enabling</a>/<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>nfs-idmapd.service</code> should not be needed as it has been replaced with a new id mapper:</li>
 </ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># dmesg | grep id_resolver</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[ 3238.356001] NFS: Registering the id_resolver key type
@@ -249,7 +249,7 @@ host=192.168.1.123
 </p>
 <pre># echo "N" | tee /sys/module/nfsd/parameters/nfs4_disable_idmapping
 </pre>
-<p>Set as <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">module option</a> to make this change permanent, i.e.:
+<p>Set as <a href="/Usage/Configuration/N/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">module option</a> to make this change permanent, i.e.:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/nfsd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options nfs nfs4_disable_idmapping=0
@@ -263,7 +263,7 @@ Domain = <i>domain.tld</i></pre>
 <p>See <a rel="nofollow"  href="https://unix.stackexchange.com/a/464950">[3]</a> for details.
 </p>
 <h3><span class="mw-headline" id="Client">Client</span></h3>
-<p>Users intending to use NFS4 with <a href="../wiki/Kerberos.html" title="Kerberos">Kerberos</a> need to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>nfs-client.target</code>.
+<p>Users intending to use NFS4 with <a href="/Usage/Configuration/N/Kerberos.html" title="Kerberos">Kerberos</a> need to <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>nfs-client.target</code>.
 </p>
 <h4><span class="mw-headline" id="Manual_mounting">Manual mounting</span></h4>
 <p>For NFSv3 use this command to show the server's exported file systems:
@@ -287,7 +287,7 @@ Domain = <i>domain.tld</i></pre>
 <h4>
 <span id="Mount_using_.2Fetc.2Ffstab"></span><span class="mw-headline" id="Mount_using_/etc/fstab">Mount using /etc/fstab</span>
 </h4>
-<p>Using <a href="../wiki/Fstab.html" title="Fstab">fstab</a> is useful for a server which is always on, and the NFS shares are available whenever the client boots up. Edit <code>/etc/fstab</code> file, and add an appropriate line reflecting the setup. Again, the server's NFS export root is omitted.
+<p>Using <a href="/Usage/Configuration/N/Fstab.html" title="Fstab">fstab</a> is useful for a server which is always on, and the NFS shares are available whenever the client boots up. Edit <code>/etc/fstab</code> file, and add an appropriate line reflecting the setup. Again, the server's NFS export root is omitted.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">servername:/music   /mountpoint/on/client   nfs   defaults,timeo=900,retrans=5,_netdev	0 0</pre>
@@ -315,26 +315,26 @@ Domain = <i>domain.tld</i></pre>
 </dl>
 <dl>
 <dt>_netdev</dt>
-<dd>The <code>_netdev</code> option tells the system to wait until the network is up before trying to mount the share - <a href="../wiki/Systemd.html" title="Systemd">systemd</a> assumes this for NFS.</dd>
+<dd>The <code>_netdev</code> option tells the system to wait until the network is up before trying to mount the share - <a href="/Usage/Configuration/N/Systemd.html" title="Systemd">systemd</a> assumes this for NFS.</dd>
 </dl>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Setting the sixth field (<code>fs_passno</code>) to a nonzero value may lead to unexpected behaviour, e.g. hangs when the systemd automount waits for a check which will never happen.</div>
 <h4>
 <span id="Mount_using_.2Fetc.2Ffstab_with_systemd"></span><span class="mw-headline" id="Mount_using_/etc/fstab_with_systemd">Mount using /etc/fstab with systemd</span>
 </h4>
-<p>Another method is using the <a href="../wiki/Fstab.html#Remote_filesystem" title="Fstab">x-systemd.automount</a> option which mounts the filesystem upon access:
+<p>Another method is using the <a href="/Usage/Configuration/N/Fstab.html#Remote_filesystem" title="Fstab">x-systemd.automount</a> option which mounts the filesystem upon access:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">servername:/home   <i>/mountpoint/on/client</i>  nfs  _netdev,noauto,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min 0 0</pre>
-<p>To make systemd aware of the changes to fstab, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a> systemd and restart <code>remote-fs.target</code> <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1515377#p1515377">[4]</a>.
+<p>To make systemd aware of the changes to fstab, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a> systemd and restart <code>remote-fs.target</code> <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1515377#p1515377">[4]</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
-<li>The <code>noauto</code> mount option will not mount the NFS share until it is accessed: use <code>auto</code> for it to be available immediately. <br> If experiencing any issues with the mount failing due to the network not being up/available, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>NetworkManager-wait-online.service</code>. It will ensure that <code>network.target</code> has all the links available prior to being active.</li>
+<li>The <code>noauto</code> mount option will not mount the NFS share until it is accessed: use <code>auto</code> for it to be available immediately. <br> If experiencing any issues with the mount failing due to the network not being up/available, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>NetworkManager-wait-online.service</code>. It will ensure that <code>network.target</code> has all the links available prior to being active.</li>
 <li>The <code>users</code> mount option would allow user mounts, but be aware it implies further options as <code>noexec</code> for example.</li>
 <li>The <code>x-systemd.idle-timeout=1min</code> option will unmount the NFS share automatically after 1 minute of non-use. Good for laptops which might suddenly disconnect from the network.</li>
-<li>If shutdown/reboot holds too long because of NFS,  <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>NetworkManager-wait-online.service</code> to ensure that NetworkManager is not exited before the NFS volumes are unmounted. Also try to add the <code>x-systemd.requires=network-online.target</code> mount option if shutdown takes too long.</li>
+<li>If shutdown/reboot holds too long because of NFS,  <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>NetworkManager-wait-online.service</code> to ensure that NetworkManager is not exited before the NFS volumes are unmounted. Also try to add the <code>x-systemd.requires=network-online.target</code> mount option if shutdown takes too long.</li>
 <li>Using the <code>nocto</code> option may improve performance for read-only mounts, but should be used only if the data on the server changes only occasionally.</li>
 </ul>
 </div>
@@ -355,7 +355,7 @@ E.g. the unit name <code>mnt-myshare.mount</code> can only be used if are going 
 <ul>
 <li>Network mount units automatically acquire <code>After</code> dependencies on <i>remote-fs-pre.target</i>, <i>network.target</i> and <i>network-online.target</i>, and gain a <code>Before</code> dependency on <i>remote-fs.target</i> unless <code>nofail</code> mount option is set. Towards the latter a <code>Wants</code> unit is added as well.</li>
 <li>
-<a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>noauto</code> to <code>Options</code> preventing automatically mount during boot (unless it is pulled in by some other unit).</li>
+<a href="/Usage/Configuration/N/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>noauto</code> to <code>Options</code> preventing automatically mount during boot (unless it is pulled in by some other unit).</li>
 <li>If you want to use a hostname for the server you want to share (instead of an IP address), add <code>nss-lookup.target</code> to <code>After</code> and <code>Wants</code>. This might avoid mount errors at boot time that do not arise when testing the unit.</li>
 </ul>
 </div>
@@ -373,8 +373,8 @@ TimeoutSec=30
 [Install]
 WantedBy=multi-user.target</pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> In case of an unreachable system, <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>ForceUnmount=true</code> to <code>[Mount]</code>, allowing the share to be (force-)unmounted.</div>
-<p>To use <code>mnt-myshare.mount</code>, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the unit and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to run on system boot.
+<strong>Tip:</strong> In case of an unreachable system, <a href="/Usage/Configuration/N/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>ForceUnmount=true</code> to <code>[Mount]</code>, allowing the share to be (force-)unmounted.</div>
+<p>To use <code>mnt-myshare.mount</code>, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the unit and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to run on system boot.
 </p>
 <h5><span class="mw-headline" id="automount">automount</span></h5>
 <p>To automatically mount a share, one may use the following automount unit:
@@ -388,12 +388,12 @@ Where=/mnt/myshare
 
 [Install]
 WantedBy=multi-user.target</pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Disable">Disable</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> the <code>mnt-myshare.mount</code> unit, and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>mnt-myshare.automount</code> to automount the share when the mount path is being accessed.
+<p><a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Disable">Disable</a>/<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> the <code>mnt-myshare.mount</code> unit, and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a>/<a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>mnt-myshare.automount</code> to automount the share when the mount path is being accessed.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>TimeoutIdleSec</code> to enable auto unmount. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.automount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.automount.5">systemd.automount(5)</a></span> for details.</div>
+<strong>Tip:</strong> <a href="/Usage/Configuration/N/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>TimeoutIdleSec</code> to enable auto unmount. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.automount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.automount.5">systemd.automount(5)</a></span> for details.</div>
 <h4><span class="mw-headline" id="Mount_using_autofs">Mount using autofs</span></h4>
-<p>Using <a href="../wiki/Autofs.html" title="Autofs">autofs</a> is useful when multiple machines want to connect via NFS; they could both be clients as well as servers. The reason this method is preferable over the earlier one is that if the server is switched off, the client will not throw errors about being unable to find NFS shares. See <a href="../wiki/Autofs.html#NFS_network_mounts" title="Autofs">autofs#NFS network mounts</a> for details.
+<p>Using <a href="/Usage/Configuration/N/Autofs.html" title="Autofs">autofs</a> is useful when multiple machines want to connect via NFS; they could both be clients as well as servers. The reason this method is preferable over the earlier one is that if the server is switched off, the client will not throw errors about being unable to find NFS shares. See <a href="/Usage/Configuration/N/Autofs.html#NFS_network_mounts" title="Autofs">autofs#NFS network mounts</a> for details.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Performance_tuning">Performance tuning</span></h3>
@@ -409,7 +409,7 @@ It is possible to change the default max block size allowed by the server by wri
 </p>
 <pre># echo 32768 &gt; /proc/fs/nfsd/max_block_size
 </pre>
-<p>To make the change permanent, create a <a href="../wiki/Systemd.html#Temporary_files" title="Systemd">systemd-tmpfile</a>:
+<p>To make the change permanent, create a <a href="/Usage/Configuration/N/Systemd.html#Temporary_files" title="Systemd">systemd-tmpfile</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/nfsd-block-size.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w /proc/fs/nfsd/max_block_size - - - - 32768
@@ -424,9 +424,9 @@ It is possible to change the default max block size allowed by the server by wri
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/srv/nfs        192.168.1.0/24(rw,async,crossmnt,fsid=0)
 /srv/nfs/music  192.168.1.0/24(rw,async)</pre>
 <h3><span class="mw-headline" id="Automatic_mount_handling">Automatic mount handling</span></h3>
-<p>This trick is useful for NFS-shares on a <a href="../wiki/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless">wireless</a> network and/or on a network that may be unreliable. If the NFS host becomes unreachable, the NFS share will be unmounted to hopefully prevent system hangs when using the <code>hard</code> mount option <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1260240#p1260240">[5]</a>.
+<p>This trick is useful for NFS-shares on a <a href="/Usage/Configuration/N/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless">wireless</a> network and/or on a network that may be unreliable. If the NFS host becomes unreachable, the NFS share will be unmounted to hopefully prevent system hangs when using the <code>hard</code> mount option <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1260240#p1260240">[5]</a>.
 </p>
-<p>Make sure that the NFS mount points are correctly indicated in <a href="../wiki/Fstab.html" title="Fstab">fstab</a>:
+<p>Make sure that the NFS mount points are correctly indicated in <a href="/Usage/Configuration/N/Fstab.html" title="Fstab">fstab</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">lithium:/mnt/data           /mnt/data	        nfs noauto,noatime 0 0
@@ -434,12 +434,12 @@ lithium:/var/cache/pacman   /var/cache/pacman	nfs noauto,noatime 0 0</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>Use hostnames in <a href="../wiki/Fstab.html" title="Fstab">fstab</a> for this to work, not IP addresses.</li>
+<li>Use hostnames in <a href="/Usage/Configuration/N/Fstab.html" title="Fstab">fstab</a> for this to work, not IP addresses.</li>
 <li>In order to mount NFS shares with non-root users the <code>users</code> option has to be added.</li>
-<li>The <code>noauto</code> mount option tells <a href="../wiki/Systemd.html" title="Systemd">systemd</a> to not automatically <a href="../wiki/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> the shares at boot, otherwise this may causing the boot process to stall.</li>
+<li>The <code>noauto</code> mount option tells <a href="/Usage/Configuration/N/Systemd.html" title="Systemd">systemd</a> to not automatically <a href="/Usage/Configuration/N/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> the shares at boot, otherwise this may causing the boot process to stall.</li>
 </ul>
 </div>
-<p>Create the <code>auto_share</code> script that will be used by <a href="../wiki/Cron.html" title="Cron">cron</a> or <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> to use ICMP ping to check if the NFS host is reachable:
+<p>Create the <code>auto_share</code> script that will be used by <a href="/Usage/Configuration/N/Cron.html" title="Cron">cron</a> or <a href="/Usage/Configuration/N/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> to use ICMP ping to check if the NFS host is reachable:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/local/bin/auto_share</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
@@ -493,7 +493,7 @@ ping -c 1 "${SERVER}" &amp;&gt;/dev/null
 timeout 1 bash -c ": &lt; /dev/tcp/${SERVER}/2049"
 </pre>
 in the <code>auto_share</code> script above.</div>
-<p>Make sure the script is <a href="../wiki/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
+<p>Make sure the script is <a href="/Usage/Configuration/N/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
 </p>
 <pre># chmod +x /usr/local/bin/auto_share
 </pre>
@@ -526,10 +526,10 @@ ExecStart=/usr/local/bin/auto_share
 
 [Install]
 WantedBy=multi-user.target</pre>
-<p>Finally, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>auto_share.timer</code>.
+<p>Finally, <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="/Usage/Configuration/N/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>auto_share.timer</code>.
 </p>
 <h4><span class="mw-headline" id="Using_a_NetworkManager_dispatcher">Using a NetworkManager dispatcher</span></h4>
-<p><a href="../wiki/NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">NetworkManager</a> can also be configured to run a script on network status change.
+<p><a href="/Usage/Configuration/N/NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">NetworkManager</a> can also be configured to run a script on network status change.
 </p>
 <p>The easiest method for mount shares on network status change is to symlink the <code>auto_share</code> script:
 </p>
@@ -537,7 +537,7 @@ WantedBy=multi-user.target</pre>
 </pre>
 <p>However, in that particular case unmounting will happen only after the network connection has already been disabled, which is unclean and may result in effects like freezing of KDE Plasma applets. 
 </p>
-<p>The following script safely unmounts the NFS shares before the relevant network connection is disabled by listening for the <code>pre-down</code> and <code>vpn-pre-down</code> events, make the script is <a href="../wiki/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
+<p>The following script safely unmounts the NFS shares before the relevant network connection is disabled by listening for the <code>pre-down</code> and <code>vpn-pre-down</code> events, make the script is <a href="/Usage/Configuration/N/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/NetworkManager/dispatcher.d/30-nfs.sh</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
@@ -569,12 +569,12 @@ fi
 <pre># ln -s /etc/NetworkManager/dispatcher.d/30-nfs.sh /etc/NetworkManager/dispatcher.d/pre-down.d/30-nfs.sh
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>There is a dedicated article <a href="../wiki/NFS/Troubleshooting.html" title="NFS/Troubleshooting">NFS/Troubleshooting</a>.
+<p>There is a dedicated article <a href="/Usage/Configuration/N/NFS/Troubleshooting.html" title="NFS/Troubleshooting">NFS/Troubleshooting</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
-<li>See also <a href="../wiki/Avahi.html" title="Avahi">Avahi</a>, a Zeroconf implementation which allows automatic discovery of NFS shares.</li>
-<li>HOWTO: <a href="../wiki/Diskless_system.html" class="mw-redirect" title="Diskless network boot NFS root">Diskless network boot NFS root</a>
+<li>See also <a href="/Usage/Configuration/N/Avahi.html" title="Avahi">Avahi</a>, a Zeroconf implementation which allows automatic discovery of NFS shares.</li>
+<li>HOWTO: <a href="/Usage/Configuration/N/Diskless_system.html" class="mw-redirect" title="Diskless network boot NFS root">Diskless network boot NFS root</a>
 </li>
 <li><a rel="nofollow"  href="http://blogs.msdn.com/sfu/archive/2008/04/14/all-well-almost-about-client-for-nfs-configuration-and-performance.aspx">Microsoft Services for Unix NFS Client info</a></li>
 <li>
@@ -588,14 +588,14 @@ fi
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="../wiki/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
-<li><a href="../wiki/Category:Servers.html" title="Category:Servers">Servers</a></li>
+<li><a href="/Usage/Configuration/N/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/N/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
+<li><a href="/Usage/Configuration/N/Category:Servers.html" title="Category:Servers">Servers</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/N/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -614,9 +614,9 @@ fi
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Intel_GVT-g
     description: Migration of Intel_GVT-g from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough via OVMF</a></li>
-<li><a href="../wiki/QEMU.html" title="QEMU">QEMU</a></li>
-<li><a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a></li>
+<li><a href="/Usage/Configuration/I/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough via OVMF</a></li>
+<li><a href="/Usage/Configuration/I/QEMU.html" title="QEMU">QEMU</a></li>
+<li><a href="/Usage/Configuration/I/Intel_graphics.html" title="Intel graphics">Intel graphics</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://github.com/intel/gvt-linux/wiki/GVTg_Setup_Guide">Intel GVT-g</a> is a technology that provides mediated device passthrough for Intel GPUs (Broadwell and newer). It can be used to virtualize the GPU for multiple guest VMs, effectively providing near-native graphics performance in the VM and still letting your host use the virtualized GPU normally. This is useful if you want accelerated graphics in Windows VMs running on ultrabooks without dedicated GPUs for <a href="../wiki/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">full device passthrough</a>. (Similar technologies exist for NVIDIA and AMD GPUs, but they're available only in the "professional" GPU lines like Quadro, Radeon Pro and so on.)
+<p><a rel="nofollow"  href="https://github.com/intel/gvt-linux/wiki/GVTg_Setup_Guide">Intel GVT-g</a> is a technology that provides mediated device passthrough for Intel GPUs (Broadwell and newer). It can be used to virtualize the GPU for multiple guest VMs, effectively providing near-native graphics performance in the VM and still letting your host use the virtualized GPU normally. This is useful if you want accelerated graphics in Windows VMs running on ultrabooks without dedicated GPUs for <a href="/Usage/Configuration/I/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">full device passthrough</a>. (Similar technologies exist for NVIDIA and AMD GPUs, but they're available only in the "professional" GPU lines like Quadro, Radeon Pro and so on.)
 </p>
 <p>There is also a variant of this technology called GVT-d - it is essentially Intel's name for full device passthrough with the vfio-pci driver. With GVT-d, the host cannot use the virtualized GPU.
 </p>
@@ -123,12 +123,12 @@
 <p>You'll need to:
 </p>
 <ul>
-<li>Use at least Linux 4.16 and <a href="../wiki/QEMU.html" title="QEMU">QEMU</a> 2.12.</li>
-<li>Enable IOMMU by adding <code>intel_iommu=on</code> to your <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.</li>
+<li>Use at least Linux 4.16 and <a href="/Usage/Configuration/I/QEMU.html" title="QEMU">QEMU</a> 2.12.</li>
+<li>Enable IOMMU by adding <code>intel_iommu=on</code> to your <a href="/Usage/Configuration/I/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.</li>
 <li>
-<a href="../wiki/Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">Enable</a> kernel modules: <code>kvmgt</code>, <code>vfio-iommu-type1</code> and <code>vfio-mdev</code>.</li>
+<a href="/Usage/Configuration/I/Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">Enable</a> kernel modules: <code>kvmgt</code>, <code>vfio-iommu-type1</code> and <code>vfio-mdev</code>.</li>
 <li>
-<a href="../wiki/Kernel_module.html#Setting_module_options" title="Kernel module">Set</a> i915 module parameter <code>enable_gvt=1</code> to enable GPU virtualization.</li>
+<a href="/Usage/Configuration/I/Kernel_module.html#Setting_module_options" title="Kernel module">Set</a> i915 module parameter <code>enable_gvt=1</code> to enable GPU virtualization.</li>
 <li>Find the PCI address and domain number of your GPU (<code>$GVT_PCI</code> and <code>$GVT_DOM</code> in commands below), as it resides in <code>/sys/bus/pci/devices</code>. It looks like this: <code>0000:00:02.0</code> - you can look it up by running <code>lspci -D -nn</code>, looking for <code>VGA compatible controller: Intel Corporation HD Graphics ...</code> and noting down the address on the left.</li>
 <li>Generate the vGPU GUID (<code>$GVT_GUID</code> in commands below) which you'll use to create and assign the vGPU. A single virtual GPU can be assigned only to a single VM - create as many GUIDs as you want vGPUs. (You can do so by running <code>uuidgen</code>.)</li>
 </ul>
@@ -338,7 +338,7 @@ fi</pre>
 </pre>
 <h3><span class="mw-headline" id="Disable_all_outputs">Disable all outputs</span></h3>
 <p>If all outputs are disabled, the only way to see the display output would then be using a software server like RDP, VNC or Looking Glass.
-To see more details in <a href="../wiki/PCI_passthrough_via_OVMF.html#Using_Looking_Glass_to_stream_guest_screen_to_the_host" title="PCI passthrough via OVMF">using Looking Glass to stream guest screen to the host</a>.
+To see more details in <a href="/Usage/Configuration/I/PCI_passthrough_via_OVMF.html#Using_Looking_Glass_to_stream_guest_screen_to_the_host" title="PCI passthrough via OVMF">using Looking Glass to stream guest screen to the host</a>.
 </p>
 <h4><span class="mw-headline" id="QEMU_CLI_5">QEMU CLI</span></h4>
 <p>In the <code>-device vfio-pci</code> parameter, remove <code>ramfb=on</code> and change to <code>display=off</code>. Add <code>-vga none</code> to disable the QEMU VGA adapter.
@@ -378,7 +378,7 @@ For example, for the "Coffee Lake" (CFL) platform support, see <a rel="nofollow"
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/I/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -395,9 +395,9 @@ For example, for the "Coffee Lake" (CFL) platform support, see <a rel="nofollow"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

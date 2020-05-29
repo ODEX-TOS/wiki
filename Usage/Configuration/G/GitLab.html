@@ -2,7 +2,7 @@
     title: GitLab
     description: Migration of GitLab from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Gitolite.html" title="Gitolite">Gitolite</a></li>
-<li><a href="../wiki/Ruby_on_Rails.html" title="Ruby on Rails">Ruby on Rails</a></li>
+<li><a href="/Usage/Configuration/G/Gitolite.html" title="Gitolite">Gitolite</a></li>
+<li><a href="/Usage/Configuration/G/Ruby_on_Rails.html" title="Ruby on Rails">Ruby on Rails</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="https://about.gitlab.com/">GitLab's homepage</a>:
@@ -108,11 +108,11 @@
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This article covers installing and configuring GitLab without HTTPS at first. If needed, see <a href="#Advanced_configuration">#Advanced configuration</a> to set up SSL.</div>
-<p>GitLab requires <a href="../wiki/Redis.html" title="Redis">Redis</a> and a database backend. If you plan to run it on the same machine, first install <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p>GitLab requires <a href="/Usage/Configuration/G/Redis.html" title="Redis">Redis</a> and a database backend. If you plan to run it on the same machine, first install <a href="/Usage/Configuration/G/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gitlab">gitlab</a></span> package.
+<p><a href="/Usage/Configuration/G/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gitlab">gitlab</a></span> package.
 </p>
-<p>In order to receive mail notifications, a mail server must be installed and configured. See <a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Category:Mail server</a> for details.
+<p>In order to receive mail notifications, a mail server must be installed and configured. See <a href="/Usage/Configuration/G/Category:Mail_server.html" title="Category:Mail server">Category:Mail server</a> for details.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Preliminary_Notes">Preliminary Notes</span></h3>
@@ -185,7 +185,7 @@
 </tbody>
 </table>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If you are familiar with the <a href="../wiki/TOS_Build_System.html" title="TOS Build System">TOS Build System</a> you can edit the PKGBUILD and relevant files to change gitlab's home directory to a place of your liking.</div>
+<strong>Tip:</strong> If you are familiar with the <a href="/Usage/Configuration/G/TOS_Build_System.html" title="TOS Build System">TOS Build System</a> you can edit the PKGBUILD and relevant files to change gitlab's home directory to a place of your liking.</div>
 <h3><span class="mw-headline" id="GitLab">GitLab</span></h3>
 <p>Edit <code>/etc/webapps/gitlab/gitlab.yml</code> and setup at least the following parameters:
 </p>
@@ -210,7 +210,7 @@ bind 'tcp://127.0.0.1:8080'</pre>
 <ul><li>For GitLab Shell, update the <code>gitlab_url</code> variable in <code>/etc/webapps/gitlab-shell/config.yml</code> and <code>/etc/gitlab-gitaly/config.toml</code>.</li></ul>
 <dl><dd><div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> According to the comment in the config file, UNIX socket path can be specified with URL-escaped slashes (i.e. <code>http+unix://%2Frun%2Fgitlab%2Fgitlab.socket</code> for the default <code>/run/gitlab/gitlab.socket</code>). Additionally, un-escaped slashes can be used to specify the <a rel="nofollow"  href="https://docs.gitlab.com/ce/install/relative_url.html">relative URL root</a> (e.g. <code>/gitlab</code>).</div></dd></dl>
-<ul><li>For GitLab Workhorse, <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the <code>gitlab-workhorse.service</code> and update the <code>-authBackend</code> option.</li></ul>
+<ul><li>For GitLab Workhorse, <a href="/Usage/Configuration/G/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the <code>gitlab-workhorse.service</code> and update the <code>-authBackend</code> option.</li></ul>
 <h3><span class="mw-headline" id="Secret_strings">Secret strings</span></h3>
 <p>Make sure that the files <code>/etc/webapps/gitlab/secret</code> and <code>/etc/webapps/gitlab-shell/secret</code> files contain something. Their content should be kept secret because they are used for the generation of authentication tokens etc.
 </p>
@@ -232,9 +232,9 @@ bind 'tcp://127.0.0.1:8080'</pre>
   db_key_base: <i>secret</i>
 </pre>
 <h3><span class="mw-headline" id="Redis">Redis</span></h3>
-<p>In order to provide sufficient performance you will need a cache database. <a href="../wiki/Redis.html#Installation" title="Redis">Install</a> and <a href="../wiki/Redis.html#Configuration" title="Redis">configure</a> a Redis instance, being careful to the section dedicated to listening via a socket.
+<p>In order to provide sufficient performance you will need a cache database. <a href="/Usage/Configuration/G/Redis.html#Installation" title="Redis">Install</a> and <a href="/Usage/Configuration/G/Redis.html#Configuration" title="Redis">configure</a> a Redis instance, being careful to the section dedicated to listening via a socket.
 </p>
-<p>Add the <code>gitlab</code> user to the <code>redis</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> and update this configuration file:
+<p>Add the <code>gitlab</code> user to the <code>redis</code> <a href="/Usage/Configuration/G/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> and update this configuration file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/webapps/gitlab/resque.yml</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">development:
@@ -244,7 +244,7 @@ test:
 production:
   url: unix:/run/redis/redis.sock</pre>
 <h3><span class="mw-headline" id="PostgreSQL_database">PostgreSQL database</span></h3>
-<p>A <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> database will be required before Gitlab can be run.
+<p>A <a href="/Usage/Configuration/G/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> database will be required before Gitlab can be run.
 </p>
 <p>Login to PostgreSQL and create the <code>gitlabhq_production</code> database along with its user. Remember to change <code>your_username_here</code> and <code>your_password_here</code> to the real values:
 </p>
@@ -285,7 +285,7 @@ production:
 <p>For our purposes (unless you know what you are doing), you do not need to worry about configuring the other databases listed in <code>/etc/webapps/gitlab/database.yml</code>. We only need to set up the production database to get GitLab working.
 </p>
 <h3><span class="mw-headline" id="Firewall">Firewall</span></h3>
-<p>If you want to give direct access to your Gitlab installation through an <a href="../wiki/Iptables.html" title="Iptables">iptables</a> firewall, you may need to adjust the port and the network address:
+<p>If you want to give direct access to your Gitlab installation through an <a href="/Usage/Configuration/G/Iptables.html" title="Iptables">iptables</a> firewall, you may need to adjust the port and the network address:
 </p>
 <pre># iptables -A tcp_inbound -p TCP -s <b>192.168.1.0/24</b> --destination-port <b>80</b> -j ACCEPT
 </pre>
@@ -296,7 +296,7 @@ production:
 <p>If you are behind a router, do not forget to forward this port to the running GitLab server host, if you want to allow WAN-access.
 </p>
 <h3><span class="mw-headline" id="Initialize_Gitlab_database">Initialize Gitlab database</span></h3>
-<p>Start the <a href="../wiki/Redis.html" title="Redis">Redis</a> server and the <code>gitlab-gitaly.service</code> before initializing the database.
+<p>Start the <a href="/Usage/Configuration/G/Redis.html" title="Redis">Redis</a> server and the <code>gitlab-gitaly.service</code> before initializing the database.
 </p>
 <p>Initialize the database and activate advanced features:
 </p>
@@ -311,7 +311,7 @@ production:
 <strong>Note:</strong> 
 <ul>
 <li>The <i>gitlab:env:info</i> and <i>gitlab:check</i> commands will show a fatal error related to git. This is OK.</li>
-<li>The <i>gitlab:check</i> will complain about missing initscripts. This is nothing to worry about, as <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service files are used instead (which GitLab does not recognize).</li>
+<li>The <i>gitlab:check</i> will complain about missing initscripts. This is nothing to worry about, as <a href="/Usage/Configuration/G/Systemd.html" title="Systemd">systemd</a> service files are used instead (which GitLab does not recognize).</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="Adjust_modifier_bits">Adjust modifier bits</span></h3>
@@ -322,9 +322,9 @@ production:
 # find /var/lib/gitlab/repositories/ -type d -print0 | xargs -0 chmod g+s
 </pre>
 <h2><span class="mw-headline" id="Start_and_test_GitLab">Start and test GitLab</span></h2>
-<p>Make sure <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> and <a href="../wiki/Redis.html" title="Redis">Redis</a> are running and setup correctly.
+<p>Make sure <a href="/Usage/Configuration/G/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> and <a href="/Usage/Configuration/G/Redis.html" title="Redis">Redis</a> are running and setup correctly.
 </p>
-<p>Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>gitlab.target</code>.
+<p>Then <a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>/<a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>gitlab.target</code>.
 </p>
 <p>Now test your GitLab instance by visiting <a rel="nofollow"  href="http://localhost:8080">http://localhost:8080</a>; you should be prompted to create a password:
 </p>
@@ -347,7 +347,7 @@ password: You will be prompted to create one on your first visit.
 </pre>
 <h2><span class="mw-headline" id="Advanced_configuration">Advanced configuration</span></h2>
 <h3><span class="mw-headline" id="Basic_SSH">Basic SSH</span></h3>
-<p>After completing the basic installation, set up SSH access for users.  Configuration for <a href="../wiki/OpenSSH.html" title="OpenSSH">OpenSSH</a> is described below.  <a href="../wiki/Secure_Shell.html#Implementations" class="mw-redirect" title="SSH">Other SSH clients and servers</a> will require different modifications.
+<p>After completing the basic installation, set up SSH access for users.  Configuration for <a href="/Usage/Configuration/G/OpenSSH.html" title="OpenSSH">OpenSSH</a> is described below.  <a href="/Usage/Configuration/G/Secure_Shell.html#Implementations" class="mw-redirect" title="SSH">Other SSH clients and servers</a> will require different modifications.
 </p>
 <p>For tips on adding user SSH keys, the process is well-documented on the <a rel="nofollow"  href="https://docs.gitlab.com/ee/ssh/">GitLab</a> website.  You can check the administrator logs at <code>/var/lib/gitlab/log/gitlab-shell.log</code> to confirm user SSH keys are being submitted properly.  Behind the scenes, GitLab adds these keys to its <i>authorized_keys</i> file in <code>/var/lib/gitlab/.ssh/authorized_keys</code>.
 </p>
@@ -387,7 +387,7 @@ hostname 127.0.0.1; # Your server name or IP</pre>
 <p>Modify <code>/etc/webapps/gitlab/shell.yml</code> so the url to your GitLab site starts with <code>https://</code>.
 Modify <code>/etc/webapps/gitlab/gitlab.yml</code> so that <code>https:</code> setting is set to <code>true</code>.
 </p>
-<p>See also <a href="../wiki/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> and <a href="../wiki/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>.
+<p>See also <a href="/Usage/Configuration/G/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a> and <a href="/Usage/Configuration/G/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>.
 </p>
 <h4>
 <span id="Let.27s_Encrypt"></span><span class="mw-headline" id="Let's_Encrypt">Let's Encrypt</span>
@@ -409,7 +409,7 @@ RewriteCond   %{REQUEST_URI}  !/\.well-known/.*
 <p>You can easily set up an HTTP proxy on port 443 to proxy traffic to the GitLab application on port 8080 using http-master for Node.js. After you have created your domain's OpenSSL keys and have gotten you CA certificate (or self signed it), then go to <a rel="nofollow"  href="https://github.com/CodeCharmLtd/http-master">https://github.com/CodeCharmLtd/http-master</a> to learn how easy it is to proxy requests to GitLab using HTTPS. http-master is built on top of <a rel="nofollow"  href="https://github.com/nodejitsu/node-http-proxy">node-http-proxy</a>.
 </p>
 <h4><span class="mw-headline" id="Nginx">Nginx</span></h4>
-<p>See <a href="../wiki/Nginx.html#Configuration" title="Nginx">Nginx#Configuration</a> for basic <i>nginx</i> configuration and <a href="../wiki/Nginx.html#TLS" title="Nginx">Nginx#TLS</a> for enabling HTTPS. The sample in this section also assumes that server blocks are managed with <a href="../wiki/Nginx.html#Managing_server_entries" title="Nginx">Nginx#Managing server entries</a>.
+<p>See <a href="/Usage/Configuration/G/Nginx.html#Configuration" title="Nginx">Nginx#Configuration</a> for basic <i>nginx</i> configuration and <a href="/Usage/Configuration/G/Nginx.html#TLS" title="Nginx">Nginx#TLS</a> for enabling HTTPS. The sample in this section also assumes that server blocks are managed with <a href="/Usage/Configuration/G/Nginx.html#Managing_server_entries" title="Nginx">Nginx#Managing server entries</a>.
 </p>
 <p>Create and edit the configuration based on the following snippet. See the <a rel="nofollow"  href="https://gitlab.com/gitlab-org/gitlab-ce/tree/master/lib/support/nginx">upstream GitLab repository</a> for more examples.
 </p>
@@ -458,9 +458,9 @@ server {
 }
 </pre>
 <h4><span class="mw-headline" id="Apache">Apache</span></h4>
-<p>Install and configure the <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>. You can use these <a rel="nofollow"  href="https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/web-server/apache">upstream recipes</a> to get started with the configuration file for GitLab's virtual host.
+<p>Install and configure the <a href="/Usage/Configuration/G/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>. You can use these <a rel="nofollow"  href="https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/web-server/apache">upstream recipes</a> to get started with the configuration file for GitLab's virtual host.
 </p>
-<p>For the SSL configuration see <a href="../wiki/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a>. If you do not need it, remove it. Notice that the SSL virtual host needs a specific IP instead of generic. Also if you set a custom port for Puma, do not forget to set it at the <code>BalanceMember</code> line.
+<p>For the SSL configuration see <a href="/Usage/Configuration/G/Apache_HTTP_Server.html#TLS" title="Apache HTTP Server">Apache HTTP Server#TLS</a>. If you do not need it, remove it. Notice that the SSL virtual host needs a specific IP instead of generic. Also if you set a custom port for Puma, do not forget to set it at the <code>BalanceMember</code> line.
 </p>
 <h2><span class="mw-headline" id="Useful_tips">Useful tips</span></h2>
 <h3><span class="mw-headline" id="Rake_tasks">Rake tasks</span></h3>
@@ -520,7 +520,7 @@ rake setup                                    # GITLAB | Setup gitlab db
 <pre>AuthorizedKeysCommand /var/lib/gitlab/gitlab-shell/bin/gitlab-shell-authorized-keys-check gitlab %u %k
 AuthorizedKeysCommandUser gitlab
 </pre>
-<p>Finally <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>sshd.service</code>.
+<p>Finally <a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>sshd.service</code>.
 </p>
 <h3><span class="mw-headline" id="Sending_mails_from_Gitlab_via_SMTP">Sending mails from Gitlab via SMTP</span></h3>
 <p>You might want to use a gmail (or other mail service) to send mails from your gitlab server. This avoids the need to install a mail daemon on the gitlab server.
@@ -575,7 +575,7 @@ RAILS_ENV=production bundle exec rake cache:clear
 <pre># systemctl restart gitlab-puma gitlab-sidekiq gitlab-workhorse
 </pre>
 <h3><span class="mw-headline" id="GitLab_Puma_cannot_access_non-default_repositories_directory">GitLab Puma cannot access non-default repositories directory</span></h3>
-<p>If a custom repository storage directory is set in <code>/home</code>, disable the <code>ProtectHome=true</code> parameter in the <code>gitlab-puma.service</code> (see <a href="../wiki/Systemd.html#Drop-in_files" title="Systemd">systemd#Drop-in files</a> and the <a rel="nofollow"  href="https://forum.gitlab.com/t/cannot-change-repositores-location/9634/2">relevant forum thread on gitlab.com</a>).
+<p>If a custom repository storage directory is set in <code>/home</code>, disable the <code>ProtectHome=true</code> parameter in the <code>gitlab-puma.service</code> (see <a href="/Usage/Configuration/G/Systemd.html#Drop-in_files" title="Systemd">systemd#Drop-in files</a> and the <a rel="nofollow"  href="https://forum.gitlab.com/t/cannot-change-repositores-location/9634/2">relevant forum thread on gitlab.com</a>).
 </p>
 <h3><span class="mw-headline" id="Failed_to_connect_to_Gitaly">Failed to connect to Gitaly</span></h3>
 <p>Sometimes, the Gitaly service will not get started, leaving GitLab unable to connect to Gitaly. The solution is simple:
@@ -607,7 +607,7 @@ RAILS_ENV=production bundle exec rake cache:clear
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Git_web_interfaces.html" title="Category:Git web interfaces">Git web interfaces</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/G/Category:Git_web_interfaces.html" title="Category:Git web interfaces">Git web interfaces</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -624,9 +624,9 @@ RAILS_ENV=production bundle exec rake cache:clear
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/G/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/G/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/G/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

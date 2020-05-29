@@ -2,7 +2,7 @@
     title: ConsoleKit
     description: Migration of ConsoleKit from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a></li>
+<li><a href="/Usage/Configuration/C/Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a></li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> TOS Linux only has official support for <i>logind</i> <a rel="nofollow"  href="https://www.archlinux.org/news/consolekit-replaced-by-logind/">[1]</a> and <a href="../wiki/Systemd.html" title="Systemd">systemd</a>. When using <i>ConsoleKit</i>, please mention so in support requests.</div>
+<strong>Warning:</strong> TOS Linux only has official support for <i>logind</i> <a rel="nofollow"  href="https://www.archlinux.org/news/consolekit-replaced-by-logind/">[1]</a> and <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a>. When using <i>ConsoleKit</i>, please mention so in support requests.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> While Consolekit is no longer maintained upstream, the fork ConsoleKit2 is under development. <a rel="nofollow"  href="https://github.com/ConsoleKit2/ConsoleKit2">[2]</a>
 </div>
@@ -78,7 +78,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/consolekit-git/">consolekit-git</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/polkit-consolekit/">polkit-consolekit</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/consolekit-git/">consolekit-git</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/polkit-consolekit/">polkit-consolekit</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/C/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="ck-launch-session">ck-launch-session</span></h3>
@@ -86,28 +86,28 @@
 </p>
 <pre>exec ck-launch-session dbus-launch --sh-syntax --exit-with-session openbox-session
 </pre>
-<p>This starts <a href="../wiki/Openbox.html" title="Openbox">Openbox</a> with proper environment variables so it and its children are able to use ConsoleKit.
+<p>This starts <a href="/Usage/Configuration/C/Openbox.html" title="Openbox">Openbox</a> with proper environment variables so it and its children are able to use ConsoleKit.
 </p>
-<p><a href="../wiki/Display_manager.html" title="Display manager">Display managers</a> like <a href="../wiki/GDM.html" title="GDM">GDM</a>, <a href="../wiki/LXDM.html" title="LXDM">LXDM</a> and <a href="../wiki/SLiM.html" title="SLiM">SLiM</a> start ConsoleKit automatically with each X session.
+<p><a href="/Usage/Configuration/C/Display_manager.html" title="Display manager">Display managers</a> like <a href="/Usage/Configuration/C/GDM.html" title="GDM">GDM</a>, <a href="/Usage/Configuration/C/LXDM.html" title="LXDM">LXDM</a> and <a href="/Usage/Configuration/C/SLiM.html" title="SLiM">SLiM</a> start ConsoleKit automatically with each X session.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>Do not nest ConsoleKit sessions by calling one from another, or you will break ConsoleKit.</li>
-<li>In particular, since <a href="../wiki/SLiM.html" title="SLiM">SLiM</a> reads <code>~/.xinitrc</code>, you should make sure <i>not</i> to run <code>ck-launch-session</code> there.</li>
+<li>In particular, since <a href="/Usage/Configuration/C/SLiM.html" title="SLiM">SLiM</a> reads <code>~/.xinitrc</code>, you should make sure <i>not</i> to run <code>ck-launch-session</code> there.</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="No_display_manager">No display manager</span></h3>
-<p>If you are not using a display manager, but starting your window manager via the <code>startx</code> command, or from <a href="../wiki/SysVinit.html" class="mw-redirect" title="Inittab">inittab</a>.
+<p>If you are not using a display manager, but starting your window manager via the <code>startx</code> command, or from <a href="/Usage/Configuration/C/SysVinit.html" class="mw-redirect" title="Inittab">inittab</a>.
 </p>
-<p>If ConsoleKit is not working (<code>ck-list-sessions</code> command showing active = FALSE), you should start your window manager using the bash_profile method: <a href="../wiki/Xinit.html#Autostart_X_at_login" title="Xinit">Xinit#Autostart X at login</a>.
+<p>If ConsoleKit is not working (<code>ck-list-sessions</code> command showing active = FALSE), you should start your window manager using the bash_profile method: <a href="/Usage/Configuration/C/Xinit.html#Autostart_X_at_login" title="Xinit">Xinit#Autostart X at login</a>.
 </p>
 <h3><span class="mw-headline" id="Desktop_environments">Desktop environments</span></h3>
 <h4><span class="mw-headline" id="Xfce">Xfce</span></h4>
-<p>For a login manager, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lxdm-consolekit/">lxdm-consolekit</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> or <a href="../wiki/LightDM.html" title="LightDM">LightDM</a> could be used.
+<p>For a login manager, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lxdm-consolekit/">lxdm-consolekit</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/C/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> or <a href="/Usage/Configuration/C/LightDM.html" title="LightDM">LightDM</a> could be used.
 </p>
 <h4><span class="mw-headline" id="Mate">Mate</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mate-session-manager-upower/">mate-session-manager-upower</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mate-power-manager-upower/">mate-power-manager-upower</a></span><sup><small>AUR</small></sup>.
+<p><a href="/Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mate-session-manager-upower/">mate-session-manager-upower</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mate-power-manager-upower/">mate-power-manager-upower</a></span><sup><small>AUR</small></sup>.
 </p>
 <p>If you use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mdm-display-manager/">mdm-display-manager</a></span><sup><small>AUR</small></sup> as a login manager and have trouble logging in, edit <code>/etc/pam.d/mdm</code>, comment out <code>session required pam_systemd.so</code> and restart <code>mdm</code>. Additionally append <code>session optional pam_ck_connector.so nox11</code> if you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/consolekit/">consolekit</a></span><sup><small>AUR</small></sup> installed.
 </p>
@@ -182,7 +182,7 @@ compiz ccp
        login-session-id = '7'
 </pre>
 <h3><span class="mw-headline" id="Consolekit_blocks_active_TTY">Consolekit blocks active TTY</span></h3>
-<p>Configure <a href="../wiki/Init.html" title="Init">init</a> to start ConsoleKit on an unused TTY, for example:
+<p>Configure <a href="/Usage/Configuration/C/Init.html" title="Init">init</a> to start ConsoleKit on an unused TTY, for example:
 </p>
 <pre>/usr/bin/openvt -c 63 -f -- /usr/sbin/console-kit-daemon --no-daemon &amp;
 </pre>
@@ -193,14 +193,14 @@ compiz ccp
 </p>
 <pre>startx -- -keeptty
 </pre>
-<p>See also <a href="../wiki/Xorg.html#Broken_redirection" title="Xorg">Xorg#Broken redirection</a><sup>[<a href="../wiki/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.
+<p>See also <a href="/Usage/Configuration/C/Xorg.html#Broken_redirection" title="Xorg">Xorg#Broken redirection</a><sup>[<a href="/Usage/Configuration/C/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.
 </p>
 <h2><span class="mw-headline" id="Replacing_ConsoleKit_with_systemd-logind">Replacing ConsoleKit with systemd-logind</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <i>systemd-logind</i> requires booting with <a href="../wiki/Systemd.html" title="Systemd">systemd</a> to be functional.</div>
+<strong>Note:</strong> <i>systemd-logind</i> requires booting with <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a> to be functional.</div>
 <p>Remove references to <code>ck-launch-session</code> from <code>~/.xinitrc</code>.
 </p>
-<p>See <a href="../wiki/General_troubleshooting.html#Session_permissions" class="mw-redirect" title="Session">Session</a> to check the status of your user session.
+<p>See <a href="/Usage/Configuration/C/General_troubleshooting.html#Session_permissions" class="mw-redirect" title="Session">Session</a> to check the status of your user session.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -211,11 +211,11 @@ compiz ccp
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Init.html" title="Category:Init">Init</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Init.html" title="Category:Init">Init</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../wiki/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
 </ul>
 </div>
 </div>
@@ -234,9 +234,9 @@ compiz ccp
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

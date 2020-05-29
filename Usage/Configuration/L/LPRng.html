@@ -2,7 +2,7 @@
     title: LPRng
     description: Migration of LPRng from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -26,7 +26,7 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><i>The LPRng software is an enhanced, extended, and portable implementation of the Berkeley LPR print spooler functionality. While providing the same interface and meeting RFC1179 requirements, the implementation is completely new and provides support for the following features: lightweight (no databases needed) lpr, lpc, and lprm programs; dynamic redirection of print queues; automatic job holding; highly verbose diagnostics; multiple printers serving a single queue; client programs do not need to run SUID root; greatly enhanced security checks; and a greatly improved permission and authorization mechanism.</i>
 </p>
-<p>LPRng is mature and stable and incorporates a flexible print filtering mechanism.  It excels as a print server but can be used as a print client.  It can also print from <a href="../wiki/CUPS.html" title="CUPS">CUPS</a> clients installed on other machines with minor hand configuration on the CUPS side. 
+<p>LPRng is mature and stable and incorporates a flexible print filtering mechanism.  It excels as a print server but can be used as a print client.  It can also print from <a href="/Usage/Configuration/L/CUPS.html" title="CUPS">CUPS</a> clients installed on other machines with minor hand configuration on the CUPS side. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> A disadvantage of LPRng is that Gnome3/GTK3 (including chrome and chromium) and KDE do not support lpr printing from their GUI. However, printing to a file and then using lpr works, though it is inconvenient.</div>
@@ -144,7 +144,7 @@
 <p>If you wish to have separate single-sided and double-sided print queues, make two copies with different names and edit appropriately.
 </p>
 <h4><span class="mw-headline" id="Foomatic_system">Foomatic system</span></h4>
-<p>Another mechanism for print filtering is via the Foomatic system. This system used by <a href="../wiki/CUPS.html" title="CUPS">CUPS</a>. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/foomatic-filters-lprng/">foomatic-filters-lprng</a></span><sup><small>AUR</small></sup> as the <code>foomatic-rip</code> program in the CUPS installation has been modified to remove LPRng support).  
+<p>Another mechanism for print filtering is via the Foomatic system. This system used by <a href="/Usage/Configuration/L/CUPS.html" title="CUPS">CUPS</a>. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/foomatic-filters-lprng/">foomatic-filters-lprng</a></span><sup><small>AUR</small></sup> as the <code>foomatic-rip</code> program in the CUPS installation has been modified to remove LPRng support).  
 </p>
 <p>Use <code>foofilter</code> as described above, editing for your desired <code>.ppd file</code>.  Install the <code>.ppd</code> file in conformance with the path specified in <code>foofilter</code>. (<code>/etc/lprng/lpd</code> is a good location.)
 </p>
@@ -188,12 +188,12 @@ HL2035:\
 <p>This will check your configuration and create spool directories in <code>/var/spool/lpd</code>.  If <code>checkpc</code> complains about something, address the issue and rerun.
 </p>
 <h3><span class="mw-headline" id="Start_the_lpd_daemon">Start the lpd daemon</span></h3>
-<p>LPRng runs a daemon in background called <code>lpd</code> to manage print requests. <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> this daemon using <a href="../wiki/Systemd.html" title="Systemd">systemd</a>.  If these commands complete without complaint, you should be good to go.
+<p>LPRng runs a daemon in background called <code>lpd</code> to manage print requests. <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> this daemon using <a href="/Usage/Configuration/L/Systemd.html" title="Systemd">systemd</a>.  If these commands complete without complaint, you should be good to go.
 </p>
 <pre>systemctl start lpd.service
 systemctl enable lpd.service
 </pre>
-<p>If any configuration files are changed, one must <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>lpd</code>.
+<p>If any configuration files are changed, one must <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>lpd</code>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>The <code>lpr</code> command is the printing tool in LPRng.  The general form of use is
@@ -204,11 +204,11 @@ systemctl enable lpd.service
 <p>Other useful commands are <code>lpq</code> (examine the print queue) and <code>lprm</code> (remove a print job from the queue).  See the man pages for <code>lpr</code>, <code>lpq</code>, and <code>lprm</code>.
 </p>
 <h2><span class="mw-headline" id="CUPS_and_LPRng">CUPS and LPRng</span></h2>
-<p><a href="../wiki/CUPS.html" title="CUPS">CUPS</a> may be used to access a printer on a server from a client machine on which LPRng is not installed.  The trick is to configure CUPS to access the printer via the <code>lpd</code> protocol.  This is easy to do using the web interface to CUPS.  Also, since the server as set up here does all necessary print filtering, tell CUPS to use the <code>raw</code> filter.  Alternative divisions between filtering responsibilities can be devised, depending on your needs.
+<p><a href="/Usage/Configuration/L/CUPS.html" title="CUPS">CUPS</a> may be used to access a printer on a server from a client machine on which LPRng is not installed.  The trick is to configure CUPS to access the printer via the <code>lpd</code> protocol.  This is easy to do using the web interface to CUPS.  Also, since the server as set up here does all necessary print filtering, tell CUPS to use the <code>raw</code> filter.  Alternative divisions between filtering responsibilities can be devised, depending on your needs.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Printer_specific_instrcutions">Printer specific instrcutions</span></h3>
-<p>Despite its title, some of the information at <a href="../wiki/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a> is not Cups specific.
+<p>Despite its title, some of the information at <a href="/Usage/Configuration/L/CUPS/Printer-specific_problems.html" title="CUPS/Printer-specific problems">CUPS/Printer-specific problems</a> is not Cups specific.
 </p>
 <h3>
 <span id="Gnome2.2FGTK2"></span><span class="mw-headline" id="Gnome2/GTK2">Gnome2/GTK2</span>
@@ -236,7 +236,7 @@ An alternative filter, <code>pdf2ps</code> from the <span class="plainlinks arch
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/L/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -253,9 +253,9 @@ An alternative filter, <code>pdf2ps</code> from the <span class="plainlinks arch
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

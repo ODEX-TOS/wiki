@@ -2,7 +2,7 @@
     title: Convert_FLAC_to_MP3
     description: Migration of Convert_FLAC_to_MP3 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Convert_any_Movie_to_DVD_Video.html" title="Convert any Movie to DVD Video">Convert any Movie to DVD Video</a></li>
+<li><a href="/Usage/Configuration/C/Convert_any_Movie_to_DVD_Video.html" title="Convert any Movie to DVD Video">Convert any Movie to DVD Video</a></li>
 </ul>
 </div>
 <p>This article outlines different ways to transcode from FLAC to MP3. FLAC is a lossless audio format, so it is better for archival purposes, but it also takes up more disk space. The idea is to compress the files without creating a perceived loss in fidelity.
@@ -73,7 +73,7 @@
 </ul>
 <h2><span class="mw-headline" id="Graphical_applications">Graphical applications</span></h2>
 <ul><li>
-<b>SoundConverter</b> — A dedicated audio transcoding utility built for the <a href="../wiki/GNOME.html" title="GNOME">GNOME</a> desktop and relying on GStreamer. It can make use of <a rel="nofollow"  href="https://help.gnome.org/users/gnome-audio-profiles/stable/gnome-audio-profiles-usage.html.en">GNOME Audio Profiles</a> and features multithreaded conversions. It can also extract the audio from videos.</li></ul>
+<b>SoundConverter</b> — A dedicated audio transcoding utility built for the <a href="/Usage/Configuration/C/GNOME.html" title="GNOME">GNOME</a> desktop and relying on GStreamer. It can make use of <a rel="nofollow"  href="https://help.gnome.org/users/gnome-audio-profiles/stable/gnome-audio-profiles-usage.html.en">GNOME Audio Profiles</a> and features multithreaded conversions. It can also extract the audio from videos.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://soundconverter.org/">http://soundconverter.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=soundconverter">soundconverter</a></span>
 </dd></dl>
@@ -96,7 +96,7 @@
 <p>For ease of use, add the script to your <code>PATH</code>. Open up a terminal, <code>cd</code> to the directory of FLAC files that you wish to convert, and invoke <code>flac2mp3</code> (or whatever you named the script). You will see the verbose decoding/encoding process in the terminal which may take a few moments. Done! At this point, it is trivial to <code>mv *.mp3</code> all your new MP3s wherever you wish.
 </p>
 <h3><span class="mw-headline" id="With_FFmpeg">With FFmpeg</span></h3>
-<p>Chances are, your system already has <a href="../wiki/FFmpeg.html" title="FFmpeg">FFmpeg</a> installed, which brings in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flac">flac</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lame">lame</a></span> packages. FFmpeg has all the encoding and decoding facilities built in to do the job.
+<p>Chances are, your system already has <a href="/Usage/Configuration/C/FFmpeg.html" title="FFmpeg">FFmpeg</a> installed, which brings in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flac">flac</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lame">lame</a></span> packages. FFmpeg has all the encoding and decoding facilities built in to do the job.
 </p>
 <pre>#!/bin/bash
 
@@ -105,14 +105,14 @@ for a in ./*.flac; do
 done
 </pre>
 <h4><span class="mw-headline" id="Parallel_version">Parallel version</span></h4>
-<p>Since LAME is a single-threaded encoder, conversion can be accelerated by encoding multiple files concurrently on multiple cores. To do this, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=parallel">parallel</a></span> package, and run:
+<p>Since LAME is a single-threaded encoder, conversion can be accelerated by encoding multiple files concurrently on multiple cores. To do this, <a href="/Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=parallel">parallel</a></span> package, and run:
 </p>
 <pre>parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac
 </pre>
 <h4><span class="mw-headline" id="Parallel_with_recursion">Parallel with recursion</span></h4>
-<p>Fd is a fast, user-friendly alternative to <a href="../wiki/Core_utilities.html#Essentials" class="mw-redirect" title="Find">find</a>. This one liner avoids the "while read" loop, which may have performance implications according to a response on Stack Exchange. <a rel="nofollow"  href="https://unix.stackexchange.com/questions/169716/why-is-using-a-shell-loop-to-process-text-considered-bad-practice/">[1]</a> 
+<p>Fd is a fast, user-friendly alternative to <a href="/Usage/Configuration/C/Core_utilities.html#Essentials" class="mw-redirect" title="Find">find</a>. This one liner avoids the "while read" loop, which may have performance implications according to a response on Stack Exchange. <a rel="nofollow"  href="https://unix.stackexchange.com/questions/169716/why-is-using-a-shell-loop-to-process-text-considered-bad-practice/">[1]</a> 
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fd">fd</a></span> first, then run:
+<p><a href="/Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fd">fd</a></span> first, then run:
 </p>
 <pre>fd -t f -e flac -x ffmpeg -i "{}" -qscale:a 0 "{.}.mp3"
 </pre>
@@ -184,7 +184,7 @@ done
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Audio.html" title="Category:Audio">Audio</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Audio.html" title="Category:Audio">Audio</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -201,9 +201,9 @@ done
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

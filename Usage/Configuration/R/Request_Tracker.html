@@ -2,7 +2,7 @@
     title: Request_Tracker
     description: Migration of Request_Tracker from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -52,12 +52,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>This guide will help create a new RT (Request Tracker) server using <a href="../wiki/MySQL.html" title="MySQL">MySQL</a>, <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, and mod_perl with a location of <a rel="nofollow"  href="http://localhost/rt">http://localhost/rt</a>.  RT also supports other database types, web servers (even as a daemon on it's own), Perl engines, and configurations that are not explained here (please consult the <a rel="nofollow"  href="https://github.com/bestpractical/rt/blob/stable/docs/web_deployment.pod">appropriate RT documentation</a>).
+<p>This guide will help create a new RT (Request Tracker) server using <a href="/Usage/Configuration/R/MySQL.html" title="MySQL">MySQL</a>, <a href="/Usage/Configuration/R/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, and mod_perl with a location of <a rel="nofollow"  href="http://localhost/rt">http://localhost/rt</a>.  RT also supports other database types, web servers (even as a daemon on it's own), Perl engines, and configurations that are not explained here (please consult the <a rel="nofollow"  href="https://github.com/bestpractical/rt/blob/stable/docs/web_deployment.pod">appropriate RT documentation</a>).
 </p>
 <h3><span class="mw-headline" id="Install_the_packages">Install the packages</span></h3>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rt/">rt</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/R/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rt/">rt</a></span><sup><small>AUR</small></sup> package.
 </p>
-<p>Be prepared to install a truckload of Perl dependencies: you'll need about 70 from the AUR and approximately 90 from the mirrors!  An AUR wrapper will definitely help you out here.  You will also want to install <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> (also referred to as httpd) if it isn't on your server already.
+<p>Be prepared to install a truckload of Perl dependencies: you'll need about 70 from the AUR and approximately 90 from the mirrors!  An AUR wrapper will definitely help you out here.  You will also want to install <a href="/Usage/Configuration/R/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> (also referred to as httpd) if it isn't on your server already.
 </p>
 <h3><span class="mw-headline" id="Configure_Apache">Configure Apache</span></h3>
 <p>Add this line to your LoadModule section in /etc/httpd/conf/httpd.conf:
@@ -89,7 +89,7 @@ DocumentRoot "/opt/rt4/share/html"
 &lt;/Perl&gt;
 </pre>
 <h3><span class="mw-headline" id="Create_a_MySQL_database">Create a MySQL database</span></h3>
-<p>A <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> server needs to be installed and running.  Create a database for RT by running the following as root (as it writes to /opt/rt4/etc/schema.mysql):
+<p>A <a href="/Usage/Configuration/R/MySQL.html" title="MySQL">MySQL</a> server needs to be installed and running.  Create a database for RT by running the following as root (as it writes to /opt/rt4/etc/schema.mysql):
 </p>
 <pre># /opt/rt4/sbin/rt-setup-database --action init
 </pre>
@@ -98,19 +98,19 @@ DocumentRoot "/opt/rt4/share/html"
 </p>
 <pre>Set($<i>variable</i>, '<i><b>setting'</b></i>);
 </pre>
-<p><b>At the very least, make two important changes.</b>  <i>WebPath</i> depicts where on the DocumentRoot RT is served (in our case, http://<i>ip_address</i>/rt) and is necessary for the CSS and images to load properly.  <i>DatabasePassword</i> is the <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> database password RT will use when connecting with the internal user (defaults to <i>rt_user</i>).  Append this to RT_SiteConfig.pm:
+<p><b>At the very least, make two important changes.</b>  <i>WebPath</i> depicts where on the DocumentRoot RT is served (in our case, http://<i>ip_address</i>/rt) and is necessary for the CSS and images to load properly.  <i>DatabasePassword</i> is the <a href="/Usage/Configuration/R/MySQL.html" title="MySQL">MySQL</a> database password RT will use when connecting with the internal user (defaults to <i>rt_user</i>).  Append this to RT_SiteConfig.pm:
 </p>
 <pre>Set($WebPath, '/rt');
 Set($DatabasePassword, '<i><b>your_password'</b></i>);
 </pre>
-<p>After setting a database password, connect to the database (<a rel="nofollow"  href="http://dev.mysql.com/tech-resources/articles/mysql_intro.html#SECTION0003000000">like so</a>) and update the <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> user accordingly:
+<p>After setting a database password, connect to the database (<a rel="nofollow"  href="http://dev.mysql.com/tech-resources/articles/mysql_intro.html#SECTION0003000000">like so</a>) and update the <a href="/Usage/Configuration/R/MySQL.html" title="MySQL">MySQL</a> user accordingly:
 </p>
 <pre>USE mysql;
 UPDATE user SET password=PASSWORD('<i><b>your_password'</b></i>) WHERE user='rt_user';
 FLUSH PRIVILEGES;
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Since the internal user will barely, if ever, be used to manually log in to your <a href="../wiki/MySQL.html" title="MySQL">MySQL</a> server, make the password nice and strong.  There is a program in the mirrors called <i>pwgen</i> for this.  A good, random, 50-character password should work just fine for keeping the crackers out ;)</div>
+<strong>Tip:</strong> Since the internal user will barely, if ever, be used to manually log in to your <a href="/Usage/Configuration/R/MySQL.html" title="MySQL">MySQL</a> server, make the password nice and strong.  There is a program in the mirrors called <i>pwgen</i> for this.  A good, random, 50-character password should work just fine for keeping the crackers out ;)</div>
 <h2><span class="mw-headline" id="Using_RT">Using RT</span></h2>
 <p>After completing the sections above, (re)start httpd and try connecting to <a rel="nofollow"  href="http://localhost/rt">http://localhost/rt</a>!  The default admin credentials are root:password.
 </p>
@@ -123,7 +123,7 @@ FLUSH PRIVILEGES;
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Issue_tracking_systems.html" title="Category:Issue tracking systems">Issue tracking systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:Issue_tracking_systems.html" title="Category:Issue tracking systems">Issue tracking systems</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -140,9 +140,9 @@ FLUSH PRIVILEGES;
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

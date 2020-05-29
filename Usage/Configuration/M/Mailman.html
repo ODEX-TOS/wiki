@@ -2,7 +2,7 @@
     title: Mailman
     description: Migration of Mailman from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://gitlab.com/mailman/mailman">Mailman</a> is a mailing list management system. It is used in conjunction with a <a href="../wiki/Mail_server.html" title="Mail server">mail server</a>.
+<p><a rel="nofollow"  href="https://gitlab.com/mailman/mailman">Mailman</a> is a mailing list management system. It is used in conjunction with a <a href="/Usage/Configuration/M/Mail_server.html" title="Mail server">mail server</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -66,40 +66,40 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman3">mailman3</a></span> package.
+<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman3">mailman3</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman3">mailman3</a></span> will replace <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman">mailman</a></span> in the near future. As both applications make use of <code>/var/lib/mailman</code> as state directory and the <code>mailman</code> user, they currently conflict and can not be installed alongside each other.</div>
-<p>Mailman can be used in conjunction with <a href="../wiki/Postorius.html" title="Postorius">Postorius</a> (for configuration) and <a href="../wiki/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> (for archiving).
+<p>Mailman can be used in conjunction with <a href="/Usage/Configuration/M/Postorius.html" title="Postorius">Postorius</a> (for configuration) and <a href="/Usage/Configuration/M/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> (for archiving).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <i>Mailman</i> runs as a dedicated <code>mailman</code> user, therefore any calls to the <code>mailman</code> executable have to be done as the <code>mailman</code> user.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>All configuration for Mailman takes place in <code>/etc/mailman.cfg</code>. The schema explaining all possible configuration options and setting the defaults is stored in <code>/usr/lib/python3.8/site-packages/mailman/config/schema.cfg</code>.
 </p>
-<p>The configuration is also accessible via the command line. Run the following command as the <code>mailman</code> user (e.g. using <a href="../wiki/Sudo.html" title="Sudo">sudo</a> or <a href="../wiki/Su.html" title="Su">su</a>):
+<p>The configuration is also accessible via the command line. Run the following command as the <code>mailman</code> user (e.g. using <a href="/Usage/Configuration/M/Sudo.html" title="Sudo">sudo</a> or <a href="/Usage/Configuration/M/Su.html" title="Su">su</a>):
 </p>
 <pre>[mailman]$ mailman conf
 </pre>
 <h3><span class="mw-headline" id="Database">Database</span></h3>
-<p>Mailman by default uses an <a href="../wiki/SQLite.html" title="SQLite">SQLite</a> <a rel="nofollow"  href="https://mailman.readthedocs.io/wiki/latest/src/mailman/docs/database.html">database</a> in <code>/var/lib/mailman/data/</code>, but can be configured to use <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a> or <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p>Mailman by default uses an <a href="/Usage/Configuration/M/SQLite.html" title="SQLite">SQLite</a> <a rel="nofollow"  href="https://mailman.readthedocs.io/wiki/latest/src/mailman/docs/database.html">database</a> in <code>/var/lib/mailman/data/</code>, but can be configured to use <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a> or <a href="/Usage/Configuration/M/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
 <h4><span class="mw-headline" id="SQLite">SQLite</span></h4>
-<p>The default location for the <a href="../wiki/SQLite.html" title="SQLite">SQLite</a> database is already reflected in the <code>schema.cfg</code> and therefore does not have to be set in Mailman's configuration.
+<p>The default location for the <a href="/Usage/Configuration/M/SQLite.html" title="SQLite">SQLite</a> database is already reflected in the <code>schema.cfg</code> and therefore does not have to be set in Mailman's configuration.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mailman.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[database]
 url: sqlite:////var/lib/mailman/data/mailman.db
 </pre>
 <h4><span class="mw-headline" id="MariaDB">MariaDB</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-pymysql">python-pymysql</a></span> package and configure a database on <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a>.
+<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-pymysql">python-pymysql</a></span> package and configure a database on <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mailman.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[database]
 class: mailman.database.mysql.MySQLDatabase
 url: mysql+pymysql://<i>myuser</i>:<i>mypassword</i>@<i>mymysqlhost</i>/mailman?charset=utf8&amp;use_unicode=1</pre>
 <h4><span class="mw-headline" id="PostgreSQL">PostgreSQL</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-psycopg2">python-psycopg2</a></span> package and create a database using <a href="../wiki/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-psycopg2">python-psycopg2</a></span> package and create a database using <a href="/Usage/Configuration/M/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mailman.cfg</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[database]
@@ -107,9 +107,9 @@ class: mailman.database.postgresql.PostgreSQLDatabase
 url: postgres://<i>myuser</i>:<i>mypassword</i>@<i>mypghost</i>/mailman
 </pre>
 <h2><span class="mw-headline" id="Running">Running</span></h2>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>mailman3.service</code>.
+<p><a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>mailman3.service</code>.
 </p>
-<p>Several <a href="../wiki/Systemd.html" title="Systemd">systemd</a> services with timers exist, taking care of various aspects of the list management:
+<p>Several <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> services with timers exist, taking care of various aspects of the list management:
 </p>
 <ul>
 <li>
@@ -124,12 +124,12 @@ url: postgres://<i>myuser</i>:<i>mypassword</i>@<i>mypghost</i>/mailman
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Example for setup with <a href="../wiki/Mail_server.html" title="Mail server">mail server</a> (based on <a rel="nofollow"  href="https://mailman.readthedocs.io/wiki/latest/src/mailman/docs/mta.html">upstream documentation</a>). (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Mailman">Talk:Mailman#</a>)</div>
+<b>Reason:</b> Example for setup with <a href="/Usage/Configuration/M/Mail_server.html" title="Mail server">mail server</a> (based on <a rel="nofollow"  href="https://mailman.readthedocs.io/wiki/latest/src/mailman/docs/mta.html">upstream documentation</a>). (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Mailman">Talk:Mailman#</a>)</div>
 </div>
 <h3><span class="mw-headline" id="Integrate_with_Hyperkitty">Integrate with Hyperkitty</span></h3>
-<p>Mailman does not automatically archive mails on its own. The <a href="../wiki/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> web application is used for this purpose. Based on a plugin, mailman is able to send mails to a <a href="../wiki/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> instance for archival.
+<p>Mailman does not automatically archive mails on its own. The <a href="/Usage/Configuration/M/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> web application is used for this purpose. Based on a plugin, mailman is able to send mails to a <a href="/Usage/Configuration/M/Hyperkitty.html" title="Hyperkitty">Hyperkitty</a> instance for archival.
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman3-hyperkitty">mailman3-hyperkitty</a></span> package and configure <code>/etc/mailman-hyperkitty.cfg</code>.
+<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman3-hyperkitty">mailman3-hyperkitty</a></span> package and configure <code>/etc/mailman-hyperkitty.cfg</code>.
 </p>
 <p>Afterwards, make mailman aware of the plugin:
 </p>
@@ -143,7 +143,7 @@ configuration: /etc/mailman-hyperkitty.cfg
 <h3>
 <span id="Migrate_from_mailman_.3C_3.0"></span><span class="mw-headline" id="Migrate_from_mailman_&lt;_3.0">Migrate from mailman &lt; 3.0</span>
 </h3>
-<p>Mailman offers the possibility of importing mailman &lt; 3.0 based list databases (<code>config.pck</code>). Run the following command as the <code>mailman</code> user (e.g. using <a href="../wiki/Sudo.html" title="Sudo">sudo</a> or <a href="../wiki/Su.html" title="Su">su</a>):
+<p>Mailman offers the possibility of importing mailman &lt; 3.0 based list databases (<code>config.pck</code>). Run the following command as the <code>mailman</code> user (e.g. using <a href="/Usage/Configuration/M/Sudo.html" title="Sudo">sudo</a> or <a href="/Usage/Configuration/M/Su.html" title="Su">su</a>):
 </p>
 <pre>[mailman]$ mailman import21 <i>LISTSPEC</i> <i>PICKLE_FILE</i>
 </pre>
@@ -171,11 +171,11 @@ configuration: /etc/mailman-hyperkitty.cfg
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Email.html" title="Category:Email">Email</a></li>
-<li><a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
+<li><a href="/Usage/Configuration/M/Category:Email.html" title="Category:Email">Email</a></li>
+<li><a href="/Usage/Configuration/M/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/M/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -193,9 +193,9 @@ configuration: /etc/mailman-hyperkitty.cfg
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Wake-on-LAN
     description: Migration of Wake-on-LAN from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -101,7 +101,7 @@
 <h3><span class="mw-headline" id="Enable_WoL_on_the_network_adapter">Enable WoL on the network adapter</span></h3>
 <p>Depending on the hardware, the network driver may have WoL switched off by default.
 </p>
-<p>To query this status or to change the settings, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ethtool">ethtool</a></span>, determine the name of the <a href="../wiki/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>, and query it using the command:
+<p>To query this status or to change the settings, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ethtool">ethtool</a></span>, determine the name of the <a href="/Usage/Configuration/W/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>, and query it using the command:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># ethtool <i>interface</i> | grep Wake-on</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Supports Wake-on: pumbag
@@ -116,7 +116,7 @@ Wake-on: d</pre>
 </p>
 <h3><span class="mw-headline" id="Make_it_persistent">Make it persistent</span></h3>
 <h4><span class="mw-headline" id="systemd.link">systemd.link</span></h4>
-<p>Link-level configuration is possible through <a href="../wiki/Systemd-networkd.html#link_files" title="Systemd-networkd">systemd-networkd#link files</a>. The actual setup is performed by the <code>net_setup_link</code> udev builtin. Add the <code>WakeOnLan</code> option to the network link file:
+<p>Link-level configuration is possible through <a href="/Usage/Configuration/W/Systemd-networkd.html#link_files" title="Systemd-networkd">systemd-networkd#link files</a>. The actual setup is performed by the <code>net_setup_link</code> udev builtin. Add the <code>WakeOnLan</code> option to the network link file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/network/50-wired.link</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Match]
@@ -133,7 +133,7 @@ MACAddressPolicy=persistent
 <ul>
 <li>Only the first matching file is is applied. The content of the default link file <code>/usr/lib/systemd/network/99-default.link</code> shipped with systemd has to be included, otherwise the interface might be misconfigured.</li>
 <li>To be considered, the file name should alphabetically come before the default <code>99-default.link</code>. For example <code>50-wired.link</code> works.</li>
-<li>This configuration applies only to the link-level, and is independent of network-level daemons such as <a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> or <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a>.</li>
+<li>This configuration applies only to the link-level, and is independent of network-level daemons such as <a href="/Usage/Configuration/W/NetworkManager.html" title="NetworkManager">NetworkManager</a> or <a href="/Usage/Configuration/W/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a>.</li>
 <li>In the <code>Match</code> section, <code>OriginalName=</code> can also be used to identify the interface.</li>
 </ul>
 </div>
@@ -152,22 +152,22 @@ Type=oneshot
 
 [Install]
 WantedBy=multi-user.target</pre>
-<p>Alternatively install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/wol-systemd/">wol-systemd</a></span><sup><small>AUR</small></sup> package, then activate this new service by <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>wol@<i>interface</i>.service</code>.
+<p>Alternatively install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/wol-systemd/">wol-systemd</a></span><sup><small>AUR</small></sup> package, then activate this new service by <a href="/Usage/Configuration/W/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>wol@<i>interface</i>.service</code>.
 </p>
 <h4><span class="mw-headline" id="udev">udev</span></h4>
-<p><a href="../wiki/Udev.html" title="Udev">udev</a> is capable of running any command as soon as a device is visible. The following rule will turn on WOL on all <a href="../wiki/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interfaces</a> whose name matches <code>enp*</code>. The file name is important and must start with a number between 81 and 99 so that it runs <b>after</b> <code>80-net-setup-link.rules</code>, which renames interfaces with predicable names. Otherwise, <code>NAME</code> would be undefined and the rule would not run.
+<p><a href="/Usage/Configuration/W/Udev.html" title="Udev">udev</a> is capable of running any command as soon as a device is visible. The following rule will turn on WOL on all <a href="/Usage/Configuration/W/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interfaces</a> whose name matches <code>enp*</code>. The file name is important and must start with a number between 81 and 99 so that it runs <b>after</b> <code>80-net-setup-link.rules</code>, which renames interfaces with predicable names. Otherwise, <code>NAME</code> would be undefined and the rule would not run.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/<b>81</b>-wol.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ACTION=="add", SUBSYSTEM=="net", NAME=="enp*", RUN+="/usr/bin/ethtool -s $name wol g"</pre>
 <p>The <code>$name</code> placeholder will be replaced by the value of the <code>NAME</code> variable for the matched device.
 </p>
 <h4><span class="mw-headline" id="cron">cron</span></h4>
-<p>A command can be run each time the computer is (re)booted using "@reboot" in a crontab. First, make sure <a href="../wiki/Cron.html#Installation" title="Cron">cron</a> is enabled, and then <a href="../wiki/Cron.html#Basic_commands" title="Cron">edit a crontab</a> for the root user that contains the following line:
+<p>A command can be run each time the computer is (re)booted using "@reboot" in a crontab. First, make sure <a href="/Usage/Configuration/W/Cron.html#Installation" title="Cron">cron</a> is enabled, and then <a href="/Usage/Configuration/W/Cron.html#Basic_commands" title="Cron">edit a crontab</a> for the root user that contains the following line:
 </p>
 <pre>@reboot /usr/bin/ethtool -s <i>interface</i> wol g
 </pre>
 <h4><span class="mw-headline" id="netctl">netctl</span></h4>
-<p>If using <a href="../wiki/Netctl.html" title="Netctl">netctl</a>, one can make this setting persistent by adding the following the netctl profile:
+<p>If using <a href="/Usage/Configuration/W/Netctl.html" title="Netctl">netctl</a>, one can make this setting persistent by adding the following the netctl profile:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/netctl/<i>profile</i></pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ExecUpPost='/usr/bin/ethtool -s <i>interface</i> wol g'</pre>
@@ -199,7 +199,7 @@ wired1  612e300a-c047-4adb-91e2-12ea7bfe214e  802-3-ethernet  enp0s25</pre>
 ethernet.wake-on-lan = ignore
 wifi.wake-on-wlan = ignore</pre>
 <h3><span class="mw-headline" id="Enable_WoL_in_TLP">Enable WoL in TLP</span></h3>
-<p>When using <a href="../wiki/TLP.html" title="TLP">TLP</a> for suspend/hibernate, the <code>WOL_DISABLE</code> setting should be set to <code>N</code> in <code>/etc/default/tlp</code> to allow resuming the computer with WoL.
+<p>When using <a href="/Usage/Configuration/W/TLP.html" title="TLP">TLP</a> for suspend/hibernate, the <code>WOL_DISABLE</code> setting should be set to <code>N</code> in <code>/etc/default/tlp</code> to allow resuming the computer with WoL.
 </p>
 <h2><span class="mw-headline" id="Trigger_a_wake_up">Trigger a wake up</span></h2>
 <p>To trigger WoL on a target machine, its <b>MAC address</b> must be known.
@@ -330,15 +330,15 @@ This activates the following quirks:
 <pre># ethtool -s net0 wol d
 </pre>
 <h3><span class="mw-headline" id="Realtek">Realtek</span></h3>
-<p>Users with Realtek 8168 8169 8101 8111(C) based NICs (cards / and on-board) may notice a problem where the NIC seems to be disabled on boot and has no Link light. See <a href="../wiki/Network_configuration/Ethernet.html#Realtek_no_link_/_WOL_problem" title="Network configuration/Ethernet">Network configuration/Ethernet#Realtek no link / WOL problem</a>.
+<p>Users with Realtek 8168 8169 8101 8111(C) based NICs (cards / and on-board) may notice a problem where the NIC seems to be disabled on boot and has no Link light. See <a href="/Usage/Configuration/W/Network_configuration/Ethernet.html#Realtek_no_link_/_WOL_problem" title="Network configuration/Ethernet">Network configuration/Ethernet#Realtek no link / WOL problem</a>.
 </p>
 <p>If the link light on the network switch is enabled when the computer is turned off but wake on LAN is still not working, booting the system using the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r8168">r8168</a></span> kernel module at least once and then switching back to the r8169 kernel module included with the kernel seems to fix it at least in the following configurations:
 </p>
 <ul><li>MSI B85M-E45 motherboard, BIOS version V10.9, onboard Realtek 8111G chipset</li></ul>
-<p>For the <code>r8168</code> module you might need to set the <code>s5wol=1</code> <a href="../wiki/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">module option</a> to enable the wake on LAN functionality.
+<p>For the <code>r8168</code> module you might need to set the <code>s5wol=1</code> <a href="/Usage/Configuration/W/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">module option</a> to enable the wake on LAN functionality.
 </p>
 <h3><span class="mw-headline" id="alx_driver_support">alx driver support</span></h3>
-<p>For some newer Atheros-based NICs (such as Atheros AR8161 and Killer E2500), WOL support has been disabled in the mainline <code>alx</code> module due to a bug causing unintentional wake-up (see <a rel="nofollow"  href="http://www.spinics.net/lists/netdev/msg242477.html">this patch discussion</a>). A patch can be applied (or installed as a <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="Dkms">dkms</a> module) which both restores WOL support and fixes the underlying bug, as outlined in <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=61651">this thread</a>.
+<p>For some newer Atheros-based NICs (such as Atheros AR8161 and Killer E2500), WOL support has been disabled in the mainline <code>alx</code> module due to a bug causing unintentional wake-up (see <a rel="nofollow"  href="http://www.spinics.net/lists/netdev/msg242477.html">this patch discussion</a>). A patch can be applied (or installed as a <a href="/Usage/Configuration/W/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="Dkms">dkms</a> module) which both restores WOL support and fixes the underlying bug, as outlined in <a rel="nofollow"  href="https://bugzilla.kernel.org/show_bug.cgi?id=61651">this thread</a>.
 </p>
 <p>See also the pre-patched sources in <a rel="nofollow"  href="https://github.com/Snugface/alx">[2]</a>.
 </p>
@@ -347,7 +347,7 @@ This activates the following quirks:
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/W/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -364,9 +364,9 @@ This activates the following quirks:
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/W/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/W/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/W/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

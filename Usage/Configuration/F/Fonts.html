@@ -2,7 +2,7 @@
     title: Fonts
     description: Migration of Fonts from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Font_configuration.html" title="Font configuration">Font configuration</a></li>
-<li><a href="../wiki/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a></li>
-<li><a href="../wiki/Java_Runtime_Environment_fonts.html" title="Java Runtime Environment fonts">Java Runtime Environment fonts</a></li>
-<li><a href="../wiki/Metric-compatible_fonts.html" title="Metric-compatible fonts">Metric-compatible fonts</a></li>
-<li><a href="../wiki/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a></li>
+<li><a href="/Usage/Configuration/F/Font_configuration.html" title="Font configuration">Font configuration</a></li>
+<li><a href="/Usage/Configuration/F/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a></li>
+<li><a href="/Usage/Configuration/F/Java_Runtime_Environment_fonts.html" title="Java Runtime Environment fonts">Java Runtime Environment fonts</a></li>
+<li><a href="/Usage/Configuration/F/Metric-compatible_fonts.html" title="Metric-compatible fonts">Metric-compatible fonts</a></li>
+<li><a href="/Usage/Configuration/F/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a></li>
 </ul>
 </div>
 <p>From <a href="https://en.wikipedia.org/wiki/Computer_font"  title="wikipedia:Computer font">Wikipedia:Computer font</a>: "A computer font (or font) is an electronic data file containing a set of glyphs, characters, or symbols such as dingbats."
@@ -157,7 +157,7 @@
 <p>For most purposes, the technical differences between TrueType and OpenType can be ignored.
 </p>
 <h3><span class="mw-headline" id="Other_formats">Other formats</span></h3>
-<p>The typesetting application <a href="../wiki/TeX_Live.html" class="mw-redirect" title="TeX">TeX</a> and its companion font software, <i>Metafont,</i> traditionally renders characters using its own methods. Some file extensions used for fonts from these two programs are <code>*pk</code>, <code>*gf</code>, <code>mf</code> and <code>vf</code>. Modern versions can also use TrueType and OpenType fonts.
+<p>The typesetting application <a href="/Usage/Configuration/F/TeX_Live.html" class="mw-redirect" title="TeX">TeX</a> and its companion font software, <i>Metafont,</i> traditionally renders characters using its own methods. Some file extensions used for fonts from these two programs are <code>*pk</code>, <code>*gf</code>, <code>mf</code> and <code>vf</code>. Modern versions can also use TrueType and OpenType fonts.
 </p>
 <p><a rel="nofollow"  href="https://fontforge.github.io/en-US/">FontForge</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fontforge">fontforge</a></span>), a font editing application, can store fonts in its native text-based format, <code>sfd</code>, <i>s</i>pline <i>f</i>ont <i>d</i>atabase.
 </p>
@@ -167,21 +167,21 @@
 <p>There are various methods for installing fonts.
 </p>
 <h3><span class="mw-headline" id="Pacman">Pacman</span></h3>
-<p>Fonts and font collections in the enabled repositories can be installed using <a href="../wiki/Pacman.html" title="Pacman">pacman</a>.
+<p>Fonts and font collections in the enabled repositories can be installed using <a href="/Usage/Configuration/F/Pacman.html" title="Pacman">pacman</a>.
 </p>
-<p>Available fonts may be found by <a href="../wiki/Pacman.html#Querying_package_databases" title="Pacman">querying packages</a> (e.g. for <code>font</code> or <code>ttf</code>).
+<p>Available fonts may be found by <a href="/Usage/Configuration/F/Pacman.html#Querying_package_databases" title="Pacman">querying packages</a> (e.g. for <code>font</code> or <code>ttf</code>).
 </p>
 <h3><span class="mw-headline" id="Creating_a_package">Creating a package</span></h3>
-<p>You should give pacman the ability to manage your fonts, which is done by <a href="../wiki/Creating_packages.html" title="Creating packages">creating an TOS package</a>. These can also be shared with the community in the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. The packages to install fonts are particularly similar; see <a href="../wiki/Font_package_guidelines.html" class="mw-redirect" title="Font packaging guidelines">Font packaging guidelines</a>.
+<p>You should give pacman the ability to manage your fonts, which is done by <a href="/Usage/Configuration/F/Creating_packages.html" title="Creating packages">creating an TOS package</a>. These can also be shared with the community in the <a href="/Usage/Configuration/F/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. The packages to install fonts are particularly similar; see <a href="/Usage/Configuration/F/Font_package_guidelines.html" class="mw-redirect" title="Font packaging guidelines">Font packaging guidelines</a>.
 </p>
 <p>The family name of a font file can be aquired with the use of <code>fc-query</code> for example: <code>fc-query -f '%{family[0]}\n' /path/to/file</code>. The formatting is described in <span class="plainlinks archwiki-template-man" title="$ man 3 FcPatternFormat"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/FcPatternFormat.3">FcPatternFormat(3)</a></span>.
 </p>
 <h3><span class="mw-headline" id="Manual_installation">Manual installation</span></h3>
 <p>The recommended way of adding fonts that are not in the repositories to your system is described in <a href="#Creating_a_package">#Creating a package</a>. This gives pacman the ability to remove or update them at a later time. Fonts can alternately be installed manually as well.
 </p>
-<p>To install fonts system-wide (available for all users), move the folder to the <code>/usr/share/fonts</code> directory. The files need to be readable by every user, use <a href="../wiki/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> to set the correct permissions (i.e. at least <code>0444</code> for files and <code>0555</code> for directories). To install fonts for only a single user, use <code>~/.local/share/fonts/</code> (<code>~/.fonts/</code> is now deprecated).
+<p>To install fonts system-wide (available for all users), move the folder to the <code>/usr/share/fonts</code> directory. The files need to be readable by every user, use <a href="/Usage/Configuration/F/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> to set the correct permissions (i.e. at least <code>0444</code> for files and <code>0555</code> for directories). To install fonts for only a single user, use <code>~/.local/share/fonts/</code> (<code>~/.fonts/</code> is now deprecated).
 </p>
-<p>For Xserver to load fonts directly (as opposed to the use of a <i>font server</i>) the directory for your newly added font must be added with a FontPath entry. This entry is located in the <i>Files</i> section <a href="../wiki/Xorg.html#Configuration" title="Xorg">of your Xorg configuration file</a> (e.g. <code>/etc/X11/xorg.conf</code> or <code>/etc/xorg.conf</code>). See <a href="#Older_applications">#Older applications</a> for more detail.
+<p>For Xserver to load fonts directly (as opposed to the use of a <i>font server</i>) the directory for your newly added font must be added with a FontPath entry. This entry is located in the <i>Files</i> section <a href="/Usage/Configuration/F/Xorg.html#Configuration" title="Xorg">of your Xorg configuration file</a> (e.g. <code>/etc/X11/xorg.conf</code> or <code>/etc/xorg.conf</code>). See <a href="#Older_applications">#Older applications</a> for more detail.
 </p>
 <p>Then update the fontconfig font cache: (usually unnecessary as software using the fontconfig library does this)
 </p>
@@ -252,7 +252,7 @@ fc-cache: succeeded
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">LiberationMono-Regular.ttf: "Liberation Mono" "Regular"
 </pre>
 <h2><span class="mw-headline" id="Font_packages">Font packages</span></h2>
-<p>This is a selective list that includes many font packages from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> along with those in the official repositories. Fonts are tagged "Unicode" if they have wide <a href="https://en.wikipedia.org/wiki/unicode"  title="wikipedia:unicode">Unicode</a> support.
+<p>This is a selective list that includes many font packages from the <a href="/Usage/Configuration/F/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> along with those in the official repositories. Fonts are tagged "Unicode" if they have wide <a href="https://en.wikipedia.org/wiki/unicode"  title="wikipedia:unicode">Unicode</a> support.
 </p>
 <p>The <a rel="nofollow"  href="https://github.com/ternstor/distrofonts">TOSfonts Python script</a> can be used to generate an overview of all the TTF fonts found in the official repositories / the AUR (the image generation is done using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ttf2png/">ttf2png</a></span><sup><small>AUR</small></sup>).
 </p>
@@ -322,7 +322,7 @@ fc-cache: succeeded
 <li>
 <a href="https://en.wikipedia.org/wiki/Ubuntu_Font_Family"  title="wikipedia:Ubuntu Font Family">Ubuntu Font Family</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ttf-ubuntu-font-family">ttf-ubuntu-font-family</a></span>)</li>
 <li>
-<a href="../wiki/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ttf-ms-win10/">ttf-ms-win10</a></span><sup><small>AUR</small></sup>) – Windows 10 fonts</li>
+<a href="/Usage/Configuration/F/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ttf-ms-win10/">ttf-ms-win10</a></span><sup><small>AUR</small></sup>) – Windows 10 fonts</li>
 </ul>
 <p>Legacy Microsoft font packages:
 </p>
@@ -414,7 +414,7 @@ fc-cache: succeeded
 </ul>
 <h4><span class="mw-headline" id="Unsorted">Unsorted</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/F/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> This section should be absorbed into the Monospace/Serif/Sans-Serif structure (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Fonts">Talk:Fonts#</a>)</div>
 </div>
@@ -473,13 +473,13 @@ fc-cache: succeeded
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=noto-fonts-cjk">noto-fonts-cjk</a></span> - Large collection of fonts which comprehensively support Simplified Chinese, Traditional Chinese, Japanese, and Korean, with a consistent design and look. It is currently a rebadged version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=adobe-source-han-sans-otc-fonts">adobe-source-han-sans-otc-fonts</a></span>.</li>
 </ul>
 <h5><span class="mw-headline" id="Chinese">Chinese</span></h5>
-<p>See <a href="../wiki/Localization/Chinese.html#Fonts" title="Localization/Chinese">Localization/Chinese#Fonts</a>.
+<p>See <a href="/Usage/Configuration/F/Localization/Chinese.html#Fonts" title="Localization/Chinese">Localization/Chinese#Fonts</a>.
 </p>
 <h5><span class="mw-headline" id="Japanese">Japanese</span></h5>
-<p>See <a href="../wiki/Localization/Japanese.html#Fonts" title="Localization/Japanese">Localization/Japanese#Fonts</a>.
+<p>See <a href="/Usage/Configuration/F/Localization/Japanese.html#Fonts" title="Localization/Japanese">Localization/Japanese#Fonts</a>.
 </p>
 <h5><span class="mw-headline" id="Korean">Korean</span></h5>
-<p>See <a href="../wiki/Localization/Korean.html#Fonts" title="Localization/Korean">Localization/Korean#Fonts</a>.
+<p>See <a href="/Usage/Configuration/F/Localization/Korean.html#Fonts" title="Localization/Korean">Localization/Korean#Fonts</a>.
 </p>
 <h5><span class="mw-headline" id="Vietnamese">Vietnamese</span></h5>
 <ul><li>
@@ -510,7 +510,7 @@ fc-cache: succeeded
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/culmus/">culmus</a></span><sup><small>AUR</small></sup> - Nice collection of free Hebrew fonts</li>
 </ul>
 <h4><span class="mw-headline" id="Indic">Indic</span></h4>
-<p>See <a href="../wiki/Localization/Indic.html#Fonts" title="Localization/Indic">Localization/Indic#Fonts</a>.
+<p>See <a href="/Usage/Configuration/F/Localization/Indic.html#Fonts" title="Localization/Indic">Localization/Indic#Fonts</a>.
 </p>
 <h4><span class="mw-headline" id="Khmer">Khmer</span></h4>
 <ul>
@@ -587,7 +587,7 @@ fc-cache: succeeded
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=font-mathematica">font-mathematica</a></span> - Mathematica fonts by Wolfram Research, Inc.</li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=texlive-core">texlive-core</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=texlive-fontsextra">texlive-fontsextra</a></span> contain many math fonts such as Latin Modern Math and <a href="https://en.wikipedia.org/wiki/STIX_Fonts_project"  title="wikipedia:STIX Fonts project">STIX Fonts</a>. See <a href="../wiki/TeX_Live.html#Making_fonts_available_to_Fontconfig" title="TeX Live">TeX Live#Making fonts available to Fontconfig</a> for configuration.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=texlive-core">texlive-core</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=texlive-fontsextra">texlive-fontsextra</a></span> contain many math fonts such as Latin Modern Math and <a href="https://en.wikipedia.org/wiki/STIX_Fonts_project"  title="wikipedia:STIX Fonts project">STIX Fonts</a>. See <a href="/Usage/Configuration/F/TeX_Live.html#Making_fonts_available_to_Fontconfig" title="TeX Live">TeX Live#Making fonts available to Fontconfig</a> for configuration.</li>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/otf-stix/">otf-stix</a></span><sup><small>AUR</small></sup> - A standalone, more recent version of STIX</li>
 <li>
@@ -600,7 +600,7 @@ fc-cache: succeeded
 <h3><span class="mw-headline" id="Other_operating_system_fonts">Other operating system fonts</span></h3>
 <ul><li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ttf-mac-fonts/">ttf-mac-fonts</a></span><sup><small>AUR</small></sup> - Apple MacOS TrueType fonts</li></ul>
-<p>See <a href="../wiki/Metric-compatible_fonts.html" title="Metric-compatible fonts">Metric-compatible fonts</a>, which lists available alternatives for <a href="../wiki/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a>.
+<p>See <a href="/Usage/Configuration/F/Metric-compatible_fonts.html" title="Metric-compatible fonts">Metric-compatible fonts</a>, which lists available alternatives for <a href="/Usage/Configuration/F/Microsoft_fonts.html" title="Microsoft fonts">Microsoft fonts</a>.
 </p>
 <h2><span class="mw-headline" id="Fallback_font_order">Fallback font order</span></h2>
 <p>Fontconfig automatically chooses a font that matches the current requirement. That is to say, if one is looking at a window containing English and Chinese for example, it will switch to another font for the Chinese text if the default one does not support it.
@@ -624,10 +624,10 @@ If you want a particular Chinese font to be selected after your favorite Serif f
 <strong>Tip:</strong> If you use a Chinese locale, set <code>LC_LANG</code> to <code>und</code> to make this work. Otherwise both English and Chinese text will be rendered in the Chinese font.</div>
 <p>You can add a section for sans-serif and monospace as well. For more information, have a look at the fontconfig manual.
 </p>
-<p>See also <a href="../wiki/Font_configuration.html#Replace_or_set_default_fonts" title="Font configuration">Font configuration#Replace or set default fonts</a>.
+<p>See also <a href="/Usage/Configuration/F/Font_configuration.html#Replace_or_set_default_fonts" title="Font configuration">Font configuration#Replace or set default fonts</a>.
 </p>
 <h2><span class="mw-headline" id="Font_alias">Font alias</span></h2>
-<p>There are several font aliases which represent other fonts in order that applications may use similar fonts. The most common aliases are: <code>serif</code> for a font of the serif type (e.g. DejaVu Serif); <code>sans-serif</code> for a font of the sans-serif type (e.g. DejaVu Sans); and <code>monospace</code> for a monospaced font (e.g. DejaVu Sans Mono). However, the fonts which these aliases represent may vary and the relationship is often not shown in font management tools, such as those found in <a href="../wiki/KDE.html" title="KDE">KDE</a> and other <a href="../wiki/Desktop_environment.html" class="mw-redirect" title="Desktop environments">desktop environments</a>.
+<p>There are several font aliases which represent other fonts in order that applications may use similar fonts. The most common aliases are: <code>serif</code> for a font of the serif type (e.g. DejaVu Serif); <code>sans-serif</code> for a font of the sans-serif type (e.g. DejaVu Sans); and <code>monospace</code> for a monospaced font (e.g. DejaVu Sans Mono). However, the fonts which these aliases represent may vary and the relationship is often not shown in font management tools, such as those found in <a href="/Usage/Configuration/F/KDE.html" title="KDE">KDE</a> and other <a href="/Usage/Configuration/F/Desktop_environment.html" class="mw-redirect" title="Desktop environments">desktop environments</a>.
 </p>
 <p>To reverse an alias and find which font it is representing, run:
 </p>
@@ -662,7 +662,7 @@ If you want a particular Chinese font to be selected after your favorite Serif f
 <div>
 <b>Reason:</b> Where is the documentation for the escape codes? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Fonts">Talk:Fonts#</a>)</div>
 </div>
-<p>For terminal emulators that use <a href="../wiki/X_resources.html" title="X resources">X resources</a>, e.g. <a href="../wiki/Xterm.html" title="Xterm">xterm</a> or <a href="../wiki/Rxvt-unicode.html" title="Rxvt-unicode">rxvt-unicode</a>, fonts can be set by using <a href="../wiki/Bash/Prompt_customization.html#Bash_escape_sequences" title="Bash/Prompt customization">escape sequences</a>. Specifically, <code>echo -e "\033]710;$font\007"</code> to change the normal font (<code>*font</code> in <code>~/.Xresources</code>), and replace <code>710</code> with <code>711</code>, <code>712</code>, and <code>713</code> to change the <code>*boldFont</code>, <code>*italicFont</code>, and <code>*boldItalicFont</code>, respectively.
+<p>For terminal emulators that use <a href="/Usage/Configuration/F/X_resources.html" title="X resources">X resources</a>, e.g. <a href="/Usage/Configuration/F/Xterm.html" title="Xterm">xterm</a> or <a href="/Usage/Configuration/F/Rxvt-unicode.html" title="Rxvt-unicode">rxvt-unicode</a>, fonts can be set by using <a href="/Usage/Configuration/F/Bash/Prompt_customization.html#Bash_escape_sequences" title="Bash/Prompt customization">escape sequences</a>. Specifically, <code>echo -e "\033]710;$font\007"</code> to change the normal font (<code>*font</code> in <code>~/.Xresources</code>), and replace <code>710</code> with <code>711</code>, <code>712</code>, and <code>713</code> to change the <code>*boldFont</code>, <code>*italicFont</code>, and <code>*boldItalicFont</code>, respectively.
 </p>
 <p><code>$font</code> uses the same syntax as in <code>~/.Xresources</code> and can be anything the terminal emulator will support. (Example: <code>xft:dejavu sans mono:size=9</code>)
 </p>
@@ -683,11 +683,11 @@ If you want a particular Chinese font to be selected after your favorite Serif f
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Fonts.html" title="Category:Fonts">Fonts</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:Fonts.html" title="Category:Fonts">Fonts</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/F/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/F/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -706,9 +706,9 @@ If you want a particular Chinese font to be selected after your favorite Serif f
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: KMSCON
     description: Migration of KMSCON from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Kernel_mode_setting.html" class="mw-redirect" title="KMS">KMS</a></li>
-<li><a href="../wiki/Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="../wiki/Fbterm.html" title="Fbterm">fbterm</a></li>
+<li><a href="/Usage/Configuration/K/Kernel_mode_setting.html" class="mw-redirect" title="KMS">KMS</a></li>
+<li><a href="/Usage/Configuration/K/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="/Usage/Configuration/K/Fbterm.html" title="Fbterm">fbterm</a></li>
 </ul>
 </div>
 <p>From the project's <a rel="nofollow"  href="http://cgit.freedesktop.org/~dvdhrm/kmscon/tree/README">git repository</a>:
 </p>
-<dl><dd>Kmscon is a simple terminal emulator based on linux-tos<a href="../wiki/Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a>. It is an attempt to replace the in-kernel VT implementation with a userspace console.</dd></dl>
+<dl><dd>Kmscon is a simple terminal emulator based on linux-tos<a href="/Usage/Configuration/K/Kernel_mode_setting.html" title="Kernel mode setting">kernel mode setting</a>. It is an attempt to replace the in-kernel VT implementation with a userspace console.</dd></dl>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -74,7 +74,7 @@
 <h2><span class="mw-headline" id="Install">Install</span></h2>
 <p>Despite its name, KMS is not a hard requirement for kmscon. Kmscon supports the following video backends: fbdev (Linux fbdev video backend), drm2d (Linux DRM software-rendering backend), drm3d (Linux DRM hardware-rendering backend). Make sure one of them is available on your system.
 </p>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kmscon">kmscon</a></span> package or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kmscon-git/">kmscon-git</a></span><sup><small>AUR</small></sup> package for a development version from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.  Alternatively, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kmscon-patched-git/">kmscon-patched-git</a></span><sup><small>AUR</small></sup>.  The patched version, along with its patched dependency (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libtsm-patched-git/">libtsm-patched-git</a></span><sup><small>AUR</small></sup>), includes fixes and improvements (like 24-bit color support) that the canonical version (which has not been updated since 2014) does not.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kmscon">kmscon</a></span> package or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kmscon-git/">kmscon-git</a></span><sup><small>AUR</small></sup> package for a development version from the <a href="/Usage/Configuration/K/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.  Alternatively, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kmscon-patched-git/">kmscon-patched-git</a></span><sup><small>AUR</small></sup>.  The patched version, along with its patched dependency (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libtsm-patched-git/">libtsm-patched-git</a></span><sup><small>AUR</small></sup>), includes fixes and improvements (like 24-bit color support) that the canonical version (which has not been updated since 2014) does not.
 </p>
 <p>Normally, there is a special systemd configuration for tty1.  To be conservative, you can continue to run the traditional agetty on tty1 and only run kmscon on all the other virtual terminals.  Or you can run kmscon on both tty1 and the other VTs.
 </p>
@@ -113,22 +113,22 @@
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Problems_with_switching_between_Xorg_and_kmscon">Problems with switching between Xorg and kmscon</span></h3>
-<p>You may want to add <code>hwaccel</code> to <code>/etc/kmscon/kmscon.conf</code> if you have problems with switching between <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> and kmscon. The file and folder are not part of the package and therefore have to be created manually. Another possibility would be <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">editing the systemd service file</a>.
+<p>You may want to add <code>hwaccel</code> to <code>/etc/kmscon/kmscon.conf</code> if you have problems with switching between <a href="/Usage/Configuration/K/Xorg.html" title="Xorg">Xorg</a> and kmscon. The file and folder are not part of the package and therefore have to be created manually. Another possibility would be <a href="/Usage/Configuration/K/Systemd.html#Editing_provided_units" title="Systemd">editing the systemd service file</a>.
 </p>
 <h3><span class="mw-headline" id="No_audio_control">No audio control</span></h3>
-<p>As version 7, if you cannot control the audio, add your user to the <code>audio</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>. Be aware of the <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html#Installation" class="mw-redirect" title="Alsa">shortcomings</a> of this choice.
+<p>As version 7, if you cannot control the audio, add your user to the <code>audio</code> <a href="/Usage/Configuration/K/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>. Be aware of the <a href="/Usage/Configuration/K/Advanced_Linux_Sound_TOSitecture.html#Installation" class="mw-redirect" title="Alsa">shortcomings</a> of this choice.
 </p>
 <h3>
 <span id="Vim_doesn.27t_clear_terminal_output"></span><span class="mw-headline" id="Vim_doesn't_clear_terminal_output">Vim doesn't clear terminal output</span>
 </h3>
-<p>Vim might open without clearing the terminal output, it's still possible to edit the file but the text won't be visible until it's changed. As a workaround, try setting the <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> <code>TERM=vt220</code>. Alternatively, another vim-like editor like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vi">vi</a></span> or <a href="../wiki/Neovim.html" title="Neovim">Neovim</a> might work.
+<p>Vim might open without clearing the terminal output, it's still possible to edit the file but the text won't be visible until it's changed. As a workaround, try setting the <a href="/Usage/Configuration/K/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> <code>TERM=vt220</code>. Alternatively, another vim-like editor like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vi">vi</a></span> or <a href="/Usage/Configuration/K/Neovim.html" title="Neovim">Neovim</a> might work.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Color support is not available if <code>TERM</code> is set to <code>vt220</code>.</div>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/K/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -145,9 +145,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/K/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/K/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/K/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

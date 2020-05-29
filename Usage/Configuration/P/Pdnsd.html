@@ -2,7 +2,7 @@
     title: Pdnsd
     description: Migration of Pdnsd from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,10 +29,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="/Usage/Configuration/P/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="http://members.home.nl/p.a.rombouts/pdnsd/index.html">pdnsd</a> is a DNS server designed for local caching of DNS information. Correctly configured, it can significantly increase browsing speed on a broadband connection. Compared to <a href="../wiki/BIND.html" title="BIND">BIND</a> or <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> it can remember its cache after a reboot; "p" stands for persistent. 
+<p><a rel="nofollow"  href="http://members.home.nl/p.a.rombouts/pdnsd/index.html">pdnsd</a> is a DNS server designed for local caching of DNS information. Correctly configured, it can significantly increase browsing speed on a broadband connection. Compared to <a href="/Usage/Configuration/P/BIND.html" title="BIND">BIND</a> or <a href="/Usage/Configuration/P/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> it can remember its cache after a reboot; "p" stands for persistent. 
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -86,7 +86,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pdnsd">pdnsd</a></span> package.
+<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pdnsd">pdnsd</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>The package comes with a sample configuration file at <code>/usr/share/doc/pdnsd/pdnsd.conf</code>. The customized configuration file should be created at <code>/etc/pdnsd.conf</code>.
@@ -118,14 +118,14 @@
 <p>The rest of the server section will work without any more changes. For details on all the available options, see the <a rel="nofollow"  href="http://members.home.nl/p.a.rombouts/pdnsd/doc.html">pdnsd manual</a>.
 </p>
 <h4><span class="mw-headline" id="DNS_servers_with_DHCP_connections">DNS servers with DHCP connections</span></h4>
-<p>When <a href="../wiki/Netctl.html" title="Netctl">netctl</a> is installed, pdnsd can be notified of the ip addresses of the name servers by <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> and the notifications become dynamic when you use <a href="../wiki/Netctl.html#Special_systemd_units" title="Netctl">Automatic switching of profiles</a>.
+<p>When <a href="/Usage/Configuration/P/Netctl.html" title="Netctl">netctl</a> is installed, pdnsd can be notified of the ip addresses of the name servers by <a href="/Usage/Configuration/P/Openresolv.html" title="Openresolv">openresolv</a> and the notifications become dynamic when you use <a href="/Usage/Configuration/P/Netctl.html#Special_systemd_units" title="Netctl">Automatic switching of profiles</a>.
 </p>
 <p>To configure this feature, remove the broadband server section and update the dial-up server section with the following changes:
 </p>
 <pre>   label = resolvconf;
    file = /etc/pdnsd-resolv.conf;
 </pre>
-<p>Edit <code>/etc/resolvconf.conf</code> to configure <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> with pdnsd as one of its subscribers:
+<p>Edit <code>/etc/resolvconf.conf</code> to configure <a href="/Usage/Configuration/P/Openresolv.html" title="Openresolv">openresolv</a> with pdnsd as one of its subscribers:
 </p>
 <pre>name_servers=127.0.0.1
 pdnsd_resolv=/etc/pdnsd-resolv.conf
@@ -144,12 +144,12 @@ pdnsd_resolv=/etc/pdnsd-resolv.conf
 <h3><span class="mw-headline" id="Testing">Testing</span></h3>
 <p>You should now have a working <code>pdnsd</code> daemon. Start it.
 </p>
-<p><a href="../wiki/Domain_name_resolution.html#Lookup_utilities" title="Domain name resolution">Test</a> that it is now working.
+<p><a href="/Usage/Configuration/P/Domain_name_resolution.html#Lookup_utilities" title="Domain name resolution">Test</a> that it is now working.
 </p>
 <p>For the second time you look up any address using <code>127.0.0.1</code>, query time should be under 1 ms.
 </p>
 <h3><span class="mw-headline" id="System_setup">System setup</span></h3>
-<p>Make sure to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>pdnsd.service</code>.
+<p>Make sure to <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>pdnsd.service</code>.
 </p>
 <p>It starts right after <code>network.target</code>, as services that use the network rely on a working DNS, i.e. <code>network-online.target</code> (see: <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/">Upstream Wiki</a>).
 </p>
@@ -203,7 +203,7 @@ purge_cache=off;
 </p>
 <pre>debug=on;
 </pre>
-<p>Restart pdnsd and monitor the pdnsd.service for changes with the <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a>:
+<p>Restart pdnsd and monitor the pdnsd.service for changes with the <a href="/Usage/Configuration/P/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a>:
 </p>
 <pre>journalctl -f _SYSTEMD_UNIT=pdnsd.service
 </pre>
@@ -245,7 +245,7 @@ purge_cache=off;
 <pre># pdnsd-ctl empty-cache
 </pre>
 <h3><span class="mw-headline" id="DNSCrypt">DNSCrypt</span></h3>
-<p>pdnsd can be used with <a href="../wiki/Dnscrypt-proxy.html" class="mw-redirect" title="DNSCrypt">DNSCrypt</a>. DNSCrypt encrypts the domain name lookup. pdnsd then queries DNSCrypt when necessary. An example configuration is found in <a href="../wiki/Dnscrypt-proxy.html#pdnsd" class="mw-redirect" title="DNSCrypt">DNSCrypt#pdnsd</a>.
+<p>pdnsd can be used with <a href="/Usage/Configuration/P/Dnscrypt-proxy.html" class="mw-redirect" title="DNSCrypt">DNSCrypt</a>. DNSCrypt encrypts the domain name lookup. pdnsd then queries DNSCrypt when necessary. An example configuration is found in <a href="/Usage/Configuration/P/Dnscrypt-proxy.html#pdnsd" class="mw-redirect" title="DNSCrypt">DNSCrypt#pdnsd</a>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="result_of_uptest_for_192.168.x.x:_failed">result of uptest for 192.168.x.x: failed</span></h3>
@@ -277,9 +277,9 @@ purge_cache=off;
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/P/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -297,9 +297,9 @@ purge_cache=off;
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

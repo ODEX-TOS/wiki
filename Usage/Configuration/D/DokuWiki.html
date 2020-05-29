@@ -2,7 +2,7 @@
     title: DokuWiki
     description: Migration of DokuWiki from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -68,15 +68,15 @@
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <ol>
-<li>Install your web server of choice (e.g. <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, <a href="../wiki/Nginx.html" title="Nginx">nginx</a> or <a href="../wiki/Lighttpd.html" title="Lighttpd">lighttpd</a>) and configure it for <a href="../wiki/PHP.html" title="PHP">PHP</a>.  As mentioned above, DokuWiki has no need for a database server so you may be able to skip those steps when setting up your web server.</li>
-<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dokuwiki">dokuwiki</a></span> from [community] with <a href="../wiki/Pacman.html" title="Pacman">pacman</a>.</li>
+<li>Install your web server of choice (e.g. <a href="/Usage/Configuration/D/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, <a href="/Usage/Configuration/D/Nginx.html" title="Nginx">nginx</a> or <a href="/Usage/Configuration/D/Lighttpd.html" title="Lighttpd">lighttpd</a>) and configure it for <a href="/Usage/Configuration/D/PHP.html" title="PHP">PHP</a>.  As mentioned above, DokuWiki has no need for a database server so you may be able to skip those steps when setting up your web server.</li>
+<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dokuwiki">dokuwiki</a></span> from [community] with <a href="/Usage/Configuration/D/Pacman.html" title="Pacman">pacman</a>.</li>
 <li>Configure web server for dokuwiki (see section below)</li>
 <li>With your web browser of choice, open http://&lt;your-server&gt;/dokuwiki/install.php and continue the installation from there. For nginx the URL is http://&lt;your-server&gt;/install.php.</li>
 </ol>
 <p>Alternatively, if you would like to install from tarball, you can read from <a rel="nofollow"  href="http://www.dokuwiki.org/Install">http://www.dokuwiki.org/Install</a>.  Generally the procedure is the same as above.  Instead of using pacman, you will need to <a rel="nofollow"  href="http://www.splitbrain.org/projects/dokuwiki">download the tarball</a>, unpack it to your server's document root (e.g. <code>/srv/http/dokuwiki</code>), and chown to the appropriate user (e.g. "http").
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>If you use <a href="../wiki/PHP.html#Configuration" title="PHP">PHP's open_basedir</a>, you need to include the dokuwiki directories <code>/etc/webapps/dokuwiki/</code> and <code>/var/lib/dokuwiki/</code>. For example:
+<p>If you use <a href="/Usage/Configuration/D/PHP.html#Configuration" title="PHP">PHP's open_basedir</a>, you need to include the dokuwiki directories <code>/etc/webapps/dokuwiki/</code> and <code>/var/lib/dokuwiki/</code>. For example:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/php/php.ini</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">open_basedir = <i>&lt;other paths&gt;</i>:/etc/webapps/dokuwiki/:/var/lib/dokuwiki/</pre>
@@ -160,7 +160,7 @@ $HTTP["url"] =~ "^" + var.dokudir + "/(bin|data|inc|conf)/"  { url.access-deny =
 <pre> # systemctl restart lighttpd
 </pre>
 <h3><span class="mw-headline" id="nginx">nginx</span></h3>
-<p>Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> is installed and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">started</a>.
+<p>Ensure that <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> is installed and <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Start">started</a>.
 </p>
 <p>Add the following server block, but change the server name to your own and comment out the install.php block until you're done installing DokuWiki. This block assumes you use TLS. <a rel="nofollow"  href="https://www.dokuwiki.org/install:nginx">[2]</a>
 </p>
@@ -221,7 +221,7 @@ $HTTP["url"] =~ "^" + var.dokudir + "/(bin|data|inc|conf)/"  { url.access-deny =
 <p>They can be added through the web interface (as well as updated) through the Admin menu. Some plugins cannot be downloaded, if they go over ssl (e.g. git).
 </p>
 <h3><span class="mw-headline" id="Backing_up">Backing up</span></h3>
-<p>It is very trivial to backup DokuWiki, since there is no database. All pages are in plain text, and require only a simple tar, or <a href="../wiki/Rsync.html" title="Rsync">rsync</a>. 
+<p>It is very trivial to backup DokuWiki, since there is no database. All pages are in plain text, and require only a simple tar, or <a href="/Usage/Configuration/D/Rsync.html" title="Rsync">rsync</a>. 
 </p>
 <p>A quick breakdown of the directories of interest in the current (20180422_a-1) version:
 </p>
@@ -237,9 +237,9 @@ $HTTP["url"] =~ "^" + var.dokudir + "/(bin|data|inc|conf)/"  { url.access-deny =
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Wiki_software.html" title="Category:Wiki software">Wiki software</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Wiki_software.html" title="Category:Wiki software">Wiki software</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/D/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -257,9 +257,9 @@ $HTTP["url"] =~ "^" + var.dokudir + "/(bin|data|inc|conf)/"  { url.access-deny =
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

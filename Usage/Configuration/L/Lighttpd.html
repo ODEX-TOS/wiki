@@ -2,7 +2,7 @@
     title: Lighttpd
     description: Migration of Lighttpd from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -74,7 +74,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lighttpd">lighttpd</a></span> package.
+<p><a href="/Usage/Configuration/L/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lighttpd">lighttpd</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Basic_setup">Basic setup</span></h3>
@@ -92,7 +92,7 @@
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/srv/http/index.html</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Hello world!</pre>
-<p>Then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>lighttpd.service</code> and point your browser to <code>localhost</code>, where you should see the test page.
+<p>Then <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>lighttpd.service</code> and point your browser to <code>localhost</code>, where you should see the test page.
 </p>
 <p>Example configuration files are available in <code>/usr/share/doc/lighttpd/</code>.
 </p>
@@ -109,7 +109,7 @@ accesslog.filename = "/var/log/lighttpd/access.log"
 </pre>
 <h4><span class="mw-headline" id="Enabling_https_via_SSL">Enabling https via SSL</span></h4>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Users planning to implementing SSL/TLS, should know that some variations and implementations are vulnerable to attack. See the <a href="../wiki/OpenSSL.html" title="OpenSSL">OpenSSL</a> article for details.</div>
+<strong>Warning:</strong> Users planning to implementing SSL/TLS, should know that some variations and implementations are vulnerable to attack. See the <a href="/Usage/Configuration/L/OpenSSL.html" title="OpenSSL">OpenSSL</a> article for details.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
@@ -134,7 +134,7 @@ accesslog.filename = "/var/log/lighttpd/access.log"
 <h5>
 <span id="Let.27s_Encrypt"></span><span class="mw-headline" id="Let's_Encrypt">Let's Encrypt</span>
 </h5>
-<p>Alternatively, generate a certificate signed by <a href="../wiki/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. After following the instruction for manual certificate generation, combine the generated <code>privkey.pem</code> and <code>fullchain.pem</code> into one file:
+<p>Alternatively, generate a certificate signed by <a href="/Usage/Configuration/L/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. After following the instruction for manual certificate generation, combine the generated <code>privkey.pem</code> and <code>fullchain.pem</code> into one file:
 </p>
 <pre># cat /etc/letsencrypt/live/<i>domain</i>/{privkey.pem,fullchain.pem} &gt; /etc/letsencrypt/live/<i>domain</i>/combined.pem
 </pre>
@@ -283,7 +283,7 @@ fastcgi.server = (
 </p>
 <h4><span class="mw-headline" id="PHP">PHP</span></h4>
 <h5><span class="mw-headline" id="Using_php-cgi">Using php-cgi</span></h5>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php">php</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-cgi">php-cgi</a></span> (see also <a href="../wiki/PHP.html" title="PHP">PHP</a> and <a href="../wiki/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a>).
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php">php</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-cgi">php-cgi</a></span> (see also <a href="/Usage/Configuration/L/PHP.html" title="PHP">PHP</a> and <a href="/Usage/Configuration/L/Category:Web_applications.html" class="mw-redirect" title="LAMP">LAMP</a>).
 </p>
 <p>Check that php-cgi is working <code>php-cgi --version</code>
 </p>
@@ -336,7 +336,7 @@ fastcgi.server = (
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Remember that the order in which the modules are loaded is important, the correct order is listed in <code>/usr/share/doc/lighttpd/config/modules.conf</code>.</div>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> lighttpd.
+<p><a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Reload">Reload</a> lighttpd.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -346,7 +346,7 @@ fastcgi.server = (
 </ul>
 </div>
 <h5><span class="mw-headline" id="Using_php-fpm">Using php-fpm</span></h5>
-<p>There is no adaptive spawning anymore in recent lighttpd releases. For dynamic management of PHP processes, you can install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> and then <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>php-fpm.service</code>.
+<p>There is no adaptive spawning anymore in recent lighttpd releases. For dynamic management of PHP processes, you can install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span> and then <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>php-fpm.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You can configure the number of servers in the pool and tweak other configuration options by editing the file <code>/etc/php/php-fpm.conf</code>.  More details on <i>php-fpm</i> can be found on the <a rel="nofollow"  href="http://php-fpm.org/">php-fpm website</a>. Remember that when you make changes to <code>/etc/php/php.ini</code> you will need to restart <code>php-fpm.service</code>.</div>
@@ -419,9 +419,9 @@ $HTTP["url"] =~ "^/uwsgi/" {
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/L/Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/L/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -439,9 +439,9 @@ $HTTP["url"] =~ "^/uwsgi/" {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

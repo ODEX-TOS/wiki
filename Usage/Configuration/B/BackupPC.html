@@ -2,7 +2,7 @@
     title: BackupPC
     description: Migration of BackupPC from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -28,7 +28,7 @@
 </p>
 <p>Given the ever decreasing cost of disks and raid systems, it is now practical and cost effective to backup a large number of machines onto a server's local disk or network storage. For some sites this might be the complete backup solution. For other sites additional permanent archives could be created by periodically backing up the server to tape.
 </p>
-<p>Note that BackupPC only provides file-based backups and restores. In particular, it is not suitable out-of-the-box for "hot" database backups (although pre-backup hooks can be used to dump databases and do "cold" backups); you will need tools like <a href="../wiki/Xtrabackup.html" title="Xtrabackup">xtrabackup</a> for that purpose. Also, BackupPC only offers limited handling of opened files.  Make sure to read about the <a rel="nofollow"  href="http://backuppc.sourceforge.net/faq/limitations.html">limitations of BackupPC</a> and test a backup-and-restore cycle before you actually need to resort to it for real.
+<p>Note that BackupPC only provides file-based backups and restores. In particular, it is not suitable out-of-the-box for "hot" database backups (although pre-backup hooks can be used to dump databases and do "cold" backups); you will need tools like <a href="/Usage/Configuration/B/Xtrabackup.html" title="Xtrabackup">xtrabackup</a> for that purpose. Also, BackupPC only offers limited handling of opened files.  Make sure to read about the <a rel="nofollow"  href="http://backuppc.sourceforge.net/faq/limitations.html">limitations of BackupPC</a> and test a backup-and-restore cycle before you actually need to resort to it for real.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -69,19 +69,19 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=backuppc">backuppc</a></span> from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.
-Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rsync">rsync</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-file-rsyncp">perl-file-rsyncp</a></span> if you want to use <a href="../wiki/Rsync.html" title="Rsync">rsync</a> as a transport, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rrdtool">rrdtool</a></span> to display usage data in the CGI interface.
+<p><a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=backuppc">backuppc</a></span> from the <a href="/Usage/Configuration/B/Official_repositories.html" title="Official repositories">official repositories</a>.
+Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rsync">rsync</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-file-rsyncp">perl-file-rsyncp</a></span> if you want to use <a href="/Usage/Configuration/B/Rsync.html" title="Rsync">rsync</a> as a transport, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rrdtool">rrdtool</a></span> to display usage data in the CGI interface.
 </p>
-<p>Start the <b>backuppc</b> <a href="../wiki/Systemd.html" title="Systemd">systemd</a> <a href="../wiki/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> and, if you wish to have it running at boot time, enable it.
+<p>Start the <b>backuppc</b> <a href="/Usage/Configuration/B/Systemd.html" title="Systemd">systemd</a> <a href="/Usage/Configuration/B/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> and, if you wish to have it running at boot time, enable it.
 </p>
 <h3><span class="mw-headline" id="Placing_data_directories_on_a_separate_partition">Placing data directories on a separate partition</span></h3>
 <p>The BackupPC pool is stored by default under <code>/var/lib/backuppc</code>, which also serves as the home directory for the backuppc user.
 This path can be changed via the <code>$Conf{TopDir}</code> entry in <code>/etc/backuppc/config.pl</code>.
-Typical reasons are that you keep your system on a fast, but expensive and small, <a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> and need to store the backups on a traditional hard disk, or that you want to keep the backup pool on a partition managed by an <a href="../wiki/LVM.html" title="LVM">LVM</a> to be able to resize to partition according to changing demands.
+Typical reasons are that you keep your system on a fast, but expensive and small, <a href="/Usage/Configuration/B/Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> and need to store the backups on a traditional hard disk, or that you want to keep the backup pool on a partition managed by an <a href="/Usage/Configuration/B/LVM.html" title="LVM">LVM</a> to be able to resize to partition according to changing demands.
 </p>
 <p>The documentation suggests to not change the <code>$Conf{TopDir}</code> entry, but instead use symlinks.  However, be careful when doing so because package upgrades for backuppc will replace symlinks for both <code>/var/lib/backuppc</code> or any of the default subdirectories <code>cpool</code>, <code>pc</code> or <code>pool</code> by empty directories <b>without any warning</b>.
 </p>
-<p>Thus, it is recommended to either use bind mounts in <a href="../wiki/Fstab.html" title="Fstab">fstab</a> instead of symlinks, or to deliberately ignore the recommendation in <code>/etc/backuppc/config.pl</code> and change <code>$Conf{TopDir}</code> nevertheless. Alternatively, use <a href="../wiki/Pacman.html" title="Pacman">pacman</a>'s pre- and post-<a href="../wiki/Pacman.html#Hooks" title="Pacman">transaction hooks</a> such as the following (remember to make the shell scripts executable by <code>chmod a+x /etc/pacman.d/hooks/backuppc-restore-symlinks-*.sh</code>):
+<p>Thus, it is recommended to either use bind mounts in <a href="/Usage/Configuration/B/Fstab.html" title="Fstab">fstab</a> instead of symlinks, or to deliberately ignore the recommendation in <code>/etc/backuppc/config.pl</code> and change <code>$Conf{TopDir}</code> nevertheless. Alternatively, use <a href="/Usage/Configuration/B/Pacman.html" title="Pacman">pacman</a>'s pre- and post-<a href="/Usage/Configuration/B/Pacman.html#Hooks" title="Pacman">transaction hooks</a> such as the following (remember to make the shell scripts executable by <code>chmod a+x /etc/pacman.d/hooks/backuppc-restore-symlinks-*.sh</code>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/backuppc-restore-symlinks-post.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -176,7 +176,7 @@ Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="
 After one of the configuration steps below has also been performed, [re]start the Apache service.
 </p>
 <h4><span class="mw-headline" id="Single-purpose_Apache_settings">Single-purpose Apache settings</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mod_perl/">mod_perl</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mod_perl/">mod_perl</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/B/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <p>Edit the Apache configuration file to load mod_perl, tell Apache to run as user backuppc and to include <code>/etc/httpd/conf/extra/backuppc.conf</code>:
 </p>
@@ -294,7 +294,7 @@ char **av;
 <pre># echo -n 'myuser:' &gt;&gt; /etc/nginx/conf/backuppc.users
 # openssl passwd -apr1 &gt;&gt; /etc/nginx/conf/backuppc.users
 </pre>
-<p>Follow <a href="../wiki/Certbot.html#Nginx" title="Certbot">Certbot#Nginx</a> to create a Let's Encrypt certificate and configure a TLS certificate.
+<p>Follow <a href="/Usage/Configuration/B/Certbot.html#Nginx" title="Certbot">Certbot#Nginx</a> to create a Let's Encrypt certificate and configure a TLS certificate.
 </p>
 <h2><span class="mw-headline" id="Alternative_lighttpd_configuration">Alternative lighttpd configuration</span></h2>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/lighttpd/lighttpd.conf</pre>
@@ -350,7 +350,7 @@ $Conf{CgiAdminUsers}     = '&lt;authorized users&gt;';  # &lt;-- set to '*' if t
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Backup.html" title="Category:Backup">Backup</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/B/Category:Backup.html" title="Category:Backup">Backup</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -367,9 +367,9 @@ $Conf{CgiAdminUsers}     = '&lt;authorized users&gt;';  # &lt;-- set to '*' if t
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

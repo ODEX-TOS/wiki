@@ -2,7 +2,7 @@
     title: Dhcpd
     description: Migration of Dhcpd from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,13 +29,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a></li>
+<li><a href="/Usage/Configuration/D/Dhcpcd.html" title="Dhcpcd">dhcpcd</a></li>
 </ul>
 </div>
 <p>dhcpd is the <a rel="nofollow"  href="http://www.isc.org/downloads/dhcp/">Internet Systems Consortium</a> DHCP Server. It is useful for instance on a machine acting as a router on a LAN.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <i>dhcpd</i> (DHCP <b>(server)</b> daemon) is not the same as <a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> (DHCP <b>client</b> daemon).</div>
+<strong>Note:</strong> <i>dhcpd</i> (DHCP <b>(server)</b> daemon) is not the same as <a href="/Usage/Configuration/D/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> (DHCP <b>client</b> daemon).</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -62,10 +62,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhcp">dhcp</a></span> package, available in the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhcp">dhcp</a></span> package, available in the <a href="/Usage/Configuration/D/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p><i>dhcpd</i> includes two unit files <code>dhcpd4.service</code> and <code>dhcpd6.service</code>, which can be used to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">control</a> the daemon. They start the daemon on <i>all</i> <a href="../wiki/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interfaces">network interfaces</a> for IPv4 and IPv6 respectively. See <a href="#Listening_on_only_one_interface">#Listening on only one interface</a> for an alternative.
+<p><i>dhcpd</i> includes two unit files <code>dhcpd4.service</code> and <code>dhcpd6.service</code>, which can be used to <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Enable">control</a> the daemon. They start the daemon on <i>all</i> <a href="/Usage/Configuration/D/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interfaces">network interfaces</a> for IPv4 and IPv6 respectively. See <a href="#Listening_on_only_one_interface">#Listening on only one interface</a> for an alternative.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>Assign a static IPv4 address to the interface you want to use (in our examples we will use <code>eth0</code>). The first 3 bytes of this address cannot be exactly the same as those of another interface.
@@ -84,7 +84,7 @@
 <code>10/8</code> (for large networks; subnet <code>10.0.0.0</code>, netmask <code>255.0.0.0</code>)</li>
 </ul>
 See also <a rel="nofollow"  href="http://www.ietf.org/rfc/rfc1918.txt">RFC 1918</a>.</div>
-<p>To have your static ip assigned at boot, see <a href="../wiki/Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a>.
+<p>To have your static ip assigned at boot, see <a href="/Usage/Configuration/D/Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a>.
 </p>
 <p>The default <code>dhcpd.conf</code> contains many uncommented examples, so relocate it:
 </p>
@@ -121,7 +121,7 @@ host macbookpro{
 <p><code>subnet</code> blocks defines options for separate subnets, which are mapped to the network interfaces on which <i>dhcpd</i> is running. In our example this is one subnet <code>139.96.30.0/24</code> for single interface <code>eth0</code>, for which we defined the range of available IP addresses. Addresses from this range will be assigned to the connecting clients.
 </p>
 <h3><span class="mw-headline" id="Listening_on_only_one_interface">Listening on only one interface</span></h3>
-<p>If your computer is already part of one or several networks, it could be a problem if your computer starts giving ip addresses to machines from the other networks. It can be done by either configuring dhcpd or starting it as a daemon with <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemctl</a>.
+<p>If your computer is already part of one or several networks, it could be a problem if your computer starts giving ip addresses to machines from the other networks. It can be done by either configuring dhcpd or starting it as a daemon with <a href="/Usage/Configuration/D/Systemd.html#Using_units" title="Systemd">systemctl</a>.
 </p>
 <h4><span class="mw-headline" id="Configuring_dhcpd">Configuring dhcpd</span></h4>
 <p>In order to exclude an interface, you must create an empty declaration for the subnet that will be configured on that interface.
@@ -156,14 +156,14 @@ ExecStart=/usr/bin/dhcpd -4 -q -cf /etc/dhcpd.conf -pf /run/dhcpd4/dhcpd.pid %I
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">next-server 192.168.0.2;
 filename "/pxelinux.0";
 </pre>
-<p>This section can either be in an entire <code>subnet</code> or just in a <code>host</code> definition. <code>next-server</code> is the IP of the TFTP Server, and <code>filename</code> is the filename of the image to boot. For more information see <a href="../wiki/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>.
+<p>This section can either be in an entire <code>subnet</code> or just in a <code>host</code> definition. <code>next-server</code> is the IP of the TFTP Server, and <code>filename</code> is the filename of the image to boot. For more information see <a href="/Usage/Configuration/D/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li><a rel="nofollow"  href="https://kb.isc.org/docs/aa-00333">ISC DHCP Documentation</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:DHCP.html" title="Category:DHCP">DHCP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:DHCP.html" title="Category:DHCP">DHCP</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -180,9 +180,9 @@ filename "/pxelinux.0";
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

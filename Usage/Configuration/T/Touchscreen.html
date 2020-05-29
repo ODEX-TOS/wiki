@@ -2,7 +2,7 @@
     title: Touchscreen
     description: Migration of Touchscreen from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -25,14 +25,14 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/T/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> <span style="color:red;">please use the second argument of the template to provide more detailed indications.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Touchscreen">Talk:Touchscreen#</a>)</div>
 </div>
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a></li>
+<li><a href="/Usage/Configuration/T/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a></li>
 </ul>
 </div>
 <p>If you ever tried to set up a touchscreen device in linux, you might have noticed that it's either working out of the box (besides some calibration) or is very tedious, especially when it is not supported by the kernel.
@@ -80,7 +80,7 @@
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-evdev">xf86-input-evdev</a></span> (likely the default driver if you plug in your touchscreen and it "just works")</li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-libinput">xf86-input-libinput</a></span>; see also <a href="../wiki/Libinput.html" title="Libinput">libinput</a>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-libinput">xf86-input-libinput</a></span>; see also <a href="/Usage/Configuration/T/Libinput.html" title="Libinput">libinput</a>
 </li>
 <li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-elographics">xf86-input-elographics</a></span></li>
 </ul>
@@ -139,32 +139,32 @@ VGA1 connected 1920x1080+1024+0 (normal left inverted right x axis y axis) 477mm
 <pre>xinput --map-to-output 'Serial Wacom Tablet WACf004 stylus' LVDS1
 xinput --map-to-output 'Serial Wacom Tablet WACf004 eraser' LVDS1
 </pre>
-<p>You can automate this by putting these commands in your <code>~/.xinitrc</code> or similar. The mapping will be lost if the touchscreen is disconnected and re-connected, for example, when switching monitors via a KVM. In that case it is better to use a udev rule. The <a href="../wiki/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a> page has an example udev rule for the case when a transformation matrix has been calculated manually and needs to be applied automatically. 
+<p>You can automate this by putting these commands in your <code>~/.xinitrc</code> or similar. The mapping will be lost if the touchscreen is disconnected and re-connected, for example, when switching monitors via a KVM. In that case it is better to use a udev rule. The <a href="/Usage/Configuration/T/Calibrating_Touchscreen.html" title="Calibrating Touchscreen">Calibrating Touchscreen</a> page has an example udev rule for the case when a transformation matrix has been calculated manually and needs to be applied automatically. 
 </p>
 <h3><span class="mw-headline" id="Using_xrandr-watch-git_to_automate_map-to-output">Using xrandr-watch-git to automate map-to-output</span></h3>
-<p>There are <a href="../wiki/Xrandr.html" title="Xrandr">xrandr</a> events we can capture from a script. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xrandr-watch-git/">xrandr-watch-git</a></span><sup><small>AUR</small></sup>, create a script <code>~/.xrandr-changed</code> with execution permission to perform <code>map-to-output</code>, for example:
+<p>There are <a href="/Usage/Configuration/T/Xrandr.html" title="Xrandr">xrandr</a> events we can capture from a script. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/xrandr-watch-git/">xrandr-watch-git</a></span><sup><small>AUR</small></sup>, create a script <code>~/.xrandr-changed</code> with execution permission to perform <code>map-to-output</code>, for example:
 </p>
 <pre>#!/bin/sh
 xinput --map-to-output "Wacom HID 4861 Finger touch" "eDP1"
 </pre>
-<p>and start, test and enable the <a href="../wiki/Systemd/User.html" title="Systemd/User">systemd/User</a> service <code>xrandr-watcher.service</code>.
+<p>and start, test and enable the <a href="/Usage/Configuration/T/Systemd/User.html" title="Systemd/User">systemd/User</a> service <code>xrandr-watcher.service</code>.
 </p>
 <h2><span class="mw-headline" id="Touchegg">Touchegg</span></h2>
-<p><a href="../wiki/Touchegg.html" title="Touchegg">Touchegg</a> is a multitouch gesture program, that runs as a user in the background, recognizes gestures, and translates them to more conventional events such as mouse wheel movements, so that you can for example use two fingers to scroll.  But it also interferes with applications or window managers which already do their own gesture recognition.  If you have both a touchpad and a touchscreen, and if the touchpad driver (such as synaptics or libinput) has been configured not to recognize gestures itself, but to pass through the multi-touch events, then Touchegg will recognize gestures on both: this cannot be configured.  In fact it does a better job of recognizing gestures than either the synaptics or libinput touchpad drivers; but on the touchscreen, it's generally better for applications to respond to touch in their own unique ways.  Some Qt and GTK applications do that, but they will not be able to if you have Touchegg "eating" the touch events.  So, Touchegg is useful when you are running mainly legacy applications which do not make their own use of touch events.
+<p><a href="/Usage/Configuration/T/Touchegg.html" title="Touchegg">Touchegg</a> is a multitouch gesture program, that runs as a user in the background, recognizes gestures, and translates them to more conventional events such as mouse wheel movements, so that you can for example use two fingers to scroll.  But it also interferes with applications or window managers which already do their own gesture recognition.  If you have both a touchpad and a touchscreen, and if the touchpad driver (such as synaptics or libinput) has been configured not to recognize gestures itself, but to pass through the multi-touch events, then Touchegg will recognize gestures on both: this cannot be configured.  In fact it does a better job of recognizing gestures than either the synaptics or libinput touchpad drivers; but on the touchscreen, it's generally better for applications to respond to touch in their own unique ways.  Some Qt and GTK applications do that, but they will not be able to if you have Touchegg "eating" the touch events.  So, Touchegg is useful when you are running mainly legacy applications which do not make their own use of touch events.
 </p>
 <h2><span class="mw-headline" id="Firefox">Firefox</span></h2>
-<p>See <a href="../wiki/Firefox/Tweaks.html#Enable_touchscreen_gestures" title="Firefox/Tweaks">Firefox/Tweaks#Enable touchscreen gestures</a>.
+<p>See <a href="/Usage/Configuration/T/Firefox/Tweaks.html#Enable_touchscreen_gestures" title="Firefox/Tweaks">Firefox/Tweaks#Enable touchscreen gestures</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Input_devices.html" title="Category:Input devices">Input devices</a></li>
-<li><a href="../wiki/Category:Displays.html" title="Category:Displays">Displays</a></li>
+<li><a href="/Usage/Configuration/T/Category:Input_devices.html" title="Category:Input devices">Input devices</a></li>
+<li><a href="/Usage/Configuration/T/Category:Displays.html" title="Category:Displays">Displays</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/T/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -182,9 +182,9 @@ xinput --map-to-output "Wacom HID 4861 Finger touch" "eDP1"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

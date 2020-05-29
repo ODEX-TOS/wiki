@@ -2,7 +2,7 @@
     title: Sysctl
     description: Migration of Sysctl from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -25,7 +25,7 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><span></span>
-<a href="https://en.wikipedia.org/wiki/sysctl"  title="wikipedia:sysctl">sysctl</a> is a tool for examining and changing <a href="../wiki/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at runtime (package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procps-ng">procps-ng</a></span> in <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>). sysctl is implemented in <a href="https://en.wikipedia.org/wiki/procfs"  title="wikipedia:procfs">procfs</a>, the virtual process file system at <code>/proc/</code>.
+<a href="https://en.wikipedia.org/wiki/sysctl"  title="wikipedia:sysctl">sysctl</a> is a tool for examining and changing <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at runtime (package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procps-ng">procps-ng</a></span> in <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>). sysctl is implemented in <a href="https://en.wikipedia.org/wiki/procfs"  title="wikipedia:procfs">procfs</a>, the virtual process file system at <code>/proc/</code>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -92,8 +92,8 @@
 
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> From version 207 and 21x, <a href="../wiki/Systemd.html" title="Systemd">systemd</a> only applies settings from <code>/etc/sysctl.d/*.conf</code> and <code>/usr/lib/sysctl.d/*.conf</code>. If you had customized <code>/etc/sysctl.conf</code>, you need to rename it as <code>/etc/sysctl.d/99-sysctl.conf</code>. If you had e.g. <code>/etc/sysctl.d/foo</code>, you need to rename it to <code>/etc/sysctl.d/foo.conf</code>.</div>
-<p>The <b>sysctl</b> preload/configuration file can be created at <code>/etc/sysctl.d/99-sysctl.conf</code>. For <a href="../wiki/Systemd.html" title="Systemd">systemd</a>, <code>/etc/sysctl.d/</code> and <code>/usr/lib/sysctl.d/</code> are drop-in directories for kernel sysctl parameters. The naming and source directory decide the order of processing, which is important since the last parameter processed may override earlier ones. For example, parameters in a <code>/usr/lib/sysctl.d/50-default.conf</code> will be overriden by equal parameters in <code>/etc/sysctl.d/50-default.conf</code> and any configuration file processed later from both directories. 
+<strong>Note:</strong> From version 207 and 21x, <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> only applies settings from <code>/etc/sysctl.d/*.conf</code> and <code>/usr/lib/sysctl.d/*.conf</code>. If you had customized <code>/etc/sysctl.conf</code>, you need to rename it as <code>/etc/sysctl.d/99-sysctl.conf</code>. If you had e.g. <code>/etc/sysctl.d/foo</code>, you need to rename it to <code>/etc/sysctl.d/foo.conf</code>.</div>
+<p>The <b>sysctl</b> preload/configuration file can be created at <code>/etc/sysctl.d/99-sysctl.conf</code>. For <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>, <code>/etc/sysctl.d/</code> and <code>/usr/lib/sysctl.d/</code> are drop-in directories for kernel sysctl parameters. The naming and source directory decide the order of processing, which is important since the last parameter processed may override earlier ones. For example, parameters in a <code>/usr/lib/sysctl.d/50-default.conf</code> will be overriden by equal parameters in <code>/etc/sysctl.d/50-default.conf</code> and any configuration file processed later from both directories. 
 </p>
 <p>To load all configuration files manually, execute:
 </p>
@@ -122,9 +122,9 @@
 <p>To preserve changes between reboots, add or modify the appropriate lines in <code>/etc/sysctl.d/99-sysctl.conf</code> or another applicable parameter file in <code>/etc/sysctl.d/</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Some parameters that can be applied may depend on kernel modules which in turn might not be loaded. For example parameters in <code>/proc/sys/net/bridge/*</code> depend on the <code>br_netfilter</code> module. If it is not loaded at runtime (or after a reboot), those will <i>silently</i> not be applied. See <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>.</div>
+<strong>Tip:</strong> Some parameters that can be applied may depend on kernel modules which in turn might not be loaded. For example parameters in <code>/proc/sys/net/bridge/*</code> depend on the <code>br_netfilter</code> module. If it is not loaded at runtime (or after a reboot), those will <i>silently</i> not be applied. See <a href="/Usage/Configuration/S/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>.</div>
 <h2><span class="mw-headline" id="Security">Security</span></h2>
-<p>See <a href="../wiki/Security.html#Kernel_hardening" title="Security">Security#Kernel hardening</a>.
+<p>See <a href="/Usage/Configuration/S/Security.html#Kernel_hardening" title="Security">Security#Kernel hardening</a>.
 </p>
 <h2><span class="mw-headline" id="Networking">Networking</span></h2>
 <h3><span class="mw-headline" id="Improving_performance">Improving performance</span></h3>
@@ -238,7 +238,7 @@ net.ipv4.tcp_keepalive_probes = 6
 <pre>net.ipv4.tcp_timestamps = 0
 </pre>
 <h4><span class="mw-headline" id="Enable_BBR">Enable BBR</span></h4>
-<p>The <a href="https://en.wikipedia.org/wiki/TCP_congestion_control#TCP_BBR"  title="wikipedia:TCP congestion control">BBR congestion control algorithm</a> can help achieve higher bandwidths and lower latencies for internet traffic. First, <a href="../wiki/Kernel_module.html#Manual_module_handling" title="Kernel module">load</a> the <code>tcp_bbr</code> module.
+<p>The <a href="https://en.wikipedia.org/wiki/TCP_congestion_control#TCP_BBR"  title="wikipedia:TCP congestion control">BBR congestion control algorithm</a> can help achieve higher bandwidths and lower latencies for internet traffic. First, <a href="/Usage/Configuration/S/Kernel_module.html#Manual_module_handling" title="Kernel module">load</a> the <code>tcp_bbr</code> module.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <a rel="nofollow"  href="https://github.com/google/bbr/blob/master/README">BBR GitHub says</a>, "This is not an official Google product."</div>
@@ -260,7 +260,7 @@ net.ipv4.tcp_congestion_control = bbr
 </h3>
 <p>The following specifies a parameter set to tighten network security options of the kernel for the IPv4 protocol and related IPv6 parameters where an equivalent exists. 
 </p>
-<p>For some use-cases, for example using the system as a <a href="../wiki/Router.html" title="Router">router</a>, other parameters may be useful or required as well. 
+<p>For some use-cases, for example using the system as a <a href="/Usage/Configuration/S/Router.html" title="Router">router</a>, other parameters may be useful or required as well. 
 </p>
 <h4><span class="mw-headline" id="TCP_SYN_cookie_protection">TCP SYN cookie protection</span></h4>
 <p>Helps protect against SYN flood attacks. Only kicks in when <code>net.ipv4.tcp_max_syn_backlog</code> is reached:
@@ -326,7 +326,7 @@ net.ipv6.icmp.echo_ignore_all = 1
 <strong>Note:</strong> Beware this may cause issues with monitoring tools and/or applications relying on ICMP echo responses.</div>
 <h3><span class="mw-headline" id="Other">Other</span></h3>
 <h4><span class="mw-headline" id="Allow_unprivileged_users_to_create_IPPROTO_ICMP_sockets">Allow unprivileged users to create IPPROTO_ICMP sockets</span></h4>
-<p>The IPPROTO_ICMP (<span class="plainlinks archwiki-template-man" title="$ man 7 icmp"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/icmp.7">icmp(7)</a></span>) socket type adds the possibility to send ICMP_ECHO messages and receive corresponding ICMP_ECHOREPLY messages without the need to open a <span class="plainlinks archwiki-template-man" title="$ man 7 raw"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/raw.7">raw(7)</a></span> socket, an operation which requires the CAP_NET_RAW <a href="../wiki/Capabilities.html" title="Capabilities">capability</a> or the SUID bit with a proper privileged owner. These ICMP_ECHO messages are sent by the <a href="../wiki/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> application thus making the IPPROTO_ICMP socket also known as ping socket in addition to ICMP Echo socket.
+<p>The IPPROTO_ICMP (<span class="plainlinks archwiki-template-man" title="$ man 7 icmp"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/icmp.7">icmp(7)</a></span>) socket type adds the possibility to send ICMP_ECHO messages and receive corresponding ICMP_ECHOREPLY messages without the need to open a <span class="plainlinks archwiki-template-man" title="$ man 7 raw"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/raw.7">raw(7)</a></span> socket, an operation which requires the CAP_NET_RAW <a href="/Usage/Configuration/S/Capabilities.html" title="Capabilities">capability</a> or the SUID bit with a proper privileged owner. These ICMP_ECHO messages are sent by the <a href="/Usage/Configuration/S/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> application thus making the IPPROTO_ICMP socket also known as ping socket in addition to ICMP Echo socket.
 </p>
 <p><code>ping_group_range</code> determines the GID range of groups which their users are allowed to create IPPROTO_ICMP sockets. Additionally, the owner of the CAP_NET_RAW capability is also allowed to create IPPROTO_ICMP sockets.<br>By default this range is <code>1 0</code> which means no one is allowed to create IPPROTO_ICMP sockets except root.<br>
 To take advantage of this setting programs which currently uses raw sockets need to ported to use IPPROTO_ICMP sockets instead.<br>For example, QEMU uses IPPROTO_ICMP for SLIRP aka User-mode networking, so allowing the user running QEMU to create IPPROTO_ICMP sockets means it's possible to ping from the guest.
@@ -367,7 +367,7 @@ To take advantage of this setting programs which currently uses raw sockets need
 <ul><li><code>vm.vfs_cache_pressure = 50</code></li></ul>
 <dl><dd>The value controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects (VFS cache). Lowering it from the default value of 100 makes the kernel less inclined to reclaim VFS cache (do not set it to 0, this may produce out-of-memory conditions).</dd></dl>
 <h2><span class="mw-headline" id="MDADM">MDADM</span></h2>
-<p>When the kernel performs a resync operation of a software <a href="../wiki/RAID.html" title="RAID">RAID</a> device it tries not to create a high system load by restricting the speed of the operation. Using sysctl it is possible to change the lower and upper speed limit.
+<p>When the kernel performs a resync operation of a software <a href="/Usage/Configuration/S/RAID.html" title="RAID">RAID</a> device it tries not to create a high system load by restricting the speed of the operation. Using sysctl it is possible to change the lower and upper speed limit.
 </p>
 <p>Set maximum and minimum speed of raid resyncing operations:
 </p>
@@ -406,13 +406,13 @@ vm.dirty_bytes = 4194304
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
-<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="/Usage/Configuration/S/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/S/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -431,9 +431,9 @@ vm.dirty_bytes = 4194304
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

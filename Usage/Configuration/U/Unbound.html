@@ -2,7 +2,7 @@
     title: Unbound
     description: Migration of Unbound from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
+<li><a href="/Usage/Configuration/U/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://unbound.net/">Unbound</a> is a validating, recursive, and caching DNS resolver. According to <a href="https://en.wikipedia.org/wiki/Unbound_(DNS_Server)"  title="wikipedia:Unbound (DNS Server)">Wikipedia</a>:
 </p>
-<dl><dd>Unbound has supplanted the Berkeley Internet Name Domain (<a href="../wiki/BIND.html" title="BIND">BIND</a>) as the default, base-system name server in several open source projects, where it is perceived as smaller, more modern, and more secure for most applications.</dd></dl>
+<dl><dd>Unbound has supplanted the Berkeley Internet Name Domain (<a href="/Usage/Configuration/U/BIND.html" title="BIND">BIND</a>) as the default, base-system name server in several open source projects, where it is perceived as smaller, more modern, and more secure for most applications.</dd></dl>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -112,7 +112,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unbound">unbound</a></span> package.
+<p><a href="/Usage/Configuration/U/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unbound">unbound</a></span> package.
 </p>
 <p>Additionally, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=expat">expat</a></span> package is required for <a href="#DNSSEC_validation">#DNSSEC validation</a>.
 </p>
@@ -134,13 +134,13 @@
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">nameserver ::1
 nameserver 127.0.0.1
 </pre>
-<p>Make sure to protect <code>/etc/resolv.conf</code> from modification as described in <a href="../wiki/Domain_name_resolution.html#Overwriting_of_/etc/resolv.conf" title="Domain name resolution">Domain name resolution#Overwriting of /etc/resolv.conf</a>.
+<p>Make sure to protect <code>/etc/resolv.conf</code> from modification as described in <a href="/Usage/Configuration/U/Domain_name_resolution.html#Overwriting_of_/etc/resolv.conf" title="Domain name resolution">Domain name resolution#Overwriting of /etc/resolv.conf</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> A simple way to do this is to install <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> and add <code>name_servers="::1 127.0.0.1"</code> to <code>/etc/resolvconf.conf</code>. Then run <code>resolvconf -u</code> to generate <code>/etc/resolv.conf</code>.</div>
-<p>See <a href="../wiki/Domain_name_resolution.html#Lookup_utilities" title="Domain name resolution">Domain name resolution#Lookup utilities</a> on how to test your settings.
+<strong>Tip:</strong> A simple way to do this is to install <a href="/Usage/Configuration/U/Openresolv.html" title="Openresolv">openresolv</a> and add <code>name_servers="::1 127.0.0.1"</code> to <code>/etc/resolvconf.conf</code>. Then run <code>resolvconf -u</code> to generate <code>/etc/resolv.conf</code>.</div>
+<p>See <a href="/Usage/Configuration/U/Domain_name_resolution.html#Lookup_utilities" title="Domain name resolution">Domain name resolution#Lookup utilities</a> on how to test your settings.
 </p>
-<p>Check specifically that the server being used is <code>::1</code> or <code>127.0.0.1</code> after making permanent changes to <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a>.
+<p>Check specifically that the server being used is <code>::1</code> or <code>127.0.0.1</code> after making permanent changes to <a href="/Usage/Configuration/U/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a>.
 </p>
 <p>You can now setup <i>unbound</i> such that it is <a href="#Forwarding_queries">#Forwarding queries</a>, perhaps all queries, to the DNS servers of your choice.
 </p>
@@ -154,21 +154,21 @@ nameserver 127.0.0.1
 <p>Then, put a <i>root hints</i> file into the <i>unbound</i> configuration directory. The simplest way to do this is to run the command:
 </p>
 <pre># curl --output /etc/unbound/root.hints https://www.internic.net/domain/named.cache</pre>
-<p>When actually using this file, and not the builtin hints, it is a good idea to update <code>root.hints</code> every six months or so in order to make sure the list of root servers is up to date. This can be done manually or by using <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">Systemd/Timers</a>. See <a href="#Roothints_systemd_timer">#Roothints systemd timer</a> for an example.
+<p>When actually using this file, and not the builtin hints, it is a good idea to update <code>root.hints</code> every six months or so in order to make sure the list of root servers is up to date. This can be done manually or by using <a href="/Usage/Configuration/U/Systemd/Timers.html" title="Systemd/Timers">Systemd/Timers</a>. See <a href="#Roothints_systemd_timer">#Roothints systemd timer</a> for an example.
 </p>
 <h3><span class="mw-headline" id="DNSSEC_validation">DNSSEC validation</span></h3>
-<p>To use <a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> validation, the following setting for the server trust anchor should be under <code>server:</code>:
+<p>To use <a href="/Usage/Configuration/U/DNSSEC.html" title="DNSSEC">DNSSEC</a> validation, the following setting for the server trust anchor should be under <code>server:</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/unbound/unbound.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">  trust-anchor-file: trusted-key.key</pre>
-<p>This setting is done by default<a rel="nofollow"  href="https://git.archlinux.org/svntogit/community.git/commit/trunk/conf?h=packages/unbound&amp;id=79f1ebebd72b53d3b597f6dc48b84f3d76dd9a0c">[1]</a>. <code>/etc/unbound/trusted-key.key</code> is copied from <code>/etc/trusted-key.key</code>, which is provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnssec-anchors">dnssec-anchors</a></span> dependency, whose <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> generates the file with <span class="plainlinks archwiki-template-man" title="$ man 8 unbound-anchor"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/unbound-anchor.8">unbound-anchor(8)</a></span>.
+<p>This setting is done by default<a rel="nofollow"  href="https://git.archlinux.org/svntogit/community.git/commit/trunk/conf?h=packages/unbound&amp;id=79f1ebebd72b53d3b597f6dc48b84f3d76dd9a0c">[1]</a>. <code>/etc/unbound/trusted-key.key</code> is copied from <code>/etc/trusted-key.key</code>, which is provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnssec-anchors">dnssec-anchors</a></span> dependency, whose <a href="/Usage/Configuration/U/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> generates the file with <span class="plainlinks archwiki-template-man" title="$ man 8 unbound-anchor"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/unbound-anchor.8">unbound-anchor(8)</a></span>.
 </p>
 <p>DNSSEC validation will only be done if the DNS server being queried supports it. If general <a href="#Forwarding_queries">#Forwarding queries</a> have been set to DNS servers that do not support DNSSEC, their answers, whatever they are, should be considered insecure since no DNSSEC validation could be preformed.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Including DNSSEC checking significantly increases DNS lookup times for initial lookups before the address is cached.</div>
 <h4><span class="mw-headline" id="Testing_validation">Testing validation</span></h4>
-<p>To test if DNSSEC is working, after <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>unbound.service</code>, do:
+<p>To test if DNSSEC is working, after <a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>unbound.service</code>, do:
 </p>
 <pre>$ unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 </pre>
@@ -191,11 +191,11 @@ $ drill sigok.verteiltesysteme.net
 <h4><span class="mw-headline" id="Allow_local_network_to_use_DNS">Allow local network to use DNS</span></h4>
 <h5><span class="mw-headline" id="Using_openresolv">Using openresolv</span></h5>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/U/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Explanatory comments should be in the text itself rather than in code snippets. Grammar and language should be improved instead of copy-pasted literally from the linked source. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unbound">Talk:Unbound#</a>)</div>
 </div>
-<p>If your network manager supports <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a>, you can configure it to provide local DNS servers and search domains to Unbound<a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[2]</a>:
+<p>If your network manager supports <a href="/Usage/Configuration/U/Openresolv.html" title="Openresolv">openresolv</a>, you can configure it to provide local DNS servers and search domains to Unbound<a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[2]</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/resolvconf.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -270,7 +270,7 @@ name: "10.in-addr.arpa."
 forward-addr: 10.0.0.1
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> There is a difference between forward zones and stub zones - stub zones will only work when connected to an authoritative DNS server directly. This would work for lookups from a <a href="../wiki/BIND.html" title="BIND">BIND</a> DNS server if it is providing authoritative DNS - but if you are referring queries to an <i>unbound</i> server in which internal lookups are forwarded on to another DNS server, then defining the referral as a stub zone in the machine here will not work. In that case it is necessary to define a forward zone as above, since forward zones can have daisy chain lookups onward to other DNS servers. i.e. forward zones can refer queries to recursive DNS servers. This distinction is important as you do not get any error messages indicating what the problem is if you use a stub zone inappropriately.</div>
+<strong>Note:</strong> There is a difference between forward zones and stub zones - stub zones will only work when connected to an authoritative DNS server directly. This would work for lookups from a <a href="/Usage/Configuration/U/BIND.html" title="BIND">BIND</a> DNS server if it is providing authoritative DNS - but if you are referring queries to an <i>unbound</i> server in which internal lookups are forwarded on to another DNS server, then defining the referral as a stub zone in the machine here will not work. In that case it is necessary to define a forward zone as above, since forward zones can have daisy chain lookups onward to other DNS servers. i.e. forward zones can refer queries to recursive DNS servers. This distinction is important as you do not get any error messages indicating what the problem is if you use a stub zone inappropriately.</div>
 <p>You can set up the localhost forward and reverse lookups with the following lines:
 </p>
 <pre>local-zone: "localhost." static
@@ -284,7 +284,7 @@ local-data: "1.0.0.127.in-addr.arpa. 10800 IN PTR localhost."
 </pre>
 <h4><span class="mw-headline" id="Forward_all_remaining_requests">Forward all remaining requests</span></h4>
 <h5><span class="mw-headline" id="Using_openresolv_2">Using openresolv</span></h5>
-<p>If your network manager supports <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a>, you can configure it to provide upstream DNS servers to Unbound. <a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[4]</a>
+<p>If your network manager supports <a href="/Usage/Configuration/U/Openresolv.html" title="Openresolv">openresolv</a>, you can configure it to provide upstream DNS servers to Unbound. <a rel="nofollow"  href="https://roy.marples.name/projects/openresolv/configuration.html">[4]</a>
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/resolvconf.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -322,7 +322,7 @@ unbound_conf=/etc/unbound/resolvconf.conf</pre>
 <p><i>action</i> can be one of <code>deny</code> (drop message), <code>refuse</code> (polite error reply), <code>allow</code> (recursive ok), or <code>allow_snoop</code> (recursive and nonrecursive ok). By default everything is refused except for localhost.
 </p>
 <h3><span class="mw-headline" id="Forwarding_using_DNS_over_TLS">Forwarding using DNS over TLS</span></h3>
-<p>To use <a href="../wiki/Domain_name_resolution.html#Privacy_and_security" class="mw-redirect" title="DNS over TLS">DNS over TLS</a>, you will need to specify <code>tls-cert-bundle</code> option that points to the local system's root certificate authority bundle, allow unbound to forward TLS requests and also specify any number of servers that allow DNS of TLS. 
+<p>To use <a href="/Usage/Configuration/U/Domain_name_resolution.html#Privacy_and_security" class="mw-redirect" title="DNS over TLS">DNS over TLS</a>, you will need to specify <code>tls-cert-bundle</code> option that points to the local system's root certificate authority bundle, allow unbound to forward TLS requests and also specify any number of servers that allow DNS of TLS. 
 </p>
 <p>For each server you will need to specify that the connection port using @, and you will also need to indicate which is its domain name with #. Even though it looks like an comment the hashtag name allows for the TLS authentication name to be set for stub-zones and with <code>unbound-control forward control</code> command. There should not be any spaces between the @ and # markups.
 </p>
@@ -339,10 +339,10 @@ forward-zone:
 </pre>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <h3><span class="mw-headline" id="Starting_Unbound">Starting Unbound</span></h3>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>unbound.service</code> systemd service.
+<p><a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>unbound.service</code> systemd service.
 </p>
 <h3><span class="mw-headline" id="Remotely_control_Unbound">Remotely control Unbound</span></h3>
-<p><i>unbound</i> ships with the <code>unbound-control</code> utility which enables us to remotely administer the unbound server. It is similar to the <a href="../wiki/Pdnsd.html#pdnsd-ctl" title="Pdnsd">pdnsd-ctl</a> command of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pdnsd">pdnsd</a></span>.
+<p><i>unbound</i> ships with the <code>unbound-control</code> utility which enables us to remotely administer the unbound server. It is similar to the <a href="/Usage/Configuration/U/Pdnsd.html#pdnsd-ctl" title="Pdnsd">pdnsd-ctl</a> command of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pdnsd">pdnsd</a></span>.
 </p>
 <h4><span class="mw-headline" id="Setting_up_unbound-control">Setting up unbound-control</span></h4>
 <p>Before you can start using it, the following steps need to be performed:
@@ -422,7 +422,7 @@ local-zone: "another.blacklisted.example" always_nxdomain
 <div>
 <b>Reason:</b> Running two DNS servers is not inherently more secure than running one providing all features. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Unbound#Two_DNS_servers_are_not_inherently_more_secure_than_one">Talk:Unbound#Two DNS servers are not inherently more secure than one</a>)</div>
 </div>
-<p>For users who wish to run both a validating, recursive, caching DNS server as well as an authoritative DNS server on a single machine then it may be useful to refer to the wiki page <a href="../wiki/NSD.html" title="NSD">NSD</a> which gives an example of a configuration for such a system.  Having one server for authoritative DNS queries and a separate DNS server for the validating, recursive, caching DNS functions gives increased security over a single DNS server providing all of these functions. Many users have used Bind as a single DNS server, and some help on migration from Bind to the combination of running NSD and Bind is provided in the <a href="../wiki/NSD.html" title="NSD">NSD</a> wiki page.
+<p>For users who wish to run both a validating, recursive, caching DNS server as well as an authoritative DNS server on a single machine then it may be useful to refer to the wiki page <a href="/Usage/Configuration/U/NSD.html" title="NSD">NSD</a> which gives an example of a configuration for such a system.  Having one server for authoritative DNS queries and a separate DNS server for the validating, recursive, caching DNS functions gives increased security over a single DNS server providing all of these functions. Many users have used Bind as a single DNS server, and some help on migration from Bind to the combination of running NSD and Bind is provided in the <a href="/Usage/Configuration/U/NSD.html" title="NSD">NSD</a> wiki page.
 </p>
 <h3><span class="mw-headline" id="WAN_facing_DNS">WAN facing DNS</span></h3>
 <p>It is also possible to change the configuration files and interfaces on which the server is listening so that DNS queries from machines outside of the local network can access specific machines within the LAN. This is useful for web and mail servers which are accessible from anywhere, and the same techniques can be employed as has been achieved using bind for many years, in combination with suitable port forwarding on firewall machines to forward incoming requests to the right machine.
@@ -447,7 +447,7 @@ Persistent=true
  
 [Install]
 WantedBy=timers.target</pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>roothints.timer</code> systemd timer.
+<p><a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>roothints.timer</code> systemd timer.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Issues_concerning_num-threads">Issues concerning num-threads</span></h3>
@@ -477,11 +477,11 @@ WantedBy=timers.target</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/U/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/U/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/U/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -500,9 +500,9 @@ WantedBy=timers.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/U/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/U/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/U/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

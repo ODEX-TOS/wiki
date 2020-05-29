@@ -2,7 +2,7 @@
     title: Mailman_2
     description: Migration of Mailman_2 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -25,8 +25,8 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This page is about Mailman 2, for information about the current default, see <a href="../wiki/Mailman.html" class="mw-redirect" title="Mailman 3">Mailman 3</a>.</div>
-<p><a rel="nofollow"  href="http://www.list.org/">Mailman</a> is an application for managing electronic mailing lists. Normally you will use it along a <i>mail server</i> and also a <i>web server</i> too; for the first you may pick one between <a href="../wiki/Postfix.html" title="Postfix">Postfix</a>, <a href="../wiki/Exim.html" title="Exim">Exim</a>, <a href="../wiki/Sendmail.html" title="Sendmail">Sendmail</a> and Qmail —if you are unsure about which one to use, Postfix is a very good choice—; as for the latter, any web server is useful, common options are <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, <a href="../wiki/Lighttpd.html" title="Lighttpd">Lighttpd</a> and <a href="../wiki/Nginx.html" title="Nginx">Nginx</a>. (These three pieces do not necessarily have to run on the same computer.) 
+<strong>Note:</strong> This page is about Mailman 2, for information about the current default, see <a href="/Usage/Configuration/M/Mailman.html" class="mw-redirect" title="Mailman 3">Mailman 3</a>.</div>
+<p><a rel="nofollow"  href="http://www.list.org/">Mailman</a> is an application for managing electronic mailing lists. Normally you will use it along a <i>mail server</i> and also a <i>web server</i> too; for the first you may pick one between <a href="/Usage/Configuration/M/Postfix.html" title="Postfix">Postfix</a>, <a href="/Usage/Configuration/M/Exim.html" title="Exim">Exim</a>, <a href="/Usage/Configuration/M/Sendmail.html" title="Sendmail">Sendmail</a> and Qmail —if you are unsure about which one to use, Postfix is a very good choice—; as for the latter, any web server is useful, common options are <a href="/Usage/Configuration/M/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>, <a href="/Usage/Configuration/M/Lighttpd.html" title="Lighttpd">Lighttpd</a> and <a href="/Usage/Configuration/M/Nginx.html" title="Nginx">Nginx</a>. (These three pieces do not necessarily have to run on the same computer.) 
 </p>
 <p>Only the Mailman installation will be covered in this article. You can refer to the correspondent wiki pages to learn how to install the mail and web servers.
 </p>
@@ -93,7 +93,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Mailman_installation">Mailman installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman">mailman</a></span> package.
+<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mailman">mailman</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Mailman_configuration">Mailman configuration</span></h2>
 <p>The full set of configuration defaults lives in the <code>/usr/lib/mailman/Mailman/Defaults.py</code> file. However you should never modify this file! Instead, change the <b>mm_cfg.py</b> file, <code>/etc/mailman/mm_cfg.py</code>. You only need to add values to mm_cfg.py that are different than the defaults in Defaults.py. Future Mailman upgrades are guaranteed never to touch your mm_cfg.py file.
@@ -136,7 +136,7 @@ MTA = None
 <p><i>Note</i>: Ensure your domain name server (DNS) setup. For mail delivery on the internet, your DNS must be correct. An MX record should point to the mail host. More info about DNS is beyond the scope of this document.
 </p>
 <h3><span class="mw-headline" id="Postfix">Postfix</span></h3>
-<p>For installing and configuring this mail server, see <a href="../wiki/Postfix.html" title="Postfix">Postfix</a>. (If you will be using Postfix just for Mailman, its setup is much simpler: ignore all the <i>mailbox</i> and <i>database</i> stuff.)
+<p>For installing and configuring this mail server, see <a href="/Usage/Configuration/M/Postfix.html" title="Postfix">Postfix</a>. (If you will be using Postfix just for Mailman, its setup is much simpler: ignore all the <i>mailbox</i> and <i>database</i> stuff.)
 </p>
 <p><code>/etc/postfix/main.cf</code> should have the following fields and values:
 </p>
@@ -173,7 +173,7 @@ recipient_delimiter = +</pre>
     command = /usr/lib/mailman/mail/mailman '${if def:local_part_suffix {${sg{$local_part_suffix}{-(\\w+)(\\+.*)?}{\$1}}}{post}}' $local_part</pre>
 <h2><span class="mw-headline" id="Web_Server_Configuration">Web Server Configuration</span></h2>
 <h3><span class="mw-headline" id="Nginx">Nginx</span></h3>
-<p>For installing and configuring this web server, see <a href="../wiki/Nginx.html" title="Nginx">Nginx</a>. Mailman web interface relies on CGI processing; this setup uses Nginx along <code>fcgiwrap</code>, see <a href="../wiki/Nginx.html#fcgiwrap" title="Nginx">Nginx#fcgiwrap</a>. 
+<p>For installing and configuring this web server, see <a href="/Usage/Configuration/M/Nginx.html" title="Nginx">Nginx</a>. Mailman web interface relies on CGI processing; this setup uses Nginx along <code>fcgiwrap</code>, see <a href="/Usage/Configuration/M/Nginx.html#fcgiwrap" title="Nginx">Nginx#fcgiwrap</a>. 
 </p>
 <p><code>/etc/nginx/nginx.conf</code> should include the following configuration per domain (example for <i>a.org</i>):
 </p>
@@ -279,7 +279,7 @@ $HTTP["host"] =~ "(^|\.)lists.a.org$" {
     Require all granted
 &lt;/Directory&gt;
 </pre>
-<p>Restart httpd <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service.
+<p>Restart httpd <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> service.
 </p>
 <h2><span class="mw-headline" id="Post_configuration">Post configuration</span></h2>
 <h3><span class="mw-headline" id="Site-wide_mailing_list">Site-wide mailing list</span></h3>
@@ -292,13 +292,13 @@ $HTTP["host"] =~ "(^|\.)lists.a.org$" {
 <p>Later you should also subscribe yourself to the site list.
 </p>
 <h3><span class="mw-headline" id="Set_up_timers">Set up timers</span></h3>
-<p>Several Mailman features occur on a regular schedule, so you must set up <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">timers</a> to run the right programs at the right time. 
+<p>Several Mailman features occur on a regular schedule, so you must set up <a href="/Usage/Configuration/M/Systemd/Timers.html" title="Systemd/Timers">timers</a> to run the right programs at the right time. 
 </p>
 <pre># cd /usr/lib/systemd/system
 # for X in mailman-*.timer ; do systemctl enable $X &amp;&amp; systemctl start $X ; done
 </pre>
 <h3><span class="mw-headline" id="Start_Mailman">Start Mailman</span></h3>
-<p>Mailman will not start processing and sending emails until the <code>mailman</code> daemon is started, and optionally enabled, with <a href="../wiki/Systemd.html#Using_units" title="Systemd">systemctl</a>.
+<p>Mailman will not start processing and sending emails until the <code>mailman</code> daemon is started, and optionally enabled, with <a href="/Usage/Configuration/M/Systemd.html#Using_units" title="Systemd">systemctl</a>.
 </p>
 <p>If you run into problems, run it more verbose so it can help you troubleshoot:
 </p>
@@ -356,7 +356,7 @@ $HTTP["host"] =~ "(^|\.)lists.a.org$" {
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Email.html" title="Category:Email">Email</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Email.html" title="Category:Email">Email</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -373,9 +373,9 @@ $HTTP["host"] =~ "(^|\.)lists.a.org$" {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

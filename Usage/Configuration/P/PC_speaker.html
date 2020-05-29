@@ -2,7 +2,7 @@
     title: PC_speaker
     description: Migration of PC_speaker from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a></li>
-<li><a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" title="Advanced Linux Sound TOSitecture">Advanced Linux Sound TOSitecture</a></li>
+<li><a href="/Usage/Configuration/P/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a></li>
+<li><a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html" title="Advanced Linux Sound TOSitecture">Advanced Linux Sound TOSitecture</a></li>
 </ul>
 </div>
 <p>The computer often seems to make beep noises or other sounds at various times, whether we want them or not. They come from various sources, and as such, you may be able to configure if or when they occur. For situations where no sound card or speakers are available and a simple audio notification is desired, see <a href="#Beep">#Beep</a>. 
@@ -77,15 +77,15 @@
 <p>Turning off a particular instance of a sound, while leaving the others operational, is possible if and only if one can identify which portion of the environment generates the particular sound. This allows customizing the selection of sounds. Please feel free to add any configurations and settings to this wiki page that may be useful for other users.
 </p>
 <h3><span class="mw-headline" id="Globally">Globally</span></h3>
-<p>The PC speaker can be disabled by <a href="../wiki/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">unloading</a> the <code>pcspkr</code> <a href="../wiki/Kernel_module.html" title="Kernel module">kernel module</a>:
+<p>The PC speaker can be disabled by <a href="/Usage/Configuration/P/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">unloading</a> the <code>pcspkr</code> <a href="/Usage/Configuration/P/Kernel_module.html" title="Kernel module">kernel module</a>:
 </p>
 <pre># rmmod pcspkr
 </pre>
-<p><a href="../wiki/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklisting">Blacklisting</a> the <code>pcspkr</code> module will prevent <a href="../wiki/Udev.html" title="Udev">udev</a> from loading it at boot:
+<p><a href="/Usage/Configuration/P/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklisting">Blacklisting</a> the <code>pcspkr</code> module will prevent <a href="/Usage/Configuration/P/Udev.html" title="Udev">udev</a> from loading it at boot:
 </p>
 <pre># echo "blacklist pcspkr" &gt; /etc/modprobe.d/nobeep.conf
 </pre>
-<p><a href="../wiki/Kernel_module.html#Using_kernel_command_line_2" class="mw-redirect" title="Kernel modules">Blacklisting it on the kernel command line</a> is yet another way. Simply add <code>modprobe.blacklist=pcspkr</code> to your bootloader's kernel line.
+<p><a href="/Usage/Configuration/P/Kernel_module.html#Using_kernel_command_line_2" class="mw-redirect" title="Kernel modules">Blacklisting it on the kernel command line</a> is yet another way. Simply add <code>modprobe.blacklist=pcspkr</code> to your bootloader's kernel line.
 </p>
 <h3><span class="mw-headline" id="Console">Console</span></h3>
 <p>You can add this command in <code>/etc/profile</code> or a dedicated file like <code>/etc/profile.d/disable-beep.sh</code>:
@@ -97,9 +97,9 @@
 <pre>set bell-style none
 </pre>
 <h4><span class="mw-headline" id="Less_pager">Less pager</span></h4>
-<p>To disable PC speaker in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=less">less</a></span> pager, you can launch it with <code>less -q</code> to mute PC speaker for end of line events or <code>less -Q</code> to mute it altogether. For <a href="../wiki/Man_page.html" title="Man page">man pages</a>, launch <code>man -P "less -Q"</code> or set the <code>$MANPAGER</code> or <code>$PAGER</code> <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variables</a>.
+<p>To disable PC speaker in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=less">less</a></span> pager, you can launch it with <code>less -q</code> to mute PC speaker for end of line events or <code>less -Q</code> to mute it altogether. For <a href="/Usage/Configuration/P/Man_page.html" title="Man page">man pages</a>, launch <code>man -P "less -Q"</code> or set the <code>$MANPAGER</code> or <code>$PAGER</code> <a href="/Usage/Configuration/P/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variables</a>.
 </p>
-<p>Alternatively, you can add these lines to your <code>~/<a href="../wiki/Bash.html#Configuration_files" class="mw-redirect" title=".bashrc">.bashrc</a></code>:
+<p>Alternatively, you can add these lines to your <code>~/<a href="/Usage/Configuration/P/Bash.html#Configuration_files" class="mw-redirect" title=".bashrc">.bashrc</a></code>:
 </p>
 <pre>alias less='less -Q'
 alias man='man -P "less -Q"'
@@ -107,19 +107,19 @@ alias man='man -P "less -Q"'
 <h3><span class="mw-headline" id="Xorg">Xorg</span></h3>
 <pre>$ xset -b
 </pre>
-<p>You can add this command to a startup file such as <code>/etc/xprofile</code> to make it permanent. See <a href="../wiki/Xprofile.html" title="Xprofile">xprofile</a> for more information.
+<p>You can add this command to a startup file such as <code>/etc/xprofile</code> to make it permanent. See <a href="/Usage/Configuration/P/Xprofile.html" title="Xprofile">xprofile</a> for more information.
 </p>
 <h3><span class="mw-headline" id="ALSA">ALSA</span></h3>
-<p>For most sound cards the PC speaker is listed as an <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> channel, named either <i>PC Speaker</i>, <i>PC Beep</i>, or <i>Beep</i>. To mute the speaker, either use <i>alsamixer</i> or <i>amixer</i>:
+<p>For most sound cards the PC speaker is listed as an <a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> channel, named either <i>PC Speaker</i>, <i>PC Beep</i>, or <i>Beep</i>. To mute the speaker, either use <i>alsamixer</i> or <i>amixer</i>:
 </p>
 <pre>$ amixer set <i>channel</i> 0% mute
 </pre>
-<p>To unmute the channel, see <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html#Unmuting_the_channels" title="Advanced Linux Sound TOSitecture">Advanced Linux Sound TOSitecture#Unmuting the channels</a>.
+<p>To unmute the channel, see <a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html#Unmuting_the_channels" title="Advanced Linux Sound TOSitecture">Advanced Linux Sound TOSitecture#Unmuting the channels</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you are using PulseAudio and the PC speaker channel is not listed for the default ALSA device, try selecting the device corresponding to the sound card - PulseAudio proxy controls may not list the PC speaker</div>
 <h3><span class="mw-headline" id="GNOME">GNOME</span></h3>
-<p>Using <a href="../wiki/GNOME.html#Configuration" title="GNOME">GSettings</a>:
+<p>Using <a href="/Usage/Configuration/P/GNOME.html#Configuration" title="GNOME">GSettings</a>:
 </p>
 <pre>$ gsettings set org.gnome.desktop.wm.preferences audible-bell false
 </pre>
@@ -127,7 +127,7 @@ alias man='man -P "less -Q"'
 <p>Bell notification settings can be modified in "System Settings"-&gt;"Accessibility Options"-&gt;"Bell".
 </p>
 <h3><span class="mw-headline" id="Cinnamon">Cinnamon</span></h3>
-<p><a href="../wiki/Cinnamon.html" title="Cinnamon">Cinnamon</a> seems to play a "water drop" sound. To disable it, set in <span class="plainlinks archwiki-template-man" title="$ man 1 gsettings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gsettings.1">gsettings(1)</a></span>:
+<p><a href="/Usage/Configuration/P/Cinnamon.html" title="Cinnamon">Cinnamon</a> seems to play a "water drop" sound. To disable it, set in <span class="plainlinks archwiki-template-man" title="$ man 1 gsettings"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gsettings.1">gsettings(1)</a></span>:
 </p>
 <pre>$ gsettings set org.cinnamon.desktop.wm.preferences audible-bell false
 </pre>
@@ -144,14 +144,14 @@ gtk-error-bell = 0
 <p>This is documented in the <a rel="nofollow"  href="https://developer.gnome.org/gtk3/stable/GtkSettings.html">Gnome Developer Handbook</a>.
 </p>
 <h2><span class="mw-headline" id="Beep">Beep</span></h2>
-<p>A user can create a short audible tone when logged in to a <a href="../wiki/Linux_console.html#Virtual_consoles" class="mw-redirect" title="Virtual console">virtual console</a>. See <a href="https://en.wikipedia.org/wiki/bell_character#usage"  title="wikipedia:bell character">Wikipedia:bell character#usage</a> for the details.
+<p>A user can create a short audible tone when logged in to a <a href="/Usage/Configuration/P/Linux_console.html#Virtual_consoles" class="mw-redirect" title="Virtual console">virtual console</a>. See <a href="https://en.wikipedia.org/wiki/bell_character#usage"  title="wikipedia:bell character">Wikipedia:bell character#usage</a> for the details.
 </p>
 <p>Beep is an advanced PC speaker beeping program. It is useful for situations where no sound card and/or speakers are available, and simple audio notification is desired.
 </p>
 <h3><span class="mw-headline" id="Installation">Installation</span></h3>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=beep">beep</a></span> package.
+<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=beep">beep</a></span> package.
 </p>
-<p>You may also need to <a href="#ALSA">unmute</a> the PC speaker in <a href="../wiki/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>.
+<p>You may also need to <a href="#ALSA">unmute</a> the PC speaker in <a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>.
 </p>
 <h3><span class="mw-headline" id="Run_as_non-root_user">Run as non-root user</span></h3>
 <p><code>beep</code> uses <code>/dev/input/by-path/platform-pcspkr-event-spkr</code> to control the PC speaker. To access it as a non-root user, one has to set the proper permissions. Create <code>/etc/udev/rules.d/70-pcspkr-beep.rules</code> and add the following rule:
@@ -182,7 +182,7 @@ gtk-error-bell = 0
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -199,9 +199,9 @@ gtk-error-bell = 0
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

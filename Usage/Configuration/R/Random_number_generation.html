@@ -2,7 +2,7 @@
     title: Random_number_generation
     description: Migration of Random_number_generation from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <p>From <a href="https://en.wikipedia.org/wiki/Random_number_generation"  title="wikipedia:Random number generation">wikipedia:Random number generation</a>:
 </p>
 <dl><dd>A random number generator (RNG) is a computational or physical device designed to generate a sequence of numbers or symbols that lack any pattern, i.e. appear random.</dd></dl>
-<p>Generation of random data is crucial for several applications like making cryptographic keys (e.g. for <a href="../wiki/Data-at-rest_encryption.html" title="Data-at-rest encryption">data-at-rest encryption</a>), <a href="../wiki/Securely_wipe_disk.html" title="Securely wipe disk">securely wiping disks</a>, running encrypted <a href="../wiki/Software_access_point.html" title="Software access point">Software access points</a>.
+<p>Generation of random data is crucial for several applications like making cryptographic keys (e.g. for <a href="/Usage/Configuration/R/Data-at-rest_encryption.html" title="Data-at-rest encryption">data-at-rest encryption</a>), <a href="/Usage/Configuration/R/Securely_wipe_disk.html" title="Securely wipe disk">securely wiping disks</a>, running encrypted <a href="/Usage/Configuration/R/Software_access_point.html" title="Software access point">Software access points</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -76,7 +76,7 @@
 </h3>
 <p>In contrast to <code>/dev/random</code>, <code>/dev/urandom</code> takes (since kernel 4.8) an initial random seed to feed a cryptographic stream cipher.<a rel="nofollow"  href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e192be9d9a30555aae2ca1dc3aad37cba484cd4a">[1]</a>
 </p>
-<p>The stream cipher is used because it can provide a high volume of high quality pseudo-random data suitable for many purposes like, for example, <a href="../wiki/Securely_wipe_disk.html#Preparations_for_block_device_encryption" title="Securely wipe disk">preparing for block device encryption</a>, wiping LUKS keyslots, etc.
+<p>The stream cipher is used because it can provide a high volume of high quality pseudo-random data suitable for many purposes like, for example, <a href="/Usage/Configuration/R/Securely_wipe_disk.html#Preparations_for_block_device_encryption" title="Securely wipe disk">preparing for block device encryption</a>, wiping LUKS keyslots, etc.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> <code>/dev/urandom</code> is <b>not</b> recommended for the generation of long-term cryptographic keys.</div>
@@ -108,15 +108,15 @@
 </pre>
 <p>In above example, the system has long reached its default boot target before the kernel gathered enough entropy to initialize the pool. Due to systemd <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/4167">requiring</a> entropy at an early stage, it may happen though that the pool is depleted in the boot process without further kernel warnings.
 </p>
-<p>Hence, a problem at this boot stage is that another service, e.g. an <a href="../wiki/OpenSSL.html" title="OpenSSL">OpenSSL</a> session for a web server or any other cryptographic service, may start without receiving a sufficient quality entropy seed from the depleted <code>/dev/urandom</code> pool. Moving on, in a typical configuration OpenSSL may use that seed during the whole session's runtime, and only request a fresh seed for a new session.
+<p>Hence, a problem at this boot stage is that another service, e.g. an <a href="/Usage/Configuration/R/OpenSSL.html" title="OpenSSL">OpenSSL</a> session for a web server or any other cryptographic service, may start without receiving a sufficient quality entropy seed from the depleted <code>/dev/urandom</code> pool. Moving on, in a typical configuration OpenSSL may use that seed during the whole session's runtime, and only request a fresh seed for a new session.
 </p>
 <h2><span class="mw-headline" id="Alternatives">Alternatives</span></h2>
 <p>For applications other than the generation of long-term cryptographic keys, a practical compromise between performance and security is the use of a <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator"  title="wikipedia:Pseudorandom number generator">pseudorandom number generator</a>. In TOS Linux repositories for example: 
 </p>
 <ul>
-<li><a href="../wiki/Haveged.html" title="Haveged">Haveged</a></li>
-<li><a href="../wiki/Frandom.html" title="Frandom">Frandom</a></li>
-<li><a href="../wiki/Rng-tools.html" title="Rng-tools">rng-tools</a></li>
+<li><a href="/Usage/Configuration/R/Haveged.html" title="Haveged">Haveged</a></li>
+<li><a href="/Usage/Configuration/R/Frandom.html" title="Frandom">Frandom</a></li>
+<li><a href="/Usage/Configuration/R/Rng-tools.html" title="Rng-tools">rng-tools</a></li>
 </ul>
 <p>There are also <a href="https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator"  title="wikipedia:Cryptographically secure pseudorandom number generator">cryptographically secure pseudorandom number generators</a> like <a href="https://en.wikipedia.org/wiki/Yarrow_algorithm"  title="wikipedia:Yarrow algorithm">Yarrow</a> (FreeBSD/OS-X) or <a href="https://en.wikipedia.org/wiki/Fortuna_(PRNG)"  title="wikipedia:Fortuna (PRNG)">Fortuna</a> (the intended successor of Yarrow).
 </p>
@@ -144,7 +144,7 @@
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -161,9 +161,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

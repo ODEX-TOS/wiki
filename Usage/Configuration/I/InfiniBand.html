@@ -2,7 +2,7 @@
     title: InfiniBand
     description: Migration of InfiniBand from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -260,7 +260,7 @@ PSID:            <b>MT_04A0110002</b></pre>
 <p>Search for the model number (or a substring) over at <a rel="nofollow"  href="https://downloadcenter.intel.com/">Intel Download Center</a> and follow the instructions. The downloaded software will probably need to be run from RHEL/CentOS or SUSE/OpenSUSE.
 </p>
 <h3><span class="mw-headline" id="Kernel_modules">Kernel modules</span></h3>
-<p>Edit <code>/etc/rdma/rdma.conf</code> to your liking and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rdma.service</code>.
+<p>Edit <code>/etc/rdma/rdma.conf</code> to your liking and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rdma.service</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <a rel="nofollow"  href="https://bugzilla.redhat.com/show_bug.cgi?id=965829">Due to how the kernel stacks are handled</a>, changes to <code>/etc/rdma/rdma.conf</code> only take effect max once every boot, when <code>rdma.service</code> is started for first time. Restarting <code>rdma.service</code> has no effect.</div>
@@ -277,7 +277,7 @@ PSID:            <b>MT_04A0110002</b></pre>
 <li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/opensm/">opensm</a></span><sup><small>AUR</small></sup>
 </li>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>opensm.service</code>
+<a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>opensm.service</code>
 </li>
 </ul>
 <p>All of your connected IB ports should now be in a (port) state of <code>Active</code>, and a physical state of <code>LinkUp</code>. You can check this by running <a href="#ibstat_-_View_a_computer's_IB_GUIDs">ibstat</a>.
@@ -298,7 +298,7 @@ Physical state: LinkUp
 </h2>
 <p>You can create a virtual Ethernet Adapter that runs on the HCA. This is intended so programs designed to work with TCP/IP but not IB, can (indirectly) use IB networks. Performance is negatively affected due to sending all traffic through the normal TCP stack; requiring system calls, memory copies, and network protocols to run on the CPU rather than on the HCA.
 </p>
-<p>Configure the IB interface (e.g. <code>ib0</code>) <a href="../wiki/Network_configuration.html" title="Network configuration">like a traditional Ethernet adapter</a>.
+<p>Configure the IB interface (e.g. <code>ib0</code>) <a href="/Usage/Configuration/I/Network_configuration.html" title="Network configuration">like a traditional Ethernet adapter</a>.
 </p>
 <h3><span class="mw-headline" id="Connection_mode">Connection mode</span></h3>
 <p>IPoIB can run in datagram (default) or connected mode. Connected mode <a href="#Finetuning_connection_mode_and_MTU">allows you to set a higher MTU</a>, but does increase TCP latency for short messages by about 5% more than datagram mode.
@@ -328,7 +328,7 @@ Physical state: LinkUp
 </li></ul>
 </li>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ipoibmodemtu.service</code>
+<a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ipoibmodemtu.service</code>
 </li>
 </ul>
 <p>Different setups will see different results. Some people see a gigantic (double+) speed increase by using <code>connected</code> mode and MTU <code>65520</code>, and a few see about the same or even worse speeds. Use <a href="#qperf_-_Measure_performance_over_RDMA_or_TCP/IP">qperf</a> and <a href="#iperf_-_Measure_performance_over_TCP/IP">iperf</a> to finetune your system.
@@ -386,7 +386,7 @@ Physical state: LinkUp
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">  Name    Link  Driver      Speed  NMTU  IPv4_addr        RDEV  RMTU          
   enp1s0  yes   virtio_net         1500  192.168.122.211  rxe0  1024  (3)</pre>
 <h2><span class="mw-headline" id="Remote_data_storage">Remote data storage</span></h2>
-<p>You can share physical or virtual devices from a target (host/server) to an initiator (guest/client) system over an IB network, using iSCSI, iSCSI with iSER, or SRP. These methods differ from traditional file sharing (i.e. <a href="../wiki/Samba.html" title="Samba">Samba</a> or <a href="../wiki/NFS.html" title="NFS">NFS</a>) because the initiator system views the shared device as its own block level device, rather than a traditionally mounted network shared folder. i.e. <code>fdisk /dev/<i>block_device_id</i></code>, <code>mkfs.btrfs /dev/<i>block_device_id_with_partition_number</i></code>
+<p>You can share physical or virtual devices from a target (host/server) to an initiator (guest/client) system over an IB network, using iSCSI, iSCSI with iSER, or SRP. These methods differ from traditional file sharing (i.e. <a href="/Usage/Configuration/I/Samba.html" title="Samba">Samba</a> or <a href="/Usage/Configuration/I/NFS.html" title="NFS">NFS</a>) because the initiator system views the shared device as its own block level device, rather than a traditionally mounted network shared folder. i.e. <code>fdisk /dev/<i>block_device_id</i></code>, <code>mkfs.btrfs /dev/<i>block_device_id_with_partition_number</i></code>
 </p>
 <p>The disadvantage is only one system can use each shared device at a time; trying to mount a shared device on the target or another initiator system will fail (an initiator system can certainly run traditional file sharing on top).
 </p>
@@ -402,7 +402,7 @@ Physical state: LinkUp
 <li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/targetcli-fb/">targetcli-fb</a></span><sup><small>AUR</small></sup>
 </li>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>target.service</code>
+<a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>target.service</code>
 </li>
 </ul>
 <p>In <code>targetcli</code>:
@@ -436,7 +436,7 @@ Physical state: LinkUp
 <h3><span class="mw-headline" id="iSCSI">iSCSI</span></h3>
 <p>iSCSI allows storage devices and virtual storage devices to be used over a network. For IB networks, the storage can either work over IPoIB or iSER.
 </p>
-<p>There is a lot of overlap with the <a href="../wiki/ISCSI/LIO.html" class="mw-redirect" title="ISCSI Target">iSCSI Target</a>, <a href="../wiki/Open-iSCSI.html" class="mw-redirect" title="ISCSI Initiator">iSCSI Initiator</a>, and <a href="../wiki/ISCSI/Boot.html" class="mw-redirect" title="ISCSI Boot">iSCSI Boot</a> articles, but the necessities will be discussed since much needs to be customized for usage over IB.
+<p>There is a lot of overlap with the <a href="/Usage/Configuration/I/ISCSI/LIO.html" class="mw-redirect" title="ISCSI Target">iSCSI Target</a>, <a href="/Usage/Configuration/I/Open-iSCSI.html" class="mw-redirect" title="ISCSI Initiator">iSCSI Initiator</a>, and <a href="/Usage/Configuration/I/ISCSI/Boot.html" class="mw-redirect" title="ISCSI Boot">iSCSI Boot</a> articles, but the necessities will be discussed since much needs to be customized for usage over IB.
 </p>
 <h4><span class="mw-headline" id="Over_IPoIB">Over IPoIB</span></h4>
 <p>Perform the target system instructions first, which will direct you when to temporarily switch over to the initiator system instructions.
@@ -484,14 +484,14 @@ Physical state: LinkUp
 </ul>
 </li>
 <li>
-<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>iscsid.service</code>
+<a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>iscsid.service</code>
 </li>
 <li>To automatically login to discovered targets at boot, before discovering targets, edit <code>/etc/iscsi/iscsid.conf</code> to set <code>node.startup = automatic</code>
 </li>
 <li>Discover online targets. Run <code>iscsiadm -m discovery -t sendtargets -p <i>portal</i></code> as root, where <i>portal</i> is an IP (v4 or v6) address or hostname
 <ul><li>If using a hostname, make sure it routes to the IB IP address rather than Ethernet - it may be beneficial to just use the IB IP address</li></ul>
 </li>
-<li>To automatically login to discovered targets at boot, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>iscsi.service</code>
+<li>To automatically login to discovered targets at boot, <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>iscsi.service</code>
 </li>
 <li>To manually login to discovered targets, run <code>iscsiadm -m node -L all</code> as root.</li>
 <li>View which block device ID was given to each target logged into. Run <code>iscsiadm -m session -P 3 | grep Attached</code> as root. The block device ID will be the last line in the tree for each target (<code>-P</code> is the print command, its option is the verbosity level, and only level 3 lists the block device IDs)</li>
@@ -792,9 +792,9 @@ iperf Done.</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/I/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -812,9 +812,9 @@ iperf Done.</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

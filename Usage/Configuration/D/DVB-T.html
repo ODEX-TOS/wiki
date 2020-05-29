@@ -2,7 +2,7 @@
     title: DVB-T
     description: Migration of DVB-T from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/DVB-S.html" title="DVB-S">DVB-S</a></li>
-<li><a href="../wiki/LIRC.html" title="LIRC">LIRC</a></li>
-<li><a href="../wiki/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a></li>
+<li><a href="/Usage/Configuration/D/DVB-S.html" title="DVB-S">DVB-S</a></li>
+<li><a href="/Usage/Configuration/D/LIRC.html" title="LIRC">LIRC</a></li>
+<li><a href="/Usage/Configuration/D/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/DVB-T"  title="wikipedia:DVB-T">DVB-T</a> is a standard for transmitting terrestrial digital video broadcast, which is used in the majority of Africa, Asia, Australia and Europe. It is possible to receive DVB-T using several different hardware setups, however this article will focus on DVB-T USB dongles based on the RTL2832U chipset (which are also very popular as cheap software defined radios using <a href="../wiki/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a>).
+<p><a href="https://en.wikipedia.org/wiki/DVB-T"  title="wikipedia:DVB-T">DVB-T</a> is a standard for transmitting terrestrial digital video broadcast, which is used in the majority of Africa, Asia, Australia and Europe. It is possible to receive DVB-T using several different hardware setups, however this article will focus on DVB-T USB dongles based on the RTL2832U chipset (which are also very popular as cheap software defined radios using <a href="/Usage/Configuration/D/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a>).
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -67,7 +67,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Driver">Driver</span></h2>
-<p>The main driver in use is <code>dvb_usb_rtl28xxu</code>, and exists in the latest kernels. If it is not <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">loaded</a>, do so manually:
+<p>The main driver in use is <code>dvb_usb_rtl28xxu</code>, and exists in the latest kernels. If it is not <a href="/Usage/Configuration/D/Kernel_module.html" class="mw-redirect" title="Kernel modules">loaded</a>, do so manually:
 </p>
 <pre># modprobe dvb_usb_rtl28xxu
 </pre>
@@ -77,7 +77,7 @@
 # modprobe rtl2832
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you have <a href="../wiki/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a> installed, note that it conflicts with this driver, and therefore blacklists it. Make sure to remove any necessary blacklists before loading the driver. The default location for the blacklist file is in <code>/etc/modprobe.d/rtlsdr.conf</code>.</div>
+<strong>Note:</strong> If you have <a href="/Usage/Configuration/D/RTL-SDR.html" title="RTL-SDR">RTL-SDR</a> installed, note that it conflicts with this driver, and therefore blacklists it. Make sure to remove any necessary blacklists before loading the driver. The default location for the blacklist file is in <code>/etc/modprobe.d/rtlsdr.conf</code>.</div>
 <p>After plugging the device in, <code>dmesg</code> should show something like this:
 </p>
 <pre>[ 4009.326338] usb 7-5: new high-speed USB device number 4 using ehci-pci
@@ -96,7 +96,7 @@
 [ 4009.565930] usb 7-5: dvb_usb_v2: 'Realtek RTL2832U reference design' successfully initialized and connected
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> in this case we see that the dongle has a R820T tuner, but there are several other popular tuners that you might run into. Also note the IR sensor device that was recognized that, properly configured, can be used with the device remote control. See <a href="../wiki/LIRC.html" title="LIRC">LIRC</a> for more information.</div>
+<strong>Note:</strong> in this case we see that the dongle has a R820T tuner, but there are several other popular tuners that you might run into. Also note the IR sensor device that was recognized that, properly configured, can be used with the device remote control. See <a href="/Usage/Configuration/D/LIRC.html" title="LIRC">LIRC</a> for more information.</div>
 <p>Additionally, you should now see the adapter device under <code>/dev/dvb/adapter0</code>. Some cards need additional firmwares that are not distributed for various reasons. Usually you will find an explicit message about that in dmesg. Look for the name of the file(s) you see with your favorite search engine, and once you have them, put the required firmware(s) in /usr/lib/firmware. Possibly a package might exist in the AUR.
 </p>
 <h2><span class="mw-headline" id="Utilities">Utilities</span></h2>
@@ -112,18 +112,18 @@
 <pre># w_scan -c "?"
 </pre>
 <p>Note that country code is optional is some cases (see <span class="plainlinks archwiki-template-man" title="$ man 1 w_scan"><a rel="nofollow"  href="https://www.mankier.com/1/w_scan">w_scan(1)</a></span> for details).
-More advanced scanning options can be found under <a href="../wiki/DVB-S.html#Scanning_channels" title="DVB-S">DVB-S#Scanning channels</a>. See also <i>w_scan'</i>s <span class="plainlinks archwiki-template-man" title="$ man 1 w_scan"><a rel="nofollow"  href="https://www.mankier.com/1/w_scan">w_scan(1)</a></span> and <a rel="nofollow"  href="http://linuxtv.org/wiki/index.php/W_scan">wscan's documentation on LinuxTVWiki</a>.
+More advanced scanning options can be found under <a href="/Usage/Configuration/D/DVB-S.html#Scanning_channels" title="DVB-S">DVB-S#Scanning channels</a>. See also <i>w_scan'</i>s <span class="plainlinks archwiki-template-man" title="$ man 1 w_scan"><a rel="nofollow"  href="https://www.mankier.com/1/w_scan">w_scan(1)</a></span> and <a rel="nofollow"  href="http://linuxtv.org/wiki/index.php/W_scan">wscan's documentation on LinuxTVWiki</a>.
 </p>
 <p>When <code>w_scan</code> fails to find all expected channels you could try <code>w_scan2</code>. It is a fork of the original <i>w_scan</i> and can be found on <a rel="nofollow"  href="https://github.com/stefantalpalaru/w_scan2">GitHub</a>.
 </p>
 <h2><span class="mw-headline" id="Clients">Clients</span></h2>
-<p>See also <a href="../wiki/XScreenSaver.html" title="XScreenSaver">how to disable screensaver when playing video/TV</a> by using configuration files or use <code>xset</code> command before and after player starts to enable/disable it. If you have installed <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xscreensaver">xscreensaver</a></span> then you will need to use <code>xscreensaver-command</code> instead of <code>xset</code> to activate/deactivate screensaver from command line.
+<p>See also <a href="/Usage/Configuration/D/XScreenSaver.html" title="XScreenSaver">how to disable screensaver when playing video/TV</a> by using configuration files or use <code>xset</code> command before and after player starts to enable/disable it. If you have installed <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xscreensaver">xscreensaver</a></span> then you will need to use <code>xscreensaver-command</code> instead of <code>xset</code> to activate/deactivate screensaver from command line.
 </p>
 <h3><span class="mw-headline" id="Kaffeine">Kaffeine</span></h3>
-<p>DVB-T works out-of-the box in <a href="../wiki/List_of_applications/Multimedia.html#Other_2" class="mw-redirect" title="Kaffeine">Kaffeine</a>, including management of multpile DVB-T devices, channel tuning, channel selection, EPG and recording. No external playlist generation is needed. Multiple DVB-T devices can be used at once (e.g. for recording from a multiplex while watching another one). Many single-tuner DVB-T devices can even provice two different TV channels, as long as they share the same multiplex; this feature is also readily available in Kaffeine.
+<p>DVB-T works out-of-the box in <a href="/Usage/Configuration/D/List_of_applications/Multimedia.html#Other_2" class="mw-redirect" title="Kaffeine">Kaffeine</a>, including management of multpile DVB-T devices, channel tuning, channel selection, EPG and recording. No external playlist generation is needed. Multiple DVB-T devices can be used at once (e.g. for recording from a multiplex while watching another one). Many single-tuner DVB-T devices can even provice two different TV channels, as long as they share the same multiplex; this feature is also readily available in Kaffeine.
 </p>
 <h3><span class="mw-headline" id="VLC">VLC</span></h3>
-<p>The simplest way to watch DVB-T channels with <a href="../wiki/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> is to first generate a playlist:
+<p>The simplest way to watch DVB-T channels with <a href="/Usage/Configuration/D/VLC_media_player.html" class="mw-redirect" title="VLC">VLC</a> is to first generate a playlist:
 </p>
 <pre>$ w_scan -ft -c [country_code] -L &gt; dvb.xspf
 $ vlc dvb.xspf
@@ -141,7 +141,7 @@ $ vlc dvb.xspf
 <h3>
 <span id="MPlayer_.2F_mpv"></span><span class="mw-headline" id="MPlayer_/_mpv">MPlayer / mpv</span>
 </h3>
-<p>For DVB streaming, <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a> (or <a href="../wiki/Mpv.html" title="Mpv">mpv</a>) requires a channels configuration file at <code>~/.mplayer/channels.conf</code>. Follow <a href="#Scanning">#Scanning</a> for instructions on how to generate it, but make sure to use the <code>-M</code> flag to generate the proper format for MPlayer, if you are using <code>w_scan</code>:
+<p>For DVB streaming, <a href="/Usage/Configuration/D/MPlayer.html" title="MPlayer">MPlayer</a> (or <a href="/Usage/Configuration/D/Mpv.html" title="Mpv">mpv</a>) requires a channels configuration file at <code>~/.mplayer/channels.conf</code>. Follow <a href="#Scanning">#Scanning</a> for instructions on how to generate it, but make sure to use the <code>-M</code> flag to generate the proper format for MPlayer, if you are using <code>w_scan</code>:
 </p>
 <pre>$ w_scan -ft -c [country_code] -M &gt; ~/.mplayer/channels.conf
 </pre>
@@ -160,7 +160,7 @@ $ vlc dvb.xspf
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> MPlayer cannot handle and play channels from a command line that contains some of Linux special symbols like <code>/</code> in their names, but you can manually rename them by editing <code>~/.mplayer/channels.conf</code>.</div>
 <h4><span class="mw-headline" id="Channel_selector">Channel selector</span></h4>
-<p>Here is a <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lstv/">lstv</a></span><sup><small>AUR</small></sup> script that will show a numbered list of channels by reading data from a <code>~/.mplayer/channels.conf</code> file. You will be able to watch a channel by using a number associated to it by the script instead of having to type the whole channel name on the command line, e.g. <code>lstv 3</code>. The channel number associated by the script equals to the line number with tuning configuration for it. The script disables display power saving and a screen saver before starting <i>mplayer</i> and enables both again after you close it to disable screensaver management in this script remove <code>xset ...;</code> before and after <a href="../wiki/MPlayer.html" title="MPlayer">MPlayer</a>.
+<p>Here is a <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lstv/">lstv</a></span><sup><small>AUR</small></sup> script that will show a numbered list of channels by reading data from a <code>~/.mplayer/channels.conf</code> file. You will be able to watch a channel by using a number associated to it by the script instead of having to type the whole channel name on the command line, e.g. <code>lstv 3</code>. The channel number associated by the script equals to the line number with tuning configuration for it. The script disables display power saving and a screen saver before starting <i>mplayer</i> and enables both again after you close it to disable screensaver management in this script remove <code>xset ...;</code> before and after <a href="/Usage/Configuration/D/MPlayer.html" title="MPlayer">MPlayer</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/local/bin/lstv</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
@@ -190,7 +190,7 @@ fi;
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> If there is more than one channel with the same name, <i>mplayer</i> will play only the closest one in the list.</div>
 <h3><span class="mw-headline" id="ffmpeg">ffmpeg</span></h3>
-<p><a href="../wiki/FFmpeg.html" title="FFmpeg">FFmpeg</a> can take DVB-T MPEG streams as input, but requires <code>tzap</code> to do so.
+<p><a href="/Usage/Configuration/D/FFmpeg.html" title="FFmpeg">FFmpeg</a> can take DVB-T MPEG streams as input, but requires <code>tzap</code> to do so.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This might not necessarily be the case, if a better method is known, please update.</div>
@@ -244,7 +244,7 @@ To play or extract a separate program from it (with all its audio, video and sub
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:TV_cards.html" title="Category:TV cards">TV cards</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:TV_cards.html" title="Category:TV cards">TV cards</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -261,9 +261,9 @@ To play or extract a separate program from it (with all its audio, video and sub
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

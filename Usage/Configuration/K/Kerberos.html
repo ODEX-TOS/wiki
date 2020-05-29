@@ -2,7 +2,7 @@
     title: Kerberos
     description: Migration of Kerberos from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
+<li><a href="/Usage/Configuration/K/Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Kerberos_(protocol)"  title="wikipedia:Kerberos (protocol)">Kerberos</a> is a network authentication system. See <a rel="nofollow"  href="https://web.mit.edu/kerberos/krb5-latest/doc/">krb5 documentation</a>.
@@ -99,9 +99,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=krb5">krb5</a></span> package on your clients and server.
+<p><a href="/Usage/Configuration/K/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=krb5">krb5</a></span> package on your clients and server.
 </p>
-<p>It is <b>highly</b> recommended to use a <a href="../wiki/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon to keep client/server clocks in sync.
+<p>It is <b>highly</b> recommended to use a <a href="/Usage/Configuration/K/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon to keep client/server clocks in sync.
 </p>
 <p>If hostname resolution has not been configured, you can manually add your clients and server to the <span class="plainlinks archwiki-template-man" title="$ man 5 hosts"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/hosts.5">hosts(5)</a></span> file of each machine. Note that the FQDN (myclient.example.com) must be the first hostname after the IP address in the hosts file.
 </p>
@@ -342,7 +342,7 @@ Entry for principal host/kbclient.example.com with kvno 2, encryption type aes12
 <h2><span class="mw-headline" id="SSH_Authentication">SSH Authentication</span></h2>
 <p>Use the instructions in <a href="#Service_principals_and_keytabs">Service principals and keytabs</a> to create a principal for the "host" service for both client and server, then put the client's keys in the client's keytab and the server's keys in the server's keytab.
 </p>
-<p>Modify your <a href="../wiki/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> server configuration to enable GSSAPI authentication:
+<p>Modify your <a href="/Usage/Configuration/K/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> server configuration to enable GSSAPI authentication:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/ssh/sshd_config</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># GSSAPI Options
@@ -393,8 +393,8 @@ Valid starting       Expires              Service principal
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">robert@EXAMPLE.COM
 </pre>
 <h2><span class="mw-headline" id="NFS_Security">NFS Security</span></h2>
-<p>First, configure your <a href="../wiki/NFS.html#Server" title="NFS">NFS server</a> server. Also see <a href="../wiki/NFS/Troubleshooting.html" class="mw-redirect" title="NFS Troubleshooting">NFS Troubleshooting</a>.
-Configuring a <a href="../wiki/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon on both the clients and the server is strongly recommended. Clock drift will cause this to break, and the error message will not be helpful.
+<p>First, configure your <a href="/Usage/Configuration/K/NFS.html#Server" title="NFS">NFS server</a> server. Also see <a href="/Usage/Configuration/K/NFS/Troubleshooting.html" class="mw-redirect" title="NFS Troubleshooting">NFS Troubleshooting</a>.
+Configuring a <a href="/Usage/Configuration/K/System_time.html#Time_synchronization" class="mw-redirect" title="Time synchronization">time synchronization</a> daemon on both the clients and the server is strongly recommended. Clock drift will cause this to break, and the error message will not be helpful.
 </p>
 <p>Use the instructions in <a href="#Service_principals_and_keytabs">Service principals and keytabs</a> to create a principal for the "nfs" service for both client and server, then put the client's keys in the client's keytab and the server's keys in the server's keytab.
 </p>
@@ -446,7 +446,7 @@ Configuring a <a href="../wiki/System_time.html#Time_synchronization" class="mw-
 </pre>
 <p>Your realm is missing either the <code>kadmin/admin</code> or <code>kadmin/changepw</code> principal.
 </p>
-<p>For clients, invalid arguments/options may happen on first setup if rpc-gssd is not loaded. Loading it is usually acomplished by <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>nfs-client.target</code>, but after first setup this target will need a <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a>.
+<p>For clients, invalid arguments/options may happen on first setup if rpc-gssd is not loaded. Loading it is usually acomplished by <a href="/Usage/Configuration/K/Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> and <a href="/Usage/Configuration/K/Systemd.html#Using_units" class="mw-redirect" title="Starting">starting</a> <code>nfs-client.target</code>, but after first setup this target will need a <a href="/Usage/Configuration/K/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -457,8 +457,8 @@ Configuring a <a href="../wiki/System_time.html#Time_synchronization" class="mw-
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li>
-<li><a href="../wiki/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
+<li><a href="/Usage/Configuration/K/Category:Networking.html" title="Category:Networking">Networking</a></li>
+<li><a href="/Usage/Configuration/K/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -476,9 +476,9 @@ Configuring a <a href="../wiki/System_time.html#Time_synchronization" class="mw-
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/K/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/K/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/K/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

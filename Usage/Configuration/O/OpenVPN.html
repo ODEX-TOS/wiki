@@ -2,7 +2,7 @@
     title: OpenVPN
     description: Migration of OpenVPN from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/OpenVPN_client_in_Linux_Containers.html" title="OpenVPN client in Linux Containers">OpenVPN client in Linux Containers</a></li>
-<li><a href="../wiki/OpenVPN_server_in_Linux_Containers.html" title="OpenVPN server in Linux Containers">OpenVPN server in Linux Containers</a></li>
-<li><a href="../wiki/Easy-RSA.html" title="Easy-RSA">Easy-RSA</a></li>
+<li><a href="/Usage/Configuration/O/OpenVPN_client_in_Linux_Containers.html" title="OpenVPN client in Linux Containers">OpenVPN client in Linux Containers</a></li>
+<li><a href="/Usage/Configuration/O/OpenVPN_server_in_Linux_Containers.html" title="OpenVPN server in Linux Containers">OpenVPN server in Linux Containers</a></li>
+<li><a href="/Usage/Configuration/O/Easy-RSA.html" title="Easy-RSA">Easy-RSA</a></li>
 </ul>
 </div>
 <p>This article describes a basic installation and configuration of <a rel="nofollow"  href="http://openvpn.net">OpenVPN</a>, suitable for private and small business use. For more detailed information, please see the <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage">OpenVPN 2.4 man page</a> and the <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation">OpenVPN documentation</a>. OpenVPN is a robust and highly flexible <a href="https://en.wikipedia.org/wiki/VPN"  title="wikipedia:VPN">VPN</a> daemon. It supports <a href="https://en.wikipedia.org/wiki/SSL/TLS"  title="wikipedia:SSL/TLS">SSL/TLS</a> security, <a href="https://en.wikipedia.org/wiki/Bridging_(networking)"  title="wikipedia:Bridging (networking)">Ethernet bridging</a>, <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol"  title="wikipedia:Transmission Control Protocol">TCP</a> or <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol"  title="wikipedia:User Datagram Protocol">UDP</a> <a href="https://en.wikipedia.org/wiki/Tunneling_protocol"  title="wikipedia:Tunneling protocol">tunnel transport</a> through <a href="https://en.wikipedia.org/wiki/Proxy_server"  title="wikipedia:Proxy server">proxies</a> or <a href="https://en.wikipedia.org/wiki/Network_address_translation"  title="wikipedia:Network address translation">NAT</a>. Additionally it has support for dynamic IP addresses and <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol"  title="wikipedia:Dynamic Host Configuration Protocol">DHCP</a>, scalability to hundreds or thousands of users, and portability to most major OS platforms.
@@ -155,7 +155,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> package, which provides both server and client mode.
+<p><a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> package, which provides both server and client mode.
 </p>
 <p>Available frontends:
 </p>
@@ -177,17 +177,17 @@
   --&gt; Network device support
     [M] Universal TUN/TAP device driver support
 </pre>
-<p>Read <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a> for more information.
+<p>Read <a href="/Usage/Configuration/O/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a> for more information.
 </p>
 <h2><span class="mw-headline" id="Connect_to_a_VPN_provided_by_a_third_party">Connect to a VPN provided by a third party</span></h2>
-<p>To connect to a VPN service provided by a third party, most of the following can most likely be ignored, especially regarding server setup. Begin with <a href="#The_client_config_profile">#The client config profile</a> and skip ahead to <a href="#Starting_OpenVPN">#Starting OpenVPN</a> after that. One should use the provider certificates and instructions, see <a href="../wiki/Category:VPN_providers.html" title="Category:VPN providers">Category:VPN providers</a> for examples that can be adapted to other providers. <a href="../wiki/OpenVPN_client_in_Linux_Containers.html" title="OpenVPN client in Linux Containers">OpenVPN client in Linux Containers</a> also has general applicable instructions, while it goes a step further by isolating an OpenVPN client process into a container.
+<p>To connect to a VPN service provided by a third party, most of the following can most likely be ignored, especially regarding server setup. Begin with <a href="#The_client_config_profile">#The client config profile</a> and skip ahead to <a href="#Starting_OpenVPN">#Starting OpenVPN</a> after that. One should use the provider certificates and instructions, see <a href="/Usage/Configuration/O/Category:VPN_providers.html" title="Category:VPN providers">Category:VPN providers</a> for examples that can be adapted to other providers. <a href="/Usage/Configuration/O/OpenVPN_client_in_Linux_Containers.html" title="OpenVPN client in Linux Containers">OpenVPN client in Linux Containers</a> also has general applicable instructions, while it goes a step further by isolating an OpenVPN client process into a container.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Most free VPN providers will (often only) offer <a href="../wiki/PPTP_server.html" title="PPTP server">PPTP</a>, which is drastically easier to setup and configure, but <a rel="nofollow"  href="http://poptop.sourceforge.net/dox/protocol-security.phtml">not secure</a>.</div>
+<strong>Note:</strong> Most free VPN providers will (often only) offer <a href="/Usage/Configuration/O/PPTP_server.html" title="PPTP server">PPTP</a>, which is drastically easier to setup and configure, but <a rel="nofollow"  href="http://poptop.sourceforge.net/dox/protocol-security.phtml">not secure</a>.</div>
 <h2>
 <span id="Create_a_Public_Key_Infrastructure_.28PKI.29_from_scratch"></span><span class="mw-headline" id="Create_a_Public_Key_Infrastructure_(PKI)_from_scratch">Create a Public Key Infrastructure (PKI) from scratch</span>
 </h2>
-<p>When setting up an OpenVPN server, users need to create a <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure"  title="wikipedia:Public key infrastructure">Public Key Infrastructure (PKI)</a> which is detailed in the <a href="../wiki/Easy-RSA.html" title="Easy-RSA">Easy-RSA</a> article.  Once the needed certificates, private keys, and associated files are created via following the steps in the separate article, one should have 5 files in <code>/etc/openvpn/server</code> at this point:
+<p>When setting up an OpenVPN server, users need to create a <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure"  title="wikipedia:Public key infrastructure">Public Key Infrastructure (PKI)</a> which is detailed in the <a href="/Usage/Configuration/O/Easy-RSA.html" title="Easy-RSA">Easy-RSA</a> article.  Once the needed certificates, private keys, and associated files are created via following the steps in the separate article, one should have 5 files in <code>/etc/openvpn/server</code> at this point:
 </p>
 <pre>ca.crt
 dh.pem
@@ -329,14 +329,14 @@ tls-crypt ta.key # Replaces <i>tls-auth ta.key 1</i>
 <p>As it could seem to require manual action to manage the routes, the options <code>user nobody</code> and <code>group nobody</code> might seem undesirable. Depending on setup, however, there are different ways to handle these situations: 
 </p>
 <ul>
-<li>For errors of the unit, a simple way is to <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> it and add a <code>Restart=on-failure</code> to the <code>[Service]</code> section. Though, this alone will not delete any obsoleted routes, so it may happen that the restarted tunnel is not routed properly.</li>
+<li>For errors of the unit, a simple way is to <a href="/Usage/Configuration/O/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> it and add a <code>Restart=on-failure</code> to the <code>[Service]</code> section. Though, this alone will not delete any obsoleted routes, so it may happen that the restarted tunnel is not routed properly.</li>
 <li>The package contains the <code>/usr/lib/openvpn/plugins/openvpn-plugin-down-root.so</code>, which can be used to let <i>openvpn</i> fork a process with root privileges with the only task to execute a custom script when receiving a down signal from the main process, which is handling the tunnel with dropped privileges (see also its <a rel="nofollow"  href="https://community.openvpn.net/openvpn/browser/plugin/down-root/README?rev=d02a86d37bed69ee3fb63d08913623a86c88da15">README</a>).</li>
 </ul>
 <p>The OpenVPN HowTo's linked below go further by creating a dedicated non-privileged user/group, instead of the already existing <code>nobody</code>. The advantage is that this avoids potential risks when sharing a user among daemons:
 </p>
 <ul>
 <li>The <a rel="nofollow"  href="https://openvpn.net/index.php/open-source/documentation/howto.html#security">OpenVPN HowTo</a> explains another way how to create an unprivileged user mode and wrapper script to have the routes restored automatically.</li>
-<li>It is possible to let OpenVPN start as a non-privileged user in the first place, without ever running as root, see <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/UnprivilegedUser">this OpenVPN wiki</a> (howto). The howto assumes the presence of System V init, rather than <a href="../wiki/Systemd.html" title="Systemd">Systemd</a> and does not cover the handling of <code>--up</code>/<code>--down</code> scripts - those should be handled the same way as the <i>ip</i> command, with additional attention to access rights.</li>
+<li>It is possible to let OpenVPN start as a non-privileged user in the first place, without ever running as root, see <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/UnprivilegedUser">this OpenVPN wiki</a> (howto). The howto assumes the presence of System V init, rather than <a href="/Usage/Configuration/O/Systemd.html" title="Systemd">Systemd</a> and does not cover the handling of <code>--up</code>/<code>--down</code> scripts - those should be handled the same way as the <i>ip</i> command, with additional attention to access rights.</li>
 <li>It is also possible to run OpenVPN from within unprivileged podman container, see <a rel="nofollow"  href="https://community.openvpn.net/openvpn/wiki/UnprivilegedUser#RunOpenVPNwithinunprivilegedpodmancontainer">this section of OpenVPN HowTo</a>
 </li>
 </ul>
@@ -366,14 +366,14 @@ Wed Dec 28 14:41:50 2011 NOTE: OpenVPN 2.1 requires '--script-security 2' or hig
 Wed Dec 28 14:41:57 2011 GID set to nobody
 Wed Dec 28 14:41:57 2011 UID set to nobody
 Wed Dec 28 14:41:57 2011 Initialization Sequence Completed</pre>
-<p><a href="../wiki/Network_configuration.html#IP_addresses" title="Network configuration">Find the IP address</a> assigned to the tunX interface on the server, and <a href="../wiki/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> it from the client.
+<p><a href="/Usage/Configuration/O/Network_configuration.html#IP_addresses" title="Network configuration">Find the IP address</a> assigned to the tunX interface on the server, and <a href="/Usage/Configuration/O/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> it from the client.
 </p>
-<p><a href="../wiki/Network_configuration.html#IP_addresses" title="Network configuration">Find the IP address</a> assigned to the tunX interface on the client, and <a href="../wiki/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> it from the server.
+<p><a href="/Usage/Configuration/O/Network_configuration.html#IP_addresses" title="Network configuration">Find the IP address</a> assigned to the tunX interface on the client, and <a href="/Usage/Configuration/O/Network_configuration.html#Ping" class="mw-redirect" title="Ping">ping</a> it from the server.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If using a firewall, make sure that IP packets on the TUN device are not blocked.</div>
 <h3><span class="mw-headline" id="Configure_the_MTU_with_Fragment_and_MSS">Configure the MTU with Fragment and MSS</span></h3>
-<p>If experiencing issues when using (remote) services over OpenVPN (e.g. web browsing, <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a>, <a href="../wiki/NFS.html" title="NFS">NFS</a>), it may be needed to set a MTU value manually.
+<p>If experiencing issues when using (remote) services over OpenVPN (e.g. web browsing, <a href="/Usage/Configuration/O/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a>, <a href="/Usage/Configuration/O/NFS.html" title="NFS">NFS</a>), it may be needed to set a MTU value manually.
 </p>
 <p>The following message may indicate the MTU value should be adjusted:
 </p>
@@ -408,7 +408,7 @@ mtu-test
 <p>Starting from OpenVPN 2.4, OpenVPN will use <code>AF_INET</code> defined by the OS when just using <code>proto udp</code> or <code>proto tcp</code>, which in most cases will be IPv4 only. To use both IPv4 and IPv6, use <code>proto udp6</code> or <code>proto tcp6</code>. To enforce only IPv4-only, you need to use <code>proto udp4</code> or <code>proto tcp4</code>. On older OpenVPN versions, one server instance can only support either IPv4 or IPv6.
 </p>
 <h4><span class="mw-headline" id="Provide_IPv6_inside_the_tunnel">Provide IPv6 inside the tunnel</span></h4>
-<p>In order to provide IPv6 inside the tunnel, have an IPv6 prefix routed to the OpenVPN server. Either set up a static route on the gateway (if a static block is assigned), or use a DHCPv6 client to get a prefix with DHCPv6 Prefix delegation (see <a href="../wiki/IPv6.html#Prefix_delegation_(DHCPv6-PD)" title="IPv6">IPv6 Prefix delegation</a> for details). Also consider using a unique local address from the address block fc00::/7. Both methods have advantages and disadvantages:
+<p>In order to provide IPv6 inside the tunnel, have an IPv6 prefix routed to the OpenVPN server. Either set up a static route on the gateway (if a static block is assigned), or use a DHCPv6 client to get a prefix with DHCPv6 Prefix delegation (see <a href="/Usage/Configuration/O/IPv6.html#Prefix_delegation_(DHCPv6-PD)" title="IPv6">IPv6 Prefix delegation</a> for details). Also consider using a unique local address from the address block fc00::/7. Both methods have advantages and disadvantages:
 </p>
 <ul>
 <li>Many ISPs only provide dynamically changing IPv6 prefixes. OpenVPN does not support prefix changes, so change the server.conf every time the prefix is changed (Maybe can be automated with a script).</li>
@@ -433,7 +433,7 @@ mtu-test
 <p>To troubleshoot a VPN connection, start the client's daemon manually with <code>openvpn /etc/openvpn/client/client.conf</code> as root. The server can be started the same way using its own configuration file (e.g., <code>openvpn /etc/openvpn/server/server.conf</code>).
 </p>
 <h3><span class="mw-headline" id="systemd_service_configuration">systemd service configuration</span></h3>
-<p>To start the OpenVPN server automatically at system boot, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>openvpn-server@<i>&lt;configuration&gt;</i>.service</code> on the applicable machine. For a client, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>openvpn-client@<i>&lt;configuration&gt;</i>.service</code> instead. (Leave <code>.conf</code> out of the <code>&lt;configuration&gt;</code> string.)
+<p>To start the OpenVPN server automatically at system boot, <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>openvpn-server@<i>&lt;configuration&gt;</i>.service</code> on the applicable machine. For a client, <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>openvpn-client@<i>&lt;configuration&gt;</i>.service</code> instead. (Leave <code>.conf</code> out of the <code>&lt;configuration&gt;</code> string.)
 </p>
 <p>For example, if the client configuration file is <code>/etc/openvpn/client/<i>client</i>.conf</code>, the service name is <code>openvpn-client@<i>client</i>.service</code>. Or, if the server configuration file is <code>/etc/openvpn/server/<i>server</i>.conf</code>, the service name is <code>openvpn-server@<i>server</i>.service</code>.
 </p>
@@ -453,7 +453,7 @@ case "$2" in
     systemctl stop openvpn-client@<i>&lt;configuration&gt;</i>
   ;;
 esac</pre>
-<p>See <a href="../wiki/NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">NetworkManager#Network services with NetworkManager dispatcher</a> for more details.
+<p>See <a href="/Usage/Configuration/O/NetworkManager.html#Network_services_with_NetworkManager_dispatcher" title="NetworkManager">NetworkManager#Network services with NetworkManager dispatcher</a> for more details.
 </p>
 <h3><span class="mw-headline" id="Gnome_configuration">Gnome configuration</span></h3>
 <p>To connect to an OpenVPN server through Gnome's built-in network configuration do the following. First, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-openvpn">networkmanager-openvpn</a></span>. Then go to the Settings menu and choose Network. Click the plus sign to add a new connection and choose VPN. From there, choose OpenVPN and manually enter the settings. One can optionally import <a href="#The_client_config_profile">#The client config profile</a>. Yet, be aware NetworkManager does not show error messages for options it does not import. To connect to the VPN simply turn the connection on and check the options are applied (e.g. via <code>journalctl -b -u NetworkManager</code>).
@@ -471,7 +471,7 @@ esac</pre>
 </pre>
 <p>If you are running an IPv4-only server, drop the <code>ipv6</code> option. If you are going IPv6-only, use <code>redirect-gateway ipv6 !ipv4</code>.
 </p>
-<p>To make the server push routes, <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>push "redirect-gateway def1 bypass-dhcp ipv6"</code> to the configuration file (i.e. <code>/etc/openvpn/server/server.conf</code>) <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation/howto.html#redirect">[4]</a> of the server. Note this is not a requirement and may even give performance issue:
+<p>To make the server push routes, <a href="/Usage/Configuration/O/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>push "redirect-gateway def1 bypass-dhcp ipv6"</code> to the configuration file (i.e. <code>/etc/openvpn/server/server.conf</code>) <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation/howto.html#redirect">[4]</a> of the server. Note this is not a requirement and may even give performance issue:
 </p>
 <pre>push "redirect-gateway def1 bypass-dhcp ipv6"
 </pre>
@@ -482,14 +482,14 @@ esac</pre>
 <pre>push "route 192.168.1.0 255.255.255.0"
 push "route 192.168.2.0 255.255.255.0"
 </pre>
-<p>Optionally, push local <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> settings to clients (e.g. the DNS-server of the router and domain prefix <i>.internal</i>):
+<p>Optionally, push local <a href="/Usage/Configuration/O/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> settings to clients (e.g. the DNS-server of the router and domain prefix <i>.internal</i>):
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> One may need to use a simple <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> forwarder like <a href="../wiki/BIND.html" title="BIND">BIND</a> and push the IP address of the OpenVPN server as DNS to clients.</div>
+<strong>Note:</strong> One may need to use a simple <a href="/Usage/Configuration/O/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> forwarder like <a href="/Usage/Configuration/O/BIND.html" title="BIND">BIND</a> and push the IP address of the OpenVPN server as DNS to clients.</div>
 <pre>push "dhcp-option DNS 192.168.1.1"
 push "dhcp-option DOMAIN internal"
 </pre>
-<p>After setting up the configuration file, <a href="../wiki/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">enable packet forwarding</a> on the server. Additionally, the server's <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> needs to be adjusted to allow VPN traffic, which is described below for both <a href="#ufw">ufw</a> and <a href="#iptables">iptables</a>.
+<p>After setting up the configuration file, <a href="/Usage/Configuration/O/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">enable packet forwarding</a> on the server. Additionally, the server's <a href="/Usage/Configuration/O/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> needs to be adjusted to allow VPN traffic, which is described below for both <a href="#ufw">ufw</a> and <a href="#iptables">iptables</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> There are potential pitfalls when routing all traffic through a VPN server. Refer to the <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation/howto.html#redirect">OpenVPN documentation</a> for more information.</div>
@@ -508,15 +508,15 @@ push "dhcp-option DOMAIN internal"
 <pre># firewall-cmd --runtime-to-permanent
 </pre>
 <h4><span class="mw-headline" id="ufw">ufw</span></h4>
-<p>In order to allow <a href="../wiki/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a> forwarding (VPN) traffic <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following to <code>/etc/default/ufw</code>:
+<p>In order to allow <a href="/Usage/Configuration/O/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a> forwarding (VPN) traffic <a href="/Usage/Configuration/O/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following to <code>/etc/default/ufw</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/default/ufw</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">DEFAULT_FORWARD_POLICY="ACCEPT"</pre>
-<p>Change <code>/etc/ufw/before.rules</code>, and <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following code after the header and before the "*filter" line:
+<p>Change <code>/etc/ufw/before.rules</code>, and <a href="/Usage/Configuration/O/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following code after the header and before the "*filter" line:
 </p>
 <ul>
 <li>Change the IP/subnet mask to match the <code>server</code> set in the OpenVPN server configuration.</li>
-<li>Change the <a href="../wiki/Network_configuration.html#Check_the_connection" title="Network configuration">network interface</a> to the connection used by OpenVPN server.</li>
+<li>Change the <a href="/Usage/Configuration/O/Network_configuration.html#Check_the_connection" title="Network configuration">network interface</a> to the connection used by OpenVPN server.</li>
 </ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/ufw/before.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># NAT (Network Address Translation) table rules
@@ -539,12 +539,12 @@ COMMIT
 </p>
 <pre># ufw allow 1194/udp
 </pre>
-<p>To apply the changes. <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> ufw:
+<p>To apply the changes. <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Reload">reload</a>/<a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> ufw:
 </p>
 <pre># ufw reload
 </pre>
 <h4><span class="mw-headline" id="iptables">iptables</span></h4>
-<p>In order to allow VPN traffic through an <a href="../wiki/Iptables.html" title="Iptables">iptables</a> firewall, first create an iptables rule for NAT forwarding <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation/howto.html#redirect">[5]</a> on the server. An example (assuming the interface to forward to is named <code>eth0</code>):
+<p>In order to allow VPN traffic through an <a href="/Usage/Configuration/O/Iptables.html" title="Iptables">iptables</a> firewall, first create an iptables rule for NAT forwarding <a rel="nofollow"  href="http://openvpn.net/index.php/open-source/documentation/howto.html#redirect">[5]</a> on the server. An example (assuming the interface to forward to is named <code>eth0</code>):
 </p>
 <pre># iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 </pre>
@@ -569,7 +569,7 @@ COMMIT
 # iptables -A FORWARD -i tap+ -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 # iptables -A FORWARD -i eth0 -o tap+ -m state --state RELATED,ESTABLISHED -j ACCEPT
 </pre>
-<p>When satisfied, make the changes permanent as shown in <a href="../wiki/Iptables.html#Configuration_and_usage" title="Iptables">iptables#Configuration and usage</a>.
+<p>When satisfied, make the changes permanent as shown in <a href="/Usage/Configuration/O/Iptables.html#Configuration_and_usage" title="Iptables">iptables#Configuration and usage</a>.
 </p>
 <p>Those with multiple <code>tun</code> or <code>tap</code> interfaces, or more than one VPN configuration can "pin" the name of the interface by specifying it in the OpenVPN config file, e.g. <code>tun22</code> instead of <code>tun</code>. This is advantageous if different firewall rules for different interfaces or OpenVPN configurations are wanted.
 </p>
@@ -599,7 +599,7 @@ If the OpenVPN connection drops, the system will lose its internet access thereb
 <p><br>
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> DNS <b>will not</b> work <b>unless</b> running a dedicated DNS server like <a href="../wiki/BIND.html" title="BIND">BIND</a>.
+<strong>Warning:</strong> DNS <b>will not</b> work <b>unless</b> running a dedicated DNS server like <a href="/Usage/Configuration/O/BIND.html" title="BIND">BIND</a>.
 <p>Alternatively, one can allow DNS leaks. <b>Be sure to trust your DNS server!</b>
 </p>
 <pre> # DNS
@@ -614,7 +614,7 @@ If the OpenVPN connection drops, the system will lose its internet access thereb
 <p>This section describes how to connect client/server LANs to each other using Layer-3 IPv4 routing.
 </p>
 <h3><span class="mw-headline" id="Prerequisites_for_routing_a_LAN">Prerequisites for routing a LAN</span></h3>
-<p>For a host to be able to forward IPv4 packets between the LAN and VPN, it must be able to forward the packets between its NIC and its tun/tap device. See <a href="../wiki/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">Internet sharing#Enable packet forwarding</a> for configuration details.
+<p>For a host to be able to forward IPv4 packets between the LAN and VPN, it must be able to forward the packets between its NIC and its tun/tap device. See <a href="/Usage/Configuration/O/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">Internet sharing#Enable packet forwarding</a> for configuration details.
 </p>
 <h4><span class="mw-headline" id="Routing_tables">Routing tables</span></h4>
 <div class="noprint archwiki-template-message">
@@ -627,7 +627,7 @@ If the OpenVPN connection drops, the system will lose its internet access thereb
 <ul>
 <li>Add a static route to the default gateway routing the VPN subnet to the LAN/VPN gateway's IP address.</li>
 <li>Add a static route on each host on the LAN that needs to send IP packets back to the VPN.</li>
-<li>Use <a href="../wiki/Iptables.html" title="Iptables">iptables</a>' NAT feature on the LAN/VPN gateway to masquerade the incoming VPN IP packets.</li>
+<li>Use <a href="/Usage/Configuration/O/Iptables.html" title="Iptables">iptables</a>' NAT feature on the LAN/VPN gateway to masquerade the incoming VPN IP packets.</li>
 </ul>
 <h3><span class="mw-headline" id="Connect_the_server_LAN_to_a_client">Connect the server LAN to a client</span></h3>
 <p>
@@ -708,7 +708,7 @@ script-security 2
 up /usr/share/openvpn/contrib/pull-resolv-conf/client.up 
 plugin /usr/lib/openvpn/plugins/openvpn-plugin-down-root.so "/usr/share/openvpn/contrib/pull-resolv-conf/client.down tun0"
 </pre>
-<p>These scripts use the <code>resolvconf</code> command if present. <a href="../wiki/Systemd-resolved.html#Automatically" class="mw-redirect" title="Systemd-resolvconf">Systemd-resolvconf</a> and <a href="../wiki/Openresolv.html" title="Openresolv">Openresolv</a> both implement this command. See their wiki pages for more information on getting a working <code>resolvconf</code> implementation.
+<p>These scripts use the <code>resolvconf</code> command if present. <a href="/Usage/Configuration/O/Systemd-resolved.html#Automatically" class="mw-redirect" title="Systemd-resolvconf">Systemd-resolvconf</a> and <a href="/Usage/Configuration/O/Openresolv.html" title="Openresolv">Openresolv</a> both implement this command. See their wiki pages for more information on getting a working <code>resolvconf</code> implementation.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> As of October 2019, systemd-resolvconf works as long as the systemd-resolved service is running. Openresolv will not work out of the box because <code>client.up</code> will only create private DNS server entries. These require extra configuration of openresolv to work. See <code>man 8 resolvconf</code> for more details on private DNS servers in openresolv.</div>
@@ -723,7 +723,7 @@ plugin /usr/lib/openvpn/plugins/openvpn-plugin-down-root.so "/usr/share/openvpn/
 <h3><span class="mw-headline" id="The_update-resolv-conf_custom_script">The update-resolv-conf custom script</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Another script, <a href="#The_update-systemd-resolved_custom_script">update-systemd-resolved</a>, is recommended by the author of update-resolv-conf for systems with systemd.</div>
-<p>The <a rel="nofollow"  href="https://github.com/masterkorp/openvpn-update-resolv-conf">openvpn-update-resolv-conf</a> script is available as an alternative to packaged scripts. It needs to be saved for example at <code>/etc/openvpn/update-resolv-conf</code> and made <a href="../wiki/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
+<p>The <a rel="nofollow"  href="https://github.com/masterkorp/openvpn-update-resolv-conf">openvpn-update-resolv-conf</a> script is available as an alternative to packaged scripts. It needs to be saved for example at <code>/etc/openvpn/update-resolv-conf</code> and made <a href="/Usage/Configuration/O/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
 </p>
 <p>If you prefer a package, there is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openvpn-update-resolv-conf-git/">openvpn-update-resolv-conf-git</a></span><sup><small>AUR</small></sup> that does above for you. You still need to do the following.
 </p>
@@ -742,10 +742,10 @@ down /etc/openvpn/update-resolv-conf
 For example, if the script contains a command like <code>resolvconf -p -a </code> and the default DNS resolver from <code>libc</code> is being used, change the command in the script to be <code>resolvconf -a </code>.</div>
 <h3><span class="mw-headline" id="The_update-systemd-resolved_custom_script">The update-systemd-resolved custom script</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Since <a href="../wiki/Systemd.html" title="Systemd">systemd</a> 229, <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> has exposed an API through DBus allowing management of DNS configuration on a per-link basis. Tools such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span> may not work reliably when <code>/etc/resolv.conf</code> is managed by <code>systemd-resolved</code>, and will not work at all if using <code>resolve</code> instead of <code>dns</code> in <code>/etc/nsswitch.conf</code>.</div>
+<strong>Note:</strong> Since <a href="/Usage/Configuration/O/Systemd.html" title="Systemd">systemd</a> 229, <a href="/Usage/Configuration/O/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> has exposed an API through DBus allowing management of DNS configuration on a per-link basis. Tools such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span> may not work reliably when <code>/etc/resolv.conf</code> is managed by <code>systemd-resolved</code>, and will not work at all if using <code>resolve</code> instead of <code>dns</code> in <code>/etc/nsswitch.conf</code>.</div>
 <p>The <a rel="nofollow"  href="https://github.com/jonathanio/update-systemd-resolved">update-systemd-resolved</a> script links OpenVPN with <code>systemd-resolved</code> via DBus to update the DNS records.
 </p>
-<p>Copy the script into <code>/etc/openvpn/scripts</code> and mark as <a href="../wiki/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a> (or <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openvpn-update-systemd-resolved/">openvpn-update-systemd-resolved</a></span><sup><small>AUR</small></sup>) and <a href="../wiki/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following lines into the OpenVPN client configuration file:
+<p>Copy the script into <code>/etc/openvpn/scripts</code> and mark as <a href="/Usage/Configuration/O/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a> (or <a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openvpn-update-systemd-resolved/">openvpn-update-systemd-resolved</a></span><sup><small>AUR</small></sup>) and <a href="/Usage/Configuration/O/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the following lines into the OpenVPN client configuration file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/openvpn/client/client.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">client
@@ -762,7 +762,7 @@ down-pre
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/openvpn/client/client.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">dhcp-option DOMAIN-ROUTE .
 </pre>
-<p>Make sure that the <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> service is configured and running.
+<p>Make sure that the <a href="/Usage/Configuration/O/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> service is configured and running.
 </p>
 <h3><span class="mw-headline" id="Override_DNS_servers_using_NetworkManager">Override DNS servers using NetworkManager</span></h3>
 <p>By default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager-openvpn">networkmanager-openvpn</a></span> plugin appends DNS servers provided by OpenVPN to <code>/etc/resolv.conf</code>. This may result in DNS instability (leakage).
@@ -775,7 +775,7 @@ down-pre
 </p>
 <p>Making changes to the VPN connection with the NetworkManager GUI will remove the setting above.
 </p>
-<p>To verify that the correct DNS server(s) are configured, see <code>resolvectl status</code> if systemd-resolved is in use, for other resolvers see <a href="../wiki/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>.
+<p>To verify that the correct DNS server(s) are configured, see <code>resolvectl status</code> if systemd-resolved is in use, for other resolvers see <a href="/Usage/Configuration/O/Domain_name_resolution.html" title="Domain name resolution">Domain name resolution</a>.
 </p>
 <h2><span class="mw-headline" id="Layer-2_Ethernet_bridging">Layer-2 Ethernet bridging</span></h2>
 <div class="noprint archwiki-template-message">
@@ -783,7 +783,7 @@ down-pre
 <div>
 <b>Reason:</b> Please add a well thought out section on Layer-2 bridging. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:OpenVPN">Talk:OpenVPN#</a>)</div>
 </div>
-<p>For now see: <a href="../wiki/OpenVPN_Bridge.html" title="OpenVPN Bridge">OpenVPN Bridge</a>
+<p>For now see: <a href="/Usage/Configuration/O/OpenVPN_Bridge.html" title="OpenVPN Bridge">OpenVPN Bridge</a>
 </p>
 <h2><span class="mw-headline" id="Config_generators">Config generators</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -836,7 +836,7 @@ ExecStart=/usr/bin/pkill --signal SIGHUP --exact openvpn
 
 [Install]
 WantedBy=sleep.target</pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> this service for it to take effect.
+<p><a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> this service for it to take effect.
 </p>
 <h3><span class="mw-headline" id="Connection_drops_out_after_some_time_of_inactivity">Connection drops out after some time of inactivity</span></h3>
 <p>If the VPN-Connection drops some seconds after it stopped transmitting data and, even though it states it is connected, no data can be transmitted through the tunnel, try adding a <code>keepalive</code>directive to the server's configuration:
@@ -854,14 +854,14 @@ If the server does not receive a response within 120 seconds from a specific cli
 <p>A small ping-interval can increase the stability of the tunnel, but will also cause slightly higher traffic. Depending on the connection, also try lower intervals than 10 seconds.
 </p>
 <h3><span class="mw-headline" id="PID_files_not_present">PID files not present</span></h3>
-<p>The default systemd service file for openvpn-client does not have the --writepid flag enabled, despite creating /var/run/openvpn-client. If this breaks a config (such as an i3bar VPN indicator), simply change <code>openvpn-client@.service</code> using a <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a>:
+<p>The default systemd service file for openvpn-client does not have the --writepid flag enabled, despite creating /var/run/openvpn-client. If this breaks a config (such as an i3bar VPN indicator), simply change <code>openvpn-client@.service</code> using a <a href="/Usage/Configuration/O/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a>:
 </p>
 <pre>[Service]
 ExecStart=
 ExecStart=/usr/sbin/openvpn --suppress-timestamps --nobind --config %i.conf --writepid /var/run/openvpn-client/%i.pid
 </pre>
 <h3><span class="mw-headline" id="Route_configuration_fails_with_systemd-networkd">Route configuration fails with systemd-networkd</span></h3>
-<p>When using <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> to manage network connections and attempting to tunnel all outgoing traffic through the VPN, OpenVPN may fail to add routes. This is a result of systemd-networkd attempting to manage the tun interface before OpenVPN finishes configuring the routes. When this happens, the following message will appear in the OpenVPN log.
+<p>When using <a href="/Usage/Configuration/O/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> to manage network connections and attempting to tunnel all outgoing traffic through the VPN, OpenVPN may fail to add routes. This is a result of systemd-networkd attempting to manage the tun interface before OpenVPN finishes configuring the routes. When this happens, the following message will appear in the OpenVPN log.
 </p>
 <pre>openvpn[458]: RTNETLINK answers: Network is unreachable
 openvpn[458]: ERROR: Linux route add command failed: external program exited with error status: 2
@@ -874,7 +874,7 @@ Name=tun*
 
 [Link]
 Unmanaged=true</pre>
-<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>systemd-networkd.service</code> to apply the changes. To verify that the changes took effect, start the previously problematic OpenVPN connection and run <code>networkctl</code>. The output should have a line similar to the following:
+<p><a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>systemd-networkd.service</code> to apply the changes. To verify that the changes took effect, start the previously problematic OpenVPN connection and run <code>networkctl</code>. The output should have a line similar to the following:
 </p>
 <pre>7 tun0             none               routable    unmanaged
 </pre>
@@ -893,11 +893,11 @@ Unmanaged=true</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/O/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/O/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/O/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -916,9 +916,9 @@ Unmanaged=true</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/O/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/O/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/O/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

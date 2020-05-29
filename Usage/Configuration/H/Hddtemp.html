@@ -2,7 +2,7 @@
     title: Hddtemp
     description: Migration of Hddtemp from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Lm_sensors.html" title="Lm sensors">lm sensors</a></li>
-<li><a href="../wiki/Conky.html" title="Conky">Conky</a></li>
+<li><a href="/Usage/Configuration/H/Lm_sensors.html" title="Lm sensors">lm sensors</a></li>
+<li><a href="/Usage/Configuration/H/Conky.html" title="Conky">Conky</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://savannah.nongnu.org/projects/hddtemp/">hddtemp</a> is a small utility (with daemon) that gives the hard-drive temperature via <a href="../wiki/S.M.A.R.T..html" title="S.M.A.R.T.">S.M.A.R.T.</a> (for drives supporting this feature).
+<p><a rel="nofollow"  href="https://savannah.nongnu.org/projects/hddtemp/">hddtemp</a> is a small utility (with daemon) that gives the hard-drive temperature via <a href="/Usage/Configuration/H/S.M.A.R.T..html" title="S.M.A.R.T.">S.M.A.R.T.</a> (for drives supporting this feature).
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -53,7 +53,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hddtemp">hddtemp</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=hddtemp">hddtemp</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>Hddtemp requires root privileges. The command <code>hddtemp</code> must be followed by at least one drive's location. You can list several drives separated by spaces:
@@ -61,14 +61,14 @@
 <pre># hddtemp /dev/disk/by-id/wwn-0x60015ee0000b237f /dev/sd<i>X2</i> ... /dev/sd<i>Xn</i>
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Block device naming under <code>/dev/</code>, like <code>/dev/sdX</code>, is inconsistent. See <a href="../wiki/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for information on using persistent device paths.
+<strong>Note:</strong> Block device naming under <code>/dev/</code>, like <code>/dev/sdX</code>, is inconsistent. See <a href="/Usage/Configuration/H/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for information on using persistent device paths.
 </div>
 <p>Further usage information is available in the manpage <span class="plainlinks archwiki-template-man" title="$ man 8 hddtemp"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/hddtemp.8">hddtemp(8)</a></span>.
 </p>
 <h2><span class="mw-headline" id="Daemon">Daemon</span></h2>
 <p>Running the daemon allows access to the temperature information via TCP/IP as a regular user. This is useful for scripts and system monitors. 
 </p>
-<p>The daemon is <a href="../wiki/Systemd.html#Using_units" title="Systemd">controlled</a> by <code>hddtemp.service</code>.
+<p>The daemon is <a href="/Usage/Configuration/H/Systemd.html#Using_units" title="Systemd">controlled</a> by <code>hddtemp.service</code>.
 </p>
 <p>To get the temperature, connect to the daemon which listens on port 7634.
 </p>
@@ -90,7 +90,7 @@
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">/dev/sda 32 C 
 /dev/sdb 36 C</pre>
 <h3><span class="mw-headline" id="Override_default_disk">Override default disk</span></h3>
-<p>The default hddtemp daemon only monitors <code>/dev/sda</code>. If you have multiple disks, you need to <a href="../wiki/Systemd.html#Editing_provided_units" title="Systemd">override</a> the default configuration to monitor them.
+<p>The default hddtemp daemon only monitors <code>/dev/sda</code>. If you have multiple disks, you need to <a href="/Usage/Configuration/H/Systemd.html#Editing_provided_units" title="Systemd">override</a> the default configuration to monitor them.
 </p>
 <p>You will need to know which hard drives support monitoring. You can check with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span>.
 </p>
@@ -105,7 +105,7 @@ ExecStart=/usr/bin/hddtemp --daemon --foreground /dev/disk/by-id/wwn-0x60015ee00
 <p>You can also use the <a rel="nofollow"  href="https://github.com/AndyCrowd/auto-generate-configuration-files/blob/master/gen-customexec.conf-hddtemp.sh">auto-generate</a> script will detect supported hard drives using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span> and print to the stdout.
 </p>
 <h2><span class="mw-headline" id="Monitors">Monitors</span></h2>
-<p>Hddtemp can be integrated with <a href="../wiki/List_of_applications.html#System_monitors" title="List of applications">system monitors</a>. <a href="../wiki/Conky.html" title="Conky">Conky</a> has built in support for <i>hddtemp</i> in daemon mode. Just <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>hddtemp.service</code> and add <code>$hddtemp °C</code> to your conky configuration file.
+<p>Hddtemp can be integrated with <a href="/Usage/Configuration/H/List_of_applications.html#System_monitors" title="List of applications">system monitors</a>. <a href="/Usage/Configuration/H/Conky.html" title="Conky">Conky</a> has built in support for <i>hddtemp</i> in daemon mode. Just <a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>hddtemp.service</code> and add <code>$hddtemp °C</code> to your conky configuration file.
 </p>
 <h2><span class="mw-headline" id="Solid_State_Drives">Solid State Drives</span></h2>
 <p>Hddtemp usually reads field <code>194</code> from the smart data of the drive. In SSDs temperature information is usually stored in field <code>190</code>. To obtain this information, one can run:
@@ -125,7 +125,7 @@ ExecStart=/usr/bin/hddtemp --daemon --foreground /dev/disk/by-id/wwn-0x60015ee00
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:System_monitors.html" title="Category:System monitors">System monitors</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:System_monitors.html" title="Category:System monitors">System monitors</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -142,9 +142,9 @@ ExecStart=/usr/bin/hddtemp --daemon --foreground /dev/disk/by-id/wwn-0x60015ee00
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

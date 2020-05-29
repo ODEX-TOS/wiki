@@ -2,7 +2,7 @@
     title: Procmail
     description: Migration of Procmail from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,7 +29,7 @@
 <p><a href="https://en.wikipedia.org/wiki/procmail"  title="wikipedia:procmail">Procmail</a> is a program for filtering, sorting and storing email. It can be used both on mail clients and mail servers. 
 It can be used to filter out spam, checking for viruses, to send automatic replies, etc.
 </p>
-<p>The goal of this article is to teach the configuration of procmail. This article assumes you already have either a email client (<a href="../wiki/Mutt.html" title="Mutt">Mutt</a>, <a href="../wiki/Nmh.html" title="Nmh">nmh</a>, etc) or a mail server (<a href="../wiki/Sendmail.html" title="Sendmail">Sendmail</a>, <a href="../wiki/Postfix.html" title="Postfix">Postfix</a>, etc) working, that can use (or requires) procmail. It also assumes you have at least basic knowledge on regular expressions. This article will give only a minimal explanation, for a complete manual, check the <span class="plainlinks archwiki-template-man" title="$ man 5 procmailrc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/procmailrc.5">procmailrc(5)</a></span>
+<p>The goal of this article is to teach the configuration of procmail. This article assumes you already have either a email client (<a href="/Usage/Configuration/P/Mutt.html" title="Mutt">Mutt</a>, <a href="/Usage/Configuration/P/Nmh.html" title="Nmh">nmh</a>, etc) or a mail server (<a href="/Usage/Configuration/P/Sendmail.html" title="Sendmail">Sendmail</a>, <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a>, etc) working, that can use (or requires) procmail. It also assumes you have at least basic knowledge on regular expressions. This article will give only a minimal explanation, for a complete manual, check the <span class="plainlinks archwiki-template-man" title="$ man 5 procmailrc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/procmailrc.5">procmailrc(5)</a></span>
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -67,7 +67,7 @@ It can be used to filter out spam, checking for viruses, to send automatic repli
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procmail">procmail</a></span> from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procmail">procmail</a></span> from the <a href="/Usage/Configuration/P/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>The configuration is going to be saved on <code>~/.procmailrc</code> if this is the configuration for an email client, or on <code>/etc/procmailrc</code> if is going to be used by an email server.
@@ -151,7 +151,7 @@ Here is a list of some of the most used flags:
 $HOME/mail/Spam
 </pre>
 <h3><span class="mw-headline" id="ClamAV">ClamAV</span></h3>
-<p>An example using the <a href="../wiki/ClamAV.html" title="ClamAV">ClamAV</a> antivirus.
+<p>An example using the <a href="/Usage/Configuration/P/ClamAV.html" title="ClamAV">ClamAV</a> antivirus.
 </p>
 <pre># We make sure its going to use the sh shell. Mostly needed for mail-only account that have /sbin/nologin as shell
 SHELL=/bin/sh
@@ -182,14 +182,14 @@ VIRUS=`echo $AV_REPORT|sed '/FOUND/ { s/.*/Yes/; q  };  /FOUND/  !s/.*/No/'`
 $HOME/mail/jokes
 </pre>
 <h3><span class="mw-headline" id="Postfix_Piping">Postfix Piping</span></h3>
-<p>To pipe from <a href="../wiki/Postfix.html" title="Postfix">postfix</a> open <code>/etc/postfix/main.cf</code> then add
+<p>To pipe from <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">postfix</a> open <code>/etc/postfix/main.cf</code> then add
 </p>
 <pre>mailbox_command = /usr/bin/procmail -a "$EXTENSION"
 </pre>
-<p>After <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Reload">reloading</a> <code>postfix.service</code>, email will be send to procmail for filtering and delivery.
+<p>After <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Reload">reloading</a> <code>postfix.service</code>, email will be send to procmail for filtering and delivery.
 </p>
 <h3><span class="mw-headline" id="Sending_to_Dovecot">Sending to Dovecot</span></h3>
-<p>To forward to <a href="../wiki/Dovecot.html" title="Dovecot">dovecot</a> change the following assignments
+<p>To forward to <a href="/Usage/Configuration/P/Dovecot.html" title="Dovecot">dovecot</a> change the following assignments
 </p>
 <p>The deliver will be the first attempt then Default will be the back up.
 </p>
@@ -220,7 +220,7 @@ MAILDIR="$HOME/Maildir/"
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Email.html" title="Category:Email">Email</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Email.html" title="Category:Email">Email</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -237,9 +237,9 @@ MAILDIR="$HOME/Maildir/"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Badblocks
     description: Migration of Badblocks from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -29,9 +29,9 @@
 </p>
 <p>In case of a HDD the whole sector should get retired. A sector is a subdivision of a track on a storage device and sectors that have become bad cannot be used because they have become permanently damaged (a bad sector can have adverse effects ranging from changing a letter in a text file to causing a binary program to have a segmentation fault).
 </p>
-<p><a href="../wiki/S.M.A.R.T..html" title="S.M.A.R.T.">S.M.A.R.T.</a> (Self-Monitoring, Analysis, and Reporting Technology) is hardware-featured in almost every HDD still in use nowadays and in some cases it can automatically retire defective HDD sectors. Anyhow S.M.A.R.T. only passively waits for errors while <i>badblocks</i> writes simple patterns to every block of a device and then reads and checks them searching for damaged areas. (Just like memtest86* does with RAM.)
+<p><a href="/Usage/Configuration/B/S.M.A.R.T..html" title="S.M.A.R.T.">S.M.A.R.T.</a> (Self-Monitoring, Analysis, and Reporting Technology) is hardware-featured in almost every HDD still in use nowadays and in some cases it can automatically retire defective HDD sectors. Anyhow S.M.A.R.T. only passively waits for errors while <i>badblocks</i> writes simple patterns to every block of a device and then reads and checks them searching for damaged areas. (Just like memtest86* does with RAM.)
 </p>
-<p>This can be done in a destructive write-mode that effectively <a href="../wiki/Securely_wipe_disk.html" title="Securely wipe disk">wipes</a> the device (do backup!) or in non-destructive read-write (backup advisable as well!) and read-only modes.
+<p>This can be done in a destructive write-mode that effectively <a href="/Usage/Configuration/B/Securely_wipe_disk.html" title="Securely wipe disk">wipes</a> the device (do backup!) or in non-destructive read-write (backup advisable as well!) and read-only modes.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -77,7 +77,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=e2fsprogs">e2fsprogs</a></span> package.
+<p><a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=e2fsprogs">e2fsprogs</a></span> package.
 </p>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 8 badblocks"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/badblocks.8">badblocks(8)</a></span> for the usage.
 </p>
@@ -93,7 +93,7 @@
 <h3>
 <span id="Read-write_test_.28warning:_destructive.29"></span><span class="mw-headline" id="Read-write_test_(warning:_destructive)">Read-write test (warning: destructive)</span>
 </h3>
-<p>This test is primarily for testing new drives and is a read-write test. As the pattern is written to every accessible block, the device effectively gets <a href="../wiki/Securely_wipe_disk.html" title="Securely wipe disk">wiped</a>. The default is an extensive test with four passes using four different patterns: 0xaa (10101010), 0x55 (01010101), 0xff (11111111) and 0x00 (00000000). For some devices this will take a couple of days to complete.
+<p>This test is primarily for testing new drives and is a read-write test. As the pattern is written to every accessible block, the device effectively gets <a href="/Usage/Configuration/B/Securely_wipe_disk.html" title="Securely wipe disk">wiped</a>. The default is an extensive test with four passes using four different patterns: 0xaa (10101010), 0x55 (01010101), 0xff (11111111) and 0x00 (00000000). For some devices this will take a couple of days to complete.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># badblocks -wsv /dev/<i>device</i></pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Checking for bad blocks in read-write mode
@@ -147,7 +147,7 @@ Testing with <b>random pattern</b>: done
 Reading and comparing: done                                                 
 Pass completed, 0 bad blocks found. (0/0/0 errors)</pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> This is not secure for cryptographic purposes. A "random pattern" is a contradiction in itself. As <i>badblocks</i> does not (like <a href="https://en.wikipedia.org/wiki//dev/random"  title="wikipedia:/dev/random">/dev/urandom</a>) apply sophisticated procedures to reuse entropy but simply repeats one "random pattern" it should not be used where random data would be needed, e.g. for <a href="../wiki/Securely_wipe_disk.html#Preparations_for_block_device_encryption" title="Securely wipe disk">block device encryption</a>.</div>
+<strong>Warning:</strong> This is not secure for cryptographic purposes. A "random pattern" is a contradiction in itself. As <i>badblocks</i> does not (like <a href="https://en.wikipedia.org/wiki//dev/random"  title="wikipedia:/dev/random">/dev/urandom</a>) apply sophisticated procedures to reuse entropy but simply repeats one "random pattern" it should not be used where random data would be needed, e.g. for <a href="/Usage/Configuration/B/Securely_wipe_disk.html#Preparations_for_block_device_encryption" title="Securely wipe disk">block device encryption</a>.</div>
 <h3>
 <span id="Read-write_test_.28non-destructive.29"></span><span class="mw-headline" id="Read-write_test_(non-destructive)">Read-write test (non-destructive)</span>
 </h3>
@@ -229,7 +229,7 @@ Pass completed, 527405 bad blocks found. (0/0/527405 errors)</pre>
 </p>
 <h4><span class="mw-headline" id="Block_size">Block size</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Securely_wipe_disk.html#Block_size" title="Securely wipe disk">Securely wipe disk#Block size</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/B/Securely_wipe_disk.html#Block_size" title="Securely wipe disk">Securely wipe disk#Block size</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Block size alignment is not specific to this tiny section. Other TOS Wiki Articles already do cover this up. Search for it and cover everything up on a <a href="/index.php?title=Block_size&amp;action=edit&amp;redlink=1"  title="Block size (page does not exist)">Block size</a> page. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Badblocks">Talk:Badblocks#</a>)</div>
 </div>
@@ -248,13 +248,13 @@ Pass completed, 527405 bad blocks found. (0/0/527405 errors)</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Hardware_detection_and_troubleshooting.html" title="Category:Hardware detection and troubleshooting">Hardware detection and troubleshooting</a></li>
-<li><a href="../wiki/Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="/Usage/Configuration/B/Category:Hardware_detection_and_troubleshooting.html" title="Category:Hardware detection and troubleshooting">Hardware detection and troubleshooting</a></li>
+<li><a href="/Usage/Configuration/B/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -273,9 +273,9 @@ Pass completed, 527405 bad blocks found. (0/0/527405 errors)</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

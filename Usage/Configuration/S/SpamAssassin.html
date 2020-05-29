@@ -2,7 +2,7 @@
     title: SpamAssassin
     description: Migration of SpamAssassin from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Postfix.html#SpamAssassin" title="Postfix">Postfix#SpamAssassin</a></li>
+<li><a href="/Usage/Configuration/S/Postfix.html#SpamAssassin" title="Postfix">Postfix#SpamAssassin</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://spamassassin.apache.org/">SpamAssassin</a> is a mail filter to identify spam.
@@ -56,7 +56,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=spamassassin">spamassassin</a></span> package. Next <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>spamassassin.service</code>.
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=spamassassin">spamassassin</a></span> package. Next <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and enable <code>spamassassin.service</code>.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <p>Go over <code>/etc/mail/spamassassin/local.cf</code> and configure it to your needs.
@@ -66,7 +66,7 @@
 </p>
 <pre># sa-update &amp;&amp; sa-compile
 </pre>
-<p>You will want to run this periodically, the best way to do so is by setting up a <a href="../wiki/Systemd/Timers.html" title="Systemd/Timers">Systemd/Timers</a>.
+<p>You will want to run this periodically, the best way to do so is by setting up a <a href="/Usage/Configuration/S/Systemd/Timers.html" title="Systemd/Timers">Systemd/Timers</a>.
 </p>
 <p>Create the following service, which will run these commands:
 </p>
@@ -101,22 +101,22 @@ Persistent=true
 
 [Install]
 WantedBy=timers.target</pre>
-<p>Now you can <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>spamassassin-update.timer</code>.
+<p>Now you can <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>spamassassin-update.timer</code>.
 </p>
 <h2><span class="mw-headline" id="Plugins">Plugins</span></h2>
 <h3><span class="mw-headline" id="ClamAV">ClamAV</span></h3>
-<p>Install and setup clamd as described in <a href="../wiki/ClamAV.html" title="ClamAV">ClamAV</a>.
+<p>Install and setup clamd as described in <a href="/Usage/Configuration/S/ClamAV.html" title="ClamAV">ClamAV</a>.
 </p>
 <p>Follow one of the above instructions to call SpamAssassin from within your mail system.
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-cpanplus-dist-arch">perl-cpanplus-dist-arch</a></span> package. Then install the ClamAV perl library as follows:
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=perl-cpanplus-dist-arch">perl-cpanplus-dist-arch</a></span> package. Then install the ClamAV perl library as follows:
 </p>
 <pre> # /usr/bin/vendor_perl/cpanp -i File::Scan::ClamAV
 </pre>
 <p>Add the 2 files from <a rel="nofollow"  href="http://wiki.apache.org/spamassassin/ClamAVPlugin">http://wiki.apache.org/spamassassin/ClamAVPlugin</a> into <code>/etc/mail/spamassassin/</code>.
 Edit <code>/etc/mail/spamassassin/clamav.pm</code> and update <code>$CLAM_SOCK</code> to point to your Clamd socket location (default is <code>/run/clamav/clamd.ctl</code>).
 </p>
-<p>Finally, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>spamassassin.service</code>.
+<p>Finally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>spamassassin.service</code>.
 </p>
 <h3><span class="mw-headline" id="Razor">Razor</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -126,7 +126,7 @@ Edit <code>/etc/mail/spamassassin/clamav.pm</code> and update <code>$CLAM_SOCK</
 </p>
 <p>Make sure you have installed SpamAssassin first, then:
 </p>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=razor">razor</a></span> package.
+<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=razor">razor</a></span> package.
 </p>
 <p>Register with Razor.
 </p>
@@ -146,12 +146,12 @@ Edit <code>/etc/mail/spamassassin/clamav.pm</code> and update <code>$CLAM_SOCK</
 </p>
 <pre> razorhome = /etc/mail/spamassassin/razor/
 </pre>
-<p>Finally, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>spamassassin.service</code>.
+<p>Finally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>spamassassin.service</code>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -168,9 +168,9 @@ Edit <code>/etc/mail/spamassassin/clamav.pm</code> and update <code>$CLAM_SOCK</
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

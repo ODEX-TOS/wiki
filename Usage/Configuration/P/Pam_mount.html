@@ -2,7 +2,7 @@
     title: Pam_mount
     description: Migration of Pam_mount from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,15 +27,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Dm-crypt/Mounting_at_login.html" title="Dm-crypt/Mounting at login">dm-crypt/Mounting at login</a></li>
-<li><a href="../wiki/PAM.html" title="PAM">PAM</a></li>
+<li><a href="/Usage/Configuration/P/Dm-crypt/Mounting_at_login.html" title="Dm-crypt/Mounting at login">dm-crypt/Mounting at login</a></li>
+<li><a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="http://pam-mount.sourceforge.net/">pam_mount</a> can be used to automatically mount an encrypted home partition (encrypted with, for example, <a href="../wiki/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> or <a href="../wiki/ECryptfs.html" title="ECryptfs">ECryptfs</a>) on user log in. 
+<p><a rel="nofollow"  href="http://pam-mount.sourceforge.net/">pam_mount</a> can be used to automatically mount an encrypted home partition (encrypted with, for example, <a href="/Usage/Configuration/P/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> or <a href="/Usage/Configuration/P/ECryptfs.html" title="ECryptfs">ECryptfs</a>) on user log in. 
 It will mount your <code>/home</code> (or whatever mount point you like) when you log in using your login manager or when logging in on console. The encrypted drive's passphrase should be the same as your linux-tosuser's password, so you do not have to type in two different passphrases to login.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong>  <i>pam_mount</i> can also unmount your partitions when you close your last session but this does not work out of the box due to the use of <code>pam_systemd.so</code> in the pam stack, see <a href="../wiki/Talk:Pam_mount.html#automatic_unmounting_and_systemd" title="Talk:Pam mount">Talk:Pam mount#automatic unmounting and systemd</a>.</div>
+<strong>Warning:</strong>  <i>pam_mount</i> can also unmount your partitions when you close your last session but this does not work out of the box due to the use of <code>pam_systemd.so</code> in the pam stack, see <a href="/Usage/Configuration/P/Talk:Pam_mount.html#automatic_unmounting_and_systemd" title="Talk:Pam mount">Talk:Pam mount#automatic unmounting and systemd</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> As at November 2018, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pam_mount">pam_mount</a></span> does not yet support luks2 encrypted partitions. A workaround could be to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pam_mount-git/">pam_mount-git</a></span><sup><small>AUR</small></sup>, see <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=242131">[1]</a>.</div>
 <div id="toc" >
@@ -120,7 +120,7 @@ After login you can verify that your session keyring has a F2FS decryption key:
  301049775 --alswrv   1000 65534   \_ keyring: _uid.1000
  013481035 --alsw-v   1000   100   \_ logon: f2fs:2e64cf4a5bafcd7</pre>
 <h2><span class="mw-headline" id="Login_manager_configuration">Login manager configuration</span></h2>
-<p>In general, you have to edit configuration files in <code>/etc/pam.d</code> so that <i>pam_mount</i> will be called on login. The correct order of entries in each file is important. It is necessary to edit <code>/etc/pam.d/system-login</code> as shown below. If you use a <a href="../wiki/Display_manager.html" title="Display manager">display manager</a> make sure its file includes <code>system-login</code>. Example configuration files follow, with the added lines in bold. The <code>pam_succeed</code> line before <code>pam_mount</code> in session skips <code>pam_mount</code> (<code>success=<i>n</i></code> means skip the next <code><i>n</i></code> lines) if the <code>systemd-user</code> service is running through the PAM stack. This avoids double mount attempts and errors relating to dropped privileges.
+<p>In general, you have to edit configuration files in <code>/etc/pam.d</code> so that <i>pam_mount</i> will be called on login. The correct order of entries in each file is important. It is necessary to edit <code>/etc/pam.d/system-login</code> as shown below. If you use a <a href="/Usage/Configuration/P/Display_manager.html" title="Display manager">display manager</a> make sure its file includes <code>system-login</code>. Example configuration files follow, with the added lines in bold. The <code>pam_succeed</code> line before <code>pam_mount</code> in session skips <code>pam_mount</code> (<code>success=<i>n</i></code> means skip the next <code><i>n</i></code> lines) if the <code>systemd-user</code> service is running through the PAM stack. This avoids double mount attempts and errors relating to dropped privileges.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/system-login</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#%PAM-1.0
@@ -150,11 +150,11 @@ session    optional   pam_mail.so          dir=/var/spool/mail standard quiet
 session    required   pam_env.so</pre>
 <h3><span class="mw-headline" id="SLiM">SLiM</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="../wiki/SLiM.html" title="SLiM">SLiM</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="/Usage/Configuration/P/SLiM.html" title="SLiM">SLiM</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> We are discouraging the use of SLiM in its article, there's not much of a point in highlighting this here. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Pam_mount">Talk:Pam mount#</a>)</div>
 </div>
-<p>For <a href="../wiki/SLiM.html" title="SLiM">SLiM</a>:
+<p>For <a href="/Usage/Configuration/P/SLiM.html" title="SLiM">SLiM</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/slim</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth            requisite       pam_nologin.so
@@ -174,9 +174,9 @@ session         optional        pam_ck_connector.so
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Authentication.html" title="Category:Authentication">Authentication</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Authentication.html" title="Category:Authentication">Authentication</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -194,9 +194,9 @@ session         optional        pam_ck_connector.so
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

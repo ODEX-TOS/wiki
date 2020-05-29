@@ -2,7 +2,7 @@
     title: Internet_sharing
     description: Migration of Internet_sharing from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="../wiki/Android_tethering.html" title="Android tethering">Android tethering</a></li>
-<li><a href="../wiki/Software_access_point.html" title="Software access point">Software access point</a></li>
-<li><a href="../wiki/Bridge_with_netctl.html" title="Bridge with netctl">Bridge with netctl</a></li>
-<li><a href="../wiki/Ad-hoc_networking.html" title="Ad-hoc networking">Ad-hoc networking</a></li>
-<li><a href="../wiki/Sharing_PPP_Connection.html" title="Sharing PPP Connection">Sharing PPP Connection</a></li>
-<li><a href="../wiki/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a></li>
-<li><a href="../wiki/Router.html" title="Router">Router</a></li>
-<li><a href="../wiki/USB_3G_Modem.html" title="USB 3G Modem">USB 3G Modem</a></li>
+<li><a href="/Usage/Configuration/I/Android_tethering.html" title="Android tethering">Android tethering</a></li>
+<li><a href="/Usage/Configuration/I/Software_access_point.html" title="Software access point">Software access point</a></li>
+<li><a href="/Usage/Configuration/I/Bridge_with_netctl.html" title="Bridge with netctl">Bridge with netctl</a></li>
+<li><a href="/Usage/Configuration/I/Ad-hoc_networking.html" title="Ad-hoc networking">Ad-hoc networking</a></li>
+<li><a href="/Usage/Configuration/I/Sharing_PPP_Connection.html" title="Sharing PPP Connection">Sharing PPP Connection</a></li>
+<li><a href="/Usage/Configuration/I/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a></li>
+<li><a href="/Usage/Configuration/I/Router.html" title="Router">Router</a></li>
+<li><a href="/Usage/Configuration/I/USB_3G_Modem.html" title="USB 3G Modem">USB 3G Modem</a></li>
 </ul>
 </div>
 <p>This article explains how to share the internet connection from one machine to other(s). 
@@ -76,14 +76,14 @@
 </p>
 <ul>
 <li>To be able to share internet to several machines a <a href="https://en.wikipedia.org/wiki/Network_switch"  title="wikipedia:Network switch">switch</a> can provide the data link.</li>
-<li>A wireless device can share access to several machines as well, see <a href="../wiki/Software_access_point.html" title="Software access point">Software access point</a> first for this case.</li>
+<li>A wireless device can share access to several machines as well, see <a href="/Usage/Configuration/I/Software_access_point.html" title="Software access point">Software access point</a> first for this case.</li>
 <li>If you are sharing to only one machine, a <a href="https://en.wikipedia.org/wiki/Ethernet_crossover_cable"  title="wikipedia:Ethernet crossover cable">crossover cable</a> is sufficient. In case one of the two computers' ethernet cards has <a href="https://en.wikipedia.org/wiki/Medium_Dependent_Interface#Auto_MDI-X"  title="wikipedia:Medium Dependent Interface">MDI-X</a> capability, a crossover cable is not necessary and a regular ethernet cable can be used. Executing <code>ethtool <i>interface</i> | grep MDI</code> as root helps to figure it.</li>
 </ul>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>This section assumes that the network device connected to the client computer(s) is named <code>net0</code> and the network device connected to the internet as <code>internet0</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> You can rename your devices to this scheme using <a href="../wiki/Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a>.</div>
+<strong>Tip:</strong> You can rename your devices to this scheme using <a href="/Usage/Configuration/I/Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a>.</div>
 <p>All configuration is done on the server computer, except for the final step of <a href="#Assigning_IP_addresses_to_the_client_PC(s)">#Assigning IP addresses to the client PC(s)</a>.
 </p>
 <h3><span class="mw-headline" id="Static_IP_address">Static IP address</span></h3>
@@ -92,7 +92,7 @@
 <pre># ip link set up dev net0
 # ip addr add 192.168.123.100/24 dev net0 # arbitrary address
 </pre>
-<p>To have your static IP assigned at boot, you can use a <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a>.
+<p>To have your static IP assigned at boot, you can use a <a href="/Usage/Configuration/I/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network manager</a>.
 </p>
 <h3><span class="mw-headline" id="Enable_packet_forwarding">Enable packet forwarding</span></h3>
 <p>Check the current packet forwarding settings:
@@ -108,7 +108,7 @@
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> To enable packet forwarding selectively for a specific interface, use <code>sysctl net.ipv4.conf.<i>interface_name</i>.forwarding=1</code> instead.</div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If the system uses <a href="../wiki/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> to control the network interfaces, a per-interface setting for IPv4 is not possible, i.e. systemd logic propagates any configured forwarding into a global (for all interfaces) setting for IPv4. The advised work-around is to use a firewall to forbid forwarding again on selective interfaces. See the <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span> manual page for more information. The <code>IPForward=kernel</code> semantics introduced in a previous systemd release 220/221 to honor kernel settings does not apply anymore.<a rel="nofollow"  href="https://github.com/poettering/systemd/commit/765afd5c4dbc71940d6dd6007ecc3eaa5a0b2aa1">[1]</a> <a rel="nofollow"  href="https://github.com/systemd/systemd/blob/a2088fd025deb90839c909829e27eece40f7fce4/NEWS">[2]</a>
+<strong>Warning:</strong> If the system uses <a href="/Usage/Configuration/I/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> to control the network interfaces, a per-interface setting for IPv4 is not possible, i.e. systemd logic propagates any configured forwarding into a global (for all interfaces) setting for IPv4. The advised work-around is to use a firewall to forbid forwarding again on selective interfaces. See the <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.network"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5">systemd.network(5)</a></span> manual page for more information. The <code>IPForward=kernel</code> semantics introduced in a previous systemd release 220/221 to honor kernel settings does not apply anymore.<a rel="nofollow"  href="https://github.com/poettering/systemd/commit/765afd5c4dbc71940d6dd6007ecc3eaa5a0b2aa1">[1]</a> <a rel="nofollow"  href="https://github.com/systemd/systemd/blob/a2088fd025deb90839c909829e27eece40f7fce4/NEWS">[2]</a>
 </div>
 <p>Edit <code>/etc/sysctl.d/30-ipforward.conf</code> to make the previous change persistent after a reboot for all interfaces:
 </p>
@@ -121,7 +121,7 @@ net.ipv6.conf.all.forwarding=1
 </p>
 <h3><span class="mw-headline" id="Enable_NAT">Enable NAT</span></h3>
 <h4><span class="mw-headline" id="With_iptables">With iptables</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptables">iptables</a></span> package. Use iptables to enable NAT:
+<p><a href="/Usage/Configuration/I/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iptables">iptables</a></span> package. Use iptables to enable NAT:
 </p>
 <pre># iptables -t nat -A POSTROUTING -o internet0 -j MASQUERADE
 # iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
@@ -129,10 +129,10 @@ net.ipv6.conf.all.forwarding=1
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Of course, this also works with a mobile broadband connection (usually called ppp0 on routing PC).</div>
-<p>Read the <a href="../wiki/Iptables.html" title="Iptables">iptables</a> article for more information (especially saving the rule and applying it automatically on boot). There is also an excellent guide on iptables <a href="../wiki/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a>.
+<p>Read the <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> article for more information (especially saving the rule and applying it automatically on boot). There is also an excellent guide on iptables <a href="/Usage/Configuration/I/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a>.
 </p>
 <h4><span class="mw-headline" id="With_nftables">With nftables</span></h4>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nftables">nftables</a></span> package. To enable NAT with <a href="../wiki/Nftables.html" title="Nftables">nftables</a>, you will have to create the <code>prerouting</code> and <code>postrouting</code> chains in a new/existing table (you need both chains even if they're empty):
+<p><a href="/Usage/Configuration/I/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nftables">nftables</a></span> package. To enable NAT with <a href="/Usage/Configuration/I/Nftables.html" title="Nftables">nftables</a>, you will have to create the <code>prerouting</code> and <code>postrouting</code> chains in a new/existing table (you need both chains even if they're empty):
 </p>
 <pre># nft add table ip nat
 # nft add chain ip nat prerouting { type nat hook prerouting priority 0 \; }
@@ -144,21 +144,21 @@ net.ipv6.conf.all.forwarding=1
 </p>
 <pre># nft add rule nat postrouting oifname internet0 masquerade
 </pre>
-<p>You may want to add some more firewall restrictions on the forwarding (assuming the filter table already exists, like configured in <a href="../wiki/Nftables.html#Server" title="Nftables">nftables#Server</a>:
+<p>You may want to add some more firewall restrictions on the forwarding (assuming the filter table already exists, like configured in <a href="/Usage/Configuration/I/Nftables.html#Server" title="Nftables">nftables#Server</a>:
 </p>
 <pre># nft add chain inet filter forward { type filter hook forward priority 0\; policy drop\; }
 # nft add rule filter forward ct state related,established accept
 # nft add rule filter forward iifname net0 oifname internet0 accept
 </pre>
-<p>You can find more information on NAT in nftables in the <a rel="nofollow"  href="https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_(NAT)">nftables Wiki</a>. If you want to make these changes permanent, follow the instructions on <a href="../wiki/Nftables.html" title="Nftables">nftables</a>
+<p>You can find more information on NAT in nftables in the <a rel="nofollow"  href="https://wiki.nftables.org/wiki-nftables/index.php/Performing_Network_Address_Translation_(NAT)">nftables Wiki</a>. If you want to make these changes permanent, follow the instructions on <a href="/Usage/Configuration/I/Nftables.html" title="Nftables">nftables</a>
 </p>
 <h3>
 <span id="Assigning_IP_addresses_to_the_client_PC.28s.29"></span><span class="mw-headline" id="Assigning_IP_addresses_to_the_client_PC(s)">Assigning IP addresses to the client PC(s)</span>
 </h3>
-<p>If you are planning to regularly have several machines using the internet shared by this machine, then is a good idea to install a <a href="https://en.wikipedia.org/wiki/DHCP"  title="wikipedia:DHCP">DHCP</a> server, such as <a href="../wiki/Dhcpd.html" title="Dhcpd">dhcpd</a> or <a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>. Then configure a DHCP client (e.g. <a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a>) on every client PC.
+<p>If you are planning to regularly have several machines using the internet shared by this machine, then is a good idea to install a <a href="https://en.wikipedia.org/wiki/DHCP"  title="wikipedia:DHCP">DHCP</a> server, such as <a href="/Usage/Configuration/I/Dhcpd.html" title="Dhcpd">dhcpd</a> or <a href="/Usage/Configuration/I/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>. Then configure a DHCP client (e.g. <a href="/Usage/Configuration/I/Dhcpcd.html" title="Dhcpcd">dhcpcd</a>) on every client PC.
 </p>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/I/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> This is not an iptables guide. Expanding the chain with <code>iptables -I</code> might skip other important rules; if you need to script an ON/OFF switch for this, use custom chain with a jump placed carefully in the INPUT chain. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Internet_sharing">Talk:Internet sharing#</a>)</div>
 </div>
@@ -172,9 +172,9 @@ net.ipv6.conf.all.forwarding=1
 </p>
 <h4><span class="mw-headline" id="Manually_adding_an_IP">Manually adding an IP</span></h4>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/I/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Duplicates <a href="../wiki/Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Internet_sharing">Talk:Internet sharing#</a>)</div>
+<b>Reason:</b> Duplicates <a href="/Usage/Configuration/I/Network_configuration.html#Static_IP_address" title="Network configuration">Network configuration#Static IP address</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Internet_sharing">Talk:Internet sharing#</a>)</div>
 </div>
 <p>Instead of using DHCP, on each client PC, add an IP address and the default route:
 </p>
@@ -182,26 +182,26 @@ net.ipv6.conf.all.forwarding=1
 # ip link set up dev eth0
 # ip route add default via 192.168.123.100 dev eth0   # same address as in the beginning
 </pre>
-<p>Configure a DNS server for each client, see <a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> for details.
+<p>Configure a DNS server for each client, see <a href="/Usage/Configuration/I/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> for details.
 </p>
 <p>That is it. The client PC should now have Internet.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>If you are able to connect the two PCs but cannot send data (for example, if the client PC makes a DHCP request to the server PC, the server PC receives the request and offers an IP to the client, but the client does not accept it, timing out instead), check that you do not have other <a href="../wiki/Iptables.html" title="Iptables">iptables</a> rules <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1093208">interfering</a>.
+<p>If you are able to connect the two PCs but cannot send data (for example, if the client PC makes a DHCP request to the server PC, the server PC receives the request and offers an IP to the client, but the client does not accept it, timing out instead), check that you do not have other <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> rules <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1093208">interfering</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow"  href="http://xyne.archlinux.ca/notes/network/dhcp_with_dns.html">Xyne's guide and scripts for launching a subnet with DHCP and DNS</a></li>
 <li>
-<a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a> can be configured for internet sharing if used.</li>
+<a href="/Usage/Configuration/I/NetworkManager.html" title="NetworkManager">NetworkManager</a> can be configured for internet sharing if used.</li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/I/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -219,9 +219,9 @@ net.ipv6.conf.all.forwarding=1
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

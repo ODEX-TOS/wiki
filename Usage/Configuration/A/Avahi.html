@@ -2,7 +2,7 @@
     title: Avahi
     description: Migration of Avahi from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -76,15 +76,15 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=avahi">avahi</a></span> package.
+<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=avahi">avahi</a></span> package.
 </p>
-<p>You can manage the Avahi daemon with <code>avahi-daemon.service</code> <a href="../wiki/Systemd.html#Using_units" title="Systemd">using systemd</a>.
+<p>You can manage the Avahi daemon with <code>avahi-daemon.service</code> <a href="/Usage/Configuration/A/Systemd.html#Using_units" title="Systemd">using systemd</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> has a built-in multicast DNS service, make sure to disable systemd-resolved's mDNS resolver/responder (refer to <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) or <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Disable">disable</a> <code>systemd-resolved.service</code> entirely before using Avahi.</div>
+<strong>Note:</strong> <a href="/Usage/Configuration/A/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> has a built-in multicast DNS service, make sure to disable systemd-resolved's mDNS resolver/responder (refer to <span class="plainlinks archwiki-template-man" title="$ man 5 resolved.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5">resolved.conf(5)</a></span>) or <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Disable">disable</a> <code>systemd-resolved.service</code> entirely before using Avahi.</div>
 <h2><span class="mw-headline" id="Using_Avahi">Using Avahi</span></h2>
 <h3><span class="mw-headline" id="Hostname_resolution">Hostname resolution</span></h3>
-<p>Avahi provides local hostname resolution using a "<i>hostname</i>.local" naming scheme. To enable it, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss-mdns">nss-mdns</a></span> package and <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>avahi-daemon.service</code>.
+<p>Avahi provides local hostname resolution using a "<i>hostname</i>.local" naming scheme. To enable it, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss-mdns">nss-mdns</a></span> package and <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>avahi-daemon.service</code>.
 </p>
 <p>Then, edit the file <code>/etc/nsswitch.conf</code> and change the <code>hosts</code> line to include <code>mdns_minimal [NOTFOUND=return]</code> before <code>resolve</code> and <code>dns</code>:
 </p>
@@ -114,16 +114,16 @@
 <p>The Avahi Zeroconf Browser (<code>avahi-discover</code> – note that it needs avahi's optional dependencies <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gtk3">gtk3</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-dbus">python-dbus</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python-gobject">python-gobject</a></span>) shows the various services on your network. You can also browse SSH and VNC Servers using <code>bssh</code> and <code>bvnc</code> respectively.
 </p>
 <h3><span class="mw-headline" id="Firewall">Firewall</span></h3>
-<p>Be sure to open UDP port <code>5353</code> if you're using a <a href="../wiki/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>.
+<p>Be sure to open UDP port <code>5353</code> if you're using a <a href="/Usage/Configuration/A/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>.
 </p>
 <h3>
 <span id="Link-Local_.28Bonjour.2FZeroconf.29_chat"></span><span class="mw-headline" id="Link-Local_(Bonjour/Zeroconf)_chat">Link-Local (Bonjour/Zeroconf) chat</span>
 </h3>
-<p>Avahi can be used for Bonjour protocol support under Linux. Check <a href="https://en.wikipedia.org/wiki/Comparison_of_instant_messaging_clients"  title="wikipedia:Comparison of instant messaging clients">Wikipedia:Comparison of instant messaging clients</a> or <a href="../wiki/List_of_applications.html#Instant_messaging_clients" title="List of applications">List of applications#Instant messaging clients</a> for a list of clients supporting the Bonjour protocol.
+<p>Avahi can be used for Bonjour protocol support under Linux. Check <a href="https://en.wikipedia.org/wiki/Comparison_of_instant_messaging_clients"  title="wikipedia:Comparison of instant messaging clients">Wikipedia:Comparison of instant messaging clients</a> or <a href="/Usage/Configuration/A/List_of_applications.html#Instant_messaging_clients" title="List of applications">List of applications#Instant messaging clients</a> for a list of clients supporting the Bonjour protocol.
 </p>
 <h3><span class="mw-headline" id="Obtaining_IPv4LL_IP_address">Obtaining IPv4LL IP address</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/A/Dhcpcd.html" title="Dhcpcd">dhcpcd</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> should be merged into the main page (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Avahi">Talk:Avahi#</a>)</div>
 </div>
@@ -171,7 +171,7 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 </pre>
 <h3><span class="mw-headline" id="File_sharing">File sharing</span></h3>
 <h4><span class="mw-headline" id="NFS">NFS</span></h4>
-<p>If you have an <a href="../wiki/NFS.html" title="NFS">NFS</a> share set up, you can use Avahi to be able to automount them in Zeroconf-enabled browsers (such as Konqueror on KDE and Finder on macOS) or file managers such as <a href="../wiki/GNOME/Files.html" title="GNOME/Files">GNOME/Files</a>.
+<p>If you have an <a href="/Usage/Configuration/A/NFS.html" title="NFS">NFS</a> share set up, you can use Avahi to be able to automount them in Zeroconf-enabled browsers (such as Konqueror on KDE and Finder on macOS) or file managers such as <a href="/Usage/Configuration/A/GNOME/Files.html" title="GNOME/Files">GNOME/Files</a>.
 </p>
 <p>Create a <code>.service</code> file in <code>/etc/avahi/services</code> with the following contents:
 </p>
@@ -193,7 +193,7 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 <p>With the Avahi daemon running on both the server and client, the file manager on the client should automatically find the server.
 </p>
 <h4><span class="mw-headline" id="Vsftpd">Vsftpd</span></h4>
-<p>You can also auto-discover regular FTP servers, such as <a href="../wiki/Very_Secure_FTP_Daemon.html" class="mw-redirect" title="Vsftpd">vsftpd</a>. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vsftpd">vsftpd</a></span> package and change the settings of vsftpd according to your own personal preferences (see <a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=218630">this thread on ubuntuforums.org</a> or <span class="plainlinks archwiki-template-man" title="$ man 5 vsftpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/vsftpd.conf.5">vsftpd.conf(5)</a></span>).
+<p>You can also auto-discover regular FTP servers, such as <a href="/Usage/Configuration/A/Very_Secure_FTP_Daemon.html" class="mw-redirect" title="Vsftpd">vsftpd</a>. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vsftpd">vsftpd</a></span> package and change the settings of vsftpd according to your own personal preferences (see <a rel="nofollow"  href="http://ubuntuforums.org/showthread.php?t=218630">this thread on ubuntuforums.org</a> or <span class="plainlinks archwiki-template-man" title="$ man 5 vsftpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/vsftpd.conf.5">vsftpd.conf(5)</a></span>).
 </p>
 <p>Create a <code>.service</code> file in <code>/etc/avahi/services</code> with the following contents:
 </p>
@@ -212,11 +212,11 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 </p>
 <h3><span class="mw-headline" id="AirPrint_from_Mobile_Devices">AirPrint from Mobile Devices</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/AirPort.html#Printing" title="AirPort">AirPort#Printing </a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/A/AirPort.html#Printing" title="AirPort">AirPort#Printing </a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b>  AirPrint is a feature provided by the Apple AirPort Express and by some printers. The manual configuration technique (using JetDirect) can also apply here and may be easier. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Avahi">Talk:Avahi#</a>)</div>
 </div>
-<p>Avahi along with <a href="../wiki/CUPS.html" title="CUPS">CUPS</a> also provides the capability to print to just about any printer from airprint compatible mobile devices. In order to enable print capability from your device, simply create an Avahi service file for your printer in <code>/etc/avahi/services/</code>. An example of a generic services file for an HP-Laserjet printer would be similar to the following with the <code>name</code>, <code>rp</code>, <code>ty</code>, <code>adminurl</code> and <code>note</code> fields changed.
+<p>Avahi along with <a href="/Usage/Configuration/A/CUPS.html" title="CUPS">CUPS</a> also provides the capability to print to just about any printer from airprint compatible mobile devices. In order to enable print capability from your device, simply create an Avahi service file for your printer in <code>/etc/avahi/services/</code>. An example of a generic services file for an HP-Laserjet printer would be similar to the following with the <code>name</code>, <code>rp</code>, <code>ty</code>, <code>adminurl</code> and <code>note</code> fields changed.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/avahi/services/airprint.service</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;?xml version="1.0" standalone='no'?&gt;&lt;!--*-nxml-*--&gt;
@@ -259,7 +259,7 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 <pre># python2 airprint-generate.py -d /etc/avahi/services
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If your printer under <a rel="nofollow"  href="http://localhost:631/printers">http://localhost:631/printers</a> is "Not Shared", this python script won't output any file to /etc/avahi/services; in that case, you'll need to "Modify Printer" under one of the CUPS drop-down menus to turn sharing on.  If that doesn't work, check out the TOS Wiki on <a href="../wiki/CUPS/Printer_sharing.html" class="mw-redirect" title="CUPS printer sharing">CUPS printer sharing</a>.</div>
+<strong>Note:</strong> If your printer under <a rel="nofollow"  href="http://localhost:631/printers">http://localhost:631/printers</a> is "Not Shared", this python script won't output any file to /etc/avahi/services; in that case, you'll need to "Modify Printer" under one of the CUPS drop-down menus to turn sharing on.  If that doesn't work, check out the TOS Wiki on <a href="/Usage/Configuration/A/CUPS/Printer_sharing.html" class="mw-redirect" title="CUPS printer sharing">CUPS printer sharing</a>.</div>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Hostname_changes_with_appending_incrementing_numbers">Hostname changes with appending incrementing numbers</span></h3>
 <p>This is a <a rel="nofollow"  href="https://github.com/lathiat/avahi/issues/117">known bug</a> that is caused by a hostname race condition. One possible workaround is <a rel="nofollow"  href="https://github.com/lathiat/avahi/issues/117#issuecomment-302849130">disabling IPv6</a> to attempt to prevent the race condition. If multiple interfaces are present <a rel="nofollow"  href="https://github.com/lathiat/avahi/issues/117#issuecomment-401225716">use allow-interfaces</a> to limit Avahi to a single interface. Another possible workaround is to <a rel="nofollow"  href="https://github.com/lathiat/avahi/issues/117#issuecomment-442201162">disable the cache</a> to prevent Avahi from checking for host name conflicts altogether, but this prevents Avahi from performing lookups.
@@ -277,9 +277,9 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Multicast_DNS.html" title="Category:Multicast DNS">Multicast DNS</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/A/Category:Multicast_DNS.html" title="Category:Multicast DNS">Multicast DNS</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/A/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -297,9 +297,9 @@ As an example, let's say you wanted to advertise a quote of the day (QOTD) servi
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

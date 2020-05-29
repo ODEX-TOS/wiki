@@ -2,7 +2,7 @@
     title: Dual_boot_with_Windows
     description: Migration of Dual_boot_with_Windows from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-28T17:58:55.000Z
+    date: 2020-05-29T19:25:31.000Z
     tags: 
     -->>
 
@@ -108,7 +108,7 @@
 </div>
 <ul>
 <li>
-<b>Windows XP</b> both <b>x86 32-bit</b> and <b>x86_64</b> (also called x64) (RTM and all Service Packs) versions do not support booting in <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> mode (IA32 or x86_64) from any disk (<a href="../wiki/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> or <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>) OR in BIOS mode from GPT disk. They support only BIOS boot and only from MBR disk.</li>
+<b>Windows XP</b> both <b>x86 32-bit</b> and <b>x86_64</b> (also called x64) (RTM and all Service Packs) versions do not support booting in <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> mode (IA32 or x86_64) from any disk (<a href="/Usage/Configuration/D/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> or <a href="/Usage/Configuration/D/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>) OR in BIOS mode from GPT disk. They support only BIOS boot and only from MBR disk.</li>
 <li>
 <b>Windows Vista</b> or <b>7</b> <b>x86 32-bit</b> (RTM and all Service Packs) versions support booting in BIOS mode from MBR disks only, not from GPT disks. They do not support x86_64 UEFI or IA32 (x86 32-bit) UEFI boot. They support only BIOS boot and only from MBR disk.</li>
 <li>
@@ -140,15 +140,15 @@
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Windows 10 version 1703 and newer supports converting from BIOS/MBR to UEFI/GPT using <a rel="nofollow"  href="https://docs.microsoft.com/en-us/windows/deployment/mbr-to-gpt">MBR2GPT.EXE</a>.</div>
-<p>Such a limitation is not enforced by the Linux kernel, but can depend on which <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> is used and/or how the boot loader is configured. The Windows limitation should be considered if the user wishes to boot Windows and Linux from the same disk, since installation procedure of boot loader depends on the firmware type and disk <a href="../wiki/Partitioning.html" title="Partitioning">partitioning</a> configuration. In case where Windows and Linux dual boot from the same disk, it is advisable to follow the method used by Windows, ie. either go for UEFI/GPT boot or BIOS/MBR boot. See <a rel="nofollow"  href="http://support.microsoft.com/kb/2581408">http://support.microsoft.com/kb/2581408</a> for more information.
+<p>Such a limitation is not enforced by the Linux kernel, but can depend on which <a href="/Usage/Configuration/D/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> is used and/or how the boot loader is configured. The Windows limitation should be considered if the user wishes to boot Windows and Linux from the same disk, since installation procedure of boot loader depends on the firmware type and disk <a href="/Usage/Configuration/D/Partitioning.html" title="Partitioning">partitioning</a> configuration. In case where Windows and Linux dual boot from the same disk, it is advisable to follow the method used by Windows, ie. either go for UEFI/GPT boot or BIOS/MBR boot. See <a rel="nofollow"  href="http://support.microsoft.com/kb/2581408">http://support.microsoft.com/kb/2581408</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Install_media_limitations">Install media limitations</span></h3>
-<p>Intel Atom System-on-Chip Tablets (Clover trail and Bay Trail) provide only IA32 UEFI firmware without Legacy BIOS (CSM) support (unlike most of the x86_64 UEFI systems), due to Microsoft Connected Standby Guidelines for OEMs. Due to lack of Legacy BIOS support in these systems, and the lack of 32-bit UEFI boot in TOS Official Install ISO (<a rel="nofollow"  href="https://bugs.archlinux.org/task/53182">FS#53182</a>), the official install media cannot boot on these systems. See <a href="../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_firmware_bitness" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#UEFI firmware bitness</a> for more information and available workarounds.
+<p>Intel Atom System-on-Chip Tablets (Clover trail and Bay Trail) provide only IA32 UEFI firmware without Legacy BIOS (CSM) support (unlike most of the x86_64 UEFI systems), due to Microsoft Connected Standby Guidelines for OEMs. Due to lack of Legacy BIOS support in these systems, and the lack of 32-bit UEFI boot in TOS Official Install ISO (<a rel="nofollow"  href="https://bugs.archlinux.org/task/53182">FS#53182</a>), the official install media cannot boot on these systems. See <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface.html#UEFI_firmware_bitness" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#UEFI firmware bitness</a> for more information and available workarounds.
 </p>
 <h3><span class="mw-headline" id="Bootloader_UEFI_vs_BIOS_limitations">Bootloader UEFI vs BIOS limitations</span></h3>
 <p>Most of the linux-tosbootloaders installed for one firmware type cannot launch or chainload bootloaders of the other firmware type. That is, if TOS is installed in UEFI/GPT or UEFI/MBR mode in one disk and Windows is installed in BIOS/MBR mode in another disk, the UEFI bootloader used by TOS cannot chainload the BIOS installed Windows in the other disk. Similarly if TOS is installed in BIOS/MBR or BIOS/GPT mode in one disk and Windows is installed in UEFI/GPT in another disk , the BIOS bootloader used by TOS cannot chainload UEFI installed Windows in the other disk. 
 </p>
-<p>The only exceptions to this are <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> in Apple Macs in which GRUB in UEFI mode can boot BIOS installed OS via <code>appleloader</code> command (does not work in non-Apple systems), and <a href="../wiki/REFInd.html" title="REFInd">rEFInd</a> which technically supports booting legacy BIOS OS from UEFI systems, but <a rel="nofollow"  href="http://rodsbooks.com/refind/using.html#legacy">does not always work in non-Apple UEFI systems</a> as per its author Rod Smith. 
+<p>The only exceptions to this are <a href="/Usage/Configuration/D/GRUB.html" title="GRUB">GRUB</a> in Apple Macs in which GRUB in UEFI mode can boot BIOS installed OS via <code>appleloader</code> command (does not work in non-Apple systems), and <a href="/Usage/Configuration/D/REFInd.html" title="REFInd">rEFInd</a> which technically supports booting legacy BIOS OS from UEFI systems, but <a rel="nofollow"  href="http://rodsbooks.com/refind/using.html#legacy">does not always work in non-Apple UEFI systems</a> as per its author Rod Smith. 
 </p>
 <p>However if TOS is installed in BIOS/GPT in one disk and Windows is installed in BIOS/MBR mode in another disk, then the BIOS boot loader used by TOS CAN boot the Windows in the other disk, if the boot loader itself has the ability to chainload from another disk. 
 </p>
@@ -157,7 +157,7 @@
 <h3><span class="mw-headline" id="UEFI_Secure_Boot">UEFI Secure Boot</span></h3>
 <p>All pre-installed Windows 8/8.1 systems by default boot in UEFI/GPT mode and have UEFI Secure Boot enabled by default. This is mandated by Microsoft for all OEM pre-installed systems.
 </p>
-<p>TOS Linux install media does not support Secure Boot. See <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html#Booting_an_install_media" class="mw-redirect" title="Secure Boot">Secure Boot#Booting an install media</a>. 
+<p>TOS Linux install media does not support Secure Boot. See <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface/Secure_Boot.html#Booting_an_install_media" class="mw-redirect" title="Secure Boot">Secure Boot#Booting an install media</a>. 
 </p>
 <p>It is advisable to disable UEFI Secure Boot in the firmware setup manually before attempting to boot TOS Linux. Windows 8/8.1 SHOULD continue to boot fine even if Secure boot is disabled. The only issue with regards to disabling UEFI Secure Boot support is that it requires physical access to the system to disable secure boot option in the firmware setup, as Microsoft has explicitly forbidden presence of any method to remotely or programmatically (from within OS) disable secure boot in all Windows 8/8.1 pre-installed systems
 </p>
@@ -193,7 +193,7 @@ If you want to start Linux while Windows is hibernated, which is a common use ca
 </p>
 <ul>
 <li>you must use a separate EFI System Partition (ESP) for Windows and Linux, and ensure that Windows does not mount the ESP used for Linux. As there can only be one ESP per drive, the ESP used for Linux must be located on a separate drive than the ESP used for Windows. In this case Windows and Linux can still be installed on the same drive in different partitions, if you place the ESP used by linux-toson another drive than the Linux root partition.</li>
-<li>you can not read-write mount any filesystem in Linux, that is mounted by Windows while Windows is hibernated. You should be extremely careful about this, and also consider <a href="../wiki/Udisks.html" class="mw-redirect" title="Automount">Automount</a> behaviour.</li>
+<li>you can not read-write mount any filesystem in Linux, that is mounted by Windows while Windows is hibernated. You should be extremely careful about this, and also consider <a href="/Usage/Configuration/D/Udisks.html" class="mw-redirect" title="Automount">Automount</a> behaviour.</li>
 <li>If you shut down Windows fully, rather than hibernating, then you can read-write mount the filesystem.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -228,15 +228,15 @@ If you want to start Linux while Windows is hibernated, which is a common use ca
 </ul>
 <p>These are limitations of Windows and not NTFS: any other OS using the NTFS partition will be fine. Windows will fail to detect these files and running <code>chkdsk</code> will most likely cause them to be deleted. This can lead to potential data-loss.
 </p>
-<p><a href="../wiki/NTFS-3G.html" title="NTFS-3G">NTFS-3G</a> applies Windows restrictions to new file names through the <a rel="nofollow"  href="http://www.tuxera.com/community/ntfs-3g-manual/#4">windows_names</a> option (see <a href="../wiki/Fstab.html" title="Fstab">fstab</a>).
+<p><a href="/Usage/Configuration/D/NTFS-3G.html" title="NTFS-3G">NTFS-3G</a> applies Windows restrictions to new file names through the <a rel="nofollow"  href="http://www.tuxera.com/community/ntfs-3g-manual/#4">windows_names</a> option (see <a href="/Usage/Configuration/D/Fstab.html" title="Fstab">fstab</a>).
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>The recommended way to setup a Linux/Windows dual booting system is to first install Windows, only using part of the disk for its partitions. When you have finished the Windows setup, boot into the Linux install environment where you can create and resize partitions for Linux while leaving the existing Windows partitions untouched. The Windows installation will create the <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> which can be used by your Linux <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>.
+<p>The recommended way to setup a Linux/Windows dual booting system is to first install Windows, only using part of the disk for its partitions. When you have finished the Windows setup, boot into the Linux install environment where you can create and resize partitions for Linux while leaving the existing Windows partitions untouched. The Windows installation will create the <a href="/Usage/Configuration/D/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> which can be used by your Linux <a href="/Usage/Configuration/D/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>.
 </p>
 <h3><span class="mw-headline" id="Windows_before_Linux">Windows before Linux</span></h3>
 <h4><span class="mw-headline" id="BIOS_systems">BIOS systems</span></h4>
 <h5><span class="mw-headline" id="Using_a_Linux_boot_loader">Using a Linux boot loader</span></h5>
-<p>You may use any multi-boot supporting BIOS <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>.
+<p>You may use any multi-boot supporting BIOS <a href="/Usage/Configuration/D/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a>.
 </p>
 <h5><span class="mw-headline" id="Using_Windows_boot_loader">Using Windows boot loader</span></h5>
 <p>With this setup the Windows bootloader loads GRUB which then boots TOS. 
@@ -245,7 +245,7 @@ If you want to start Linux while Windows is hibernated, which is a common use ca
 <span id="Windows_Vista.2F7.2F8.2F8.1_boot_loader"></span><span class="mw-headline" id="Windows_Vista/7/8/8.1_boot_loader">Windows Vista/7/8/8.1 boot loader</span>
 </h6>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/D/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Contains personal comments. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dual_boot_with_Windows">Talk:Dual boot with Windows#</a>)</div>
 </div>
@@ -259,7 +259,7 @@ If you want to start Linux while Windows is hibernated, which is a common use ca
 <p>In order to have the Windows boot loader see the Linux partition, one of the Linux partitions created needs to be FAT32 (in this case, <code>/dev/sda3</code>). The remainder of the setup is similar to a typical installation. Some documents state that the partition being loaded by the Windows boot loader must be a primary partition but I have used this without problem on an extended partition.
 </p>
 <ul><li>When installing the GRUB boot loader, install it on your <code>/boot</code> partition rather than the MBR. <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For instance, my <code>/boot</code> partition is <code>/dev/sda5</code>. So I installed GRUB at <code>/dev/sda5</code> instead of <code>/dev/sda</code>. For help on doing this, see <a href="../wiki/GRUB/Tips_and_tricks.html#Install_to_partition_or_partitionless_disk" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Install to partition or partitionless disk</a>.</div>
+<strong>Note:</strong> For instance, my <code>/boot</code> partition is <code>/dev/sda5</code>. So I installed GRUB at <code>/dev/sda5</code> instead of <code>/dev/sda</code>. For help on doing this, see <a href="/Usage/Configuration/D/GRUB/Tips_and_tricks.html#Install_to_partition_or_partitionless_disk" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Install to partition or partitionless disk</a>.</div>
 </li></ul>
 <ul><li>Under Linux make a copy of the boot info by typing the following at the command shell:</li></ul>
 <pre>my_windows_part=/dev/sda3
@@ -280,11 +280,11 @@ bcdedit /timeout 30
 <p>Reboot and enjoy. In my case I'm using the Windows boot loader so that I can map my Dell Precision M4500's second power button to boot Linux instead of Windows.
 </p>
 <h4><span class="mw-headline" id="UEFI_systems">UEFI systems</span></h4>
-<p>If you already have Windows installed, it will already have created some partitions on a <a href="../wiki/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>-formatted disk:
+<p>If you already have Windows installed, it will already have created some partitions on a <a href="/Usage/Configuration/D/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>-formatted disk:
 </p>
 <ul>
 <li>a <a href="https://en.wikipedia.org/wiki/Windows_Recovery_Environment"  title="wikipedia:Windows Recovery Environment">Windows Recovery Environment</a> partition, generally of size 499 MiB, containing the files required to boot Windows (i.e. the equivalent of Linux's <code>/boot</code>),</li>
-<li>an <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> with a <a href="../wiki/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> filesystem,</li>
+<li>an <a href="/Usage/Configuration/D/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> with a <a href="/Usage/Configuration/D/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> filesystem,</li>
 <li>a <a href="https://en.wikipedia.org/wiki/Microsoft_Reserved_Partition"  title="wikipedia:Microsoft Reserved Partition">Microsoft Reserved Partition</a>, generally of size 128 MiB,</li>
 <li>a Microsoft basic data partition with a NTFS filesystem, which corresponds to <code>C:</code>,</li>
 <li>potentially system recovery and backup partitions and/or secondary data partitions (corresponding often to <code>D:</code> and above).</li>
@@ -293,21 +293,21 @@ bcdedit /timeout 30
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The first 4 partitions in the above list are essential, do not delete them.</div>
-<p>You can then proceed with <a href="../wiki/Partitioning.html" title="Partitioning">partitioning</a>, depending on your needs. Mind that an additional EFI system partition should not be created, as it may <a rel="nofollow"  href="https://support.microsoft.com/en-us/help/2879602/unable-to-boot-if-more-than-one-efi-system-partition-is-present">prevent Windows from booting</a>. Simply <a href="../wiki/EFI_system_partition.html#Mount_the_partition" title="EFI system partition">mount the existing partition</a>.
+<p>You can then proceed with <a href="/Usage/Configuration/D/Partitioning.html" title="Partitioning">partitioning</a>, depending on your needs. Mind that an additional EFI system partition should not be created, as it may <a rel="nofollow"  href="https://support.microsoft.com/en-us/help/2879602/unable-to-boot-if-more-than-one-efi-system-partition-is-present">prevent Windows from booting</a>. Simply <a href="/Usage/Configuration/D/EFI_system_partition.html#Mount_the_partition" title="EFI system partition">mount the existing partition</a>.
 </p>
 <p>The boot loader needs to support chainloading other EFI applications to do dual boot Windows / Linux.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="../wiki/REFInd.html" title="REFInd">rEFInd</a> and <a href="../wiki/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> will autodetect <i>Windows Boot Manager</i> (<code>\EFI\Microsoft\Boot\bootmgfw.efi</code>) and show it in their boot menu automatically. For <a href="../wiki/GRUB.html" title="GRUB">GRUB</a> follow either <a href="../wiki/GRUB.html#Windows_installed_in_UEFI/GPT_mode" title="GRUB">GRUB#Windows installed in UEFI/GPT mode</a> to add boot menu entry manually or <a href="../wiki/GRUB.html#Detecting_other_operating_systems" title="GRUB">GRUB#Detecting other operating systems</a> for a generated configuration file.</div>
-<p>Computers that come with newer versions of Windows often have <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> enabled. You will need to take extra steps to either disable Secure Boot or to make your installation media compatible with secure boot (see above and in the linked page).
+<strong>Tip:</strong> <a href="/Usage/Configuration/D/REFInd.html" title="REFInd">rEFInd</a> and <a href="/Usage/Configuration/D/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> will autodetect <i>Windows Boot Manager</i> (<code>\EFI\Microsoft\Boot\bootmgfw.efi</code>) and show it in their boot menu automatically. For <a href="/Usage/Configuration/D/GRUB.html" title="GRUB">GRUB</a> follow either <a href="/Usage/Configuration/D/GRUB.html#Windows_installed_in_UEFI/GPT_mode" title="GRUB">GRUB#Windows installed in UEFI/GPT mode</a> to add boot menu entry manually or <a href="/Usage/Configuration/D/GRUB.html#Detecting_other_operating_systems" title="GRUB">GRUB#Detecting other operating systems</a> for a generated configuration file.</div>
+<p>Computers that come with newer versions of Windows often have <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> enabled. You will need to take extra steps to either disable Secure Boot or to make your installation media compatible with secure boot (see above and in the linked page).
 </p>
 <h3><span class="mw-headline" id="Linux_before_Windows">Linux before Windows</span></h3>
 <p>Even though the recommended way to setup a Linux/Windows dual booting system is to first install Windows, it can be done the other way around. In contrast to installing Windows before Linux, you will have to set aside a partition for windows, say 40GB or larger, in advance. Or have some unpartitioned disk space, or create and resize partitions for Windows from within the Linux installation, before launching the Windows installation.
 </p>
 <h4><span class="mw-headline" id="UEFI_firmware">UEFI firmware</span></h4>
-<p>Windows will use the already existing <a href="../wiki/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>. In contrast to what was <a href="#UEFI_systems">stated earlier</a>, it is unclear if a single partition for Windows, without the Windows Recovery Environment and without Microsoft Reserved Partition, will not do.
+<p>Windows will use the already existing <a href="/Usage/Configuration/D/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>. In contrast to what was <a href="#UEFI_systems">stated earlier</a>, it is unclear if a single partition for Windows, without the Windows Recovery Environment and without Microsoft Reserved Partition, will not do.
 </p>
-<p>Follows an outline, assuming <a href="../wiki/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> is disabled in the firmware.
+<p>Follows an outline, assuming <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> is disabled in the firmware.
 </p>
 <ol>
 <li>Boot into windows installation. Watch to let it use only the intend partition, but otherwise let it do its work as if there is no Linux installation.</li>
@@ -321,10 +321,10 @@ bcdedit /timeout 30
 <p>See <a href="#Windows_UEFI_vs_BIOS_limitations">#Windows UEFI vs BIOS limitations</a>.
 </p>
 <h4><span class="mw-headline" id="Cannot_boot_Linux_after_installing_Windows">Cannot boot Linux after installing Windows</span></h4>
-<p>See <a href="../wiki/Unified_Extensible_Firmware_Interface.html#Windows_changes_boot_order" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Windows changes boot order</a>.
+<p>See <a href="/Usage/Configuration/D/Unified_Extensible_Firmware_Interface.html#Windows_changes_boot_order" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface#Windows changes boot order</a>.
 </p>
 <h4><span class="mw-headline" id="Restoring_a_Windows_boot_record">Restoring a Windows boot record</span></h4>
-<p>By convention (and for ease of installation), Windows is usually installed on the first partition and installs its partition table and reference to its bootloader to the first sector of that partition.  If you accidentally install a bootloader like GRUB to the Windows partition or damage the boot record in some other way, you will need to use a utility to repair it.  Microsoft includes a boot sector fix utility <code>FIXBOOT</code> and an MBR fix utility called <code>FIXMBR</code> on their recovery discs, or sometimes on their install discs.  Using this method, you can fix the reference on the boot sector of the first partition to the bootloader file and fix the reference on the MBR to the first partition, respectively.  After doing this you will have to <a href="../wiki/GRUB.html#Installation" title="GRUB">reinstall GRUB</a> to the MBR as was originally intended (that is, the GRUB bootloader can be assigned to chainload the Windows bootloader).
+<p>By convention (and for ease of installation), Windows is usually installed on the first partition and installs its partition table and reference to its bootloader to the first sector of that partition.  If you accidentally install a bootloader like GRUB to the Windows partition or damage the boot record in some other way, you will need to use a utility to repair it.  Microsoft includes a boot sector fix utility <code>FIXBOOT</code> and an MBR fix utility called <code>FIXMBR</code> on their recovery discs, or sometimes on their install discs.  Using this method, you can fix the reference on the boot sector of the first partition to the bootloader file and fix the reference on the MBR to the first partition, respectively.  After doing this you will have to <a href="/Usage/Configuration/D/GRUB.html#Installation" title="GRUB">reinstall GRUB</a> to the MBR as was originally intended (that is, the GRUB bootloader can be assigned to chainload the Windows bootloader).
 </p>
 <p>If you wish to revert back to using Windows, you can use the <code>FIXBOOT</code> command which chains from the MBR to the boot sector of the first partition to restore normal, automatic loading of the Windows operating system.
 </p>
@@ -346,8 +346,8 @@ bcdedit /timeout 30
 </p>
 <h2><span class="mw-headline" id="Time_standard">Time standard</span></h2>
 <ul>
-<li>Recommended: Set both TOS Linux and Windows to use UTC, following <a href="../wiki/System_time.html#UTC_in_Windows" title="System time">System time#UTC in Windows</a>. Some versions of Windows revert the hardware clock back to <i>localtime</i> if they are set to synchronize the time online. This issue appears to be fixed in Windows 10.</li>
-<li>Not recommended: Set TOS Linux to <i>localtime</i> and disable all <a href="../wiki/System_time.html#Time_synchronization" title="System time">time synchronization daemons</a>. This will let Windows take care of hardware clock corrections and you will need to remember to boot into Windows at least two times a year (in Spring and Autumn) when <a href="https://en.wikipedia.org/wiki/Daylight_saving_time"  title="wikipedia:Daylight saving time">DST</a> kicks in. So please do not ask on the forums why the clock is one hour behind or ahead if you usually go for days or weeks without booting into Windows.</li>
+<li>Recommended: Set both TOS Linux and Windows to use UTC, following <a href="/Usage/Configuration/D/System_time.html#UTC_in_Windows" title="System time">System time#UTC in Windows</a>. Some versions of Windows revert the hardware clock back to <i>localtime</i> if they are set to synchronize the time online. This issue appears to be fixed in Windows 10.</li>
+<li>Not recommended: Set TOS Linux to <i>localtime</i> and disable all <a href="/Usage/Configuration/D/System_time.html#Time_synchronization" title="System time">time synchronization daemons</a>. This will let Windows take care of hardware clock corrections and you will need to remember to boot into Windows at least two times a year (in Spring and Autumn) when <a href="https://en.wikipedia.org/wiki/Daylight_saving_time"  title="wikipedia:Daylight saving time">DST</a> kicks in. So please do not ask on the forums why the clock is one hour behind or ahead if you usually go for days or weeks without booting into Windows.</li>
 </ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -360,14 +360,14 @@ bcdedit /timeout 30
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../wiki/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
-<li><a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="/Usage/Configuration/D/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="/Usage/Configuration/D/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -386,9 +386,9 @@ bcdedit /timeout 30
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">
