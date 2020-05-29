@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-05-28T13:47:25.532Z
+date: 2020-05-29T17:53:46.707Z
 tags: home, welcome, wiki
 ---
 
@@ -51,11 +51,11 @@ We also call him(or her) `Archion` as a tribute to `Arch GNU/Linux` the Operatin
 Below is some information to help you get started!
 
 # Getting Started
-- [**Download** | Complete Download guide](/start/download)
+- [**Download** | Complete Download guide](/Intro/download)
 
-- [**Basic usage** | How to work in the TOS environment](/start/basics)
+- [**Basic usage** | How to work in the TOS environment](/Intro/basics)
 
-- [**Maintanance** | Everything you need to know to maintain a tos system](/start/maintain)
+- [**Maintanance** | Everything you need to know to maintain a tos system](/Intro/maintain)
 
 
 # End users
