@@ -1,0 +1,1009 @@
+<!--
+    title: YubiKey
+    description: Migration of YubiKey from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">YubiKey</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> The article lacks sources, is interspersed with TODOs and probably out of date. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:YubiKey">Talk:YubiKey#</a>)</div>
+</div>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> ykman-specifics should be grouped together. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:YubiKey">Talk:YubiKey#</a>)</div>
+</div>
+<p>This article describes how <a rel="nofollow"  href="https://yubico.com">Yubico</a>'s <a href="https://en.wikipedia.org/wiki/YubiKey"  title="wikipedia:YubiKey">YubiKey</a> works and how you can use it.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Before you overwrite the initial configuration of slot 1, please be aware of the warning under <a href="#Initial_configuration">#Initial configuration</a>.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Introduction"><span >1</span> <span >Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Installation"><span >1.1</span> <span >Installation</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#Understanding_the_YubiKey"><span >1.2</span> <span >Understanding the YubiKey</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Inputs"><span >1.2.1</span> <span >Inputs</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Outputs"><span >1.2.2</span> <span >Outputs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#The_button"><span >1.3</span> <span >The button</span></a></li>
+<li class="toclevel-2 tocsection-7">
+<a href="#USB_connection_modes"><span >1.4</span> <span >USB connection modes</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Get_enabled_modes"><span >1.4.1</span> <span >Get enabled modes</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Set_the_enabled_modes"><span >1.4.2</span> <span >Set the enabled modes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Two_Slots"><span >1.5</span> <span >Two Slots</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Configuration_of_the_slots"><span >1.5.1</span> <span >Configuration of the slots</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#The_LED"><span >1.6</span> <span >The LED</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Initial_configuration"><span >1.7</span> <span >Initial configuration</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Limitations_of_the_passwords_typed_by_YubiKey_via_USB-keyboard_--_or_%22Why_do_my_password_look_so_weak_?%22"><span >1.8</span> <span >Limitations of the passwords typed by YubiKey via USB-keyboard -- or "Why do my password look so weak ?"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15">
+<a href="#One-time_password"><span >2</span> <span >One-time password</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16">
+<a href="#Yubico_OTP_mode"><span >2.1</span> <span >Yubico OTP mode</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#How_does_it_work"><span >2.1.1</span> <span >How does it work</span></a></li>
+<li class="toclevel-3 tocsection-18">
+<a href="#Security_risks"><span >2.1.2</span> <span >Security risks</span></a>
+<ul>
+<li class="toclevel-4 tocsection-19"><a href="#AES_key_compromise"><span >2.1.2.1</span> <span >AES key compromise</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="#Validation_requests/responses_tampering"><span >2.1.2.2</span> <span >Validation requests/responses tampering</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-21"><a href="#YubiCloud_and_validation_servers"><span >2.1.3</span> <span >YubiCloud and validation servers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="#OATH-HOTP_mode_(RFC_4226)"><span >2.2</span> <span >OATH-HOTP mode (RFC 4226)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23">
+<a href="#Challenge-Response"><span >3</span> <span >Challenge-Response</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#Function_and_Application_of_Challenge-Response"><span >3.1</span> <span >Function and Application of Challenge-Response</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Setup_the_slot"><span >3.2</span> <span >Setup the slot</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Use_the_slot_-_get_a_response_for_a_challenge"><span >3.3</span> <span >Use the slot - get a response for a challenge</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27">
+<a href="#U2F"><span >4</span> <span >U2F</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28">
+<a href="#Enabling_U2F_in_the_browser"><span >4.1</span> <span >Enabling U2F in the browser</span></a>
+<ul>
+<li class="toclevel-3 tocsection-29"><a href="#Chromium/Chrome"><span >4.1.1</span> <span >Chromium/Chrome</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#Firefox"><span >4.1.2</span> <span >Firefox</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-31"><a href="#OpenSSH"><span >4.2</span> <span >OpenSSH</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32">
+<a href="#CCID_Smartcard"><span >5</span> <span >CCID Smartcard</span></a>
+<ul>
+<li class="toclevel-2 tocsection-33"><a href="#PIV"><span >5.1</span> <span >PIV</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Use_OpenPGP_smartcard_mode"><span >5.2</span> <span >Use OpenPGP smartcard mode</span></a></li>
+<li class="toclevel-2 tocsection-35">
+<a href="#Using_a_YubiKey_with_SSH"><span >5.3</span> <span >Using a YubiKey with SSH</span></a>
+<ul>
+<li class="toclevel-3 tocsection-36"><a href="#Generating_a_key_pair_on_the_YubiKey"><span >5.3.1</span> <span >Generating a key pair on the YubiKey</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#Client_configuration"><span >5.3.2</span> <span >Client configuration</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#Public_key_conversion"><span >5.3.3</span> <span >Public key conversion</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#Initiating_an_SSH_session_with_the_YubiKey"><span >5.3.4</span> <span >Initiating an SSH session with the YubiKey</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#Using_ssh-agent_to_cache_the_PIN"><span >5.3.5</span> <span >Using ssh-agent to cache the PIN</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#Further_reading"><span >5.3.6</span> <span >Further reading</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-42">
+<a href="#Tips_and_tricks"><span >6</span> <span >Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-43">
+<a href="#YubiKey_and_LUKS_encrypted_partition/disk"><span >6.1</span> <span >YubiKey and LUKS encrypted partition/disk</span></a>
+<ul>
+<li class="toclevel-3 tocsection-44"><a href="#Challenge-Response_mode_for_LUKS_passphrase_(udev/encrypt)"><span >6.1.1</span> <span >Challenge-Response mode for LUKS passphrase (udev/encrypt)</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#Challenge-Response_mode_for_LUKS_passphrase_(systemd/sd-encrypt)"><span >6.1.2</span> <span >Challenge-Response mode for LUKS passphrase (systemd/sd-encrypt)</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#OpenPGP_applet"><span >6.1.3</span> <span >OpenPGP applet</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="#HMAC_Secret_Extension_of_FIDO2_protocol"><span >6.1.4</span> <span >HMAC Secret Extension of FIDO2 protocol</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-48">
+<a href="#Yubikey_and_KeePass"><span >6.2</span> <span >Yubikey and KeePass</span></a>
+<ul>
+<li class="toclevel-3 tocsection-49"><a href="#keepassx2"><span >6.2.1</span> <span >keepassx2</span></a></li>
+<li class="toclevel-3 tocsection-50"><a href="#KeePassXC"><span >6.2.2</span> <span >KeePassXC</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-51">
+<a href="#Two-factor_authentication_with_SSH"><span >6.3</span> <span >Two-factor authentication with SSH</span></a>
+<ul>
+<li class="toclevel-3 tocsection-52"><a href="#Prerequisites"><span >6.3.1</span> <span >Prerequisites</span></a></li>
+<li class="toclevel-3 tocsection-53">
+<a href="#Configuration"><span >6.3.2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-4 tocsection-54">
+<a href="#Authorization_Mapping_Files"><span >6.3.2.1</span> <span >Authorization Mapping Files</span></a>
+<ul>
+<li class="toclevel-5 tocsection-55"><a href="#Central_authorization_mapping"><span >6.3.2.1.1</span> <span >Central authorization mapping</span></a></li>
+<li class="toclevel-5 tocsection-56"><a href="#Per-user_authorization_mapping"><span >6.3.2.1.2</span> <span >Per-user authorization mapping</span></a></li>
+<li class="toclevel-5 tocsection-57"><a href="#Obtaining_the_YubiKey_token_ID_(a.k.a._public_ID)"><span >6.3.2.1.3</span> <span >Obtaining the YubiKey token ID (a.k.a. public ID)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-58">
+<a href="#PAM_configuration"><span >6.3.2.2</span> <span >PAM configuration</span></a>
+<ul>
+<li class="toclevel-5 tocsection-59"><a href="#The_default_way"><span >6.3.2.2.1</span> <span >The default way</span></a></li>
+<li class="toclevel-5 tocsection-60"><a href="#Using_pure_HMAC_to_authenticate_the_validation_server"><span >6.3.2.2.2</span> <span >Using pure HMAC to authenticate the validation server</span></a></li>
+<li class="toclevel-5 tocsection-61"><a href="#Using_pure_HTTPS_to_authenticate_the_validation_server"><span >6.3.2.2.3</span> <span >Using pure HTTPS to authenticate the validation server</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-62"><a href="#SSHD_configuration"><span >6.3.2.3</span> <span >SSHD configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-63"><a href="#That_is_it!"><span >6.3.3</span> <span >That is it!</span></a></li>
+<li class="toclevel-3 tocsection-64"><a href="#Explanation"><span >6.3.4</span> <span >Explanation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-65"><a href="#Executing_actions_on_insertion/removal_of_YubiKey_device"><span >6.4</span> <span >Executing actions on insertion/removal of YubiKey device</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-66">
+<a href="#Maintenance_/_Upgrades"><span >7</span> <span >Maintenance / Upgrades</span></a>
+<ul>
+<li class="toclevel-2 tocsection-67">
+<a href="#Installing_the_OATH_Applet_for_a_YubiKey_NEO"><span >7.1</span> <span >Installing the OATH Applet for a YubiKey NEO</span></a>
+<ul>
+<li class="toclevel-3 tocsection-68"><a href="#Configure_the_NEO_as_a_CCID_Device"><span >7.1.1</span> <span >Configure the NEO as a CCID Device</span></a></li>
+<li class="toclevel-3 tocsection-69"><a href="#Install_the_Applet"><span >7.1.2</span> <span >Install the Applet</span></a></li>
+<li class="toclevel-3 tocsection-70"><a href="#(Optional)_Install_the_Yubico_Authenticator_Desktop_client"><span >7.1.3</span> <span >(Optional) Install the Yubico Authenticator Desktop client</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-71">
+<a href="#Troubleshooting"><span >8</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-72"><a href="#YubiKey_not_acting_as_HID_device"><span >8.1</span> <span >YubiKey not acting as HID device</span></a></li>
+<li class="toclevel-2 tocsection-73"><a href="#ykman_fails_to_connect_to_the_YubiKey"><span >8.2</span> <span >ykman fails to connect to the YubiKey</span></a></li>
+<li class="toclevel-2 tocsection-74"><a href="#Error:_Failed_connecting_to_YubiKey_5_%5BOTP+FIDO+CCID%5D._Make_sure_the_application_have_the_required_permissions."><span >8.3</span> <span >Error: Failed connecting to YubiKey 5 [OTP+FIDO+CCID]. Make sure the application have the required permissions.</span></a></li>
+<li class="toclevel-2 tocsection-75"><a href="#YubiKey_fails_to_bind_within_a_guest_VM"><span >8.4</span> <span >YubiKey fails to bind within a guest VM</span></a></li>
+<li class="toclevel-2 tocsection-76"><a href="#Error:_%5Bkey%5D_could_not_be_locally_signed_or_gpg:_No_default_secret_key:_No_public_key"><span >8.5</span> <span >Error: [key] could not be locally signed or gpg: No default secret key: No public key</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>The YubiKey is a small <a href="https://en.wikipedia.org/wiki/Security_token"  title="wikipedia:Security token">USB Security token</a> that supports:
+</p>
+<ul>
+<li>generating <a href="https://en.wikipedia.org/wiki/One-time_password"  title="wikipedia:One-time password">one-time passwords</a> (OTP) - using either AES based Yubico OTP algorithm or OATH-HOTP following RFC 4226</li>
+<li>outputting a up to 63 char long static password</li>
+<li>handling <a href="https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication"  title="wikipedia:Challenge–response authentication">challenge-response requests</a>, using either Yubico OTP mode or HMAC-SHA1 mode</li>
+<li>handling <a href="https://en.wikipedia.org/wiki/Universal_2nd_Factor"  title="wikipedia:Universal 2nd Factor">Universal 2nd Factor</a> (U2F) requests (YubiKey 4 and YubiKey NEO)</li>
+<li>acting as smartcard (using the <a href="https://en.wikipedia.org/wiki/CCID_(protocol)"  title="wikipedia:CCID (protocol)">CCID protocol</a>) (YubiKey 4 and YubiKey NEO) - allowing storage of signing, encrypting, authenticating (RSA) keys to be used for instance for SSH login (authentication), Email signature/encryption, git commit signature, etc.</li>
+</ul>
+<p>It is manufactured by <a rel="nofollow"  href="http://www.yubico.com/">Yubico</a>.
+</p>
+<p>One of its strengths is that it emulates a USB keyboard to send the OTP as text, and thus requires only USB HID drivers found on practically all desktop computers.
+</p>
+<p>While offering a lot of features, newer versions of the YubiKey are <a rel="nofollow"  href="https://www.yubico.com/2016/05/secure-hardware-vs-open-source/">not released as open source</a>. An alternative is the <a href="../wiki/Solo.html" title="Solo">Solo</a>.
+</p>
+<h3><span class="mw-headline" id="Installation">Installation</span></h3>
+<p>There are several packages available:
+</p>
+<ul><li>
+<b>Yubico PAM</b> — Module to integrate the YubiKey into <a href="../wiki/PAM.html" title="PAM">PAM</a>.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://developers.yubico.com/yubico-pam/">https://developers.yubico.com/yubico-pam/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubico-pam">yubico-pam</a></span>
+</dd></dl>
+<ul><li>
+<b>YubiKey Manager</b> — Python library and command-line tool (<code>ykman</code>) for configuring a YubiKey over all USB connections. Has optional GUI.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://developers.yubico.com/yubikey-manager/">https://developers.yubico.com/yubikey-manager/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-manager">yubikey-manager</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-manager-qt">yubikey-manager-qt</a></span>
+</dd></dl>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> After you install the yubikey-manager (which can be called by ykman in CLI), you need to enable <code>pcscd.service</code> to get it running</div>
+<ul><li>
+<b>Yubikey Personalization</b> — Library and tool to configure slot features over the OTP USB connection. Has optional GUI.</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://developers.yubico.com/yubikey-personalization/">https://developers.yubico.com/yubikey-personalization/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-personalization">yubikey-personalization</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-personalization-gui">yubikey-personalization-gui</a></span>
+</dd></dl>
+<ul><li>
+<b>Yubico Authenticator for Desktop</b> — Lets you read OATH codes from your YubiKey over USB. Support the newer OATH implementation (YubiKey NEO and 4) as well as the older slot-based implementation (YubiKey Standard and Edge).</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://developers.yubico.com/OATH/YubiKey_OATH_software.html">https://developers.yubico.com/OATH/YubiKey_OATH_software.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubioath-desktop">yubioath-desktop</a></span>
+</dd></dl>
+<h3><span class="mw-headline" id="Understanding_the_YubiKey">Understanding the YubiKey</span></h3>
+<p>The YubiKey is a small USB dongle with one button and an LED to communicate with you.
+</p>
+<p>One of its strengths is that it can emulate a USB keyboard to send a password (OTP or static password) as text, and thus requires only USB HID drivers found on practically all computers (desktop, mobile, tablet, etc.).
+</p>
+<p>This also makes it vulnerable to keyloggers if the <code>static password</code> functionality is used, which is why if possible one should avoid it and try to only use the one-time password (OTP), Challenge-Response and CCID Smartcard functionality.
+</p>
+<h4><span class="mw-headline" id="Inputs">Inputs</span></h4>
+<p>The YubiKey takes inputs in the form of:
+</p>
+<ul>
+<li>API calls sent to it via the USB interface.</li>
+<li>short button press</li>
+<li>long button press</li>
+</ul>
+<h4><span class="mw-headline" id="Outputs">Outputs</span></h4>
+<p>The YubiKey transforms these inputs into outputs in the form of:
+</p>
+<ul><li>Sending keystroke keycodes (emulating a USB keyboard and typing for you) <br> This is used to:
+<ul>
+<li>type the static password</li>
+<li>type the OTP</li>
+</ul>
+</li></ul>
+<ul><li>Sending back a Response via the API (over the USB interface). <br> This is used to send back:
+<ul>
+<li>the response of a Challenge-Response request (calculated using either Yubico OTP mode or HMAC-SHA1 mode)</li>
+<li>the response of a U2F Challenge-Response request</li>
+<li>the response of a CCID Smartcard related request</li>
+</ul>
+</li></ul>
+<h3><span class="mw-headline" id="The_button">The button</span></h3>
+<p>The button activates by slightly touching it. Sometimes it even reacts when you are very close but are not touching it yet.
+</p>
+<p>Depending on the context, touching the button does one of these things:
+</p>
+<ul>
+<li>triggering a function (like triggering the output of a static password or of a one-time password (OTP))</li>
+<li>confirming / allowing a function or access</li>
+<li>inserting / ejecting the smartcard</li>
+</ul>
+<p>In the OTP mode a short press yields slot 1 and a long press yields slot 2.
+</p>
+<h3><span class="mw-headline" id="USB_connection_modes">USB connection modes</span></h3>
+<p>Depending on the YubiKey model, the device provides up to three
+different USB interfaces with their associated protocols. Two of the
+interfaces implement the USB HID (Human Interface Device) device
+class; the third is a smart card interface (CCID). The YubiKey is a
+multi-function USB device, just like a USB printer that can also
+function as a scanner.
+</p>
+<p>The following table shows which interfaces the different applications
+use:
+</p>
+<table >
+<tbody>
+<tr>
+<th>Application</th>
+<th>USB Interface
+</th>
+</tr>
+<tr>
+<td>OTP</td>
+<td>Keyboard HID
+</td>
+</tr>
+<tr>
+<td>FIDO</td>
+<td>Other HID
+</td>
+</tr>
+<tr>
+<td>PIV</td>
+<td>CCID
+</td>
+</tr>
+<tr>
+<td>OpenPGP</td>
+<td>CCID
+</td>
+</tr>
+<tr>
+<td>OATH</td>
+<td>CCID
+</td>
+</tr>
+</tbody>
+</table>
+<p>All three interfaces can be independently enabled or disabled.
+The ykman program uses the term "manage connection modes" and uses
+OTP, FIDO, and CCID as selectors for which modes should be enabled.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The old U2F mode has been renamed and is now called FIDO in ykman 0.6.1 and later (released
+2018-04-16) <a rel="nofollow"  href="https://developers.yubico.com/yubikey-manager/Release_Notes.html">https://developers.yubico.com/yubikey-manager/Release_Notes.html</a>
+</div>
+<p>The set of enabled USB interfaces affects which applications on the
+key can be accessed. As an example, if only the HID interfaces are
+enabled, the applications dependent on the CCID interface are
+unavailable.
+</p>
+<p>Which application on the key is chosen is determined by the host
+application and is a combination of USB interface and an application
+selection mechanism. For example, if the host application wants to
+communicate with the PIV application on the key, it accesses the key
+using the CCID interface and using the protocols defined by CCID sends
+a 'select application' command to the key selecting the PIV application.
+</p>
+<h4><span class="mw-headline" id="Get_enabled_modes">Get enabled modes</span></h4>
+<p><code>ykman mode</code> will tell you what modes are currently activated/enabled/available.
+This could output something like
+</p>
+<pre>Current connection mode is: OTP+FIDO+CCID</pre>
+<p>Meaning that currently the OTP, FIDO and CCID subsystem of the key are enabled.
+</p>
+<h4><span class="mw-headline" id="Set_the_enabled_modes">Set the enabled modes</span></h4>
+<p><code>ykman mode &lt;MODE&gt;</code> will allow you to define which modes should be activated/enabled/available. 
+</p>
+<ul>
+<li>
+<code>&lt;MODE&gt;</code> can be a string, such as <code>OTP+FIDO+CCID</code>, or a shortened form <code>o+f+c</code>.<br>With "+" you can combine multiple modes that you wish to be enabled.</li>
+<li>
+<code>&lt;MODE&gt;</code> can be a mode-number, which is one number that encodes several enabled modes (like flags) into one value.<br>The only valid modes when using numbers is 0 - 6 (<a rel="nofollow"  href="https://github.com/Yubico/yubikey-manager/blob/master/ykman/util.py#L94">see here</a>). The extra flags are not part of the mode in that sense, they just need to be set at the same time as the mode is set.</li>
+</ul>
+<p>Usually what you want is to make all functionality available (you will still need to potentially configure stuff, see functionality sections below for more details).
+In order to do so you can use:
+</p>
+<p><code>ykman mode c+f+o</code> or <code>ykman mode 6</code>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Using the "80" mode-number or the corresponding <code>--touch-eject</code> parameter of <code>ykman mode</code> can only be used when the device is <i>only</i> in CCID mode (by running <code>ykman mode ccid --touch-eject</code> for instance).
+<p>Once the <code>--touch-eject</code> flag is set, you should be able to eject/insert the smartcard by pressing the button. The LED should indicate if the card is inserted or not as well.
+</p>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> But using the 80 mode-number or the corresponding <code>--touch-eject</code> is not recommend as it would prevent you from using the U2F/FIDO and OTP features of the YubiKey.</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The often seen:
+<p><code>ykman mode c+f+o --touch-eject</code> or <code>ykman mode 86</code>
+</p>
+<p>will ignore the <code>--touch-eject</code> and be identical to the above recommended <code>ykman mode 6</code>.
+</p>
+86 is not a valid mode. It might be a bug that the tool accepts higher values (<a rel="nofollow"  href="https://github.com/Yubico/yubikey-manager/issues/20#issuecomment-326496204">see here</a>).</div>
+<h3><span class="mw-headline" id="Two_Slots">Two Slots</span></h3>
+<p>Only if the OTP mode is activated (see Modes of the YubiKey below), the Yubikey provides 2 slots.
+</p>
+<p>If the transport mode OTP is enabled, the two YubiKey Slots, long press and short press, can be configured and used.
+</p>
+<h4><span class="mw-headline" id="Configuration_of_the_slots">Configuration of the slots</span></h4>
+<p>These slots can have one of the following credentials configured: a <a rel="nofollow"  href="https://developers.yubico.com/OTP/">Yubico OTP</a> (which is what comes preconfigured in the short press slot on a new key), a static password, a challenge-response credential, an OATH-HOTP credential. All this functionality is found in the <code>ykman otp</code> commands.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> A slot has either a Yubico OTP or a challenge-response credential configured. More general: One, and only one, type of the above listed possible credential per slot.</div>
+<p>There are several flags that can be set during the configuration of the slots.
+These flags /cannot/ be read from the device once written. However, the behaviour of the device should change when the flags are set ;)
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Actually most of (all of??) the parameters and details you use during configuration of the slots, cannot be read back, once written to the YubiKey.</div>
+<h3><span class="mw-headline" id="The_LED">The LED</span></h3>
+<p>The YubiKey has a small green LED able to communicate with you.
+Its message to you actually depends on the currently used <a href="#USB_connection_modes">#USB connection modes</a> of your YubiKey.
+</p>
+<p>The possible messages are:
+</p>
+<ul>
+<li>*steady on*: Press now, to allow access. (typically (TODO exclusively?) FIDO mode)</li>
+<li>*slow blinking*: Power/setting up/ready for use (TODO explain)</li>
+<li>*rapid blinking*: Error, configuring driver (TODO explain)</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If the CCID mode is turned on, then the LED of the key is always shortly flashing every two-three seconds once inserted.<br>You can turn the blinking off by disabling the CCID mode. This slow blinking just shows that the device has power, alternatively it shows a need for a button press. On Windows this behavior will typically stop once drivers are installed and it is ready for use. Mac and Linux systems will keep blinking; here <a rel="nofollow"  href="https://github.com/Yubico/yubikey-manager/issues/20#issuecomment-326496204">the best current workaround</a> to get the LED to blink less is to disable CCID.</div>
+<h3><span class="mw-headline" id="Initial_configuration">Initial configuration</span></h3>
+<p>On a new YubiKey the Yubico OTP is preconfigured on slot 1. 
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Before you overwrite your slot 1, please be aware that one is not able to reconfigure the same trust level <a rel="nofollow"  href="https://forum.yubico.com/viewtopic12ca.html?f%3D16&amp;t%3D1960">see here</a>. Meaning:
+<p>One could think that it is a good idea to reset configuration slot 1 to a new OTP. But then a "VV" prefix in your credentials must be used. Whereas the factory credentials on your Yubikey use a "CC" prefix. You can upload a "VV" credential using the Yubico personalization tool GUI or manually upload the new AES key to the <a rel="nofollow"  href="https://upload.yubico.com/">yubico.com website</a> in order to regain the same functionality than with the original factory configuration. VV credentials are not less secure than CC. However some services may only trust CC credentials as they believe that the user process is more prone to security vulnerabilities. This is because you could have malware on your machine or someone intercepting your key when sending it to the YubiCloud.
+</p>
+</div>
+<h3>
+<span id="Limitations_of_the_passwords_typed_by_YubiKey_via_USB-keyboard_--_or_.22Why_do_my_password_look_so_weak_.3F.22"></span><span class="mw-headline" id='Limitations_of_the_passwords_typed_by_YubiKey_via_USB-keyboard_--_or_"Why_do_my_password_look_so_weak_?"'>Limitations of the passwords typed by YubiKey via USB-keyboard -- or "Why do my password look so weak ?"</span>
+</h3>
+<p>The YubiKey can type passwords (OTP or Static Password) for you by acting as USB keyboard and sending scan-codes like if you would type.
+</p>
+<p>A limitation of the YubiKey, however, prevents you from choosing characters that require a modifier key other than Shift.
+And in order for the YubiKey to work with all possible keyboard layouts (e.g. the <code>Z</code> on a German keyboard has a different scan-code than the <code>Z</code> on a US keyboard) it is necessary to limit the characters used by YubiKey passwords to the ModHex alphabet + Digits (0-9) (+ optionally "!" as the only available Symbol in static passwords).
+</p>
+<p>The 16 characters used in the ModHex alphabet are: <code>c,b,d,e,f,g,h,i,j,k,l,n,r,t,u,v</code>. These characters share a property that makes them very valuable to a YubiKey: They use the same scan codes across a very large number of keyboard layouts. In other words, the scan code 0x06 maps to the character c for English, Swedish, German, French, and many others.
+</p>
+<p><a rel="nofollow"  href="https://www.yubico.com/wp-content/uploads/2015/11/Yubico_WhitePaper_Static_Password_Function.pdf">See here for full info</a>
+</p>
+<h2><span class="mw-headline" id="One-time_password">One-time password</span></h2>
+<h3><span class="mw-headline" id="Yubico_OTP_mode">Yubico OTP mode</span></h3>
+<p>The Yubico OTP mode is AES symmetric key based. On a new YubiKey the Yubico OTP is preconfigured on slot 1. This initial AES symmetric key is stored in the YubiKey and the same AES key is already stored on the Yubico Authentication server. This allows validating against YubiCloud, meaning the use of Yubico OTP in combination with the Yubico Forum website for instance or on <a rel="nofollow"  href="https://demo.yubico.com">https://demo.yubico.com</a>).
+</p>
+<p>The initial configuration and AES key stored in slot 1 can of course be overwritten.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Please read <a href="#Initial_configuration">#Initial configuration</a> before you overwrite the intial configuration of slot 1 that your YubiKey comes shipped with.</div>
+<h4><span class="mw-headline" id="How_does_it_work">How does it work</span></h4>
+<p>Yubikey's authentication protocol is based on <a href="https://en.wikipedia.org/wiki/Symmetric_cryptography"  title="wikipedia:Symmetric cryptography">symmetric cryptography</a>.
+More specifically, each YubiKey contains a 128-bit <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard"  title="wikipedia:Advanced Encryption Standard">AES</a> key unique to that device.
+It is used to encrypt a token made of different fields such as the ID of the key, a counter, a random number, etc.
+The OTP is made from concatenating the ID of the key with this encrypted token.
+</p>
+<p>This OTP is sent to the target system to which we want to authenticate.
+This target system asks a validation server if the OTP is good.
+The validation server has a mapping of YubiKey IDs -&gt; AES key.
+Using the key ID in the OTP, it can thus retrieve the AES key and decrypt the other part of the OTP.
+If it looks OK (plain-text ID and encrypted ID are the same, the counter is bigger than the last seen one to prevent <a href="https://en.wikipedia.org/wiki/Replay_attack"  title="wikipedia:Replay attack">replay attacks</a>, then authentication is successful.
+</p>
+<p>The validation server sends that authentication status back to the target system, which grants access or not based on that response.
+</p>
+<h4><span class="mw-headline" id="Security_risks">Security risks</span></h4>
+<h5><span class="mw-headline" id="AES_key_compromise">AES key compromise</span></h5>
+<p>As you can imagine, the AES key should be kept secret.
+It cannot be retrieved from the YubiKey itself (or it should not, at least not with software).
+It is present in the validation server though, so the security of this server is very important.
+</p>
+<h5>
+<span id="Validation_requests.2Fresponses_tampering"></span><span class="mw-headline" id="Validation_requests/responses_tampering">Validation requests/responses tampering</span>
+</h5>
+<p>Since the target system relies on the ruling of the validation server, a trivial attack would be to impersonate the validation server.
+The target system thus needs to authenticate the validation server.
+2 methods are available :
+</p>
+<ul>
+<li>
+<b>HMAC</b>: This is also symmetric cryptography, the target server and validation server share a key that is used to sign requests and responses.</li>
+<li>
+<b>TLS</b>: Requests and responses travel via HTTP, so TLS (HTTPS) can be used to authenticate and encrypt the connection.</li>
+</ul>
+<h4><span class="mw-headline" id="YubiCloud_and_validation_servers">YubiCloud and validation servers</span></h4>
+<p>When you buy a YubiKey, it is preloaded with an AES key that is known only to Yubico.
+They will not even communicate it to you.
+Yubico provides a validation server with free unlimited access (YubiCloud).
+It also offers open-source implementations of the server.
+</p>
+<p>So you can either:
+</p>
+<ul>
+<li>choose to use your YubiKey with its preloaded AES key and validate against Yubico's validation server ;</li>
+<li>or load a new AES key in your YubiKey and run your own validation server.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> To authenticate the Yubico validation server, you can:
+<ul>
+<li>
+<b>with HMAC</b>: use <a rel="nofollow"  href="https://upgrade.yubico.com/getapikey/">https://upgrade.yubico.com/getapikey/</a> to get an HMAC key and ID</li>
+<li>
+<b>with HTTPS</b>: the validation server's certificate is signed by GoDaddy, and is thus trusted by default in TOS installs (at least if you have package ca-certificates)</li>
+</ul>
+</div>
+<h3>
+<span id="OATH-HOTP_mode_.28RFC_4226.29"></span><span class="mw-headline" id="OATH-HOTP_mode_(RFC_4226)">OATH-HOTP mode (RFC 4226)</span>
+</h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Empty section. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:YubiKey">Talk:YubiKey#</a>)</div>
+</div>
+<h2><span class="mw-headline" id="Challenge-Response">Challenge-Response</span></h2>
+<h3><span class="mw-headline" id="Function_and_Application_of_Challenge-Response">Function and Application of Challenge-Response</span></h3>
+<p>This technique can be used to authenticate.
+</p>
+<p>A challenge is sent to the YubiKey and a response is (auto-magically) calculated and send back.
+This calculation needs a secret (e.g. an AES key in case of the Yubico OTP mode)
+The same challenge always results in the same response.
+Without the secret this calculation is not meant to be feasable. Even if in the possession of many challenge-response pairs.
+</p>
+<p>This can be used for:
+</p>
+<ul><li>true 2-factor (possession and knowledge) authentication:<br>If you combine the response (possession factor) with a password (knowledge factor) and to authenticate you need to present the triple (challenge,response, password) to 3rd party. In which case the challenge and the corresponding response can be (publicly) send to a 3rd party to authenticate the possession factor, by redoing basically the same (auto-magical) calculation. The needed secret needs to be shared with 3rd party to allow an authentication.</li></ul>
+<ul><li>semi 2-factor (possession and knowledge) authentication:<br>The challenge can be public. Only with the possession of the YubiKey hardware the response can be generated. This can be used to create a "sort-of" 2-factor authentication (possession and knowledge): If you combine the response (possession factor) with a password (knowledge factor) and use the result for instance as passphrase for cryptsetup.</li></ul>
+<p>This functionality will consume one slot. And it is used via API calls to the YubiKey. So you usually use some tool to communicate the challenge to your YubiKey and get back the response.
+</p>
+<p>There are two Challenge-Response modes:
+</p>
+<ul>
+<li>Yubico OTP mode</li>
+<li>HMAC-SHA1 mode</li>
+</ul>
+<h3><span class="mw-headline" id="Setup_the_slot">Setup the slot</span></h3>
+<p>One way to setup slot <code>2</code> in challenge-response mode (<code>-ochal-resp</code>) is with <code>ykpersonalize</code>:
+</p>
+<pre>ykpersonalize -v -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible -ochal-btn-trig</pre>
+<p>Check with <span class="plainlinks archwiki-template-man" title="$ man 1 ykpersonalize"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ykpersonalize.1">ykpersonalize(1)</a></span> to make sure that the options used above are right for you. You may also enable challenge-response mode using graphical interface through <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-personalization-gui">yubikey-personalization-gui</a></span>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Before you overwrite the initial configuration of slot 1, please be aware of the <b>Warning</b> under <a href="#Initial_configuration">#Initial configuration</a>.</div>
+<h3><span class="mw-headline" id="Use_the_slot_-_get_a_response_for_a_challenge">Use the slot - get a response for a challenge</span></h3>
+<p>To use a Challenge-Response slot (no matter which mode):
+</p>
+<pre>ykchalresp -2 &lt;CHALLENGE&gt;</pre>
+<h2><span class="mw-headline" id="U2F">U2F</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <span style="color:red;">please use the first argument of the template to provide a brief explanation.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:YubiKey">Talk:YubiKey#</a>)</div>
+</div>
+<h3><span class="mw-headline" id="Enabling_U2F_in_the_browser">Enabling U2F in the browser</span></h3>
+<h4>
+<span id="Chromium.2FChrome"></span><span class="mw-headline" id="Chromium/Chrome">Chromium/Chrome</span>
+</h4>
+<p><a href="../wiki/Chromium/Tips_and_tricks.html#U2F_authentication" title="Chromium/Tips and tricks">Chromium/Tips and tricks#U2F authentication</a>
+</p>
+<h4><span class="mw-headline" id="Firefox">Firefox</span></h4>
+<p><a href="../wiki/Firefox/Tweaks.html#Fido_U2F_authentication" title="Firefox/Tweaks">Firefox/Tweaks#Fido U2F authentication</a>
+</p>
+<h3><span class="mw-headline" id="OpenSSH">OpenSSH</span></h3>
+<p>OpenSSH supports FIDO/U2F hardware tokens natively since 8.2 <a rel="nofollow"  href="https://www.openssh.com/txt/release-8.2">[1]</a>. Generate a security key backed key pair with:
+</p>
+<pre>$ ssh-keygen -t ecdsa-sk
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> firmware version 5.2.3 is needed for the ed25519-sk key type</div>
+<p>Both client and server needs to be up to date to use the new key types.
+</p>
+<h2><span class="mw-headline" id="CCID_Smartcard">CCID Smartcard</span></h2>
+<p>CCID (Chip Card Interface Device) is a USB standard device class for use by USB devices that act as smart card readers or with security tokens that connect directly via USB, like the Yubikey. HID (Human Interface Device) and CCID are both USB device classes, i.e. they are in the same category of USB specifications. HID is a specification for computer peripherals, like keyboards. The Yubikey works like a USB (HID) keyboard when used in the OTP and FIDO modes, but switches to the CCID protocol when using the PIV application, or as an OpenPGP device.
+</p>
+<p>CCID mode should be enabled by default on all YubiKeys shipped since November 2015 <a rel="nofollow"  href="https://www.yubico.com/support/knowledge-base/categories/articles/use-yubikey-yubikey-windows-hello-app/">[2]</a>. Enable at least the CCID mode. Please see <a href="#Set_the_enabled_modes">#Set the enabled modes</a>.
+</p>
+<h3><span class="mw-headline" id="PIV">PIV</span></h3>
+<p>Starting with the YubiKey NEO, the Yubikeys contain a PIV (Personal Identity Verification) application on the chip. PIV is a US government standard (FIPS 201) that specifies how a token using RSA or ECC (Elliptic Curve Cryptography) is used for personal electronic identification. The YubiKey NEO only supports RSA encryption, later models (YubiKey 4 and 5) support both RSA and ECC. The distinguishing characteristic of a PIV token is that it is built to protect private keys and operate on-chip. A private key never leaves the token after it has been installed on it. Optionally, the private key can even be generated on-chip with the aid of an on-chip random number generator. If generated on-chip, the private key is never handled outside of the chip, and there is no way to recover it from the token. When using the PIV mechanism, the Yubikey functions as a CCID device.
+</p>
+<h3><span class="mw-headline" id="Use_OpenPGP_smartcard_mode">Use OpenPGP smartcard mode</span></h3>
+<p>See <a href="../wiki/GnuPG.html#Smartcards" title="GnuPG">GnuPG#Smartcards</a>
+</p>
+<h3><span class="mw-headline" id="Using_a_YubiKey_with_SSH">Using a YubiKey with SSH</span></h3>
+<p>The following example describes how to use a YubiKey for <a href="../wiki/SSH_keys.html" title="SSH keys">SSH keys</a>. A YubiKey with the PIV (Personal Identification Verification) application is required; this means you need a YubiKey NEO or YubiKey 4 or later.
+</p>
+<h4><span class="mw-headline" id="Generating_a_key_pair_on_the_YubiKey">Generating a key pair on the YubiKey</span></h4>
+<p>A private key and associated certificate need to be either generated on the YubiKey or imported to it. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-manager">yubikey-manager</a></span>
+package. Insert the YubiKey in a USB port and check that it is recognized:
+</p>
+<pre>$ ykman list
+YubiKey 4 [OTP+FIDO+CCID] Serial: 1234567
+</pre>
+<p>The following two commands (<code>generate-key</code> and <code>generate-certificate</code>) require providing the PIV application's 24-byte management key, if it has been changed from its default value (recommended). The examples below assume the shell variable <code>MK</code> has been set in advance to the 48 character hex string representation of the management key. For example:
+</p>
+<pre>$ MK=AB019982CA48BDC6776B1F9A0A3E129FDE0705D219AF0037
+</pre>
+<p>Generate a 2048-bit RSA key pair on the YubiKey. The private key will be stored in key slot 9a on the YubiKey, and the public key will be
+written to the file <code>pubkey.pem</code>.
+</p>
+<pre>$ ykman piv generate-key -m $MK -a RSA2048 9a pubkey.pem
+</pre>
+<p>Next, use the YubiKey to generate a self-signed certificate for the public key:
+</p>
+<pre>$ ykman piv generate-certificate -m $MK -d 1826 -s "SSH Key" 9a pubkey.pem
+</pre>
+<p>The Subject field in the certificate will be set to "SSH Key" with the <code>-s</code> option. This field will be included in the prompt for PIN to help identify which key is used for authentication. The example command also specifies the <code>-d</code> option to set the number of days until the certificate expires. If the <code>-d</code> option is omitted, a default value of 365 days is used.
+</p>
+<p>Note that the last parameter in the <code>generate-key</code> command is the file name where the public key is written to, whereas the last parameter in the <code>generate-certificate</code> command specifies where the public key is read from. The certificate is constructed and signed on the YubiKey and stored alongside the private key; the command does not output the certificate.
+</p>
+<p>At this point the YubiKey is ready for authenticating to a SSH server. For this to happen, some additional configuration on both the client and the server is required.
+</p>
+<h4><span class="mw-headline" id="Client_configuration">Client configuration</span></h4>
+<p>The standard API used to communicate with cryptographic tokens is defined by <a href="https://en.wikipedia.org/wiki/PKCS_11"  title="wikipedia:PKCS 11">PKCS#11</a>.
+Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensc">opensc</a></span> package which provides this API in the form of the shared library <code>/usr/lib/opensc-pkcs11.so</code>. The ssh client should be configured to use this library with the directive PKCS11Provider in <code>~/.ssh/config</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.ssh/config</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">PKCS11Provider /usr/lib/opensc-pkcs11.so</pre>
+<h4><span class="mw-headline" id="Public_key_conversion">Public key conversion</span></h4>
+<p>The <code>pubkey.pem</code> file contains the public key in PEM (Privacy Enhanced Mail) format. OpenSSH uses a different format defined in RFC 4253,
+section 6.6, so the PEM formatted key should be converted to the format OpenSSH understands. This can be done using <code>ssh-keygen</code>:
+</p>
+<pre>$ ssh-keygen -i -m PKCS8 -f pubkey.pem &gt; pubkey.txt
+</pre>
+<p>This command uses the import (<code>-i</code>) function of the <code>ssh-keygen</code>, specifies PKCS8 as the input file format (<code>-m</code>), and reads the input from the (<code>-f</code>) file <code>pubkey.pem</code>. The converted key is written on standard output, which is the example is redirected to the file <code>pubkey.txt</code>.
+</p>
+<p>The converted public key should now be copied to the remote server as described in <a href="../wiki/SSH_keys.html#Copying_the_public_key_to_the_remote_server" title="SSH keys">SSH keys#Copying the public key to the remote server</a>.
+</p>
+<h4><span class="mw-headline" id="Initiating_an_SSH_session_with_the_YubiKey">Initiating an SSH session with the YubiKey</span></h4>
+<p>To authenticate a SSH connection using the YubiKey, just use <i>ssh</i> normally. You will be prompted for the PIN instead of a password:
+</p>
+<pre>$ ssh remote
+Enter PIN for 'SSH Key' 
+[user@remote ~]$ 
+</pre>
+<h4><span class="mw-headline" id="Using_ssh-agent_to_cache_the_PIN">Using ssh-agent to cache the PIN</span></h4>
+<p>ssh-agent (see <a href="../wiki/SSH_keys.html#SSH_agents" title="SSH keys">SSH keys#SSH agents</a>) can also be used with the PKCS#11 library; in this case the PIN code is cached instead of the private key.
+</p>
+<pre>$ ssh-add -s /usr/lib/opensc-pkcs11.so
+</pre>
+<p>As long as the PIN is cached in by the agent, the cached value is used and the user is not prompted for it.
+</p>
+<h4><span class="mw-headline" id="Further_reading">Further reading</span></h4>
+<p>The default PIN code of the PIV application on the YubiKey is  <code>123456</code>; you may want to change it. The YubiKey also requires a 24-byte management key for administrative functions like key generation. If the management key has been changed from its default value, the new value needs to be specified using the <code>-m</code> option on the command line for certain commands. See <a rel="nofollow"  href="https://developers.yubico.com/PIV/">What is PIV?</a>
+</p>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3>
+<span id="YubiKey_and_LUKS_encrypted_partition.2Fdisk"></span><span class="mw-headline" id="YubiKey_and_LUKS_encrypted_partition/disk">YubiKey and LUKS encrypted partition/disk</span>
+</h3>
+<p>YubiKey can be used to strengthen the security of your <a href="../wiki/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> encrypted partition/disk. There are multiple ways to achieve it. But before enabling Yubikey as a 2FA device it is recommended to setup plain LUKS encryption first and make sure it works correctly.
+</p>
+<h4>
+<span id="Challenge-Response_mode_for_LUKS_passphrase_.28udev.2Fencrypt.29"></span><span class="mw-headline" id="Challenge-Response_mode_for_LUKS_passphrase_(udev/encrypt)">Challenge-Response mode for LUKS passphrase (udev/encrypt)</span>
+</h4>
+<p>One way to do it is to use a Challenge-Response mode for creating strong LUKS passphrases. First, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-full-disk-encryption">yubikey-full-disk-encryption</a></span> package. Using this tool you can add/modify/remove Yubikey-protected passphrases.
+</p>
+<p>Make changes to <code>/etc/ykfde.conf</code> configuration file as as:
+</p>
+<ul>
+<li>choose Yubikey slot to use for LUKS (<code>YKFDE_CHALLENGE_SLOT</code>)</li>
+<li>whether you want to type a password at boot (<code>YKFDE_CHALLENGE_PASSWORD_NEEDED</code>) or use predefined password (<code>YKFDE_CHALLENGE</code>) which essentially means you check for Yubikey hardware presence only.</li>
+</ul>
+<p>LUKS supports multiple password so you need to select a slot that is going to store Yubikey-protected passphrase. Inspect existing slots using command:
+</p>
+<pre># cryptsetup luksDump /dev/&lt;DISK&gt;
+</pre>
+<p>Check entries under <code>Keyslots:</code> section. And then pick an unused slot.
+</p>
+<p>Enroll your new passphrase:
+</p>
+<pre># ykfde-enroll -d /dev/&lt;DISK&gt; -s &lt;LUKS_SLOT&gt;
+</pre>
+<p>It will require the new and existing passphrases.
+</p>
+<p>And the last step is to add <code>ykfde</code> hook to <code>/etc/mkinitcpio.conf</code> file before or instead of <code>encrypt</code> hook. Then regenerate initramfs with <code>mkinitcpio -P</code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> As of December 2019 `sd-encrypt` enabled boot is <a rel="nofollow"  href="https://github.com/agherzan/yubikey-full-disk-encryption/issues/14">not supported</a> by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-full-disk-encryption">yubikey-full-disk-encryption</a></span>.</div>
+<h4>
+<span id="Challenge-Response_mode_for_LUKS_passphrase_.28systemd.2Fsd-encrypt.29"></span><span class="mw-headline" id="Challenge-Response_mode_for_LUKS_passphrase_(systemd/sd-encrypt)">Challenge-Response mode for LUKS passphrase (systemd/sd-encrypt)</span>
+</h4>
+<p>On systems which use <code>systemd</code> instead of <code>udev</code> hook in initramfs, full disk encryption can be served by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkinitcpio-ykfde/">mkinitcpio-ykfde</a></span><sup><small>AUR</small></sup> package. Using this tool you can add Yubikey-protected luks slots. Note that this is similar but different project than one mentioned in paragraph above and they aren't compatible with each other.
+</p>
+<p>Make changes to <code>/etc/ykfde.conf</code> configuration file as as:
+</p>
+<ul>
+<li>general/device name: devicename (rd.luks.name) defined in <code>/etc/default/grub</code>
+</li>
+<li>key specific sections: map individual YubiKeys / slots to luks slots.</li>
+</ul>
+<p>Add ykfde challenges file to grub initrd <code>/etc/default/grub</code>:
+</p>
+<pre> GRUB_EARLY_INITRD_LINUX_CUSTOM="ykfde-challenges.img"
+</pre>
+<p>Add <code>ykfde</code> hook to <code>/etc/mkinitcpio.conf</code> file before <code>sd-encrypt</code> hook.
+</p>
+<p>Enroll new luks slot:
+</p>
+<pre># ykfde --ask-2nd-factor
+</pre>
+<p>Push challenges to /boot partition:
+</p>
+<pre># ykfde-cpio
+</pre>
+<p>Rebuild initrd and update grub config:
+</p>
+<pre> # mkinitcpio -P
+ # grub-mkconfig -o /boot/grub/grub.cfg
+</pre>
+<p>If you want to unlock one single luks slot using multiple YubiKeys sharing the same challenge response configuration you have to enure ykfde uses the same challenge (stored in <code>/etc/ykfde.d/</code>).
+</p>
+<p>For further details please see the <a rel="nofollow"  href="https://github.com/eworm-de/mkinitcpio-ykfde/blob/master/README-mkinitcpio.md">project documentation</a>.
+</p>
+<h4><span class="mw-headline" id="OpenPGP_applet">OpenPGP applet</span></h4>
+<p>Another way of using YubiKey for full disk encryption is to utilize its OpenPGP applet to decrypt the LUKS keyfile during boot. <a rel="nofollow"  href="https://github.com/fuhry/initramfs-scencrypt">initramfs-scencrypt</a> is a set of hooks for initramfs that automate this process.
+</p>
+<h4><span class="mw-headline" id="HMAC_Secret_Extension_of_FIDO2_protocol">HMAC Secret Extension of FIDO2 protocol</span></h4>
+<p>Yet another way of using YubiKey for full disk encryption is to utilize <a rel="nofollow"  href="https://fidoalliance.org/specs/fido-v2.0-id-20180227/fido-client-to-authenticator-protocol-v2.0-id-20180227.html#sctn-hmac-secret-extension">HMAC Secret Extension</a> to retrieve the LUKS password from YubiKey which is protected by passphrase supplied by user. This functionality requires at least <a rel="nofollow"  href="https://support.yubico.com/support/solutions/articles/15000027138-yubikey-5-2-3-enhancements-to-fido-2-support">YubiKey 5 with firmware 5.2.3+</a>.
+</p>
+<p>In order to use this install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fido2-hmac-secret/">fido2-hmac-secret</a></span><sup><small>AUR</small></sup> and follow instructions available in <a rel="nofollow"  href="https://github.com/mjec/fido2-hmac-secret/wiki/TOS-Linux-LUKS-configuration">project documentation</a>.
+</p>
+<h3><span class="mw-headline" id="Yubikey_and_KeePass">Yubikey and KeePass</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="../wiki/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Duplicates <a href="../wiki/KeePass.html" title="KeePass">KeePass</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:YubiKey">Talk:YubiKey#</a>)</div>
+</div>
+<p>Yubikey can be integrated with <a href="../wiki/KeePass.html" title="KeePass">KeePass</a> using <a href="../wiki/KeePass.html#Yubikey" title="KeePass">plugins</a>.
+</p>
+<p>For a native open-source implementation of KeePass have a look at:
+</p>
+<h4><span class="mw-headline" id="keepassx2">keepassx2</span></h4>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/keepassx2/">keepassx2</a></span><sup><small>AUR</small></sup> (<a rel="nofollow"  href="https://keepassx.org/">see keepassx.org</a>) a keepass QT FOSS reimplementation, extremely stable and available for Windows, MacOSX and Linux.
+</p>
+<h4><span class="mw-headline" id="KeePassXC">KeePassXC</span></h4>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=keepassxc">keepassxc</a></span> (<a rel="nofollow"  href="https://keepassxc.org/">see keepassxc.org</a>) a KeePassX fork that integrated YubiKey into KeePassX v2.<br>The integration covers Challenge-Response as security factor to open the database, but also the generation of OTP using the YubiKey.
+</p>
+<p>In order to have a KeePassXC database work on Android (using the <a rel="nofollow"  href="https://play.google.com/store/apps/details?id=keepass2android.keepass2android">Keepass2Android app</a>), you need to use version 1.06 of the app. You also need to save the database file in the KDBX 4 format, since Keepass2Android do not support the KDBX 3 format.
+</p>
+<p>YubiKey support in Keepass2Android (which is compatible with KeePassXC) is tracked <a rel="nofollow"  href="https://github.com/PhilippC/keepass2android/issues/4">on GitHub</a>.
+</p>
+<h3><span class="mw-headline" id="Two-factor_authentication_with_SSH">Two-factor authentication with SSH</span></h3>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> See also: <a rel="nofollow"  href="https://developers.yubico.com/yubico-pam/Yubikey_and_SSH_via_PAM.html">https://developers.yubico.com/yubico-pam/Yubikey_and_SSH_via_PAM.html</a>
+</div>
+<p>This details how to use a Yubikey to have <a href="https://en.wikipedia.org/wiki/Two-factor_authentication"  title="wikipedia:Two-factor authentication">two-factor authentication</a> with SSH, that is, to use both a password and a YubiKey OTP.
+</p>
+<h4><span class="mw-headline" id="Prerequisites">Prerequisites</span></h4>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubico-pam">yubico-pam</a></span>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you are configuring a distant server to use YubiKey, you should open at least one additional, rescue SSH session, so that you are not locked out of your server if the configuration does not work and you exit your main session inadvertently</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The following assumes you are using the default Yubico servers. See the <a rel="nofollow"  href="https://github.com/Yubico/yubico-pam">yubico-pam documentation</a> for options relevant to using your own server.</div>
+<h4><span class="mw-headline" id="Configuration">Configuration</span></h4>
+<h5><span class="mw-headline" id="Authorization_Mapping_Files">Authorization Mapping Files</span></h5>
+<p>A mapping must be made between the YubiKey token ID and the user ID it is
+attached to. There are two ways to do this, either centrally in one file, or
+individually, where users can create the mapping in their home directories.
+If the central authorization mapping file is being used, user home directory
+mappings will not be used and vice versa.
+</p>
+<h6><span class="mw-headline" id="Central_authorization_mapping">Central authorization mapping</span></h6>
+<p>Create a file <code>/etc/yubico/authorized_yubikeys</code>, the file must contain a user name and the
+YubiKey token ID separated by colons (same format as the passwd file) for
+each user you want to allow onto the system using a YubiKey.
+</p>
+<p>The mappings should look like this, one per line:
+</p>
+<pre>&lt;first user name&gt;:&lt;Yubikey token ID1&gt;:&lt;Yubikey token ID2&gt;:...
+&lt;second user name&gt;:&lt;Yubikey token ID3&gt;:&lt;Yubikey token ID4&gt;:...
+</pre>
+<p>You can specify multiple key tokens to correspond to one user, but only one is required.
+</p>
+<h6><span class="mw-headline" id="Per-user_authorization_mapping">Per-user authorization mapping</span></h6>
+<p>Each user creates a <code>~/.yubico/authorized_yubikeys</code> file inside of their home
+directory and places the mapping in that file, the file must have only one
+line:
+</p>
+<pre>&lt;user name&gt;:&lt;Yubikey token ID1&gt;:&lt;Yubikey token ID2&gt;
+</pre>
+<p>This is much the same concept as the SSH <code>authorized_keys</code> file.
+</p>
+<p>Note that this file must be readable by the <code>pam_yubico</code> module when the user is authenticated, otherwise login will fail. If this is not possible or desired, use the global mapping file instead.
+</p>
+<h6>
+<span id="Obtaining_the_YubiKey_token_ID_.28a.k.a._public_ID.29"></span><span class="mw-headline" id="Obtaining_the_YubiKey_token_ID_(a.k.a._public_ID)">Obtaining the YubiKey token ID (a.k.a. public ID)</span>
+</h6>
+<p>You can obtain the YubiKey token ID in several ways.  One is by
+removing the last 32 characters of any OTP (One Time Password)
+generated with your YubiKey.  Another is by using the
+<a rel="nofollow"  href="http://demo.yubico.com/php-yubico/Modhex_Calculator.php">modhex calculator</a>.
+</p>
+<p>Enter your YubiKey OTP and convert it, your Yubikey token ID is 12
+characters and listed as:
+</p>
+<pre>Modhex encoded: XXXXXXX
+</pre>
+<h5><span class="mw-headline" id="PAM_configuration">PAM configuration</span></h5>
+<p>Having set up the <code>pam_yubico</code> module, you next need to tell PAM to use it when logging in via SSH. There are several ways of doing this.
+</p>
+<h6><span class="mw-headline" id="The_default_way">The default way</span></h6>
+<p>Obtain HMAC credentials from Yubico as described in <a href="#YubiCloud_and_validation_servers">#YubiCloud and validation servers</a>. You will receive a Client ID and a secret key.
+</p>
+<p>Add one of the two following lines to the beginnning of <code>/etc/pam.d/sshd</code>:
+</p>
+<pre>auth            required      pam_yubico.so id=CLIENTID authfile=/etc/yubico/authorized_yubikeys
+</pre>
+<p>if you are using a central authorization mapping file, or
+</p>
+<pre>auth            required      pam_yubico.so id=CLIENTID
+</pre>
+<p>if you are using per-user authorization mapping, where <code>CLIENTID</code> is your Client ID. This method utilizes your ID and the server's certificate to authenticate the connection.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This will authenticate via Yubico's free YubiCloud servers. If you want to use a different server, add it via the <code>urllist</code> parameter.</div>
+<h6><span class="mw-headline" id="Using_pure_HMAC_to_authenticate_the_validation_server">Using pure HMAC to authenticate the validation server</span></h6>
+<p>Add <code>key</code> to the above lines in <code>/etc/pam.d/sshd</code>:
+</p>
+<pre>auth            required      pam_yubico.so id=CLIENTID key=SECRETKEY ...
+</pre>
+<p>where <code>CLIENTID</code> and <code>SECRETKEY</code> are your HMAC ID and key.
+</p>
+<p>You should also disallow unprivileged users to read the file to prevent them from seeing the HMAC credentials:
+</p>
+<pre># chmod o-r /etc/pam.d/sshd
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> HMAC credentials should be unique to a single target server. That way, if an attacker finds them, he will not be able to craft responses to authenticate to other target servers you own</div>
+<h6><span class="mw-headline" id="Using_pure_HTTPS_to_authenticate_the_validation_server">Using pure HTTPS to authenticate the validation server</span></h6>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> While this "old" method of using a dummy id still works, it is unknown how secure and/or future-proof it is, as Yubico no longer describes it in their documentation. Proceed at your own risk. At the very least you should ensure that only HTTPS servers with valid certificates are used for authentication.</div>
+<p>If you do not want to use HMAC credentials from Yubico, it is still possible to authenticate via the Yubico server by setting <code>CLIENTID=1</code> instead of your own ID. Although <code>pam_yubico</code>'s default server uses HTTPS already, for security reasons you should specify it manually via the <code>urllist</code> parameter, as the servers certificate is the only way in which the connection is authenticated. You can find the keyserver URL by adding the <code>debug</code> parameter to the <code>auth</code> line.
+</p>
+<h5><span class="mw-headline" id="SSHD_configuration">SSHD configuration</span></h5>
+<p>You should check that <code>/etc/ssh/sshd_config</code> contains these lines and that they are not commented. The <code>sshd_config</code> shipped with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span> has these set correctly by default.
+</p>
+<pre>ChallengeResponseAuthentication no
+UsePAM yes
+</pre>
+<h4>
+<span id="That_is_it.21"></span><span class="mw-headline" id="That_is_it!">That is it!</span>
+</h4>
+<p>You should not need to restart anything if you did not change the SSHD config file.
+</p>
+<p>To log in, at the <code>Password:</code> prompt of SSH, you have to type your password <b>without pressing enter</b> and touch the YubiKey's button.
+The YubiKey should send a return at the end of the OTP so you do not need to touch the enter key at all.
+</p>
+<p>You can display information about the login data generated by <code>pam_yubico</code> by adding the <code>debug</code> option to the auth line in<code>/etc/pam.d/sshd</code>. However, if you are using a central authorization file, you should remove that option once finished testing, as it causes <code>pam_yubico</code> to display the entire content of the central file to every user who logs in using a YubiKey.
+</p>
+<h4><span class="mw-headline" id="Explanation">Explanation</span></h4>
+<p>This works because the prompt is <code>pam_yubico.so</code>'s one, since this module is before <code>pam_unix.so</code>, which normally does basic password authentication.
+So, you are giving a string that is the concatenation of your password and the OTP to <code>pam_yubico.so</code>.
+Since the OTPs have a fixed length (let us call this size N), it just has to get the last N characters to retrieve the OTP, and it assumes that the other characters at the start are the password.
+It tries to validate the OTP, and in case of success, sends the password to the next PAM module. In TOSlinux' default PAM stack, the authenticator <code>pam_unix.so</code> is instructed to try receiving a password from the previous module with <code>try_first_pass</code>, so it automatically uses the password sent by <code>pam_yubico.so</code>.
+</p>
+<h3>
+<span id="Executing_actions_on_insertion.2Fremoval_of_YubiKey_device"></span><span class="mw-headline" id="Executing_actions_on_insertion/removal_of_YubiKey_device">Executing actions on insertion/removal of YubiKey device</span>
+</h3>
+<p>For example, you want to perform an action when you pull your YubiKey out of the USB slot, create <code>/etc/udev/rules.d/80-yubikey-actions.rules</code> and add the following contents:
+</p>
+<pre>ACTION=="remove", ENV{ID_VENDOR}=="Yubico", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0010|0111|0112|0113|0114|0115|0116|0401|0402|0403|0404|0405|0406|0407|0410", RUN+="/usr/local/bin/script args"
+</pre>
+<p>Please note, most keys are covered within this example but it may not work for all versions of YubiKey. You will have to look at the output of lsusb to get the vendor and model ID's, along with the description of the device or you could use udevadm to get information. Of course, to execute a script on insertion, you would change the action to 'add' instead of remove. 
+</p>
+<h2>
+<span id="Maintenance_.2F_Upgrades"></span><span class="mw-headline" id="Maintenance_/_Upgrades">Maintenance / Upgrades</span>
+</h2>
+<h3><span class="mw-headline" id="Installing_the_OATH_Applet_for_a_YubiKey_NEO">Installing the OATH Applet for a YubiKey NEO</span></h3>
+<p>These steps will allow you to install the OATH applet onto your YubiKey NEO. This allows the use of Yubico Authenticator in the Google Play Store.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> These steps are only for NEOs with a firmware version &lt;= 3.1.2. The current generation NEOs (with U2F) come with the OpenPGP applet already installed)</div>
+<h4><span class="mw-headline" id="Configure_the_NEO_as_a_CCID_Device">Configure the NEO as a CCID Device</span></h4>
+<ol>
+<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubikey-personalization-gui">yubikey-personalization-gui</a></span> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/yubikey-personalization-gui-git/">yubikey-personalization-gui-git</a></span><sup><small>AUR</small></sup>).</li>
+<li>Add the udev rules and reboot so you can manage the YubiKey without needing to be root</li>
+<li>Run <code>ykpersonalize -m82</code>, enter <code>y</code>, and hit enter.</li>
+</ol>
+<h4><span class="mw-headline" id="Install_the_Applet">Install the Applet</span></h4>
+<ol>
+<li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gpshell/">gpshell</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gppcscconnectionplugin/">gppcscconnectionplugin</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/globalplatform/">globalplatform</a></span><sup><small>AUR</small></sup>, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pcsclite">pcsclite</a></span>.</li>
+<li>
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>pcscd.service</code>.</li>
+<li>Download the most recent CAP file from the <a rel="nofollow"  href="http://opensource.yubico.com/ykneo-oath/releases.html">ykneo-oath</a> site.</li>
+<li>Download <code>gpinstall.txt</code> from <a rel="nofollow"  href="https://github.com/Yubico/ykneo-oath/blob/master/gpinstall.txt">GitHub</a>.</li>
+<li>Edit the line in gpinstall.txt beginning with <code>install -file</code> to reflect the path where the CAP file is located.</li>
+<li>Open a terminal and run <code> gpshell &lt;location of gpinstall.txt&gt;</code>
+</li>
+<li>Ideally, a bunch of text will scroll by and it ends saying something like</li>
+</ol>
+<pre> Command --&gt; 80E88013D7C000C400BE00C700CA00CA00B400BE00CE00D200D500D700B000DB00C700DF00BEFFFF00BE00E400AC00AE00AE00DB00E700A
+A00EA00ED00ED00ED00BE00EF00F100F400F100F700FA00FF00BE00F700AA01010103010700CA00C400B400AA00F700B400AA00B600C7010C
+010C00AA0140012001B0056810B0013005600000056810E0011006B4B44304B44404B44106B44B4405B443400343B002410636810E06B4B44
+407326810B004B43103441003334002B102B404B3B403BB4003B440076820A4100221024405B4341008B44600000231066820A100
+Wrapped command --&gt; 84E88013DFC000C400BE00C700CA00CA00B400BE00CE00D200D500D700B000DB00C700DF00BEFFFF00BE00E400AC00AE00AE00DB00E700A
+A00EA00ED00ED00ED00BE00EF00F100F400F100F700FA00FF00BE00F700AA01010103010700CA00C400B400AA00F700B400AA00B600C7010C
+010C00AA0140012001B0056810B0013005600000056810E0011006B4B44304B44404B44106B44B4405B443400343B002410636810E06B4B44
+407326810B004B43103441003334002B102B404B3B403BB4003B440076820A4100221024405B4341008B44600000231066820A15D848CB77
+27D0EDA00
+Response &lt;-- 009000
+Command --&gt; 80E60C002107A000000527210108A00000052721010108A000000527210101010003C901000000
+Wrapped command --&gt; 84E60C002907A000000527210108A00000052721010108A000000527210101010003C9010000B4648127914A4C7C00
+Response &lt;-- 009000
+card_disconnect
+release_context</pre>
+<ol><li>Unplug the NEO and try it with the Yubico Authenticator app</li></ol>
+<h4>
+<span id=".28Optional.29_Install_the_Yubico_Authenticator_Desktop_client"></span><span class="mw-headline" id="(Optional)_Install_the_Yubico_Authenticator_Desktop_client">(Optional) Install the Yubico Authenticator Desktop client</span>
+</h4>
+<p>You can get the desktop version of the Yubico Authenticator by installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=yubioath-desktop">yubioath-desktop</a></span>.
+</p>
+<p>While <code>pcscd.service</code> is running, run <code>yubioath-desktop</code> and insert your Yubikey when prompted.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p>Restart, especially if you have completed updates since your YubiKey last worked. Do this even if some functions appear to be functioning.
+</p>
+<h3><span class="mw-headline" id="YubiKey_not_acting_as_HID_device">YubiKey not acting as HID device</span></h3>
+<p>Add udev rule as described in <a rel="nofollow"  href="https://michaelheap.com/yubikey-on-arch/">this article</a>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/10-security-key.rules</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="users", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="f1d0"</pre>
+<p>Run <code>udevadm trigger</code> afterwards.
+</p>
+<p>You may also need to <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libu2f-host">libu2f-host</a></span> if you want support in chrome.
+</p>
+<h3><span class="mw-headline" id="ykman_fails_to_connect_to_the_YubiKey">ykman fails to connect to the YubiKey</span></h3>
+<p>If the manager fails to connect to the YubiKey, make sure you have started <code>pcscd.service</code> or <code>pcscd.socket</code>.
+</p>
+<h3>
+<span id="Error:_Failed_connecting_to_YubiKey_5_.5BOTP.2BFIDO.2BCCID.5D._Make_sure_the_application_have_the_required_permissions."></span><span class="mw-headline" id="Error:_Failed_connecting_to_YubiKey_5_[OTP+FIDO+CCID]._Make_sure_the_application_have_the_required_permissions.">Error: Failed connecting to YubiKey 5 [OTP+FIDO+CCID]. Make sure the application have the required permissions.</span>
+</h3>
+<p>This can occur when using <code>ykman</code> to access the oath credentials on the device if <code>scdaemon</code> has already taken exclusive control of the device. <a rel="nofollow"  href="https://github.com/Yubico/yubikey-manager/issues/35">[3]</a>
+</p>
+<p>To fix this you can set the <code>reader-port</code> option with the correct value for your device in <code>~/.gnupg/scdaemon.conf</code>. <a rel="nofollow"  href="https://support.yubico.com/support/solutions/articles/15000014892-troubleshooting-gpg-no-such-device-">[4]</a>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This will cause the gpgagent to re-prompt you to unlock the YubiKey after each time you access the YubiKey through ykman.</div>
+<p>For YubiKey NEO and YubiKey 4:
+</p>
+<pre>reader-port Yubico Yubikey
+</pre>
+<p>or for YubiKey 5
+</p>
+<pre>reader-port Yubico Yubi
+</pre>
+<h3><span class="mw-headline" id="YubiKey_fails_to_bind_within_a_guest_VM">YubiKey fails to bind within a guest VM</span></h3>
+<p>Assuming the YubiKey is available to the guest, the issue results from a driver binding to the device on the host. To unbind the device, the bus and port information is needed from <code>dmesg</code> on the host:
+</p>
+<pre>$ dmesg | grep -B1 Yubico | tail -n 2 | head -n 1 | sed -E 's/^\[[^]]+\] usb ([^:]*):.*/\1/'
+</pre>
+<p>The resulting USB id should be of the form <code>X-Y.Z</code> or <code>X-Y</code>. Then, on the host, use <code>find</code> to search <code>/sys/bus/usb/drivers</code> for which driver the YubiKey is binded to (e.g. <code>usbhid</code> or <code>usbfs</code>).
+</p>
+<pre>$ find /sys/bus/usb/drivers -name "*X-Y.Z*"
+</pre>
+<p>To unbind the device, use the result from the previous command (i.e. <code>/sys/bus/usb/drivers/&lt;DRIVER&gt;/X-Y.Z:1.0</code>):
+</p>
+<pre># echo 'X-Y.Z:1.0' &gt; /sys/bus/usb/drivers/&lt;DRIVER&gt;/unbind
+</pre>
+<h3>
+<span id="Error:_.5Bkey.5D_could_not_be_locally_signed_or_gpg:_No_default_secret_key:_No_public_key"></span><span class="mw-headline" id="Error:_[key]_could_not_be_locally_signed_or_gpg:_No_default_secret_key:_No_public_key">Error: [key] could not be locally signed or gpg: No default secret key: No public key</span>
+</h3>
+<p>Occurs when attempting to sign keys on a non-standard keyring while a YubiKey is plugged in, e.g. as <a href="../wiki/Pacman/Package_signing.html" title="Pacman/Package signing">Pacman</a> does in <code>pacman-key --populate archlinux</code>. The solution is to remove the offending YubiKey and start over.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
+<li><a href="../wiki/Category:Universal_2nd_Factor.html" title="Category:Universal 2nd Factor">Universal 2nd Factor</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=YubiKey&amp;oldid=612634">https://wiki.archlinux.org/index.php?title=YubiKey&amp;oldid=612634</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 13 May 2020, at 11:14.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

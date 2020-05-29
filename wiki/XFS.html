@@ -1,0 +1,248 @@
+<!--
+    title: XFS
+    description: Migration of XFS from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">XFS</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/File_systems.html" title="File systems">File systems</a></li>
+</ul>
+</div>
+<p>XFS is a high-performance journaling file system created by Silicon Graphics, Inc. XFS is particularly proficient at parallel IO due to its allocation group based design. This enables extreme scalability of IO threads, filesystem bandwidth, file and filesystem size when spanning multiple storage devices.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Data_corruption"><span >2</span> <span >Data corruption</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Repair_XFS_Filesystem"><span >2.1</span> <span >Repair XFS Filesystem</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Online_Metadata_Checking_(scrub)"><span >2.2</span> <span >Online Metadata Checking (scrub)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Integrity"><span >3</span> <span >Integrity</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Administration"><span >4</span> <span >Administration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Resize"><span >4.1</span> <span >Resize</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Performance"><span >5</span> <span >Performance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Stripe_size_and_width"><span >5.1</span> <span >Stripe size and width</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Access_time"><span >5.2</span> <span >Access time</span></a></li>
+<li class="toclevel-2 tocsection-11">
+<a href="#Defragmentation"><span >5.3</span> <span >Defragmentation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Inspect_fragmentation_levels"><span >5.3.1</span> <span >Inspect fragmentation levels</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Perform_defragmentation"><span >5.3.2</span> <span >Perform defragmentation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Free_inode_btree"><span >5.4</span> <span >Free inode btree</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#External_XFS_Journal"><span >5.5</span> <span >External XFS Journal</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Sync_interval"><span >5.6</span> <span >Sync interval</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17">
+<a href="#Troubleshooting"><span >6</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Root_file_system_quota"><span >6.1</span> <span >Root file system quota</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#xfs_scrub_all_fails_if_user_%22nobody%22_can_not_access_the_mountpoint"><span >6.2</span> <span >xfs_scrub_all fails if user "nobody" can not access the mountpoint</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>For XFS userspace utilities <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfsprogs">xfsprogs</a></span> package. It contains the tools necessary to manage an XFS file system.
+</p>
+<h2><span class="mw-headline" id="Data_corruption">Data corruption</span></h2>
+<p>If for whatever reason you experience data corruption, you will need to repair the filesystem manually.
+</p>
+<h3><span class="mw-headline" id="Repair_XFS_Filesystem">Repair XFS Filesystem</span></h3>
+<p>First unmount the XFS filesystem.
+</p>
+<pre># umount /dev/sda3
+</pre>
+<p>Once unmounted, run the <span class="plainlinks archwiki-template-man" title="$ man 8 xfs_repair"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xfs_repair.8">xfs_repair(8)</a></span> tool.
+</p>
+<pre># xfs_repair -v /dev/sda3
+</pre>
+<h3>
+<span id="Online_Metadata_Checking_.28scrub.29"></span><span class="mw-headline" id="Online_Metadata_Checking_(scrub)">Online Metadata Checking (scrub)</span>
+</h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This program is EXPERIMENTAL, which means that its behavior and interface could change at any time, see <span class="plainlinks archwiki-template-man" title="$ man 8 xfs_scrub"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xfs_scrub.8">xfs_scrub(8)</a></span>.</div>
+<p><code>xfs_scrub</code> asks the kernel to scrub all metadata objects in the XFS filesystem. Metadata records are scanned for obviously bad values and then cross-referenced against other metadata. The goal is to establish a reasonable confidence about the consistency of the overall filesystem by examining the consistency of individual metadata records against the other metadata in the filesystem. Damaged metadata can be rebuilt from other metadata if there exists redundant data structures which are intact.
+</p>
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>xfs_scrub_all.timer</code> to periodic check online metadata for all XFS filesystems.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> One may want to <a href="../wiki/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> <code>xfs_scrub_all.timer</code>: the timer runs every Sunday at 3:10am and will be <a href="../wiki/Systemd/Timers.html#Realtime_timer" title="Systemd/Timers">triggered immediately</a> if it missed the last start time, i.e. due to the system being powered off.</div>
+<h2><span class="mw-headline" id="Integrity">Integrity</span></h2>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfsprogs">xfsprogs</a></span> 3.2.0 has introduced a new on-disk format (v5) that includes a metadata checksum scheme called <a rel="nofollow"  href="https://www.kernel.org/doc/Documentation/filesystems/xfs-self-describing-metadata.txt">Self-Describing Metadata</a>. 
+Based upon CRC32 it provides for example additional protection against metadata corruption during unexpected power losses. Checksum is enabled by default when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xfsprogs">xfsprogs</a></span> 3.2.3 or later. If you need read-write mountable xfs for older kernel, It can be easily disabled using the <code>-m crc=0</code> switch when calling <span class="plainlinks archwiki-template-man" title="$ man 8 mkfs.xfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mkfs.xfs.8">mkfs.xfs(8)</a></span>.
+</p>
+<pre># mkfs.xfs -m crc=0 /dev/<i>target_partition</i>
+</pre>
+<p>The XFS v5 on-disk format is considered stable for production workloads starting Linux Kernel 3.15.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Unlike <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a> and <a href="../wiki/ZFS.html" title="ZFS">ZFS</a>, the CRC32 checksum only applies to the metadata and not actual data.</div>
+<h2><span class="mw-headline" id="Administration">Administration</span></h2>
+<h3><span class="mw-headline" id="Resize">Resize</span></h3>
+<p>XFS can be resized online, after the partition has been altered. Just run <code>xfs_growfs</code> with the mount point as first parameter to grow the XFS filesystem to the maximal size possible.
+</p>
+<pre># xfs_growfs <i>/path/to/mnt/point</i>
+</pre>
+<h2><span class="mw-headline" id="Performance">Performance</span></h2>
+<p>For optimal speed, just create an XFS file system with:
+</p>
+<pre># mkfs.xfs /dev/<i>target_partition</i>
+</pre>
+<p>Yep, so simple - since all of the <a rel="nofollow"  href="http://xfs.org/index.php/XFS_FAQ#Q:_I_want_to_tune_my_XFS_filesystems_for_.3Csomething.3E">"boost knobs" are already "on" by default</a>.
+</p>
+<p>Also see <span class="plainlinks archwiki-template-man" title="$ man 5 xfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xfs.5">xfs(5)</a></span> for details of all available mount options.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> When using the XFS filesystem on <a href="../wiki/RAID.html" title="RAID">RAID</a> devices, performance improvements may be possible by using <code>largeio</code>, <code>swalloc</code>, increased <code>logbsize</code> and <code>allocsize</code> values, etc. The following articles may provide additional details about those flags:
+<ul>
+<li><a rel="nofollow"  href="https://www.beegfs.io/wiki/StorageServerTuning">https://www.beegfs.io/wiki/StorageServerTuning</a></li>
+<li><a rel="nofollow"  href="https://help.marklogic.com/Knowledgebase/Article/View/505/0/recommended-xfs-settings-for-marklogic-server">https://help.marklogic.com/Knowledgebase/Article/View/505/0/recommended-xfs-settings-for-marklogic-server</a></li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="Stripe_size_and_width">Stripe size and width</span></h3>
+<p>If this filesystem will be on a striped RAID you can gain significant speed improvements by specifying the stripe size to the <span class="plainlinks archwiki-template-man" title="$ man 8 mkfs.xfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mkfs.xfs.8">mkfs.xfs(8)</a></span> command.
+</p>
+<p>XFS can sometimes detect the geometry under software RAID, but in case you reshape it or you are using hardware RAID see <a rel="nofollow"  href="http://xfs.org/index.php/XFS_FAQ#Q:_How_to_calculate_the_correct_sunit.2Cswidth_values_for_optimal_performance">how to calculate the correct sunit,swidth values for optimal performance</a>
+</p>
+<h3><span class="mw-headline" id="Access_time">Access time</span></h3>
+<p>On some filesystems you can increase performance by adding the <code>noatime</code> mount option to the <code>/etc/fstab</code> file. For XFS filesystems the default atime behaviour is <code>relatime</code>, which has almost no overhead compared to noatime but still maintains sane atime values. All Linux filesystems use this as the default now (since around 2.6.30), but XFS has used relatime-like behaviour since 2006, so no-one should really need to ever use noatime on XFS for performance reasons.
+</p>
+<p>Also, <code>noatime</code> implies <code>nodiratime</code>, so there is never a need to specify <b>nodiratime</b> when <b>noatime</b> is also specified.
+</p>
+<h3><span class="mw-headline" id="Defragmentation">Defragmentation</span></h3>
+<p>Although the extent-based nature of XFS and the delayed allocation strategy it uses significantly improves the file system's resistance to fragmentation problems, XFS provides a filesystem defragmentation utility (<i>xfs_fsr</i>, short for XFS filesystem reorganizer) that can defragment the files on a mounted and active XFS filesystem. It can be useful to view XFS fragmentation periodically.
+</p>
+<p><span class="plainlinks archwiki-template-man" title="$ man 8 xfs_fsr"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xfs_fsr.8">xfs_fsr(8)</a></span> improves the organization of mounted filesystems. The reorganization algorithm operates on one file at a time, compacting or otherwise improving the layout of the file extents (contiguous blocks of file data).
+</p>
+<h4><span class="mw-headline" id="Inspect_fragmentation_levels">Inspect fragmentation levels</span></h4>
+<p>To see how much fragmentation your file system currently has:
+</p>
+<pre># xfs_db -c frag -r /dev/sda3
+</pre>
+<h4><span class="mw-headline" id="Perform_defragmentation">Perform defragmentation</span></h4>
+<p>To begin defragmentation, use the <span class="plainlinks archwiki-template-man" title="$ man 8 xfs_fsr"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xfs_fsr.8">xfs_fsr(8)</a></span> command:
+</p>
+<pre># xfs_fsr /dev/sda3
+</pre>
+<h3><span class="mw-headline" id="Free_inode_btree">Free inode btree</span></h3>
+<p>Starting Linux 3.16, XFS has added a btree that tracks free inodes. It is equivalent to the existing inode allocation btree with the exception that the free inode btree tracks inode chunks with at least one free inode. The purpose is to improve lookups for free inode clusters for inode allocation. It improves performance on aged filesystems i.e. months or years down the track when you have added and removed millions of files to/from the filesystem. Using this feature does not impact overall filesystem reliability level or recovery capabilities.
+</p>
+<p>This feature relies on the new v5 on-disk format that has been considered stable for production workloads starting Linux Kernel 3.15. It does not change existing on-disk structures, but adds a new one that must remain consistent with the inode allocation btree; for this reason older kernels will only be able to mount read-only filesystems with the free inode btree feature.
+</p>
+<p>The feature enabled by default when using xfsprogs 3.2.3 or later. If you need writable filesystem for older kernel, it can be disable with <code>finobt=0</code> switch when formatting a XFS partition. You will need <code>crc=0</code> together.
+</p>
+<pre># mkfs.xfs -m crc=0,finobt=0 /dev/<i>target_partition</i>
+</pre>
+<p>or shortly (<code>finobt</code> depends <code>crc</code>)
+</p>
+<pre># mkfs.xfs -m crc=0 /dev/<i>target_partition</i>
+</pre>
+<h3><span class="mw-headline" id="External_XFS_Journal">External XFS Journal</span></h3>
+<p>Using an external log (metadata journal) on for instance a <a href="../wiki/Solid_state_drive.html" class="mw-redirect" title="SSD">SSD</a> may be useful to improve performance <a rel="nofollow"  href="https://docs.oracle.com/cd/E37670_01/E37355/html/ol_extjnl_xfs.html">[1]</a>. See <span class="plainlinks archwiki-template-man" title="$ man 8 mkfs.xfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mkfs.xfs.8">mkfs.xfs(8)</a></span> for details about the <code>logdev</code> parameter.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> Beware using flash-memory may wear-out the drive. See <a href="../wiki/Improving_performance.html#Reduce_disk_reads/writes" title="Improving performance">Improving performance#Reduce disk reads/writes</a> for SSD wear-out details.</div>
+<p>To reserve an external journal with a specified size when you create an XFS file system, specify the <code>-l logdev=device,size=size</code> option to the <code>mkfs.xfs</code> command. If you omit the <code>size</code> parameter, a journal size based on the size of the file system is used. To mount the XFS file system so that it uses the external journal, specify the <code>-o logdev=device</code> option to the <a href="../wiki/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> command.
+</p>
+<h3><span class="mw-headline" id="Sync_interval">Sync interval</span></h3>
+<p>XFS has it dedicated <a href="../wiki/Sysctl.html" title="Sysctl">sysctl</a> variable for setting "<a href="../wiki/Improving_performance.html#Writeback_interval_and_buffer_size" title="Improving performance">writeback interval</a>".  TOS has a default value of 3000, larger value is possible to set, just keep in mind that too large may result data loss in some cases:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/20-xfs-sync-interval.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">fs.xfs.xfssyncd_centisecs = 10000</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Root_file_system_quota">Root file system quota</span></h3>
+<p>XFS quota mount options (<code>uquota</code>, <code>gquota</code>, <code>prjquota</code>, etc.) fail during re-mount of the file system. To enable quota for root file system, the mount option must be passed to initramfs as a <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>rootflags=</code>. Subsequently, it should not be listed among mount options in <code>/etc/fstab</code> for the root (<code>/</code>) filesystem.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> There are some differences of XFS Quota compared to standard Linux <a href="../wiki/Disk_quota.html" title="Disk quota">Disk quota</a>, this article <a rel="nofollow"  href="http://inai.de/linux/adm_quota">http://inai.de/linux/adm_quota</a> may be worth reading.</div>
+<h3>
+<span id="xfs_scrub_all_fails_if_user_.22nobody.22_can_not_access_the_mountpoint"></span><span class="mw-headline" id='xfs_scrub_all_fails_if_user_"nobody"_can_not_access_the_mountpoint'>xfs_scrub_all fails if user "nobody" can not access the mountpoint</span>
+</h3>
+<p>When running <code>xfs_scrub_all</code>, it will launch <code>xfs_scrub@.service</code> for each mounted XFS file system. The service is run as user <code>nobody</code>, so if <code>nobody</code> can not navigate to the directory, it will fail with the error:
+</p>
+<pre>xfs_scrub@<i>mountpoint</i>.service: Changing to the requested working directory failed: Permission denied
+xfs_scrub@<i>mountpoint</i>.service: Failed at step CHDIR spawning /usr/bin/xfs_scrub: Permission denied
+xfs_scrub@<i>mountpoint</i>.service: Main process exited, code=exited, status=200/CHDIR
+</pre>
+<p>To allow the service to run, change the <a href="../wiki/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> of the mountpoint so that user <code>nobody</code> has execute permissions.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://xfs.org/index.php/XFS_FAQ">XFS FAQ</a></li>
+<li><a rel="nofollow"  href="http://xfs.org/index.php/Improving_Metadata_Performance_By_Reducing_Journal_Overhead">Improving Metadata Performance By Reducing Journal Overhead</a></li>
+<li><a href="https://en.wikipedia.org/wiki/XFS"  title="wikipedia:XFS">XFS Wikipedia Entry</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=XFS&amp;oldid=607258">https://wiki.archlinux.org/index.php?title=XFS&amp;oldid=607258</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 April 2020, at 10:14.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

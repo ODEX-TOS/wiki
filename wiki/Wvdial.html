@@ -1,0 +1,224 @@
+<!--
+    title: Wvdial
+    description: Migration of Wvdial from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Wvdial</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>WvDial is a Point-to-Point Protocol dialer: it dials a modem and starts <a href="../wiki/Ppp.html" title="Ppp">ppp</a> in order to connect to the Internet.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuration"><span >2</span> <span >Configuration</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Usage"><span >3</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#suid"><span >3.1</span> <span >suid</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Group"><span >3.2</span> <span >Group</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#sudo"><span >3.3</span> <span >sudo</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Tips_and_Tricks"><span >4</span> <span >Tips and Tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Low_connection_speed"><span >4.1</span> <span >Low connection speed</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Auto_Reconnect"><span >4.2</span> <span >Auto Reconnect</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Multiple_devices"><span >4.3</span> <span >Multiple devices</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#See_also"><span >5</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wvdial">wvdial</a></span> package.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>When <i>wvdial</i> starts, it first loads its configuration from <code>/etc/wvdial.conf</code> and <code>~/.wvdialrc</code> . If <code>/etc/wvdial.conf</code> is not present, the easiest way to create it is to use the provided configuration utility <i>wvdialconf</i>:
+</p>
+<pre>wvdialconf /etc/wvdial.conf
+</pre>
+<p>It helps in generating the configuration file needed by <i>wvdial</i>. <i>wvdialconf</i> detects your modem, and fills in automatically the Modem, maximum Baud rate, and a good initialization string (Init options) and generates or updates the <i>wvdial</i> configuration file (<code>/etc/wvdial.conf</code>) based on this information.
+</p>
+<p>It is safe to run <i>wvdialconf</i> if a configuration file already exists. In that case, only the Modem, Baud, Init, and Init2 options are changed in the [Dialer Defaults] section, and only if autodetection is successful.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong>  <i>wvdialconf</i> does not automatically fill in your login information. You need to edit <code>/etc/wvdial.conf</code> and specify the phone number, login name, and password of your internet account in order for <i>wvdial</i> to work.</div>
+<p>After you have filled in your login information, <i>wvdial</i> ought to work. You can move to the next section. However for providers of USB modems that require a specific Init string and user/password combination, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mkwvconf-git/">mkwvconf-git</a></span><sup><small>AUR</small></sup> can help generate a <i>wvdial</i> configuration (based on the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mobile-broadband-provider-info-git/">mobile-broadband-provider-info-git</a></span><sup><small>AUR</small></sup> package).
+</p>
+<p>A typical <code>/etc/wvdial.conf</code> looks like this after manual configuration:
+</p>
+<pre>[Dialer Defaults]
+Init1 = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &amp;C1 &amp;D2 +FCLASS=0
+Modem Type = Analog Modem
+ISDN = 0
+Modem = /dev/ttyUSB2
+Baud = 9600
+
+[Dialer thenet]
+Phone = *99***1#
+Username = thenetuser
+Password = thenetpw
+; Username = 9180****** (If your provider use without Username)
+; Password = 9180****** (If your provider use without Password)
+Stupid Mode = 1
+Baud = 460800
+Init3 = AT+CGDCONT=1,"IP","apn.thenet.net"
+
+[Dialer mypin]
+Init4 = AT+CPIN=1234</pre>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>There are a few different ways of giving regular users the ability to use <i>wvdial</i> to dial a ppp connection. This document describes three different ways, each of them differ in difficulty to set up and the implication on security.
+</p>
+<p><i>wvdial</i> is to be run as root with the following command:
+</p>
+<pre># wvdial <i>option</i>
+</pre>
+<p>Leave <i>option</i> blank if you have not added a section or if <code>/etc/wvdial.conf</code> is auto-generated.
+</p>
+<pre># wvdial
+</pre>
+<h3><span class="mw-headline" id="suid">suid</span></h3>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This is arguable the easiest setup but has major impact on system security since it means that <b>every user can run</b> <i>wvdial</i> <b>as root</b>. Please consider using one of the other solutions instead.</div>
+<p>As normal users cannot use <i>wvdial</i> to dial a PPP connection by default, change permissions:
+</p>
+<pre># chmod u+s /usr/bin/wvdial
+</pre>
+<p>You should see the following permissions:
+</p>
+<pre># ls -l /usr/bin/wvdial
+-rwsr-xr-x  1 root root 114368 2005-12-07 19:21 /usr/bin/wvdial
+</pre>
+<h3><span class="mw-headline" id="Group">Group</span></h3>
+<p>Another, slightly more secure way is to set up a group called <code>dialout</code> (call the group as preferred) and give members of this group permission to run <i>wvdial</i> as root.
+</p>
+<p>First create the group and add the users to it:
+</p>
+<pre># groupadd dialout
+# gpasswd -a username dialout
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You need to logout and log back in for the current user's group list to be updated.</div>
+<p>Then set the group and adjust the permissions on <i>wvdial</i>:
+</p>
+<pre># chgrp dialout /usr/bin/wvdial
+# chmod u+s,o= /usr/bin/wvdial
+</pre>
+<p>The files should have the following permissions:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ ls -l /usr/bin/wvdial</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">-rwsr-x---  1 root dialout 114368 2005-12-07 19:21 /usr/bin/wvdial
+</pre>
+<h3><span class="mw-headline" id="sudo">sudo</span></h3>
+<p><a href="../wiki/Sudo.html" title="Sudo">sudo</a> arguably offers the most secure option to allow regular users to establish dial-up connections using <i>wvdial</i>. It can be used to give permission both on a per-user and group basis. Another benefit of using <i>sudo</i> is that it is only needed to do the setup once; both previous solutions will be "undone" when a new package of <i>wvdial</i> is installed.
+</p>
+<p>Use <i>visudo</i> to edit the file <code>/etc/sudoers</code>:
+</p>
+<pre># visudo
+</pre>
+<p>To give a specific user permission to run <i>wvdial</i> as root, add the following line (changing the username):
+</p>
+<pre><i>username</i> localhost = /usr/bin/wvdial
+</pre>
+<p>To give all members of a group (<code>dialout</code> in this case) the same permission:
+</p>
+<pre>%dialout localhost = /usr/bin/wvdial
+</pre>
+<p>If <code>ip addr</code> shows a pppd entry, it means that the session is ready.
+</p>
+<h2><span class="mw-headline" id="Tips_and_Tricks">Tips and Tricks</span></h2>
+<p>The following are applicable to USB modems.
+</p>
+<h3><span class="mw-headline" id="Low_connection_speed">Low connection speed</span></h3>
+<p>See <a href="../wiki/USB_3G_Modem.html#Low_connection_speed" title="USB 3G Modem">USB 3G Modem#Low connection speed</a>.
+</p>
+<h3><span class="mw-headline" id="Auto_Reconnect">Auto Reconnect</span></h3>
+<p>If <i>wvdial</i> randomly drops connection you can use script below:
+</p>
+<pre>#! /bin/bash
+(
+   while : ; do
+       wvdial
+       sleep 10
+   done
+) &amp;
+</pre>
+<h3><span class="mw-headline" id="Multiple_devices">Multiple devices</span></h3>
+<p>Often there will be several devices (at <code>/dev/ttyUSB0</code>, <code>/dev/ttyUSB1</code>, <code>/dev/ttyUSB2</code> for example). If in doubt about which to use, try each of them in turn or use <code>/dev/gsmmodem</code> (a link set up by <i>usb_modeswitch</i>) which should point to the correct one. Once the configuration files are prepared, the internet connection is established by running:
+</p>
+<pre>$ wvdial <i>options</i>
+</pre>
+<p>If necessary additional setup commands can be placed in a simple script like this:
+</p>
+<pre>usb_modeswitch
+sleep 2
+modprobe usbserial vendor=0xVVVV product=0xMMMM maxSize=4096
+sleep 2
+wvdial thenet
+</pre>
+<p>where <i>VVVV</i> is the hexadecimal vendor ID from lsusb, <i>MMMM</i> is the hexadecimal product ID when in modem mode, and "thenet" is the name of the section in <code>wvdial.conf</code> which you wish to use. The <i>maxSize</i> option may or may not be necessary. It simplifies matters if you disable the SIM PIN, but if you require it, run <code>wvdial mypin</code> before <code>wvdial thenet</code>.
+</p>
+<p>The final <i>wvdial</i> command should start <i>pppd</i> and the obained IP address should be visible in the terminal output. At that point the internet connection should be live, which can be easily checked with a web browser or by pinging an external IP address.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow"  href="https://github.com/wlach/wvdial">GitHub repository</a></li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Wvdial&amp;oldid=556806">https://wiki.archlinux.org/index.php?title=Wvdial&amp;oldid=556806</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 November 2018, at 13:03.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
