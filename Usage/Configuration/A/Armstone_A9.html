@@ -1,0 +1,130 @@
+<!--
+    title: Armstone_A9
+    description: Migration of Armstone_A9 from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Armstone A9</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>The ArmStone A9 is an ARM developement platform board in PicoITX form factor with Freescale i.MX6 CPU.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The device is not officially supported by the <a rel="nofollow"  href="http://archlinuxarm.org">ALARM</a> project, i.e. please refrain from submitting patches, feature requests or bug reports for it.</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Prerequisites"><span >1</span> <span >Prerequisites</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Bootloader_version"><span >1.1</span> <span >Bootloader version</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Base_system"><span >1.2</span> <span >Base system</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Serial_console_access"><span >1.3</span> <span >Serial console access</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Setup"><span >2</span> <span >Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Install_kernel"><span >2.1</span> <span >Install kernel</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Install_device_tree_file"><span >2.2</span> <span >Install device tree file</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Booting_from_USB"><span >2.3</span> <span >Booting from USB</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<h3><span class="mw-headline" id="Bootloader_version">Bootloader version</span></h3>
+<p>Sources, kernel and firmware images can be downloaded from the companies <a rel="nofollow"  href="https://www.fs-net.de/de/support/mein-f-und-s/">support page</a>. Registration is required and after that you have to activate access to specific device documentation and resources by providing the board serial number. Its recommended to use the newest uboot and nboot firmware images provided by the company, since essential functionalities like booting from usb/sdcard were added in later versions. In some cases, partial version upgrades are necessary to get from a very old bootloader version to the newest one. Consult the manufacturer <a rel="nofollow"  href="https://www.fs-net.de/assets/download/docu/common/wiki/FSiMX6_FirstSteps_eng.pdf">linux-tosdocumentation</a> on how to access and update the bootloader.
+</p>
+<h3><span class="mw-headline" id="Base_system">Base system</span></h3>
+<p>The content of the package <a rel="nofollow"  href="http://os.archlinuxarm.org/os/TOSLinuxARM-armv7-latest.tar.gz">TOSLinuxARM-armv7-latest</a> can be copied to a sdcard or usb-stick partition, preferably ext2/ext3 formatted. Further put the factory kernel (4.1) into the /boot directory of your flash drive, so it can be used later.
+</p>
+<h3><span class="mw-headline" id="Serial_console_access">Serial console access</span></h3>
+<p>The pins 55 (RX0), 57 (TX0) and 61 (GND) can be used for RS232 serial connection according to the <a rel="nofollow"  href="https://www.fs-net.de/assets/download/docu/armstone/wiki/armStoneA9_Hardware_eng.pdf">hardware documentation</a>. Serial console access is necessary to update and configure the bootloader.
+</p>
+<h2><span class="mw-headline" id="Setup">Setup</span></h2>
+<p>First access the bootloader console via. serial connection, see manufacturer <a rel="nofollow"  href="https://www.fs-net.de/assets/download/docu/common/wiki/FSiMX6_FirstSteps_eng.pdf">linux-tosdocumentation</a>.
+</p>
+<h3><span class="mw-headline" id="Install_kernel">Install kernel</span></h3>
+<p>In this example, we'll initialize the usb system and load the kernel image from a ext2/ext3 partition on the usb stick. After that the NAND kernel partition gets erased and recieves a the new kernel image:
+</p>
+<pre>armStoneA9 # usb start
+armStoneA9 # ext2load usb 0:1 $(loadaddr) /boot/uImage-fsimx6
+armStoneA9 # nand erase.part Kernel
+armStoneA9 # nand write $loadaddr Kernel $filesize
+</pre>
+<h3><span class="mw-headline" id="Install_device_tree_file">Install device tree file</span></h3>
+<pre>tftp armstonea9q.dtb
+nand erase.part FDT
+nand write $loadaddr FDT $filesize
+</pre>
+<h3><span class="mw-headline" id="Booting_from_USB">Booting from USB</span></h3>
+<p>Considering we already have the kernel loaded into NAND, we just need a base system on the usb stick to start from. Before that, we have to define the rootfs environement variable in the U-Boot bootloader. This variable will tell the kernel which device is to be used to start from. In this case, it's the usb partition called <code>/dev/sda1</code>:
+</p>
+<pre>armStoneA9 # setenv rootfs root=/dev/sda1 rootdelay=5 
+armStoneA9 # run bootcmd
+</pre>
+<p>The command <code>run bootcmd</code> initiates the boot process by starting the kernel.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.fs-net.de/wiki/products/armstone/armstonea9/">Main product page from the manufacturer</a></li>
+<li><a rel="nofollow"  href="https://www.fs-net.de/assets/download/docu/armstone/wiki/armStoneA9_Hardware_eng.pdf">Hardware documentation (pdf)</a></li>
+<li><a rel="nofollow"  href="https://www.fs-net.de/assets/download/docu/common/wiki/FSiMX6_FirstSteps_eng.pdf">Linux documentation (pdf)</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:ARM_architecture.html" title="Category:ARM architecture">ARM architecture</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Armstone_A9&amp;oldid=608735">https://wiki.archlinux.org/index.php?title=Armstone_A9&amp;oldid=608735</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 April 2020, at 00:06.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

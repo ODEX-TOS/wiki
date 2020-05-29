@@ -1,0 +1,199 @@
+<!--
+    title: Kubernetes
+    description: Migration of Kubernetes from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Kubernetes</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a> is an open-source system for automating deployment, scaling, and management of containerized applications. Kubernetes is also referred to as k8s.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Kubernetes_for_TOS_Linux"><span >1</span> <span >Kubernetes for TOS Linux</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Kubectl_plugins_for_TOS_Linux"><span >2</span> <span >Kubectl plugins for TOS Linux</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Basic_configuration"><span >3</span> <span >Basic configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4">
+<a href="#Using_kubeadm"><span >3.1</span> <span >Using  kubeadm</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Master"><span >3.1.1</span> <span >Master</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Node"><span >3.1.2</span> <span >Node</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Trouble_shooting"><span >4</span> <span >Trouble shooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#settings_behind_proxy"><span >4.1</span> <span >settings behind proxy</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#fatal_error:_runtime:_out_of_memory"><span >4.2</span> <span >fatal error: runtime: out of memory</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#error_when_creating_%22xxx.yaml%22:_No_API_token_found_for_service_account_%22default%22"><span >4.3</span> <span >error when creating "xxx.yaml": No API token found for service account "default"</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Error:_unable_to_load_server_certificate"><span >4.4</span> <span >Error: unable to load server certificate</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Kubernetes_for_TOS_Linux">Kubernetes for TOS Linux</span></h2>
+<p>There are several AUR packages for Kubernetes on TOS Linux:
+</p>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kubernetes/">kubernetes</a></span><sup><small>AUR</small></sup><sup>[<a href="../wiki/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup>: It builds the go-source code of Kubernetes from the GitHub.</li></ul>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kubernetes-bin/">kubernetes-bin</a></span><sup><small>AUR</small></sup>: It installs the pre-built binaries and configurations of the kubernetes package without requiring to build them.</li></ul>
+<p>Additionally, a standalone <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kubectl">kubectl</a></span> package is available in the official repos.
+</p>
+<h2><span class="mw-headline" id="Kubectl_plugins_for_TOS_Linux">Kubectl plugins for TOS Linux</span></h2>
+<p><a rel="nofollow"  href="https://kubernetes.io/docs/reference/kubectl/overview/">Kubectl</a> plugins are independent binaries that can be used to extend
+the Kubectl's functionalities by providing additional subcommands.
+</p>
+<p>There are AUR packages for Kubectl plugins on TOS Linux:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kubectl-trace-git/">kubectl-trace-git</a></span><sup><small>AUR</small></sup>: Schedule bpftrace programs on your kubernetes cluster using the kubectl.</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kubelogin/">kubelogin</a></span><sup><small>AUR</small></sup>: Kubectl plugin for Kubernetes OpenID Connect authentication (oidc-login).</li>
+</ul>
+<h2><span class="mw-headline" id="Basic_configuration">Basic configuration</span></h2>
+<p>You may either choose the <code>kubeadm</code> helper or manually configuring a kubernetes cluster.
+</p>
+<h3><span class="mw-headline" id="Using_kubeadm">Using  kubeadm</span></h3>
+<p>The following guide is for a one-master-one-slave build, where both nodes are in <code>192.168.122.0/24</code> network and the master hosts the kubernetes cluster at <code>192.168.122.1</code>.  Note that pods have their own CIDR, assuming <code>192.168.123.0/24</code> here.
+</p>
+<h4><span class="mw-headline" id="Master">Master</span></h4>
+<p>First, setup the configuration file for kubelet service,
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/kubernetes/kubelet</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">KUBELET_ARGS="--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf \
+              --kubeconfig=/etc/kubernetes/kubelet.conf \
+              --config=/var/lib/kubelet/config.yaml \
+              --network-plugin=cni \
+              --pod-infra-container-image=k8s.gcr.io/pause:3.1"
+</pre>
+<p>Don't worry for the not yet existing files in the arguments.  They will be created during the <code>kubeadm</code> initialization process.  Note that if you are in a proxy environment or have special DNS settings, you should specify the <code>resolv.conf</code> to be used in containers by adding one more argument
+</p>
+<pre>--resolv-conf=/the/path/to/the/resolv.conf</pre>
+<p>Then, run
+</p>
+<pre># kubeadm init --apiserver-advertise-address=192.168.122.1 --pod-network-cidr=192.168.123.0/24</pre>
+<p>It will show the progress of initialization and stuck later, complaining about something like
+</p>
+<pre>[kubelet-check] It seems like the kubelet isn't running or healthy.
+[kubelet-check] The HTTP call equal to 'curl -sSL <a rel="nofollow"  href="http://localhost:10248/healthz'">http://localhost:10248/healthz'</a> failed with error: Get <a rel="nofollow"  href="http://localhost:10248/healthz">http://localhost:10248/healthz</a>: dial tcp 127.0.0.1:10248: connect: connection refused.
+</pre>
+<p>At this moment, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>kubelet.service</code>.  It is anticipated that kubelet will launch some kubernetes components, which will be confirmed by <code>kubeadm</code>.  If done successfully, there should be a message like:
+</p>
+<pre>Your Kubernetes master has initialized successfully!
+</pre>
+<p>Then you can configure your account as the administrator of this newly-created kubernetes cluster,
+</p>
+<pre>$ mkdir -p $HOME/.kube
+# cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# chown $(id -u):$(id -g) $HOME/.kube/config
+</pre>
+<p>Then you can deploy a pod network.  Many choices can be found <a rel="nofollow"  href="https://kubernetes.io/docs/concepts/cluster-administration/addons/">here</a>. Note that all the options have their own default pod network CIDR.  Thus, you should modify those settings according to what was given in <code>--pod-network-cidr</code>.
+</p>
+<p>Finally, check the health of this master,
+</p>
+<pre>$ kubectl get componentstatus
+</pre>
+<h4><span class="mw-headline" id="Node">Node</span></h4>
+<p>Join the cluster by simply type in the final line of master's successful message,
+</p>
+<pre>kubeadm join --token &lt;token&gt; 192.168.122.1:6443 --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
+</pre>
+<h2><span class="mw-headline" id="Trouble_shooting">Trouble shooting</span></h2>
+<h3><span class="mw-headline" id="settings_behind_proxy">settings behind proxy</span></h3>
+<p><code>kubeadm</code> reads the <code>https_proxy</code>, <code>http_proxy</code>, and <code>no_proxy</code> environment variables.  Kubernetes internal networking should be included in the latest one, for example
+</p>
+<pre>export no_proxy="192.168.122.0/24,10.96.0.0/12,192.168.123.0/24"
+</pre>
+<p>where the second one is the default service network CIDR.
+</p>
+<p>You may also need extra CNI plugins
+</p>
+<pre>$ go get -d github.com/containernetworking/plugins
+$ cd ~/go/src/github.com/containernetworking/plugins
+$ bash ./build_linux.sh 
+# cp bin/* /opt/cni/bin/
+</pre>
+<h3><span class="mw-headline" id="fatal_error:_runtime:_out_of_memory">fatal error: runtime: out of memory</span></h3>
+<p>This might happen when building kubernetes from source.  A known trick is to setup a <code>zram</code> region:
+</p>
+<pre># ￼￼modprobe zram
+# echo lz4 &gt; /sys/block/zram0/comp_algorithm
+# echo 16G &gt; /sys/block/zram0/disksize
+# mkswap --label zram0 /dev/zram0
+# swapon --priority 100 /dev/zram0
+</pre>
+<h3>
+<span id="error_when_creating_.22xxx.yaml.22:_No_API_token_found_for_service_account_.22default.22"></span><span class="mw-headline" id='error_when_creating_"xxx.yaml":_No_API_token_found_for_service_account_"default"'>error when creating "xxx.yaml": No API token found for service account "default"</span>
+</h3>
+<p>Please check the details on <a rel="nofollow"  href="https://stackoverflow.com/questions/31891734/not-able-to-create-pod-in-kubernetes">stackoverflow</a>.
+</p>
+<h3><span class="mw-headline" id="Error:_unable_to_load_server_certificate">Error: unable to load server certificate</span></h3>
+<p>This might happen when start a service.  Check if any of the <code>*.key</code> files' permission setting is not appropriate.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Kubernetes&amp;oldid=614451">https://wiki.archlinux.org/index.php?title=Kubernetes&amp;oldid=614451</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 May 2020, at 23:00.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

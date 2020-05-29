@@ -1,0 +1,152 @@
+<!--
+    title: Dash
+    description: Migration of Dash from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Dash</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Command-line_shell.html" title="Command-line shell">Command-line shell</a></li>
+<li><a href="../wiki/Bash.html" title="Bash">Bash</a></li>
+</ul>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Debian_Almquist_shell"  title="wikipedia:Debian Almquist shell">DASH (Debian Almquist shell)</a> is a modern POSIX-compliant implementation of <a href="https://en.wikipedia.org/wiki/Bourne_shell"  title="wikipedia:Bourne shell"><code>/bin/sh</code> (sh, Bourne shell)</a>.
+</p>
+<p>DASH is not <a href="../wiki/Bash.html" title="Bash">Bash</a> compatible, but Bash tries to be mostly compatible with POSIX, and thus Dash.
+</p>
+<p>DASH shines in:
+</p>
+<ul>
+<li>Speed of execution. Roughly <a rel="nofollow"  href="https://unix.stackexchange.com/questions/148035/is-dash-or-some-other-shell-faster-than-bash">4x times faster</a> than Bash and others.</li>
+<li>Very limited resources (disk space, RAM or CPU). As minimalistic as possible - much smaller (134.1 kB vs 6.5 MB installed, 13 kSLOC vs 176 kSLOC) than Bash and others.</li>
+<li>Security. Dash is a long-established, tiny project with simple and long-established functionality; one that is still very much <a rel="nofollow"  href="https://git.kernel.org/cgit/utils/dash/dash.git/log/">alive</a>, and with <a rel="nofollow"  href="https://git.kernel.org/cgit/utils/dash/dash.git/stats/?period=q&amp;ofs=10">many</a> active developers. Thus, Dash has a much smaller attack surface, while still having many eyes on its code.</li>
+<li>If classic <code>/bin/sh</code> needed only.</li>
+</ul>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Use_DASH_as_/bin/sh"><span >2</span> <span >Use DASH as /bin/sh</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Identifying_bashisms"><span >2.1</span> <span >Identifying bashisms</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Common_places_to_check"><span >2.1.1</span> <span >Common places to check</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Relinking_/bin/sh"><span >2.2</span> <span >Relinking /bin/sh</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span >3</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dash">dash</a></span> package from the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dash-static-musl/">dash-static-musl</a></span><sup><small>AUR</small></sup> from the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+</p>
+<h2>
+<span id="Use_DASH_as_.2Fbin.2Fsh"></span><span class="mw-headline" id="Use_DASH_as_/bin/sh">Use DASH as <code>/bin/sh</code></span>
+</h2>
+<p>Most POSIX compliant scripts specify <code>/bin/sh</code> at the first line of the script, which means it will run <code>/bin/sh</code> as the shell, which by default in TOS is a symlink to <code>/bin/bash</code>.
+</p>
+<p>You can re-symlink <code>/bin/sh</code> to <code>/bin/dash</code>, which can improve system performance, but first you must verify that none of the scripts that aren't explicitly <code>#!/bin/bash</code> require any of Bash's features and that all <code>/bin/sh</code> scripts are safely POSIX compliant.
+</p>
+<h3><span class="mw-headline" id="Identifying_bashisms">Identifying bashisms</span></h3>
+<p>Features of bash that aren't included in Dash ('bashisms') will not work without being explicitly pointed to <code>/bin/bash</code>. The following instructions will allow you to find any scripts that may need modification.
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=checkbashisms">checkbashisms</a></span>.
+</p>
+<h4><span class="mw-headline" id="Common_places_to_check">Common places to check</span></h4>
+<ul><li>Installed scripts with a <code>#!/bin/sh</code> shebang:</li></ul>
+<pre>$ find /usr/bin/ -type f -perm -o=r -print0 | xargs -0 gawk '/^#!.*( |[/])sh/{printf "%s\0", FILENAME} {nextfile}' | xargs -0 checkbashisms
+</pre>
+<ul><li>
+<code>pacman -Qlq</code> can be used to list all pacman-installed files.</li></ul>
+<h3>
+<span id="Relinking_.2Fbin.2Fsh"></span><span class="mw-headline" id="Relinking_/bin/sh">Relinking /bin/sh</span>
+</h3>
+<p>Once you have verified that it won't break any functionality, it should be safe to relink <code>/bin/sh</code>. To do so use the following command:
+</p>
+<pre># ln -sfT dash /usr/bin/sh
+</pre>
+<p>Updates of Bash will overwrite <code>/bin/sh</code> with the default symlink. To prevent this, use the following <a href="../wiki/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>, which will relink <code>/bin/sh</code> after every affected update:
+</p>
+<pre>[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = bash
+
+[Action]
+Description = Re-pointing /bin/sh symlink to dash...
+When = PostTransaction
+Exec = /usr/bin/ln -sfT dash /usr/bin/sh
+Depends = dash
+</pre>
+<p>This is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dashbinsh/">dashbinsh</a></span><sup><small>AUR</small></sup>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://mailman.archlinux.org/pipermail/arch-dev-public/2007-November/003053.html">https://mailman.archlinux.org/pipermail/arch-dev-public/2007-November/003053.html</a></li>
+<li><a rel="nofollow"  href="https://launchpad.net/ubuntu/+spec/dash-as-bin-sh">https://launchpad.net/ubuntu/+spec/dash-as-bin-sh</a></li>
+<li><a rel="nofollow"  href="https://wiki.ubuntu.com/DashAsBinSh">https://wiki.ubuntu.com/DashAsBinSh</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Command_shells.html" title="Category:Command shells">Command shells</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Dash&amp;oldid=604948">https://wiki.archlinux.org/index.php?title=Dash&amp;oldid=604948</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 April 2020, at 11:51.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

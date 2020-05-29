@@ -1,0 +1,151 @@
+<!--
+    title: Gcin
+    description: Migration of Gcin from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">gcin</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><span></span>
+<a rel="nofollow"  href="http://hyperrate.com/dir.php?eid=67">Gcin</a> is a new generation of Chinese <a href="../wiki/Localization.html#Input_methods" class="mw-redirect" title="Input method">input method</a> server developed by Edward Liu. Gcin supports various input methods and works under most Unix-like operating systems. It's one of the most popular Chinese input engines in Taiwan.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Installing_other_input_tables"><span >1.1</span> <span >Installing other input tables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Autostart"><span >2.1</span> <span >Autostart</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Usage"><span >3</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#With_GNOME/GTK_2_applications"><span >3.1</span> <span >With GNOME/GTK 2 applications</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#With_other_applications"><span >3.2</span> <span >With other applications</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Additional_notes_for_Wine/Crossover_Office"><span >3.3</span> <span >Additional notes for Wine/Crossover Office</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gcin">gcin</a></span> package.
+</p>
+<h3><span class="mw-headline" id="Installing_other_input_tables">Installing other input tables</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> <span style="color:red;">please use the first argument of the template to provide a brief explanation.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Gcin">Talk:Gcin#</a>)</div>
+</div>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="Autostart">Autostart</span></h3>
+<p>Use <a href="../wiki/Xprofile.html" title="Xprofile">xprofile</a> to execute these commands automatically:
+</p>
+<pre>export XMODIFIERS=@im=gcin
+export LC_CTYPE=zh_TW.UTF-8
+gcin &amp;
+</pre>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<h3>
+<span id="With_GNOME.2FGTK_2_applications"></span><span class="mw-headline" id="With_GNOME/GTK_2_applications">With GNOME/GTK 2 applications</span>
+</h3>
+<p>gcin provides a gtk input module, thus all gtk2-based applications are directly supported, there is no need to configure anything after installation (it's not XIM, and gcin is automatically started when needed).
+</p>
+<h3><span class="mw-headline" id="With_other_applications">With other applications</span></h3>
+<p>1. Set environment locale to use UTF-8, for example:
+</p>
+<pre>export LC_CTYPE=en_US.UTF-8
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You must set the LC_CTYPE locale even if it's the same as LANG, otherwise gcin may not be activated in non-gtk2 programs that use x input.</div>
+<p><br>
+2. Set XMODIFIERS:
+</p>
+<pre>export XMODIFIERS=@im=gcin
+</pre>
+<p>gcin uses the name "gcin" by default and you can change this with the environment variable GCIN_XIM in order to run multiple gcin instances, for example:
+</p>
+<pre>export GCIN_XIM=gcin_zh
+export XMODIFIERS=@im=gcin_zh
+</pre>
+<p>Remember that gtk2 applications start one instance of gcin automatically if it doesn't exist.
+</p>
+<p>3. Start gcin:
+</p>
+<pre>gcin &amp;
+</pre>
+<p>4. Run your applications! If gcin is killed when your applications are running, it's likely to cause crash or other problems.
+</p>
+<h3>
+<span id="Additional_notes_for_Wine.2FCrossover_Office"></span><span class="mw-headline" id="Additional_notes_for_Wine/Crossover_Office">Additional notes for Wine/Crossover Office</span>
+</h3>
+<ol>
+<li>If you run wine or Crossover Office, it's better to use Windows 2000 emulation instead of Windows 98, and you have to start gcin and wine/cxoffice with at least LC_CTYPE=zh_TW.utf8, otherwise wine won't be able to show Chinese correctly.</li>
+<li>In wine+IE6 with Windows 98 emulation, LC_CTYPE isn't enough if you want to input Chinese on the web-pages - you have to set either LANG or LC_ALL to zh_TW.utf8, which slows down wine a lot. However, you can always type Chinese in the location bar or other places and paste it.</li>
+</ol>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Input_methods.html" title="Category:Input methods">Input methods</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Gcin&amp;oldid=580055">https://wiki.archlinux.org/index.php?title=Gcin&amp;oldid=580055</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 August 2019, at 08:03.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

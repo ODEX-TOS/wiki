@@ -1,0 +1,940 @@
+<!--
+    title: VirtualBox
+    description: Migration of VirtualBox from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">VirtualBox</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/VirtualBox/Tips_and_tricks.html" title="VirtualBox/Tips and tricks">VirtualBox/Tips and tricks</a></li>
+<li><a href="../wiki/Category:Hypervisors.html" title="Category:Hypervisors">Category:Hypervisors</a></li>
+<li><a href="../wiki/PhpVirtualBox.html" title="PhpVirtualBox">PhpVirtualBox</a></li>
+<li><a href="../wiki/RemoteBox.html" title="RemoteBox">RemoteBox</a></li>
+<li><a href="../wiki/Moving_an_existing_install_into_(or_out_of)_a_virtual_machine.html" title="Moving an existing install into (or out of) a virtual machine">Moving an existing install into (or out of) a virtual machine</a></li>
+</ul>
+</div>
+<p><a rel="nofollow"  href="https://www.virtualbox.org">VirtualBox</a> is a <a href="https://en.wikipedia.org/wiki/Hypervisor"  title="wikipedia:Hypervisor">hypervisor</a> used to run operating systems in a special environment, called a virtual machine, on top of the existing operating system. VirtualBox is in constant development and new features are implemented continuously. It comes with a <a href="../wiki/Qt.html" title="Qt">Qt</a> GUI interface, as well as headless and <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer"  title="wikipedia:Simple DirectMedia Layer">SDL</a> command-line tools for managing and running virtual machines.
+</p>
+<p>In order to integrate functions of the host system to the guests, including shared folders and clipboard, video acceleration and a seamless window integration mode, <i>guest additions</i> are provided for some guest operating systems.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation_steps_for_TOS_Linux_hosts"><span >1</span> <span >Installation steps for TOS Linux hosts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Install_the_core_packages"><span >1.1</span> <span >Install the core packages</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Sign_modules"><span >1.2</span> <span >Sign modules</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Load_the_VirtualBox_kernel_modules"><span >1.3</span> <span >Load the VirtualBox kernel modules</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Accessing_host_USB_devices_in_guest"><span >1.4</span> <span >Accessing host USB devices in guest</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Guest_additions_disc"><span >1.5</span> <span >Guest additions disc</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Extension_pack"><span >1.6</span> <span >Extension pack</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Front-ends"><span >1.7</span> <span >Front-ends</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Installation_steps_for_TOS_Linux_guests"><span >2</span> <span >Installation steps for TOS Linux guests</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10">
+<a href="#Installation_in_EFI_mode"><span >2.1</span> <span >Installation in EFI mode</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Installation_in_EFI_mode_on_VirtualBox_&lt;_6.1"><span >2.1.1</span> <span >Installation in EFI mode on VirtualBox &lt; 6.1</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Install_the_Guest_Additions"><span >2.2</span> <span >Install the Guest Additions</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Set_optimal_framebuffer_resolution"><span >2.3</span> <span >Set optimal framebuffer resolution</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Load_the_VirtualBox_kernel_modules_2"><span >2.4</span> <span >Load the VirtualBox kernel modules</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Launch_the_VirtualBox_guest_services"><span >2.5</span> <span >Launch the VirtualBox guest services</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Hardware_acceleration"><span >2.6</span> <span >Hardware acceleration</span></a></li>
+<li class="toclevel-2 tocsection-17">
+<a href="#Enable_shared_folders"><span >2.7</span> <span >Enable shared folders</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Manual_mounting"><span >2.7.1</span> <span >Manual mounting</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Automounting"><span >2.7.2</span> <span >Automounting</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Mount_at_boot"><span >2.7.3</span> <span >Mount at boot</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21">
+<a href="#SSH_from_host_to_guest"><span >2.8</span> <span >SSH from host to guest</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#SSHFS_as_alternative_to_the_shared_folder"><span >2.8.1</span> <span >SSHFS as alternative to the shared folder</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23">
+<a href="#Virtual_disks_management"><span >3</span> <span >Virtual disks management</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#Formats_supported_by_VirtualBox"><span >3.1</span> <span >Formats supported by VirtualBox</span></a></li>
+<li class="toclevel-2 tocsection-25">
+<a href="#Disk_image_format_conversion"><span >3.2</span> <span >Disk image format conversion</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="#QCOW"><span >3.2.1</span> <span >QCOW</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-27">
+<a href="#Mount_virtual_disks"><span >3.3</span> <span >Mount virtual disks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-28"><a href="#VDI"><span >3.3.1</span> <span >VDI</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#VHD"><span >3.3.2</span> <span >VHD</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-30"><a href="#Compact_virtual_disks"><span >3.4</span> <span >Compact virtual disks</span></a></li>
+<li class="toclevel-2 tocsection-31">
+<a href="#Increase_virtual_disks"><span >3.5</span> <span >Increase virtual disks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-32"><a href="#General_procedure"><span >3.5.1</span> <span >General procedure</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#Increasing_the_size_of_VDI_disks"><span >3.5.2</span> <span >Increasing the size of VDI disks</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-34">
+<a href="#Replace_a_virtual_disk_manually_from_the_.vbox_file"><span >3.6</span> <span >Replace a virtual disk manually from the .vbox file</span></a>
+<ul>
+<li class="toclevel-3 tocsection-35"><a href="#Transfer_between_Linux_host_and_other_OS"><span >3.6.1</span> <span >Transfer between Linux host and other OS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-36"><a href="#Clone_a_virtual_disk_and_assigning_a_new_UUID_to_it"><span >3.7</span> <span >Clone a virtual disk and assigning a new UUID to it</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-37"><a href="#Tips_and_tricks"><span >4</span> <span >Tips and tricks</span></a></li>
+<li class="toclevel-1 tocsection-38">
+<a href="#Troubleshooting"><span >5</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="#Keyboard_and_mouse_are_locked_into_virtual_machine"><span >5.1</span> <span >Keyboard and mouse are locked into virtual machine</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#No_64-bit_OS_client_options"><span >5.2</span> <span >No 64-bit OS client options</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#VirtualBox_GUI_does_not_match_host_GTK_theme"><span >5.3</span> <span >VirtualBox GUI does not match host GTK theme</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#Cannot_send_Ctrl+Alt+Fn_to_guest"><span >5.4</span> <span >Cannot send Ctrl+Alt+Fn to guest</span></a></li>
+<li class="toclevel-2 tocsection-43"><a href="#USB_subsystem_not_working"><span >5.5</span> <span >USB subsystem not working</span></a></li>
+<li class="toclevel-2 tocsection-44"><a href="#USB_modem_not_working_on_host"><span >5.6</span> <span >USB modem not working on host</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="#USB_device_crashes_guest"><span >5.7</span> <span >USB device crashes guest</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="#Access_serial_port_from_guest"><span >5.8</span> <span >Access serial port from guest</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#Guest_freezes_after_starting_Xorg"><span >5.9</span> <span >Guest freezes after starting Xorg</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="#Fullscreen_mode_shows_blank_screen"><span >5.10</span> <span >Fullscreen mode shows blank screen</span></a></li>
+<li class="toclevel-2 tocsection-49"><a href="#Host_freezes_on_virtual_machine_start"><span >5.11</span> <span >Host freezes on virtual machine start</span></a></li>
+<li class="toclevel-2 tocsection-50"><a href="#Linux_guests_have_slow/distorted_audio"><span >5.12</span> <span >Linux guests have slow/distorted audio</span></a></li>
+<li class="toclevel-2 tocsection-51"><a href="#Analog_microphone_not_working"><span >5.13</span> <span >Analog microphone not working</span></a></li>
+<li class="toclevel-2 tocsection-52"><a href="#Microphone_not_working_after_upgrade"><span >5.14</span> <span >Microphone not working after upgrade</span></a></li>
+<li class="toclevel-2 tocsection-53"><a href="#Problems_with_images_converted_to_ISO"><span >5.15</span> <span >Problems with images converted to ISO</span></a></li>
+<li class="toclevel-2 tocsection-54"><a href="#Failed_to_create_the_host-only_network_interface"><span >5.16</span> <span >Failed to create the host-only network interface</span></a></li>
+<li class="toclevel-2 tocsection-55"><a href="#Failed_to_insert_module"><span >5.17</span> <span >Failed to insert module</span></a></li>
+<li class="toclevel-2 tocsection-56"><a href="#VBOX_E_INVALID_OBJECT_STATE_(0x80BB0007)"><span >5.18</span> <span >VBOX_E_INVALID_OBJECT_STATE (0x80BB0007)</span></a></li>
+<li class="toclevel-2 tocsection-57"><a href="#NS_ERROR_FAILURE_and_missing_menu_items"><span >5.19</span> <span >NS_ERROR_FAILURE and missing menu items</span></a></li>
+<li class="toclevel-2 tocsection-58"><a href="#TOS:_pacstrap_script_fails"><span >5.20</span> <span >TOS: pacstrap script fails</span></a></li>
+<li class="toclevel-2 tocsection-59"><a href="#OpenBSD_unusable_when_virtualisation_instructions_unavailable"><span >5.21</span> <span >OpenBSD unusable when virtualisation instructions unavailable</span></a></li>
+<li class="toclevel-2 tocsection-60"><a href="#Windows_host:_VERR_ACCESS_DENIED"><span >5.22</span> <span >Windows host: VERR_ACCESS_DENIED</span></a></li>
+<li class="toclevel-2 tocsection-61"><a href="#Windows:_%22The_specified_path_does_not_exist._Check_the_path_and_then_try_again.%22"><span >5.23</span> <span >Windows: "The specified path does not exist. Check the path and then try again."</span></a></li>
+<li class="toclevel-2 tocsection-62"><a href="#Windows_8.x_error_code_0x000000C4"><span >5.24</span> <span >Windows 8.x error code 0x000000C4</span></a></li>
+<li class="toclevel-2 tocsection-63"><a href="#Windows_8,_8.1_or_10_fails_to_install,_boot_or_has_error_%22ERR_DISK_FULL%22"><span >5.25</span> <span >Windows 8, 8.1 or 10 fails to install, boot or has error "ERR_DISK_FULL"</span></a></li>
+<li class="toclevel-2 tocsection-64"><a href="#WinXP:_Bit-depth_cannot_be_greater_than_16"><span >5.26</span> <span >WinXP: Bit-depth cannot be greater than 16</span></a></li>
+<li class="toclevel-2 tocsection-65"><a href="#Windows:_Screen_flicker_if_3D_acceleration_enabled"><span >5.27</span> <span >Windows: Screen flicker if 3D acceleration enabled</span></a></li>
+<li class="toclevel-2 tocsection-66"><a href="#No_hardware_3D_acceleration_in_TOS_Linux_guest"><span >5.28</span> <span >No hardware 3D acceleration in TOS Linux guest</span></a></li>
+<li class="toclevel-2 tocsection-67"><a href="#Cannot_launch_VirtualBox_with_Wayland:_Segmentation_fault"><span >5.29</span> <span >Cannot launch VirtualBox with Wayland: Segmentation fault</span></a></li>
+<li class="toclevel-2 tocsection-68"><a href="#Guest_display_auto-resizing_does_not_work_in_TOS_guests"><span >5.30</span> <span >Guest display auto-resizing does not work in TOS guests</span></a></li>
+<li class="toclevel-2 tocsection-69"><a href="#Random_freezing_in_guests_with_intel_graphics"><span >5.31</span> <span >Random freezing in guests with intel graphics</span></a></li>
+<li class="toclevel-2 tocsection-70"><a href="#Plasma_resets_guest's_resolution_to_800%C3%97600"><span >5.32</span> <span >Plasma resets guest's resolution to 800×600</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-71"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation_steps_for_TOS_Linux_hosts">Installation steps for TOS Linux hosts</span></h2>
+<p>In order to launch VirtualBox virtual machines on your TOS Linux box, follow these installation steps.
+</p>
+<h3><span class="mw-headline" id="Install_the_core_packages">Install the core packages</span></h3>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox">virtualbox</a></span> package. You will need to choose a package to provide host modules:
+</p>
+<ul>
+<li>for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> kernel choose <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-modules-arch">virtualbox-host-modules-arch</a></span>
+</li>
+<li>for other <a href="../wiki/Kernel.html" class="mw-redirect" title="Kernels">kernels</a> choose <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-dkms">virtualbox-host-dkms</a></span>
+</li>
+</ul>
+<p>To compile the VirtualBox modules provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-dkms">virtualbox-host-dkms</a></span>, it will also be necessary to install the appropriate headers package(s) for your installed kernel(s) (e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-headers">linux-lts-headers</a></span> for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span>). <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-dev-public/2016-March/027808.html">[1]</a> When either VirtualBox or the kernel is updated, the kernel modules will be automatically recompiled thanks to the <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> Pacman hook.
+</p>
+<h3><span class="mw-headline" id="Sign_modules">Sign modules</span></h3>
+<p>When using a custom kernel with <code>CONFIG_MODULE_SIG_FORCE</code> option enabled, you must sign your modules with  a key generated during kernel compilation.
+</p>
+<p>Navigate to your kernel tree folder and execute the following command:
+</p>
+<pre># for module in `ls /lib/modules/$(uname -r)/kernel/misc/{vboxdrv.ko,vboxnetadp.ko,vboxnetflt.ko}` ; do ./scripts/sign-file sha1 certs/signing_key.pem certs/signing_key.x509 $module ; done
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Hashing algorithm does not have to match the one configured, but it must be built into the kernel.</div>
+<h3><span class="mw-headline" id="Load_the_VirtualBox_kernel_modules">Load the VirtualBox kernel modules</span></h3>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-modules-arch">virtualbox-host-modules-arch</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-host-dkms">virtualbox-host-dkms</a></span> use <code>systemd-modules-load.service</code> to load VirtualBox modules automatically at boot time. For the modules to be loaded after installation, either reboot or load the modules once manually; the list of modules can be found in <code>/usr/lib/modules-load.d/virtualbox-host-modules-arch.conf</code> or <code>/usr/lib/modules-load.d/virtualbox-host-dkms.conf</code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you do not want the VirtualBox modules to be automatically loaded at boot time, you have to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Mask">mask</a> the default <code>/usr/lib/modules-load.d/virtualbox-host-modules-arch.conf</code> (or <code>/usr/lib/modules-load.d/virtualbox-host-dkms.conf</code>) by creating an empty file (or symlink to <code>/dev/null</code>) with the same name in <code>/etc/modules-load.d/</code>.</div>
+<p>Among the <a href="../wiki/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> VirtualBox uses, there is a mandatory module named <code>vboxdrv</code>, which must be loaded before any virtual machines can run.
+</p>
+<p>To load the module manually, run:
+</p>
+<pre># modprobe vboxdrv
+</pre>
+<p>The following modules are only required in advanced configurations:
+</p>
+<ul><li>
+<code>vboxnetadp</code> and <code>vboxnetflt</code> are both needed when you intend to use the <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch06.html#network_bridged">bridged</a> or <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch06.html#network_hostonly">host-only networking</a> feature. More precisely, <code>vboxnetadp</code> is needed to create the host interface in the VirtualBox global preferences, and <code>vboxnetflt</code> is needed to launch a virtual machine using that network interface.</li></ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If the VirtualBox kernel modules were loaded in the kernel while you updated the modules, you need to reload them manually to use the new updated version. To do it, run <code>vboxreload</code> as root.</div>
+<h3><span class="mw-headline" id="Accessing_host_USB_devices_in_guest">Accessing host USB devices in guest</span></h3>
+<p>To use the USB ports of your host machine in your virtual machines, add users that will be authorized to use this feature to the <code>vboxusers</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>.
+</p>
+<h3><span class="mw-headline" id="Guest_additions_disc">Guest additions disc</span></h3>
+<p>It is also recommended to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-iso">virtualbox-guest-iso</a></span> package on the host running VirtualBox. This package will act as a disc image that can be used to install the guest additions onto guest systems other than TOS Linux. The <i>.iso</i> file will be located at <code>/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso</code>, and may have to be mounted manually inside the virtual machine. Once mounted, you can run the guest additions installer inside the guest.
+</p>
+<h3><span class="mw-headline" id="Extension_pack">Extension pack</span></h3>
+<p>The Oracle Extension Pack provides <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch01.html#intro-installing">additional features</a> and is released under a non-free license <b>only available for personal use</b>. To install it, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/virtualbox-ext-oracle/">virtualbox-ext-oracle</a></span><sup><small>AUR</small></sup> package is available, and a prebuilt version can be found in the <a href="../wiki/Unofficial_user_repositories.html#seblu" title="Unofficial user repositories">seblu</a> repository.
+</p>
+<p>If you prefer to use the traditional and manual way: download the extension manually and install it via the GUI (<i>File &gt; Preferences &gt; Extensions</i>) or via  <code>VBoxManage extpack install &lt;.vbox-extpack&gt;</code>, make sure you have a toolkit like <a href="../wiki/Polkit.html" title="Polkit">Polkit</a> to grant privileged access to VirtualBox. The installation of this extension <a rel="nofollow"  href="https://www.virtualbox.org/ticket/8473">requires root access</a>.
+</p>
+<h3><span class="mw-headline" id="Front-ends">Front-ends</span></h3>
+<p>VirtualBox comes with three front-ends:
+</p>
+<ul>
+<li>If you want to use VirtualBox with the regular GUI, use <code>VirtualBox</code>.</li>
+<li>If you want to launch and manage your virtual machines from the command-line, use the <code>VBoxSDL</code> command, which only provides a plain window for the virtual machine without any overlays.</li>
+<li>If you want to use VirtualBox without running any GUI (e.g. on a server), use the <code>VBoxHeadless</code> command. With the VRDP extension you can still remotely access the displays of your virtual machines.</li>
+</ul>
+<p>A security feature in Wayland (i.e. when using GDM) disallows virtualbox to grab all keyboard input. This is annoying when you want to pass window manager shortcuts to your guest OS. It can be bypassed by whitelisting VirtualBox:
+</p>
+<pre>$ gsettings get org.gnome.mutter.wayland xwayland-grab-access-rules
+$ gsettings set org.gnome.mutter.wayland xwayland-grab-access-rules "['VirtualBox Machine']"
+</pre>
+<p>The first command will show if any other apps are already whitelisted. If so, add 'VirtualBox Machine' to that list, rather than having it as the only one.
+</p>
+<p>Finally, you can also use <a href="../wiki/PhpVirtualBox.html" title="PhpVirtualBox">phpVirtualBox</a> to administrate your virtual machines via a web interface.
+</p>
+<p>Refer to the <a rel="nofollow"  href="https://www.virtualbox.org/manual">VirtualBox manual</a> to learn how to create virtual machines.
+</p>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> If you intend to store virtual disk images on a <a href="../wiki/Btrfs.html" title="Btrfs">Btrfs</a> file system, before creating any images, you should consider disabling <a href="../wiki/Btrfs.html#Copy-on-Write_(CoW)" title="Btrfs">copy-on-write</a> for the destination directory of these images.</div>
+<h2><span class="mw-headline" id="Installation_steps_for_TOS_Linux_guests">Installation steps for TOS Linux guests</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="/index.php?title=VirtualBox/Install_TOS_Linux_as_a_guest&amp;action=edit&amp;redlink=1"  title="VirtualBox/Install TOS Linux as a guest (page does not exist)">VirtualBox/Install TOS Linux as a guest</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Similar to <a href="../wiki/VMware/Install_TOS_Linux_as_a_guest.html" title="VMware/Install TOS Linux as a guest">VMware/Install TOS Linux as a guest</a>, it would also allow to add it to <a href="../wiki/Category:Installation_process.html" title="Category:Installation process">Category:Installation process</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Category_talk:Installation_process#Harmonization_of_installation_titles">Category talk:Installation process#Harmonization of installation titles</a>)</div>
+</div>
+<p>Boot the TOS installation media through one of the virtual machine's virtual drives. Then, complete the installation of a basic TOS system as explained in the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>.
+</p>
+<h3><span class="mw-headline" id="Installation_in_EFI_mode">Installation in EFI mode</span></h3>
+<p>If you want to install TOS Linux in EFI mode inside VirtualBox, you must change the firmware mode for the virtual machine.
+</p>
+<p>To enable EFI for a virtual machine using the graphical interface, open the settings of the virtual machine, choose <i>System</i> item from the panel on the left and <i>Motherboard</i> tab from the right panel, and check the checkbox <i>Enable EFI (special OSes only)</i>.
+</p>
+<p>Alternatively the same can be accomplished from the command line using <i>VBoxManage</i>:
+</p>
+<pre>$ VBoxManage modifyvm "<i>Virtual machine name</i>" --firmware efi
+</pre>
+<p><code>efi</code> will set the firmware for the virtual machine to EFI with the <a href="../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_firmware_bitness" title="Unified Extensible Firmware Interface">bitness</a> matching the virtual machine's CPU. To get a specific EFI bitness, set the firmware to <code>efi64</code> for x86_64 EFI or <code>efi32</code> for IA32 EFI.
+</p>
+<p>After selecting the kernel from the TOS Linux installation media's menu, the media will hang for a minute or two and will continue to boot the kernel normally afterwards. Be patient.
+</p>
+<p>Starting with VirtualBox 6.1 the issue of forgetting NVRAM contents on shutdown is fixed. Proceed with the installation just as on a regular UEFI system.
+</p>
+<h4>
+<span id="Installation_in_EFI_mode_on_VirtualBox_.3C_6.1"></span><span class="mw-headline" id="Installation_in_EFI_mode_on_VirtualBox_&lt;_6.1">Installation in EFI mode on VirtualBox &lt; 6.1</span>
+</h4>
+<p>Once the system and the boot loader are installed, VirtualBox will first attempt to run <code>/EFI/BOOT/BOOTX64.EFI</code> from the <a href="../wiki/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>. If that first option fails, VirtualBox will then try the EFI shell script <code>startup.nsh</code> from the root of the ESP. This means that in order to boot the system you have the following options:
+</p>
+<ul>
+<li>
+<a href="../wiki/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">Launch the bootloader manually</a> from the EFI shell every time;</li>
+<li>Move the bootloader to the default <code>/EFI/BOOT/BOOTX64.EFI</code> path;</li>
+<li>Create a script named <code>startup.nsh</code> at the ESP root containing the path to the boot loader application, e.g. <code>\EFI\grub\grubx64.efi</code>.</li>
+<li>Boot directly from the ESP partition using a <a href="../wiki/EFISTUB.html#Using_a_startup.nsh_script" title="EFISTUB">startup.nsh script</a>.</li>
+</ul>
+<p>Do not bother with the VirtualBox Boot Manager (accessible with <code>F2</code> at boot), as it is buggy and incomplete. It does not store efivars set interactively. Therefore, EFI entries added to it manually in the firmware (accessed with <code>F12</code> at boot time) or with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efibootmgr">efibootmgr</a></span> will persist after a reboot <a rel="nofollow"  href="https://www.virtualbox.org/ticket/11177">but are lost when the VM is shut down</a>.
+</p>
+<p>See also <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=158003">UEFI VirtualBox installation boot problems</a>.
+</p>
+<h3><span class="mw-headline" id="Install_the_Guest_Additions">Install the Guest Additions</span></h3>
+<p>VirtualBox <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch04.html">Guest Additions</a> provides drivers and applications that optimize the guest operating system including improved image resolution and better control of the mouse. Within the installed guest system, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a>:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils">virtualbox-guest-utils</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-vmware">xf86-video-vmware</a></span> (<a rel="nofollow"  href="https://bugs.archlinux.org/task/61183">FS#61183</a>) for VirtualBox Guest utilities with X support</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils-nox">virtualbox-guest-utils-nox</a></span> for VirtualBox Guest utilities without X support</li>
+</ul>
+<p>If you are using a kernel other than the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> kernel and older than Linux 5.6, you must also install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-dkms">virtualbox-guest-dkms</a></span> package, along with the appropriate headers package(s) for your installed kernel(s) (e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-headers">linux-lts-headers</a></span> for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span>). <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-dev-public/2016-March/027808.html">[2]</a> When either VirtualBox or the kernel is updated, the kernel modules will be automatically recompiled thanks to the <a href="../wiki/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a> Pacman hook.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>You can alternatively install the Guest Additions with the ISO from the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-iso">virtualbox-guest-iso</a></span> package, provided you installed this on the host system. To do this, go to the device menu click Insert Guest Additions CD Image.</li>
+<li>To recompile the vbox kernel modules, run <code>rcvboxdrv</code> as root.</li>
+</ul>
+</div>
+<p>The guest additions running on your guest, and the VirtualBox application running on your host must have matching versions, otherwise the guest additions (like shared clipboard) may stop working. If you upgrade your guest (e.g. <code>pacman -Syu</code>), make sure your VirtualBox application on this host is also the latest version. "Check for updates" in the VirtualBox GUI is sometimes not sufficient; check the <a rel="nofollow"  href="https://www.virtualbox.org/">VirtualBox.org</a> website.
+</p>
+<h3><span class="mw-headline" id="Set_optimal_framebuffer_resolution">Set optimal framebuffer resolution</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/VirtualBox/Tips_and_tricks.html#Set_guest_starting_resolution" title="VirtualBox/Tips and tricks">VirtualBox/Tips and tricks#Set guest starting resolution</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Keep guest resolution information in one place. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:VirtualBox">Talk:VirtualBox#</a>)</div>
+</div>
+<p>Typically after installing Guest Additions, a fullscreen TOS guest running X will be set to the optimal resolution for your display; however, the virtual console's framebuffer will be set to a standard, often smaller, resolution detected from VirtualBox's custom VESA driver.
+</p>
+<p>To use the virtual consoles at optimal resolution, TOS needs to recognize that resolution as valid, which in turn requires VirtualBox to pass this information along to the guest OS.
+</p>
+<p>First, check if your desired resolution is not already recognized by running the command:
+</p>
+<pre>hwinfo --framebuffer
+</pre>
+<p>If the optimal resolution does not show up, then you will need to run the <code>VBoxManage</code> tool on the host machine and add "extra resolutions" to your virtual machine (on a Windows host, go to the VirtualBox installation directory to find <code>VBoxManage.exe</code>). For example:
+</p>
+<pre>$ VBoxManage setextradata "TOS Linux" "CustomVideoMode1" "1360x768x24"
+</pre>
+<p>The parameters "TOS Linux" and "1360x768x24" in the example above should be replaced with your VM name and the desired framebuffer resolution. Incidentally, this command allows for defining up to 16 extra resolutions ("CustomVideoMode1" through "CustomVideoMode16").
+</p>
+<p>Afterwards, restart the virtual machine and run <code>hwinfo --framebuffer</code> once more to verify that the new resolutions have been recognized by your guest system (which does not guarantee they will all work, depending on your hardware limitations).
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> As of VirtualBox 5.2, <code>hwinfo --framebuffer</code> might not show any output, but you should still be able to set a custom resolution following this procedure.</div>
+<p>Finally, add a <code>video=<i>resolution</i></code> <a href="../wiki/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to set the framebuffer to the new resolution, for example:
+</p>
+<pre>video=1360x768
+</pre>
+<p>Additionally you may want to configure your <a href="../wiki/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a> to use the same resolution. If you use GRUB, see <a href="../wiki/GRUB/Tips_and_tricks.html#Setting_the_framebuffer_resolution" title="GRUB/Tips and tricks">GRUB/Tips and tricks#Setting the framebuffer resolution</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Neither the kernel parameter <code>vga</code> nor the bootloader's resolution settings (e.g. GRUB's <code>GRUB_GFXPAYLOAD_LINUX</code>) will fix the framebuffer, since they are overriden by virtue of Kernel Mode Setting. The framebuffer resolution must be set by the kernel parameter <code>video</code> as described above.</div>
+<h3><span class="mw-headline" id="Load_the_VirtualBox_kernel_modules_2">Load the VirtualBox kernel modules</span></h3>
+<p>To load the modules automatically, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>vboxservice.service</code> which loads the modules and synchronizes the guest's system time with the host.
+</p>
+<p>To load the modules manually, type:
+</p>
+<pre># modprobe -a vboxguest vboxsf vboxvideo
+</pre>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-dkms">virtualbox-guest-dkms</a></span> uses <code>systemd-modules-load.service</code> to load its modules at boot time.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you do not want the VirtualBox modules to be loaded at boot time, you have to <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Mask">mask</a> the default <code>/usr/lib/modules-load.d/virtualbox-guest-dkms.conf</code> by creating an empty file (or symlink to <code>/dev/null</code>) with the same name in <code>/etc/modules-load.d/</code>.</div>
+<h3><span class="mw-headline" id="Launch_the_VirtualBox_guest_services">Launch the VirtualBox guest services</span></h3>
+<p>After the rather big installation step dealing with VirtualBox kernel modules, now you need to start the guest services. The guest services are actually just a binary executable called <code>VBoxClient</code> which will interact with your X Window System. <code>VBoxClient</code> manages the following features:
+</p>
+<ul>
+<li>shared clipboard and drag and drop between the host and the guest;</li>
+<li>seamless window mode;</li>
+<li>the guest display is automatically resized according to the size of the guest window;</li>
+<li>checking the VirtualBox host version</li>
+</ul>
+<p>All of these features can be enabled independently with their dedicated flags:
+</p>
+<pre>$ VBoxClient --clipboard
+$ VBoxClient --draganddrop
+$ VBoxClient --seamless
+$ VBoxClient --display
+$ VBoxClient --checkhostversion
+$ VBoxClient --vmsvga-x11
+</pre>
+<p>Notice that <code>VBoxClient</code> can only be called with one flag at a time, each call spawning a dedicated service process. As a shortcut, the <code>VBoxClient-all</code> bash script enables all of these features.
+</p>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils">virtualbox-guest-utils</a></span> installs <code>/etc/xdg/autostart/vboxclient.desktop</code> that launches <code>VBoxClient-all</code> on logon. If your <a href="../wiki/Desktop_environment.html" title="Desktop environment">desktop environment</a> or <a href="../wiki/Window_manager.html" title="Window manager">window manager</a> does not support <a href="../wiki/XDG_Autostart.html" title="XDG Autostart">XDG Autostart</a>, you will need to set up autostarting yourself, see <a href="../wiki/Autostarting.html#On_desktop_environment_startup" title="Autostarting">Autostarting#On desktop environment startup</a> and <a href="../wiki/Autostarting.html#On_window_manager_startup" title="Autostarting">Autostarting#On window manager startup</a> for more details.
+</p>
+<p>VirtualBox can also synchronize the time between the host and the guest, to do this, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>vboxservice.service</code>.
+</p>
+<p>Now, you should have a working TOS Linux guest. Note that features like clipboard sharing are disabled by default in VirtualBox, and you will need to turn them on in the per-VM settings if you actually want to use them (e.g. <i>Settings &gt; General &gt; Advanced &gt; Shared Clipboard</i>).
+</p>
+<h3><span class="mw-headline" id="Hardware_acceleration">Hardware acceleration</span></h3>
+<p>Hardware acceleration can be activated in the VirtualBox options. The <a href="../wiki/GDM.html" title="GDM">GDM</a> display manager 3.16+ is known to break hardware acceleration support. <a rel="nofollow"  href="https://bugzilla.gnome.org/show_bug.cgi?id=749390">[3]</a> So if you get issues with hardware acceleration, try out another display manager (lightdm seems to work fine). <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=200025">[4]</a> <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1607593#p1607593">[5]</a>
+</p>
+<p>If the hardware acceleration does not work as expected, try changing the <i>Graphics Controller</i> option found under the <i>Screen</i> tab in the <i>Display</i> options of the settings GUI. It seems that depending on the host GPU type, not all emulated controllers work equally well.
+</p>
+<h3><span class="mw-headline" id="Enable_shared_folders">Enable shared folders</span></h3>
+<p>Shared folders are managed on the host, in the settings of the Virtual Machine accessible via the GUI of VirtualBox, in the <i>Shared Folders</i> tab. There, <i>Folder Path</i>, the name of the mount point identified by <i>Folder name</i>, and options like <i>Read-only</i>, <i>Auto-mount</i> and <i>Make permanent</i> can be specified. These parameters can be defined with the <code>VBoxManage</code> command line utility. See <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch04.html#sharedfolders">there for more details</a>.
+</p>
+<p>No matter which method you will use to mount your folder, all methods require some steps first.
+</p>
+<p>To avoid this issue <code>/sbin/mount.vboxsf: mounting failed with the error: No such device</code>, make sure the <code>vboxsf</code> kernel module is properly loaded. It should be, since we enabled all guest kernel modules previously.
+</p>
+<p>Two additional steps are needed in order for the mount point to be accessible from users other than root:
+</p>
+<ul>
+<li>the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils">virtualbox-guest-utils</a></span> package created a group <code>vboxsf</code> (done in a previous step);</li>
+<li>your user must be in <code>vboxsf</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>.</li>
+</ul>
+<h4><span class="mw-headline" id="Manual_mounting">Manual mounting</span></h4>
+<p>Use the following command to mount your folder in your TOS Linux guest:
+</p>
+<pre># mount -t vboxsf -o gid=vboxsf <i>shared_folder_name</i> <i>mount_point_on_guest_system</i>
+</pre>
+<p>where <code><i>shared_folder_name</i></code> is the <i>Folder name</i> assigned by the hypervisor when the share was created.
+</p>
+<p>If the user is not in the <i>vboxsf</i> group, to give them access to our mountpoint we can specify the <span class="plainlinks archwiki-template-man" title="$ man 8 mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mount.8">mount(8)</a></span> options <code>uid=</code> and <code>gid=</code> with the corresponding values of the user. These values can obtained from the <code>id</code> command run against this user. For example:
+</p>
+<pre># mount -t vboxsf -o uid=1000,gid=1000 home /mnt
+</pre>
+<h4><span class="mw-headline" id="Automounting">Automounting</span></h4>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Automounting requires the <code>vboxservice.service</code> to be <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enabled">enabled</a>/<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Started">started</a>.</div>
+<p>In order for the automounting feature to work you must have checked the auto-mount checkbox in the GUI or used the optional <code>--automount</code> argument with the command <code>VBoxManage sharedfolder</code>.
+</p>
+<p>The shared folder should now appear as <code>/media/sf_<i>shared_folder_name</i></code>. If users cannot access the shared folders, check that <code>/media</code> has <a href="../wiki/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> <code>755</code> or is owned by the <code>vboxsf</code> group if using permissions <code>750</code>. This is currently not the default if the <code>/media</code> directory is created by <code>vboxservice.service</code>.
+</p>
+<p>You can use symlinks if you want to have a more convenient access and avoid to browse in that directory, e.g.:
+</p>
+<pre>$ ln -s /media/sf_<i>shared_folder_name</i> ~/<i>my_documents</i>
+</pre>
+<h4><span class="mw-headline" id="Mount_at_boot">Mount at boot</span></h4>
+<p>You can mount your directory with <a href="../wiki/Fstab.html" title="Fstab">fstab</a>. However, to prevent startup problems with systemd, <code>noauto,x-systemd.automount</code> should be added to <code>/etc/fstab</code>. This way, the shared folders are mounted only when those mount points are accessed and not during startup. This can avoid some problems, especially if the guest additions are not loaded yet when systemd reads fstab and mounts the partitions.
+</p>
+<pre><i>sharedFolderName</i>  <i>/path/to/mntPtOnGuestMachine</i>  vboxsf  uid=<i>user</i>,gid=<i>group</i>,rw,dmode=700,fmode=600,noauto,x-systemd.automount 
+</pre>
+<ul>
+<li>
+<code><i>sharedFolderName</i></code>: the value from the VirtualMachine's <i>Settings &gt; SharedFolders &gt; Edit &gt; FolderName</i> menu. This value can be different from the name of the real folder name on the host machine. To see the VirtualMachine's <i>Settings</i> go to the host OS VirtualBox application, select the corresponding virtual machine and click on <i>Settings</i>.</li>
+<li>
+<code><i>/path/to/mntPtOnGuestMachine</i></code>: if not existing, this directory should be created manually (for example by using <a href="../wiki/Core_utilities.html#Essentials" title="Core utilities">mkdir</a>).</li>
+<li>
+<code>dmode</code>/<code>fmode</code> are directory/file permissions for directories/files inside <code><i>/path/to/mntPtOnGuestMachine</i></code>.</li>
+</ul>
+<p>As of 2012-08-02, mount.vboxsf does not support the <code>nofail</code> option:
+</p>
+<pre><i>desktop</i>  <i>/media/desktop</i>  vboxsf  uid=<i>user</i>,gid=<i>group</i>,rw,dmode=700,fmode=600,nofail  0  0
+</pre>
+<h3><span class="mw-headline" id="SSH_from_host_to_guest">SSH from host to guest</span></h3>
+<p>The network tab of the virtual machine settings contains, in "Advanced", a tool to create port forwarding. 
+It is possible to use it to forward the Guest ssh port <code>22</code> to a Host port, e.g. <code>3022</code> :
+</p>
+<pre>user@host$ ssh -p 3022 $USER@localhost
+</pre>
+<p>will establish a connection from Host to Guest.
+</p>
+<h4><span class="mw-headline" id="SSHFS_as_alternative_to_the_shared_folder">SSHFS as alternative to the shared folder</span></h4>
+<p>Using this port forwarding and sshfs, it is straightforward to mount the Guest filesystem onto the Host one:
+</p>
+<pre>user@host$ sshfs -p 3022 $USER@localhost:$HOME ~/shared_folder
+</pre>
+<p>and then transfer files between both.
+</p>
+<h2><span class="mw-headline" id="Virtual_disks_management">Virtual disks management</span></h2>
+<p>See also <a href="../wiki/VirtualBox/Tips_and_tricks.html#Import/export_VirtualBox_virtual_machines_from/to_other_hypervisors" title="VirtualBox/Tips and tricks">VirtualBox/Tips and tricks#Import/export VirtualBox virtual machines from/to other hypervisors</a>.
+</p>
+<h3><span class="mw-headline" id="Formats_supported_by_VirtualBox">Formats supported by VirtualBox</span></h3>
+<p>VirtualBox supports the following virtual disk formats:
+</p>
+<ul>
+<li>
+<b>VDI</b>: The Virtual Disk Image is the VirtualBox own open container used by default when you create a virtual machine with VirtualBox.</li>
+<li>
+<b>VMDK</b>: The Virtual Machine Disk has been initially developed by VMware for their products. The specification was initially closed source, but it became now an open format which is fully supported by VirtualBox. This format offers the ability to be split into several 2GB files. This feature is especially useful if you want to store the virtual machine on machines which do not support very large files. Other formats, excluding the HDD format from Parallels, do not provide such an equivalent feature.</li>
+<li>
+<b>VHD</b>: The Virtual Hard Disk is the format used by Microsoft in Windows Virtual PC and Hyper-V. If you intend to use any of these Microsoft products, you will have to choose this format.</li>
+</ul>
+<dl><dd><div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> Since Windows 7, this format can be mounted directly without any additional application.</div></dd></dl>
+<ul>
+<li>
+<b>VHDX</b> (read only): This is the eXtended version of the Virtual Hard Disk format developed by Microsoft, which has been released on 2012-09-04 with Hyper-V 3.0 coming with Windows Server 2012. This new version of the disk format does offer enhanced performance (better block alignment), larger blocks size, and journal support which brings power failure resiliency. VirtualBox <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch15.html#idp63002176">should support this format in read only</a>.</li>
+<li>
+<b>HDD</b> (version 2): The HDD format is developed by Parallels Inc and used in their hypervisor solutions like Parallels Desktop for Mac.  Newer versions of this format (i.e. 3 and 4) are not supported due to the lack of documentation for this proprietary format. <div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> There is currently a controversy regarding the support of the version 2 of the format. While the official VirtualBox manual <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch05.html#vdidetails">only reports the second version of the HDD file format as supported</a>, Wikipedia's contributors are <a href="https://en.wikipedia.org/wiki/Comparison_of_platform_virtual_machines#Image_type_compatibility"  title="wikipedia:Comparison of platform virtual machines">reporting the first version may work too</a>. Help is welcome if you can perform some tests with the first version of the HDD format.</div>
+</li>
+<li>
+<b>QED</b>: The QEMU Enhanced Disk format is an old file format for QEMU, another free and open source hypervisor. This format was designed from 2010 in a way to provide a superior alternative to QCOW2 and others. This format features a fully asynchronous I/O path, strong data integrity, backing files, and sparse files. QED format is supported only for compatibility with virtual machines created with old versions of QEMU.</li>
+<li>
+<b>QCOW</b>: The QEMU Copy On Write format is the current format for QEMU. The QCOW format does support zlib-based transparent compression and encryption (the latter is flawed and is not recommended). QCOW is available in two versions: QCOW and QCOW2. QCOW2 tends to supersede the first one. QCOW is <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch15.html#idp63002176">currently fully supported by VirtualBox</a>. QCOW2 comes in two revisions: QCOW2 0.10 and QCOW2 1.1 (which is the default when you create a virtual disk with QEMU). VirtualBox does not support QCOW2.</li>
+<li>
+<b>OVF</b>: The Open Virtualization Format is an open format which has been designed for interoperability and distributions of virtual machines between different hypervisors. VirtualBox supports all revisions of this format via the <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#idp55423424">VBoxManage import/export feature</a> but with <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch14.html#KnownProblems">known limitations</a>.</li>
+<li>
+<b>RAW</b>: This is the mode when the virtual disk is exposed directly to the disk without being contained in a specific file format container. VirtualBox supports this feature in several ways: converting RAW disk <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#idp59139136">to a specific format</a>, or by <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#vboxmanage-clonevdi">cloning a disk to RAW</a>, or by using directly a VMDK file <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch09.html#idp57804112">which points to a physical disk or a simple file</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="Disk_image_format_conversion">Disk image format conversion</span></h3>
+<p><a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#vboxmanage-clonevdi">VBoxManage clonehd</a> can be used to convert between VDI, VMDK, VHD and RAW.
+</p>
+<pre>$ VBoxManage clonehd <i>inputfile</i> <i>outputfile</i> --format <i>outputformat</i>
+</pre>
+<p>For example to convert VDI to VMDK:
+</p>
+<pre>$ VBoxManage clonehd <i>source.vdi</i> <i>destination.vmdk</i> --format VMDK
+</pre>
+<h4><span class="mw-headline" id="QCOW">QCOW</span></h4>
+<p>VirtualBox does not support <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>'s QCOW2 disk image format. To use a QCOW2 disk image with VirtualBox you therefore need to convert it, which you can do with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qemu">qemu</a></span>'s <code>qemu-img</code> command. <code>qemu-img</code> can convert QCOW to / from VDI, VMDK, VHDX, RAW and various other formats (which you can see by running <code>qemu-img --help</code>).
+</p>
+<pre>$ qemu-img convert -O <i>output_fmt</i> <i>inputfile</i> <i>outputfile</i>
+</pre>
+<p>For example to convert QCOW2 to VDI:
+</p>
+<pre>$ qemu-img convert -O vdi <i>source.qcow2</i> <i>destination.vdi</i>
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> The <code>-p</code> parameter is used to get the progression of the conversion task.</div>
+<p>There are two revisions of QCOW2: 0.10 and 1.1. You can specify the revision to use with <code>-o compat=<i>revision</i></code>.
+</p>
+<h3><span class="mw-headline" id="Mount_virtual_disks">Mount virtual disks</span></h3>
+<h4><span class="mw-headline" id="VDI">VDI</span></h4>
+<p>Mounting VDI images only works with fixed size images (a.k.a. static images); dynamic (dynamically size allocating) images are not easily mountable.
+</p>
+<p>The offset of the partition (within the VDI) is needed, then add the value of <code>offData</code> to <code>32256</code> (e.g. 69632 + 32256 = 101888):
+</p>
+<pre>$ VBoxManage internalcommands dumphdinfo &lt;storage.vdi&gt; | grep "offData"
+</pre>
+<p>The storage can now be mounted with:
+</p>
+<pre># mount -t ext4 -o rw,noatime,noexec,loop,offset=101888 &lt;storage.vdi&gt; /mntpoint/
+</pre>
+<p>For VDI disks with more partitions you can also use <code>losetup</code>:
+</p>
+<pre># losetup -o $offData -Pf
+</pre>
+<p>After this you should find the partitions under <code>/dev/loop*</code> (e.g. <code>/dev/loop0p1</code>). Then you can mount them as usual (e.g. <code>mount mount /dev/loop0p1 /mnt/</code>).
+</p>
+<p>You can also use <a rel="nofollow"  href="https://github.com/pld-linux/VirtualBox/blob/master/mount.vdi">mount.vdi</a> script that, which you can use as (install script itself to <code>/usr/bin/</code>):
+</p>
+<pre># mount -t vdi -o fstype=ext4,rw,noatime,noexec <i>vdi_file_location</i> <i>/mnt/</i>
+</pre>
+<p>Alternately you can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qemu">qemu</a></span>'s kernel module that can do this <a rel="nofollow"  href="http://bethesignal.org/blog/2011/01/05/how-to-mount-virtualbox-vdi-image/">attrib</a>:
+</p>
+<pre># modprobe nbd max_part=16
+# qemu-nbd -c /dev/nbd0 &lt;storage.vdi&gt;
+# mount /dev/nbd0p1 /mnt/dir/
+# # to unmount:
+# umount /mnt/dir/
+# qemu-nbd -d /dev/nbd0
+</pre>
+<p>If the partition nodes are not propagated try using <code>partprobe /dev/nbd0</code>; otherwise, a VDI partition can be mapped directly to a node by: <code>qemu-nbd -P 1 -c /dev/nbd0 &lt;storage.vdi&gt;</code>.
+</p>
+<h4><span class="mw-headline" id="VHD">VHD</span></h4>
+<p>Like VDI, VHD images can be mounted with <a href="../wiki/QEMU.html" title="QEMU">QEMU</a>'s nbd module:
+</p>
+<pre># modprobe nbd
+# qemu-nbd -c /dev/nbd0 <i>storage</i>.vhd
+# mount /dev/nbd0p1 /mnt
+</pre>
+<p>To unmount:
+</p>
+<pre># umount /mnt
+# qemu-nbd -d /dev/nbd0
+</pre>
+<h3><span class="mw-headline" id="Compact_virtual_disks">Compact virtual disks</span></h3>
+<p>Compacting virtual disks only works with <i>.vdi</i> files and basically consists of the following steps.
+</p>
+<p>Boot your virtual machine and remove all bloat manually or by using cleaning tools like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bleachbit">bleachbit</a></span> which is <a rel="nofollow"  href="http://bleachbit.sourceforge.net/download/windows">available for Windows systems too</a>.
+</p>
+<p>Wiping free space with zeroes can be achieved with several tools:
+</p>
+<ul>
+<li>If you were previously using Bleachbit, check the checkbox <i>System &gt; Free disk space</i> in the GUI, or use <code>bleachbit -c system.free_disk_space</code> in CLI;</li>
+<li>On UNIX-based systems, by using <code>dd</code> or preferably <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dcfldd/">dcfldd</a></span><sup><small>AUR</small></sup> (see <a rel="nofollow"  href="http://superuser.com/a/355322">here</a> to learn the differences):</li>
+</ul>
+<dl>
+<dd><pre># dcfldd if=/dev/zero of=<i>/fillfile</i> bs=4M</pre></dd>
+<dd>When <code>fillfile</code> reaches the limit of the partition, you will get a message like <code>1280 blocks (5120Mb) written.dcfldd:: No space left on device</code>. This means that all of the user-space and non-reserved blocks of the partition will be filled with zeros. Using this command as root is important to make sure all free blocks have been overwritten. Indeed, by default, when using partitions with ext filesystem, a specified percentage of filesystem blocks is reserved for the super-user (see the <code>-m</code> argument in the <code>mkfs.ext4</code> man pages or use <code>tune2fs -l</code> to see how much space is reserved for root applications).</dd>
+<dd>When the aforementioned process has completed, you can remove the file <code><i>fillfile</i></code> you created.</dd>
+</dl>
+<ul><li>On Windows, there are two tools available:
+<ul>
+<li>
+<code>sdelete</code> from the <a rel="nofollow"  href="http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx">Sysinternals Suite</a>, type <code>sdelete -s -z <i>c:</i></code>, where you need to reexecute the command for each drive you have in your virtual machine;</li>
+<li>or, if you love scripts, there is a <a rel="nofollow"  href="http://blog.whatsupduck.net/2012/03/powershell-alternative-to-sdelete.html">PowerShell solution</a>, but which still needs to be repeated for all drives.</li>
+</ul>
+</li></ul>
+<dl><dd><dl>
+<dd><pre>PS&gt; ./Write-ZeroesToFreeSpace.ps1 -Root <i>c:\</i> -PercentFree 0</pre></dd>
+<dd><div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This script must be run in a PowerShell environment with administrator privileges. By default, scripts cannot be run, ensure the execution policy is at least on <code>RemoteSigned</code> and not on <code>Restricted</code>. This can be checked with <code>Get-ExecutionPolicy</code> and the required policy can be set with <code>Set-ExecutionPolicy RemoteSigned</code>.</div></dd>
+</dl></dd></dl>
+<p>Once the free disk space have been wiped, shut down your virtual machine.
+</p>
+<p>The next time you boot your virtual machine, it is recommended to do a filesystem check.
+</p>
+<ul>
+<li>On UNIX-based systems, you can use <code>fsck</code> manually;
+<ul><li>On GNU/Linux systems, and thus on TOS Linux, you can force a disk check at boot <a href="../wiki/Fsck.html#Forcing_the_check" title="Fsck">thanks to a kernel boot parameter</a>;</li></ul>
+</li>
+<li>On Windows systems, you can use:
+<ul>
+<li>either <code>chkdsk <i>c:</i> /F</code> where  <code><i>c:</i></code> needs to be replaced by each disk you need to scan and fix errors;</li>
+<li>or <code>FsckDskAll</code> <a rel="nofollow"  href="http://therightstuff.de/2009/02/14/ChkDskAll-ChkDsk-For-All-Drives.aspx">from here</a> which is basically the same software as <code>chkdsk</code>, but without the need to repeat the command for all drives;</li>
+</ul>
+</li>
+</ul>
+<p>Now, remove the zeros from the <i>.vdi</i> file with <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvdi">VBoxManage modifyhd</a>:
+</p>
+<pre>$ VBoxManage modifyhd <i>your_disk.vdi</i> --compact
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If your virtual machine has snapshots, you need to apply the above command on each <code>.vdi</code> files you have.</div>
+<h3><span class="mw-headline" id="Increase_virtual_disks">Increase virtual disks</span></h3>
+<h4><span class="mw-headline" id="General_procedure">General procedure</span></h4>
+<p>If you are running out of space due to the small hard drive size you selected when you created your virtual machine, the solution adviced by the VirtualBox manual is to use <a rel="nofollow"  href="https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvdi">VBoxManage modifyhd</a>. However this command only works for VDI and VHD disks and only for the dynamically allocated variants. If you want to resize a fixed size virtual disk disk too, read on this trick which works either for a Windows or UNIX-like virtual machine.
+</p>
+<p>First, create a new virtual disk next to the one you want to increase:
+</p>
+<pre>$ VBoxManage createhd -filename <i>new.vdi</i> --size <i>10000</i>
+</pre>
+<p>where size is in MiB, in this example 10000MiB ~= 10GiB, and <i>new.vdi</i> is name of new hard drive to be created.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> By default, this command uses the <i>Standard</i> (corresponding to dynamic allocated) file format variant and thus will not use the same file format variant as your source virtual disk. If your <i>old.vdi</i> has a fixed size and you want to keep this variant, add the parameter <code>--variant Fixed</code>.</div>
+<p>Next, the old virtual disk needs to be cloned to the new one which this may take some time:
+</p>
+<pre>$ VBoxManage clonehd <i>old.vdi</i> <i>new.vdi</i> --existing
+</pre>
+<p>Detach the old hard drive and attach new one, replace all mandatory italic arguments by your own:
+</p>
+<pre>$ VBoxManage storageattach <i>VM_name</i> --storagectl <i>SATA</i> --port <i>0</i> --medium none
+$ VBoxManage storageattach <i>VM_name</i> --storagectl <i>SATA</i> --port <i>0</i> --medium <i>new.vdi</i> --type hdd
+</pre>
+<p>To get the storage controller name and the port number, you can use the command <code>VBoxManage showvminfo <i>VM_name</i></code>. Among the output you will get such a result (what you are looking for is in italic):
+</p>
+<pre>[...]
+Storage Controller Name (0):            IDE
+Storage Controller Type (0):            PIIX4
+Storage Controller Instance Number (0): 0
+Storage Controller Max Port Count (0):  2
+Storage Controller Port Count (0):      2
+Storage Controller Bootable (0):        on
+Storage Controller Name (1):            SATA
+Storage Controller Type (1):            IntelAhci
+Storage Controller Instance Number (1): 0
+Storage Controller Max Port Count (1):  30
+Storage Controller Port Count (1):      1
+Storage Controller Bootable (1):        on
+IDE (1, 0): Empty
+<i>SATA</i> (<i>0</i>, 0): /home/wget/IT/Virtual_machines/GNU_Linux_distributions/TOSLinux_x64_EFI/Snapshots/{6bb17af7-e8a2-4bbf-baac-fbba05ebd704}.vdi (UUID: 6bb17af7-e8a2-4bbf-baac-fbba05ebd704)
+[...]
+</pre>
+<p>Download <a rel="nofollow"  href="http://gparted.org/download.php">GParted live image</a> and mount it as a virtual CD/DVD disk file, boot your virtual machine, increase/move your partitions, umount GParted live and reboot.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> On GPT disks, increasing the size of the disk will result in the backup GPT header not being at the end of the device. GParted will ask to fix this, click on <i>Fix</i> both times. On MBR disks, you do not have such a problem as this partition table as no trailer at the end of the disk.</div>
+<p>Finally, unregister the virtual disk from VirtualBox and remove the file:
+</p>
+<pre>$ VBoxManage closemedium disk <i>old.vdi</i>
+$ rm <i>old.vdi</i>
+</pre>
+<h4><span class="mw-headline" id="Increasing_the_size_of_VDI_disks">Increasing the size of VDI disks</span></h4>
+<p>If your disk is a VDI one, run:
+</p>
+<pre>$ VBoxManage modifyhd <i>your_virtual_disk.vdi</i> --resize <i>the_new_size</i>
+</pre>
+<p>Then jump back to the Gparted step, to increase the size of the partition on the virtual disk.
+</p>
+<h3><span class="mw-headline" id="Replace_a_virtual_disk_manually_from_the_.vbox_file">Replace a virtual disk manually from the .vbox file</span></h3>
+<p>If you think that editing a simple <i>XML</i> file is more convenient than playing with the GUI or with <code>VBoxManage</code> and you want to replace (or add) a virtual disk to your virtual machine, in the <i>.vbox</i> configuration file corresponding to your virtual machine, simply replace the GUID, the file location and the format to your needs:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">TOSLinux_vm.vbox</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;HardDisk uuid="<i>{670157e5-8bd4-4f7b-8b96-9ee412a712b5}</i>" location="<i>TOSLinux_vm.vdi</i>" format="<i>VDI</i>" type="Normal"/&gt;</pre>
+<p>then in the <code>&lt;AttachedDevice&gt;</code> sub-tag of <code>&lt;StorageController&gt;</code>, replace the GUID by the new one.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">TOSLinux_vm.vbox</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;AttachedDevice type="HardDisk" port="0" device="0"&gt;
+  &lt;Image uuid="<i>{670157e5-8bd4-4f7b-8b96-9ee412a712b5}</i>"/&gt;
+&lt;/AttachedDevice&gt;</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If you do not know the GUID of the drive you want to add, you can use the <code>VBoxManage showhdinfo <i>file</i></code>. If you previously used <code>VBoxManage clonehd</code> to copy/convert your virtual disk, this command should have outputted the GUID just after the copy/conversion completed. Using a random GUID does not work, as each <a rel="nofollow"  href="http://www.virtualbox.org/manual/ch05.html#cloningvdis">UUID is stored inside each disk image</a>.</div>
+<h4><span class="mw-headline" id="Transfer_between_Linux_host_and_other_OS">Transfer between Linux host and other OS</span></h4>
+<p>The information about path to harddisks and the snapshots is stored between <code>&lt;HardDisks&gt; .... &lt;/HardDisks&gt;</code> tags in the file with the <i>.vbox</i> extension. You can edit them manually or use this script where you will need change only the path or use defaults, assumed that <i>.vbox</i> is in the same directory with a virtual harddisk and the snapshots folder. It will print out new configuration to stdout.
+</p>
+<pre>#!/bin/bash
+NewPath="${PWD}/"
+Snapshots="Snapshots/"
+Filename="$1"
+
+ awk -v SetPath="$NewPath" -v SnapPath="$Snapshots" '{if(index($0,"&lt;HardDisk uuid=") != 0){A=$3;split(A,B,"=");
+L=B[2];
+ gsub(/\"/,"",L);
+  sub(/^.*\//,"",L);
+  sub(/^.*\\/,"",L);
+ if(index($3,"{") != 0){SnapS=SnapPath}else{SnapS=""};
+  print $1" "$2" location="\"SetPath SnapS L"\" "$4" "$5}
+else print $0}' "$Filename"</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>If you will prepare virtual machine for use in Windows host then in the path name end you should use backslash \ instead of / .</li>
+<li>The script detects snapshots by looking for <code>{</code> in the file name.</li>
+<li>To make it run on a new host you will need to add it first to the register by clicking on <b>Machine -&gt; Add...</b> or use hotkeys Ctrl+A and then browse to <i>.vbox</i> file that contains configuration or use command line <code>VBoxManage registervm <i>filename</i>.vbox</code>
+</li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="Clone_a_virtual_disk_and_assigning_a_new_UUID_to_it">Clone a virtual disk and assigning a new UUID to it</span></h3>
+<p>UUIDs are widely used by VirtualBox. Each virtual machines and each virtual disk of a virtual machine must have a different UUID. When you launch a virtual machine in VirtualBox, VirtualBox will keep track of all UUIDs of your virtual machine instance. See the <a rel="nofollow"  href="http://www.virtualbox.org/manual/ch08.html#vboxmanage-list">VBoxManage list</a> to list the items registered with VirtualBox.
+</p>
+<p>If you cloned a virtual disk manually by copying the virtual disk file, you will need to assign a new UUID to the cloned virtual drive if you want to use the disk in the same virtual machine or even in another (if that one has already been opened, and thus registered, with VirtualBox).
+</p>
+<p>You can use this command to assign a new UUID to a virtual disk:
+</p>
+<pre>$ VBoxManage internalcommands sethduuid <i>/path/to/disk.vdi</i>
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> To avoid copying the virtual disk and assigning a new UUID to your file manually you can use <a rel="nofollow"  href="http://www.virtualbox.org/manual/ch08.html#vboxmanage-clonevdi">VBoxManage clonehd</a>.</div>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The commands above support all <a href="#Formats_supported_by_VirtualBox">virtual disk formats supported by VirtualBox</a>.</div>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<p>For advanced configuration, see <a href="../wiki/VirtualBox/Tips_and_tricks.html" title="VirtualBox/Tips and tricks">VirtualBox/Tips and tricks</a>.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Keyboard_and_mouse_are_locked_into_virtual_machine">Keyboard and mouse are locked into virtual machine</span></h3>
+<p>This means your virtual machine has captured the input of your keyboard and your mouse. Simply press the right <code>Ctrl</code> key and your input should control your host again.
+</p>
+<p>To control transparently your virtual machine with your mouse going back and forth your host, without having to press any key, and thus have a seamless integration, install the guest additions inside the guest. Read from the <a href="#Install_the_Guest_Additions">#Install the Guest Additions</a> step if you guest is TOS Linux, otherwise read the official VirtualBox help.
+</p>
+<h3><span class="mw-headline" id="No_64-bit_OS_client_options">No 64-bit OS client options</span></h3>
+<p>When launching a VM client, and no 64-bit options are available, make sure your CPU virtualization capabilities (usually named <code>VT-x</code>) are enabled in the BIOS.
+</p>
+<p>If you are using a Windows host, you may need to disable Hyper-V, as it prevents VirtualBox from using VT-x. <a rel="nofollow"  href="https://www.virtualbox.org/ticket/12350">[6]</a>
+</p>
+<h3><span class="mw-headline" id="VirtualBox_GUI_does_not_match_host_GTK_theme">VirtualBox GUI does not match host GTK theme</span></h3>
+<p>See <a href="../wiki/Uniform_look_for_Qt_and_GTK_applications.html" title="Uniform look for Qt and GTK applications">Uniform look for Qt and GTK applications</a> for information about theming Qt-based applications like VirtualBox.
+</p>
+<h3>
+<span id="Cannot_send_Ctrl.2BAlt.2BFn_to_guest"></span><span class="mw-headline" id="Cannot_send_Ctrl+Alt+Fn_to_guest">Cannot send Ctrl+Alt+Fn to guest</span>
+</h3>
+<p>Your guest operating system is a GNU/Linux distribution and you want to open a new TTY shell by hitting <code>Ctrl+Alt+F2</code> or exit your current X session with <code>Ctrl+Alt+Backspace</code>. If you type these keyboard shortcuts without any adaptation, the guest will not receive any input and the host (if it is a GNU/Linux distribution too) will intercept these shortcut keys. To send <code>Ctrl+Alt+F2</code> to the guest for example, simply hit your <i>Host Key</i> (usually the right <code>Ctrl</code> key) and press <code>F2</code> simultaneously.
+</p>
+<h3><span class="mw-headline" id="USB_subsystem_not_working">USB subsystem not working</span></h3>
+<p>Your user must be in the <code>vboxusers</code> group and you need to install the <a href="#Extension_pack">extension pack</a> if you want USB 2 support. Then you will be able to enable USB 2 in the VM settings and add one or several filters for the devices you want to access from the guest OS.
+</p>
+<p>If <code>VBoxManage list usbhost</code> does not show any USB devices even if run as root, make sure that there is no old udev rules (from VirtualBox 4.x) in <code>/etc/udev/rules.d/</code>. VirtualBox 5.0 installs udev rules to <code>/usr/lib/udev/rules.d/</code>. You can use command like <code>pacman -Qo /usr/lib/udev/rules.d/60-vboxdrv.rules</code> to determine if the udev rule file is outdated.
+</p>
+<p>Sometimes, on old Linux hosts, the USB subsystem is not auto-detected resulting in an error <code>Could not load the Host USB Proxy service: VERR_NOT_FOUND</code> or in a not visible USB drive on the host, <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=121377">even when the user is in the <b>vboxusers</b> group</a>. This problem is due to the fact that VirtualBox switched from <i>usbfs</i> to <i>sysfs</i> in version 3.0.8. If the host does not understand this change, you can revert to the old behaviour by defining the following environment variable in any file that is sourced by your shell (e.g. your <code>~/.bashrc</code> if you are using <i>bash</i>):
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.bashrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">VBOX_USB=usbfs</pre>
+<p>Then make sure, the environment has been made aware of this change (reconnect, source the file manually, launch a new shell instance or reboot).
+</p>
+<p>Also make sure that your user is a member of the <code>storage</code> group.
+</p>
+<h3><span class="mw-headline" id="USB_modem_not_working_on_host">USB modem not working on host</span></h3>
+<p>If you have a USB modem which is being used by the guest OS, killing the guest OS can cause the modem to become unusable by the host system. Killing and restarting <code>VBoxSVC</code> should fix this problem.
+</p>
+<h3><span class="mw-headline" id="USB_device_crashes_guest">USB device crashes guest</span></h3>
+<p>If attaching a USB device to the guest causes a crash or any other erroneous behavior, try switching the USB controller from USB 2 (EHCI) to USB 3 (xHCI) or vice versa.
+</p>
+<h3><span class="mw-headline" id="Access_serial_port_from_guest">Access serial port from guest</span></h3>
+<p>Check your permission for the serial port:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ ls -l /dev/ttyS*</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">crw-rw---- 1 root uucp 4, 64 Feb  3 09:12 /dev/ttyS0
+crw-rw---- 1 root uucp 4, 65 Feb  3 09:12 /dev/ttyS1
+crw-rw---- 1 root uucp 4, 66 Feb  3 09:12 /dev/ttyS2
+crw-rw---- 1 root uucp 4, 67 Feb  3 09:12 /dev/ttyS3
+</pre>
+<p>Add your user to the <code>uucp</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>.
+</p>
+<h3><span class="mw-headline" id="Guest_freezes_after_starting_Xorg">Guest freezes after starting Xorg</span></h3>
+<p>Faulty or missing drivers may cause the guest to freeze after starting Xorg, see for example <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1167838">[7]</a> and <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=156079">[8]</a>. Try disabling 3D acceleration in <i>Settings &gt; Display</i>, and check if all <a href="../wiki/Xorg.html" title="Xorg">Xorg</a> drivers are installed.
+</p>
+<h3><span class="mw-headline" id="Fullscreen_mode_shows_blank_screen">Fullscreen mode shows blank screen</span></h3>
+<p>On some window managers (<a href="../wiki/I3.html" title="I3">i3</a>, <a href="../wiki/Awesome.html" title="Awesome">awesome</a>), VirtualBox has issues with fullscreen mode properly due to the overlay bar. To work around this issue, disable <i>Show in Full-screen/Seamless</i> option in <i>Guest Settings &gt; User Interface &gt; Mini ToolBar</i>.  See the <a rel="nofollow"  href="https://www.virtualbox.org/ticket/14323">upstream bug report</a> for more information.
+</p>
+<h3><span class="mw-headline" id="Host_freezes_on_virtual_machine_start">Host freezes on virtual machine start</span></h3>
+<p>Generally, such issues are observed after upgrading VirtualBox or Linux kernel. Downgrading them to the previous versions of theirs might solve the problem.
+</p>
+<p>Disabling hardware virtualisation (VT-x/AMD-V) may solve the problem.
+</p>
+<h3>
+<span id="Linux_guests_have_slow.2Fdistorted_audio"></span><span class="mw-headline" id="Linux_guests_have_slow/distorted_audio">Linux guests have slow/distorted audio</span>
+</h3>
+<p>The AC97 audio driver within the Linux kernel occasionally guesses the wrong clock settings when running inside VirtualBox, leading to audio that is either too slow or too fast. To fix this, create a file in <code>/etc/modprobe.d/</code> with the following line:
+</p>
+<pre>options snd-intel8x0 ac97_clock=48000
+</pre>
+<h3><span class="mw-headline" id="Analog_microphone_not_working">Analog microphone not working</span></h3>
+<p>If the audio input from an analog microphone is working correctly on the host, but no sound seems to get through to the guest, despite the microphone device apparently being detected normally, installing a <a href="../wiki/Sound_system.html#Sound_servers" title="Sound system">sound server</a> such as <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> on the host might fix the problem.
+</p>
+<p>If after installing <a href="../wiki/PulseAudio.html" title="PulseAudio">PulseAudio</a> the microphone still refuses to work, setting <i>Host Audio Driver</i> (under <i>VirtualBox &gt; Machine &gt; Settings &gt; Audio</i>) to <i>ALSA Audio Driver</i> might help.
+</p>
+<h3><span class="mw-headline" id="Microphone_not_working_after_upgrade">Microphone not working after upgrade</span></h3>
+<p>There have been issues reported around sound input in 5.1.x versions. <a rel="nofollow"  href="https://www.virtualbox.org/ticket/16191">Ticket #16191</a>
+</p>
+<p><a href="../wiki/Downgrading_packages.html" class="mw-redirect" title="Downgrading">Downgrading</a> may solve the problem. You can use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/virtualbox-bin-5.0/">virtualbox-bin-5.0</a></span><sup><small>AUR</small></sup> to ease downgrading.
+</p>
+<h3><span class="mw-headline" id="Problems_with_images_converted_to_ISO">Problems with images converted to ISO</span></h3>
+<p>Some image formats cannot be reliably converted to ISO. For instance, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ccd2iso">ccd2iso</a></span> ignores .ccd and .sub files, which can result in disk images with broken files. 
+</p>
+<p>In this case, you will either have to use <a href="../wiki/CDemu.html" title="CDemu">CDemu</a> for Linux inside VirtualBox or any other utility used to mount disk images.
+</p>
+<h3><span class="mw-headline" id="Failed_to_create_the_host-only_network_interface">Failed to create the host-only network interface</span></h3>
+<p>Make sure all required kernel modules are loaded. See <a href="#Load_the_VirtualBox_kernel_modules">#Load the VirtualBox kernel modules</a>.
+</p>
+<p>If all required kernel modules are loaded and you are still unable to create the host-only adapter, navigate to <i>File &gt; Host Network Manager</i> and click the <i>Create</i> button to add the network interface.
+</p>
+<h3><span class="mw-headline" id="Failed_to_insert_module">Failed to insert module</span></h3>
+<p>When you get the following error when trying to load modules:
+</p>
+<pre>Failed to insert 'vboxdrv': Required key not available
+</pre>
+<p><a href="#Sign_modules">Sign</a> your modules or disable <code>CONFIG_MODULE_SIG_FORCE</code> in your kernel config.
+</p>
+<h3>
+<span id="VBOX_E_INVALID_OBJECT_STATE_.280x80BB0007.29"></span><span class="mw-headline" id="VBOX_E_INVALID_OBJECT_STATE_(0x80BB0007)">VBOX_E_INVALID_OBJECT_STATE (0x80BB0007)</span>
+</h3>
+<p>This can occur if a VM is exited ungracefully. Run the following command:
+</p>
+<pre>$ VBoxManage controlvm <i>virtual_machine_name</i> poweroff
+</pre>
+<h3><span class="mw-headline" id="NS_ERROR_FAILURE_and_missing_menu_items">NS_ERROR_FAILURE and missing menu items</span></h3>
+<p>This happens sometimes when selecting <i>QCOW</i>/<i>QCOW2</i>/<i>QED</i> disk format when creating a new virtual disk.
+</p>
+<p>If you encounter this message the first time you start the virtual machine:
+</p>
+<pre>Failed to open a session for the virtual machine debian.
+Could not open the medium '/home/.../VirtualBox VMs/debian/debian.qcow'.
+QCow: Reading the L1 table for image '/home/.../VirtualBox VMs/debian/debian.qcow' failed (VERR_EOF).
+VD: error VERR_EOF opening image file '/home/.../VirtualBox VMs/debian/debian.qcow' (VERR_EOF).
+
+Result Code: 
+NS_ERROR_FAILURE (0x80004005)
+Component: 
+Medium
+</pre>
+<p>Exit VirtualBox, delete all files of the new machine and from virtualbox config file remove the last line in <code>MachineRegistry</code> menu (or the offending machine you are creating):
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/VirtualBox/VirtualBox.xml</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
+&lt;MachineRegistry&gt;
+  &lt;MachineEntry uuid="{00000000-0000-0000-0000-000000000000}" src="/home/void/VirtualBox VMs/debian/debian.vbox"/&gt;
+  &lt;MachineEntry uuid="{00000000-0000-0000-0000-000000000000}" src="/home/void/VirtualBox VMs/ubuntu/ubuntu.vbox"/&gt;
+  <strike>&lt;MachineEntry uuid="{00000000-0000-0000-0000-000000000000}" src="/home/void/VirtualBox VMs/lastvmcausingproblems/lastvmcausingproblems.qcow"/&gt;</strike>
+&lt;/MachineRegistry&gt;
+...</pre>
+<h3><span class="mw-headline" id="TOS:_pacstrap_script_fails">TOS: pacstrap script fails</span></h3>
+<p>If you used <i>pacstrap</i> in the <a href="#Installation_steps_for_TOS_Linux_guests">#Installation steps for TOS Linux guests</a> to also <a href="#Install_the_Guest_Additions">#Install the Guest Additions</a> <b>before</b> performing a first boot into the new guest, you will need to <code>umount -l /mnt/dev</code> as root before using <i>pacstrap</i> again; a failure to do this will render it unusable.
+</p>
+<h3><span class="mw-headline" id="OpenBSD_unusable_when_virtualisation_instructions_unavailable">OpenBSD unusable when virtualisation instructions unavailable</span></h3>
+<p>While OpenBSD is reported to work fine on other hypervisors without virtualisation instructions (VT-x AMD-V) enabled, an OpenBSD virtual machine running on VirtualBox without these instructions will be unusable,  manifesting with a bunch of segmentation faults. Starting VirtualBox with the <i>-norawr0</i> argument <a rel="nofollow"  href="https://www.virtualbox.org/ticket/3947">may solve the problem</a>. You can do it like this:
+</p>
+<pre>$ VBoxSDL -norawr0 -vm <i>name_of_OpenBSD_VM</i>
+</pre>
+<h3><span class="mw-headline" id="Windows_host:_VERR_ACCESS_DENIED">Windows host: VERR_ACCESS_DENIED</span></h3>
+<p>To access the raw VMDK image on a Windows host, run the VirtualBox GUI as administrator.
+</p>
+<h3>
+<span id="Windows:_.22The_specified_path_does_not_exist._Check_the_path_and_then_try_again..22"></span><span class="mw-headline" id='Windows:_"The_specified_path_does_not_exist._Check_the_path_and_then_try_again."'>Windows: "The specified path does not exist. Check the path and then try again."</span>
+</h3>
+<p>This error message may appear when running an <code>.exe</code> file which requires administrator privileges from a shared folder in windows guests. <a rel="nofollow"  href="https://www.virtualbox.org/ticket/5732#comment:39">[9]</a>
+</p>
+<p>As a workaround, copy the file to the virtual drive or use <a href="https://en.wikipedia.org/wiki/Uniform_Naming_Convention"  title="wikipedia:Uniform Naming Convention">UNC paths</a> (<code>\\vboxsvr</code>). See <a rel="nofollow"  href="https://support.microsoft.com/de-de/help/2019185/copying-files-from-a-mapped-drive-to-a-local-directory-fails-with-erro">[10]</a> for more information.
+</p>
+<h3><span class="mw-headline" id="Windows_8.x_error_code_0x000000C4">Windows 8.x error code 0x000000C4</span></h3>
+<p>If you get this error code while booting, even if you choose OS Type Win 8, try to enable the <code>CMPXCHG16B</code> CPU instruction:
+</p>
+<pre>$ vboxmanage setextradata <i>virtual_machine_name</i> VBoxInternal/CPUM/CMPXCHG16B 1
+</pre>
+<h3>
+<span id="Windows_8.2C_8.1_or_10_fails_to_install.2C_boot_or_has_error_.22ERR_DISK_FULL.22"></span><span class="mw-headline" id='Windows_8,_8.1_or_10_fails_to_install,_boot_or_has_error_"ERR_DISK_FULL"'>Windows 8, 8.1 or 10 fails to install, boot or has error "ERR_DISK_FULL"</span>
+</h3>
+<p>Update the VM's settings by going to <i>Settings &gt; Storage &gt; Controller:SATA</i> and check <i>Use Host I/O Cache</i>.
+</p>
+<h3><span class="mw-headline" id="WinXP:_Bit-depth_cannot_be_greater_than_16">WinXP: Bit-depth cannot be greater than 16</span></h3>
+<p>If you are running at 16-bit color depth, then the icons may appear fuzzy/choppy. However, upon attempting to change the color depth to a higher level, the system may restrict you to a lower resolution or simply not enable you to change the depth at all. To fix this, run <code>regedit</code> in Windows and add the following key to the Windows XP VM's registry:
+</p>
+<pre>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services]
+"ColorDepth"=dword:00000004
+</pre>
+<p>Then update the color depth in the "desktop properties" window. If nothing happens, force the screen to redraw through some method (i.e. <code>Host+f</code> to redraw/enter full screen).
+</p>
+<h3><span class="mw-headline" id="Windows:_Screen_flicker_if_3D_acceleration_enabled">Windows: Screen flicker if 3D acceleration enabled</span></h3>
+<p>VirtualBox &gt; 4.3.14 has a regression in which Windows guests with 3D acceleration flicker. Since r120678 a patch has been implemented to recognize an <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> setting, launch VirtualBox like this:
+</p>
+<pre>$ CR_RENDER_FORCE_PRESENT_MAIN_THREAD=0 VirtualBox
+</pre>
+<p>Make sure no VirtualBox services are still running. See <a rel="nofollow"  href="https://www.virtualbox.org/ticket/13653">VirtualBox bug 13653</a>.
+</p>
+<h3><span class="mw-headline" id="No_hardware_3D_acceleration_in_TOS_Linux_guest">No hardware 3D acceleration in TOS Linux guest</span></h3>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils">virtualbox-guest-utils</a></span> package as of version 5.2.16-2 does not contain the file <code>VBoxEGL.so</code>. This causes the TOS Linux guest to not have proper 3D acceleration. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/49752">FS#49752</a>.
+</p>
+<p>To deal with this problem, apply the patch set at <a rel="nofollow"  href="https://bugs.archlinux.org/task/49752#comment152254">FS#49752#comment152254</a>. Some fix to the patch set is required to make it work for version 5.2.16-2.
+</p>
+<h3><span class="mw-headline" id="Cannot_launch_VirtualBox_with_Wayland:_Segmentation_fault">Cannot launch VirtualBox with Wayland: Segmentation fault</span></h3>
+<p>This problem is caused by Qt detecting Wayland (e.g., if <code>XDG_SESSION_TYPE=wayland</code>), while VirtualBox doesn't work on Wayland yet. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/58761">FS#58761</a> and the <a rel="nofollow"  href="https://www.virtualbox.org/ticket/18679">upstream bug</a>.
+</p>
+<p>The Qt platform detection can be disable and X11 forced over Wayland by setting the <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> <code>QT_QPA_PLATFORM=xcb</code>.
+To not affect the other Qt applications (which usually work well with Wayland), <code>QT_QPA_PLATFORM=xcb</code> should only be set when launching VirtualBox.
+</p>
+<p>If starting through the <a href="../wiki/Desktop_entries.html" class="mw-redirect" title="Desktop entry">desktop entry</a>, follow the instructions in <a href="../wiki/Desktop_entries.html#Modify_environment_variables" title="Desktop entries">Desktop entries#Modify environment variables</a> and change the lines starting with <code>Exec=VirtualBox ...</code> to <code>Exec=env QT_QPA_PLATFORM=xcb VirtualBox ...</code>. If starting from the shell, alias (<a href="../wiki/Bash.html#Aliases" title="Bash">Bash#Aliases</a>) <code>virtualbox</code> to <code>env QT_QPA_PLATFORM=xcb virtualbox</code>.
+</p>
+<h3><span class="mw-headline" id="Guest_display_auto-resizing_does_not_work_in_TOS_guests">Guest display auto-resizing does not work in TOS guests</span></h3>
+<p>When using the packaged guest additions (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-utils">virtualbox-guest-utils</a></span>) in TOS guests, <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=243586">guest display auto-resizing does not work with the VMSVGA graphics adapter</a>.
+</p>
+<p>Either choose a different graphics controller (i.e. VBoxSVGA or VBoxVGA) or install the guest additions from the ISO (while the guest is running, go to <i>Devices &gt; Insert Guest Additions CD Image...</i>, mount the CD, and in the guest run <code>VBoxLinuxAdditions.run</code> with root permissions).
+</p>
+<p>See <a rel="nofollow"  href="https://bugs.archlinux.org/task/65053">FS#65053</a> and the <a rel="nofollow"  href="https://forums.virtualbox.org/viewtopic.php?f=3&amp;t=96378">VMSVGA graphics controller issue on VirtualBox forums</a>.
+</p>
+<h3><span class="mw-headline" id="Random_freezing_in_guests_with_intel_graphics">Random freezing in guests with intel graphics</span></h3>
+<p>With Intel cpu and graphics, allocating more processors for the guest can lower render performance, thus cause random freezing. Allocating less or one processor can help.
+</p>
+<h3>
+<span id="Plasma_resets_guest.27s_resolution_to_800.C3.97600"></span><span class="mw-headline" id="Plasma_resets_guest's_resolution_to_800×600">Plasma resets guest's resolution to 800×600</span>
+</h3>
+<p>See <a href="../wiki/KDE.html#Cannot_change_screen_resolution_when_running_in_a_virtual_machine" title="KDE">KDE#Cannot change screen resolution when running in a virtual machine</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.virtualbox.org/manual/UserManual.html">VirtualBox User Manual</a></li>
+<li><a href="https://en.wikipedia.org/wiki/VirtualBox"  title="wikipedia:VirtualBox">Wikipedia:VirtualBox</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Hypervisors.html" title="Category:Hypervisors">Hypervisors</a></li>
+<li><a href="../wiki/Category:Oracle.html" title="Category:Oracle">Oracle</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=VirtualBox&amp;oldid=613915">https://wiki.archlinux.org/index.php?title=VirtualBox&amp;oldid=613915</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 17 May 2020, at 13:01.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

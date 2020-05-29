@@ -1,0 +1,219 @@
+<!--
+    title: HP_Envy_15t-j000_Quad_Edition
+    description: Migration of HP_Envy_15t-j000_Quad_Edition from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">HP Envy 15t-j000 Quad Edition</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Power Management, Video Card, NVIDIA optimus, Mouse, mSATA SSD cache, more on installing, fingerprint reader, camera, sound, what works/dosen't work summary,wireless, dual boot, hard drive (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:HP_Envy_15t-j000_Quad_Edition">Talk:HP Envy 15t-j000 Quad Edition#</a>)</div>
+</div>
+<p>The HP Envy 15t-j000 Quad Edition is a laptop released in 2013.
+</p>
+<table  style="float: right;">
+<tbody>
+<tr>
+<td><b>Device</b></td>
+<td><b>Status</b></td>
+<td>
+<b>Modules</b>
+</td>
+</tr>
+<tr>
+<td>Intel</td>
+<td style="color:green"><b>Working</b></td>
+<td>xf86-video-intel (on some versions use NVIDIA with bumblebee)
+</td>
+</tr>
+<tr>
+<td>Ethernet</td>
+<td style="color:green"><b>Working</b></td>
+<td>atl1c
+</td>
+</tr>
+<tr>
+<td>Wireless</td>
+<td style="color:green"><b>Working</b></td>
+<td>iwlwifi
+</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td style="color:green"><b>Working</b></td>
+<td>snd_hda_intel
+</td>
+</tr>
+<tr>
+<td>Touchpad</td>
+<td style="color:green"><b>Working</b></td>
+<td>synaptics
+</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td style="color:green"><b>Working</b></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>Card Reader</td>
+<td style="color:green"><b>Working</b></td>
+<td>rts5229 !!from 3.8, try rtsx_pci!!
+</td>
+</tr>
+<tr>
+<td>Fingerprint Reader</td>
+<td style="color:red"><b>Not Working</b></td>
+<td data-sort-value="5" style="background: inherit; color: inherit; vertical-align: middle; text-align: center;">–
+</td>
+</tr>
+</tbody>
+</table>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installing_TOS"><span >1</span> <span >Installing TOS</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Backlight_Issue"><span >2</span> <span >Backlight Issue</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Battery_and_Power_Management"><span >3</span> <span >Battery and Power Management</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Mouse_and_Trackpad"><span >4</span> <span >Mouse and Trackpad</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Graphics,_Video_Card,_and_NVIDIA_Optimus"><span >5</span> <span >Graphics, Video Card, and NVIDIA Optimus</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Fingerprint_Reader"><span >6</span> <span >Fingerprint Reader</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Wireless_Networking"><span >7</span> <span >Wireless Networking</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Sound"><span >8</span> <span >Sound</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#mSATA_SSD_Cache"><span >9</span> <span >mSATA SSD Cache</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Dual_Boot"><span >10</span> <span >Dual Boot</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installing_TOS">Installing TOS</span></h2>
+<p>This laptop has secure boot enabled by default. In order to install TOS this should be disabled. UFEI should be set to legacy mode.
+</p>
+<h2><span class="mw-headline" id="Backlight_Issue">Backlight Issue</span></h2>
+<p>On some kernels the laptop backlight will not turn on, leaving a black screen on boot. This can be solved with the following kernel parameter. 
+</p>
+<pre> acpi_backlight=vendor
+</pre>
+<p>The following kernel parameter will also work, but will disable 3d acceleration.
+</p>
+<pre> nomodeset
+</pre>
+<h2><span class="mw-headline" id="Battery_and_Power_Management">Battery and Power Management</span></h2>
+<p>The rated battery life for this laptop is 9hrs and with configuration <a rel="nofollow"  href="http://answers.yahoo.com/question/index?qid=20130630193950AAXQF6h">5.5 hrs is usually possible</a>.
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi">acpi</a></span>.
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/thermald/">thermald</a></span><sup><small>AUR</small></sup>
+</p>
+<pre># systemctl enable thermald.service
+# systemctl start thermald.service
+</pre>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tlp">tlp</a></span>
+</p>
+<p>Configure it as per <a href="../wiki/TLP.html" title="TLP">TLP</a>
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=iw">iw</a></span> 
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span>
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=intel-ucode">intel-ucode</a></span>
+</p>
+<pre># su -c 'echo "microcode" &gt;&gt; /etc/modules-load.d/microcode.conf'
+</pre>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cpupower">cpupower</a></span>
+</p>
+<pre># systemctl start cpupower
+# systemctl enable cpupower
+</pre>
+<h2><span class="mw-headline" id="Mouse_and_Trackpad">Mouse and Trackpad</span></h2>
+<p>The trackpad for this laptop supports a virtual scroll wheel. To enable it edit 
+/etc/X11/xorg.conf.d/10-evdev.conf
+</p>
+<p>and make sure the following is commented out
+</p>
+<pre>Section "InputClass"
+       Identifier "evdev touchpad catchall"
+       MatchIsTouchpad "on"
+       MatchDevicePath "/dev/input/event*"
+       Driver "evdev"
+EndSection
+</pre>
+<h2>
+<span id="Graphics.2C_Video_Card.2C_and_NVIDIA_Optimus"></span><span class="mw-headline" id="Graphics,_Video_Card,_and_NVIDIA_Optimus">Graphics, Video Card, and NVIDIA Optimus</span>
+</h2>
+<p>If you have the version of this laptop with an NVIDIA card then you have an optimus based chipset.
+</p>
+<h2><span class="mw-headline" id="Fingerprint_Reader">Fingerprint Reader</span></h2>
+<p>This laptop comes with a fingerprint reader but there is no Linux driver for it.
+</p>
+<h2><span class="mw-headline" id="Wireless_Networking">Wireless Networking</span></h2>
+<p>Recent kernels contain a driver for this laptop's wireless adapter.
+</p>
+<h2><span class="mw-headline" id="Sound">Sound</span></h2>
+<p>Sound works out of the box. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pulseaudio">pulseaudio</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pavucontrol">pavucontrol</a></span> may be useful in configuring audio.
+</p>
+<h2><span class="mw-headline" id="mSATA_SSD_Cache">mSATA SSD Cache</span></h2>
+<p>This laptop has a mSATA bay that can include a cache hard drive. This mSATA can be used as a primary hard drive with some configuration.
+</p>
+<h2><span class="mw-headline" id="Dual_Boot">Dual Boot</span></h2>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:HP.html" title="Category:HP">HP</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=HP_Envy_15t-j000_Quad_Edition&amp;oldid=615754">https://wiki.archlinux.org/index.php?title=HP_Envy_15t-j000_Quad_Edition&amp;oldid=615754</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 May 2020, at 12:21.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

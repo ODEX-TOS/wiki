@@ -1,0 +1,229 @@
+<!--
+    title: Screen_Irssi_Bitlbee
+    description: Migration of Screen_Irssi_Bitlbee from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Screen Irssi Bitlbee</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/WeeChat.html" title="WeeChat">WeeChat</a></li>
+<li><a href="../wiki/Tmux.html" title="Tmux">tmux</a></li>
+</ul>
+</div>
+<p>Using <a href="../wiki/GNU_Screen.html" title="GNU Screen">GNU Screen</a>, <a href="../wiki/Irssi.html" title="Irssi">Irssi</a>, <a href="../wiki/Bitlbee.html" title="Bitlbee">Bitlbee</a>, and <a href="../wiki/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> together allows you to have a persistent connection to IRC servers and other chat networks.  Via SSH, you can access this persistent chat suite from anywhere.  Putting the pieces together is not difficult, and this page will guide you through it.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Components"><span >1</span> <span >Components</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#GNU_Screen"><span >1.1</span> <span >GNU Screen</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Irssi"><span >1.2</span> <span >Irssi</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Bitlbee"><span >1.3</span> <span >Bitlbee</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#SSH"><span >1.4</span> <span >SSH</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Setting_it_up"><span >2</span> <span >Setting it up</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Installing"><span >2.1</span> <span >Installing</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Configuring_SSH"><span >2.2</span> <span >Configuring SSH</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Configuring_bitlbee"><span >2.3</span> <span >Configuring bitlbee</span></a></li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Using_Irssi_in_Screen"><span >2.4</span> <span >Using Irssi in Screen</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Connecting_to_Bitlbee"><span >2.4.1</span> <span >Connecting to Bitlbee</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Using_It"><span >3</span> <span >Using It</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Launching_the_Setup"><span >3.1</span> <span >Launching the Setup</span></a></li>
+<li class="toclevel-2 tocsection-14">
+<a href="#Doing_More"><span >3.2</span> <span >Doing More</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15">
+<a href="#Auto-away_on_screen_detach"><span >3.2.1</span> <span >Auto-away on screen detach</span></a>
+<ul>
+<li class="toclevel-4 tocsection-16"><a href="#Modifying_screen-away.pl_for_BitLBee"><span >3.2.1.1</span> <span >Modifying screen-away.pl for BitLBee</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-17"><a href="#Persisting_the_chat_client_through_suspends_and_connectivity_changes"><span >3.2.2</span> <span >Persisting the chat client through suspends and connectivity changes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Components">Components</span></h2>
+<h3><span class="mw-headline" id="GNU_Screen">GNU Screen</span></h3>
+<p>First we will introduce <a href="../wiki/GNU_Screen.html" title="GNU Screen">GNU Screen</a>.  Screen lets you keep shells open, even when you are not actively using them.  We will be using it here to keep our IRC session persistent so that we can reconnect to it from anywhere without having to close the IRC client.  Read the wiki page and man page for GNU Screen for more information.
+</p>
+<h3><span class="mw-headline" id="Irssi">Irssi</span></h3>
+<p><a href="../wiki/Irssi.html" title="Irssi">Irssi</a> is a command-line IRC client.  It's very flexible and scriptable.  We will be using it, obviously, as our IRC client.
+</p>
+<h3><span class="mw-headline" id="Bitlbee">Bitlbee</span></h3>
+<p><a href="../wiki/Bitlbee.html" title="Bitlbee">Bitlbee</a> is an interesting project.  It sets up an IRC server on your local machine, which connects to various instant messenger protocols, and represents logged-in users as IRC users.
+</p>
+<h3><span class="mw-headline" id="SSH">SSH</span></h3>
+<p>Everyone knows what <a href="../wiki/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> is.  This will let us use our persistent chat suite from anywhere with web access.
+</p>
+<h2><span class="mw-headline" id="Setting_it_up">Setting it up</span></h2>
+<h3><span class="mw-headline" id="Installing">Installing</span></h3>
+<p>First, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=irssi">irssi</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=screen">screen</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bitlbee">bitlbee</a></span>.
+</p>
+<h3><span class="mw-headline" id="Configuring_SSH">Configuring SSH</span></h3>
+<p>Follow the directions on <a href="../wiki/Secure_Shell.html" class="mw-redirect" title="SSH">SSH's wiki page</a> to set up SSH.  It's far too involved to summarize here.
+</p>
+<h3><span class="mw-headline" id="Configuring_bitlbee">Configuring bitlbee</span></h3>
+<p>The only application which really requires you to configure is Bitlbee.  You can follow the directions on <a href="../wiki/Bitlbee.html" title="Bitlbee">Bitlbee's wiki page</a> if you like.  All you really need to do is go through /etc/bitlbee/bitlbee.conf and configure it how you like.  Below are some modifications worth pointing out.
+</p>
+<p>This will have Bitlbee run as a daemon, which forks a new process for each user that joins.  This is simpler than running it through xinetd, so I suggest it.
+</p>
+<pre>RunMode = ForkDaemon
+</pre>
+<p>This will have the daemon drop root priveledges after it launches on boot.  Do this for security; there is no reason for Bitlbee to run as root.
+</p>
+<pre>User = bitlbee
+</pre>
+<p>Be sure to change the password here.
+</p>
+<pre>OperPassword = 
+</pre>
+<h3><span class="mw-headline" id="Using_Irssi_in_Screen">Using Irssi in Screen</span></h3>
+<p>Open up a terminal and run screen.  After the copyright message (read the wiki to disable that message), you should find yourself at a plain terminal.  Launch irssi in this terminal.
+</p>
+<p>Irssi is a full-fledged IRC client, so we cannot list a complete tutorial here.  Use Google to find more information on what irssi can do for you.  Now's the time to connect to whatever IRC networks you like.
+</p>
+<h4><span class="mw-headline" id="Connecting_to_Bitlbee">Connecting to Bitlbee</span></h4>
+<p>Bitlbee sets up an IRC server on your local machine.  To connect to it, run this in irssi:
+</p>
+<pre>/connect localhost &lt;optional port&gt;
+</pre>
+<p>You should immediately join a channel called &amp;bitlbee.  Here you will see a brief introduction to Bitlbee.  Type help to get started.  Set up Bitlbee to connect to your instant messenger accounts.  You will see your contacts join the channel.
+</p>
+<h2><span class="mw-headline" id="Using_It">Using It</span></h2>
+<p>Now that we have got Irssi, Bitlbee, and Screen all running, what can we do with it?
+</p>
+<p>First, the whole point of this exercise was to create a persistent chat session that can be accessed from anywhere.  From another computer, SSH into your server.  Type in 
+</p>
+<pre>screen -raAd 
+</pre>
+<p>and watch as irssi, with all of your channels and IM connections, pops up.  Any messages left for you while you were away are visible, just as if you were at your server.
+</p>
+<h3><span class="mw-headline" id="Launching_the_Setup">Launching the Setup</span></h3>
+<p>Since it's a pain to manually connect to each IRC network, join channels, connect to Bitlbee, and have Bitlbee connect to your IM accounts every time you you log in, set up some scripts to help you out.
+</p>
+<p>First, create a Screen initialization file.  Here is mine:
+</p>
+<pre># ~/irc_screen
+source ~/.screenrc
+screen -t IRC 1 irssi
+</pre>
+<p>This will launch irssi in window 1 and title the Screen session 'IRC'.
+</p>
+<p>I then set up a short bash script to launch Screen with that config file:
+</p>
+<pre>#!/bin/bash
+screen -d -m -c ~/irc_screen
+</pre>
+<p>The command line switches: "-d -m" starts screen in detached mode, so that it launches in the background.  "-c ~/irc_screen" uses ~/irc_screen as the rc file for this session.
+</p>
+<p>To launch and connect to the Screen session:
+</p>
+<pre>~/bin/irc_start
+screen -raAd
+</pre>
+<h3><span class="mw-headline" id="Doing_More">Doing More</span></h3>
+<p>Look into configuring irssi to behave more like you want:
+<a rel="nofollow"  href="http://www.quadpoint.org/articles/irssi">http://www.quadpoint.org/articles/irssi</a>
+</p>
+<h4><span class="mw-headline" id="Auto-away_on_screen_detach">Auto-away on screen detach</span></h4>
+<p>Using the screen-away script, you can have yourself marked "away" on BitLBee when you disconnect your screen session. By default the script affects all servers but can easily be modified to only affect BitLBee.
+</p>
+<p>Read more about scripts at the URL in 'Doing More'.
+Find the screen-away.pl script at <a rel="nofollow"  href="http://scripts.irssi.org/">http://scripts.irssi.org/</a>
+</p>
+<h5><span class="mw-headline" id="Modifying_screen-away.pl_for_BitLBee">Modifying screen-away.pl for BitLBee</span></h5>
+<p>First you need the server tag for BitLBee. You can get this by typing "/server" in irssi. The tag is the first word on the line. For me, the tag is "BitLBee".
+On the line following 
+</p>
+<pre>foreach $server (Irssi::servers()) {
+</pre>
+<p>(which occurs twice) insert the line 
+</p>
+<pre>next unless ( $server-&gt;{chatnet} eq 'TAG' );
+</pre>
+<p>replacing TAG as necessary. In the current version, those occur on lines 181 and 206.
+To use the script you need to load it - unless if if autoloaded, and set it active.
+</p>
+<pre>/script load screen_away
+/set screen_away_active on
+</pre>
+<h4><span class="mw-headline" id="Persisting_the_chat_client_through_suspends_and_connectivity_changes">Persisting the chat client through suspends and connectivity changes</span></h4>
+<p>If you use a laptop, you likely suspend and change wireless networks often, which causes your ssh client to lose connection. This can be annoying for a chat client you expect to always be available.
+</p>
+<p>To fix this, try <a href="../wiki/Mosh.html" title="Mosh">Mosh</a>, which is a shell that seamlessly deals with reconnection after resuming or changing wireless networks.
+</p>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Internet_Relay_Chat.html" title="Category:Internet Relay Chat">Internet Relay Chat</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Screen_Irssi_Bitlbee&amp;oldid=607343">https://wiki.archlinux.org/index.php?title=Screen_Irssi_Bitlbee&amp;oldid=607343</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2020, at 08:56.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

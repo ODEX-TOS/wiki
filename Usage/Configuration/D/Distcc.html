@@ -1,0 +1,362 @@
+<!--
+    title: Distcc
+    description: Migration of Distcc from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">distcc</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><span></span>
+</p>
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/TORQUE.html" title="TORQUE">TORQUE</a></li>
+<li><a href="../wiki/Slurm.html" title="Slurm">Slurm</a></li>
+</ul>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/distcc"  title="wikipedia:distcc">distcc</a> is a program to distribute builds of C, C++, Objective C or Objective C++ code across several machines on a network to speed up building. It should always generate the same results as a local build, is simple to install and use, and is usually much faster than a local compile. Further, one can use it together with native TOS build tools such as makepkg.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Terms"><span >1</span> <span >Terms</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Getting_started"><span >2</span> <span >Getting started</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Configuration"><span >3</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Volunteers"><span >3.1</span> <span >Volunteers</span></a></li>
+<li class="toclevel-2 tocsection-5">
+<a href="#Client"><span >3.2</span> <span >Client</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#For_use_with_makepkg"><span >3.2.1</span> <span >For use with makepkg</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#For_use_without_makepkg"><span >3.2.2</span> <span >For use without makepkg</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Compile"><span >4</span> <span >Compile</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#With_makepkg"><span >4.1</span> <span >With makepkg</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Without_makepkg"><span >4.2</span> <span >Without makepkg</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#With_CMake"><span >4.3</span> <span >With CMake</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Monitoring_progress"><span >5</span> <span >Monitoring progress</span></a></li>
+<li class="toclevel-1 tocsection-13">
+<a href="#Cross_compiling_with_distcc"><span >6</span> <span >Cross compiling with distcc</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14">
+<a href="#TOS_Linux_ARM_as_clients_(x86_64_as_volunteers)"><span >6.1</span> <span >TOS Linux ARM as clients (x86_64 as volunteers)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Volunteers_2"><span >6.1.1</span> <span >Volunteers</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Client_2"><span >6.1.2</span> <span >Client</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17">
+<a href="#TOS_Linux_(x86_64)_as_clients_(TOS_ARM_as_volunteers)"><span >6.2</span> <span >TOS Linux (x86_64) as clients (TOS ARM as volunteers)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Client_3"><span >6.2.1</span> <span >Client</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Volunteers_3"><span >6.2.2</span> <span >Volunteers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#Additional_toolchains"><span >6.3</span> <span >Additional toolchains</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21">
+<a href="#Troubleshooting"><span >7</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="#Quirks_compiling_the_TOS_Linux_kernel_package"><span >7.1</span> <span >Quirks compiling the TOS Linux kernel package</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Journalctl"><span >7.2</span> <span >Journalctl</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Adjust_log_level"><span >7.3</span> <span >Adjust log level</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Limit_HDD/SSD_usage_by_relocating_%24HOME/.distcc"><span >7.4</span> <span >Limit HDD/SSD usage by relocating $HOME/.distcc</span></a></li>
+<li class="toclevel-2 tocsection-26">
+<a href="#For_distccd-alarm"><span >7.5</span> <span >For distccd-alarm</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#No_such_file_or_directory"><span >7.5.1</span> <span >No such file or directory</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="#See_also"><span >8</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Terms">Terms</span></h2>
+<dl>
+<dt>client</dt>
+<dd>The client is the computer initiating the compilation.</dd>
+<dt>volunteer</dt>
+<dd>The volunteer is the computer accepting compilation requests sent by the client.  One can setup multiple volunteers or just a single one.</dd>
+</dl>
+<h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=distcc">distcc</a></span> package on all participating  PCs in the distcc cluster.  For other distros, or even operating systems including Windows through using Cygwin, refer to the <a rel="nofollow"  href="http://distcc.samba.org/doc.html">distcc docs</a> or the included man pages <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 distccd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distccd.1">distccd(1)</a></span>.  Be sure to allow traffic on the port on which distcc runs (the default is 3632/tcp), see <a href="../wiki/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a>.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="Volunteers">Volunteers</span></h3>
+<p>The configuration for the volunteer is stored in <code>/etc/conf.d/distccd</code>. At a minimum, add the --allow-private switch which covers a number of ipv4 private network ranges.  Logging to a file is also nice for troubleshooting if needed.
+</p>
+<pre>DISTCC_ARGS="--allow-private --log-file /tmp/distccd.log"
+</pre>
+<p>If multiple interfaces are present on the machine, consider passing the --listen ADDRESS option as well.  Other options can be defined.  Refer to <span class="plainlinks archwiki-template-man" title="$ man 1 distccd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distccd.1">distccd(1)</a></span>. 
+</p>
+<p><a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>distccd.service</code> on every participating volunteer. To have <code>distccd.service</code> start at boot-up, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
+</p>
+<h3><span class="mw-headline" id="Client">Client</span></h3>
+<h4><span class="mw-headline" id="For_use_with_makepkg">For use with makepkg</span></h4>
+<p>Edit <code>/etc/makepkg.conf</code> in the following sections:
+</p>
+<ol>
+<li>The BUILDENV array will need to have <i>distcc</i> unbanged i.e. list it without exclamation point.</li>
+<li>Uncomment the <i>DISTCC_HOSTS</i> line and add the host name or IP addresses of the volunteers. Optionally, follow this with a forward slash and the max number of threads they are to use.  The subsequent nodes should be separated by a white space.  This list should be ordered from most powerful to least powerful (processing power).</li>
+<li>Adjust the MAKEFLAGS variable to correspond roughly twice the number max threads per server.  In the example below, this is 2x(9+5+5+3)=44.</li>
+</ol>
+<p>Example using relevant lines:
+</p>
+<pre>BUILDENV=(distcc fakeroot color !ccache check !sign)
+MAKEFLAGS="-j44"
+DISTCC_HOSTS="localhost/9 192.168.10.2/5 192.168.10.3/5 192.168.10.4/3"
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Hostnames can be used rather than IP addresses but if the intention is to build using devtools build scripts, name resolution in the build root is not currently supported, so stick with IP addresses in this scenario.</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> The <code>-march=native</code> flag cannot be used in the <code>CFLAGS</code> and <code>CXXFLAGS</code> variables, otherwise distccd will not distribute work to other machines.</div>
+<h4><span class="mw-headline" id="For_use_without_makepkg">For use without makepkg</span></h4>
+<p>The minimal configuration for distcc on the client includes the setting of the available volunteers and re-defining the PATH.
+</p>
+<pre>$ export DISTCC_HOSTS="localhost/9 192.168.10.2/5 192.168.10.3/5 192.168.10.4/3"
+$ export PATH="/usr/lib/distcc/bin:$PATH"
+</pre>
+<h2><span class="mw-headline" id="Compile">Compile</span></h2>
+<h3><span class="mw-headline" id="With_makepkg">With makepkg</span></h3>
+<p>Compile via makepkg as normal.
+</p>
+<h3><span class="mw-headline" id="Without_makepkg">Without makepkg</span></h3>
+<p>After exporting the two variables describe in <a href="#For_use_without_makepkg">#For use without makepkg</a>, compile as usual but append CC= and CXX= lines to your build:
+</p>
+<pre>$ make -j44 CC=distcc CXX=distcc
+</pre>
+<h3><span class="mw-headline" id="With_CMake">With CMake</span></h3>
+<p>Use the following CMake options to build a CMake-based project with distcc:
+</p>
+<pre>$ cmake -DCMAKE_C_COMPILER_LAUNCHER=distcc -DCMAKE_CXX_COMPILER_LAUNCHER=distcc ...
+</pre>
+<h2><span class="mw-headline" id="Monitoring_progress">Monitoring progress</span></h2>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=distcc">distcc</a></span> ships with a cli monitor <code>distccmon-text</code> and a gtk monitor <code>distccmon-gnome</code> one can use to check on compilation status.
+</p>
+<p>The cli monitor can run continuously by appending a space followed by integer to the command which corresponds to the number of sec to wait for a repeat query:
+</p>
+<pre>$ distccmon-text 3
+29291 Preprocess  probe_64.c                                 192.168.10.2[0]
+30954 Compile     apic_noop.c                                192.168.10.2[0]
+30932 Preprocess  kfifo.c                                    192.168.10.2[0]
+30919 Compile     blk-core.c                                 192.168.10.2[1]
+30969 Compile     i915_gem_debug.c                           192.168.10.2[3]
+30444 Compile     block_dev.c                                192.168.10.3[1]
+30904 Compile     compat.c                                   192.168.10.3[2]
+30891 Compile     hugetlb.c                                  192.168.10.3[3]
+30458 Compile     catalog.c                                  192.168.10.4[0]
+30496 Compile     ulpqueue.c                                 192.168.10.4[2]
+30506 Compile     alloc.c                                    192.168.10.4[0]
+</pre>
+<h2><span class="mw-headline" id="Cross_compiling_with_distcc">Cross compiling with distcc</span></h2>
+<p>One can use distcc to help cross compile.  
+</p>
+<ul>
+<li>A machine running the target architecture must be used as the client.</li>
+<li>Non-native architecture volunteers will help compile but they require the corresponding toolchain to be installed and their distcc to point to it.</li>
+</ul>
+<h3>
+<span id="TOS_Linux_ARM_as_clients_.28x86_64_as_volunteers.29"></span><span class="mw-headline" id="TOS_Linux_ARM_as_clients_(x86_64_as_volunteers)">TOS Linux ARM as clients (x86_64 as volunteers)</span>
+</h3>
+<p>This section details how to use TOS Linux (x86_64) volunteers to help an TOS ARM device cross-compile.  Significant speed gains can be realized with just a single x86_64 machine helping an ARM device compile.
+</p>
+<h4><span class="mw-headline" id="Volunteers_2">Volunteers</span></h4>
+<p>The TOS ARM developers <i>highly</i> recommend using the official project <a rel="nofollow"  href="https://archlinuxarm.org/wiki/Distcc_Cross-Compiling">toolchains</a> which should be installed on the x86_64 volunteer(s).  Rather than manually managing these, the <a href="../wiki/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> provides all four toolchains as well as simple systemd service units:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv5/">distccd-alarm-armv5</a></span><sup><small>AUR</small></sup>
+</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv6h/">distccd-alarm-armv6h</a></span><sup><small>AUR</small></sup>
+</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv7h/">distccd-alarm-armv7h</a></span><sup><small>AUR</small></sup>
+</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv8/">distccd-alarm-armv8</a></span><sup><small>AUR</small></sup>
+</li>
+</ul>
+<p>Setup on the volunteer containing the toolchain is identical to <a href="#Volunteers">#Volunteers</a> except that the name of the configuration and systemd service file matches that of the respective package.  For example, for armv7h the config file is <code>/etc/conf.d/distccd-armv7h</code> and the systemd service unit is <code>distccd-armv7h.service</code>.
+</p>
+<p>Note that each of the toolchains runs on a unique port thus allowing all four of them to co-exist on the volunteer if needed.  Be sure to allow traffic to the port on which distcc runs see <a href="../wiki/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a> and <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span>.
+</p>
+<table  align="center">
+
+<tbody>
+<tr>
+<th>Target architecture</th>
+<th>Distcc Port
+</th>
+</tr>
+<tr>
+<td><i>armv5</i></td>
+<td>3633
+</td>
+</tr>
+<tr>
+<td><i>armv6h</i></td>
+<td>3634
+</td>
+</tr>
+<tr>
+<td><i>armv7h</i></td>
+<td>3635
+</td>
+</tr>
+<tr>
+<td><i>armv8h/aarch64</i></td>
+<td>3636
+</td>
+</tr>
+</tbody>
+</table>
+<h4><span class="mw-headline" id="Client_2">Client</span></h4>
+<p>The easiest method to setup the TOS ARM client is to use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-arch-arm/">distccd-arch-arm</a></span><sup><small>AUR</small></sup> package.  It provides the matched set of distccd configuration and systemd service units.  For example, if the client is an armv7h device, optionally edit <code>/etc/conf.d/distccd-armv7h</code> and change the defaults therein.  When ready to build, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>distccd-armv7h.service</code> and compile.
+</p>
+<p>If one would rather setup the client without using the AUR package mentioned above, manual setup of the client is identical to <a href="#Client">#Client</a> except, one needs to modify the following two files to define the now non-standard port the volunteers are expected to use.  Refer to the table above if using the AUR package.
+</p>
+<ol>
+<li>
+<code>/etc/conf.d/distcc</code>: example on an armv7h machine: <code>DISTCC_ARGS="--allow 127.0.0.1 --allow 192.168.10.0/24 --port 3635</code>
+</li>
+<li>
+<code>/etc/makepkg.conf</code>: example on an armv7h machine: <code>DISTCC_HOSTS="192.168.10.2/5:3635 192.168.10.3/5:3635"</code>
+</li>
+</ol>
+<h3>
+<span id="TOS_Linux_.28x86_64.29_as_clients_.28TOS_ARM_as_volunteers.29"></span><span class="mw-headline" id="TOS_Linux_(x86_64)_as_clients_(TOS_ARM_as_volunteers)">TOS Linux (x86_64) as clients (TOS ARM as volunteers)</span>
+</h3>
+<p>This section details how to use TOS ARM volunteers to help an x86_64 client cross-compile.
+</p>
+<h4><span class="mw-headline" id="Client_3">Client</span></h4>
+<p>Setup of the client is identical to <a href="#Client">#Client</a> with distcc running on the standard port 3632.
+</p>
+<h4><span class="mw-headline" id="Volunteers_3">Volunteers</span></h4>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-x86_64/">distccd-x86_64</a></span><sup><small>AUR</small></sup> will provide a toolchain to install on the TOS ARM devices to enable cross compilation.
+</p>
+<h3><span class="mw-headline" id="Additional_toolchains">Additional toolchains</span></h3>
+<ul>
+<li>
+<a rel="nofollow"  href="https://embtoolkit.org/">EmbToolkit</a><sup title="Last check status: SSL error">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>: Tool for creating cross compilation tool chain; supports ARM and MIPS architectures; supports building of an LLVM based tool chain</li>
+<li>
+<a rel="nofollow"  href="http://crosstool-ng.org/">crosstool-ng</a>: Similar to EmbToolkit; supports more architectures (see website for more information)</li>
+<li>
+<a rel="nofollow"  href="https://www.linaro.org/downloads/">Linaro</a>: Provides tool chains for ARM development</li>
+</ul>
+<p>The <code>EmbToolkit</code> provides a nice graphical configuration menu (<code>make xconfig</code>) for configuring the tool chain.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Quirks_compiling_the_TOS_Linux_kernel_package">Quirks compiling the TOS Linux kernel package</span></h3>
+<p>If building the kernel from the official PKGBUILD (or many from the AUR), one needs to edit the PKGBUILD to pass the CC=distcc and CXX=distcc variables as part of the build command:
+</p>
+<pre>make bzImage modules htmldocs CC=distcc CXX=distcc
+</pre>
+<p>Failure to do this will result in distcc not working during the build.  See <a rel="nofollow"  href="https://bugs.archlinux.org/task/64275">FS#64275</a>.
+</p>
+<h3><span class="mw-headline" id="Journalctl">Journalctl</span></h3>
+<p>Use <code>journalctl</code> to find out what was going wrong:
+</p>
+<pre>$ journalctl $(which distccd) -e --since "5 min ago"
+</pre>
+<h3><span class="mw-headline" id="Adjust_log_level">Adjust log level</span></h3>
+<p>By default, distcc will log to <code>/var/log/messages.log</code> as it goes along.  One trick (actually recommended in the distccd manpage) is to log to an alternative file directly.  Again, one can locate this in RAM via /tmp.  Another trick is to lower to log level of minimum severity of error that will be included in the log file.  Useful if only wanting to see error messages rather than an entry for each connection.  LEVEL can be any of the  standard syslog levels, and in particular critical, error, warning, notice, info, or debug.
+</p>
+<p>Either call distcc with the arguments mentioned here on the client or appended it to DISTCC_ARGS in <code>/etc/conf.d/distccd</code> on the volunteers:
+</p>
+<pre>DISTCC_ARGS="--allow 192.168.10.0/24 --log-level error --log-file /tmp/distccd.log"
+</pre>
+<h3>
+<span id="Limit_HDD.2FSSD_usage_by_relocating_.24HOME.2F.distcc"></span><span class="mw-headline" id="Limit_HDD/SSD_usage_by_relocating_$HOME/.distcc">Limit HDD/SSD usage by relocating $HOME/.distcc</span>
+</h3>
+<p>By default, distcc creates <code>$HOME/.distcc</code> which stores transient relevant info as it serves up work for nodes to compile. This will avoid needless HDD read/writes and is particularly important for SSDs.
+</p>
+<pre>$ export DISTCC_DIR=/tmp/distcc
+</pre>
+<h3><span class="mw-headline" id="For_distccd-alarm">For distccd-alarm</span></h3>
+<h4><span class="mw-headline" id="No_such_file_or_directory">No such file or directory</span></h4>
+<p>Errors similar to the following indicate that the user is mistakenly running the distccd service provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=distcc">distcc</a></span> and NOT provided by the distccd-alarm packages (ie <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv5/">distccd-alarm-armv5</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv6h/">distccd-alarm-armv6h</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv7h/">distccd-alarm-armv7h</a></span><sup><small>AUR</small></sup>, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-alarm-armv8/">distccd-alarm-armv8</a></span><sup><small>AUR</small></sup>.)
+</p>
+<p>Be sure to start the correct service for the target architecture.
+</p>
+<pre>distcc[25479] (dcc_execvp) ERROR: failed to exec armv7l-unknown-linux-gnueabihf-g++: No such file or directory
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow"  href="https://github.com/distcc/distcc">https://github.com/distcc/distcc</a></li></ul>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/icecream/">icecream</a></span><sup><small>AUR</small></sup> - An easier to configure fork of distcc.</li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Distributed_computing.html" title="Category:Distributed computing">Distributed computing</a></li>
+<li><a href="../wiki/Category:Development.html" title="Category:Development">Development</a></li>
+<li><a href="../wiki/Category:Package_development.html" title="Category:Package development">Package development</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Distcc&amp;oldid=606569">https://wiki.archlinux.org/index.php?title=Distcc&amp;oldid=606569</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 18 April 2020, at 16:05.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

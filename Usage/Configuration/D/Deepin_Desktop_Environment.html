@@ -1,0 +1,236 @@
+<!--
+    title: Deepin_Desktop_Environment
+    description: Migration of Deepin_Desktop_Environment from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Deepin Desktop Environment</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Desktop_environment.html" title="Desktop environment">Desktop environment</a></li>
+<li><a href="../wiki/GNOME.html" title="GNOME">GNOME</a></li>
+<li><a href="../wiki/LightDM.html" title="LightDM">LightDM</a></li>
+</ul>
+</div>
+<p>The <a rel="nofollow"  href="https://www.deepin.org/wiki/dde/">deepin Desktop Environment</a> (DDE) is the <a href="../wiki/Desktop_environment.html" title="Desktop environment">desktop environment</a> of the <a rel="nofollow"  href="https://www.deepin.org/wiki/">deepin</a> Linux distribution. It is designed by the <a rel="nofollow"  href="https://www.deepin.org/wiki/aboutus/">Wuhan Deepin Technology Co.,Ltd</a>.  deepin is a Linux distribution devoted to providing a beautiful, easy to use, safe and reliable system for global users. deepin is an open source GNU/Linux operating system, based on Linux kernel and mainly on desktop applications, supporting laptops, desktops, and all-in-ones. The DDE is comprised of the Desktop Environment, deepin Window Manager, Control Center, Launcher and Dock.
+</p>
+<p><br>
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Starting"><span >2</span> <span >Starting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Via_a_display_manager"><span >2.1</span> <span >Via a display manager</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Via_xinit"><span >2.2</span> <span >Via xinit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Known_issues"><span >3</span> <span >Known issues</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Configuration"><span >4</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Customize_touchpad_gesture_behavior"><span >4.1</span> <span >Customize touchpad gesture behavior</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Changing_default_deepin_sounds"><span >4.2</span> <span >Changing default deepin sounds</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Troubleshooting"><span >5</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#No_background_after_resuming_from_standby"><span >5.1</span> <span >No background after resuming from standby</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Wireless_network_does_not_connect"><span >5.2</span> <span >Wireless network does not connect</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Bluetooth_Menu_does_not_show_up_/_work"><span >5.3</span> <span >Bluetooth Menu does not show up / work</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Bug_reporting"><span >6</span> <span >Bug reporting</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>To get a minimal desktop interface, you may start by <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/deepin/">deepin</a></span> group. This will pull all the basic components.
+</p>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/deepin-extra/">deepin-extra</a></span> groups contains some extra applications for a more complete desktop environment.
+</p>
+<p>To be able to use the integrated network administration, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=networkmanager">networkmanager</a></span> package is required, and the <code>NetworkManager.service</code> must be <a href="../wiki/Systemd.html#Using_units" title="Systemd">started and enabled</a>.
+</p>
+<h2><span class="mw-headline" id="Starting">Starting</span></h2>
+<h3><span class="mw-headline" id="Via_a_display_manager">Via a display manager</span></h3>
+<p>To use the default DDE's lightdm greeter you have to modify the configuration file under the <code>[Seat:*]</code> section, to state:.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/lightdm/lightdm.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Seat:*]
+...
+greeter-session=lightdm-deepin-greeter</pre>
+<p>Note that a valid home directory must exist for a user other than root for the greeter to work.
+</p>
+<h3><span class="mw-headline" id="Via_xinit">Via xinit</span></h3>
+<p>To use Deepin via <a href="../wiki/Xinit.html" title="Xinit">xinit</a>, you'll need to add the following to your .xinitrc file.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">exec startdde</pre>
+<h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> DDE developers did reply and it looks like at least some of the bugs have been fixed. Needs to be confirmed if any of these vulnerabilities remain (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Deepin_Desktop_Environment#Security_issues">Talk:Deepin Desktop Environment#Security_issues</a>)</div>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> There are known security vulnerabilites in DDE, reported by developers of the OpenSuse distribution to the DDE developers. The DDE developers did not respond to the reports <a rel="nofollow"  href="https://bugzilla.opensuse.org/show_bug.cgi?id=1136026#c1">[1]</a>.</div>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="Customize_touchpad_gesture_behavior">Customize touchpad gesture behavior</span></h3>
+<p>Deepin doesn't officially support customizing the gesture behaviors, but it is possible to manually change this by editing the configuration file.
+Configuration file directory:
+</p>
+<pre>/usr/share/dde-daemon/gesture.json
+</pre>
+<p>If you want to disable specific gesture activity. Set "Action" be "none". For example:
+</p>
+<pre>{
+       "Name": "tap",
+       "Direction": "none",
+       "Fingers": 3,
+       "Action": {
+           "Type": "built-in",
+           "Action": "none"
+       }
+   }
+</pre>
+<p>Reboot or re-login after you edit the file.
+</p>
+<h3><span class="mw-headline" id="Changing_default_deepin_sounds">Changing default deepin sounds</span></h3>
+<p>While this is not officially supported, it is possible to change or even remove the default sounds that are used by Deepin (ex. login sound). Simply replace the sounds in the directory:
+</p>
+<pre>/usr/share/sounds/deepin/stereo
+</pre>
+<p>Note: If you simply want to disable the sound effects entirely, it can be done from Deepin's system settings (sound section).
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="No_background_after_resuming_from_standby">No background after resuming from standby</span></h3>
+<p>Because of the way the NVIDIA driver stores its FBOs <a rel="nofollow"  href="https://devtalk.nvidia.com/default/topic/787748/linux/-nvidia340xx-archlinux64-gnome3-14-the-background-of-desktop-and-lockscreen-mess-after-resume-from-/post/4367179/#4367179">[2]</a>, it happens that after resuming from standby the background suddenly disappears, leaving only a white screen with possibly some color noise on it. The bug appears to be fixed in GNOME upstream, but the Deepin desktop environment still has it.
+</p>
+<p>A possible workaround would be restarting the window manager every time the computer resumes from suspension. A way to do that would be creating the following systemd service
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/resume@.service</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
+Description=User resume actions
+After=suspend.target
+
+[Service]
+User=%I
+Type=simple
+ExecStart=/usr/bin/deepin-wm-restart.sh
+
+[Install]
+WantedBy=suspend.target
+</pre>
+<p>That executes the following script
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/bin/deepin-wm-restart.sh</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
+export DISPLAY=:0
+deepin-wm --replace
+</pre>
+<p>Once those two files are created in the correct directories, in order to enable the script it's sufficient to run these commands:
+</p>
+<pre># chmod +x /usr/bin/deepin-wm-restart.sh
+# systemctl enable resume@<i>user</i>
+# systemctl start resume@<i>user</i> 
+</pre>
+<p>The first command makes the script you created executable, the second makes sure that the service always start at boot and the last one starts the service immediately so you can test the workaround without having to reboot the system.
+</p>
+<h3><span class="mw-headline" id="Wireless_network_does_not_connect">Wireless network does not connect</span></h3>
+<p>NetworkManager sets the MAC address generated randomly. This was already enabled by default, to disable it add the following lines to the NetworkManager configuration file.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/NetworkManager/NetworkManager.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[device]
+wifi.scan-rand-mac-address=no
+</pre>
+<h3>
+<span id="Bluetooth_Menu_does_not_show_up_.2F_work"></span><span class="mw-headline" id="Bluetooth_Menu_does_not_show_up_/_work">Bluetooth Menu does not show up / work</span>
+</h3>
+<p>Enable the <code>bluetooth.service</code>. This service is not enabled by default.
+</p>
+<pre># systemctl enable bluetooth.service
+# systemctl start bluetooth.service
+</pre>
+<h2><span class="mw-headline" id="Bug_reporting">Bug reporting</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Shouldn't TOS packaging related bugs be reported at the TOS bug tracker? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Deepin_Desktop_Environment">Talk:Deepin Desktop Environment#</a>)</div>
+</div>
+<p>Any upstream or TOS packaging related bugs should be reported <a rel="nofollow"  href="https://github.com/linuxdeepin/developer-center/issues">here</a>.
+All the Deepin developers will see the bug reports and solve them as soon as possible.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://wiki.deepin.org/wiki/Deepin_Desktop_Environment">Official Wiki page</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Deepin"  title="wikipedia:Deepin">Wikipedia article</a></li>
+<li><a rel="nofollow"  href="https://github.com/linuxdeepin">deepin Github</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Desktop_environments.html" title="Category:Desktop environments">Desktop environments</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Deepin_Desktop_Environment&amp;oldid=602032">https://wiki.archlinux.org/index.php?title=Deepin_Desktop_Environment&amp;oldid=602032</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 March 2020, at 01:46.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,143 @@
+<!--
+    title: Wireshark
+    description: Migration of Wireshark from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Wireshark</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://www.wireshark.org/">Wireshark</a> is a free and open-source packet analyzer. It is used for network troubleshooting, analysis, software and communications protocol development, and education.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Capturing_privileges"><span >2</span> <span >Capturing privileges</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#A_few_capturing_techniques"><span >3</span> <span >A few capturing techniques</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Filtering_TCP_packets"><span >3.1</span> <span >Filtering TCP packets</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Filtering_UDP_packets"><span >3.2</span> <span >Filtering UDP packets</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Filter_packets_to_a_specific_IP_address"><span >3.3</span> <span >Filter packets to a specific IP address</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Exclude_packets_from_a_specific_IP_address"><span >3.4</span> <span >Exclude packets from a specific IP address</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Filter_packets_to_LAN"><span >3.5</span> <span >Filter packets to LAN</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Filter_packets_by_port"><span >3.6</span> <span >Filter packets by port</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireshark-qt">wireshark-qt</a></span> package for the Wireshark GUI or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireshark-cli">wireshark-cli</a></span> for just the <code>tshark</code> CLI.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The deprecated GTK interface has been removed in Wireshark 3.0.</div>
+<h2><span class="mw-headline" id="Capturing_privileges">Capturing privileges</span></h2>
+<p>Do not run Wireshark as root, it is insecure. Wireshark has implemented privilege separation <a rel="nofollow"  href="https://wiki.wireshark.org/CaptureSetup/CapturePrivileges#Most_UNIXes">[1]</a>.
+</p>
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireshark-cli">wireshark-cli</a></span> <a href="../wiki/PKGBUILD.html#install" title="PKGBUILD">install script</a> sets packet capturing <a href="../wiki/Capabilities.html" title="Capabilities">capabilities</a> on the <code>/usr/bin/dumpcap</code> executable.
+</p>
+<p><code>/usr/bin/dumpcap</code> can only be executed by root and members of the <code>wireshark</code> group, therefore to use Wireshark as a normal user you have to add your user to the <code>wireshark</code> <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> (see <a href="../wiki/Users_and_groups.html#Group_management" title="Users and groups">Users and groups#Group management</a>).
+</p>
+<h2><span class="mw-headline" id="A_few_capturing_techniques">A few capturing techniques</span></h2>
+<p>There are a number of different ways to capture exactly what you are looking for in Wireshark, by applying <a rel="nofollow"  href="https://wiki.wireshark.org/CaptureFilters">capture filters</a> or <a rel="nofollow"  href="https://wiki.wireshark.org/DisplayFilters">display filters</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> To learn the capture filter syntax, see <span class="plainlinks archwiki-template-man" title="$ man 7 pcap-filter"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pcap-filter.7">pcap-filter(7)</a></span>. For display filters, see <span class="plainlinks archwiki-template-man" title="$ man 4 wireshark-filter"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/wireshark-filter.4">wireshark-filter(4)</a></span>.</div>
+<h3><span class="mw-headline" id="Filtering_TCP_packets">Filtering TCP packets</span></h3>
+<p>If you want to see all the current TCP packets, type <code>tcp</code> into the "Filter" bar or in the CLI, enter:
+</p>
+<pre>$ tshark -f "tcp"
+</pre>
+<h3><span class="mw-headline" id="Filtering_UDP_packets">Filtering UDP packets</span></h3>
+<p>If you want to see all the current UDP packets, type <code>udp</code> into the "Filter" bar or in the CLI, enter:
+</p>
+<pre>$ tshark -f "udp"
+</pre>
+<h3><span class="mw-headline" id="Filter_packets_to_a_specific_IP_address">Filter packets to a specific IP address</span></h3>
+<ul>
+<li>If you would like to see all the traffic going to a specific address, enter display filter <code>ip.dst == 1.2.3.4</code>, replacing <code>1.2.3.4</code> with the IP address the outgoing traffic is being sent to.</li>
+<li>If you would like to see all the incoming traffic for a specific address, enter display filter <code>ip.src == 1.2.3.4</code>, replacing <code>1.2.3.4</code> with the IP address the incoming traffic is being sent to.</li>
+<li>If you would like to see all the incoming and outgoing traffic for a specific address, enter display filter <code>ip.addr == 1.2.3.4</code>, replacing <code>1.2.3.4</code> with the relevant IP address.</li>
+</ul>
+<h3><span class="mw-headline" id="Exclude_packets_from_a_specific_IP_address">Exclude packets from a specific IP address</span></h3>
+<pre>ip.addr != 1.2.3.4
+</pre>
+<h3><span class="mw-headline" id="Filter_packets_to_LAN">Filter packets to LAN</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> 192.168.0.0/16 is not the only private address range. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Wireshark">Talk:Wireshark#</a>)</div>
+</div>
+<p>To only see LAN traffic, no internet traffic run
+</p>
+<pre>ip.src==192.168.0.0/16 and ip.dst==192.168.0.0/16
+</pre>
+<h3><span class="mw-headline" id="Filter_packets_by_port">Filter packets by port</span></h3>
+<p>See all traffic on two ports or more:
+</p>
+<pre>tcp.port==80||tcp.port==3306
+tcp.port==80||tcp.port==3306||tcp.port==443
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Security.html" title="Category:Security">Security</a></li>
+<li><a href="../wiki/Category:Networking.html" title="Category:Networking">Networking</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Wireshark&amp;oldid=584509">https://wiki.archlinux.org/index.php?title=Wireshark&amp;oldid=584509</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 October 2019, at 10:34.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

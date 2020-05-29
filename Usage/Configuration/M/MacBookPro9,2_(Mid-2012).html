@@ -1,0 +1,236 @@
+<!--
+    title: MacBookPro9,2_(Mid-2012)
+    description: Migration of MacBookPro9,2_(Mid-2012) from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">MacBookPro9,2 (Mid-2012)</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Mac.html" title="Mac">Mac</a></li>
+<li><a href="../wiki/MacBookPro7,1.html" title="MacBookPro7,1">MacBookPro7,1</a></li>
+<li><a href="../wiki/MacBookPro8,1/8,2/8,3_(2011).html" title="MacBookPro8,1/8,2/8,3 (2011)">MacBookPro8,1/8,2/8,3 (2011)</a></li>
+<li><a class="mw-selflink selflink">MacBookPro9,2 (Mid-2012)</a></li>
+</ul>
+</div>
+<p>This guide outlines special information on installing and configuring TOS on the more recent Macbook 9,x (Mid-2012) hardware alongside a pre-existing OSX operating system.  This requires adequate free disk space, install media (such as a USB or CD), and a wired connection for the initial steps of the install procedure.  
+</p>
+<p>This article is written with a dual-boot setup in mind, and does <i>not</i> cover how to replace OSX with TOS.
+</p>
+<p>For general help on the install preocedure see the <a href="../wiki/Installation_guide.html" title="Installation guide">Installation guide</a>
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Remember to back up your pre-existing OSX installation before proceeding!</div>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Preparation"><span >1</span> <span >Preparation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Recording_UIDs"><span >1.1</span> <span >Recording UIDs</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Install_Boot_Manager"><span >1.2</span> <span >Install Boot Manager</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Shrinking_Macintosh_HD"><span >1.3</span> <span >Shrinking Macintosh HD</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Installation"><span >2</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Preparing_installation_media"><span >2.1</span> <span >Preparing installation media</span></a></li>
+<li class="toclevel-2 tocsection-7">
+<a href="#Running_the_TOS_installation"><span >2.2</span> <span >Running the TOS installation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Sample_partition_layout"><span >2.2.1</span> <span >Sample partition layout</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Install_boot_loader"><span >2.2.2</span> <span >Install boot loader</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Post_Installation"><span >3</span> <span >Post Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#SD_Card_Reader"><span >3.1</span> <span >SD Card Reader</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Users"><span >3.2</span> <span >Users</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Wireless"><span >3.3</span> <span >Wireless</span></a></li>
+<li class="toclevel-2 tocsection-14">
+<a href="#Inverting_FN_keys"><span >3.4</span> <span >Inverting FN keys</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Wireless_Flakiness"><span >3.4.1</span> <span >Wireless Flakiness</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Keyboard_Backlight"><span >3.4.2</span> <span >Keyboard Backlight</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#Xorg"><span >3.5</span> <span >Xorg</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18">
+<a href="#Bells_&amp;_Whistles"><span >4</span> <span >Bells &amp; Whistles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19">
+<a href="#Emulating_OSX_Touchpad_Gestures"><span >4.1</span> <span >Emulating OSX Touchpad Gestures</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Using_synclient"><span >4.1.1</span> <span >Using synclient</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<h3><span class="mw-headline" id="Recording_UIDs">Recording UIDs</span></h3>
+<p>If you want to access your OSX user directories from Linux, write down the UID and GID for the users.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> OSX begins with the first user's UID at 501 while TOS defaults to 1000.</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong>  Never, <i>ever</i> change any file permissions in your OSX partition from Linux. Doing so can and will lead to serious repercussions.</div>
+<h3><span class="mw-headline" id="Install_Boot_Manager">Install Boot Manager</span></h3>
+<p><b>Optional.</b> The easiest way to begin is by <a rel="nofollow"  href="http://www.rodsbooks.com/refind/">installing rEFInd</a> on Mac OSX before moving on to TOS.  This will place a boot menu on startup.  The config will be in your OSX partition - if this is not desirable it is possible to install it later in TOS.  For more information consult <a href="../wiki/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>.
+</p>
+<h3><span class="mw-headline" id="Shrinking_Macintosh_HD">Shrinking Macintosh HD</span></h3>
+<p>Although nowadays Boot Camp requires a Windows installation disc before altering partitions, it is possible to do this using Mac OSX's disk utility.  Create a new partition, calculate the amount of free space required for all new partitions and shrink Macintosh HD to accommodate for this amount.  Leave the new partition as free space for now.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Preparing_installation_media">Preparing installation media</span></h3>
+<p><a rel="nofollow"  href="https://archlinux.org/download/">Download TOS</a> and burn it to a USB, CD or DVD, and boot into the TOS install.
+</p>
+<h3><span class="mw-headline" id="Running_the_TOS_installation">Running the TOS installation</span></h3>
+<p>Proceed from the Installation section in <a href="../wiki/Installation_guide.html#Installation" title="Installation guide">Installation guide#Installation</a>. Note that you'll need a wired connection to continue for now.
+</p>
+<p>The following differences will apply to MacBooks:
+</p>
+<h4><span class="mw-headline" id="Sample_partition_layout">Sample partition layout</span></h4>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Apple prefers having 128MB of unallocated space between partitions.  Whether or not this is completely necessary is uncertain, but if it seems like there is more than enough space available, then creating this buffer of free space may be a good idea.</div>
+<pre>partition  mountpoint  size       type  label
+/dev/sda1  /boot/efi   200MiB     vfat  EFI
+/dev/sda2  -           ?          hfs+  Mac OS X
+/dev/sda3  -           ?          hfs+  Recovery
+/dev/sda4  /boot       100MiB     boot  boot
+/dev/sda5  /           10GiB      ext4  root
+/dev/sda6  /home       remaining  ext4  home (optional)
+/dev/sda7  ?           ?          ?     shared (optional)
+</pre>
+<p>For sharing files between OSX and Linux, a number of filesystem options exist.  FAT32 is natively supported on all systems - however, it lacks support for filesystems larger than 2TB or files larger than 4GB.  Journaled HFS+ partitions, such as the Macintosh HD partition, will only mount read-only in Linux.  Full read-write support is available for unjournaled HFS+ filesystems.  ExFAT support can be made available by installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=exfat-utils">exfat-utils</a></span>.
+</p>
+<h4><span class="mw-headline" id="Install_boot_loader">Install boot loader</span></h4>
+<p>Follow the relevant page for the chosen boot loader listed in <a href="../wiki/TOS_boot_process.html#Boot_loader" title="TOS boot process">TOS boot process#Boot loader</a>.
+</p>
+<h2><span class="mw-headline" id="Post_Installation">Post Installation</span></h2>
+<p>Continue with <a href="../wiki/General_recommendations.html" title="General recommendations">General recommendations</a>, noting the following modifications:
+</p>
+<h3><span class="mw-headline" id="SD_Card_Reader">SD Card Reader</span></h3>
+<p>The sdcard reader does not work properly with the highest speeds currently and may never work properly. To get it working you will have to sacrifice the ultra fast modes and use a quirk in your boot parameters.
+</p>
+<pre>sdhci.debug_quirks2=4
+</pre>
+<h3><span class="mw-headline" id="Users">Users</span></h3>
+<p>If you wrote down your OSX uid's and gid's eariler, new users can be created by running:
+</p>
+<pre># useradd -m -u [uid] -g [gid] -G [additional_groups] -s [login_shell] [username]
+</pre>
+<p>In order to be able to access a OSX user's directory, only the uid and gid need to match. (usernames can differ)
+</p>
+<h3><span class="mw-headline" id="Wireless">Wireless</span></h3>
+<p>Macbooks 8,1 to 9,2 (and possibly newer) use BCM4331 for Wifi. See <a href="../wiki/Broadcom_wireless.html" title="Broadcom wireless">Broadcom wireless</a> for details.
+The Mac Mini 5.1 Also uses the Broadcom BCM4331 Wi-Fi Chip.
+</p>
+<h3><span class="mw-headline" id="Inverting_FN_keys">Inverting FN keys</span></h3>
+<p>To make the FN keys function as normal FN keys, follow <a href="../wiki/Apple_Keyboard.html#Function_keys_do_not_work" title="Apple Keyboard">Apple Keyboard#Function keys do not work</a>.
+</p>
+<h4><span class="mw-headline" id="Wireless_Flakiness">Wireless Flakiness</span></h4>
+<p>The only connection manager combination with BCM4331 that doesn't result in flakiness seems to be connman + disabled background scanning.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/connman/main.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[General]
+BackgroundScanning = false</pre>
+<h4><span class="mw-headline" id="Keyboard_Backlight">Keyboard Backlight</span></h4>
+<p>A "just works" solution is the  <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/acpibacklight/">acpibacklight</a></span><sup><small>AUR</small></sup><sup>[<a href="../wiki/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> package. It provides the just work case when controlling it with the keyboard shortcuts.
+</p>
+<h3><span class="mw-headline" id="Xorg">Xorg</span></h3>
+<p>Main Page: <a href="../wiki/Xorg.html" title="Xorg">Xorg</a>
+</p>
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> and setup Xorg as you normally would.
+</p>
+<p>The built-in keyboard and most usb input devices will work out-of-the-box, but <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-synaptics">xf86-input-synaptics</a></span> is needed in order to use the built-in touchpad.
+</p>
+<h2>
+<span id="Bells_.26_Whistles"></span><span class="mw-headline" id="Bells_&amp;_Whistles">Bells &amp; Whistles</span>
+</h2>
+<h3><span class="mw-headline" id="Emulating_OSX_Touchpad_Gestures">Emulating OSX Touchpad Gestures</span></h3>
+<p>With a little bit of work it's possible to tweak the multitouch options on the trackpad.  This can be achieved with a combination of X11 driver settings and open source software.
+</p>
+<h4><span class="mw-headline" id="Using_synclient">Using synclient</span></h4>
+<p><code>synclient</code> is included with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-synaptics">xf86-input-synaptics</a></span> driver.  It is useful for experimenting with settings as they take effect immediately and expire at the end of an X session.  Many OSX options can be emulated without any additional software.
+</p>
+<p>Run <code>synclient -l</code> to have a look at all the available options.  Here are some suggestions which resemble the options found in OSX's System Preferences:
+</p>
+<ul>
+<li>By default synaptics is configured to use a double-tap drag gesture found on older touchpads - one may argue that this is not necessary on a clickpad. <code>synclient TapAndDragGesture=0</code> will turn this off.</li>
+<li>TapButtonX and ClickFingerX sets the mouse button triggered by tapping or clicking with X fingers.  set <code>TapButton2=3</code> and <code>ClickFinger2=3</code> to assign two-finger click to the right mouse button.</li>
+<li>Setting the bottom-right corner click to right mouse button can be done by subtracting about 500 from <code>RightEdge</code> and <code>BottomEdge</code> and plugging the new values into <code>RightButtonAreaLeft</code> and <code>RightButtonAreaTop</code>.  If the last two options are not visible, set <code>Clickpad=1</code>.</li>
+</ul>
+<p>To make settings permanent, just modify <code>/etc/X11/xorg.conf.d/10-synaptics.conf</code>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Right/Middle ButtonArea options are only recognized once the X fully loads the driver.  To work around this, create a script file <code>/usr/local/bin/synarea.sh</code> with the required synclient commands, and add the script to the X startup sequence.</div>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Apple.html" title="Category:Apple">Apple</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=MacBookPro9,2_(Mid-2012)&amp;oldid=608632">https://wiki.archlinux.org/index.php?title=MacBookPro9,2_(Mid-2012)&amp;oldid=608632</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 April 2020, at 09:17.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

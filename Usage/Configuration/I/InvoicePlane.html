@@ -1,0 +1,144 @@
+<!--
+    title: InvoicePlane
+    description: Migration of InvoicePlane from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">InvoicePlane</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="http://invoiceplane.com">InvoicePlane</a> is a self-hosted open source application for managing your quotes, invoices, clients and payments.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Configuration"><span >2</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Database"><span >2.1</span> <span >Database</span></a></li>
+<li class="toclevel-2 tocsection-4">
+<a href="#Web_Server"><span >2.2</span> <span >Web Server</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Apache"><span >2.2.1</span> <span >Apache</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Lighttpd"><span >2.2.2</span> <span >Lighttpd</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Nginx"><span >2.2.3</span> <span >Nginx</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Installation_wizard"><span >2.3</span> <span >Installation wizard</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Localization"><span >3</span> <span >Localization</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/invoiceplane/">invoiceplane</a></span><sup><small>AUR</small></sup> package.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="Database">Database</span></h3>
+<p>Here is an example on how you could setup a database for Invoiceplane with <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a> called <code>invoiceplane</code> for the user <code>invoiceplane</code> identified by the password <code>password</code>:
+</p>
+<pre>CREATE DATABASE invoiceplane;
+GRANT ALL PRIVILEGES ON invoiceplane.* TO invoiceplane@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+</pre>
+<h3><span class="mw-headline" id="Web_Server">Web Server</span></h3>
+<h4><span class="mw-headline" id="Apache">Apache</span></h4>
+<p>Create the <a href="../wiki/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> configuration file:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/httpd/conf/extra/invoiceplane.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Alias /invoiceplane "/usr/share/webapps/invoiceplane"
+&lt;Directory "/usr/share/webapps/invoiceplane"&gt;
+    DirectoryIndex index.php
+    AllowOverride All
+    Options FollowSymlinks
+    Require all granted
+&lt;/Directory&gt;
+</pre>
+<p>And include it in <code>/etc/httpd/conf/httpd.conf</code>:
+</p>
+<pre># InvoicePlane configuration
+Include conf/extra/invoiceplane.conf
+</pre>
+<h4><span class="mw-headline" id="Lighttpd">Lighttpd</span></h4>
+<p>Make an alias for invoiceplane in your <a href="../wiki/Lighttpd.html" title="Lighttpd">Lighttpd</a> configuration.
+</p>
+<pre> alias.url = ( "/invoiceplane" =&gt; "/usr/share/webapps/invoiceplane/")
+</pre>
+<p>Then enable mod_alias, mod_fastcgi and mod_cgi in your config ( server.modules section )
+</p>
+<h4><span class="mw-headline" id="Nginx">Nginx</span></h4>
+<p>To get invoiceplane working with your <a href="../wiki/Nginx.html" title="Nginx">nginx</a> setup, first take note of the root of the server you want to use. Supposing it is <code>/srv/http</code>, now create a symlink:
+</p>
+<pre> # ln -s /usr/share/webapps/invoiceplane/ /srv/http/invoiceplane
+</pre>
+<h3><span class="mw-headline" id="Installation_wizard">Installation wizard</span></h3>
+<p>Once database and webserver have been setup, visit the installation wizard page at <a rel="nofollow"  href="http://your-invoiceplane-domain.com/index.php/setup">http://your-invoiceplane-domain.com/index.php/setup</a> and follow the instructions.
+</p>
+<h2><span class="mw-headline" id="Localization">Localization</span></h2>
+<p>If you want to choose a different language than English visit <a rel="nofollow"  href="https://wiki.invoiceplane.com/wiki/1.0/system/translation-localization">Translation / Localization</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://invoiceplane.com">Offical web page</a></li>
+<li><a rel="nofollow"  href="https://github.com/InvoicePlane/InvoicePlane/wiki">Documentation</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Office.html" title="Category:Office">Office</a></li>
+<li><a href="../wiki/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=InvoicePlane&amp;oldid=615083">https://wiki.archlinux.org/index.php?title=InvoicePlane&amp;oldid=615083</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 May 2020, at 00:30.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,282 @@
+<!--
+    title: Dynamic_Kernel_Module_Support
+    description: Migration of Dynamic_Kernel_Module_Support from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Dynamic Kernel Module Support</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support"  title="wikipedia:Dynamic Kernel Module Support">Wikipedia</a>:
+</p>
+<dl><dd>Dynamic Kernel Module Support (DKMS) is a program/framework that enables generating Linux kernel modules whose sources generally reside outside the kernel source tree. The concept is to have DKMS modules automatically rebuilt when a new kernel is installed.</dd></dl>
+<p>This means that a user does not have to wait for a company, project, or package maintainer to release a new version of the module. Since the introduction of <a href="../wiki/Pacman.html#Hooks" class="mw-redirect" title="Pacman hooks">pacman hooks</a>, the rebuild of the modules is handled automatically when a kernel is upgraded.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Upgrades"><span >2</span> <span >Upgrades</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Usage"><span >3</span> <span >Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#List_modules"><span >3.1</span> <span >List modules</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Rebuild_modules"><span >3.2</span> <span >Rebuild modules</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Remove_modules"><span >3.3</span> <span >Remove modules</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#DKMS_package_creation"><span >4</span> <span >DKMS package creation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Package_name"><span >4.1</span> <span >Package name</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Dependencies"><span >4.2</span> <span >Dependencies</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Build_source_location"><span >4.3</span> <span >Build source location</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Patching"><span >4.4</span> <span >Patching</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Module_loading_automatically_in_.install"><span >4.5</span> <span >Module loading automatically in .install</span></a></li>
+<li class="toclevel-2 tocsection-13">
+<a href="#Example"><span >4.6</span> <span >Example</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#PKGBUILD"><span >4.6.1</span> <span >PKGBUILD</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#dkms.conf"><span >4.6.2</span> <span >dkms.conf</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#.install"><span >4.6.3</span> <span >.install</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Initial_ramdisk"><span >5</span> <span >Initial ramdisk</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> package and the headers for the target kernel/kernels. For example, for the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> kernel this would be <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span>.  Other kernels have their own respective headers packages.
+</p>
+<p>A good number of modules that lie outside the kernel source tree have a DKMS variant; a few are hosted in the <a rel="nofollow"  href="https://www.archlinux.org/packages/?&amp;q=dkms">official repositories</a>, most are found in the <a rel="nofollow"  href="https://aur.archlinux.org/packages/?SeB=n&amp;K=dkms">AUR</a>.
+</p>
+<h2><span class="mw-headline" id="Upgrades">Upgrades</span></h2>
+<p>Though the rebuild of the DKMS modules is usually seamless during a kernel upgrade, it may still happen that the rebuild fails. You should pay extra attention to the <a href="../wiki/Pacman.html" title="Pacman">pacman</a> output. This applies in particular if the system relies on the DKMS module to boot successfully and/or if you use DKMS with a custom kernel not in the <a href="../wiki/Official_repositories.html" title="Official repositories">official repositories</a>. 
+</p>
+<p>To deal with changes in the kernel, fix bugs, or add necessary features consider upgrading the DKMS package before rebooting.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Usage for invoking DKMS manually.
+</p>
+<p>Tab-completion is available by doing:
+</p>
+<pre># source /usr/share/bash-completion/completions/dkms
+</pre>
+<h3><span class="mw-headline" id="List_modules">List modules</span></h3>
+<p>To list the current status of modules, versions and kernels within the tree:
+</p>
+<pre># dkms status
+</pre>
+<h3><span class="mw-headline" id="Rebuild_modules">Rebuild modules</span></h3>
+<p>Rebuild all modules for the currently running kernel:
+</p>
+<pre># dkms autoinstall
+</pre>
+<p>or for a specific kernel:
+</p>
+<pre># dkms autoinstall -k 3.16.4-1-ARCH
+</pre>
+<p>To build a <i>specific</i> module for the currently running kernel:
+</p>
+<pre># dkms install -m nvidia -v 334.21
+</pre>
+<p>or simply:
+</p>
+<pre># dkms install nvidia/334.21
+</pre>
+<p>To build a module for <i>all</i> kernels:
+</p>
+<pre># dkms install nvidia/334.21 --all
+</pre>
+<h3><span class="mw-headline" id="Remove_modules">Remove modules</span></h3>
+<p>To remove a module (old ones are not automatically removed):
+</p>
+<pre># dkms remove -m nvidia -v 331.49 --all
+</pre>
+<p>or simply:
+</p>
+<pre># dkms remove nvidia/331.49 --all
+</pre>
+<p>If the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> is removed the information regarding previous module build files is lost. If this is the case, go through <code>/usr/lib/modules/KERNELVERSION-ARCH</code> and delete all files and directories no longer in use.
+</p>
+<h2><span class="mw-headline" id="DKMS_package_creation">DKMS package creation</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for moving to <a href="/index.php?title=DKMS_package_guidelines&amp;action=edit&amp;redlink=1"  title="DKMS package guidelines (page does not exist)">DKMS package guidelines</a>.</b><a href="../File:Tango-go-next.png" ><img alt="Tango-go-next.png" src="../File:Tango-go-next.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Fit in the "package guidelines" pages (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dynamic_Kernel_Module_Support#Move_package_creation_to_specific_page">talk:Dynamic Kernel Module Support#Move package creation to specific page</a>)</div>
+</div>
+<p>Here are some guidelines to follow when creating a DKMS package.
+</p>
+<h3><span class="mw-headline" id="Package_name">Package name</span></h3>
+<p>DKMS packages are named by appending "<i>-dkms</i>" to the original package name.
+</p>
+<p>The variable <code>$_pkgname</code> is often used below <code>$pkgname</code> to describe the package name minus the "<i>-dkms</i>" suffix (e.g. <code>_pkgname=${pkgname%-*}</code>). This is useful to help keep similarities between the original package PKGBUILD and the DKMS variant.
+</p>
+<h3><span class="mw-headline" id="Dependencies">Dependencies</span></h3>
+<p>Dependencies should be inherited from the original version with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> added and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span> removed (as it is listed by the dkms package as <i>optional</i>).
+</p>
+<h3><span class="mw-headline" id="Build_source_location">Build source location</span></h3>
+<p>Build sources should go into (this is the default build directory for DKMS):
+</p>
+<pre>/usr/src/<i>PACKAGE_NAME</i>-<i>PACKAGE_VERSION</i>
+</pre>
+<p>In the package directory, a DKMS configuration tells DKMS how to build the module (<code>dkms.conf</code>), including the variables <code>PACKAGE_NAME</code> and <code>PACKAGE_VERSION</code>.
+</p>
+<ul>
+<li>
+<code>PACKAGE_NAME</code> - the actual project name (usually <code>$_pkgname</code> or <code>$_pkgbase</code>).</li>
+<li>
+<code>PACKAGE_VERSION</code> - by convention this should also be the <code>$pkgver</code>.</li>
+</ul>
+<h3><span class="mw-headline" id="Patching">Patching</span></h3>
+<p>The sources can be patched either directly in the PKGBUILD or through <code>dkms.conf</code>.
+</p>
+<h3><span class="mw-headline" id="Module_loading_automatically_in_.install">Module loading automatically in .install</span></h3>
+<p>Loading and unloading modules should be left to the user.  Consider the possibility a module may crash when loaded.
+</p>
+<p>Also, please note that you do not have to call <code>depmod</code> explicitly to update the dependencies of your kernel module. Pacman is now calling DKMS <code>dkms install</code> and <code>dkms remove</code> automatically as hooks. <code>dkms install</code> is making sure <code>depmod</code> is called at the end of its process. <code>dkms install</code> depends on <code>dkms build</code> (to build the source against the current kernel), which itself depends on <code>dkms add</code> (to add a symlink from <code>/var/lib/dkms/&lt;package&gt;/&lt;version&gt;/source</code> to <code>/usr/src/&lt;package&gt;</code>).
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<p>Here is an example package that edits <code>dkms.conf</code> according to the package name and version.
+</p>
+<h4><span class="mw-headline" id="PKGBUILD">PKGBUILD</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">PKGBUILD</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Maintainer: foo &lt;foo(at)example(dot)org&gt;
+# Contributor: bar &lt;bar(at)example(dot)org&gt;
+
+_pkgbase=example
+pkgname=example-dkms
+pkgver=1
+pkgrel=1
+pkgdesc="The Example kernel modules (DKMS)"
+arch=('i686' 'x86_64')
+url="<a rel="nofollow"  href="https://www.example.org/">https://www.example.org/</a>"
+license=('GPL2')
+depends=('dkms')
+conflicts=("${_pkgbase}")
+install=${pkgname}.install
+source=("${url}/files/tarball.tar.gz"
+        'dkms.conf'
+        'linux-3.14.patch')
+md5sums=(<i>use 'updpkgsums'</i>)
+
+prepare() {
+  cd ${_pkgbase}-${pkgver}
+
+  # Patch
+  patch -p1 -i "${srcdir}"/linux-3.14.patch
+
+}
+
+package() {
+  # Install
+  make DESTDIR="${pkgdir}" install
+
+  # Copy dkms.conf
+  install -Dm644 dkms.conf "${pkgdir}"/usr/src/${_pkgbase}-${pkgver}/dkms.conf
+
+  # Set name and version
+  sed -e "s/@_PKGBASE@/${_pkgbase}/" \
+      -e "s/@PKGVER@/${pkgver}/" \
+      -i "${pkgdir}"/usr/src/${_pkgbase}-${pkgver}/dkms.conf
+
+  # Copy sources (including Makefile)
+  cp -r ${_pkgbase}/* "${pkgdir}"/usr/src/${_pkgbase}-${pkgver}/
+}</pre>
+<h4><span class="mw-headline" id="dkms.conf">dkms.conf</span></h4>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">dkms.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">PACKAGE_NAME="@_PKGBASE@"
+PACKAGE_VERSION="@PKGVER@"
+MAKE[0]="make --uname_r=$kernelver"
+CLEAN="make clean"
+BUILT_MODULE_NAME[0]="@_PKGBASE@"
+DEST_MODULE_LOCATION[0]="/kernel/drivers/misc"
+AUTOINSTALL="yes"</pre>
+<h4><span class="mw-headline" id=".install">.install</span></h4>
+<p>Now pacman has DKMS hooks implemented, you do not have to specify DKMS-specific configuration in your .install file. Calls to <code>dkms install</code> and <code>dkms remove</code> will be automatic.
+</p>
+<h2><span class="mw-headline" id="Initial_ramdisk">Initial ramdisk</span></h2>
+<p>In case you've got any kernel modules installed via DKMS that are used in <a href="https://en.wikipedia.org/wiki/Initial_ramdisk"  title="wikipedia:Initial ramdisk">initial ramdisk</a>, e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup>, you may want to write a <a href="../wiki/Pacman.html" title="Pacman">pacman</a> hook to automate the process of regenerating initramfs image(s).
+</p>
+<p>For example, when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> and <a href="../wiki/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>, to update <a href="../wiki/ZFS.html" title="ZFS">ZFS</a> module after each <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup> upgrade,
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/90-mkinitcpio-dkms-linux.hook</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=zfs-dkms
+Target=linux
+
+[Action]
+Description=Update dkms modules in Linux initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -p linux'</pre>
+<p>You may add more targets to the hook and make additional copies of the hook if you've installed other kernels. Note the <code>90-</code> prefix is necessary to make sure it runs after the DKMS hooks.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow"  href="http://www.linuxjournal.com/article/6896">Linux Journal: Exploring Dynamic Kernel Module Support</a></li></ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Dynamic_Kernel_Module_Support&amp;oldid=614489">https://wiki.archlinux.org/index.php?title=Dynamic_Kernel_Module_Support&amp;oldid=614489</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 May 2020, at 08:21.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

@@ -1,0 +1,736 @@
+<!--
+    title: Domain_name_resolution
+    description: Migration of Domain_name_resolution from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Domain name resolution</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="archwiki-template-meta-related-articles-start">
+<p>Related articles</p>
+<ul>
+<li><a href="../wiki/Network_configuration.html" title="Network configuration">Network configuration</a></li>
+<li><a href="../wiki/DNS_over_HTTPS_servers.html" title="DNS over HTTPS servers">DNS over HTTPS servers</a></li>
+</ul>
+</div>
+<p>In general, a <a href="https://en.wikipedia.org/wiki/Domain_name"  title="wikipedia:Domain name">domain name</a> represents an IP address and is associated to it in the <a href="https://en.wikipedia.org/wiki/Domain_Name_System"  title="wikipedia:Domain Name System">Domain Name System</a> (DNS).
+This article explains how to configure domain name resolution and resolve domain names.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Name_Service_Switch"><span >1</span> <span >Name Service Switch</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Resolve_a_domain_name_using_NSS"><span >1.1</span> <span >Resolve a domain name using NSS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Glibc_resolver"><span >2</span> <span >Glibc resolver</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Overwriting_of_/etc/resolv.conf"><span >2.1</span> <span >Overwriting of /etc/resolv.conf</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Limit_lookup_time"><span >2.2</span> <span >Limit lookup time</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Hostname_lookup_delayed_with_IPv6"><span >2.3</span> <span >Hostname lookup delayed with IPv6</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Local_domain_names"><span >2.4</span> <span >Local domain names</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Lookup_utilities"><span >3</span> <span >Lookup utilities</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Resolver_performance"><span >4</span> <span >Resolver performance</span></a></li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Privacy_and_security"><span >5</span> <span >Privacy and security</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11">
+<a href="#Application-level_DNS"><span >5.1</span> <span >Application-level DNS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Configuring_DNS_over_HTTPS_in_Firefox"><span >5.1.1</span> <span >Configuring DNS over HTTPS in Firefox</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Third-party_DNS_services"><span >6</span> <span >Third-party DNS services</span></a></li>
+<li class="toclevel-1 tocsection-14">
+<a href="#DNS_servers"><span >7</span> <span >DNS servers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Authoritative-only_servers"><span >7.1</span> <span >Authoritative-only servers</span></a></li>
+<li class="toclevel-2 tocsection-16">
+<a href="#Conditional_forwarding"><span >7.2</span> <span >Conditional forwarding</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17">
+<a href="#Software_combination_support"><span >7.2.1</span> <span >Software combination support</span></a>
+<ul>
+<li class="toclevel-4 tocsection-18"><a href="#openresolv_user_support"><span >7.2.1.1</span> <span >openresolv user support</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="#openresolv_subscriber_support"><span >7.2.1.2</span> <span >openresolv subscriber support</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="#Other_solutions"><span >7.2.1.3</span> <span >Other solutions</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#See_also"><span >8</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Name_Service_Switch">Name Service Switch</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Mention <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nss-mdns">nss-mdns</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nss-tls-git/">nss-tls-git</a></span><sup><small>AUR</small></sup> and others. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<p>The <a href="https://en.wikipedia.org/wiki/Name_Service_Switch"  title="wikipedia:Name Service Switch">Name Service Switch</a> (NSS) facility is part of the GNU C Library (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=glibc">glibc</a></span>) and backs the <span class="plainlinks archwiki-template-man" title="$ man 3 getaddrinfo"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/getaddrinfo.3">getaddrinfo(3)</a></span> API, used to resolve domain names. NSS allows system databases to be provided by separate services, whose search order can be configured by the administrator in <span class="plainlinks archwiki-template-man" title="$ man 5 nsswitch.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nsswitch.conf.5">nsswitch.conf(5)</a></span>. The database responsible for domain name resolution is the <i>hosts</i> database, for which glibc offers the following services:
+</p>
+<ul>
+<li>
+<i>file</i>: reads the <code>/etc/hosts</code> file, see <span class="plainlinks archwiki-template-man" title="$ man 5 hosts"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/hosts.5">hosts(5)</a></span>
+</li>
+<li>
+<i>dns</i>: the <a href="#Glibc_resolver">glibc resolver</a> which reads <code>/etc/resolv.conf</code>, see <span class="plainlinks archwiki-template-man" title="$ man 5 resolv.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolv.conf.5">resolv.conf(5)</a></span>
+</li>
+</ul>
+<p><a href="../wiki/Systemd.html" title="Systemd">Systemd</a> provides three NSS services for hostname resolution:
+</p>
+<ul>
+<li>
+<span class="plainlinks archwiki-template-man" title="$ man 8 nss-resolve"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nss-resolve.8">nss-resolve(8)</a></span> - a caching DNS stub resolver, described in <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>
+</li>
+<li>
+<span class="plainlinks archwiki-template-man" title="$ man 8 nss-myhostname"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nss-myhostname.8">nss-myhostname(8)</a></span> - provides hostname resolution without having to edit <code>/etc/hosts</code>, described in <a href="../wiki/Network_configuration.html#Local_hostname_resolution" title="Network configuration">Network configuration#Local hostname resolution</a>
+</li>
+<li>
+<span class="plainlinks archwiki-template-man" title="$ man 8 nss-mymachines"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nss-mymachines.8">nss-mymachines(8)</a></span> - provides hostname resolution for the names of local <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-machined"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-machined.8">systemd-machined(8)</a></span> containers</li>
+</ul>
+<h3><span class="mw-headline" id="Resolve_a_domain_name_using_NSS">Resolve a domain name using NSS</span></h3>
+<p>NSS databases can be queried with <span class="plainlinks archwiki-template-man" title="$ man 1 getent"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/getent.1">getent(1)</a></span>. A domain name can be resolved through NSS using:
+</p>
+<pre>$ getent hosts <i>domain_name</i>
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> While most programs resolve domain names using NSS, some may read <code>/etc/resolv.conf</code> and/or <code>/etc/hosts</code> directly. See <a href="../wiki/Network_configuration.html#Local_hostname_resolution" title="Network configuration">Network configuration#Local hostname resolution</a>.</div>
+<h2><span class="mw-headline" id="Glibc_resolver">Glibc resolver</span></h2>
+<p>The glibc resolver reads <code>/etc/resolv.conf</code> for every resolution to determine the nameservers and options to use. 
+</p>
+<p><span class="plainlinks archwiki-template-man" title="$ man 5 resolv.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolv.conf.5">resolv.conf(5)</a></span> lists nameservers together with some configuration options.
+Nameservers listed first are tried first, up to three nameservers may be listed. Lines starting with a number sign (<code>#</code>) are ignored.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The glibc resolver does not cache queries. To improve query lookup time you can set up a caching resolver. Glibc resolver also can not validate DNSSEC. A DNSSEC capable validator resolver is required for that one. See <a href="#DNS_servers">#DNS servers</a> for more information.</div>
+<h3>
+<span id="Overwriting_of_.2Fetc.2Fresolv.conf"></span><span class="mw-headline" id="Overwriting_of_/etc/resolv.conf">Overwriting of /etc/resolv.conf</span>
+</h3>
+<p><a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">Network managers</a> tend to overwrite <code>/etc/resolv.conf</code>, for specifics see the corresponding section:
+</p>
+<ul>
+<li><a href="../wiki/Dhcpcd.html#/etc/resolv.conf" title="Dhcpcd">dhcpcd#/etc/resolv.conf</a></li>
+<li><a href="../wiki/Netctl.html#resolv.conf" title="Netctl">netctl#resolv.conf</a></li>
+<li><a href="../wiki/NetworkManager.html#/etc/resolv.conf" title="NetworkManager">NetworkManager#/etc/resolv.conf</a></li>
+</ul>
+<p>To prevent programs from overwriting <code>/etc/resolv.conf</code>, it is also possible to write-protect it by setting the immutable <a href="../wiki/File_permissions_and_attributes.html#File_attributes" class="mw-redirect" title="File attribute">file attribute</a>:
+</p>
+<pre># chattr +i /etc/resolv.conf
+</pre>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> If you want multiple processes to write to <code>/etc/resolv.conf</code>, you can use <a href="../wiki/Openresolv.html" class="mw-redirect" title="Resolvconf">resolvconf</a>.</div>
+<h3><span class="mw-headline" id="Limit_lookup_time">Limit lookup time</span></h3>
+<p>If you are confronted with a very long hostname lookup (may it be in <a href="../wiki/Pacman.html" title="Pacman">pacman</a> or while browsing), it often helps to define a small timeout after which an alternative nameserver is used. To do so, put the following in <code>/etc/resolv.conf</code>.
+</p>
+<pre>options timeout:1
+</pre>
+<h3><span class="mw-headline" id="Hostname_lookup_delayed_with_IPv6">Hostname lookup delayed with IPv6</span></h3>
+<p>If you experience a 5 second delay when resolving hostnames it might be due to a DNS-server/Firewall misbehaving and only giving one reply to a parallel A and AAAA request.<a rel="nofollow"  href="https://udrepper.livejournal.com/20948.html">[1]</a> You can fix that by setting the following option in <code>/etc/resolv.conf</code>:
+</p>
+<pre>options single-request
+</pre>
+<h3><span class="mw-headline" id="Local_domain_names">Local domain names</span></h3>
+<p>To be able to use the hostname of local machine names without the fully qualified domain name, add a line to <code>/etc/resolv.conf</code> with the local domain such as:
+</p>
+<pre>domain example.org
+</pre>
+<p>That way you can refer to local hosts such as <code>mainmachine1.example.org</code> as simply <code>mainmachine1</code> when using the <i>ssh</i> command, but the <a href="#Lookup_utilities">drill</a> command still requires the fully qualified domain names in order to perform lookups.
+</p>
+<h2><span class="mw-headline" id="Lookup_utilities">Lookup utilities</span></h2>
+<p>To query specific DNS servers and DNS/<a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a> records you can use dedicated DNS lookup utilities. These tools implement DNS themselves and do not use <a href="#Name_Service_Switch">NSS</a>.
+</p>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ldns">ldns</a></span> provides <span class="plainlinks archwiki-template-man" title="$ man 1 drill"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/drill.1">drill(1)</a></span>, which is a tool designed to retrieve information out of the DNS.</li></ul>
+<p>For example, to query a specific nameserver with <i>drill</i> for the TXT records of a domain:
+</p>
+<pre>$ drill @<i>nameserver</i> TXT <i>domain</i>
+</pre>
+<p>Unless a DNS server is specified, <i>drill</i> will use the nameservers defined in <code>/etc/resolv.conf</code>.
+</p>
+<ul><li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind-tools">bind-tools</a></span> provides <span class="plainlinks archwiki-template-man" title="$ man 1 dig"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dig.1">dig(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 1 host"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/host.1">host(1)</a></span>, <span class="plainlinks archwiki-template-man" title="$ man 1 nslookup"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/nslookup.1">nslookup(1)</a></span> and a bunch of <code>dnssec-</code> tools.</li></ul>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> Some DNS servers ship with their own DNS lookup utilities. E.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=knot">knot</a></span> has <span class="plainlinks archwiki-template-man" title="$ man 1 khost"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/khost.1">khost(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 kdig"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/kdig.1">kdig(1)</a></span>, <a href="../wiki/Unbound.html" title="Unbound">Unbound</a>—<span class="plainlinks archwiki-template-man" title="$ man 1 unbound-host"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/unbound-host.1">unbound-host(1)</a></span>.</div>
+<h2><span class="mw-headline" id="Resolver_performance">Resolver performance</span></h2>
+<p>The Glibc resolver does not cache queries. To implement local caching, use <a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a> or set up a local caching <a href="#DNS_servers">DNS server</a> and use it as the name server by setting <code>127.0.0.1</code> and <code>::1</code> as the name servers in <code>/etc/resolv.conf</code> or in <code>/etc/resolvconf.conf</code> if using <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> 
+<ul>
+<li>The <i>drill</i> or <i>dig</i> <a href="#Lookup_utilities">lookup utilities</a> report the query time.</li>
+<li>A router usually sets its own caching resolver as the network's DNS server thus providing DNS cache for the whole network.</li>
+<li>If it takes too long to switch to the next DNS server you can try <a href="#Limit_lookup_time">decreasing the timeout</a>.</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Privacy_and_security">Privacy and security</span></h2>
+<p>The DNS protocol is unencrypted and does not account for confidentiality, integrity or authentication, so if you use an untrusted network or a malicious ISP, your DNS queries can be eavesdropped and the responses <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack"  title="wikipedia:Man-in-the-middle attack">manipulated</a>. Furthermore, DNS servers can conduct <a href="https://en.wikipedia.org/wiki/DNS_hijacking"  title="wikipedia:DNS hijacking">DNS hijacking</a>.
+</p>
+<p>You need to trust your DNS server to treat your queries confidentially. DNS servers are provided by ISPs and <a href="#Third-party_DNS_services">third-parties</a>. Alternatively you can run your own <a href="#DNS_servers">recursive name server</a>, which however takes more effort. If you use a <a href="../wiki/Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> client in untrusted networks, be sure to set static name servers to avoid using and being subject to arbitrary DNS servers. To secure your communication with a remote DNS server you can use an encrypted protocol, like <a href="https://en.wikipedia.org/wiki/DNS_over_TLS"  title="wikipedia:DNS over TLS">DNS over TLS</a> (<a href="https://tools.ietf.org/html/rfc7858"  title="rfc:7858">RFC 7858</a>), <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS"  title="wikipedia:DNS over HTTPS">DNS over HTTPS</a> (<a href="https://tools.ietf.org/html/rfc8484"  title="rfc:8484">RFC 8484</a>), or <a href="https://en.wikipedia.org/wiki/DNSCrypt"  title="wikipedia:DNSCrypt">DNSCrypt</a>, provided that both the upstream server and your <a href="#DNS_servers">resolver</a> support the protocol. An alternative can be a dedicated software to encrypt and decrypt the communication, such as <a href="../wiki/Stunnel.html" title="Stunnel">stunnel</a>. To verify that responses are actually from <a href="https://en.wikipedia.org/wiki/Authoritative_name_server"  title="wikipedia:Authoritative name server">authoritative name servers</a>, you can validate <a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a>, provided that both the upstream server(s) and your <a href="#DNS_servers">resolver</a> support it.
+</p>
+<h3><span class="mw-headline" id="Application-level_DNS">Application-level DNS</span></h3>
+<p>Be aware that some client software, such as major web browsers<a rel="nofollow"  href="https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/#trr-and-doh">[2]</a><a rel="nofollow"  href="https://www.chromium.org/developers/dns-over-https">[3]</a>, are starting to implement DNS over HTTPS. While the encryption of queries may often be seen as a bonus, it also means the software sidetracks queries around the system resolver configuration.<a rel="nofollow"  href="https://blog.powerdns.com/2019/09/25/centralised-doh-is-bad-for-privacy-in-2019-and-beyond/">[4]</a>
+</p>
+<p><a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/configuring-networks-disable-dns-over-https">Mozilla has proposed</a> disabling application-level DNS if the system resolver cannot resolve the domain "<a rel="nofollow"  href="http://use-application-dns.net/">use-application-dns.net</a>". Currently this check is only implemented in <a href="../wiki/Firefox.html" title="Firefox">Firefox</a>.
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Explain why is it necessary or what are the benefits of configuring DNS over HTTPS in web browsers over running a <a href="#DNS_servers">stub resolver</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<h4><span class="mw-headline" id="Configuring_DNS_over_HTTPS_in_Firefox">Configuring DNS over HTTPS in Firefox</span></h4>
+<p>In order to configure DNS over HTTPS in <a href="../wiki/Firefox.html" title="Firefox">Firefox</a>, follow the <a rel="nofollow"  href="https://support.mozilla.org/en-US/kb/firefox-dns-over-https">official instructions</a>.
+</p>
+<h2><span class="mw-headline" id="Third-party_DNS_services">Third-party DNS services</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Before using a third-party DNS service, check its privacy policy for information on how user data is handled. User data has value and can be sold to other parties.</div>
+<p>There are various <a href="https://en.wikipedia.org/wiki/Public_recursive_name_server#List_of_public_DNS_service_operators"  title="wikipedia:Public recursive name server">third-party DNS services</a> available, some of which also have dedicated software:
+</p>
+<ul><li>
+<b>dingo</b> — A DNS client for Google DNS over HTTPS</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/pforemski/dingo">https://github.com/pforemski/dingo</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dingo-git/">dingo-git</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<ul><li>
+<b>opennic-up</b> — Automates the renewal of the DNS servers with the most responsive OpenNIC servers</li></ul>
+<dl><dd>
+<a rel="nofollow"  href="https://github.com/kewlfft/opennic-up">https://github.com/kewlfft/opennic-up</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/opennic-up/">opennic-up</a></span><sup><small>AUR</small></sup>
+</dd></dl>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Add <a href="../wiki/Cloudflared.html" title="Cloudflared">cloudflared</a>? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<h2><span class="mw-headline" id="DNS_servers">DNS servers</span></h2>
+<p><a href="../wiki/Domain_name_resolution.html" class="mw-redirect" title="DNS">DNS</a> servers can be <a href="https://en.wikipedia.org/wiki/Authoritative_name_server"  title="wikipedia:Authoritative name server">authoritative</a> and <a href="https://en.wikipedia.org/wiki/Name_server#Recursive_query"  title="wikipedia:Name server">recursive</a>. If they are neither, they are called <b>stub resolvers</b> and simply forward all queries to another recursive name server. Stub resolvers are typically used to introduce DNS caching on the local host or network. Note that the same can also be achieved with a fully-fledged name server. This section compares the available DNS servers, for a more detailed comparison, refer to <a href="https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software"  title="wikipedia:Comparison of DNS server software">Wikipedia:Comparison of DNS server software</a>.
+</p>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Fill in the unknowns. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<table  style="text-align:center">
+<tbody>
+<tr>
+<th rowspan="2">Name</th>
+<th rowspan="2">Package</th>
+<th colspan="4">Capabilities</th>
+<th rowspan="2"><a href="../wiki/Openresolv.html" class="mw-redirect" title="Resolvconf">resolvconf</a></th>
+<th colspan="4">Supported protocols
+</th>
+</tr>
+<tr>
+<th><a href="https://en.wikipedia.org/wiki/Authoritative_name_server"  title="wikipedia:Authoritative name server">Authoritative</a></th>
+<th><a href="https://en.wikipedia.org/wiki/Name_server#Recursive_query"  title="wikipedia:Name server">Recursive</a></th>
+<th><a href="https://en.wikipedia.org/wiki/Name_server#Caching_name_server"  title="wikipedia:Name server">Cache</a></th>
+<th>
+<a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions#The_lookup_procedure"  title="wikipedia:Domain Name System Security Extensions">Validates</a><br><a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a>
+</th>
+<th><a href="https://en.wikipedia.org/wiki/Domain_Name_System"  title="wikipedia:Domain Name System">DNS</a></th>
+<th><a href="https://en.wikipedia.org/wiki/DNSCrypt"  title="wikipedia:DNSCrypt">DNSCrypt</a></th>
+<th><a href="https://en.wikipedia.org/wiki/DNS_over_TLS"  title="wikipedia:DNS over TLS">DNS<br>over TLS</a></th>
+<th>
+<a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS"  title="wikipedia:DNS over HTTPS">DNS<br>over HTTPS</a>
+</th>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Dnscrypt-proxy.html" title="Dnscrypt-proxy">dnscrypt-proxy</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnscrypt-proxy">dnscrypt-proxy</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Server</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Resolver</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Rescached.html" title="Rescached">Rescached</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rescached-git/">rescached-git</a></span><sup><small>AUR</small></sup>
+</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a rel="nofollow"  href="https://github.com/shuLhan/rescached-go#integration-with-openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Limited<sup>1</sup>
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Stubby.html" title="Stubby">Stubby</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=stubby">stubby</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Server</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Resolver</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th style="white-space: nowrap;">
+<a href="../wiki/Systemd-resolved.html" title="Systemd-resolved">systemd-resolved</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Systemd-resolved.html#Automatically" class="mw-redirect" title="Systemd-resolvconf">Yes</a></td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Resolver and <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/4621#issuecomment-260050033">limited server</a>
+</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Resolver</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">
+<a rel="nofollow"  href="https://github.com/systemd/systemd/issues/8639">No</a>
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span></td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Partial<sup>2</sup>
+</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;"><a rel="nofollow"  href="http://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2018q2/012131.html">No</a></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/BIND.html" title="BIND">BIND</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bind">bind</a></span></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Stunnel.html#DNS_over_TLS" title="Stunnel">stunnel#DNS over TLS</a></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Knot_Resolver.html" title="Knot Resolver">Knot Resolver</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/knot-resolver/">knot-resolver</a></span><sup><small>AUR</small></sup>
+</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">
+<a rel="nofollow"  href="https://knot-resolver.readthedocs.io/wiki/stable/modules-http-doh.html">Server</a>
+</td>
+</tr>
+<tr>
+<th>
+<a href="https://en.wikipedia.org/wiki/MaraDNS"  title="wikipedia:MaraDNS">MaraDNS</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/maradns/">maradns</a></span><sup><small>AUR</small></sup>
+</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Pdnsd.html" title="Pdnsd">pdnsd</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pdnsd">pdnsd</a></span></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Permanent</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="https://en.wikipedia.org/wiki/PowerDNS#Recursor"  title="wikipedia:PowerDNS">PowerDNS Recursor</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdns-recursor">powerdns-recursor</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/Unbound.html" title="Unbound">Unbound</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unbound">unbound</a></span></td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Partial</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;"><a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">Yes</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Server</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">
+<a rel="nofollow"  href="https://nlnetlabs.nl/bugs-script/show_bug.cgi?id=1200">No</a>
+</td>
+</tr>
+<tr>
+<th>
+<a rel="nofollow"  href="https://maradns.samiam.org/deadwood/">Deadwood</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/deadwood/">deadwood</a></span><sup><small>AUR</small></sup>
+</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?
+</td>
+</tr>
+<tr>
+<th>
+<a rel="nofollow"  href="https://coredns.io/">CoreDNS</a>
+</th>
+<td>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/coredns/">coredns</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/coredns-bin/">coredns-bin</a></span><sup><small>AUR</small></sup>
+</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?
+</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Only forwards using DNS over HTTPS when Rescached itself is queried using DNS over HTTPS.<a rel="nofollow"  href="https://github.com/shuLhan/rescached-go#integration-with-dns-over-https">[5]</a>
+</li>
+<li>From <a href="https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software#cite_note-masqauth-28"  title="wikipedia:Comparison of DNS server software">Wikipedia</a>: dnsmasq has limited authoritative support, intended for internal network use rather than public Internet use.</li>
+</ol>
+<h3><span class="mw-headline" id="Authoritative-only_servers">Authoritative-only servers</span></h3>
+<table  style="text-align:center">
+<tbody>
+<tr>
+<th>Name</th>
+<th>Package</th>
+<th><a href="../wiki/DNSSEC.html" title="DNSSEC">DNSSEC</a></th>
+<th>Geographic<br>balancing
+</th>
+</tr>
+<tr>
+<th>gdnsd
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gdnsd">gdnsd</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<th>
+<a href="https://en.wikipedia.org/wiki/Knot_DNS"  title="wikipedia:Knot DNS">Knot DNS</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=knot">knot</a></span></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">
+<a rel="nofollow"  href="https://www.knot-dns.cz/docs/2.7/singlehtml/#geoip-geography-based-responses">Yes</a>
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/NSD.html" title="NSD">NSD</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nsd">nsd</a></span></td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
+<td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
+</td>
+</tr>
+<tr>
+<th>
+<a href="../wiki/PowerDNS.html" title="PowerDNS">PowerDNS</a>
+</th>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdns">powerdns</a></span></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Conditional_forwarding">Conditional forwarding</span></h3>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a><b>This section is being considered for removal.</b><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Pointless section, there is no software list or instructions. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution#Template_remove_of_Conditional_forwarding">Talk:Domain name resolution#Template remove of Conditional forwarding</a>)</div>
+</div>
+<p>It is possible to use specific DNS resolvers when querying specific domain names. This is particularly useful when connecting to a VPN, so that queries to the VPN network are resolved by the VPN's DNS, while queries to the internet will still be resolved by your standard DNS resolver. It can also be used on local networks.
+</p>
+<p>To implement it, you need to use a <a href="#DNS_servers">local resolver</a> because glibc does not support it.
+</p>
+<p>In a dynamic environment (laptops and to some extents desktops), you need to configure your resolver based on the network(s) you are connected to. The best way to do that is to use <a href="../wiki/Openresolv.html" title="Openresolv">openresolv</a> because it supports <a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">multiple subscribers</a>. Some <a href="../wiki/Network_configuration.html#Network_managers" class="mw-redirect" title="Network manager">network managers</a> support it, either through openresolv, or by configuring the resolver directly.
+</p>
+<h4><span class="mw-headline" id="Software_combination_support">Software combination support</span></h4>
+<h5><span class="mw-headline" id="openresolv_user_support">openresolv user support</span></h5>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Openresolv.html#Users" title="Openresolv">openresolv#Users</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> There already is a list of software that supports <i>resolvconf</i>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<table >
+<caption>DHCP Clients
+</caption>
+<tbody>
+<tr>
+<th>Software</th>
+<th>Support ?
+</th>
+</tr>
+<tr>
+<td><a href="../wiki/Dhcpcd.html" title="Dhcpcd">dhcpcd</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/Iwd.html" title="Iwd">iwd</a></td>
+<td>Unknown
+</td>
+</tr>
+</tbody>
+</table>
+<table >
+<caption>Network managers
+</caption>
+<tbody>
+<tr>
+<th>Software</th>
+<th>Support ?
+</th>
+</tr>
+<tr>
+<td><a href="../wiki/NetworkManager.html" title="NetworkManager">NetworkManager</a></td>
+<td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">Partial
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/Netctl.html" title="Netctl">netctl</a></td>
+<td>Unknown
+</td>
+</tr>
+</tbody>
+</table>
+<table >
+<caption>VPN Clients
+</caption>
+<tbody>
+<tr>
+<th>Software</th>
+<th>Support ?
+</th>
+</tr>
+<tr>
+<td><a href="../wiki/OpenConnect.html" title="OpenConnect">OpenConnect</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/OpenVPN.html" title="OpenVPN">OpenVPN</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/StrongSwan.html" title="StrongSwan">strongSwan</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/WireGuard.html" title="WireGuard">WireGuard</a></td>
+<td>Unknown
+</td>
+</tr>
+</tbody>
+</table>
+<h5><span class="mw-headline" id="openresolv_subscriber_support">openresolv subscriber support</span></h5>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="../wiki/Openresolv.html#Subscribers" title="Openresolv">openresolv#Subscribers</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Notes:</b> Duplicates existing content. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Domain_name_resolution">Talk:Domain name resolution#</a>)</div>
+</div>
+<table >
+<tbody>
+<tr>
+<th>Software</th>
+<th>Support ?
+</th>
+</tr>
+<tr>
+<td><a href="../wiki/BIND.html" title="BIND">BIND</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/Dnsmasq.html" title="Dnsmasq">dnsmasq</a></td>
+<td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/Pdnsd.html" title="Pdnsd">pdnsd</a></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=powerdns-recursor">powerdns-recursor</a></span></td>
+<td>Unknown
+</td>
+</tr>
+<tr>
+<td><a href="../wiki/Unbound.html" title="Unbound">Unbound</a></td>
+<td>Unknown
+</td>
+</tr>
+</tbody>
+</table>
+<h5><span class="mw-headline" id="Other_solutions">Other solutions</span></h5>
+<p>NetworkManager <a href="../wiki/NetworkManager.html#DNS_caching_and_conditional_forwarding" title="NetworkManager">supports conditional forwarding without openresolv</a>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Although you could use other conditions for forwarding (for example, source IP address), "conditional forwarding" appears to be the name used for the "domain queried" condition.</div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://www.tldp.org/LDP/nag2/x-087-2-resolv.html">Linux Network Administrators Guide</a></li>
+<li><a rel="nofollow"  href="https://www.debian.org/doc/manuals/debian-handbook/sect.hostname-name-service.en.html#sect.name-resolution">Debian Handbook</a></li>
+<li>
+<a href="https://tools.ietf.org/html/rfc7706"  title="rfc:7706">RFC:7706</a> - Decreasing Access Time to Root Servers by Running One on Loopback</li>
+<li>
+<a rel="nofollow"  href="http://linux-ip.net/pages/diagrams.html#domain-name-system-overview">Domain name system overview</a> - Diagram about DNS</li>
+<li><a href="../wiki/Alternative_DNS_services.html" title="Alternative DNS services">Alternative DNS services</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
+<li><a href="../wiki/Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li>
+</ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="../wiki/Category:Sections_flagged_with_Template:Remove.html" title="Category:Sections flagged with Template:Remove">Sections flagged with Template:Remove</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Domain_name_resolution&amp;oldid=608825">https://wiki.archlinux.org/index.php?title=Domain_name_resolution&amp;oldid=608825</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 April 2020, at 12:09.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

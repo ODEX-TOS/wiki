@@ -1,0 +1,304 @@
+<!--
+    title: Pass
+    description: Migration of Pass from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Pass</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From <a rel="nofollow"  href="https://www.passwordstore.org/">the official website</a>:
+</p>
+<dl><dd>Password management should be simple and follow Unix philosophy. With pass, each password lives inside of a gpg encrypted file whose filename is the title of the website or resource that requires the password. These encrypted files may be organized into meaningful folder hierarchies, copied from computer to computer, and, in general, manipulated using standard command line file management utilities.</dd></dl>
+<p>pass is a simple password manager for the command line. Pass is a shell script that makes use of existing tools like <a href="../wiki/GnuPG.html" title="GnuPG">GnuPG</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tree">tree</a></span> and <a href="../wiki/Git.html" title="Git">Git</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Basic_usage"><span >2</span> <span >Basic usage</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Data_Organization"><span >3</span> <span >Data Organization</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Migrating_to_pass"><span >4</span> <span >Migrating to pass</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Extensions"><span >5</span> <span >Extensions</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Advanced_usage"><span >6</span> <span >Advanced usage</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Multiple_pass_Contexts_(e.g._Teaming)"><span >7</span> <span >Multiple pass Contexts (e.g. Teaming)</span></a></li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Git_integration"><span >8</span> <span >Git integration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9">
+<a href="#Git_helper_usage"><span >8.1</span> <span >Git helper usage</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#git_Configuration"><span >8.1.1</span> <span >git Configuration</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Mapping_File"><span >8.1.2</span> <span >Mapping File</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Password_Store_Layout"><span >8.1.3</span> <span >Password Store Layout</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13">
+<a href="#Central_Git_server_for_pass_in_combination_with_GnuPG_(SSH_example)"><span >8.2</span> <span >Central Git server for pass in combination with GnuPG (SSH example)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#Install_a_bare_Git_repository_for_Pass_on_the_server"><span >8.2.1</span> <span >Install a bare Git repository for Pass on the server</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Import_authorized_public_SSH_keys"><span >8.2.2</span> <span >Import authorized public SSH keys</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#On_the_client"><span >8.2.3</span> <span >On the client</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17">
+<a href="#Troubleshooting"><span >9</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Encryption_failed:_Unusable_public_key"><span >9.1</span> <span >Encryption failed: Unusable public key</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#See_also"><span >10</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pass">pass</a></span> package.
+</p>
+<p>An optional <a href="../wiki/Qt.html" title="Qt">Qt</a> GUI is available via the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qtpass">qtpass</a></span> package.
+</p>
+<h2><span class="mw-headline" id="Basic_usage">Basic usage</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> To be able to use pass, set up <a href="../wiki/GnuPG.html" title="GnuPG">GnuPG</a>. The trust level of the key used for pass must be "ultimate."</div>
+<p>To initialize the password store:
+</p>
+<pre>$ pass init <i>&lt;gpg-id or email&gt;</i>
+</pre>
+<p>To create a new password, first provide a descriptive hierarchical name. In this example, this is <i>archlinux.org/wiki/username</i>.
+</p>
+<pre>$ pass insert archlinux.org/wiki/username
+</pre>
+<p>To get a view of the password store do the following. Note the example output which shows the hierarchy we just created.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ pass</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Password Store
+└── archlinux.org
+    └── wiki
+        └── username
+</pre>
+<p>To generate a new random password for the above example, do the following, where <code><i>n</i></code> is the desired password length as a number:
+</p>
+<pre>$ pass generate archlinux.org/wiki/username <i>n</i>
+</pre>
+<p>To retrieve a password, enter the gpg passphrase at the following prompt, again using the example name from above:
+</p>
+<pre>$ pass archlinux.org/wiki/username
+</pre>
+<p>Users of Xorg with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xclip">xclip</a></span> installed can retrieve the password directly onto the clipboard temporarily (e.g., to paste into web forms). In a Wayland session, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-git/">pass-git</a></span><sup><small>AUR</small></sup> will use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wl-clipboard">wl-clipboard</a></span> instead. To do so, do the following (again with the same example hierarchical name from above):
+</p>
+<pre>$ pass -c archlinux.org/wiki/username
+</pre>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Users preferring the classical middle-click/paste can add the following to their respective ~/.shellrc for this behavior: <code>export PASSWORD_STORE_X_SELECTION=primary</code>
+</div>
+<p>pass comes with a dmenu wrapper to enable easy searching/copying. To use it, install the optional dependency <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dmenu">dmenu</a></span> and run:
+</p>
+<pre>$ passmenu
+</pre>
+<p>Then selecting an entry will copy its password to the clipboard. See <span class="plainlinks archwiki-template-man" title="$ man 1 dmenu"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/dmenu.1">dmenu(1)</a></span> for customization options such as case-insensitivity. You may want to set this to a systemwide keybinding in order to easily access passwords from any application.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If using passmenu causes the current window to <a href="../wiki/Dmenu.html#Current_window_loses_focus" title="Dmenu">lose focus</a>, downgrade dmenu to 4.8</div>
+<h2><span class="mw-headline" id="Data_Organization">Data Organization</span></h2>
+<p>By default, the credential file created with <code>pass insert</code> will only contain your password. However, it may not be enough since several applications ask for detail data like username, url, etc.
+You can edit an existing file the way you want with command <code>pass edit <i>password_name</i></code>.
+Below is the preferred organizational scheme provided by <a rel="nofollow"  href="https://www.passwordstore.org/">pass-project page</a>. When using the option <code>-c</code> or <code>--clip</code> with this scheme, only the password will be copied.
+</p>
+<pre>YwrZSNH35z164ym9pI
+URL: *.amazon.com/*
+Username: AmazonianChicken@example.com
+Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
+Phone Support PIN #: 84719
+</pre>
+<h2><span class="mw-headline" id="Migrating_to_pass">Migrating to pass</span></h2>
+<p>There are multiple scripts listed on the <a rel="nofollow"  href="http://www.zx2c4.com/projects/password-store/">pass-project page</a> to import passwords from other programs
+</p>
+<h2><span class="mw-headline" id="Extensions">Extensions</span></h2>
+<p>Since version 1.7, pass supports extensions developed by the community. These extensions extend the features of pass with the support of new commands.
+</p>
+<ul><li>
+<a rel="nofollow"  href="https://github.com/roddhjav/pass-tomb">pass-tomb</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-tomb/">pass-tomb</a></span><sup><small>AUR</small></sup>)</li></ul>
+<p>Manage the whole tree of your password store encrypted inside a <a href="../wiki/Tomb.html" title="Tomb">tomb</a>.
+</p>
+<ul><li>
+<a rel="nofollow"  href="https://github.com/tadfisher/pass-otp">pass-otp</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pass-otp">pass-otp</a></span>)</li></ul>
+<p>Support for one-time-password (OTP) tokens.
+</p>
+<ul><li>
+<a rel="nofollow"  href="https://github.com/roddhjav/pass-import">pass-import</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-import/">pass-import</a></span><sup><small>AUR</small></sup>)</li></ul>
+<p>A generic importer tool from other password managers.
+</p>
+<ul><li>
+<a rel="nofollow"  href="https://github.com/roddhjav/pass-update">pass-update</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-update/">pass-update</a></span><sup><small>AUR</small></sup>)</li></ul>
+<p>An easy flow for updating passwords.
+</p>
+<ul><li>
+<a rel="nofollow"  href="https://github.com/roddhjav/pass-audit">pass-audit</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-audit/">pass-audit</a></span><sup><small>AUR</small></sup>)</li></ul>
+<p>An extension for auditing a password repository.
+</p>
+<h2><span class="mw-headline" id="Advanced_usage">Advanced usage</span></h2>
+<p><a href="../wiki/Environment_variables.html" title="Environment variables">Environment variables</a> can be used to alter where <i>pass</i> looks to do store and git operations via:
+</p>
+<pre>PASSWORD_STORE_DIR=/path/to/store
+</pre>
+<p>For more information on how this can be used to support multiple pass repositories see <a rel="nofollow"  href="https://lists.zx2c4.com/pipermail/password-store/2016-November/002463.html">this link</a>.
+The following <code>pw()</code> example alias sends the first line of the named database to the clipboard before sending the second line five seconds thereafter and finally an OTP code five seconds after that. Assuming that a password occupies the first line and a username the second line and an <a rel="nofollow"  href="https://github.com/google/google-authenticator/wiki/Key-Uri-Format">OTP URI</a> exists anywhere in the named database, the net effect is passing <i>username &gt; password &gt; otp code</i> for consecutive primary pasting into available (e.g. browser) entry fields:
+</p>
+<pre>pw() {
+export PASSWORD_STORE_CLIP_TIME=8
+export PASSWORD_STORE_X_SELECTION=primary
+pass -c2 $1; sleep 5; pass -c $1; sleep 5; pass otp -c $1; exit
+}
+</pre>
+<h2>
+<span id="Multiple_pass_Contexts_.28e.g._Teaming.29"></span><span class="mw-headline" id="Multiple_pass_Contexts_(e.g._Teaming)">Multiple pass Contexts (e.g. Teaming)</span>
+</h2>
+<p>One can use aliases to set up different pass contexts, which helps when collaborating with different teams. We have gotten this working in bash as follows:
+</p>
+<p>Add aliases to your <code><i>~/.bashrc</i></code>:
+</p>
+<pre> alias passred="PASSWORD_STORE_DIR=~/.pass/red pass"
+ alias passblue="PASSWORD_STORE_DIR=~/.pass/blue pass"
+</pre>
+<p>Add these for bash-completion to your <code><i>~/.bash_completion</i></code> and make sure <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bash-completion">bash-completion</a></span> is installed:
+</p>
+<pre> source /usr/share/bash-completion/completions/pass
+ _passred(){
+     PASSWORD_STORE_DIR=~/.pass/red/ _pass
+ }
+ complete -o filenames -o nospace -F _passred passred
+ _passblue(){
+     PASSWORD_STORE_DIR=~/.pass/blue/ _pass
+ }
+ complete -o filenames -o nospace -F _passblue passblue
+</pre>
+<p>Now you can initialize into <code><i>~/.pass/red</i></code> and <code><i>~/.pass/blue</i></code> and have two pass contexts with the <code><i>passred</i></code> and <code><i>passblue</i></code> aliases. You can generalize this further into as many contexts as you like.
+</p>
+<h2><span class="mw-headline" id="Git_integration">Git integration</span></h2>
+<h3><span class="mw-headline" id="Git_helper_usage">Git helper usage</span></h3>
+<p>You can use <code>pass</code> as a credentials helper for <code>git</code>. <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-git-helper/">pass-git-helper</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pass-git-helper-git/">pass-git-helper-git</a></span><sup><small>AUR</small></sup> package.
+Detail are described in the <a rel="nofollow"  href="https://github.com/languitar/pass-git-helper">github README file</a>.
+</p>
+<h4><span class="mw-headline" id="git_Configuration"><code>git</code> Configuration</span></h4>
+<p>Install <code>pass-git-helper</code> as a git credentials helper by calling:
+</p>
+<pre>git config --global credential.helper /usr/bin/pass-git-helper
+</pre>
+<h4><span class="mw-headline" id="Mapping_File">Mapping File</span></h4>
+<p>Create the file <code>~/.config/pass-git-helper/git-pass-mapping.ini</code>. It is used to map git remote hosts to your <code>pass</code> database. The format is something like this:
+</p>
+<pre>[github.com]
+target=dev/github
+
+[*.fooo-bar.*]
+target=dev/fooo-bar</pre>
+<p>You can use wildcards in the host part, as shown in the example.
+</p>
+<h4><span class="mw-headline" id="Password_Store_Layout">Password Store Layout</span></h4>
+<p>As usual with pass, the helper assumes that the password is contained in the first line of the passwordstore entry.
+Additionally, if a second line is present, this line is interpreted as the username.
+</p>
+<p>For this to work, you have to use <code>pass insert --multiline</code> to create a multi line password store entry.
+</p>
+<h3>
+<span id="Central_Git_server_for_pass_in_combination_with_GnuPG_.28SSH_example.29"></span><span class="mw-headline" id="Central_Git_server_for_pass_in_combination_with_GnuPG_(SSH_example)">Central Git server for pass in combination with GnuPG (SSH example)</span>
+</h3>
+<p>You are able to setup a password management system by setting up a central Git server for Pass. This allows you to synchronize your central password repository through multiple client environments.  
+</p>
+<h4><span class="mw-headline" id="Install_a_bare_Git_repository_for_Pass_on_the_server">Install a bare Git repository for Pass on the server</span></h4>
+<p>On the server run <code>git init --bare ~/.password-store</code> to create a bare repository you can push to.
+</p>
+<h4><span class="mw-headline" id="Import_authorized_public_SSH_keys">Import authorized public SSH keys</span></h4>
+<p>See <a href="../wiki/SSH_keys.html#Copying_the_public_key_to_the_remote_server" title="SSH keys">SSH keys#Copying the public key to the remote server</a>
+</p>
+<h4><span class="mw-headline" id="On_the_client">On the client</span></h4>
+<p>This section assumes you have configured GnuPG and have a key pair to encrypt passwords. 
+On your local client ensure you have a local password store on the client, then enable management of local changes through Git, add your remote Git repository, and push your local Pass history.
+</p>
+<pre># Create local password store
+pass init &lt;gpg key id&gt;
+# Enable management of local changes through Git
+pass git init
+# Add the the remote git repository as 'origin'
+pass git remote add origin user@server:~/.password-store
+# Push your local Pass history
+pass git push -u --all</pre>
+<p>Now you can use the standard Git commands, prefixed by <code>pass</code>. For example: <code>pass git push</code>, or <code>pass git pull</code>. Pass will automatically create commits when you use it to modify your password store.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Encryption_failed:_Unusable_public_key">Encryption failed: Unusable public key</span></h3>
+<p>The following error can occur when attempting to insert a new entry:
+</p>
+<pre>$ pass insert archlinux.org/wiki/username
+Enter password for archlinux.org/wiki/username:
+Retype password for archlinux.org/wiki/username:
+gpg: XXXXXXXXX: There is no assurance this key belongs to the named user
+gpg: [stdin]: encryption failed: Unusable public key
+Password encryption aborted.
+</pre>
+<p>This occurs if the trust level of the GnuPG key is set to anything other than "ultimate." Edit the key used for <code>pass</code> to set its trust level to "ultimate."
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://blog.sanctum.geek.nz/linux-crypto-passwords/">A more comprehensive pass tutorial</a></li>
+<li><a rel="nofollow"  href="https://www.passwordstore.org/">Pass home page</a></li>
+<li><a rel="nofollow"  href="https://www.passwordstore.org/#other">List of Compatible clients and possibilities for migration to Pass</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Password_managers.html" title="Category:Password managers">Password managers</a></li>
+<li><a href="../wiki/Category:Console_applications.html" title="Category:Console applications">Console applications</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Pass&amp;oldid=612751">https://wiki.archlinux.org/index.php?title=Pass&amp;oldid=612751</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 May 2020, at 09:28.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

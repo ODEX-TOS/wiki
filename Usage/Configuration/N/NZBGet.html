@@ -1,0 +1,178 @@
+<!--
+    title: NZBGet
+    description: Migration of NZBGet from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">NZBGet</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow"  href="https://nzbget.net/">NZBGet</a> is an Usenet-client written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_NZBGet"><span >2</span> <span >Configuring NZBGet</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Starting_NZBGet"><span >3</span> <span >Starting NZBGet</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Running_NZBGet_under_a_different_user"><span >4</span> <span >Running NZBGet under a different user</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Troubleshooting"><span >5</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Default_NZBGet_credentials"><span >5.1</span> <span >Default NZBGet credentials</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#NZBGet_crashes_on_start"><span >5.2</span> <span >NZBGet crashes on start</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Alternative_systemd_service"><span >5.3</span> <span >Alternative systemd service</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Unable_to_extract_archives"><span >5.4</span> <span >Unable to extract archives</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span >6</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nzbget">nzbget</a></span> package and the optional <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nzbget-systemd/">nzbget-systemd</a></span><sup><small>AUR</small></sup> that provides a <code>nzbget</code> <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service. Alternatively, install the development version from the <a href="../wiki/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nzbget-git/">nzbget-git</a></span><sup><small>AUR</small></sup>), which also includes the <a href="../wiki/Systemd.html" title="Systemd">systemd</a> service.
+</p>
+<h2><span class="mw-headline" id="Configuring_NZBGet">Configuring NZBGet</span></h2>
+<p>Copy the template configuration file to a custom directory:
+</p>
+<pre># cp /usr/share/nzbget/nzbget.conf /var/lib/nzbget/.nzbget
+</pre>
+<p>Update the configuration before starting NZBGet:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/lib/nzbget/.nzbget</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">..
+WebDir=/usr/share/nzbget/webui
+ScriptDir=/usr/share/nzbget/scripts
+LockFile=/var/lib/nzbget/nzbget.lock
+ConfigTemplate=/usr/share/nzbget/nzbget.conf
+DaemonUsername=nzbget
+..</pre>
+<p>Make sure the permissions are set correctly:
+</p>
+<pre># chown -R nzbget:nzbget /var/lib/nzbget
+# chmod -R 750 /var/lib/nzbget
+</pre>
+<h2><span class="mw-headline" id="Starting_NZBGet">Starting NZBGet</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> The official <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nzbget">nzbget</a></span> package doesn't provide a systemd service file. You will have to start NZBGet manually instead.</div>
+<ul><li>Running as root in console-mode: <pre># nzbget -c /var/lib/nzbget/.nzbget -s</pre>
+</li></ul>
+<ul><li>Running as root in daemon-mode: <pre># nzbget -c /var/lib/nzbget/.nzbget -D</pre>
+</li></ul>
+<p>NZBGet should now be accessible on <a rel="nofollow"  href="http://localhost:6789">http://localhost:6789</a>.
+</p>
+<h2><span class="mw-headline" id="Running_NZBGet_under_a_different_user">Running NZBGet under a different user</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nzbget-systemd/">nzbget-systemd</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nzbget-git/">nzbget-git</a></span><sup><small>AUR</small></sup> already provide the <code>nzbget</code> <a href="../wiki/Users_and_groups.html" class="mw-redirect" title="User">user</a> and <a href="../wiki/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>.</div>
+<p>See <a href="../wiki/Users_and_groups.html#Example_adding_a_system_user" title="Users and groups">system user</a> for an example and reasons why it may be useful.
+</p>
+<p>After adding a system user, update the main configuration file using the webinterface or by manually editing <code>/var/lib/nzbget/.nzbget</code>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/lib/nzbget/.nzbget</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">..
+DaemonUsername=nzbget # system user
+MainDir=/home/myuser/Downloads/NZBGet
+UMask=0002 # 775 for dirs - 664 for files</pre>
+<p>Create and set permissions for the desired directories:
+</p>
+<pre># mkdir /home/myuser/Downloads/NZBGet
+# chown -R nzbget:nzbget /home/myuser/Downloads/NZBGet
+# chmod 775 /home/myuser/Downloads/NZBGet
+</pre>
+<p>The <code>/home/myuser/Downloads/NZBGet</code> will be accessible for the user <code>nzbget</code> and for the <code>nzbget</code> group. Making the target directory world read/writable is highly discouraged (i.e. do not <i>chmod</i> the directory to <i>777</i>). Instead, give individual users/groups appropriate permissions to the appropriate directories (e.g. by adding 'yourself' to the <code>nzbget</code> group).
+</p>
+<p>Starting NZBGet as user <code>nzbget</code> in daemon-mode, or start NZBGet by using the <code>nzbget.service</code> if installed with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nzbget-systemd/">nzbget-systemd</a></span><sup><small>AUR</small></sup> instead:
+</p>
+<pre>$ sudo -u nzbget /usr/bin/nzbget -c /var/lib/nzbget/.nzbget -D
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Default_NZBGet_credentials">Default NZBGet credentials</span></h3>
+<p>The default credentials for NZBGet are <code>nzbget</code> as user and <code>tegbzn6789</code> as password. For security reasons it is recommended to change the default credentials.
+</p>
+<h3><span class="mw-headline" id="NZBGet_crashes_on_start">NZBGet crashes on start</span></h3>
+<p>This may happen when the user edited the NZBGet configuration by the Web-interface (located at <a rel="nofollow"  href="http://localhost:6789">http://localhost:6789</a>), corrupting the configuration-file. Clean-up the configuration-file and restart the server/daemon again.
+</p>
+<h3><span class="mw-headline" id="Alternative_systemd_service">Alternative systemd service</span></h3>
+<p>The following <code>nzbget.service</code> provides an alternative solution for (re)starting NZBGet when using <a href="../wiki/Systemd.html" title="Systemd">systemd</a>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/lib/systemd/system/nzbget.service</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
+Description=NZBGet Daemon
+Documentation=<a rel="nofollow"  href="http://nzbget.net/Documentation">http://nzbget.net/Documentation</a>
+After=network.target
+
+[Service]
+User=nzbget
+Group=nzbget
+Type=forking
+PIDFile=/var/lib/nzbget/nzbget.lock
+ExecStart=/usr/bin/nzbget -c /var/lib/nzbget/.nzbget -D
+ExecStop=/usr/bin/nzbget -c /var/lib/nzbget/.nzbget -Q
+ExecReload=/usr/bin/nzbget -c /var/lib/nzbget/.nzbget -O
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target</pre>
+<h3><span class="mw-headline" id="Unable_to_extract_archives">Unable to extract archives</span></h3>
+<p>Verify if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unzip">unzip</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=unrar">unrar</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=p7zip">p7zip</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=par2cmdline">par2cmdline</a></span> have been installed.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="http://nzbget.net/Documentation">NZBGet Documentation</a></li>
+<li><a rel="nofollow"  href="http://nzbget.net/Performance_tips">Performance Tips</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Usenet_clients.html" title="Category:Usenet clients">Usenet clients</a></li></ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=NZBGet&amp;oldid=572629">https://wiki.archlinux.org/index.php?title=NZBGet&amp;oldid=572629</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 5 May 2019, at 22:40.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

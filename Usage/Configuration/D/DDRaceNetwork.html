@@ -1,0 +1,523 @@
+<!--
+    title: DDRaceNetwork
+    description: Migration of DDRaceNetwork from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">DDRaceNetwork</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><b>DDNet</b>, as it is popularly known, is a sidescrolling platform game, featuring weaponry and a cooperative gameplay, and is a mod of <a rel="nofollow"  href="https://www.teeworlds.com">Teeworlds</a>. The game name comes from Dummy Drag Race Network, as it was based in DDRace.
+</p>
+<p>From the official website <a rel="nofollow"  href="https://ddnet.tw">ddnet.tw</a>:
+</p>
+<dl><dd>DDraceNetwork (DDNet) is an actively maintained version of DDRace, a Teeworlds modification with a unique cooperative gameplay. Help each other play through custom maps with up to 64 players, compete against the best in international tournaments, design your own maps, or run your own server. The official servers are located in Germany, Russia, USA, China, Chile and South Africa. All ranks made on official servers are available worldwide and you can collect points!</dd></dl>
+<p>You control a <i>tee</i>, a ball-shaped 2D character, using your keyboard and mouse to shoot, grapple hook and jump around to interact with other players and the environment in the map with the finish line as target.
+</p>
+<p>The game works in a client–server model, where the user plays using a Client which connects to a local or remote Server. Since DDNet has official servers, you most likely will only start the Client and play online.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Optional_skins"><span >1.1</span> <span >Optional skins</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Optional_offline_maps"><span >1.2</span> <span >Optional offline maps</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Play"><span >2</span> <span >Play</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5">
+<a href="#Gametypes"><span >2.1</span> <span >Gametypes</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#DDNet_gametypes"><span >2.1.1</span> <span >DDNet gametypes</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Vanilla_gametypes"><span >2.1.2</span> <span >Vanilla gametypes</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Blocker_gametype"><span >2.1.3</span> <span >Blocker gametype</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#FNG-like_gametypes"><span >2.1.4</span> <span >FNG-like gametypes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Configuration"><span >3</span> <span >Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#File_and_directory_for_user_settings"><span >3.1</span> <span >File and directory for user settings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Server"><span >4</span> <span >Server</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Server_via_systemd_service"><span >4.1</span> <span >Server via systemd service</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#MySQL_support"><span >4.2</span> <span >MySQL support</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Running_a_server_with_ddnet-maps-git"><span >4.3</span> <span >Running a server with ddnet-maps-git</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16">
+<a href="#Extra_tools"><span >5</span> <span >Extra tools</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#config_retrieve"><span >5.1</span> <span >config_retrieve</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#config_store"><span >5.2</span> <span >config_store</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#crapnet"><span >5.3</span> <span >crapnet</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#dilate"><span >5.4</span> <span >dilate</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#dummy_map"><span >5.5</span> <span >dummy_map</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#fake_server"><span >5.6</span> <span >fake_server</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#map_convert_07"><span >5.7</span> <span >map_convert_07</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#map_diff"><span >5.8</span> <span >map_diff</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#map_extract"><span >5.9</span> <span >map_extract</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#map_replace_image"><span >5.10</span> <span >map_replace_image</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#map_resave"><span >5.11</span> <span >map_resave</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#packetgen"><span >5.12</span> <span >packetgen</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#tileset_borderadd"><span >5.13</span> <span >tileset_borderadd</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#tileset_borderfix"><span >5.14</span> <span >tileset_borderfix</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#tileset_borderrem"><span >5.15</span> <span >tileset_borderrem</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#tileset_borderset"><span >5.16</span> <span >tileset_borderset</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#unicode_confusables"><span >5.17</span> <span >unicode_confusables</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#uuid"><span >5.18</span> <span >uuid</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35">
+<a href="#Troubleshooting"><span >6</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-36"><a href="#Build_failed,_MYSQL_CPPCONN_INCLUDEDIR_and_MYSQL_CPPCONN_LIBRARY_not_found"><span >6.1</span> <span >Build failed, MYSQL_CPPCONN_INCLUDEDIR and MYSQL_CPPCONN_LIBRARY not found</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#Build_failed,_no_such_file_boost/shared_ptr.hpp"><span >6.2</span> <span >Build failed, no such file boost/shared_ptr.hpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-38"><a href="#See_also"><span >7</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet/">ddnet</a></span><sup><small>AUR</small></sup>. Alternatively, you can install its development version <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-git/">ddnet-git</a></span><sup><small>AUR</small></sup>.
+</p>
+<h3><span class="mw-headline" id="Optional_skins">Optional skins</span></h3>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-skins/">ddnet-skins</a></span><sup><small>AUR</small></sup>.
+</p>
+<p>This package provides all skins from <a rel="nofollow"  href="https://ddnet.tw/skins/">DDNet Skin Database</a> for your client, so you can choose between many skins to play with a fancy <i>tee</i> char. However, this will not affect anything in the gameplay.
+</p>
+<p>These skins are installed in <code>/usr/share/ddnet/data/skins/</code>.
+</p>
+<p>Please notice that other players will only see your chosen skin if they also have it installed and, in this case, they will see a default yellowish one. So, this may happen with the skins from this package or any other skin you modify or create yourself.
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> It is possible to create or modify skins and use for your char. If you do so, consider publishing it , so other users can use via DDNet Skin Database. For publishing skins, go to <a rel="nofollow"  href="https://forum.ddnet.tw/viewtopic.php?f=17&amp;t=982">this forum thread</a>
+</div>
+<div class="archwiki-template-box archwiki-template-box-warning">
+<strong>Warning:</strong> This package brings around an additional RAM memory consumption of 120MB for the DDNet Client, so users playing in a computer with low RAM available  might want to avoid it.</div>
+<h3><span class="mw-headline" id="Optional_offline_maps">Optional offline maps</span></h3>
+<p><a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-maps-git/">ddnet-maps-git</a></span><sup><small>AUR</small></sup>.
+</p>
+<p>This package provides all playable maps from the <a rel="nofollow"  href="https://github.com/ddnet/ddnet-maps">ddnet-maps repository</a> with default configuration files for running an offline DDNet server. So, once installed, eases running a offline server.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> Client downloads maps automatically upon connection to, or map change of, a server instance. Therefore, it is optional.</div>
+<p>Having these maps offline is beneficial for both client and server:
+</p>
+<ul>
+<li>Clients will not need to download maps that are already installed by this package. Only new versions of installed maps (rarely happens) or new maps will be downloaded to the user directory (See <a href="#File_and_directory_for_user_settings">#File and directory for user settings</a>.</li>
+<li>Servers can use the provided maps and configuration files to run without the server-administrator having to expend time creating configurations for them; see <a href="#Server">#Server</a> for more info.</li>
+</ul>
+<h2><span class="mw-headline" id="Play">Play</span></h2>
+<p>
+To play DDNet, run the command </p>
+<pre>$ DDNet</pre>
+<p> or run the <code>.desktop</code> file provided in the package (e.g. in GNOME, search for "ddnet" in its Activities Overview)
+</p>
+<p>It is very straightforward – all user configuration (skin selection, video, controls etc.) can be done from the GUI of the DDNet Client.
+</p>
+<p>No server setup is required; if you want to set up a local server, see <a href="#Server">#Server</a>.
+</p>
+<p>Also, some extra tools – which you probably will not need – are available in <code>/usr/lib/ddnet/tools/</code>. See <a href="#Extra_tools">#Extra tools</a>.
+</p>
+<h3><span class="mw-headline" id="Gametypes">Gametypes</span></h3>
+<p>Gametypes (a.k.a game types or game modes) are different ways of playing Teeworlds-like games (DDNet included!), and different ways of exploring its resources (e.g. physics, weapons kill or just push other players, etc.). 
+</p>
+<p>In the main dashboard of DDNet Client, several server instances are listed (not only DDNet's), each one is launched with only one gametype. In order to play a gametype, you have to join the server instance that has the desired gametype (e.g. you want to play "ctf", you have to look for and join a "ctf" server instance)
+</p>
+<p>See below a non-exhaustive list with name and an explanation of gametypes that can be found in DDNet official servers (although there are a lot more).
+</p>
+<h4><span class="mw-headline" id="DDNet_gametypes">DDNet gametypes</span></h4>
+<p>These are the official DDNet gametypes, which DDNet maintains. That means these gametypes' maps are stored and made available in DDNet's maps repository. It also means that the Test Staff runs some test before the maps being added to the repository and published.
+</p>
+<p>Some of these might require DDNet Client due to features (e.g. dummy <i>tee</i>, teaming, specific key bindings) that this client provides, but other could be played with other clients, like Teeworlds.
+</p>
+<p>The goal of these maps, unless mentioned otherwise below, is to overcome obstacules and other difficulties of the map, while helping each other, in order to reach the finish line of map.
+</p>
+<p>This set of gametypes consists of:
+</p>
+<ul>
+<li>
+<b>novice</b> – The easiest collaborative maps can be found here. Newcomers should start here.</li>
+<li>
+<b>moderate</b> – Moderate-level collaborative maps for more experienced users.</li>
+<li>
+<b>brutal</b> – Hard collaborative maps for very experienced users.</li>
+<li>
+<b>insane</b> – Insanely hard collaborative maps for insanely experienced users.</li>
+<li>
+<b>solo</b> – Play alone the whole map, without any a dummy or any physical interaction with users (you can chat with other players, thought)</li>
+<li>
+<b>ddmax</b> – Maps from DDracemaX, one of the first race mod and very popular one. This project discontinued, so DDNet adopted<a rel="nofollow"  href="https://forum.ddnet.tw/viewtopic.php?f=3&amp;t=1253">[1]</a> its maps and made available in official servers. See <a rel="nofollow"  href="https://forum.ddnet.tw/viewtopic.php?f=3&amp;t=1253&amp;start=50#p13111">[2]</a> for info of this gametype.</li>
+<li>
+<b>dummy</b> – Move your dummy to the finish line, collaboratively or solo depending on the map.</li>
+<li>
+<b>oldschool</b> – Some old maps to make long-time players nostalgic.</li>
+<li>
+<b>race</b> – Reach the finish line as fast as you can in a solo run.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> When looking at the server list of the client dashboard, you may notice that all DDNet server instances have Type column as <i>DDRace</i>, and the server instance's name will include the gametype listed above, e.g. "DDNet GER - DDmaX [DDRaceNetwork]"</div>
+<h4><span class="mw-headline" id="Vanilla_gametypes">Vanilla gametypes</span></h4>
+<p>The so-called <i>vanilla</i> gametypes are the first ones, and were created in Teeworlds, and which DDNet supports. This set of gametypes include:
+</p>
+<ul>
+<li>
+<b>dm</b> (<b>d</b>eath<b>m</b>atch) – The goal is to kill as many other players as possible until a certain kill limit or a time limit is reached. Once one of the conditions is met, the match is over, and the winner is the player that accumulated the greatest number of kills.</li>
+<li>
+<b>tdm</b> (<b>t</b>eam <b>d</b>eath<b>m</b>atch) – Same as Deathmatch above, except that the players are organized into two teams, with each team having its own kill count.</li>
+<li>
+<b>ctf</b> (<b>c</b>apture <b>t</b>he <b>f</b>lag) –  Two teams each have a flag (red for red team and blue for blue team) and the objective is to capture the other team's flag, located at the team's "base," and bring it safely back to their own base until reach a certain score or the time runs out. Kill the enemy to avoid having your flag captured or to get the flag back to your team's base.</li>
+</ul>
+<h4><span class="mw-headline" id="Blocker_gametype">Blocker gametype</span></h4>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> You'll find it with type <i>ddrace</i>, but the server title and map name can be easily identified as Blocker</div>
+<p><b>Blocker</b> has as only target to block other players, which means to fool around throwing into freeze areas. There is no score or time limit in this type of game, or at least it doesn't matter.
+</p>
+<p>Please notice that while being a blocker is expected in the blocker gametype, the same does <b>not</b> apply to <a href="#DDNet_gametypes">#DDNet gametypes</a> – in this last case it is rude and you most likely will be banned by vote of others.
+</p>
+<h4><span class="mw-headline" id="FNG-like_gametypes">FNG-like gametypes</span></h4>
+<p>Types noteworthy: <b>fng</b> (discontinued, incompatible), <b>openfng</b> (<a rel="nofollow"  href="https://www.teeworlds.com/forum/viewtopic.php?id=7868">thread</a>), <b>fng2</b> (<a rel="nofollow"  href="https://github.com/teeworldsmods/teeworlds-fng2">source</a>).
+</p>
+<p>In this gametype, the players are divided in 2 teams and the target is to win by making more points. You will points by hitting the player with hammer or laser gun (the only weapons available), which will cause freeze, and to throwing into the spikes.
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Configurations are stored in plain text files in the user's home directory and can be applied in the GUI options or in the embedded console. See more information below on this topic.
+</p>
+<h3><span class="mw-headline" id="File_and_directory_for_user_settings">File and directory for user settings</span></h3>
+<p>The directory <code>$HOME/.teeworlds/</code> stores user configuration, demos, screenshots downloaded maps and other user contents.
+</p>
+<p>The config file <code>settings_ddnet.cfg</code> is where user's configuration is stored, in a simple text format in a proper syntax. This file is loaded by the Client on startup, and updated when exiting. Therefore, you're not required to set your settings manually in the config file. For all supported client settings, see <a rel="nofollow"  href="https://ddnet.tw/settingscommands/#client-settings">Client Settings</a>.
+</p>
+<p>The subdirectory <code>downloadedmaps/</code> will store maps downloaded in runtime by DDNet Client when connecting to server instances, if the maps are not available already. 
+</p>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> With <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-maps-git/">ddnet-maps-git</a></span><sup><small>AUR</small></sup> installed, you avoid having to download maps while connecting to server instances</div>
+<h2><span class="mw-headline" id="Server">Server</span></h2>
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Much more information could be added here, like specific instructions for setting up, NAT forwarding etc. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:DDRaceNetwork">Talk:DDRaceNetwork#</a>)</div>
+</div>
+<p>Although a local DDNet server is not required for playing DDNet (See <a href="#Play">#Play</a>), one may want to run it for playing without Internet connection, want to avoid high latency ("ping" in the game interface) of servers on the Internet, simply want to test features, etc.
+</p>
+<p>For more info, see <a rel="nofollow"  href="https://ddnet.tw/server/">Server features</a>, <a rel="nofollow"  href="https://ddnet.tw/settingscommands/#server-settings">Server settings</a>, <a rel="nofollow"  href="https://ddnet.tw/settingscommands/#server-commands">Server commands</a>, and much more in <a rel="nofollow"  href="https://forum.ddnet.tw/">DDNet Forums</a>.
+</p>
+<h3><span class="mw-headline" id="Server_via_systemd_service">Server via systemd service</span></h3>
+<p>DDNet packages provide the <code>ddnet-server.service</code> <a href="../wiki/Systemd.html" title="Systemd">systemd</a> unit file for ease <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a>, <a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> etc. the server instance.
+</p>
+<p>This unit file runs the server instance as sysuser <code>ddnet</code> from its home folder <code>/var/lib/ddnet/</code> as working directory, having log messages available in <code>/var/lib/ddnet/autoexec_server.log</code> file and via <a href="../wiki/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> command-line <code>journactl -u ddnet-server</code>.
+</p>
+<h3><span class="mw-headline" id="MySQL_support">MySQL support</span></h3>
+<p>DDNet provide MySQL support to store records achieved in the server, however it is <b>not</b> enabled by default.
+</p>
+<p>To enable MySQL support when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet/">ddnet</a></span><sup><small>AUR</small></sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-git/">ddnet-git</a></span><sup><small>AUR</small></sup>, simply edit the <a href="../wiki/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> by setting the variable <code>_enable_mysql</code> to <code>1</code>, and the proper dependencies will be added and proper flags will be enabled.
+</p>
+<p>Case you are building DDNet by yourself, be sure to:
+</p>
+<ul>
+<li>install the buildtime dependency <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boost">boost</a></span> and the runtime dependencies <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mariadb-libs">mariadb-libs</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mysql-connector-c%2B%2B/">mysql-connector-c++</a></span><sup><small>AUR</small></sup>;</li>
+<li>append <code>-DMYSQL=ON</code> to the <i>cmake</i> command-line.</li>
+</ul>
+<div class="archwiki-template-box archwiki-template-box-tip">
+<strong>Tip:</strong> Make sure to check <a href="../wiki/MariaDB.html" title="MariaDB">MariaDB</a> for some post-installation instructions to avoid problems.</div>
+<h3><span class="mw-headline" id="Running_a_server_with_ddnet-maps-git">Running a server with ddnet-maps-git</span></h3>
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-maps-git/">ddnet-maps-git</a></span><sup><small>AUR</small></sup> provides maps and server configs that allows running a server without further configuration. To have the server up:
+</p>
+<ol>
+<li>
+<a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddnet-maps-git/">ddnet-maps-git</a></span><sup><small>AUR</small></sup>
+</li>
+<li>
+<a href="../wiki/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>ddnet-server.service</code>
+</li>
+</ol>
+<p>Your local server instance should now be available and visible in the "LAN" tab of the DDNet Client.
+</p>
+<h2><span class="mw-headline" id="Extra_tools">Extra tools</span></h2>
+<p>This section lists and describes some tools that, while most might not need them, could be useful for e.g. mappers. Some of these tools are developed by the DDNet development team, but other tools were inherited from Teeworlds when forking its source code in the beginning.
+</p>
+<p>The tools below are provided in <code>/usr/lib/ddnet/</code> by the DDNet packages.
+</p>
+<h3><span class="mw-headline" id="config_retrieve">config_retrieve</span></h3>
+<pre>$ /usr/lib/ddnet/config_retrieve <i>mapfile.map</i>
+</pre>
+<p>Retrieves configuration embedded in DDNet map file and stores in a .cfg with same filename (e.g. "Kobra 4.map" returns "Kobra 4.cfg")
+</p>
+<p>Available since DDNet version 9.0.
+</p>
+<h3><span class="mw-headline" id="config_store">config_store</span></h3>
+<pre>$ /usr/lib/ddnet/config_store <i>mapfile.map</i>
+</pre>
+<p>Stores configuration from a map's configuration file into the map file.  Both configuration and map files must have the same filename in the same directory, otherwise the operation will fail.
+</p>
+<p>Available since DDNet version 9.0.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> If there is no difference between the configuration to stored and the configuration embedded in the map, then operation will be cancelled with message <code>configs coincide, not updating map</code>.</div>
+<h3><span class="mw-headline" id="crapnet">crapnet</span></h3>
+<pre>$ /usr/lib/ddnet/crapnet
+</pre>
+<p>Tests connection by setting a client–server connection locally and running ping between them. Reports dropped packets with message <code>dropped packet</code> and successes with <code>cfg = <i>number</i></code>, where <i>number</i> varies from 0 to 2.
+</p>
+<h3><span class="mw-headline" id="dilate">dilate</span></h3>
+<pre>$ /usr/lib/ddnet/dilate <i>imagefile1</i> [<i>imagefile2</i> ... ]
+</pre>
+<p>It is a graphical tool, mainly useful for mappers. It takes care of transparent areas to prevent black/white outlines around your images ingame, therefore avoiding blending and mipmap issues. See <a rel="nofollow"  href="http://wiki.polycount.com/wiki/Edge_padding">Edge padding</a> for more info.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> This works only in RGBA image files. So, it will not work for, for instance, in JPEG files.</div>
+<h3><span class="mw-headline" id="dummy_map">dummy_map</span></h3>
+<pre>$ /usr/lib/ddnet/dummy_map
+</pre>
+<p>Creates a dummy, small empty map to be used to start a server. See <a rel="nofollow"  href="https://github.com/ddnet/ddnet/blob/master/src/engine/shared/network_server.cpp#L371">[3]</a> for more info.
+</p>
+<h3><span class="mw-headline" id="fake_server">fake_server</span></h3>
+<pre>$ /usr/lib/ddnet/fake_server
+</pre>
+<p>Creates a fake server for testing.
+</p>
+<h3><span class="mw-headline" id="map_convert_07">map_convert_07</span></h3>
+<pre>$ /usr/lib/ddnet/map_convert_07 <i>mapfilesrc.map</i> <i>mapfiledest.map</i>
+</pre>
+<p>Makes <code><i>mapfiledest.map</i></code> compatible with Teeworlds version 7.x that otherwise would be compatible <b>only</b> to Teeworlds version 6.x. If successfully, it creates a valid 07-compatible destination map; otherwise, it returns the following:
+</p>
+<ul>
+<li>an usage message if incorrect arguments are provided,</li>
+<li>
+<code>failed to open source map</code> if en error happens when opening the source map</li>
+<li>
+<code>failed to open destination map</code> if en error happens when opening the destination map</li>
+<li>
+<code>error loading storage</code> if failed to open storage for some reason</li>
+<li>
+<code>failed to open image file</code> if error happens on opening PNG image</li>
+<li>
+<code>invalid image format</code> if incorrectly formatted PNG.</li>
+</ul>
+<p>Available since DDNet since 12.9.
+</p>
+<h3><span class="mw-headline" id="map_diff">map_diff</span></h3>
+<pre>$ /usr/lib/ddnet/map_diff <i>mapfile1.map</i> <i>mapfile2.map</i>
+</pre>
+<p>Compares two map files, reporting one of the follow:
+</p>
+<ul>
+<li>no diff output (maps are the same)</li>
+<li>
+<code>different layer numbers</code>, if one map has more layers than another</li>
+<li>
+<code>different tile layers</code>, if the number of layers is the same, but at least one layer is different</li>
+<li>lastly, the index and flags positions that differ.</li>
+</ul>
+<p>If there is no difference between maps, returns 0; otherwise, returns 1.
+</p>
+<h3><span class="mw-headline" id="map_extract">map_extract</span></h3>
+<pre>$ /usr/lib/ddnet/map_extract <i>mapfile.map</i> [<i>directory</i>]
+</pre>
+<p>Extracts content from <i>mapfile.map</i> into <i>directory</i>. If optional argument <i>directory</i> is not provided, extracts to the current directory. 
+</p>
+<h3><span class="mw-headline" id="map_replace_image">map_replace_image</span></h3>
+<pre>$ /usr/lib/ddnet/map_replace_image <i>mapfile1.map</i> <i>mapfile2.map</i> <i>imagename</i> <i>imagefile</i>
+</pre>
+<p>Replaces the image <i>imagename</i> currently inside the map filename <i>mapfile1.map</i> with the image filepath <i>imagefile</i>, and save into the map filename <i>mapfile2.map</i>.
+</p>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> 
+<ul>
+<li>Both map filenames must be relative to user default DDNet folder</li>
+<li>New image filepath must be absolute or relative to the current position</li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="map_resave">map_resave</span></h3>
+<pre>$ /usr/lib/ddnet/map_resave <i>mapfile.map</i> <i>imagefile</i>
+</pre>
+<p>Updates the map file <i>mapfile.map</i> with the provided file <i>imagefile</i>.
+</p>
+<p>The error status 255 is returned if 1) a number of arguments different from 2 is provided, 2) if the <i>mapfile.map</i> is not valid, or 3) if <i>imagefile</i> is not a valid image file (e.g. it is a text file); otherwise, return 0.
+</p>
+<h3><span class="mw-headline" id="packetgen">packetgen</span></h3>
+<pre>$ /usr/lib/ddnet/packetgen
+</pre>
+<p>Generates packets to localhost in default port (8303) to test communication with a local server instance.
+</p>
+<h3><span class="mw-headline" id="tileset_borderadd">tileset_borderadd</span></h3>
+<pre>$ /usr/lib/ddnet/tileset_borderadd <i>tileset1</i> [<i>tileset2</i> ...]
+</pre>
+<p>It is a graphical tool, mainly useful for mappers. It fixes blending issues, similar to [#dilate], but only applies to tileset files. It expects as input tilesets with a size of 960x960 pixels with 60x60 tiles. After you apply the borderadd operation, the image will be 1024x1024 with 64x64 tiles with a 2px border.
+</p>
+<p>Returns 255 with a usage message if less than 1 argument is provided, returns 1 if the image is not a RGBA image (i.e. invalid tileset file), and return 0 for success operation.
+</p>
+<h3><span class="mw-headline" id="tileset_borderfix">tileset_borderfix</span></h3>
+<pre>$ /usr/lib/ddnet/tileset_borderfix tileset1 [tileset2 ...]
+</pre>
+<p>Similarly to <a href="#tileset_borderadd">#tileset_borderadd</a>, it is a graphical tool, mainly useful for mappers, that fix blending issues by tilesets. However, this tool expects an input file with 1024x1024 pixels and does not produce output images as great as tileset_borderadd. e.g. it does not add 2px border.
+</p>
+<p>Returns 255 with a usage message if less than 1 argument is provided, returns 1 if the image is not a RGBA image (i.e. invalid tileset file), and return 0 for success operation.
+</p>
+<h3><span class="mw-headline" id="tileset_borderrem">tileset_borderrem</span></h3>
+<pre>$ /usr/lib/ddnet/tileset_borderrem tileset1 [tileset2 ...]
+</pre>
+<p>This is a graphic tool, mainly useful for mappers. It does the inverse operation of <a href="#tileset_borderadd">#tileset_borderadd</a> and <a href="#tileset_borderset">#tileset_borderset</a>, i.e. this remove border of tilesets.
+</p>
+<p>Returns 255 with a usage message if less than 1 argument is provided, returns 1 if the image is not a RGBA image (i.e. invalid tileset file), and return 0 for success operation.
+</p>
+<h3><span class="mw-headline" id="tileset_borderset">tileset_borderset</span></h3>
+<pre>$ /usr/lib/ddnet/tileset_borderset tileset1 [tileset2 ...]
+</pre>
+<p>This is a graphic tool, mainly useful for mappers. It does pretty much the same as <a href="#tileset_borderadd">#tileset_borderadd</a> but expects 1024x1024 images instead of 960x960, and the border will be done in place. So each 60x60 tile should be placed inside a 64x64 tile.
+</p>
+<p>Returns 255 with a usage message if less than 1 argument is provided, returns 1 if the image is not a RGBA image (i.e. invalid tileset file), and return 0 for success operation.
+</p>
+<h3><span class="mw-headline" id="unicode_confusables">unicode_confusables</span></h3>
+<pre>$ /usr/lib/ddnet/unicode_confusables <i>string1</i> <i>string2</i>
+</pre>
+<p>Compare <i>string1</i> with <i>string2</i> and report if they are "confusable", i.e. if the characters are "equal" and could cause confusion. For this to work, the characters with accents or other things around them are considered the "confusable" with the base character. Therefore, <i>aa</i> and <i>aá</i> are confusable (<i>á</i> was considered as <i>a</i>), while <i>aa</i> and <i>ab</i> are not.
+</p>
+<p>If they are confusable, it returns <code>not_confusable=0</code>, otherwise, returns <code>not_confusable=1</code>.
+</p>
+<p>Available since DDNet version 10.3.5. Since DDNet version 12.19, supports Unicode 12.0 and the tool name was renamed from <i>confusables</i> to <i>unicode_confusables</i>.
+</p>
+<h3><span class="mw-headline" id="uuid">uuid</span></h3>
+<pre>$ /usr/lib/ddnet/uuid <i>name</i>
+</pre>
+<p>Prints uuid for the provided <i>name</i>.
+</p>
+<p>The uuid system was implemented to be easily extended by independent authors without collisions, something that the old system – with increasing integers – did not allow. This works for engine and game messages, snapshot items and events.
+</p>
+<p>Exits with error status 255 if <i>name</i> is not provided.
+</p>
+<p>Available since DDNet 10.6.1
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3>
+<span id="Build_failed.2C_MYSQL_CPPCONN_INCLUDEDIR_and_MYSQL_CPPCONN_LIBRARY_not_found"></span><span class="mw-headline" id="Build_failed,_MYSQL_CPPCONN_INCLUDEDIR_and_MYSQL_CPPCONN_LIBRARY_not_found">Build failed, MYSQL_CPPCONN_INCLUDEDIR and MYSQL_CPPCONN_LIBRARY not found</span>
+</h3>
+<p><b>Problem:</b>
+</p>
+<p>Build fails and the following message is displayed:
+</p>
+<pre>CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+/build/ddnet/src/DDNet-11.1.9/MYSQL_CPPCONN_INCLUDEDIR
+   used as include directory in directory /build/ddnet/src/DDNet-11.1.9
+   [...]
+   used as include directory in directory /build/ddnet/src/DDNet-11.1.9
+MYSQL_CPPCONN_LIBRARY
+    linked by target "DDNet-Server" in directory /build/ddnet/src/DDNet-11.1.9
+
+-- Configuring incomplete, errors occurred!
+See also "/build/ddnet/src/build/CMakeFiles/CMakeOutput.log".
+See also "/build/ddnet/src/build/CMakeFiles/CMakeError.log".
+</pre>
+<p><b>Solution:</b>
+</p>
+<p>It means your <i>cmake</i> command-line has the <code>-DMYSQL=ON</code> flag set, you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mariadb-libs">mariadb-libs</a></span> package installed, but <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mysql-connector-c%2B%2B/">mysql-connector-c++</a></span><sup><small>AUR</small></sup> is missing.
+</p>
+<p>Either install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mysql-connector-c%2B%2B/">mysql-connector-c++</a></span><sup><small>AUR</small></sup> to build with MySQL support or remove <code>-DMYSQL=ON</code> (or set to off with <code>-DMYSQL=OFF</code>) to build without it.
+</p>
+<h3>
+<span id="Build_failed.2C_no_such_file_boost.2Fshared_ptr.hpp"></span><span class="mw-headline" id="Build_failed,_no_such_file_boost/shared_ptr.hpp">Build failed, no such file boost/shared_ptr.hpp</span>
+</h3>
+<p><b>Problem:</b>
+</p>
+<p>Build fails and the following message is displayed:
+</p>
+<pre>[ 38%] Building CXX object CMakeFiles/DDNet-Server.dir/src/engine/server/server.cpp.o
+In file included from /build/ddnet/src/DDNet-11.1.9/src/engine/server/sql_server.h:4,
+                 from /build/ddnet/src/DDNet-11.1.9/src/engine/server/sql_connector.h:4,
+                 from /build/ddnet/src/DDNet-11.1.9/src/engine/server/server.h:28,
+                 from /build/ddnet/src/DDNet-11.1.9/src/engine/server/server.cpp:40:
+/usr/include/mysql_connection.h:31:10: fatal error: boost/shared_ptr.hpp: No such file or directory
+ #include &lt;boost/shared_ptr.hpp&gt;
+          ^14:06, 19 June 2018 (UTC)14:06, 19 June 2018 (UTC)14:06, 19 June 2018 (UTC)14:06, 19 June 2018 (UTC)~
+compilation terminated.
+make[2]: *** [CMakeFiles/DDNet-Server.dir/build.make:116: CMakeFiles/DDNet-Server.dir/src/engine/server/server.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:281: CMakeFiles/DDNet-Server.dir/all] Error 2
+make: *** [Makefile:152: all] Error 2
+
+</pre>
+<p><b>Solution:</b>
+</p>
+<p>It means your <i>cmake</i> command-line has the <code>-DMYSQL=ON</code> flag set, you have both <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mariadb-libs">mariadb-libs</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mysql-connector-c%2B%2B/">mysql-connector-c++</a></span><sup><small>AUR</small></sup> packages installed, but <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boost">boost</a></span> is missing.
+</p>
+<p>Either install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=boost">boost</a></span> to build with MySQL support or remove <code>-DMYSQL=ON</code> (or set to off with <code>-DMYSQL=OFF</code>) to build without it.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow"  href="https://ddnet.tw/">DDNet official website</a></li>
+<li><a rel="nofollow"  href="https://forum.ddnet.tw/">DDNet Forum</a></li>
+<li>
+<a rel="nofollow"  href="https://web.archive.org/web/20170607070936/https://wiki.ddnet.tw/Main_Page">DDNet Wiki</a> - via Wayback Machine (might have deprecated info)</li>
+<li><a rel="nofollow"  href="https://github.com/ddnet/ddnet">DDNet source code repository</a></li>
+<li><a rel="nofollow"  href="https://forum.ddnet.tw/viewtopic.php?f=3&amp;t=1824">The History of DDNet</a></li>
+<li><a rel="nofollow"  href="https://forum.ddnet.tw/viewtopic.php?f=35&amp;t=2420">Tutorials and other useful links</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Gaming.html" title="Category:Gaming">Gaming</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=DDRaceNetwork&amp;oldid=597464">https://wiki.archlinux.org/index.php?title=DDRaceNetwork&amp;oldid=597464</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 14 February 2020, at 06:37.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

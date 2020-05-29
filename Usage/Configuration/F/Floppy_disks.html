@@ -1,0 +1,146 @@
+<!--
+    title: Floppy_disks
+    description: Migration of Floppy_disks from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Floppy disks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="noprint archwiki-template-message">
+<p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
+<div>
+<b>Reason:</b> Cover <span class="plainlinks archwiki-template-man" title="$ man 8 floppy"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/floppy.8">floppy(8)</a></span><sup>[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2017-09-25]</sup>, <span class="plainlinks archwiki-template-man" title="$ man 8 fdformat"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fdformat.8">fdformat(8)</a></span>, recovering a "dead" floppy. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Floppy_disks">Talk:Floppy disks#</a>)</div>
+</div>
+<p>From <a href="https://en.wikipedia.org/wiki/Floppy_disk"  title="wikipedia:Floppy disk">Wikipedia</a>:
+</p>
+<dl><dd>A floppy disk, also called a diskette, is a disk storage medium composed of a disk of thin and flexible magnetic storage medium, sealed in a rectangular plastic carrier lined with fabric that removes dust particles. Floppy disks are read and written by a floppy disk drive (FDD).</dd></dl>
+<p>Common tasks with floppy disks are described bellow, with available tools to accomplish them.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span >1</span> <span >Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kernel_module"><span >1.1</span> <span >Kernel module</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Packages"><span >1.2</span> <span >Packages</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Common_tasks"><span >2</span> <span >Common tasks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Format"><span >2.1</span> <span >Format</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Mount"><span >2.2</span> <span >Mount</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Troubleshooting"><span >3</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Unable_to_get_diskette_geometry"><span >3.1</span> <span >Unable to get diskette geometry</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span >4</span> <span >See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Kernel_module">Kernel module</span></h3>
+<p>Most of the floppy drives should be supported by stock kernel. The module <code>floppy</code> is used as a driver for floppy drives.
+</p>
+<p>The <code>floppy</code> module could not be loaded by default. In such case, it could be loaded with the following command:
+</p>
+<ol><li>modprobe floppy</li></ol>
+<h3><span class="mw-headline" id="Packages">Packages</span></h3>
+<p>There are two packages in the TOS package repository related with floppy disks:
+</p>
+<ul>
+<li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dosfstools">dosfstools</a></span></li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mtools">mtools</a></span>.</li>
+</ul>
+<h2><span class="mw-headline" id="Common_tasks">Common tasks</span></h2>
+<p>Here are the commands needed to perform the most common tasks. In all examples is assumed that <code>/dev/fd0</code> is linux-tosdevice for the floppy drive. By default, all these tasks need to be performed as <i>root</i>.
+</p>
+<h3><span class="mw-headline" id="Format">Format</span></h3>
+<pre># mkfs.fat /dev/fd0
+</pre>
+<h3><span class="mw-headline" id="Mount">Mount</span></h3>
+<pre># mount -t vfat /dev/fd0 /media/floppy
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Unable_to_get_diskette_geometry">Unable to get diskette geometry</span></h3>
+<pre># mkfs.fat /dev/fd0
+mkfs.fat 4.1 (2017-01-24)
+mkfs.fat: unable to get diskette geometry for '/dev/fd0'
+</pre>
+<p>In such case, is probably that the diskette is physically damaged.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow"  href="https://github.com/dosfstools/dosfstools">https://github.com/dosfstools/dosfstools</a> - DOS filesystem utilities</li>
+<li>
+<a rel="nofollow"  href="http://www.gnu.org/software/mtools/">http://www.gnu.org/software/mtools/</a> - a collection of utilities to access MS-DOS disks from Unix without mounting them</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface">
+<div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../wiki/Category:Storage.html" title="Category:Storage">Storage</a></li></ul>
+</div>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
+<li><a href="../wiki/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="../wiki/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+</ul>
+</div>
+</div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Floppy_disks&amp;oldid=564387">https://wiki.archlinux.org/index.php?title=Floppy_disks&amp;oldid=564387</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 January 2019, at 12:24.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+

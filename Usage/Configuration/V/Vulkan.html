@@ -1,0 +1,156 @@
+<!--
+    title: Vulkan
+    description: Migration of Vulkan from the arch Wiki to the TOS Wiki
+    published: true
+    date: 2020-05-28T17:58:55.000Z
+    tags: 
+    -->>
+
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading"  lang="en">Vulkan</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" >From TOS Wiki</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>From <a href="https://en.wikipedia.org/wiki/Vulkan_(API)"  title="wikipedia:Vulkan (API)">wikipedia:Vulkan (API)</a>:
+</p>
+<dl><dd>Vulkan is a low-overhead, cross-platform 3D graphics and compute API.</dd></dl>
+<p>Learn more at <a rel="nofollow"  href="https://www.khronos.org/vulkan/">Khronos</a>.
+</p>
+<div id="toc" >
+<input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
+<h2>Contents</h2>
+<span ><label  for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span >1</span> <span >Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Verification"><span >2</span> <span >Verification</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Vulkan_Hardware_Database"><span >3</span> <span >Vulkan Hardware Database</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Troubleshooting"><span >4</span> <span >Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Error_-_vulkan:_No_DRI3_support"><span >4.1</span> <span >Error - vulkan: No DRI3 support</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Nvidia_-_vulkan_is_not_working_and_can_not_initialize"><span >4.2</span> <span >Nvidia - vulkan is not working and can not initialize</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#No_device_for_the_display_GPU_found._Are_the_intel-mesa_drivers_installed?"><span >4.3</span> <span >No device for the display GPU found. Are the intel-mesa drivers installed?</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<div class="archwiki-template-box archwiki-template-box-note">
+<strong>Note:</strong> On hybrid graphics (<a href="../wiki/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a>/AMD Dynamic Switchable Graphics):
+<ul>
+<li>Vulkan is not currently officially supported by <a href="../wiki/Bumblebee.html" title="Bumblebee">Bumblebee</a> <a rel="nofollow"  href="https://github.com/Bumblebee-Project/Bumblebee/issues/769">[1]</a> but does work with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=primus_vk">primus_vk</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/primus-vk-git/">primus-vk-git</a></span><sup><small>AUR</small></sup>.</li>
+<li>The Radeon Vulkan driver now supports <a href="../wiki/PRIME.html" title="PRIME">PRIME</a> <a rel="nofollow"  href="http://www.phoronix.com/scan.php?page=news_item&amp;px=RADV-PRIME-Lands">[2]</a>.</li>
+</ul>
+</div>
+<p>To run a Vulkan application, you will need to <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-icd-loader">vulkan-icd-loader</a></span> package (and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-vulkan-icd-loader">lib32-vulkan-icd-loader</a></span> if you also want to run 32-bit applications), as well as the Vulkan drivers for your graphics card(s):
+</p>
+<ul>
+<li>
+<a href="../wiki/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-intel">vulkan-intel</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-vulkan-intel">lib32-vulkan-intel</a></span> for 32-bit applications)</li>
+<li>
+<a href="../wiki/NVIDIA.html" title="NVIDIA">NVIDIA</a>: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia-utils">nvidia-utils</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-nvidia-utils">lib32-nvidia-utils</a></span>)</li>
+<li>
+<a href="../wiki/AMDGPU.html" title="AMDGPU">AMD</a>: there are three implementations, which could be installed simultaneously:
+<ul>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-radeon">vulkan-radeon</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-vulkan-radeon">lib32-vulkan-radeon</a></span>) - RADV (part of Mesa project)</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=amdvlk">amdvlk</a></span> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-amdvlk">lib32-amdvlk</a></span>) - AMDVLK Open (maintained by AMD)</li>
+<li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/vulkan-amdgpu-pro/">vulkan-amdgpu-pro</a></span><sup><small>AUR</small></sup> (or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lib32-vulkan-amdgpu-pro/">lib32-vulkan-amdgpu-pro</a></span><sup><small>AUR</small></sup>) - AMDVLK Closed (maintained by AMD)</li>
+</ul>
+</li>
+</ul>
+<p>Other drivers may be installed manually instead:
+</p>
+<ul>
+<li>PowerVR: <a rel="nofollow"  href="https://imgtec.com/vulkan">https://imgtec.com/vulkan</a>
+</li>
+<li>Adreno: <a rel="nofollow"  href="https://developer.qualcomm.com/software/adreno-gpu-sdk/gpu">https://developer.qualcomm.com/software/adreno-gpu-sdk/gpu</a>
+</li>
+</ul>
+<p>For Vulkan application development, <a href="../wiki/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-headers">vulkan-headers</a></span>, and optionally <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-validation-layers">vulkan-validation-layers</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-tools">vulkan-tools</a></span> (you can find the vulkaninfo tool in here).
+</p>
+<h2><span class="mw-headline" id="Verification">Verification</span></h2>
+<p>To see which Vulkan implementations are currently installed on your system, use the following command:
+</p>
+<pre>$ ls /usr/share/vulkan/icd.d/
+</pre>
+<h2><span class="mw-headline" id="Vulkan_Hardware_Database">Vulkan Hardware Database</span></h2>
+<p>The <a rel="nofollow"  href="http://vulkan.gpuinfo.org/">Vulkan Hardware Database</a> provides user reported GPU/driver combinations. Supplying own information is possible by using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/vulkan-caps-viewer/">vulkan-caps-viewer</a></span><sup><small>AUR</small></sup>.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Error_-_vulkan:_No_DRI3_support">Error - vulkan: No DRI3 support</span></h3>
+<p>If you get the message above and using <a href="../wiki/Intel_graphics.html" title="Intel graphics">Intel graphics</a>, you may need to force DRI3 and restart <a href="../wiki/Xorg.html" title="Xorg">Xorg</a>:
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/20-intel.conf</pre>
+<pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "Device"
+   Identifier  "Intel Graphics"
+   Driver      "intel"
+   Option      "DRI"    "3"
+EndSection
+</pre>
+<h3><span class="mw-headline" id="Nvidia_-_vulkan_is_not_working_and_can_not_initialize">Nvidia - vulkan is not working and can not initialize</span></h3>
+<p>Check if you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=vulkan-intel">vulkan-intel</a></span> installed, it may prevent Nvidia's vulkan driver from being detected.
+</p>
+<p>Alternatively set the <a href="../wiki/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> <code>VK_ICD_FILENAMES</code> to <code>/usr/share/vulkan/icd.d/nvidia_icd.json</code>.
+</p>
+<h3>
+<span id="No_device_for_the_display_GPU_found._Are_the_intel-mesa_drivers_installed.3F"></span><span class="mw-headline" id="No_device_for_the_display_GPU_found._Are_the_intel-mesa_drivers_installed?">No device for the display GPU found. Are the intel-mesa drivers installed?</span>
+</h3>
+<p>Try to list both the intel_icd and primus_vk_wrapper configurations in VK_ICD_FILENAMES
+</p>
+<pre>export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/primus_vk_wrapper.json
+</pre>
+</div></div>
+		
+		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../wiki/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
+<li><a href="../wiki/Category:Development.html" title="Category:Development">Development</a></li>
+</ul>
+</div></div>
+		<div ></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Vulkan&amp;oldid=606976">https://wiki.archlinux.org/index.php?title=Vulkan&amp;oldid=606976</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 April 2020, at 21:23.</li>
+								<li id="footer-info-copyright">Content is available under <a  rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../wiki/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../wiki/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="../wiki/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+										<ul id="footer-icons" >
+										<li id="footer-copyrightico">
+											</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+
+
