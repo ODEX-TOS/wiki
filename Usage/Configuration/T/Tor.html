@@ -2,7 +2,7 @@
     title: Tor
     description: Migration of Tor from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/T/GNUnet.html" title="GNUnet">GNUnet</a></li>
-<li><a href="/Usage/Configuration/T/I2P.html" title="I2P">I2P</a></li>
-<li><a href="/Usage/Configuration/T/Freenet.html" title="Freenet">Freenet</a></li>
+<li><a href="/Usage/Configuration/G/GNUnet.html" title="GNUnet">GNUnet</a></li>
+<li><a href="/Usage/Configuration/I/I2P.html" title="I2P">I2P</a></li>
+<li><a href="/Usage/Configuration/F/Freenet.html" title="Freenet">Freenet</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.torproject.org">Tor</a> is an open source implementation of 2nd generation <a href="https://en.wikipedia.org/wiki/Onion_routing"  title="wikipedia:Onion routing">onion routing</a> that provides free access to an anonymous proxy network. Its primary goal is to enable <a href="https://en.wikipedia.org/wiki/Internet_anonymity"  title="wikipedia:Internet anonymity">online anonymity</a> by protecting against <a href="https://en.wikipedia.org/wiki/Traffic_analysis"  title="wikipedia:Traffic analysis">traffic analysis</a> attacks.
@@ -190,7 +190,7 @@
 <p>See <a href="https://en.wikipedia.org/wiki/Tor_(anonymity_network)"  title="wikipedia:Tor (anonymity network)">Wikipedia:Tor (anonymity network)</a> for more information.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/T/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tor">tor</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tor">tor</a></span> package.
 </p>
 <p>Usually, you will access Tor using Tor Browser, available as the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=torbrowser-launcher">torbrowser-launcher</a></span> package.
 </p>
@@ -255,7 +255,7 @@ all users in the <code>tor</code> group have access to your Tor cookie file.
 </p>
 <pre>$ newgrp tor
 </pre>
-<p><a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> tor
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> tor
 </p>
 <pre># systemctl restart tor
 </pre>
@@ -331,7 +331,7 @@ CacheDirectoryGroupReadable 1 # workaround for tor bug #26913
 <h2><span class="mw-headline" id="Running_Tor_in_a_Chroot">Running Tor in a Chroot</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  Connecting with telnet to the local ControlPort seems to be broken while running Tor in a chroot</div>
-<p>For security purposes, it may be desirable to run Tor in a <a href="/Usage/Configuration/T/Chroot.html" title="Chroot">chroot</a>. The following script will create an appropriate chroot in <code>/opt/torchroot</code>:
+<p>For security purposes, it may be desirable to run Tor in a <a href="/Usage/Configuration/C/Chroot.html" title="Chroot">chroot</a>. The following script will create an appropriate chroot in <code>/opt/torchroot</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/torchroot-setup.sh</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/bash
@@ -383,11 +383,11 @@ if [[ "$(uname -m)" == "x86_64" ]]; then
 fi
 
 </pre>
-<p>After running the script as root, Tor can be launched in the <a href="/Usage/Configuration/T/Chroot.html" title="Chroot">chroot</a> with the command:
+<p>After running the script as root, Tor can be launched in the <a href="/Usage/Configuration/C/Chroot.html" title="Chroot">chroot</a> with the command:
 </p>
 <pre># chroot --userspec=tor:tor /opt/torchroot /usr/bin/tor
 </pre>
-<p>or, if you use <a href="/Usage/Configuration/T/Systemd.html#Editing_provided_units" title="Systemd">systemd, overload</a> the service:
+<p>or, if you use <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">systemd, overload</a> the service:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/tor.service.d/chroot.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -396,18 +396,18 @@ ExecStart=
 ExecStart=/usr/bin/sh -c "chroot --userspec=tor:tor /opt/torchroot /usr/bin/tor -f /etc/tor/torrc"
 KillSignal=SIGINT</pre>
 <h2><span class="mw-headline" id="Running_Tor_in_a_systemd-nspawn_container_with_a_virtual_network_interface">Running Tor in a systemd-nspawn container with a virtual network interface</span></h2>
-<p>In this example we will create a <a href="/Usage/Configuration/T/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a> container named <code>tor-exit</code> with a virtual macvlan network interface.
+<p>In this example we will create a <a href="/Usage/Configuration/S/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a> container named <code>tor-exit</code> with a virtual macvlan network interface.
 </p>
-<p>See <a href="/Usage/Configuration/T/Systemd-nspawn.html" title="Systemd-nspawn">Systemd-nspawn</a> and <a href="/Usage/Configuration/T/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> for full documentation.
+<p>See <a href="/Usage/Configuration/S/Systemd-nspawn.html" title="Systemd-nspawn">Systemd-nspawn</a> and <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> for full documentation.
 </p>
 <h3><span class="mw-headline" id="Host_installation_and_configuration">Host installation and configuration</span></h3>
 <p>In this example the container will reside in <code>/srv/container</code>:
 </p>
 <pre># mkdir /srv/container/tor-exit
 </pre>
-<p><a href="/Usage/Configuration/T/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>.
 </p>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tor">tor</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nyx">nyx</a></span> as per <a href="/Usage/Configuration/T/Systemd-nspawn.html#Create_and_boot_a_minimal_TOS_Linux_distribution_in_a_container" title="Systemd-nspawn">Systemd-nspawn#Create and boot a minimal TOS Linux distribution in a container</a>:
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tor">tor</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nyx">nyx</a></span> as per <a href="/Usage/Configuration/S/Systemd-nspawn.html#Create_and_boot_a_minimal_TOS_Linux_distribution_in_a_container" title="Systemd-nspawn">Systemd-nspawn#Create and boot a minimal TOS Linux distribution in a container</a>:
 </p>
 <pre># pacstrap -ci /srv/container/tor-exit base tor nyx
 </pre>
@@ -415,7 +415,7 @@ KillSignal=SIGINT</pre>
 </p>
 <pre># mkdir /var/lib/container
 </pre>
-<p>Symlink to register the container on the host, as per <a href="/Usage/Configuration/T/Systemd-nspawn.html#Enable_container_on_boot" title="Systemd-nspawn">Systemd-nspawn#Enable container on boot</a>:
+<p>Symlink to register the container on the host, as per <a href="/Usage/Configuration/S/Systemd-nspawn.html#Enable_container_on_boot" title="Systemd-nspawn">Systemd-nspawn#Enable container on boot</a>:
 </p>
 <pre># ln -s /srv/container/tor-exit /var/lib/container/tor-exit
 </pre>
@@ -434,20 +434,20 @@ This is advisable for security as it will allow you to give a private IP to the 
 </p>
 <p><code>LimitNOFILE=32768</code> per <a href="#Raise_maximum_number_of_open_file_descriptors">#Raise maximum number of open file descriptors</a>.
 </p>
-<p>Setup <a href="/Usage/Configuration/T/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> according to your network in <code>/srv/container/tor-exit/etc/systemd/network/mv-$INTERFACE.network</code>.
+<p>Setup <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> according to your network in <code>/srv/container/tor-exit/etc/systemd/network/mv-$INTERFACE.network</code>.
 </p>
 <h4><span class="mw-headline" id="Start_and_enable_systemd-nspawn">Start and enable systemd-nspawn</span></h4>
-<p><a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-nspawn@tor-exit.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-nspawn@tor-exit.service</code>.
 </p>
 <h3><span class="mw-headline" id="Container_configuration">Container configuration</span></h3>
-<p>Login to the container (see <a href="/Usage/Configuration/T/Systemd-nspawn.html#machinectl" title="Systemd-nspawn">Systemd-nspawn#machinectl</a>):
+<p>Login to the container (see <a href="/Usage/Configuration/S/Systemd-nspawn.html#machinectl" title="Systemd-nspawn">Systemd-nspawn#machinectl</a>):
 </p>
 <pre># machinectl login tor-exit 
 </pre>
-<p><code>mv /srv/container/tor-exit/etc/securetty /srv/container/tor-exit/etc/securetty.bak</code> as the root user if you get the error described in <a href="/Usage/Configuration/T/Systemd-nspawn.html#Troubleshooting" title="Systemd-nspawn">Systemd-nspawn#Troubleshooting</a>.
+<p><code>mv /srv/container/tor-exit/etc/securetty /srv/container/tor-exit/etc/securetty.bak</code> as the root user if you get the error described in <a href="/Usage/Configuration/S/Systemd-nspawn.html#Troubleshooting" title="Systemd-nspawn">Systemd-nspawn#Troubleshooting</a>.
 </p>
 <h4><span class="mw-headline" id="Start_and_enable_systemd-networkd">Start and enable systemd-networkd</span></h4>
-<p><a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and enable <code>systemd-networkd.service</code>. <code>networkctl</code> displays if <code>systemd-networkd</code> is correctly configured.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and enable <code>systemd-networkd.service</code>. <code>networkctl</code> displays if <code>systemd-networkd</code> is correctly configured.
 </p>
 <h3><span class="mw-headline" id="Configure_Tor">Configure Tor</span></h3>
 <p>See <a href="#Running_a_Tor_server">#Running a Tor server</a>.
@@ -455,19 +455,19 @@ This is advisable for security as it will allow you to give a private IP to the 
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> It is easier to edit files in the container from the host with your normal editor.</div>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p><a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>tor.service</code>. Alternatively, launch it with <code>sudo -u tor /usr/bin/tor</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>tor.service</code>. Alternatively, launch it with <code>sudo -u tor /usr/bin/tor</code>.
 </p>
 <p>To use a program over tor, configure it to use <code>127.0.0.1</code> or localhost as a SOCKS5H proxy, with port <code>9050</code> (plain tor with standard settings).
 To check if Tor is functioning properly visit the <a rel="nofollow"  href="https://check.torproject.org/">Tor</a> or <a rel="nofollow"  href="https://torcheck.xenobite.eu/">Xenobite.eu</a> websites.
 </p>
 <h2><span class="mw-headline" id="Web_browsing">Web browsing</span></h2>
-<p>The Tor Project currently only supports web browsing with tor through the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tor-browser/">tor-browser</a></span><sup><small>AUR</small></sup>, which can be downloaded from the AUR. It is built with a patched version of the Firefox extended support releases. Tor can also be used with regular <a href="/Usage/Configuration/T/Firefox.html" title="Firefox">Firefox</a>, <a href="/Usage/Configuration/T/Chromium.html" title="Chromium">Chromium</a> and other browsers.
+<p>The Tor Project currently only supports web browsing with tor through the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tor-browser/">tor-browser</a></span><sup><small>AUR</small></sup>, which can be downloaded from the AUR. It is built with a patched version of the Firefox extended support releases. Tor can also be used with regular <a href="/Usage/Configuration/F/Firefox.html" title="Firefox">Firefox</a>, <a href="/Usage/Configuration/C/Chromium.html" title="Chromium">Chromium</a> and other browsers.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The Tor Project strongly recommends only using the Tor browser if you want to stay anonymous. <a rel="nofollow"  href="https://www.torproject.org/docs/faq.html.en#TBBOtherBrowser">[2]</a>
 </div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> For makepkg to verify the signature on the AUR source tarball download for TBB, import the <a rel="nofollow"  href="https://www.torproject.org/docs/signing-keys.html.en">signing keys from the Tor Project</a> as explained in <a href="/Usage/Configuration/T/GnuPG.html#Use_a_keyserver" title="GnuPG">GnuPG#Use a keyserver</a>.</div>
+<strong>Tip:</strong> For makepkg to verify the signature on the AUR source tarball download for TBB, import the <a rel="nofollow"  href="https://www.torproject.org/docs/signing-keys.html.en">signing keys from the Tor Project</a> as explained in <a href="/Usage/Configuration/G/GnuPG.html#Use_a_keyserver" title="GnuPG">GnuPG#Use a keyserver</a>.</div>
 <h3><span class="mw-headline" id="Firefox">Firefox</span></h3>
 <p>In <i>Preferences &gt; General &gt; Network Settings &gt; Settings...</i> , select <i>Manual proxy configuration</i> and enter SOCKS host <code>localhost</code> with port <code>9050</code> (SOCKS v5). To channel all DNS requests through TOR's socks proxy, also select <i>Proxy DNS when using SOCKS v5</i>.
 </p>
@@ -506,7 +506,7 @@ To check if Tor is functioning properly visit the <a rel="nofollow"  href="https
 <pre>$ torsocks luakit
 </pre>
 <h2><span class="mw-headline" id="HTTP_proxy">HTTP proxy</span></h2>
-<p>Tor since version <a rel="nofollow"  href="https://blog.torproject.org/tor-0321-alpha-released-support-next-gen-onion-services-and-kist-scheduler">0.3.2.1</a> offers a builtin tunneled HTTP proxy and also can be used with an HTTP proxy like <a href="/Usage/Configuration/T/Polipo.html" title="Polipo">Polipo</a> or <a href="/Usage/Configuration/T/Privoxy.html" title="Privoxy">Privoxy</a>, however the Tor dev team recommends using the SOCKS5 library since browsers directly support it.
+<p>Tor since version <a rel="nofollow"  href="https://blog.torproject.org/tor-0321-alpha-released-support-next-gen-onion-services-and-kist-scheduler">0.3.2.1</a> offers a builtin tunneled HTTP proxy and also can be used with an HTTP proxy like <a href="/Usage/Configuration/P/Polipo.html" title="Polipo">Polipo</a> or <a href="/Usage/Configuration/P/Privoxy.html" title="Privoxy">Privoxy</a>, however the Tor dev team recommends using the SOCKS5 library since browsers directly support it.
 </p>
 <h3><span class="mw-headline" id="Tor">Tor</span></h3>
 <p>Add following line to your <code>torrc</code> file to set port <code>8118</code> on your <code>localhost</code> as http proxy:
@@ -515,21 +515,21 @@ To check if Tor is functioning properly visit the <a rel="nofollow"  href="https
 <p>Refer to <a rel="nofollow"  href="https://www.torproject.org/docs/tor-manual.html.en#HTTPTunnelPort">tor manual</a> for further information.
 </p>
 <h3><span class="mw-headline" id="Firefox_2">Firefox</span></h3>
-<p>The <a rel="nofollow"  href="https://addons.mozilla.org/en-us/firefox/addon/foxyproxy-standard/">FoxyProxy</a> add-on  allows you to specify multiple proxies for different URLs or for all your browsing. After restarting Firefox manually set Firefox to port <code>8118</code> on <code>localhost</code>, which is where <a href="/Usage/Configuration/T/Polipo.html" title="Polipo">Polipo</a> or <a href="/Usage/Configuration/T/Privoxy.html" title="Privoxy">Privoxy</a> are running. These settings can be access under <i>Add &gt; Standard proxy type</i>. Select a proxy label (e.g Tor) and enter the port and host into the <i>HTTP Proxy</i> and <i>SSL Proxy</i> fields. To check if Tor is functioning properly visit the <a rel="nofollow"  href="https://check.torproject.org/">Tor Check</a> website and toggle Tor.
+<p>The <a rel="nofollow"  href="https://addons.mozilla.org/en-us/firefox/addon/foxyproxy-standard/">FoxyProxy</a> add-on  allows you to specify multiple proxies for different URLs or for all your browsing. After restarting Firefox manually set Firefox to port <code>8118</code> on <code>localhost</code>, which is where <a href="/Usage/Configuration/P/Polipo.html" title="Polipo">Polipo</a> or <a href="/Usage/Configuration/P/Privoxy.html" title="Privoxy">Privoxy</a> are running. These settings can be access under <i>Add &gt; Standard proxy type</i>. Select a proxy label (e.g Tor) and enter the port and host into the <i>HTTP Proxy</i> and <i>SSL Proxy</i> fields. To check if Tor is functioning properly visit the <a rel="nofollow"  href="https://check.torproject.org/">Tor Check</a> website and toggle Tor.
 </p>
 <h3><span class="mw-headline" id="Polipo">Polipo</span></h3>
 <p>The Tor Project has created a custom <a rel="nofollow"  href="https://gitweb.torproject.org/torbrowser.git/plain/build-scripts/config/polipo.conf?id=1ffcd9dafb9dd76c3a29dd686e05a71a95599fb5">Polipo configuration file</a> to prevent potential problems with Polipo as well to provide better anonymity.
 </p>
-<p>Keep in mind that Polipo is not required if you can use a SOCKS 5 proxy, which Tor starts automatically on port 9050. If you want to use <a href="/Usage/Configuration/T/Chromium.html" title="Chromium">Chromium</a> with Tor, you do not need the Polipo package (see: <a href="#Chromium">#Chromium</a>).
+<p>Keep in mind that Polipo is not required if you can use a SOCKS 5 proxy, which Tor starts automatically on port 9050. If you want to use <a href="/Usage/Configuration/C/Chromium.html" title="Chromium">Chromium</a> with Tor, you do not need the Polipo package (see: <a href="#Chromium">#Chromium</a>).
 </p>
 <h3><span class="mw-headline" id="Privoxy">Privoxy</span></h3>
-<p>You can also use this setup in other applications like messaging (e.g. <a href="/Usage/Configuration/T/List_of_applications/Internet.html#XMPP_clients" class="mw-redirect" title="Jabber">Jabber</a>, <a href="/Usage/Configuration/T/TOS_IRC_channels.html" class="mw-redirect" title="IRC">IRC</a>). Applications that support HTTP proxies you can connect to Privoxy (i.e. <code>127.0.0.1:8118</code>). To use SOCKS proxy directly, you can point your application at Tor (i.e. <code>127.0.0.1:9050</code>). A problem with this method though is that applications doing DNS resolves by themselves may leak information. Consider using Socks4A (e.g. with Privoxy) instead.
+<p>You can also use this setup in other applications like messaging (e.g. <a href="/Usage/Configuration/L/List_of_applications/Internet.html#XMPP_clients" class="mw-redirect" title="Jabber">Jabber</a>, <a href="/Usage/Configuration/T/TOS_IRC_channels.html" class="mw-redirect" title="IRC">IRC</a>). Applications that support HTTP proxies you can connect to Privoxy (i.e. <code>127.0.0.1:8118</code>). To use SOCKS proxy directly, you can point your application at Tor (i.e. <code>127.0.0.1:9050</code>). A problem with this method though is that applications doing DNS resolves by themselves may leak information. Consider using Socks4A (e.g. with Privoxy) instead.
 </p>
 <h2><span class="mw-headline" id="Instant_messaging">Instant messaging</span></h2>
-<p>In order to use an IM client with tor, we do not need an http proxy like <a href="/Usage/Configuration/T/Polipo.html" title="Polipo">polipo</a>/<a href="/Usage/Configuration/T/Privoxy.html" title="Privoxy">privoxy</a>. We will be using tor's daemon directly which listens to port 9050 by default.
+<p>In order to use an IM client with tor, we do not need an http proxy like <a href="/Usage/Configuration/P/Polipo.html" title="Polipo">polipo</a>/<a href="/Usage/Configuration/P/Privoxy.html" title="Privoxy">privoxy</a>. We will be using tor's daemon directly which listens to port 9050 by default.
 </p>
 <h3><span class="mw-headline" id="Pidgin">Pidgin</span></h3>
-<p>You can set up <a href="/Usage/Configuration/T/Pidgin.html" title="Pidgin">Pidgin</a> to use Tor globally, or per account. To use Tor globally, go to <i>Tools -&gt; Preferences -&gt; Proxy</i>. To use Tor for specific accounts, go to <i>Accounts &gt; Manage Accounts</i>, select the desired account, click Modify, then go to the Proxy tab. The proxy settings are as follows:
+<p>You can set up <a href="/Usage/Configuration/P/Pidgin.html" title="Pidgin">Pidgin</a> to use Tor globally, or per account. To use Tor globally, go to <i>Tools -&gt; Preferences -&gt; Proxy</i>. To use Tor for specific accounts, go to <i>Accounts &gt; Manage Accounts</i>, select the desired account, click Modify, then go to the Proxy tab. The proxy settings are as follows:
 </p>
 <pre>Proxy type SOCKS5
 Host 127.0.0.1
@@ -543,7 +543,7 @@ Port 9150
 <div>
 <b>Reason:</b> <code>cap_sasl.pl</code> is broken with <i>perl</i> 5.20; SSL does also not work with <code>torsocks</code> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Tor">Talk:Tor#</a>)</div>
 </div>
-<p>Freenode recommends connecting to <code>.onion</code> directly. It also requires charybdis and ircd-seven's SASL mechanism for identifying to nickserv during connection; see <a href="/Usage/Configuration/T/Irssi.html#Authenticating_with_SASL" title="Irssi">Irssi#Authenticating with SASL</a>. Start irssi:
+<p>Freenode recommends connecting to <code>.onion</code> directly. It also requires charybdis and ircd-seven's SASL mechanism for identifying to nickserv during connection; see <a href="/Usage/Configuration/I/Irssi.html#Authenticating_with_SASL" title="Irssi">Irssi#Authenticating with SASL</a>. Start irssi:
 </p>
 <pre>$ torsocks irssi
 </pre>
@@ -564,7 +564,7 @@ Port 9150
 <p>For more information check <a rel="nofollow"  href="https://freenode.net/kb/answer/chat#accessing-freenode-via-tor">Accessing freenode Via Tor</a>, <a rel="nofollow"  href="http://freenode.net/sasl/README.txt">SASL README</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup> or <a rel="nofollow"  href="https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/IrcSilc">IRC/SILC Wiki article</a>.
 </p>
 <h2><span class="mw-headline" id="Pacman">Pacman</span></h2>
-<p><a href="/Usage/Configuration/T/Pacman.html" title="Pacman">Pacman</a> download operations (repository DBs, packages, and public keys) can be done using the Tor network.
+<p><a href="/Usage/Configuration/P/Pacman.html" title="Pacman">Pacman</a> download operations (repository DBs, packages, and public keys) can be done using the Tor network.
 </p>
 <p>Advantages:
 </p>
@@ -595,7 +595,7 @@ On stock arch, pacman only trust keys which are either signed by you (that can b
 XferCommand = /usr/bin/curl --socks5-hostname localhost:9050 --continue-at - --fail --output %o %u
 ...</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Due to work in progress for database signatures, you might get 404 for the signatures. Depending on your <a href="/Usage/Configuration/T/Pacman/Package_signing.html#Configuring_pacman" title="Pacman/Package signing">Pacman/Package signing#Configuring pacman</a>, it should be harmless.</div>
+<strong>Note:</strong> Due to work in progress for database signatures, you might get 404 for the signatures. Depending on your <a href="/Usage/Configuration/P/Pacman/Package_signing.html#Configuring_pacman" title="Pacman/Package signing">Pacman/Package signing#Configuring pacman</a>, it should be harmless.</div>
 <h2><span class="mw-headline" id="Java">Java</span></h2>
 <p>One can run ensure a <a rel="nofollow"  href="https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html">java application proxies</a> its connections through Tor by appending the following command line options:
 </p>
@@ -651,10 +651,10 @@ Allow all traffic:
 <h4>
 <span id=".2B100Mbps_Exit_Relay_configuration_example"></span><span class="mw-headline" id="+100Mbps_Exit_Relay_configuration_example">+100Mbps Exit Relay configuration example</span>
 </h4>
-<p>If you run a fast exit relay (+100Mbps) with <code>ORPort 443</code> and <code>DirPort 80</code> (as recommended in <a rel="nofollow"  href="http://www.torproject.org/docs/tor-relay-debian.html.en#after">Configuring a Tor relay on Debian/Ubuntu</a>) the following configuration changes might serve as inspiration to setup Tor alongside <a href="/Usage/Configuration/T/Iptables.html" title="Iptables">iptables</a> firewall, <a href="/Usage/Configuration/T/Haveged.html" title="Haveged">Haveged</a> to increase system entropy and <a href="/Usage/Configuration/T/Pdnsd.html" title="Pdnsd">pdnsd</a> as DNS cache. It is important to <i>first</i> read <a rel="nofollow"  href="http://www.torproject.org/docs/tor-relay-debian.html.en#after">Configuring a Tor relay on Debian/Ubuntu</a>. 
+<p>If you run a fast exit relay (+100Mbps) with <code>ORPort 443</code> and <code>DirPort 80</code> (as recommended in <a rel="nofollow"  href="http://www.torproject.org/docs/tor-relay-debian.html.en#after">Configuring a Tor relay on Debian/Ubuntu</a>) the following configuration changes might serve as inspiration to setup Tor alongside <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> firewall, <a href="/Usage/Configuration/H/Haveged.html" title="Haveged">Haveged</a> to increase system entropy and <a href="/Usage/Configuration/P/Pdnsd.html" title="Pdnsd">pdnsd</a> as DNS cache. It is important to <i>first</i> read <a rel="nofollow"  href="http://www.torproject.org/docs/tor-relay-debian.html.en#after">Configuring a Tor relay on Debian/Ubuntu</a>. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> See <a href="#Running_Tor_in_a_systemd-nspawn_container_with_a_virtual_network_interface">#Running Tor in a systemd-nspawn container with a virtual network interface</a> for instructions to install Tor in a <code>systemd-nspawn</code> container. <a href="/Usage/Configuration/T/Haveged.html" title="Haveged">Haveged</a> should be installed on the container host.</div>
+<strong>Note:</strong> See <a href="#Running_Tor_in_a_systemd-nspawn_container_with_a_virtual_network_interface">#Running Tor in a systemd-nspawn container with a virtual network interface</a> for instructions to install Tor in a <code>systemd-nspawn</code> container. <a href="/Usage/Configuration/H/Haveged.html" title="Haveged">Haveged</a> should be installed on the container host.</div>
 <h5><span class="mw-headline" id="Tor_2">Tor</span></h5>
 <h6><span class="mw-headline" id="Raise_maximum_number_of_open_file_descriptors">Raise maximum number of open file descriptors</span></h6>
 <p>To handle more than 8192 connections <code>LimitNOFILE</code> can be raised to 32768 as per <a rel="nofollow"  href="https://www.torproject.org/docs/faq.html.en#PackagedTor">Tor FAQ</a>.
@@ -743,7 +743,7 @@ If you want to watch Tor connections in <span class="plainlinks archwiki-templat
 <p>If you want to run <code>nyx</code> as a different user than <code>tor</code>, read section <a href="#Set_a_Tor_Control_cookie_file">#Set a Tor Control cookie file</a>
 </p>
 <h5><span class="mw-headline" id="iptables">iptables</span></h5>
-<p>Setup and learn to use <a href="/Usage/Configuration/T/Iptables.html" title="Iptables">iptables</a>. Instead of being a <a href="/Usage/Configuration/T/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> where connection tracking would have to track thousands of connections on a tor exit relay this firewall configuration is stateless.
+<p>Setup and learn to use <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a>. Instead of being a <a href="/Usage/Configuration/S/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> where connection tracking would have to track thousands of connections on a tor exit relay this firewall configuration is stateless.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/iptables/iptables.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">*raw
@@ -783,12 +783,12 @@ COMMIT</pre>
 <p><code>-A INPUT -i lo -j ACCEPT</code> allows all connections on the loopback interface.
 </p>
 <h5><span class="mw-headline" id="Haveged">Haveged</span></h5>
-<p>See <a href="/Usage/Configuration/T/Haveged.html" title="Haveged">Haveged</a> to decide if your system generates enough entropy to handle a lot of OpenSSL connections, see <a rel="nofollow"  href="http://www.issihosts.com/haveged/">haveged - A simple entropy daemon</a> and <a rel="nofollow"  href="http://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged">how-to-setup-additional-entropy-for-cloud-servers-using-haveged</a> for documentation.
+<p>See <a href="/Usage/Configuration/H/Haveged.html" title="Haveged">Haveged</a> to decide if your system generates enough entropy to handle a lot of OpenSSL connections, see <a rel="nofollow"  href="http://www.issihosts.com/haveged/">haveged - A simple entropy daemon</a> and <a rel="nofollow"  href="http://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged">how-to-setup-additional-entropy-for-cloud-servers-using-haveged</a> for documentation.
 </p>
 <h5><span class="mw-headline" id="pdnsd">pdnsd</span></h5>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> This configuration assumes your network DNS resolver is trusted (uncensored).</div>
-<p>You can use <a href="/Usage/Configuration/T/Pdnsd.html" title="Pdnsd">pdnsd</a> to cache DNS queries locally, so the exit relay can resolve DNS faster and the exit relay does not forward all DNS queries to an external DNS recursor.
+<p>You can use <a href="/Usage/Configuration/P/Pdnsd.html" title="Pdnsd">pdnsd</a> to cache DNS queries locally, so the exit relay can resolve DNS faster and the exit relay does not forward all DNS queries to an external DNS recursor.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pdnsd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -809,7 +809,7 @@ server {
 <p>This configuration stub shows how to cache queries to your normal DNS recursor locally and increase pdnsd cache size to 100MB.
 </p>
 <h6><span class="mw-headline" id="Uncensored_DNS">Uncensored DNS</span></h6>
-<p>If your local DNS recursor is in some way censored or interferes with DNS queries, see <a href="/Usage/Configuration/T/Alternative_DNS_services.html" title="Alternative DNS services">Alternative DNS services</a> for alternatives and add them in a seperate server-section in <code>/etc/pdnsd.conf</code> as per <a href="/Usage/Configuration/T/Pdnsd.html#DNS_servers" title="Pdnsd">Pdnsd#DNS servers</a>.
+<p>If your local DNS recursor is in some way censored or interferes with DNS queries, see <a href="/Usage/Configuration/A/Alternative_DNS_services.html" title="Alternative DNS services">Alternative DNS services</a> for alternatives and add them in a seperate server-section in <code>/etc/pdnsd.conf</code> as per <a href="/Usage/Configuration/P/Pdnsd.html#DNS_servers" title="Pdnsd">Pdnsd#DNS servers</a>.
 </p>
 <h2><span class="mw-headline" id="TorDNS">TorDNS</span></h2>
 <p>The Tor 0.2.x series provides a built-in DNS forwarder. To enable it add the following lines to the Tor configuration file and restart the daemon:
@@ -831,7 +831,7 @@ AutomapHostsSuffixes .exit,.onion
 </p>
 <pre>DNSPort 53
 </pre>
-<p>Alternatively, you can use a local caching DNS server, such as <a href="/Usage/Configuration/T/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> or <a href="/Usage/Configuration/T/Pdnsd.html" title="Pdnsd">pdnsd</a>, which will also compensate for TorDNS being a little slower than traditional DNS servers. The following instructions will show how to set up <i>dnsmasq</i> for this purpose.
+<p>Alternatively, you can use a local caching DNS server, such as <a href="/Usage/Configuration/D/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> or <a href="/Usage/Configuration/P/Pdnsd.html" title="Pdnsd">pdnsd</a>, which will also compensate for TorDNS being a little slower than traditional DNS servers. The following instructions will show how to set up <i>dnsmasq</i> for this purpose.
 </p>
 <p>Change the tor setting to listen for the DNS request in port 9053 and install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span>.
 </p>
@@ -850,7 +850,7 @@ listen-address=127.0.0.1
 </pre>
 <p>Start the <b>dnsmasq</b> daemon.
 </p>
-<p>Finally if you use <a href="/Usage/Configuration/T/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> you would need to change its settings to that it does not alter the resolv configuration file. Just add this line in the configuration file:
+<p>Finally if you use <a href="/Usage/Configuration/D/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> you would need to change its settings to that it does not alter the resolv configuration file. Just add this line in the configuration file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/dhcpcd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">nohook resolv.conf
@@ -868,14 +868,14 @@ listen-address=127.0.0.1
 $ torsocks wget -qO- <a rel="nofollow"  href="https://check.torproject.org/">https://check.torproject.org/</a> | grep -i congratulations
 </pre>
 <h2><span class="mw-headline" id="Transparent_Torification">Transparent Torification</span></h2>
-<p>In some cases it is more secure and often easier to transparently torify an entire system instead of configuring individual applications to use Tor's socks port, not to mention preventing DNS leaks. Transparent torification can be done with <a href="/Usage/Configuration/T/Iptables.html" title="Iptables">iptables</a> in such a way that all outbound packets are redirected through Tor's <i>TransPort</i>, except the Tor traffic itself. Once in place, applications do not need to be configured to use Tor, though Tor's <i>SocksPort</i> will still work. This also works for DNS via Tor's <i>DNSPort</i>, but realize that Tor only supports TCP, thus UDP packets other than DNS cannot be sent through Tor and therefore must be blocked entirely to prevent leaks. Using iptables to transparently torify a system affords comparatively strong leak protection, but it is not a substitute for virtualized torification applications such as Whonix, or TorVM <a rel="nofollow"  href="https://www.whonix.org/wiki/Comparison_with_Others">[5]</a>. Transparent torification also will not protect against fingerprinting attacks on its own, so it is recommended to use an amnesic solution like <a rel="nofollow"  href="http://tails.boum.org/">Tails</a> instead. Applications can still learn your computer's hostname, MAC address, serial number, timezone, etc. and those with root privileges can disable the firewall entirely. In other words, transparent torification with iptables protects against accidental connections and DNS leaks by misconfigured software, it is not sufficient to protect against malware or software with serious security vulnerabilities.
+<p>In some cases it is more secure and often easier to transparently torify an entire system instead of configuring individual applications to use Tor's socks port, not to mention preventing DNS leaks. Transparent torification can be done with <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> in such a way that all outbound packets are redirected through Tor's <i>TransPort</i>, except the Tor traffic itself. Once in place, applications do not need to be configured to use Tor, though Tor's <i>SocksPort</i> will still work. This also works for DNS via Tor's <i>DNSPort</i>, but realize that Tor only supports TCP, thus UDP packets other than DNS cannot be sent through Tor and therefore must be blocked entirely to prevent leaks. Using iptables to transparently torify a system affords comparatively strong leak protection, but it is not a substitute for virtualized torification applications such as Whonix, or TorVM <a rel="nofollow"  href="https://www.whonix.org/wiki/Comparison_with_Others">[5]</a>. Transparent torification also will not protect against fingerprinting attacks on its own, so it is recommended to use an amnesic solution like <a rel="nofollow"  href="http://tails.boum.org/">Tails</a> instead. Applications can still learn your computer's hostname, MAC address, serial number, timezone, etc. and those with root privileges can disable the firewall entirely. In other words, transparent torification with iptables protects against accidental connections and DNS leaks by misconfigured software, it is not sufficient to protect against malware or software with serious security vulnerabilities.
 </p>
 <p>When a transparent proxy is used, it is possible to start a Tor session from the client as well as from the transparent proxy, creating a "Tor over Tor" scenario.
 Doing so produces undefined and potentially unsafe behavior. In theory, the user could get six hops instead of three in the Tor network. However, it is not guaranteed that the three additional hops received are different; the user could end up with the same hops, possibly in reverse or mixed order. 
 The Tor Project opinion is that this is unsafe <a rel="nofollow"  href="https://2019.www.torproject.org/docs/faq.html.en#ChoosePathLength">[6]</a>
 <a rel="nofollow"  href="https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO#ToroverTor">[7]</a>
 </p>
-<p>To enable transparent torification, use the following file for <code>iptables-restore</code> and <code>ip6tables-restore</code> (internally used by <a href="/Usage/Configuration/T/Systemd.html" title="Systemd">systemd</a>'s <code>iptables.service</code> and <code>ip6tables.service</code>).
+<p>To enable transparent torification, use the following file for <code>iptables-restore</code> and <code>ip6tables-restore</code> (internally used by <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>'s <code>iptables.service</code> and <code>ip6tables.service</code>).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -944,9 +944,9 @@ COMMIT
 </p>
 <pre># ln -s /etc/iptables/iptables.rules /etc/iptables/ip6tables.rules
 </pre>
-<p>Then make sure Tor is running, and <a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>iptables</code> and <code>ip6tables</code> systemd units.
+<p>Then make sure Tor is running, and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>iptables</code> and <code>ip6tables</code> systemd units.
 </p>
-<p>You may want to add <code>Requires=iptables.service</code> and <code>Requires=ip6tables.service</code> to whatever systemd unit logs your user in (most likely a <a href="/Usage/Configuration/T/Display_manager.html" title="Display manager">display manager</a>), to prevent any user processes from being started before the firewall up. See <a href="/Usage/Configuration/T/Systemd.html" title="Systemd">systemd</a>.
+<p>You may want to add <code>Requires=iptables.service</code> and <code>Requires=ip6tables.service</code> to whatever systemd unit logs your user in (most likely a <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a>), to prevent any user processes from being started before the firewall up. See <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Kernel_capabilities">Kernel capabilities</span></h3>
@@ -955,7 +955,7 @@ COMMIT
 <pre># setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/tor
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Any upgrade to the tor package will reset the permissions, consider using <a href="/Usage/Configuration/T/Pacman.html#Hooks" title="Pacman">pacman#Hooks</a>, to automatically set the permissions after upgrades.</div>
+<strong>Note:</strong> Any upgrade to the tor package will reset the permissions, consider using <a href="/Usage/Configuration/P/Pacman.html#Hooks" title="Pacman">pacman#Hooks</a>, to automatically set the permissions after upgrades.</div>
 <p>If you use the systemd service, it is also possible to use systemd to give the tor process the appropriate permissions. This has the benefit that permissions do not need to be reapplied after every tor upgrade:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/tor.service.d/netcap.conf</pre>
@@ -968,7 +968,7 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE</pre>
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Problem_with_user_value">Problem with user value</span></h3>
-<p>If the <b>tor</b> daemon failed to start, then run the following command as root (or use <a href="/Usage/Configuration/T/Sudo.html" title="Sudo">sudo</a>)
+<p>If the <b>tor</b> daemon failed to start, then run the following command as root (or use <a href="/Usage/Configuration/S/Sudo.html" title="Sudo">sudo</a>)
 </p>
 <pre># tor
 </pre>
@@ -1013,7 +1013,7 @@ Type=simple
 </p>
 <pre># systemctl --system daemon-reload
 </pre>
-<p>Then <a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>tor.service</code>.
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>tor.service</code>.
 </p>
 <h3><span class="mw-headline" id="tor-browser_proxy_problems">tor-browser proxy problems</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tor-browser/">tor-browser</a></span><sup><small>AUR</small></sup> should generally work without significant customization. If previously installed/configured and bundled proxy fails with <code>proxy server is refusing connections</code> for any website, consider resetting settings by moving or deleting <code>~/.tor-browser</code> directory.
@@ -1030,11 +1030,11 @@ Type=simple
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/T/Category:Anonymity_networks.html" title="Category:Anonymity networks">Anonymity networks</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Anonymity_networks.html" title="Category:Anonymity networks">Anonymity networks</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/T/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="/Usage/Configuration/T/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>

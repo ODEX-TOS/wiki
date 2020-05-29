@@ -2,7 +2,7 @@
     title: Microsemi_Libero
     description: Migration of Microsemi_Libero from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -81,12 +81,12 @@
 <p>Libero needs about 45GiB free diskspace. <b>The size of the disk where Libero is installed must not exceed 2TB!</b>
 </p>
 <h4><span class="mw-headline" id="Package_installation">Package installation</span></h4>
-<p>Libero depends on some 32-bit packages from multilib. In order to install multilib packages using <a href="/Usage/Configuration/M/Pacman.html" title="Pacman">pacman</a>, you need to enable the <a href="/Usage/Configuration/M/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository first (if not already done).
+<p>Libero depends on some 32-bit packages from multilib. In order to install multilib packages using <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a>, you need to enable the <a href="/Usage/Configuration/O/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository first (if not already done).
 </p>
 <p>Install the following packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openmotif">openmotif</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zlib">zlib</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libjpeg6-turbo">libjpeg6-turbo</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libxft">lib32-libxft</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libpng12">lib32-libpng12</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-dbus">lib32-dbus</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-sqlite">lib32-sqlite</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libpulse">lib32-libpulse</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libxcomposite">lib32-libxcomposite</a></span>
 </p>
 <h4><span class="mw-headline" id="Qt5_32-bit_dependencies">Qt5 32-bit dependencies</span></h4>
-<p>Parts of Liberos shared libraries also depend on 32-bit Qt5 libraries, namely <code>libQt5XcbQpa.so.5</code>, <code>libQt5Gui.so.5</code>, <code>libQt5DBus.so.5</code> and <code>libQt5Core.so.5</code>. Sadly they are not available from the <a href="/Usage/Configuration/M/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository so we have to add them manually.
+<p>Parts of Liberos shared libraries also depend on 32-bit Qt5 libraries, namely <code>libQt5XcbQpa.so.5</code>, <code>libQt5Gui.so.5</code>, <code>libQt5DBus.so.5</code> and <code>libQt5Core.so.5</code>. Sadly they are not available from the <a href="/Usage/Configuration/O/Official_repositories.html#multilib" class="mw-redirect" title="Multilib">multilib</a> repository so we have to add them manually.
 </p>
 <p>Download the 32-bit installer of Qt at <a rel="nofollow"  href="https://www.qt.io/download-thank-you?os=linux32&amp;hsLang=en">Qt 32-bit online installer</a> and execute it:
 </p>
@@ -97,7 +97,7 @@ $ ./qt-unified-linux-x86-2.0.5-2-online.run
 Set a sane installation path e.g. <code>/home/<i>user</i>/lib/qt5_32</code> where <i>user</i> is your username.
 </p>
 <h3><span class="mw-headline" id="Extract_files">Extract files</span></h3>
-<p>The Installer unpacks its own Java Runtime and by default uses <code>/tmp</code> for temporary files even if it tells you differently. Thus make sure you have enough space available on <code>/tmp</code>! The default 8GB <a href="/Usage/Configuration/M/Tmpfs.html" title="Tmpfs">tmpfs</a> is not sufficient for the installation, you have to disable it for installation and reboot the system to apply the change:
+<p>The Installer unpacks its own Java Runtime and by default uses <code>/tmp</code> for temporary files even if it tells you differently. Thus make sure you have enough space available on <code>/tmp</code>! The default 8GB <a href="/Usage/Configuration/T/Tmpfs.html" title="Tmpfs">tmpfs</a> is not sufficient for the installation, you have to disable it for installation and reboot the system to apply the change:
 </p>
 <pre># systemctl mask tmp.mount
 # reboot
@@ -122,7 +122,7 @@ There is a graphical installer available, just replace <code>console</code> with
    -DCHOSEN_INSTALL_SET=Libero
 </pre>
 <h3><span class="mw-headline" id="Post-Installation">Post-Installation</span></h3>
-<p>Reenable the <a href="/Usage/Configuration/M/Tmpfs.html" title="Tmpfs">tmpfs</a> after the installation with:
+<p>Reenable the <a href="/Usage/Configuration/T/Tmpfs.html" title="Tmpfs">tmpfs</a> after the installation with:
 </p>
 <pre># systemctl unmask tmp.mount
 # reboot
@@ -146,9 +146,9 @@ case `uname` in
 <strong>Tip:</strong> Alternatively you can create a symlink in the <code>/lib</code> directory:
 <pre># ln -s /lib/libXm.so.4 /lib/libXm.so.3
 </pre>
-This is discouraged as it tampers with a directory preferably modified by <a href="/Usage/Configuration/M/Pacman.html" title="Pacman">pacman</a> when installing packages. However it might be useful when reinstalling Libero or installing a newer version of it because the manual modification of the files above can be skipped.</div>
+This is discouraged as it tampers with a directory preferably modified by <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> when installing packages. However it might be useful when reinstalling Libero or installing a newer version of it because the manual modification of the files above can be skipped.</div>
 <p>Furthermore the outdated <code>libz</code> version shipped by Microsemi does not work with the repository version of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lib32-libpng12">lib32-libpng12</a></span>.
-In <code>/home/<i>user</i>/programs/microsemi/libero/v12.1/Libero/lib</code> do the following to make Libero use your library installed by <a href="/Usage/Configuration/M/Pacman.html" title="Pacman">pacman</a>:
+In <code>/home/<i>user</i>/programs/microsemi/libero/v12.1/Libero/lib</code> do the following to make Libero use your library installed by <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a>:
 </p>
 <pre>$ mv libz.so.1 libz.so.1.old
 $ ln -s /lib/libz.so libz.so.1
@@ -209,7 +209,7 @@ Categories=Development</pre>
 <p>Using a programmer (e.g. the Microsemi FlashPro5) requires two steps: Adding rules to gain device permissions and unloading a conflicting kernel module.
 </p>
 <h3><span class="mw-headline" id="Adding_udev_rules">Adding udev rules</span></h3>
-<p>To add the correct permissions for your user to access the programmer add the following file to your <a href="/Usage/Configuration/M/Udev.html" title="Udev">Udev</a> ruleset as root:
+<p>To add the correct permissions for your user to access the programmer add the following file to your <a href="/Usage/Configuration/U/Udev.html" title="Udev">Udev</a> ruleset as root:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/70-microsemi.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="usb", ATTR{idVendor}=="1514", ATTR{idProduct}=="2008", MODE="0666", GROUP="microsemi-prog"
@@ -226,7 +226,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", MODE="0666", 
 </p>
 <pre># rmmod ftdi_sio
 </pre>
-<p>To permanently unload the driver you may add it to your <a href="/Usage/Configuration/M/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">Blacklist</a>:
+<p>To permanently unload the driver you may add it to your <a href="/Usage/Configuration/K/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">Blacklist</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/blacklist-ftdi.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">blacklist ftdi_sio</pre>
@@ -242,7 +242,7 @@ The install and vault locations have to be set on installation or may be edited 
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Electronic_design_automation.html" title="Category:Electronic design automation">Electronic design automation</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Electronic_design_automation.html" title="Category:Electronic design automation">Electronic design automation</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -259,9 +259,9 @@ The install and vault locations have to be set on installation or may be edited 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

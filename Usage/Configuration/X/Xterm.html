@@ -2,7 +2,7 @@
     title: Xterm
     description: Migration of Xterm from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -108,7 +108,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/X/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xterm">xterm</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xterm">xterm</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Resource_file_settings">Resource file settings</span></h3>
@@ -125,7 +125,7 @@
 $ tset -q
 </pre>
 <h4><span class="mw-headline" id="UTF-8">UTF-8</span></h4>
-<p>Ensure that your <a href="/Usage/Configuration/X/Locale.html" title="Locale">locale</a> is set up for UTF-8. If you do not use UTF-8, you may need to force xterm to more strictly follow your locale by setting
+<p>Ensure that your <a href="/Usage/Configuration/L/Locale.html" title="Locale">locale</a> is set up for UTF-8. If you do not use UTF-8, you may need to force xterm to more strictly follow your locale by setting
 </p>
 <pre>XTerm.vt100.locale: true
 </pre>
@@ -137,7 +137,7 @@ $ tset -q
 <pre>XTerm.vt100.metaSendsEscape: true
 </pre>
 <h4><span class="mw-headline" id="Fix_the_backspace_key">Fix the backspace key</span></h4>
-<p>On TOS Linux, xterm sends <code>^H</code> key when backspace is pressed. This breaks the <code>Ctrl+H</code> key combination on <a href="/Usage/Configuration/X/Emacs.html" title="Emacs">Emacs</a>.
+<p>On TOS Linux, xterm sends <code>^H</code> key when backspace is pressed. This breaks the <code>Ctrl+H</code> key combination on <a href="/Usage/Configuration/E/Emacs.html" title="Emacs">Emacs</a>.
 The workaround is to send <code>^?</code> when backspace is pressed by setting the resources
 </p>
 <pre>XTerm.vt100.backarrowKey: false
@@ -237,7 +237,7 @@ XTerm.vt100.scrollbar.width: 8
 <div>
 <b>Reason:</b> Separate shortcuts for CLIPBOARD can be defined instead of using <i>Select to clipboard</i>, similar to VTE-like terminals. See e.g <a rel="nofollow"  href="https://github.com/AladW/arch-i3/blob/master/.Xresources#L17">[1]</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Xterm">Talk:Xterm#</a>)</div>
 </div>
-<p>By default, xterm, and many other applications running under X, copy highlighted text into a buffer called the <a href="/Usage/Configuration/X/Clipboard.html" class="mw-redirect" title="PRIMARY">PRIMARY</a> selection.  The PRIMARY selection is short-lived; the text is immediately replaced by a new PRIMARY selection as soon as another piece of text is highlighted.  Some applications will allow you to paste PRIMARY selections by using the middle-mouse, but not <code>Shift+Insert</code>, and some other applications may not allow pasting from PRIMARY entirely.
+<p>By default, xterm, and many other applications running under X, copy highlighted text into a buffer called the <a href="/Usage/Configuration/C/Clipboard.html" class="mw-redirect" title="PRIMARY">PRIMARY</a> selection.  The PRIMARY selection is short-lived; the text is immediately replaced by a new PRIMARY selection as soon as another piece of text is highlighted.  Some applications will allow you to paste PRIMARY selections by using the middle-mouse, but not <code>Shift+Insert</code>, and some other applications may not allow pasting from PRIMARY entirely.
 </p>
 <p>There is another buffer used for copied text called the CLIPBOARD selection.  The text in the CLIPBOARD is long-lived, remaining available until a user actively overwrites it.  Applications that use <code>Ctrl+c</code> and <code>Ctrl+x</code> for text copying and cutting operations, and <code>Ctrl+v</code> for pasting, are using the CLIPBOARD.
 </p>
@@ -323,7 +323,7 @@ XTerm.vt100.renderFont: false
 <p>If you do not specify a bold font at the command line, <code>-fb</code>, or through the <code>XTerm.vt100.boldFont</code> resource, xterm will attempt to find a bold font matching the normal font.  If a matching font is not found, the bold font will be created by "overstriking" the normal font.
 </p>
 <h3><span class="mw-headline" id="CJK_Fonts">CJK Fonts</span></h3>
-<p>Many fonts do not contain glyphs for the double width Chinese, Japanese and Korean languages.  Other terminal emulators such as <a href="/Usage/Configuration/X/Rxvt-unicode.html" class="mw-redirect" title="Urxvt">urxvt</a> may be better suited if you frequently work with these languages.
+<p>Many fonts do not contain glyphs for the double width Chinese, Japanese and Korean languages.  Other terminal emulators such as <a href="/Usage/Configuration/R/Rxvt-unicode.html" class="mw-redirect" title="Urxvt">urxvt</a> may be better suited if you frequently work with these languages.
 </p>
 <p>Using bitmapped XLFD fonts with CJK has many pitfalls in xterm.  It is much easier to use TrueType fonts for CJK display, using the <code>faceNameDoublesize</code> resource.  This example uses <i>DejaVu Sans Mono</i> as the normal font and <i>WenQuanYi WenQuanYi Bitmap Song</i> as the double width font:
 </p>
@@ -340,7 +340,7 @@ XTerm.vt100.faceSize: 8
 <p>Now, each time you launch a shell in an xterm and a composite manager is running, the xterm window will be transparent.
 The test in front of <code>transset-df</code> keeps transet from executing if <code>XTERM_VERSION</code> is not defined. Note that your terminal will not be transparent if you launch a program other than a shell this way. It is probably possible to work around this if you want the functionality.
 </p>
-<p>Also see <a href="/Usage/Configuration/X/Per-application_transparency.html" title="Per-application transparency">Per-application transparency</a>.
+<p>Also see <a href="/Usage/Configuration/P/Per-application_transparency.html" title="Per-application transparency">Per-application transparency</a>.
 </p>
 <h3><span class="mw-headline" id="Enable_bell_urgency">Enable bell urgency</span></h3>
 <p>To make the bell character notify the window manager of urgency, set:
@@ -388,7 +388,7 @@ XTerm.vt100.colorUL: rgb:e4/e4/e4
 <h3><span class="mw-headline" id="Flickering_on_scroll">Flickering on scroll</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Double buffering may cause non-bitmap fonts to render incorrectly.</div>
-<p>Rebuild xterm using <a href="/Usage/Configuration/X/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and include the <code>--enable-double-buffer</code> flag:
+<p>Rebuild xterm using <a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and include the <code>--enable-double-buffer</code> flag:
 </p>
 <pre>./configure --prefix=/usr \
      ...
@@ -407,11 +407,11 @@ XTerm.vt100.colorUL: rgb:e4/e4/e4
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/X/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/X/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="/Usage/Configuration/X/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -430,9 +430,9 @@ XTerm.vt100.colorUL: rgb:e4/e4/e4
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/X/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/X/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/X/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

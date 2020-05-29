@@ -2,7 +2,7 @@
     title: Bootchart
     description: Migration of Bootchart from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <p><a rel="nofollow"  href="https://github.com/ahkok/bootchart">Bootchart</a> is a handy tool used for profiling the Linux boot sequence, generally used for making your computer boot faster. It consists of the bootchartd daemon, which records and renders a chart of profiling data.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Bootchart is now a part of systemd, see <a href="/Usage/Configuration/B/Improving_performance/Boot_process.html#Analyzing_the_boot_process" class="mw-redirect" title="Improve boot performance">Improve boot performance#Analyzing the boot process</a> for details. This page covers the original bootchart and bootchart2 (init daemon) before it was merged.</div>
+<strong>Note:</strong> Bootchart is now a part of systemd, see <a href="/Usage/Configuration/I/Improving_performance/Boot_process.html#Analyzing_the_boot_process" class="mw-redirect" title="Improve boot performance">Improve boot performance#Analyzing the boot process</a> for details. This page covers the original bootchart and bootchart2 (init daemon) before it was merged.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -81,7 +81,7 @@
 <p>To make use of bootchart, you have to either set it as the init process in your boot loader or starting it manually from one of the init scripts (<code>rc.sysinit</code> preferably). Note that if you start bootchartd manually, you have to stop it manually too. In general, be extra careful with this step.
 </p>
 <h3><span class="mw-headline" id="Boot_loader_setup">Boot loader setup</span></h3>
-<p>This generally involves making a copy of the boot option you want to profile and adding <code>init=/usr/bin/bootchartd</code> to it. See <a href="/Usage/Configuration/B/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for instructions. When started from the boot loader, bootchart will stop when you get to the login prompt.
+<p>This generally involves making a copy of the boot option you want to profile and adding <code>init=/usr/bin/bootchartd</code> to it. See <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for instructions. When started from the boot loader, bootchart will stop when you get to the login prompt.
 </p>
 <h2><span class="mw-headline" id="Generating_a_chart">Generating a chart</span></h2>
 <p>Generating a bootchart involves running:
@@ -96,7 +96,7 @@ You'll have to have a Java runtime installed and properly set up before you can 
 </p>
 <pre>/var/log/bootchart.tgz not found
 </pre>
-<p>It mostly means that bootchartd was unable to detect when the booting process was finished. This can happen when you are using different login manager than KDM or GDM such as <a href="/Usage/Configuration/B/SLiM.html" title="SLiM">SLiM</a> or entrance. You have to open <code>/usr/bin/bootchartd</code> script and append those applications to <code>exit_proc</code> variable, for example:
+<p>It mostly means that bootchartd was unable to detect when the booting process was finished. This can happen when you are using different login manager than KDM or GDM such as <a href="/Usage/Configuration/S/SLiM.html" title="SLiM">SLiM</a> or entrance. You have to open <code>/usr/bin/bootchartd</code> script and append those applications to <code>exit_proc</code> variable, for example:
 </p>
 <pre># The processes we have to wait for
 local exit_proc="gdmgreeter gdm-binary kdm_greet kdm slim"
@@ -117,7 +117,7 @@ local exit_proc="login"
 <strong>Note:</strong> An alternative to Bootchart is <a rel="nofollow"  href="https://github.com/mmeeks/bootchart">bootchart2</a>. It uses python for generating the final chart instead of a JVM, and only requires: pygtk, git and busybox. See GRUB and GRUB2 configuration bellow</div>
 <h3><span class="mw-headline" id="Running_Bootchart2">Running Bootchart2</span></h3>
 <h4><span class="mw-headline" id="Boot_loader_setup_2">Boot loader setup</span></h4>
-<p>This generally involves making a copy of the boot option you want to profile and adding <code>initcall_debug printk.time=y init=/usr/bin/bootchartd2</code> to it. See <a href="/Usage/Configuration/B/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for instructions. When started from the boot loader, bootchart2 will stop after either a default 120 seconds, or when you get to the login prompt (as opposite). Note that Bootchart2-git can also be run as a <b>systemd</b> service, as described in <a href="/Usage/Configuration/B/Improving_performance/Boot_process.html#Using_bootchart2" class="mw-redirect" title="Improve boot performance">Improve boot performance#Using bootchart2</a>
+<p>This generally involves making a copy of the boot option you want to profile and adding <code>initcall_debug printk.time=y init=/usr/bin/bootchartd2</code> to it. See <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for instructions. When started from the boot loader, bootchart2 will stop after either a default 120 seconds, or when you get to the login prompt (as opposite). Note that Bootchart2-git can also be run as a <b>systemd</b> service, as described in <a href="/Usage/Configuration/I/Improving_performance/Boot_process.html#Using_bootchart2" class="mw-redirect" title="Improve boot performance">Improve boot performance#Using bootchart2</a>
 </p>
 <h4><span class="mw-headline" id="Configure_Bootchart2">Configure Bootchart2</span></h4>
 <h5><span class="mw-headline" id="Stop_Bootchartd2_after_login">Stop Bootchartd2 after login</span></h5>
@@ -134,12 +134,12 @@ local exit_proc="login"
 </pre>
 <p>to get an interactive chart rendering tool. You can get more details on the <a rel="nofollow"  href="http://wiki.gentoo.org/wiki/Bootchart2">Gentoo Wiki</a> until someone further edit this page.
 </p>
-<p>Note that Bootchart2 can be used along with <a href="/Usage/Configuration/B/E4rat.html" title="E4rat">E4rat</a>.
+<p>Note that Bootchart2 can be used along with <a href="/Usage/Configuration/E/E4rat.html" title="E4rat">E4rat</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/B/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -156,9 +156,9 @@ local exit_proc="login"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

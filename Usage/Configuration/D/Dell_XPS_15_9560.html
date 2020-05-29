@@ -2,7 +2,7 @@
     title: Dell_XPS_15_9560
     description: Migration of Dell_XPS_15_9560 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -205,7 +205,7 @@
 <li>Change Fastboot to "Thorough" in "POST Behaviour". This prevents intermittent boot failures.</li>
 <li>Disable secure boot to allow Linux to boot.</li>
 </ul>
-<p>Installation of TOS Linux can proceed normally. Refer to the <a href="/Usage/Configuration/D/Installation_guide.html" title="Installation guide">Installation guide</a> for more information.
+<p>Installation of TOS Linux can proceed normally. Refer to the <a href="/Usage/Configuration/I/Installation_guide.html" title="Installation guide">Installation guide</a> for more information.
 </p>
 <h2><span class="mw-headline" id="Power_Management">Power Management</span></h2>
 <h3><span class="mw-headline" id="Suspend_and_Hibernate">Suspend and Hibernate</span></h3>
@@ -214,9 +214,9 @@
 <p>The suspend function key is not printed on the keyboard, but it's actually mapped to <code>Fn</code>+<code>Insert</code>.
 </p>
 <h3><span class="mw-headline" id="Fan_and_temperature_monitoring_and_control">Fan and temperature monitoring and control</span></h3>
-<p>Many of the thermometers can be read with <a href="/Usage/Configuration/D/Lm_sensors.html" title="Lm sensors">lm_sensors</a>.
+<p>Many of the thermometers can be read with <a href="/Usage/Configuration/L/Lm_sensors.html" title="Lm sensors">lm_sensors</a>.
 </p>
-<p>Fan speeds can be monitored with <code>i8kctl</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/i8kutils-git/">i8kutils-git</a></span><sup><small>AUR</small></sup>. This laptop is not in the supported list so it is necessary to load the <code>i8k</code> kernel module with the <code>force=1</code> module option. See <a href="/Usage/Configuration/D/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>. It is also possible to manually control fan speeds (at your own risk) however with manual control only a subset of the possible speeds are available (0rpm, 2500rpm, 4800rpm) instead of (0rpm, 2500rpm, 3200rpm, 3700rpm, 4800rpm, and 5100rpm) in the firmware's automatic control. See <a href="/Usage/Configuration/D/Fan_speed_control.html#Dell_laptops" title="Fan speed control">Fan speed control#Dell laptops</a>.
+<p>Fan speeds can be monitored with <code>i8kctl</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/i8kutils-git/">i8kutils-git</a></span><sup><small>AUR</small></sup>. This laptop is not in the supported list so it is necessary to load the <code>i8k</code> kernel module with the <code>force=1</code> module option. See <a href="/Usage/Configuration/K/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>. It is also possible to manually control fan speeds (at your own risk) however with manual control only a subset of the possible speeds are available (0rpm, 2500rpm, 4800rpm) instead of (0rpm, 2500rpm, 3200rpm, 3700rpm, 4800rpm, and 5100rpm) in the firmware's automatic control. See <a href="/Usage/Configuration/F/Fan_speed_control.html#Dell_laptops" title="Fan speed control">Fan speed control#Dell laptops</a>.
 </p>
 <p>The built in fan modes can also be controlled directly by editing the setting in the bios. The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libsmbios">libsmbios</a></span> package provides many tools for reading and modifying certain settings on the computer. The <code>smbios-thermal-ctl</code> command can be used with the <code>--set-thermal-mode</code> flag to change the fan between modes <i>performance</i>, <i>cool-bottom</i>, <i>quiet</i> and <i>balanced</i>. For example:
 </p>
@@ -264,7 +264,7 @@ Other:         +104.0°F
 <h2><span class="mw-headline" id="Power_Saving">Power Saving</span></h2>
 <h3><span class="mw-headline" id="Disable_discrete_GPU">Disable discrete GPU</span></h3>
 <h4><span class="mw-headline" id="bbswitch_method"><code>bbswitch</code> method</span></h4>
-<p>The discrete Nvidia GTX 1050 GPU is on by default and cannot be disabled in the UEFI settings. Even when idle, it uses a significant amount of power (about 7W). To disable it when not in use it is necessary to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bbswitch">bbswitch</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bumblebee">bumblebee</a></span>, add <code>acpi_rev_override=1</code> to the <a href="/Usage/Configuration/D/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a>, <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>bumblebeed.service</code>, and reboot (you may need to reboot twice for the firmware to notice <code>acpi_rev_override</code>).
+<p>The discrete Nvidia GTX 1050 GPU is on by default and cannot be disabled in the UEFI settings. Even when idle, it uses a significant amount of power (about 7W). To disable it when not in use it is necessary to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bbswitch">bbswitch</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bumblebee">bumblebee</a></span>, add <code>acpi_rev_override=1</code> to the <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">Kernel parameters</a>, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>bumblebeed.service</code>, and reboot (you may need to reboot twice for the firmware to notice <code>acpi_rev_override</code>).
 </p>
 <pre>$ cat /proc/acpi/bbswitch
 </pre>
@@ -293,28 +293,28 @@ $ [    4.256651] bbswitch: disabling discrete graphics
 </p>
 <ul>
 <li>Install the Intel video driver using the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> package.</li>
-<li>Blacklist the <code>nvidia</code> &amp; <code>nouveau</code> modules <a href="/Usage/Configuration/D/Kernel_module.html#Blacklisting" class="mw-redirect" title="Kernel modules">Kernel modules#Blacklisting</a>
+<li>Blacklist the <code>nvidia</code> &amp; <code>nouveau</code> modules <a href="/Usage/Configuration/K/Kernel_module.html#Blacklisting" class="mw-redirect" title="Kernel modules">Kernel modules#Blacklisting</a>
 </li>
-<li>Power down the GPU <a href="/Usage/Configuration/D/Hybrid_graphics.html#Fully_Power_Down_Discrete_GPU" title="Hybrid graphics">with an ACPI command</a>
+<li>Power down the GPU <a href="/Usage/Configuration/H/Hybrid_graphics.html#Fully_Power_Down_Discrete_GPU" title="Hybrid graphics">with an ACPI command</a>
 </li>
 </ul>
 <h3><span class="mw-headline" id="Standard_power_saving_configuration">Standard power saving configuration</span></h3>
-<p>It is a good idea to install a tool to tune common settings to save power. See <a href="/Usage/Configuration/D/Power_management.html#Userspace_tools" title="Power management">Power management#Userspace tools</a>.
+<p>It is a good idea to install a tool to tune common settings to save power. See <a href="/Usage/Configuration/P/Power_management.html#Userspace_tools" title="Power management">Power management#Userspace tools</a>.
 </p>
 <h3>
 <span id="Disable.2Fautosuspend_of_touchscreen"></span><span class="mw-headline" id="Disable/autosuspend_of_touchscreen">Disable/autosuspend of touchscreen</span>
 </h3>
 <p>Disabling the touchscreen can be done in the UEFI settings and results in significant power savings.
-If touchscreen is required it can be placed into autosuspend by <a href="/Usage/Configuration/D/TLP.html" title="TLP">TLP</a> by adding <code>04f3:24a1</code> to <code>USB_WHITELIST</code> in tlp config file. The <code>USB_AUTOSUSPEND</code> must be set to 1 for this to have an effect. This will leave touchscreen enabled for usage and will consume much less battery. 
+If touchscreen is required it can be placed into autosuspend by <a href="/Usage/Configuration/T/TLP.html" title="TLP">TLP</a> by adding <code>04f3:24a1</code> to <code>USB_WHITELIST</code> in tlp config file. The <code>USB_AUTOSUSPEND</code> must be set to 1 for this to have an effect. This will leave touchscreen enabled for usage and will consume much less battery. 
 </p>
 <h3><span class="mw-headline" id="Enable_NVME_APST">Enable NVME APST</span></h3>
-<p>Starting from linux-tos4.11, NVME APST is supported and enabled by default, allowing NVME SSDs to be switched to lower power states when idle, achieving significant power savings. See <a href="/Usage/Configuration/D/Solid_state_drive/NVMe.html#Power_Saving_APST" class="mw-redirect" title="Solid State Drives/NVMe">Solid State Drives/NVMe#Power Saving APST</a>. Depending on the specific SSD, it may also be necessary to adjust the <code>default_ps_max_latency_us</code> parameter to the <code>nvme_core</code> module in order to make ASPT work. This is necessary with the Toshiba THNSN5512GPUK for example.
+<p>Starting from linux-tos4.11, NVME APST is supported and enabled by default, allowing NVME SSDs to be switched to lower power states when idle, achieving significant power savings. See <a href="/Usage/Configuration/S/Solid_state_drive/NVMe.html#Power_Saving_APST" class="mw-redirect" title="Solid State Drives/NVMe">Solid State Drives/NVMe#Power Saving APST</a>. Depending on the specific SSD, it may also be necessary to adjust the <code>default_ps_max_latency_us</code> parameter to the <code>nvme_core</code> module in order to make ASPT work. This is necessary with the Toshiba THNSN5512GPUK for example.
 </p>
 <h3><span class="mw-headline" id="Enable_power_saving_features_for_the_i915_kernel_module">Enable power saving features for the i915 kernel module</span></h3>
 <p>Passing the following options to the i915 kernel module results in significant power savings: <code>enable_fbc=1 enable_psr=1 disable_power_well=0</code>. Some users with the HD matte screen have reported that these parameters cause screen flickering. Frame buffer compression (<code>enable_fbc=1</code>) is enabled by default starting from kernel 4.11.
 </p>
 <h3><span class="mw-headline" id="Wifi_and_Bluetooth">Wifi and Bluetooth</span></h3>
-<p>For the Precision 5520 which has an Intel 8265 wifi card, the <code>power_save</code> option for the <code>iwlwifi</code> kernel module can be set from 1 to 5 with potential power savings. See <a href="/Usage/Configuration/D/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>. Bluetooth and Wifi can seperately be disabled with rfkill. See <a href="/Usage/Configuration/D/Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#Rfkill caveat</a>.
+<p>For the Precision 5520 which has an Intel 8265 wifi card, the <code>power_save</code> option for the <code>iwlwifi</code> kernel module can be set from 1 to 5 with potential power savings. See <a href="/Usage/Configuration/K/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>. Bluetooth and Wifi can seperately be disabled with rfkill. See <a href="/Usage/Configuration/N/Network_configuration/Wireless.html#Rfkill_caveat" class="mw-redirect" title="Wireless network configuration">Wireless network configuration#Rfkill caveat</a>.
 </p>
 <h3><span class="mw-headline" id="Undervolt_intel_CPU_and_GPU">Undervolt intel CPU and GPU</span></h3>
 <p>It is possible to reduce the voltage supplied to the CPU and integrated intel GPU in order to reduce their power consumption. Usually some reduction is possible without any instability, depending on the specific system. Often the first signs of instability come during suspend, resume, and transitions between load and idle, not necessarily during extended periods of high load. See <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/intel-undervolt/">intel-undervolt</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/linux-intel-undervolt-tool/">linux-intel-undervolt-tool</a></span><sup><small>AUR</small></sup> which can automate the process of undervolting on each boot/resume.
@@ -326,23 +326,23 @@ If touchscreen is required it can be placed into autosuspend by <a href="/Usage/
 <p>See <a href="#Disable_discrete_GPU">#Disable discrete GPU</a> above.
 </p>
 <h3><span class="mw-headline" id="Open_source_driver_with_PRIME_render_offloading">Open source driver with PRIME render offloading</span></h3>
-<p>With this setup it is possible to use the integrated GPU by default and to offload GPU intensive applications to the discrete GPU by the use of the <code>DRI_PRIME</code> environment variable. See <a href="/Usage/Configuration/D/PRIME.html" title="PRIME">PRIME</a> for details. Note that the open source Nvidia driver <a href="/Usage/Configuration/D/Nouveau.html" title="Nouveau">Nouveau</a> currently <a rel="nofollow"  href="https://nouveau.freedesktop.org/wiki/CodeNames/#NV130">does not support</a> power management on Pascal GPUs such as the GTX 1050, so performance is very poor with this driver. See <a href="/Usage/Configuration/D/Nouveau.html#Power_management" title="Nouveau">Nouveau#Power management</a>.
+<p>With this setup it is possible to use the integrated GPU by default and to offload GPU intensive applications to the discrete GPU by the use of the <code>DRI_PRIME</code> environment variable. See <a href="/Usage/Configuration/P/PRIME.html" title="PRIME">PRIME</a> for details. Note that the open source Nvidia driver <a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a> currently <a rel="nofollow"  href="https://nouveau.freedesktop.org/wiki/CodeNames/#NV130">does not support</a> power management on Pascal GPUs such as the GTX 1050, so performance is very poor with this driver. See <a href="/Usage/Configuration/N/Nouveau.html#Power_management" title="Nouveau">Nouveau#Power management</a>.
 </p>
 <h3><span class="mw-headline" id="Proprietary_driver_with_bumblebee">Proprietary driver with bumblebee</span></h3>
-<p>With this setup the integrated GPU is used by default but some applications can be rendered on the discrete GPU with the <code>optirun</code> or <code>primusrun</code> launchers. See <a href="/Usage/Configuration/D/Bumblebee.html" title="Bumblebee">Bumblebee</a> for detailed instructions. The lack of proper v-sync support means that with this method applications rendered on the discrete GPU exhibit tearing. There is also some overhead introduced as a result of moving data inefficiently between the discrete and integrated GPUs, but the Nvidia GPU performs much better than it does with Nouveau.
+<p>With this setup the integrated GPU is used by default but some applications can be rendered on the discrete GPU with the <code>optirun</code> or <code>primusrun</code> launchers. See <a href="/Usage/Configuration/B/Bumblebee.html" title="Bumblebee">Bumblebee</a> for detailed instructions. The lack of proper v-sync support means that with this method applications rendered on the discrete GPU exhibit tearing. There is also some overhead introduced as a result of moving data inefficiently between the discrete and integrated GPUs, but the Nvidia GPU performs much better than it does with Nouveau.
 </p>
 <h3><span class="mw-headline" id="Proprietary_driver_with_PRIME_output_offloading">Proprietary driver with PRIME output offloading</span></h3>
-<p>With this setup the discrete GPU is used for all rendering and the integrated GPU is used only to display the rendered output. Power consumption is much higher during light usage because the discrete GPU cannot be disabled. Performance for graphics intensive applications is significantly better than with Bumblebee, and v-sync works due to <a rel="nofollow"  href="https://devtalk.nvidia.com/default/topic/957814/linux/prime-and-prime-synchronization/1">PRIME Synchronization</a> so tearing is eliminated. Remove <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bumblebee">bumblebee</a></span> and follow the instructions in <a href="/Usage/Configuration/D/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a>, <a rel="nofollow"  href="http://us.download.nvidia.com/XFree86/Linux-x86_64/375.66/README/randr14.html">Nvidia README</a>, or <a rel="nofollow"  href="https://devtalk.nvidia.com/default/topic/957814/linux/prime-and-prime-synchronization/1">PRIME Synchronization thread</a> using <code>PCI:1:0:0</code> as the BusID. Add the <code>modeset=1</code> parameter to the <code>nvidia_drm</code> kernel module (on boot, not with modprobe) to enable PRIME synchronization and remove tearing (see <a href="/Usage/Configuration/D/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>).
+<p>With this setup the discrete GPU is used for all rendering and the integrated GPU is used only to display the rendered output. Power consumption is much higher during light usage because the discrete GPU cannot be disabled. Performance for graphics intensive applications is significantly better than with Bumblebee, and v-sync works due to <a rel="nofollow"  href="https://devtalk.nvidia.com/default/topic/957814/linux/prime-and-prime-synchronization/1">PRIME Synchronization</a> so tearing is eliminated. Remove <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bumblebee">bumblebee</a></span> and follow the instructions in <a href="/Usage/Configuration/N/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a>, <a rel="nofollow"  href="http://us.download.nvidia.com/XFree86/Linux-x86_64/375.66/README/randr14.html">Nvidia README</a>, or <a rel="nofollow"  href="https://devtalk.nvidia.com/default/topic/957814/linux/prime-and-prime-synchronization/1">PRIME Synchronization thread</a> using <code>PCI:1:0:0</code> as the BusID. Add the <code>modeset=1</code> parameter to the <code>nvidia_drm</code> kernel module (on boot, not with modprobe) to enable PRIME synchronization and remove tearing (see <a href="/Usage/Configuration/K/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a>).
 </p>
 <h2><span class="mw-headline" id="Touchpad">Touchpad</span></h2>
-<p>The Synaptics Touchpad's basic functionality works out of the box. Some <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">desktop environments</a> ship with <a href="/Usage/Configuration/D/Libinput.html" title="Libinput">libinput</a> and others with the <a href="/Usage/Configuration/D/Touchpad_Synaptics.html" title="Touchpad Synaptics">xf86-input-synaptics</a> driver. You can see which package is installed by running:
+<p>The Synaptics Touchpad's basic functionality works out of the box. Some <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">desktop environments</a> ship with <a href="/Usage/Configuration/L/Libinput.html" title="Libinput">libinput</a> and others with the <a href="/Usage/Configuration/T/Touchpad_Synaptics.html" title="Touchpad Synaptics">xf86-input-synaptics</a> driver. You can see which package is installed by running:
 </p>
 <pre>pacman -Qn libinput xf86-input-synaptics
 </pre>
 <p>Depending on which package handles your touchpad input, the methods to extend the functionality varies.
 </p>
 <h3><span class="mw-headline" id="libinput_Driver_Configuration">libinput Driver Configuration</span></h3>
-<p>The full documentation for <a href="/Usage/Configuration/D/Libinput.html" title="Libinput">libinput</a> seemed to work quite well for this touchpad. While the driver already contains logic to process advanced multi-touch events like swipe and pinch gestures, the desktop environment or window manager might not have implemented actions for all of them yet.
+<p>The full documentation for <a href="/Usage/Configuration/L/Libinput.html" title="Libinput">libinput</a> seemed to work quite well for this touchpad. While the driver already contains logic to process advanced multi-touch events like swipe and pinch gestures, the desktop environment or window manager might not have implemented actions for all of them yet.
 </p>
 <p>To get some three and four-touch gestures to work you may need to use the documentation at <a rel="nofollow"  href="https://github.com/bulletmark/libinput-gestures">libinput-gestures</a> and install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libinput-gestures/">libinput-gestures</a></span><sup><small>AUR</small></sup> package.
 </p>
@@ -394,7 +394,7 @@ load-module module-suspend-on-idle
 </p>
 <h2><span class="mw-headline" id="Firmware_updates">Firmware updates</span></h2>
 <h3><span class="mw-headline" id="Tooled">Tooled</span></h3>
-<p>Firmware updates are provided by Dell and can be installed with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fwupdate/">fwupdate</a></span><sup><small>AUR</small></sup><sup>[<a href="/Usage/Configuration/D/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fwupd">fwupd</a></span>.
+<p>Firmware updates are provided by Dell and can be installed with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fwupdate/">fwupdate</a></span><sup><small>AUR</small></sup><sup>[<a href="/Usage/Configuration/H/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: package not found]</sup> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fwupd">fwupd</a></span>.
 </p>
 <h3><span class="mw-headline" id="Manual">Manual</span></h3>
 <p>Alternatively, firmware images can be found at <a rel="nofollow"  href="https://www.dell.com/support/home/us/wiki/04/product-support/product/xps-15-9560-laptop/drivers">Dell support page</a> as <code>XPS_15_9560_X.Y.Z.exe</code> files.
@@ -480,9 +480,9 @@ Nov 25 22:36:08 xxxxx kernel: pcieport 0000:00:1c.0:    [12] Replay Timer Timeou
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Dell.html" title="Category:Dell">Dell</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/D/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -500,9 +500,9 @@ Nov 25 22:36:08 xxxxx kernel: pcieport 0000:00:1c.0:    [12] Replay Timer Timeou
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

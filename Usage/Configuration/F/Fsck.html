@@ -2,7 +2,7 @@
     title: Fsck
     description: Migration of Fsck from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,14 +29,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/F/Ext4.html" title="Ext4">Ext4</a></li>
-<li><a href="/Usage/Configuration/F/Btrfs.html" title="Btrfs">Btrfs</a></li>
+<li><a href="/Usage/Configuration/E/Ext4.html" title="Ext4">Ext4</a></li>
+<li><a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a></li>
 <li><a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Fsck"  title="wikipedia:Fsck">fsck</a> stands for <i>"file system check"</i> and it is used to check and optionally repair one or more Linux file systems. Normally, the fsck program will try to handle filesystems on different physical disk drives in parallel to reduce the total amount of time needed to check all of the filesystems (see: <span class="plainlinks archwiki-template-man" title="$ man 8 fsck"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fsck.8">fsck(8)</a></span>).
 </p>
-<p>The <a href="/Usage/Configuration/F/TOS_boot_process.html" title="TOS boot process">TOS Linux boot process</a> conveniently takes care of the fsck procedure for you and will check all relevant partitions on your drive(s) automatically on every boot. Hence, there is usually no need to resort to the command-line.
+<p>The <a href="/Usage/Configuration/T/TOS_boot_process.html" title="TOS boot process">TOS Linux boot process</a> conveniently takes care of the fsck procedure for you and will check all relevant partitions on your drive(s) automatically on every boot. Hence, there is usually no need to resort to the command-line.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -79,10 +79,10 @@
 </li>
 <li>systemd will fsck all filesystems having a fsck pass number greater than 0 (either from <code>/etc/fstab</code> or a user-supplied unit file). For the root filesystem, it also has to be mounted read-only initially with the kernel parameter <code>ro</code> and only then remounted read-write from <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a> (note that the <code>defaults</code> mount option implies <code>rw</code>).</li>
 </ol>
-<p>The first option is the recommended default, and what you will end up with if you follow the <a href="/Usage/Configuration/F/Installation_guide.html" title="Installation guide">Installation guide</a>. If you want to go with option 2 instead, you should remove the fsck hook from <code>mkinitcpio.conf</code> and use <code>ro</code> on the kernel commandline. The kernel parameter <code>fsck.mode=skip</code> can be used to make sure fsck is disabled entirely for both options.
+<p>The first option is the recommended default, and what you will end up with if you follow the <a href="/Usage/Configuration/I/Installation_guide.html" title="Installation guide">Installation guide</a>. If you want to go with option 2 instead, you should remove the fsck hook from <code>mkinitcpio.conf</code> and use <code>ro</code> on the kernel commandline. The kernel parameter <code>fsck.mode=skip</code> can be used to make sure fsck is disabled entirely for both options.
 </p>
 <h3><span class="mw-headline" id="Forcing_the_check">Forcing the check</span></h3>
-<p>If you use the <code>base</code> <a href="/Usage/Configuration/F/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> hook, you can force fsck at boot time by passing <code>fsck.mode=force</code> as a <a href="/Usage/Configuration/F/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>. This will check every filesystem you have on the machine.
+<p>If you use the <code>base</code> <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> hook, you can force fsck at boot time by passing <code>fsck.mode=force</code> as a <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>. This will check every filesystem you have on the machine.
 </p>
 <p>Alternatively, systemd provides <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-fsck@.service"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-fsck%40.service.8">systemd-fsck@.service(8)</a></span>, which checks all configured file systems, which were not checked in the initramfs. However, checking the root filesystem this way causes a delay in the boot process, because the file system has to be remounted.
 </p>
@@ -92,7 +92,7 @@
 <b>Reason:</b> Is it possible to run fsck from initramfs using the systemd hook? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Fsck">Talk:Fsck#</a>)</div>
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For those accustomed to use other GNU/Linux distributions, the old tricks consisting in writing a file with the name <code>forcefsck</code> to the root of each filesystem or using the command <code>shutdown</code> with the <code>-F</code> flag were only working for the old <a href="/Usage/Configuration/F/SysVinit.html" title="SysVinit">SysVinit</a> and early versions of <a href="https://en.wikipedia.org/wiki/Upstart"  title="wikipedia:Upstart">Upstart</a> and are not working with <a href="/Usage/Configuration/F/Systemd.html" title="Systemd">systemd</a>. The aforementioned solution is thus the only one working for TOS Linux.</div>
+<strong>Note:</strong> For those accustomed to use other GNU/Linux distributions, the old tricks consisting in writing a file with the name <code>forcefsck</code> to the root of each filesystem or using the command <code>shutdown</code> with the <code>-F</code> flag were only working for the old <a href="/Usage/Configuration/S/SysVinit.html" title="SysVinit">SysVinit</a> and early versions of <a href="https://en.wikipedia.org/wiki/Upstart"  title="wikipedia:Upstart">Upstart</a> and are not working with <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>. The aforementioned solution is thus the only one working for TOS Linux.</div>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Attempt_to_repair_damaged_blocks">Attempt to repair damaged blocks</span></h3>
 <p>To automatically repair damaged portions, run:
@@ -143,7 +143,7 @@
 <span id="Can.27t_run_fsck_on_a_separate_.2Fusr_partition"></span><span class="mw-headline" id="Can't_run_fsck_on_a_separate_/usr_partition">Can't run fsck on a separate /usr partition</span>
 </h3>
 <ol>
-<li>Make sure you have the required <a href="/Usage/Configuration/F/Mkinitcpio.html#.2Fusr_as_a_separate_partition" title="Mkinitcpio">hooks</a> in <code>/etc/mkinitcpio.conf</code> and that you remembered to re-generate your initramfs image after editing this file.</li>
+<li>Make sure you have the required <a href="/Usage/Configuration/M/Mkinitcpio.html#.2Fusr_as_a_separate_partition" title="Mkinitcpio">hooks</a> in <code>/etc/mkinitcpio.conf</code> and that you remembered to re-generate your initramfs image after editing this file.</li>
 <li>Check your <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a>! Only the root partition needs "1" at the end, everything else should have either "2" or "0". Carefully inspect it for other typos, as well.</li>
 </ol>
 <h3><span class="mw-headline" id="ext2fs_:_no_external_journal">ext2fs : no external journal</span></h3>
@@ -166,11 +166,11 @@
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/F/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="/Usage/Configuration/F/Category:Commands.html" title="Category:Commands">Commands</a></li>
+<li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/C/Category:Commands.html" title="Category:Commands">Commands</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/F/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -188,9 +188,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

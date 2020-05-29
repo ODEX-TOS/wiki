@@ -2,7 +2,7 @@
     title: Snapper
     description: Migration of Snapper from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">Btrfs</a></li>
-<li><a href="/Usage/Configuration/S/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
+<li><a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a></li>
+<li><a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="http://snapper.io">Snapper</a> is a tool created by openSUSE's Arvin Schnell that helps with managing snapshots of <a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">Btrfs</a> subvolumes and thin-provisioned <a href="/Usage/Configuration/S/LVM.html" title="LVM">LVM</a> volumes. It can create and compare snapshots, revert between snapshots, and supports automatic snapshots timelines.
+<p><a rel="nofollow"  href="http://snapper.io">Snapper</a> is a tool created by openSUSE's Arvin Schnell that helps with managing snapshots of <a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a> subvolumes and thin-provisioned <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> volumes. It can create and compare snapshots, revert between snapshots, and supports automatic snapshots timelines.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -106,12 +106,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snapper">snapper</a></span> package. The development version <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapper-git/">snapper-git</a></span><sup><small>AUR</small></sup> is also available.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snapper">snapper</a></span> package. The development version <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapper-git/">snapper-git</a></span><sup><small>AUR</small></sup> is also available.
 </p>
 <p>Additionally, a GUI is available with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snapper-gui-git/">snapper-gui-git</a></span><sup><small>AUR</small></sup>.
 </p>
 <h2><span class="mw-headline" id="Create_a_new_configuration">Create a new configuration</span></h2>
-<p>Before creating a snapper configuration for a btrfs subvolume, the subvolume must already exist. If it does not, you should <a href="/Usage/Configuration/S/Btrfs.html#Creating_a_subvolume" title="Btrfs">create</a> it before generating a snapper configuration.
+<p>Before creating a snapper configuration for a btrfs subvolume, the subvolume must already exist. If it does not, you should <a href="/Usage/Configuration/B/Btrfs.html#Creating_a_subvolume" title="Btrfs">create</a> it before generating a snapper configuration.
 </p>
 <p>To create a new snapper configuration named <code><i>config</i></code> for the btrfs subvolume at <code><i>/path/to/subvolume</i></code> do:
 </p>
@@ -128,9 +128,9 @@
 </p>
 <pre># snapper -c root create-config /
 </pre>
-<p>At this point, the configuration is active. If your <a href="/Usage/Configuration/S/Cron.html" title="Cron">cron</a> daemon is running, snapper will take <a href="#Automatic_timeline_snapshots">#Automatic timeline snapshots</a>. If you do not use a <a href="/Usage/Configuration/S/Cron.html" title="Cron">cron</a> daemon, you will need to use the systemd service and timer. See <a href="#Enable/disable">#Enable/disable</a>.
+<p>At this point, the configuration is active. If your <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> daemon is running, snapper will take <a href="#Automatic_timeline_snapshots">#Automatic timeline snapshots</a>. If you do not use a <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> daemon, you will need to use the systemd service and timer. See <a href="#Enable/disable">#Enable/disable</a>.
 </p>
-<p>See <a href="/Usage/Configuration/S/Man_page.html" title="Man page">man page</a> for <code>snapper-configs</code>.
+<p>See <a href="/Usage/Configuration/M/Man_page.html" title="Man page">man page</a> for <code>snapper-configs</code>.
 </p>
 <h2><span class="mw-headline" id="Take_snapshots">Take snapshots</span></h2>
 <h3><span class="mw-headline" id="Automatic_timeline_snapshots">Automatic timeline snapshots</span></h3>
@@ -139,13 +139,13 @@
 <h4>
 <span id="Enable.2Fdisable"></span><span class="mw-headline" id="Enable/disable">Enable/disable</span>
 </h4>
-<p>If you have a <a href="/Usage/Configuration/S/Cron.html" title="Cron">cron</a> daemon, this feature should start automatically. To disable it, edit the configuration file corresponding with the subvolume you do not want to have this feature and set:
+<p>If you have a <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> daemon, this feature should start automatically. To disable it, edit the configuration file corresponding with the subvolume you do not want to have this feature and set:
 </p>
 <pre>TIMELINE_CREATE="no"</pre>
-<p>If you do not have a <a href="/Usage/Configuration/S/Cron.html" title="Cron">cron</a> daemon, you can use the provided systemd units. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>snapper-timeline.timer</code> to start the automatic snapshot timeline. Additionally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>snapper-cleanup.timer</code> to periodically cleanup older snapshots.
+<p>If you do not have a <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> daemon, you can use the provided systemd units. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>snapper-timeline.timer</code> to start the automatic snapshot timeline. Additionally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>snapper-cleanup.timer</code> to periodically cleanup older snapshots.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you have a cron daemon and also enable the systemd units, this may result in duplicate snapshots being created. If you wish to disable cron integration while using the systemd units, one possible solution is not to install the snapper package's cron files via <a href="/Usage/Configuration/S/Pacman.html" title="Pacman">pacman</a>'s <a href="/Usage/Configuration/S/Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">NoExtract</a> and <a href="/Usage/Configuration/S/Pacman.html#Skip_file_from_being_upgraded" title="Pacman">NoUpgrade</a> configuration options. See <a rel="nofollow"  href="https://unix.stackexchange.com/questions/425570/snapper-has-recently-started-performing-duplicate-snapshots-each-hour">[1]</a>
+<strong>Note:</strong> If you have a cron daemon and also enable the systemd units, this may result in duplicate snapshots being created. If you wish to disable cron integration while using the systemd units, one possible solution is not to install the snapper package's cron files via <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a>'s <a href="/Usage/Configuration/P/Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">NoExtract</a> and <a href="/Usage/Configuration/P/Pacman.html#Skip_file_from_being_upgraded" title="Pacman">NoUpgrade</a> configuration options. See <a rel="nofollow"  href="https://unix.stackexchange.com/questions/425570/snapper-has-recently-started-performing-duplicate-snapshots-each-hour">[1]</a>
 </div>
 <h4><span class="mw-headline" id="Set_snapshot_limits">Set snapshot limits</span></h4>
 <p>The default settings will keep 10 hourly, 10 daily, 10 monthly and 10 yearly snapshots. You may want to change this in the configuration, especially on busy subvolumes like <code>/</code>. See <a href="#Preventing_slowdowns">#Preventing slowdowns</a>.
@@ -269,12 +269,12 @@ To delete a range of snapshots, in this example between snapshots 65 and 70 of t
 <a rel="nofollow"  href="https://github.com/crossroads1112/bin/tree/master/pacupg">https://github.com/crossroads1112/bin/tree/master/pacupg</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/pacupg/">pacupg</a></span><sup><small>AUR</small></sup>
 </dd></dl>
 <ul><li>
-<b>snap-pac</b> — "Makes pacman automatically use snapper to create <a href="#Pre/post_snapshots">#Pre/post snapshots</a> like openSUSE's YaST". Uses <a href="/Usage/Configuration/S/Pacman.html#Hooks" title="Pacman">Pacman#Hooks</a>.</li></ul>
+<b>snap-pac</b> — "Makes pacman automatically use snapper to create <a href="#Pre/post_snapshots">#Pre/post snapshots</a> like openSUSE's YaST". Uses <a href="/Usage/Configuration/P/Pacman.html#Hooks" title="Pacman">Pacman#Hooks</a>.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="https://github.com/wesbarnett/snap-pac">https://github.com/wesbarnett/snap-pac</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snap-pac">snap-pac</a></span>
 </dd></dl>
 <ul><li>
-<b>snap-pac-grub</b> — "Additionally updates GRUB entries for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=grub-btrfs">grub-btrfs</a></span> after <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snap-pac">snap-pac</a></span> made the snapshots. Also uses <a href="/Usage/Configuration/S/Pacman.html#Hooks" title="Pacman">Pacman#Hooks</a>.</li></ul>
+<b>snap-pac-grub</b> — "Additionally updates GRUB entries for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=grub-btrfs">grub-btrfs</a></span> after <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snap-pac">snap-pac</a></span> made the snapshots. Also uses <a href="/Usage/Configuration/P/Pacman.html#Hooks" title="Pacman">Pacman#Hooks</a>.</li></ul>
 <dl><dd>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snap-pac-grub/">snap-pac-grub</a></span><sup><small>AUR</small></sup> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/snap-pac-grub/">snap-pac-grub</a></span><sup><small>AUR</small></sup>
 </dd></dl>
@@ -284,7 +284,7 @@ To delete a range of snapshots, in this example between snapshots 65 and 70 of t
 <dl><dd>
 <a rel="nofollow"  href="https://gist.github.com/erikw/5229436">https://gist.github.com/erikw/5229436</a> ||</dd></dl>
 <h4><span class="mw-headline" id="Backup_non-btrfs_boot_partition_on_pacman_transactions">Backup non-btrfs boot partition on pacman transactions</span></h4>
-<p>If your <code>/boot</code> partition is on a non btrfs filesystem (e.g. an <a href="/Usage/Configuration/S/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>) you are not able to do snapper backups with it. You can copy the boot partition automatically on a kernel update to your btrfs root with a hook. This also plays nice together with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snap-pac">snap-pac</a></span>.
+<p>If your <code>/boot</code> partition is on a non btrfs filesystem (e.g. an <a href="/Usage/Configuration/E/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>) you are not able to do snapper backups with it. You can copy the boot partition automatically on a kernel update to your btrfs root with a hook. This also plays nice together with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=snap-pac">snap-pac</a></span>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/share/libalpm/hooks/50_bootbackup.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -396,18 +396,18 @@ Exec = /usr/bin/rsync -a --delete /boot /.bootbackup</pre>
 </p>
 <pre> # mkdir /.snapshots
 </pre>
-<p>Now <a href="/Usage/Configuration/S/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> <code>@snapshots</code> to <code>/.snapshots</code>.
+<p>Now <a href="/Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> <code>@snapshots</code> to <code>/.snapshots</code>.
 For example, for a file system located on <code>/dev/sda1</code>:
 </p>
 <pre> # mount -o subvol=@snapshots /dev/sda1 /.snapshots
 </pre>
-<p>To make this mount permanent, add an entry to your <a href="/Usage/Configuration/S/Fstab.html" title="Fstab">fstab</a>.
+<p>To make this mount permanent, add an entry to your <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a>.
 </p>
 <p>Or if you have an existing fstab entry remount the snapshot subvolume:
 </p>
 <pre> # mount -a
 </pre>
-<p>Give the folder <code>750</code> <a href="/Usage/Configuration/S/File_permissions_and_attributes.html#Numeric_method" class="mw-redirect" title="Permissions">permissions</a>.
+<p>Give the folder <code>750</code> <a href="/Usage/Configuration/F/File_permissions_and_attributes.html#Numeric_method" class="mw-redirect" title="Permissions">permissions</a>.
 </p>
 <p>This will make all snapshots that snapper creates be stored outside of the <code>@</code> subvolume, so that <code>@</code> can easily be replaced anytime without losing the snapper snapshots.
 </p>
@@ -416,7 +416,7 @@ For example, for a file system located on <code>/dev/sda1</code>:
 </h4>
 <p>If you ever want to restore <code>/</code> using one of snapper's snapshots, first boot into a live TOS Linux USB/CD.
 </p>
-<p><a href="/Usage/Configuration/S/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">Mount</a> the toplevel subvolume (subvolid=5). That is, omit any <code>subvolid</code> mount flags.
+<p><a href="/Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">Mount</a> the toplevel subvolume (subvolid=5). That is, omit any <code>subvolid</code> mount flags.
 </p>
 <p>Find the snapshot you want to recover in <code>/mnt/@snapshots/*/info.xml</code>.
 </p>
@@ -454,11 +454,11 @@ ro=false
 </p>
 <ul>
 <li>
-<a href="/Usage/Configuration/S/Btrfs.html#Creating_a_subvolume" title="Btrfs">Creating</a> subvolumes for things that are not worth being snapshotted, like <code>/var/cache/pacman/pkg</code>, <code>/var/abs</code>, <code>/var/tmp</code>, and <code>/srv</code>.</li>
+<a href="/Usage/Configuration/B/Btrfs.html#Creating_a_subvolume" title="Btrfs">Creating</a> subvolumes for things that are not worth being snapshotted, like <code>/var/cache/pacman/pkg</code>, <code>/var/abs</code>, <code>/var/tmp</code>, and <code>/srv</code>.</li>
 <li>Editing the default settings for hourly/daily/monthly/yearly snapshots when using <a href="#Automatic_timeline_snapshots">#Automatic timeline snapshots</a>.</li>
 </ul>
 <h4><span class="mw-headline" id="updatedb">updatedb</span></h4>
-<p>By default, <code>updatedb</code> (see <a href="/Usage/Configuration/S/Mlocate.html" title="Mlocate">mlocate</a> ) will also index the <code>.snapshots</code> directory created by snapper, which can cause serious slowdown and excessive memory usage if you have many snapshots. You can prevent <code>updatedb</code> from indexing over it by editing:
+<p>By default, <code>updatedb</code> (see <a href="/Usage/Configuration/M/Mlocate.html" title="Mlocate">mlocate</a> ) will also index the <code>.snapshots</code> directory created by snapper, which can cause serious slowdown and excessive memory usage if you have many snapshots. You can prevent <code>updatedb</code> from indexing over it by editing:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/updatedb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">PRUNENAMES = ".snapshots"</pre>
@@ -495,11 +495,11 @@ ro=false
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -518,9 +518,9 @@ ro=false
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

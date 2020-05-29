@@ -2,7 +2,7 @@
     title: GNS3
     description: Migration of GNS3 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -58,29 +58,29 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>GNS3 uses patched python extensions, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/python-aiohttp-cors-gns3/">python-aiohttp-cors-gns3</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/python-yarl-gns3/">python-yarl-gns3</a></span><sup><small>AUR</small></sup>, which need to be <a href="/Usage/Configuration/G/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> before GNS3.
+<p>GNS3 uses patched python extensions, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/python-aiohttp-cors-gns3/">python-aiohttp-cors-gns3</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/python-yarl-gns3/">python-yarl-gns3</a></span><sup><small>AUR</small></sup>, which need to be <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> before GNS3.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  That can potentially create trouble with another programs using the original extensions.</div>
 <p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gns3-gui/">gns3-gui</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gns3-server/">gns3-server</a></span><sup><small>AUR</small></sup> packages are needed to run the GNS3 GUI.
 The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dynamips/">dynamips</a></span><sup><small>AUR</small></sup> package are needed to simulate Cisco routers.
 </p>
-<p><a href="/Usage/Configuration/G/Libvirt.html" title="Libvirt">libvirt</a> can be used to create the end devices "Cloud" (providing a virtual wan interfaces, isolating the tested network to the other devices in the main network) and NAT.
-To make <a href="/Usage/Configuration/G/Libvirt.html" title="Libvirt">libvirt</a> work correctly, GNS3 needs <a href="/Usage/Configuration/G/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ubridge/">ubridge</a></span><sup><small>AUR</small></sup>. Install them and ensure the <i>libvirtd</i> daemon is running before using GNS3 for can use Cloud and NAT end devices.
+<p><a href="/Usage/Configuration/L/Libvirt.html" title="Libvirt">libvirt</a> can be used to create the end devices "Cloud" (providing a virtual wan interfaces, isolating the tested network to the other devices in the main network) and NAT.
+To make <a href="/Usage/Configuration/L/Libvirt.html" title="Libvirt">libvirt</a> work correctly, GNS3 needs <a href="/Usage/Configuration/D/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ubridge/">ubridge</a></span><sup><small>AUR</small></sup>. Install them and ensure the <i>libvirtd</i> daemon is running before using GNS3 for can use Cloud and NAT end devices.
 </p>
 <h2><span class="mw-headline" id="Adding_virtual_machines">Adding virtual machines</span></h2>
-<p>When creating your topology (your virtual network), you most likely want to add machines to it. GNS3 supports <a href="/Usage/Configuration/G/QEMU.html" title="QEMU">QEMU</a> and <a href="/Usage/Configuration/G/VirtualBox.html" title="VirtualBox">VirtualBox</a> out of the box. <a href="/Usage/Configuration/G/VMware.html" title="VMware">VMware</a> does not make for as easy integration. You can use VMWare but you can not add the machines directly in your topology as you can with <a href="/Usage/Configuration/G/QEMU.html" title="QEMU">QEMU</a> and <a href="/Usage/Configuration/G/VirtualBox.html" title="VirtualBox">VirtualBox</a>.
+<p>When creating your topology (your virtual network), you most likely want to add machines to it. GNS3 supports <a href="/Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a> and <a href="/Usage/Configuration/V/VirtualBox.html" title="VirtualBox">VirtualBox</a> out of the box. <a href="/Usage/Configuration/V/VMware.html" title="VMware">VMware</a> does not make for as easy integration. You can use VMWare but you can not add the machines directly in your topology as you can with <a href="/Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a> and <a href="/Usage/Configuration/V/VirtualBox.html" title="VirtualBox">VirtualBox</a>.
 </p>
 <h3><span class="mw-headline" id="VirtualBox">VirtualBox</span></h3>
 <h4><span class="mw-headline" id="Install_VirtualBox">Install VirtualBox</span></h4>
-<p>To use <a href="/Usage/Configuration/G/VirtualBox.html" title="VirtualBox">VirtualBox</a> machines for your topology you need to <a href="/Usage/Configuration/G/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox">virtualbox</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-sdk">virtualbox-sdk</a></span>. To avoid any problems with GNS3 not finding VirtualBox it is recommended to install VirtualBox AFTER you install GNS3. If you already have VirtualBox installed, you should be able to just reinstall it.
+<p>To use <a href="/Usage/Configuration/V/VirtualBox.html" title="VirtualBox">VirtualBox</a> machines for your topology you need to <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox">virtualbox</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-sdk">virtualbox-sdk</a></span>. To avoid any problems with GNS3 not finding VirtualBox it is recommended to install VirtualBox AFTER you install GNS3. If you already have VirtualBox installed, you should be able to just reinstall it.
 </p>
 <p>If you don't install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-sdk">virtualbox-sdk</a></span> package you will not get the <code>vboxapi.py</code> script and GNS3s <code>vboxwrapper.py</code> needs this to connect the VMs.
 </p>
 <h4><span class="mw-headline" id="Adding_the_GNS3_VM_to_VirtualBox">Adding the GNS3 VM to VirtualBox</span></h4>
 <p>The official GNS3 VM should be used to increase performance. Go to <a rel="nofollow"  href="https://github.com/GNS3/gns3-gui/releases">GNS3 Github</a> and download the VirtualBox version of the GNS3 VM with the exact same version number as your GNS3 version. Unzip and import the VM in VirtualBox.
 </p>
-<p>To create a network connection between the GNS3 VM and the host OS a host-only network must be configured. In <i>File &gt; Host Network Manager</i>, set up a host-only network. In most cases, it will be called <code>vboxnet0</code> or similar. Note the IP address dedicated to the interface in the GUI. For some reason, VirtualBox does not assign the IP to the interface, nor does it enable it. Therefore, this must be performed manually in the terminal. See <a href="/Usage/Configuration/G/Network_configuration.html#Routing_table" title="Network configuration">Network configuration#Routing table</a> for more information on assigning IP addresses.
+<p>To create a network connection between the GNS3 VM and the host OS a host-only network must be configured. In <i>File &gt; Host Network Manager</i>, set up a host-only network. In most cases, it will be called <code>vboxnet0</code> or similar. Note the IP address dedicated to the interface in the GUI. For some reason, VirtualBox does not assign the IP to the interface, nor does it enable it. Therefore, this must be performed manually in the terminal. See <a href="/Usage/Configuration/N/Network_configuration.html#Routing_table" title="Network configuration">Network configuration#Routing table</a> for more information on assigning IP addresses.
 </p>
 <pre># ip addr add <i>IP_address</i>/<i>subnet_mask</i> dev vboxnet0
 # ip link set dev vboxnet0 up
@@ -106,7 +106,7 @@ To make <a href="/Usage/Configuration/G/Libvirt.html" title="Libvirt">libvirt</a
 <p>After you have told GNS3 which VMs is should be able to see you can drag'n'drop them in your topology. Simply select the computer-icon in the left sidebar. You can now choose "VirtualBox guest". Drag this to where  you want to add your VM in your topology. When you drop it in you will be prompted about which VM to add. Select the one you want and click OK. You should now be able to boot the VM from GNS3 by right click -&gt; start.
 </p>
 <h3><span class="mw-headline" id="VMware">VMware</span></h3>
-<p>To use <a href="/Usage/Configuration/G/VMware.html" title="VMware">VMware</a> in GNS3 you need to create a cloud in your GNS3 topology, and then in your VMware machine, connect it to the NIC of the cloud in your topology.
+<p>To use <a href="/Usage/Configuration/V/VMware.html" title="VMware">VMware</a> in GNS3 you need to create a cloud in your GNS3 topology, and then in your VMware machine, connect it to the NIC of the cloud in your topology.
 </p>
 <p>Instructions taken (and ported) from <a rel="nofollow"  href="http://forum.gns3.net/topic1139.html">GNS3 forums</a>:
 </p>
@@ -138,7 +138,7 @@ The VPCS's executable should be placed inside <code>~/GNS3</code> to keep it sim
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> VPCS 0.8b is affected from <a rel="nofollow"  href="https://gns3.com/discussions/vpcs-it-just-just-allow-type-one">this</a> bug.</div>
 <h2><span class="mw-headline" id="Wireshark_packet_capture">Wireshark packet capture</span></h2>
-<p><a href="/Usage/Configuration/G/Wireshark.html" title="Wireshark">Wireshark</a> can be used with GNS3 to "sniff" packets from the links between devices of a virtual topology. Install it and create a symlink under <code>~/GNS3/wireshark/</code> directory:
+<p><a href="/Usage/Configuration/W/Wireshark.html" title="Wireshark">Wireshark</a> can be used with GNS3 to "sniff" packets from the links between devices of a virtual topology. Install it and create a symlink under <code>~/GNS3/wireshark/</code> directory:
 </p>
 <p><code>ln -s /usr/bin/wireshark ~/GNS3/wireshark/</code>
 </p>
@@ -146,8 +146,8 @@ The VPCS's executable should be placed inside <code>~/GNS3</code> to keep it sim
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/G/Category:Networking.html" title="Category:Networking">Networking</a></li>
-<li><a href="/Usage/Configuration/G/Category:Simulation.html" title="Category:Simulation">Simulation</a></li>
+<li><a href="/Usage/Configuration/C/Category:Networking.html" title="Category:Networking">Networking</a></li>
+<li><a href="/Usage/Configuration/C/Category:Simulation.html" title="Category:Simulation">Simulation</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -165,9 +165,9 @@ The VPCS's executable should be placed inside <code>~/GNS3</code> to keep it sim
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/G/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/G/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/G/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

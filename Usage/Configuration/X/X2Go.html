@@ -2,7 +2,7 @@
     title: X2Go
     description: Migration of X2Go from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="http://wiki.x2go.org">X2Go</a> enables to access a graphical desktop of a computer over the network. The protocol is tunneled through the <a href="/Usage/Configuration/X/Secure_Shell.html" title="Secure Shell">Secure Shell</a> protocol, so it is encrypted.
+<p><a rel="nofollow"  href="http://wiki.x2go.org">X2Go</a> enables to access a graphical desktop of a computer over the network. The protocol is tunneled through the <a href="/Usage/Configuration/S/Secure_Shell.html" title="Secure Shell">Secure Shell</a> protocol, so it is encrypted.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> X2Go is not compatible with all desktop environments. You can check <a rel="nofollow"  href="http://wiki.x2go.org/doku.php/doc:de-compat">X2Go desktop environment compatibility</a> first. Compatibility is especially important if you want to connect to an existing <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> session.</div>
@@ -77,7 +77,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Two parts are available in <a href="/Usage/Configuration/X/Official_repositories.html" title="Official repositories">official repositories</a>. They can be <a href="/Usage/Configuration/X/Pacman.html" title="Pacman">installed</a> with the following packages:
+<p>Two parts are available in <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>. They can be <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">installed</a> with the following packages:
 </p>
 <ul>
 <li>
@@ -87,11 +87,11 @@
 </ul>
 <h2><span class="mw-headline" id="Server_side">Server side</span></h2>
 <h3><span class="mw-headline" id="Configure_Secure_Shell_daemon">Configure Secure Shell daemon</span></h3>
-<p>X2Go uses <a href="/Usage/Configuration/X/Secure_Shell.html" title="Secure Shell">Secure Shell</a> in order to work, so you need to configure sshd daemon to allow X11 forwarding. Follow the instructions at <a href="/Usage/Configuration/X/OpenSSH.html#X11_forwarding" title="OpenSSH">OpenSSH#X11 forwarding</a> and <a href="/Usage/Configuration/X/OpenSSH.html#Daemon_management" title="OpenSSH">OpenSSH#Daemon management</a>.
+<p>X2Go uses <a href="/Usage/Configuration/S/Secure_Shell.html" title="Secure Shell">Secure Shell</a> in order to work, so you need to configure sshd daemon to allow X11 forwarding. Follow the instructions at <a href="/Usage/Configuration/O/OpenSSH.html#X11_forwarding" title="OpenSSH">OpenSSH#X11 forwarding</a> and <a href="/Usage/Configuration/O/OpenSSH.html#Daemon_management" title="OpenSSH">OpenSSH#Daemon management</a>.
 </p>
 <h3><span class="mw-headline" id="Check_fuse_kernel_module_is_loaded">Check fuse kernel module is loaded</span></h3>
 <p>In order for the server to be able to access files on the client computer, the fuse module is needed. 
-One can check that <code>lsmod | grep fuse</code> returns a match, otherwise load the <code>fuse</code> <a href="/Usage/Configuration/X/Kernel_module.html" title="Kernel module">kernel module</a>.
+One can check that <code>lsmod | grep fuse</code> returns a match, otherwise load the <code>fuse</code> <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a>.
 </p>
 <h3><span class="mw-headline" id="Setup_SQLite_database">Setup SQLite database</span></h3>
 <p>Run the following command on the server to initialize the SQLite database (which is required in order for the x2go server to work):
@@ -106,7 +106,7 @@ Alternatively instead of creating a symlink one could also create a folder and l
 <p>See <a rel="nofollow"  href="https://wiki.x2go.org/doku.php/wiki:advanced:published-applications">[1]</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Start_X2Go_server_daemon">Start X2Go server daemon</span></h3>
-<p>Now all you need to do is <a href="/Usage/Configuration/X/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the system <code>x2goserver.service</code>.
+<p>Now all you need to do is <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the system <code>x2goserver.service</code>.
 </p>
 <h2><span class="mw-headline" id="Client_side">Client side</span></h2>
 <p>Run <i>X2Go Client</i> on the client computer, the one that wants to access the server:
@@ -127,10 +127,10 @@ Alternatively instead of creating a symlink one could also create a folder and l
 <h3>
 <span id="Exchange_data_between_client_and_server_.28desktop.29"></span><span class="mw-headline" id="Exchange_data_between_client_and_server_(desktop)">Exchange data between client and server (desktop)</span>
 </h3>
-<p>On the X2Go client (e.g. laptop) local directories could be shared. The server will use <a href="/Usage/Configuration/X/Category:FUSE.html" class="mw-redirect" title="Fuse">fuse</a> and <a href="/Usage/Configuration/X/SSHFS.html" title="SSHFS">SSHFS</a> to access this directory and mount it to a subdirectory media of your home directory on the server. This enables you to have access to laptop data on your server or to exchange files. It is also possible to mount these shares automatically at each session start.
+<p>On the X2Go client (e.g. laptop) local directories could be shared. The server will use <a href="/Usage/Configuration/C/Category:FUSE.html" class="mw-redirect" title="Fuse">fuse</a> and <a href="/Usage/Configuration/S/SSHFS.html" title="SSHFS">SSHFS</a> to access this directory and mount it to a subdirectory media of your home directory on the server. This enables you to have access to laptop data on your server or to exchange files. It is also possible to mount these shares automatically at each session start.
 </p>
 <h3><span class="mw-headline" id="Leave_a_session_temporarily">Leave a session temporarily</span></h3>
-<p>Another special feature of X2Go is the possibility of suspending a session. This means you can leave a session on one client and reopen it even from another client at the same point. This can be used to to start a session in the LAN and to reopen it later on a laptop. The session data are stored and administered in a <a href="/Usage/Configuration/X/SQLite.html" title="SQLite">SQLite</a> database on the server in the meanwhile. The state of the sessions is protocolled by a process named <i>x2gocleansessions</i>.
+<p>Another special feature of X2Go is the possibility of suspending a session. This means you can leave a session on one client and reopen it even from another client at the same point. This can be used to to start a session in the LAN and to reopen it later on a laptop. The session data are stored and administered in a <a href="/Usage/Configuration/S/SQLite.html" title="SQLite">SQLite</a> database on the server in the meanwhile. The state of the sessions is protocolled by a process named <i>x2gocleansessions</i>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="The_desktop_environment_does_not_start">The desktop environment does not start</span></h3>
@@ -141,7 +141,7 @@ This is typically an issue related to <i>D-Bus</i>, see <a rel="nofollow"  href=
 <p>If <i>D-Bus</i> fails to start, try using a <i>Custom desktop</i> command instead of the default session type. For the command, use the desktop starter as an option of <code>dbus-launch</code>, for example <code>dbus-launch startxfce4</code>. This is a way to launch a session bus instance, set the appropriate environment variables so that the new session can find the bus.
 </p>
 <h4><span class="mw-headline" id="Path_issue">Path issue</span></h4>
-<p>It may be that the desktop environment's executable, <i>startkde</i>, <i>startgnome</i> or <i>startxfce4</i> is not in the <code>$PATH</code> when logging in using SSH. In this case, do not simply choose the defaults of KDE, Gnome or XFCE but use the full paths to the executable, for example <code>/usr/bin/startxfce4</code>. You can also start <a href="/Usage/Configuration/X/Openbox.html" title="Openbox">openbox</a> or another window manager.
+<p>It may be that the desktop environment's executable, <i>startkde</i>, <i>startgnome</i> or <i>startxfce4</i> is not in the <code>$PATH</code> when logging in using SSH. In this case, do not simply choose the defaults of KDE, Gnome or XFCE but use the full paths to the executable, for example <code>/usr/bin/startxfce4</code>. You can also start <a href="/Usage/Configuration/O/Openbox.html" title="Openbox">openbox</a> or another window manager.
 You should be asked for your server's password and user name, now and after login you will see the X2Go logo for a short time, and the desktop.
 </p>
 <h3><span class="mw-headline" id="No_selection_screen_in_x2goclient">No selection screen in x2goclient</span></h3>
@@ -180,7 +180,7 @@ You should be asked for your server's password and user name, now and after logi
 </p>
 <h3><span class="mw-headline" id="Workaround_for_failing_compositing_window_manager_for_remote_session">Workaround for failing compositing window manager for remote session</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/X/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> <span style="color:red;">please use the first argument of the template to provide a brief explanation.</span> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:X2Go">Talk:X2Go#</a>)</div>
 </div>
@@ -225,7 +225,7 @@ exec bash -c "$WM"
 </h3>
 <p>X2Go client launches as expected from a local Wayland session but attempting to connect to a remote X2Go server fails. This problem is usually caused by Qt on Wayland.
 </p>
-<p>Follow the instructions in <a href="/Usage/Configuration/X/Desktop_entries.html#Modify_environment_variables" title="Desktop entries">Desktop entries#Modify environment variables</a> and change the lines starting with
+<p>Follow the instructions in <a href="/Usage/Configuration/D/Desktop_entries.html#Modify_environment_variables" title="Desktop entries">Desktop entries#Modify environment variables</a> and change the lines starting with
 </p>
 <pre>Exec=x2goclient
 </pre>
@@ -242,9 +242,9 @@ exec bash -c "$WM"
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/X/Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Remote_desktop.html" title="Category:Remote desktop">Remote desktop</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/X/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -262,9 +262,9 @@ exec bash -c "$WM"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/X/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/X/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/X/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

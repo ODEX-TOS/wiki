@@ -2,7 +2,7 @@
     title: Samba
     description: Migration of Samba from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
+<li><a href="/Usage/Configuration/A/Active_Directory_integration.html" class="mw-redirect" title="Active Directory Integration">Active Directory Integration</a></li>
 <li><a href="/Usage/Configuration/S/Samba/Active_Directory_domain_controller.html" title="Samba/Active Directory domain controller">Samba/Active Directory domain controller</a></li>
-<li><a href="/Usage/Configuration/S/NFS.html" title="NFS">NFS</a></li>
+<li><a href="/Usage/Configuration/N/NFS.html" title="NFS">NFS</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://www.samba.org/">Samba</a> is the standard Windows interoperability suite of programs for Linux and Unix. Since 1992, Samba has provided secure, stable and fast file and print services for all clients using the <a href="https://en.wikipedia.org/wiki/Server_Message_Block"  title="wikipedia:Server Message Block">SMB/CIFS</a> protocol, such as all versions of DOS and Windows, OS/2, Linux and many others.
@@ -171,7 +171,7 @@
 
 <h2><span class="mw-headline" id="Server">Server</span></h2>
 <h3><span class="mw-headline" id="Installation">Installation</span></h3>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=samba">samba</a></span> package.
 </p>
 <p>Samba is configured in the <code>/etc/samba/smb.conf</code> configuration file, which is extensively documented in <span class="plainlinks archwiki-template-man" title="$ man 5 smb.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smb.conf.5">smb.conf(5)</a></span>.
 </p>
@@ -196,20 +196,20 @@
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Whenever you modify the <code>smb.conf</code> file, run the <span class="plainlinks archwiki-template-man" title="$ man 1 testparm"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/testparm.1">testparm(1)</a></span> command to check for syntactic errors.</div>
 <h4><span class="mw-headline" id="Configure_Firewall">Configure Firewall</span></h4>
-<p>If you are using a <a href="/Usage/Configuration/S/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, do not forget to open required ports (usually 137-139 + 445). For a complete list, see <a rel="nofollow"  href="https://www.samba.org/~tpot/articles/firewall.html">Samba port usage</a>.
+<p>If you are using a <a href="/Usage/Configuration/C/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>, do not forget to open required ports (usually 137-139 + 445). For a complete list, see <a rel="nofollow"  href="https://www.samba.org/~tpot/articles/firewall.html">Samba port usage</a>.
 </p>
 <h3><span class="mw-headline" id="Usage">Usage</span></h3>
 <h4><span class="mw-headline" id="User_Management">User Management</span></h4>
 <h5><span class="mw-headline" id="Adding_a_user">Adding a user</span></h5>
-<p>Samba requires a Linux user account - you may use an existing user account or create a <a href="/Usage/Configuration/S/Users_and_groups.html#User_management" title="Users and groups">new one</a>.
+<p>Samba requires a Linux user account - you may use an existing user account or create a <a href="/Usage/Configuration/U/Users_and_groups.html#User_management" title="Users and groups">new one</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The <a href="/Usage/Configuration/S/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/S/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> <i>nobody</i> should already exist on the system, it's used as the default <code>guest account</code> and may be used for shares containing <code>guest ok = yes</code>, thus preventing the need of user login on that share.</div>
+<strong>Note:</strong> The <a href="/Usage/Configuration/U/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> <i>nobody</i> should already exist on the system, it's used as the default <code>guest account</code> and may be used for shares containing <code>guest ok = yes</code>, thus preventing the need of user login on that share.</div>
 <p>Although the user name is shared with Linux system, Samba uses a password separate from that of the Linux user accounts. Replace <code>samba_user</code> with the chosen Samba user account:
 </p>
 <pre># smbpasswd -a <i>samba_user</i>
 </pre>
-<p>Depending on the <a rel="nofollow"  href="https://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html#SERVERROLE">server role</a>, existing <a href="/Usage/Configuration/S/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> may need to be altered for the Samba user account.
+<p>Depending on the <a rel="nofollow"  href="https://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html#SERVERROLE">server role</a>, existing <a href="/Usage/Configuration/F/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> may need to be altered for the Samba user account.
 </p>
 <p>If you want the new user only to be allowed to remotely access the file server shares through Samba, you can restrict other login options：
 </p>
@@ -233,7 +233,7 @@
 </pre>
 <h4><span class="mw-headline" id="Creating_a_share">Creating a share</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> To allow the usage of <i>guests</i> on public shares, one will need to <a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>map to guest = Bad User</code> in the <code>[global]</code> section of <code>/etc/samba/smb.conf</code>. A different <code>guest account</code> may be used instead of the default provided <code>nobody</code>.</div>
+<strong>Note:</strong> To allow the usage of <i>guests</i> on public shares, one will need to <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>map to guest = Bad User</code> in the <code>[global]</code> section of <code>/etc/samba/smb.conf</code>. A different <code>guest account</code> may be used instead of the default provided <code>nobody</code>.</div>
 <p>Make sure shares have been properly defined as per the <i>Share Definitions</i> section of <a rel="nofollow"  href="https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD">smb.conf.default</a>.
 </p>
 <h4><span class="mw-headline" id="Starting_services">Starting services</span></h4>
@@ -273,7 +273,7 @@ is a feature that gives non-root users the capability to add, modify, and delete
 </p>
 <p>If you want to share paths inside your home directory you must make it accessible for the group <i>others</i>.
 </p>
-<p>In the GUI, for example in <a href="/Usage/Configuration/S/Thunar.html" title="Thunar">Thunar</a>, you can right click on any directory and share it on the network. 
+<p>In the GUI, for example in <a href="/Usage/Configuration/T/Thunar.html" title="Thunar">Thunar</a>, you can right click on any directory and share it on the network. 
 </p>
 <p>In the CLI, use one of the following commands, replacing italic <i>sharename</i>, <i>user</i>, ... :
 </p>
@@ -327,7 +327,7 @@ is a feature that gives non-root users the capability to add, modify, and delete
 <h4><span class="mw-headline" id="Restrict_protocols_for_better_security">Restrict protocols for better security</span></h4>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> By default, Samba versions prior to 4.11 allow connections using the outdated and insecure SMB1 protocol. When using one these Samba versions, it is highly recommended to set <code>server min protocol = SMB2_02</code> to protect yourself from ransomware attacks. In Samba 4.11 and newer, SMB2 is the default min protocol, so no changes are required there.</div>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>server min protocol</code> and <code>server max protocol</code> in <code>/etc/samba/smb.conf</code> to force usage of a minimum and maximum protocol:
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>server min protocol</code> and <code>server max protocol</code> in <code>/etc/samba/smb.conf</code> to force usage of a minimum and maximum protocol:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/samba/smb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[global]
@@ -358,7 +358,7 @@ is a feature that gives non-root users the capability to add, modify, and delete
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> When <a href="#Manual_mounting">mounting</a> a share, specify the <code>seal</code> mount option to force usage of encryption.</div>
 <h4><span class="mw-headline" id="Disable_printer_sharing">Disable printer sharing</span></h4>
-<p>By default Samba shares printers configured using <a href="/Usage/Configuration/S/CUPS.html" title="CUPS">CUPS</a>.
+<p>By default Samba shares printers configured using <a href="/Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a>.
 </p>
 <p>If you do not want printers to be shared, use the following settings:
 </p>
@@ -388,7 +388,7 @@ is a feature that gives non-root users the capability to add, modify, and delete
 </p>
 <p>Read the <span class="plainlinks archwiki-template-man" title="$ man 5 smb.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smb.conf.5">smb.conf(5)</a></span> man page before applying any of the options listed below.
 </p>
-<p>The following settings should be <a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[global]</code> section of <code>/etc/samba/smb.conf</code>.
+<p>The following settings should be <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[global]</code> section of <code>/etc/samba/smb.conf</code>.
 </p>
 <p>SMB3 multi-channel may improve performance, however it may result in data corruption under some race conditions. Future releases may improve this situation:
 </p>
@@ -402,7 +402,7 @@ is a feature that gives non-root users the capability to add, modify, and delete
 </p>
 <pre>use sendfile = yes
 </pre>
-<p>The write cache allows Samba to batch client writes into a more efficient write size for <a href="/Usage/Configuration/S/RAID.html" title="RAID">RAID</a> disks (i.e. writes may be tuned to be the RAID stripe size) and can improve performance on systems where the disk subsystem is a bottleneck but there is free memory for userspace programs:
+<p>The write cache allows Samba to batch client writes into a more efficient write size for <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> disks (i.e. writes may be tuned to be the RAID stripe size) and can improve performance on systems where the disk subsystem is a bottleneck but there is free memory for userspace programs:
 </p>
 <pre>write cache size = 262144
 </pre>
@@ -434,16 +434,16 @@ ntlm auth = yes
 <h2><span class="mw-headline" id="Client">Client</span></h2>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span> for an <code>ftp</code>-like command line interface. See <span class="plainlinks archwiki-template-man" title="$ man 1 smbclient"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smbclient.1">smbclient(1)</a></span> for commonly used commands.
 </p>
-<p>For a lightweight alternative (without support for listing public shares, etc.), <a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cifs-utils">cifs-utils</a></span> that provides <code>/usr/bin/mount.cifs</code>.
+<p>For a lightweight alternative (without support for listing public shares, etc.), <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cifs-utils">cifs-utils</a></span> that provides <code>/usr/bin/mount.cifs</code>.
 </p>
-<p>Depending on the <a href="/Usage/Configuration/S/Desktop_environment.html" title="Desktop environment">desktop environment</a>, GUI methods may be available. See <a href="#File_manager_configuration">#File manager configuration</a> for use with a file manager.
+<p>Depending on the <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">desktop environment</a>, GUI methods may be available. See <a href="#File_manager_configuration">#File manager configuration</a> for use with a file manager.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span> requires a <code>/etc/samba/smb.conf</code> file (see <a href="#Installation">#Installation</a>), which you can create as an empty file using the <code>touch</code> utility.</li>
-<li>After installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cifs-utils">cifs-utils</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span>, load the <code>cifs</code> <a href="/Usage/Configuration/S/Kernel_module.html" title="Kernel module">kernel module</a> or reboot to prevent mount fails.</li>
+<li>After installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cifs-utils">cifs-utils</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span>, load the <code>cifs</code> <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> or reboot to prevent mount fails.</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="List_public_shares">List public shares</span></h3>
@@ -503,7 +503,7 @@ ntlm auth = yes
 </p>
 <pre># mount -t cifs //<i>SERVER</i>/<i>sharename</i> /mnt/<i>mountpoint</i> -o username=<i>username</i>,password=<i>password</i>,workgroup=<i>workgroup</i>,iocharset=<i>utf8</i>,uid=<i>username</i>,gid=<i>group</i>
 </pre>
-<p>The options <code>uid</code> and <code>gid</code> corresponds to the local (e.g. client) <a href="/Usage/Configuration/S/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/S/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to have read/write access on the given path.
+<p>The options <code>uid</code> and <code>gid</code> corresponds to the local (e.g. client) <a href="/Usage/Configuration/U/Users_and_groups.html" class="mw-redirect" title="User">user</a>/<a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to have read/write access on the given path.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -514,7 +514,7 @@ ntlm auth = yes
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Using <code>uid</code> and/or <code>gid</code> as mount options may cause I/O errors, it is recommended to set/check correct <a href="/Usage/Configuration/S/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> instead.</div>
+<strong>Warning:</strong> Using <code>uid</code> and/or <code>gid</code> as mount options may cause I/O errors, it is recommended to set/check correct <a href="/Usage/Configuration/F/File_permissions_and_attributes.html" title="File permissions and attributes">File permissions and attributes</a> instead.</div>
 <p><i>SERVER</i>
 </p>
 <dl><dd>The server name.</dd></dl>
@@ -532,7 +532,7 @@ ntlm auth = yes
 <ul>
 <li>Abstain from using a trailing <code>/</code>. <code>//<i>SERVER</i>/<i>sharename</i><b>/</b></code> will not work.</li>
 <li>If your mount does not work stable, stutters or freezes, try to enable different SMB protocol version with <code>vers=</code> option. For example, <code>vers=2.0</code> for Windows Vista mount.</li>
-<li>If having timeouts on a mounted network share with cifs on a shutdown, see <a href="/Usage/Configuration/S/Wpa_supplicant.html#Problem_with_mounted_network_shares_(cifs)_and_shutdown" class="mw-redirect" title="WPA supplicant">WPA supplicant#Problem with mounted network shares (cifs) and shutdown</a>.</li>
+<li>If having timeouts on a mounted network share with cifs on a shutdown, see <a href="/Usage/Configuration/W/Wpa_supplicant.html#Problem_with_mounted_network_shares_(cifs)_and_shutdown" class="mw-redirect" title="WPA supplicant">WPA supplicant#Problem with mounted network shares (cifs) and shutdown</a>.</li>
 </ul>
 </div>
 <h4><span class="mw-headline" id="Storing_share_passwords">Storing share passwords</span></h4>
@@ -553,14 +553,14 @@ password=<i>mypass</i></pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You may need to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>systemd-networkd-wait-online.service</code> or <code> NetworkManager-wait-online.service</code> (depending on your setup) to proper enable booting on start-up.</div>
 <h4><span class="mw-headline" id="As_mount_entry">As mount entry</span></h4>
-<p>This is a simple example of a <code>cifs</code> <a href="/Usage/Configuration/S/Fstab.html" title="Fstab">mount entry</a> that requires authentication:
+<p>This is a simple example of a <code>cifs</code> <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">mount entry</a> that requires authentication:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">//<i>SERVER</i>/<i>sharename</i> /mnt/<i>mountpoint</i> cifs _netdev,username=<i>myuser</i>,password=<i>mypass</i> 0 0</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Spaces in sharename should be replaced by <code>\040</code> (ASCII code for space in octal). For example, <code>//<i>SERVER</i>/share name</code> on the command line should be <code>//<i>SERVER</i>/share\040name</code> in <code>/etc/fstab</code>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Use <code>x-systemd.automount</code> if you want them to be mounted only upon access. See <a href="/Usage/Configuration/S/Fstab.html#Remote_filesystem" title="Fstab">Fstab#Remote filesystem</a> for details.</div>
+<strong>Tip:</strong> Use <code>x-systemd.automount</code> if you want them to be mounted only upon access. See <a href="/Usage/Configuration/F/Fstab.html#Remote_filesystem" title="Fstab">Fstab#Remote filesystem</a> for details.</div>
 <h4><span class="mw-headline" id="As_systemd_unit">As systemd unit</span></h4>
 <p>Create a new <code>.mount</code> file inside <code>/etc/systemd/system</code>, e.g. <code>mnt-myshare.mount</code>. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.mount.5">systemd.mount(5)</a></span> for details.
 </p>
@@ -578,7 +578,7 @@ E.g. the unit name <code>mnt-myshare.mount</code> can only be used if are going 
 <ul>
 <li>Network mount units automatically acquire <code>After</code> dependencies on <i>remote-fs-pre.target</i>, <i>network.target</i> and <i>network-online.target</i>, and gain a <code>Before</code> dependency on <i>remote-fs.target</i> unless <code>nofail</code> mount option is set. Towards the latter a <code>Wants</code> unit is added as well.</li>
 <li>
-<a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>noauto</code> to <code>Options</code> preventing automatically mount during boot (unless it is pulled in by some other unit).</li>
+<a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>noauto</code> to <code>Options</code> preventing automatically mount during boot (unless it is pulled in by some other unit).</li>
 <li>If you want to use a hostname for the server you want to share (instead of an IP address), add <code>nss-lookup.target</code> to <code>After</code> and <code>Wants</code>. This might avoid mount errors at boot time that do not arise when testing the unit.</li>
 </ul>
 </div>
@@ -596,7 +596,7 @@ TimeoutSec=30
 [Install]
 WantedBy=multi-user.target</pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> In case of an unreachable system, <a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>ForceUnmount=true</code> to <code>[Mount]</code>, allowing the share to be (force-)unmounted.</div>
+<strong>Tip:</strong> In case of an unreachable system, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> <code>ForceUnmount=true</code> to <code>[Mount]</code>, allowing the share to be (force-)unmounted.</div>
 <p>To use <code>mnt-myshare.mount</code>, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the unit and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to run on system boot.
 </p>
 <h5><span class="mw-headline" id="automount">automount</span></h5>
@@ -614,7 +614,7 @@ WantedBy=multi-user.target</pre>
 <p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Disable">Disable</a>/<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> the <code>mnt-myshare.mount</code> unit, and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a>/<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>mnt-myshare.automount</code> to automount the share when the mount path is being accessed.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>TimeoutIdleSec</code> to enable auto unmount. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.automount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.automount.5">systemd.automount(5)</a></span> for details.</div>
+<strong>Tip:</strong> <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">Append</a> <code>TimeoutIdleSec</code> to enable auto unmount. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.automount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.automount.5">systemd.automount(5)</a></span> for details.</div>
 <h4><span class="mw-headline" id="smbnetfs">smbnetfs</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> smbnetfs needs an intact Samba server setup.
@@ -630,7 +630,7 @@ in <code>/etc/samba/smb.conf</code> accordingly:
 </pre>
 <p>Now <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>smb.service</code> and <code>nmb.service</code>.
 </p>
-<p>If everything works as expected, <a href="/Usage/Configuration/S/Pacman.html#Installing_specific_packages" title="Pacman">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbnetfs">smbnetfs</a></span> from the official repositories.
+<p>If everything works as expected, <a href="/Usage/Configuration/P/Pacman.html#Installing_specific_packages" title="Pacman">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbnetfs">smbnetfs</a></span> from the official repositories.
 </p>
 <p>Then, add the following line to <code>/etc/fuse.conf</code>:
 </p>
@@ -653,7 +653,7 @@ to include one or more entries like this:
 <p>It is also possible to add entries for specific hosts to be mounted by smbnetfs, if necessary.
 More details can be found in <code>~/.smb/smbnetfs.conf</code>.
 </p>
-<p>If you are using the <a href="/Usage/Configuration/S/Dolphin.html" title="Dolphin">Dolphin</a> or <a href="/Usage/Configuration/S/GNOME/Files.html" class="mw-redirect" title="GNOME Files">GNOME Files</a>, you may want to add the following to <code>~/.smb/smbnetfs.conf</code> to avoid "Disk full" errors as smbnetfs by default will report 0 bytes of free space:
+<p>If you are using the <a href="/Usage/Configuration/D/Dolphin.html" title="Dolphin">Dolphin</a> or <a href="/Usage/Configuration/G/GNOME/Files.html" class="mw-redirect" title="GNOME Files">GNOME Files</a>, you may want to add the following to <code>~/.smb/smbnetfs.conf</code> to avoid "Disk full" errors as smbnetfs by default will report 0 bytes of free space:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.smb/smbnetfs.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">free_space_size 1073741824
@@ -672,16 +672,16 @@ More details can be found in <code>~/.smb/smbnetfs.conf</code>.
 <p>The TOS Linux package also maintains an additional system-wide operation mode for smbnetfs. To enable it, you need to make the
 said modifications in the directory <code>/etc/smbnetfs/.smb</code>.
 </p>
-<p>Then, you can start and/or enable the <code>smbnetfs</code> <a href="/Usage/Configuration/S/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> as usual. The system-wide mount point is at <code>/mnt/smbnet/</code>.
+<p>Then, you can start and/or enable the <code>smbnetfs</code> <a href="/Usage/Configuration/D/Daemons.html" class="mw-redirect" title="Daemon">daemon</a> as usual. The system-wide mount point is at <code>/mnt/smbnet/</code>.
 </p>
 <h4><span class="mw-headline" id="autofs">autofs</span></h4>
-<p>See <a href="/Usage/Configuration/S/Autofs.html" title="Autofs">Autofs</a> for information on the kernel-based automounter for Linux.
+<p>See <a href="/Usage/Configuration/A/Autofs.html" title="Autofs">Autofs</a> for information on the kernel-based automounter for Linux.
 </p>
 <h3><span class="mw-headline" id="File_manager_configuration">File manager configuration</span></h3>
 <h4>
 <span id="GNOME_Files.2C_Nemo.2C_Caja.2C_Thunar_and_PCManFM"></span><span class="mw-headline" id="GNOME_Files,_Nemo,_Caja,_Thunar_and_PCManFM">GNOME Files, Nemo, Caja, Thunar and PCManFM</span>
 </h4>
-<p>In order to access samba shares through GNOME Files, Nemo, Caja, Thunar or PCManFM, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gvfs-smb">gvfs-smb</a></span> package, available in the <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p>In order to access samba shares through GNOME Files, Nemo, Caja, Thunar or PCManFM, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gvfs-smb">gvfs-smb</a></span> package, available in the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <p>Press <code>Ctrl+l</code> and enter <code>smb://<i>servername</i>/<i>share</i></code> in the location bar to access your share.
 </p>
@@ -702,7 +702,7 @@ said modifications in the directory <code>/etc/smbnetfs/.smb</code>.
 <h3><span class="mw-headline" id="Discovering_network_shares">Discovering network shares</span></h3>
 <p>If nothing is known about other systems on the local network, and automated tools such as <a href="#smbnetfs">smbnetfs</a> are not available, the following methods allow one to manually probe for Samba shares.
 </p>
-<p>1. First, <a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nmap">nmap</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span> packages.
+<p>1. First, <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nmap">nmap</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smbclient">smbclient</a></span> packages.
 </p>
 <p>2. <code>nmap</code> checks which ports are open:
 </p>
@@ -1072,13 +1072,13 @@ password=pass</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/S/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
-<li><a href="/Usage/Configuration/S/Category:Servers.html" title="Category:Servers">Servers</a></li>
+<li><a href="/Usage/Configuration/C/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
+<li><a href="/Usage/Configuration/C/Category:Servers.html" title="Category:Servers">Servers</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -1097,9 +1097,9 @@ password=pass</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

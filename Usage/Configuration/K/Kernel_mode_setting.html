@@ -2,7 +2,7 @@
     title: Kernel_mode_setting
     description: Migration of Kernel_mode_setting from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,22 +27,22 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/K/ATI.html" title="ATI">ATI</a></li>
-<li><a href="/Usage/Configuration/K/Intel_graphics.html" title="Intel graphics">Intel graphics</a></li>
-<li><a href="/Usage/Configuration/K/Nouveau.html" title="Nouveau">Nouveau</a></li>
+<li><a href="/Usage/Configuration/A/ATI.html" title="ATI">ATI</a></li>
+<li><a href="/Usage/Configuration/I/Intel_graphics.html" title="Intel graphics">Intel graphics</a></li>
+<li><a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> KMS and rootless X (1.16), see <a href="/Usage/Configuration/K/Talk:Kernel_mode_setting.html" title="Talk:Kernel mode setting">Talk:Kernel mode setting</a> and <a href="/Usage/Configuration/K/Xorg.html#Rootless_Xorg_(v1.16)" title="Xorg">Xorg#Rootless Xorg (v1.16)</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Kernel_mode_setting">Talk:Kernel mode setting#</a>)</div>
+<b>Reason:</b> KMS and rootless X (1.16), see <a href="/Usage/Configuration/T/Talk:Kernel_mode_setting.html" title="Talk:Kernel mode setting">Talk:Kernel mode setting</a> and <a href="/Usage/Configuration/X/Xorg.html#Rootless_Xorg_(v1.16)" title="Xorg">Xorg#Rootless Xorg (v1.16)</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Kernel_mode_setting">Talk:Kernel mode setting#</a>)</div>
 </div>
 <p>Kernel <a href="https://en.wikipedia.org/wiki/Mode-setting"  title="wikipedia:Mode-setting">Mode Setting</a> (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.
 </p>
 <p>The Linux kernel's implementation of KMS enables native resolution in the framebuffer and allows for instant console (tty) switching.  KMS also enables newer technologies (such as DRI2) which will help reduce artifacts and increase 3D performance, even kernel space power-saving.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The proprietary <a href="/Usage/Configuration/K/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver (since 364.12) also implements kernel mode-setting, but it does not use the built-in kernel implementation and it lacks an fbdev driver for the high-resolution console.</div>
+<strong>Note:</strong> The proprietary <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver (since 364.12) also implements kernel mode-setting, but it does not use the built-in kernel implementation and it lacks an fbdev driver for the high-resolution console.</div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -75,7 +75,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Background">Background</span></h2>
-<p>Previously, setting up the video card was the job of the X server. Because of this, it was not easily possible to have fancy graphics in <a href="/Usage/Configuration/K/Linux_console.html#Virtual_consoles" class="mw-redirect" title="Virtual console">virtual consoles</a>. Also, each time a switch from X to a virtual console was made (<code>Ctrl+Alt+F2</code>), the server had to give control over the video card to the kernel, which was slow and caused flickering. The same "painful" process happened when the control was given back to the X server (<code>Alt+F7</code> when X runs in VT7).
+<p>Previously, setting up the video card was the job of the X server. Because of this, it was not easily possible to have fancy graphics in <a href="/Usage/Configuration/L/Linux_console.html#Virtual_consoles" class="mw-redirect" title="Virtual console">virtual consoles</a>. Also, each time a switch from X to a virtual console was made (<code>Ctrl+Alt+F2</code>), the server had to give control over the video card to the kernel, which was slow and caused flickering. The same "painful" process happened when the control was given back to the X server (<code>Alt+F7</code> when X runs in VT7).
 </p>
 <p>With Kernel Mode Setting (KMS), the kernel is now able to set the mode of the video card. This makes fancy graphics during bootup, virtual console and X fast switching possible, among other things.
 </p>
@@ -85,30 +85,30 @@
 <ul>
 <li>Any <code>vga=</code> options in your bootloader as these will conflict with the native resolution enabled by KMS.</li>
 <li>Any <code>video=</code> lines that enable a framebuffer that conflicts with the driver.</li>
-<li>Any other framebuffer drivers (such as <a href="/Usage/Configuration/K/Uvesafb.html" title="Uvesafb">uvesafb</a>).</li>
+<li>Any other framebuffer drivers (such as <a href="/Usage/Configuration/U/Uvesafb.html" title="Uvesafb">uvesafb</a>).</li>
 </ul>
 <h3><span class="mw-headline" id="Late_KMS_start">Late KMS start</span></h3>
-<p><a href="/Usage/Configuration/K/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>, <a href="/Usage/Configuration/K/Nouveau.html" title="Nouveau">Nouveau</a>, <a href="/Usage/Configuration/K/ATI.html" title="ATI">ATI</a> and <a href="/Usage/Configuration/K/AMDGPU.html" title="AMDGPU">AMDGPU</a> drivers already enable KMS automatically for all chipsets, so you need not install it manually.
+<p><a href="/Usage/Configuration/I/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>, <a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a>, <a href="/Usage/Configuration/A/ATI.html" title="ATI">ATI</a> and <a href="/Usage/Configuration/A/AMDGPU.html" title="AMDGPU">AMDGPU</a> drivers already enable KMS automatically for all chipsets, so you need not install it manually.
 </p>
-<p>The proprietary <a href="/Usage/Configuration/K/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver supports KMS (since 364.12), which has to be <a href="/Usage/Configuration/K/NVIDIA.html#DRM_kernel_mode_setting" title="NVIDIA">manually enabled</a>.
+<p>The proprietary <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver supports KMS (since 364.12), which has to be <a href="/Usage/Configuration/N/NVIDIA.html#DRM_kernel_mode_setting" title="NVIDIA">manually enabled</a>.
 </p>
-<p>The proprietary <a href="/Usage/Configuration/K/AMD_Catalyst.html" title="AMD Catalyst">AMD Catalyst</a> driver does not support KMS. In order to use KMS you have to replace it with the open-source <a href="/Usage/Configuration/K/AMDGPU.html" title="AMDGPU">AMDGPU</a> or <a href="/Usage/Configuration/K/ATI.html" title="ATI">ATI</a> driver.
+<p>The proprietary <a href="/Usage/Configuration/A/AMD_Catalyst.html" title="AMD Catalyst">AMD Catalyst</a> driver does not support KMS. In order to use KMS you have to replace it with the open-source <a href="/Usage/Configuration/A/AMDGPU.html" title="AMDGPU">AMDGPU</a> or <a href="/Usage/Configuration/A/ATI.html" title="ATI">ATI</a> driver.
 </p>
 <h3><span class="mw-headline" id="Early_KMS_start">Early KMS start</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you encounter problems with the resolution, you can check whether <a href="#Forcing_modes_and_EDID">enforcing the mode</a> helps.</div>
-<p>KMS is typically initialized after the <a href="/Usage/Configuration/K/TOS_boot_process.html#initramfs" title="TOS boot process">initramfs stage</a>. However it is possible to already enable KMS during the initramfs stage. Add the required module for the <a href="/Usage/Configuration/K/Xorg.html#Driver_installation" title="Xorg">video driver</a> to the <code>MODULES</code> array in <code>/etc/mkinitcpio.conf</code>:
+<p>KMS is typically initialized after the <a href="/Usage/Configuration/T/TOS_boot_process.html#initramfs" title="TOS boot process">initramfs stage</a>. However it is possible to already enable KMS during the initramfs stage. Add the required module for the <a href="/Usage/Configuration/X/Xorg.html#Driver_installation" title="Xorg">video driver</a> to the <code>MODULES</code> array in <code>/etc/mkinitcpio.conf</code>:
 </p>
 <ul>
 <li>
-<code>amdgpu</code> for <a href="/Usage/Configuration/K/AMDGPU.html" title="AMDGPU">AMDGPU</a>, or <code>radeon</code> when using the legacy <a href="/Usage/Configuration/K/ATI.html" title="ATI">ATI</a> driver.</li>
+<code>amdgpu</code> for <a href="/Usage/Configuration/A/AMDGPU.html" title="AMDGPU">AMDGPU</a>, or <code>radeon</code> when using the legacy <a href="/Usage/Configuration/A/ATI.html" title="ATI">ATI</a> driver.</li>
 <li>
-<code>i915</code> for <a href="/Usage/Configuration/K/Intel_graphics.html" title="Intel graphics">Intel graphics</a>.</li>
+<code>i915</code> for <a href="/Usage/Configuration/I/Intel_graphics.html" title="Intel graphics">Intel graphics</a>.</li>
 <li>
-<code>nouveau</code> for the open-source <a href="/Usage/Configuration/K/Nouveau.html" title="Nouveau">Nouveau</a> driver.</li>
+<code>nouveau</code> for the open-source <a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a> driver.</li>
 <li>
 <code>mgag200</code> for Matrox graphics.</li>
-<li>Depending on <a href="/Usage/Configuration/K/QEMU.html" title="QEMU">QEMU</a> graphics in use: <code>virtio-gpu</code> for VirtIO, <code>qxl</code> for QXL, or <code>cirrus</code> for Cirrus.</li>
+<li>Depending on <a href="/Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a> graphics in use: <code>virtio-gpu</code> for VirtIO, <code>qxl</code> for QXL, or <code>cirrus</code> for Cirrus.</li>
 </ul>
 <p>For example to enable early KMS for the Intel graphics driver:
 </p>
@@ -116,15 +116,15 @@
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">MODULES=(... i915 ...)</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Intel users may need to add <code>intel_agp</code> before <code>i915</code> to suppress the ACPI errors. This may be required for resuming from hibernation to work with a changed display configuration.</div>
-<p>If you are using a custom EDID file (not applicable for the built-in resolutions), you should embed it into <a href="/Usage/Configuration/K/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> as well:
+<p>If you are using a custom EDID file (not applicable for the built-in resolutions), you should embed it into <a href="/Usage/Configuration/T/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> as well:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">FILES=(/usr/lib/firmware/edid/your_edid.bin)</pre>
-<p>Then <a href="/Usage/Configuration/K/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>Then <a href="/Usage/Configuration/M/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="My_fonts_are_too_tiny">My fonts are too tiny</span></h3>
-<p>See <a href="/Usage/Configuration/K/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a> for how to change your console font to a large font. The Terminus font (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=terminus-font">terminus-font</a></span>) is available in many sizes, such as <code>ter-132n</code> which is larger.
+<p>See <a href="/Usage/Configuration/L/Linux_console.html#Fonts" title="Linux console">Linux console#Fonts</a> for how to change your console font to a large font. The Terminus font (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=terminus-font">terminus-font</a></span>) is available in many sizes, such as <code>ter-132n</code> which is larger.
 </p>
 <p>Alternatively, <a href="#Disabling_modesetting">disabling modesetting</a> might switch to lower resolution and make fonts appear larger.
 </p>
@@ -204,7 +204,7 @@ Extracting an existing one is in most cases easier, e.g. if your monitor works f
 </p>
 <h3><span class="mw-headline" id="Forcing_modes">Forcing modes</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> The method described below is somehow incomplete because e.g. <a href="/Usage/Configuration/K/Xorg.html" title="Xorg">Xorg</a> does not take into account the resolution specified, so users are encouraged to use the method described above. However, specifying resolution with <code>video=</code> command line may be useful in some scenarios.</div>
+<strong>Warning:</strong> The method described below is somehow incomplete because e.g. <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> does not take into account the resolution specified, so users are encouraged to use the method described above. However, specifying resolution with <code>video=</code> command line may be useful in some scenarios.</div>
 <p>From <a rel="nofollow"  href="http://nouveau.freedesktop.org/wiki/KernelModeSetting">the nouveau wiki</a>:
 </p>
 <dl><dd>A mode can be forced on the kernel command line. Unfortunately, the command line option video is poorly documented in the DRM case. Bits and pieces on how to use it can be found in
@@ -258,17 +258,17 @@ VGA-1: disconnected
 <p>Along with <code>nomodeset</code> kernel parameter, for Intel graphics card you need to add <code>i915.modeset=0</code> and for Nvidia graphics card  you need to add <code>nouveau.modeset=0</code>. For Nvidia Optimus dual-graphics system, you need to add all the three kernel parameters (i.e. <code>"nomodeset i915.modeset=0 nouveau.modeset=0"</code>).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Some <a href="/Usage/Configuration/K/Xorg.html" title="Xorg">Xorg</a> drivers will not work with KMS disabled. See the wiki page on your specific driver for details.</div>
+<strong>Note:</strong> Some <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> drivers will not work with KMS disabled. See the wiki page on your specific driver for details.</div>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/K/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
-<li><a href="/Usage/Configuration/K/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Graphics.html" title="Category:Graphics">Graphics</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/K/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -286,9 +286,9 @@ VGA-1: disconnected
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/K/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/K/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/K/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

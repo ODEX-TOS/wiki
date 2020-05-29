@@ -2,7 +2,7 @@
     title: OpenLDAP
     description: Migration of OpenLDAP from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/O/LDAP_authentication.html" class="mw-redirect" title="LDAP Authentication">LDAP Authentication</a></li>
-<li><a href="/Usage/Configuration/O/LDAP_Hosts.html" title="LDAP Hosts">LDAP Hosts</a></li>
+<li><a href="/Usage/Configuration/L/LDAP_authentication.html" class="mw-redirect" title="LDAP Authentication">LDAP Authentication</a></li>
+<li><a href="/Usage/Configuration/L/LDAP_Hosts.html" title="LDAP Hosts">LDAP Hosts</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.openldap.org/">OpenLDAP</a> is an open-source implementation of the LDAP protocol. An LDAP server basically is a non-relational database which is optimised for accessing, but not writing, data. It is mainly used as an address book (for e.g. email clients) or authentication backend to various services (such as Samba, where it is used to emulate a domain controller, or <a href="/Usage/Configuration/O/LDAP_authentication.html" title="LDAP authentication">Linux system authentication</a>, where it replaces <code>/etc/passwd</code>) and basically holds the user data.
+<p><a rel="nofollow"  href="https://www.openldap.org/">OpenLDAP</a> is an open-source implementation of the LDAP protocol. An LDAP server basically is a non-relational database which is optimised for accessing, but not writing, data. It is mainly used as an address book (for e.g. email clients) or authentication backend to various services (such as Samba, where it is used to emulate a domain controller, or <a href="/Usage/Configuration/L/LDAP_authentication.html" title="LDAP authentication">Linux system authentication</a>, where it replaces <code>/etc/passwd</code>) and basically holds the user data.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Commands related to OpenLDAP that begin with <code>ldap</code> (like <code>ldapsearch</code>) are client-side utilities, while commands that begin with <code>slap</code> (like <code>slapcat</code>) are server-side.</div>
@@ -89,7 +89,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>OpenLDAP contains both a LDAP server and client. <a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> it with the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openldap">openldap</a></span>.
+<p>OpenLDAP contains both a LDAP server and client. <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> it with the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openldap">openldap</a></span>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="The_server">The server</span></h3>
@@ -124,7 +124,7 @@ index   cn              pres,sub,eq
 index   sn              pres,sub,eq
 index   dc              eq
 </pre>
-<p>If you plan to use your LDAP server for authentication, you might want to check access control configuration in <a href="/Usage/Configuration/O/LDAP_authentication.html#LDAP_Server_Setup" title="LDAP authentication">LDAP authentication#LDAP Server Setup</a>.
+<p>If you plan to use your LDAP server for authentication, you might want to check access control configuration in <a href="/Usage/Configuration/L/LDAP_authentication.html#LDAP_Server_Setup" title="LDAP authentication">LDAP authentication#LDAP Server Setup</a>.
 </p>
 <p>Now prepare the database directory. You will need to rename the default config:
 </p>
@@ -140,7 +140,7 @@ index   dc              eq
 </p>
 <pre># chown -R ldap:ldap /etc/openldap/slapd.d
 </pre>
-<p>(if you do not have a database yet, you might need to create one by starting and stopping the <code>slapd.service</code> <a href="/Usage/Configuration/O/Systemd.html#Using_units" title="Systemd">using systemd</a> )
+<p>(if you do not have a database yet, you might need to create one by starting and stopping the <code>slapd.service</code> <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">using systemd</a> )
 </p>
 <p>Then we generate the new configuration with:
 </p>
@@ -250,7 +250,7 @@ TLSCipherSuite DEFAULT
 TLSCertificateFile /etc/openldap/ssl/slapdcert.pem
 TLSCertificateKeyFile /etc/openldap/ssl/slapdkey.pem
 </pre>
-<p>If you are using a signed SSL Certificate from a certification authority such as <a href="/Usage/Configuration/O/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>, you will also need to specify the path to the root certificates database and your intermediary certificate. You will also need to change ownership of the <code>.pem</code> files and intermediary directories to make them readable to the user <code>ldap</code>:
+<p>If you are using a signed SSL Certificate from a certification authority such as <a href="/Usage/Configuration/C/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>, you will also need to specify the path to the root certificates database and your intermediary certificate. You will also need to change ownership of the <code>.pem</code> files and intermediary directories to make them readable to the user <code>ldap</code>:
 </p>
 <pre># Certificate/SSL Section
 TLSCipherSuite DEFAULT
@@ -288,16 +288,16 @@ ExecStart=/usr/bin/slapd -u ldap -g ldap -h "ldaps:///"</pre>
 </p>
 <pre>ExecStart=/usr/bin/slapd -u ldap -g ldap -h "ldap://127.0.0.1 ldaps:///"
 </pre>
-<p>Then <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>slapd.service</code>. If it was enabled before, reenable it now.
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>slapd.service</code>. If it was enabled before, reenable it now.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If you created a self-signed certificate above, be sure to add <code>TLS_REQCERT allow</code> to <code>/etc/openldap/ldap.conf</code> on the client, or it will not be able connect to the server.</div>
 <h2><span class="mw-headline" id="Next_steps">Next steps</span></h2>
-<p>You now have a basic LDAP installation. The next step is to design your directory. The design is heavily dependent on what you are using it for. If you are new to LDAP, consider starting with a directory design recommended by the specific client services that will use the directory (<a href="/Usage/Configuration/O/PAM.html" title="PAM">PAM</a>, <a href="/Usage/Configuration/O/Postfix.html" title="Postfix">Postfix</a>, etc).
+<p>You now have a basic LDAP installation. The next step is to design your directory. The design is heavily dependent on what you are using it for. If you are new to LDAP, consider starting with a directory design recommended by the specific client services that will use the directory (<a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a>, <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a>, etc).
 </p>
-<p>A directory for system authentication is the <a href="/Usage/Configuration/O/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a> article.
+<p>A directory for system authentication is the <a href="/Usage/Configuration/L/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a> article.
 </p>
-<p>A nice web frontend is <a href="/Usage/Configuration/O/PhpLDAPadmin.html" title="PhpLDAPadmin">phpLDAPadmin</a>.
+<p>A nice web frontend is <a href="/Usage/Configuration/P/PhpLDAPadmin.html" title="PhpLDAPadmin">phpLDAPadmin</a>.
 </p>
 <h3><span class="mw-headline" id="Backup_LDAP">Backup LDAP</span></h3>
 <p>It is imperative that we have a backup of our LDAP database and configuration in case we ever need to restore for any number of reasons.
@@ -339,15 +339,15 @@ ExecStart=/usr/bin/slapd -u ldap -g ldap -h "ldaps:///"</pre>
 <ul>
 <li><a rel="nofollow"  href="http://www.openldap.org/doc/admin24/">Official OpenLDAP Software 2.4 Administrator's Guide</a></li>
 <li>
-<a href="/Usage/Configuration/O/PhpLDAPadmin.html" title="PhpLDAPadmin">phpLDAPadmin</a> is a web interface tool in the style of phpMyAdmin.</li>
-<li><a href="/Usage/Configuration/O/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a></li>
+<a href="/Usage/Configuration/P/PhpLDAPadmin.html" title="PhpLDAPadmin">phpLDAPadmin</a> is a web interface tool in the style of phpMyAdmin.</li>
+<li><a href="/Usage/Configuration/L/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a></li>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/apachedirectorystudio/">apachedirectorystudio</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/O/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> is an Eclipse-based LDAP viewer. Works perfect with OpenLDAP installations.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/apachedirectorystudio/">apachedirectorystudio</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> is an Eclipse-based LDAP viewer. Works perfect with OpenLDAP installations.</li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/O/Category:Directory_services.html" title="Category:Directory services">Directory services</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Directory_services.html" title="Category:Directory services">Directory services</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -364,9 +364,9 @@ ExecStart=/usr/bin/slapd -u ldap -g ldap -h "ldaps:///"</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/O/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/O/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/O/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

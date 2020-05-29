@@ -2,7 +2,7 @@
     title: Flatpak
     description: Migration of Flatpak from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/F/Snap.html" class="mw-redirect" title="Snapd">Snapd</a></li>
-<li><a href="/Usage/Configuration/F/Bubblewrap.html" title="Bubblewrap">bubblewrap</a></li>
+<li><a href="/Usage/Configuration/S/Snap.html" class="mw-redirect" title="Snapd">Snapd</a></li>
+<li><a href="/Usage/Configuration/B/Bubblewrap.html" title="Bubblewrap">bubblewrap</a></li>
 </ul>
 </div>
 <p>From the project <a rel="nofollow"  href="https://github.com/flatpak/flatpak/blob/master/README.md">README</a>: "<i><a rel="nofollow"  href="http://flatpak.org">Flatpak</a> is a system for building, distributing and running sandboxed desktop applications on Linux.</i>"
@@ -80,7 +80,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/F/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flatpak">flatpak</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flatpak">flatpak</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If you want to build flatpaks with <code>flatpak-builder</code> you will need to install the optional dependencies of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=elfutils">elfutils</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=patch">patch</a></span>.</div>
@@ -210,7 +210,7 @@ For example:
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You may want to use an untrusted, unprivileged user account for bundling untrusted software because the software is not sandboxed during app and runtime creation.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> When distributing bundles to others, you may be legally obliged to provide the source code of some of the bundled software upon request. You may want to use <a href="/Usage/Configuration/F/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> to build these packages from source.</div>
+<strong>Note:</strong> When distributing bundles to others, you may be legally obliged to provide the source code of some of the bundled software upon request. You may want to use <a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> to build these packages from source.</div>
 <p>You can create a custom TOS-based base runtime and base SDK for Flatpak using pacman. You can then use it for building and packaging applications. This is an alternative for personal use to the default <code>org.freedesktop.BasePlatform</code> and <code>org.freedesktop.BaseSdk</code> runtimes.
 </p>
 <p>In addition to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=flatpak">flatpak</a></span>, you need to have installed <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fakeroot">fakeroot</a></span> and for pacman hooks support also <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fakechroot">fakechroot</a></span>.
@@ -244,7 +244,7 @@ $ ln -s /run/host/fonts <i>myruntime</i>/files/usr/share/fonts/flatpakhostfonts
 <pre>$ fakechroot fakeroot pacman -Syu --root <i>myruntime</i>/files --dbpath <i>myruntime</i>/files/var/lib/pacman --config pacman.conf base
 $ mv pacman.conf <i>myruntime</i>/files/etc/pacman.conf
 </pre>
-<p>Set up the <a href="/Usage/Configuration/F/Locale.html" title="Locale">locales</a> to be used by editing <code><i>myruntime</i>/files/etc/locale.gen</code>. Then regenerate the runtime’s locales.
+<p>Set up the <a href="/Usage/Configuration/L/Locale.html" title="Locale">locales</a> to be used by editing <code><i>myruntime</i>/files/etc/locale.gen</code>. Then regenerate the runtime’s locales.
 </p>
 <pre>$ fakechroot chroot <i>myruntime</i>/files locale-gen
 </pre>
@@ -283,7 +283,7 @@ $ flatpak install --user myarchos org.mydomain.BaseSdk 2016-06-26
 </p>
 <ul>
 <li>use pacman to create a runtime containing all dependencies</li>
-<li>and compile the app ourselves <a rel="nofollow"  href="http://flatpak.org/developer.html">as usual</a> or perhaps using pacman with a custom <a href="/Usage/Configuration/F/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> tailored to Flatpak which uses <code>--prefix=/app</code> for the <code>configure</code> script,</li>
+<li>and compile the app ourselves <a rel="nofollow"  href="http://flatpak.org/developer.html">as usual</a> or perhaps using pacman with a custom <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> tailored to Flatpak which uses <code>--prefix=/app</code> for the <code>configure</code> script,</li>
 </ul>
 <p>or we can
 </p>
@@ -342,9 +342,9 @@ $ flatpak run org.gnome.gedit
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:Development.html" title="Category:Development">Development</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Development.html" title="Category:Development">Development</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/F/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -362,9 +362,9 @@ $ flatpak run org.gnome.gedit
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

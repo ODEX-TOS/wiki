@@ -2,7 +2,7 @@
     title: Apache_HTTP_Server
     description: Migration of Apache_HTTP_Server from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/A/XAMPP.html" title="XAMPP">XAMPP</a></li>
+<li><a href="/Usage/Configuration/X/XAMPP.html" title="XAMPP">XAMPP</a></li>
 <li><a href="/Usage/Configuration/A/Apache_HTTP_Server/mod_perl.html" title="Apache HTTP Server/mod perl">/mod_perl</a></li>
 </ul>
 </div>
 <p>The <a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server"  title="wikipedia:Apache HTTP Server">Apache HTTP Server</a>, or Apache for short, is a very popular web server, developed by the Apache Software Foundation.
 </p>
-<p>This article describes how to set up Apache and how to optionally integrate it with <a href="/Usage/Configuration/A/PHP.html" title="PHP">PHP</a>.
+<p>This article describes how to set up Apache and how to optionally integrate it with <a href="/Usage/Configuration/P/PHP.html" title="PHP">PHP</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -94,13 +94,13 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apache">apache</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apache">apache</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>Apache configuration files are located in <code>/etc/httpd/conf</code>. The main configuration file is <code>/etc/httpd/conf/httpd.conf</code>, which includes various other configuration files.
 The default configuration file should be fine for a simple setup. By default, it will serve the directory <code>/srv/http</code> to anyone who visits your website.
 </p>
-<p>To start Apache, start <code>httpd.service</code> using <a href="/Usage/Configuration/A/Systemd.html#Using_units" title="Systemd">systemd</a>.
+<p>To start Apache, start <code>httpd.service</code> using <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">systemd</a>.
 </p>
 <p>Apache should now be running. Test by visiting <a rel="nofollow"  href="http://localhost/">http://localhost/</a> in a web browser. It should display a simple index page.
 </p>
@@ -159,12 +159,12 @@ The default configuration file should be fine for a simple setup. By default, it
 $ chmod o+x ~/public_html
 $ chmod -R o+r ~/public_html
 </pre>
-<p>Restart <code>httpd.service</code> to apply any changes. See also <a href="/Usage/Configuration/A/Umask.html#Set_the_mask_value" title="Umask">Umask#Set the mask value</a>.
+<p>Restart <code>httpd.service</code> to apply any changes. See also <a href="/Usage/Configuration/U/Umask.html#Set_the_mask_value" title="Umask">Umask#Set the mask value</a>.
 </p>
 <h3><span class="mw-headline" id="TLS">TLS</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security"  title="wikipedia:Transport Layer Security">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> to prevent vulnerabilities. For more information see <a href="/Usage/Configuration/A/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
-<p>Firstly <a href="/Usage/Configuration/A/Transport_Layer_Security.html#Obtaining_a_certificate" class="mw-redirect" title="Obtain a certificate">obtain a certificate</a>.
+<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security"  title="wikipedia:Transport Layer Security">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> to prevent vulnerabilities. For more information see <a href="/Usage/Configuration/T/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
+<p>Firstly <a href="/Usage/Configuration/T/Transport_Layer_Security.html#Obtaining_a_certificate" class="mw-redirect" title="Obtain a certificate">obtain a certificate</a>.
 </p>
 <p>In <code>/etc/httpd/conf/httpd.conf</code>, uncomment the following three lines:
 </p>
@@ -176,7 +176,7 @@ Include conf/extra/httpd-ssl.conf
 </p>
 <pre>LoadModule rewrite_module modules/mod_rewrite.so
 </pre>
-<p>For TLS, you will need a key and certificate. If you own a public domain, you can use <a href="/Usage/Configuration/A/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a> to obtain a certificate for free, otherwise follow <a href="#Create_a_key_and_(self-signed)_certificate">#Create a key and (self-signed) certificate</a>.
+<p>For TLS, you will need a key and certificate. If you own a public domain, you can use <a href="/Usage/Configuration/C/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a> to obtain a certificate for free, otherwise follow <a href="#Create_a_key_and_(self-signed)_certificate">#Create a key and (self-signed) certificate</a>.
 </p>
 <p>After obtaining a key and certificate, make sure the <code>SSLCertificateFile</code> and <code>SSLCertificateKeyFile</code> lines in <code>/etc/httpd/conf/extra/httpd-ssl.conf</code> point to the key and certificate. If a concatenated chain of CA certificates was also generated, add that filename against <code>SSLCertificateChainFile</code>.
 </p>
@@ -190,7 +190,7 @@ Include conf/extra/httpd-ssl.conf
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a><b>This section is being considered for removal.</b><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Duplicates <a href="/Usage/Configuration/A/OpenSSL.html#Certificates" title="OpenSSL">OpenSSL#Certificates</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Apache_HTTP_Server#Removal_of_Create_a_key_and_(self-signed)_certificate_section">Talk:Apache HTTP Server#Removal of Create a key and (self-signed) certificate section</a>)</div>
+<b>Reason:</b> Duplicates <a href="/Usage/Configuration/O/OpenSSL.html#Certificates" title="OpenSSL">OpenSSL#Certificates</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Apache_HTTP_Server#Removal_of_Create_a_key_and_(self-signed)_certificate_section">Talk:Apache HTTP Server#Removal of Create a key and (self-signed) certificate section</a>)</div>
 </div>
 <p>Create a private key and self-signed certificate. This is adequate for most installations that do not require a <a href="https://en.wikipedia.org/wiki/Certificate_signing_request"  title="wikipedia:Certificate signing request">CSR</a>:
 </p>
@@ -281,12 +281,12 @@ Include conf/vhosts/domainname2.dom
 &lt;/VirtualHost&gt;</pre>
 <h2><span class="mw-headline" id="Extensions">Extensions</span></h2>
 <h3><span class="mw-headline" id="PHP">PHP</span></h3>
-<p>First <a href="/Usage/Configuration/A/PHP.html#Installation" title="PHP">install PHP</a>, then follow one of the next three subsections below.  Finally, test the installation as described in the final subsection.  
+<p>First <a href="/Usage/Configuration/P/PHP.html#Installation" title="PHP">install PHP</a>, then follow one of the next three subsections below.  Finally, test the installation as described in the final subsection.  
 </p>
 <h4><span class="mw-headline" id="Using_libphp">Using libphp</span></h4>
 <p>This method is probably the easiest, but is also the least scalable: it is suitable for a light request load. It also requires you to change the mpm module, which may cause problems with other extensions (e.g. it is not compatible with <a href="#HTTP2">#HTTP2</a>).
 </p>
-<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-apache">php-apache</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-apache">php-apache</a></span>.
 </p>
 <p>In <code>/etc/httpd/conf/httpd.conf</code>, comment the line:
 </p>
@@ -313,12 +313,12 @@ AddHandler php7-script .php
 <ul><li>Place this at the end of the <code>Include</code> list:</li></ul>
 <pre>Include conf/extra/php7_module.conf
 </pre>
-<p>Restart <code>httpd.service</code> using <a href="/Usage/Configuration/A/Systemd.html#Using_units" title="Systemd">systemd</a>.
+<p>Restart <code>httpd.service</code> using <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">systemd</a>.
 </p>
 <h4><span class="mw-headline" id="Using_apache2-mpm-worker_and_mod_fcgid">Using apache2-mpm-worker and mod_fcgid</span></h4>
 <p>This method provides improved performance and memory usage when serving multiple requests.  
 </p>
-<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mod_fcgid">mod_fcgid</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-cgi">php-cgi</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mod_fcgid">mod_fcgid</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-cgi">php-cgi</a></span>.
 </p>
 <p>Create the needed directory and symlink it for the PHP wrapper:
 </p>
@@ -363,7 +363,7 @@ AddHandler php7-script .php
 <li>Add an inclusion of your new FCGID configuration: <pre>Include conf/extra/php-fcgid.conf</pre>
 </li>
 </ul>
-<p><a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>httpd.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>httpd.service</code>.
 </p>
 <h4><span class="mw-headline" id="Using_php-fpm_and_mod_proxy_fcgi">Using php-fpm and mod_proxy_fcgi</span></h4>
 <p>This method provides "an alternative PHP FastCGI implementation with some additional features (mostly) useful for heavy-loaded sites" <a rel="nofollow"  href="https://www.php.net/manual/wiki/install.fpm.php">[1]</a>.  
@@ -372,7 +372,7 @@ AddHandler php7-script .php
 <strong>Note:</strong> Unlike the widespread setup with ProxyPass, the proxy configuration with SetHandler respects other Apache directives like DirectoryIndex. This ensures a better compatibility with software designed for libphp7, mod_fastcgi and mod_fcgid.
 If you still want to try ProxyPass, experiment with a line like this: <pre>ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/run/php-fpm/php-fpm.sock|fcgi://localhost/srv/http/$1</pre>
 </div>
-<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=php-fpm">php-fpm</a></span>.
 </p>
 <p>Enable proxy modules:
 </p>
@@ -396,7 +396,7 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
 </div>
 <p>You can configure PHP-FPM in <code>/etc/php/php-fpm.d/www.conf</code>, but the default setup should work fine.
 </p>
-<p>Start and enable <code>php-fpm.service</code>. <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>httpd.service</code>.
+<p>Start and enable <code>php-fpm.service</code>. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>httpd.service</code>.
 </p>
 <h4><span class="mw-headline" id="Test_whether_PHP_works">Test whether PHP works</span></h4>
 <p>To test whether PHP was correctly configured, create a file called <code>test.php</code> in your Apache <code>DocumentRoot</code> directory (e.g. <code>/srv/http/</code> or <code>~&lt;username&gt;/public_html/</code>) with the following contents:
@@ -420,7 +420,7 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Apache_Status_and_Logs">Apache Status and Logs</span></h3>
-<p>See the status of the Apache daemon with <a href="/Usage/Configuration/A/Systemd.html#Basic_systemctl_usage" class="mw-redirect" title="Systemctl">systemctl</a>.
+<p>See the status of the Apache daemon with <a href="/Usage/Configuration/S/Systemd.html#Basic_systemctl_usage" class="mw-redirect" title="Systemctl">systemctl</a>.
 </p>
 <p>Apache logs can be found in  <code>/var/log/httpd/</code>
 </p>
@@ -480,7 +480,7 @@ Listen [::]:80
 <h3>
 <span id="AH01071:_Got_error_.27Primary_script_unknown.27"></span><span class="mw-headline" id="AH01071:_Got_error_'Primary_script_unknown'">AH01071: Got error 'Primary script unknown'</span>
 </h3>
-<p>This can be caused by <code>ProtectHome=true</code> in the php-fpm systemd unit file if you are serving files in <code>/home</code> such as in a virtual host environment. You can disable this feature by <a href="/Usage/Configuration/A/Systemd.html#Drop-in_files" title="Systemd">editing the php-fpm unit file</a> and restarting php-fpm. Alternatively, move your document root.
+<p>This can be caused by <code>ProtectHome=true</code> in the php-fpm systemd unit file if you are serving files in <code>/home</code> such as in a virtual host environment. You can disable this feature by <a href="/Usage/Configuration/S/Systemd.html#Drop-in_files" title="Systemd">editing the php-fpm unit file</a> and restarting php-fpm. Alternatively, move your document root.
 </p>
 <h3><span class="mw-headline" id="Changing_the_max_execution_time_in_php.ini_has_no_effect">Changing the max_execution_time in php.ini has no effect</span></h3>
 <p>If you changed the <code>max_execution_time</code> in <code>php.ini</code> to a value greater than 30 (seconds), you may still get a <code>503 Service Unavailable</code> response from Apache after 30 seconds. To solve this, add a <code>ProxyTimeout</code> directive to your http configuration right before the <code>&lt;FilesMatch \.php$&gt;</code> block:
@@ -505,13 +505,13 @@ Listen [::]:80
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/A/Category:Web_server.html" title="Category:Web server">Web server</a></li>
-<li><a href="/Usage/Configuration/A/Category:Apache.html" title="Category:Apache">Apache</a></li>
+<li><a href="/Usage/Configuration/C/Category:Web_server.html" title="Category:Web server">Web server</a></li>
+<li><a href="/Usage/Configuration/C/Category:Apache.html" title="Category:Apache">Apache</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/A/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/A/Category:Sections_flagged_with_Template:Remove.html" title="Category:Sections flagged with Template:Remove">Sections flagged with Template:Remove</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Sections_flagged_with_Template:Remove.html" title="Category:Sections flagged with Template:Remove">Sections flagged with Template:Remove</a></li>
 </ul>
 </div>
 </div>
@@ -530,9 +530,9 @@ Listen [::]:80
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

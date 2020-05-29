@@ -2,7 +2,7 @@
     title: ACPI_modules
     description: Migration of ACPI_modules from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -28,7 +28,7 @@
 <p>Related articles</p>
 <ul>
 <li><a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a></li>
-<li><a href="/Usage/Configuration/A/DSDT.html" title="DSDT">DSDT</a></li>
+<li><a href="/Usage/Configuration/D/DSDT.html" title="DSDT">DSDT</a></li>
 </ul>
 </div>
 <p>From <a rel="nofollow"  href="https://uefi.org/acpi">uefi.org</a>:
@@ -122,10 +122,10 @@ drwxr-xr-x 2 root root  4096 Aug 29 23:59 apei
 [    5.066752] ACPI: acpi_idle yielding to intel_idle
 [    5.438998] acpi device:04: registered as cooling_device4
 </pre>
-<p>Add the working ones to configuration files in <code>/etc/modules-load.d</code>. <code>/etc/modules-load.d</code> is described in <a href="/Usage/Configuration/A/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
+<p>Add the working ones to configuration files in <code>/etc/modules-load.d</code>. <code>/etc/modules-load.d</code> is described in <a href="/Usage/Configuration/K/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
 </p>
 <h2><span class="mw-headline" id="Getting_information">Getting information</span></h2>
-<p>To read out battery information, you can simply <a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi">acpi</a></span> from the <a href="/Usage/Configuration/A/Official_repositories.html" title="Official repositories">official repositories</a> and run:
+<p>To read out battery information, you can simply <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpi">acpi</a></span> from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a> and run:
 </p>
 <pre>acpi -i
 </pre>
@@ -135,22 +135,22 @@ drwxr-xr-x 2 root root  4096 Aug 29 23:59 apei
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="DSDT_fix">DSDT fix</span></h3>
-<p>If problems with power management persist despite having loaded the proper modules, a Linux-unfriendly <a href="https://en.wikipedia.org/wiki/DSDT#ACPI_Tables"  title="wikipedia:DSDT">DSDT</a> might be the cause. See the wiki article on <a href="/Usage/Configuration/A/DSDT.html" title="DSDT">DSDT</a>.
+<p>If problems with power management persist despite having loaded the proper modules, a Linux-unfriendly <a href="https://en.wikipedia.org/wiki/DSDT#ACPI_Tables"  title="wikipedia:DSDT">DSDT</a> might be the cause. See the wiki article on <a href="/Usage/Configuration/D/DSDT.html" title="DSDT">DSDT</a>.
 </p>
 <h3><span class="mw-headline" id="ACPI_fix_for_notebooks">ACPI fix for notebooks</span></h3>
 <p>Sometimes you see "ACPI: EC: input buffer is not empty, aborting transaction". This is a problem with ACPI, more specifically an incompatibility of the BIOS. There may be four ways to solve this issue:
 </p>
-<ul><li>If available, <a href="/Usage/Configuration/A/Flashing_BIOS_from_Linux.html" class="mw-redirect" title="Flash BIOS">flash BIOS</a>.</li></ul>
-<ul><li>Use <code>acpi=off</code> as <a href="/Usage/Configuration/A/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>, however this will kill all ACPI functionality like battery charging and power saving.</li></ul>
-<ul><li>In some cases disabling <a href="/Usage/Configuration/A/Display_Power_Management_Signaling.html" class="mw-redirect" title="DPMS">DPMS</a> has been reported to solve the issue <a rel="nofollow"  href="https://ubuntuforums.org/showthread.php?p=8030130#10">[1]</a>. However, screen brightness may no longer be fully controllable: <pre>$ xset dpms force off</pre>
+<ul><li>If available, <a href="/Usage/Configuration/F/Flashing_BIOS_from_Linux.html" class="mw-redirect" title="Flash BIOS">flash BIOS</a>.</li></ul>
+<ul><li>Use <code>acpi=off</code> as <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>, however this will kill all ACPI functionality like battery charging and power saving.</li></ul>
+<ul><li>In some cases disabling <a href="/Usage/Configuration/D/Display_Power_Management_Signaling.html" class="mw-redirect" title="DPMS">DPMS</a> has been reported to solve the issue <a rel="nofollow"  href="https://ubuntuforums.org/showthread.php?p=8030130#10">[1]</a>. However, screen brightness may no longer be fully controllable: <pre>$ xset dpms force off</pre>
 </li></ul>
-<ul><li>Build a custom <a href="/Usage/Configuration/A/Kernel.html" title="Kernel">kernel</a> with patches of <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/578506">bugs.launchpad.net</a>.</li></ul>
+<ul><li>Build a custom <a href="/Usage/Configuration/K/Kernel.html" title="Kernel">kernel</a> with patches of <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/578506">bugs.launchpad.net</a>.</li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li><a href="https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface"  title="wikipedia:Advanced Configuration and Power Interface">Wikipedia:Advanced Configuration and Power Interface</a></li></ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/A/Category:Power_management.html" title="Category:Power management">Power management</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Power_management.html" title="Category:Power management">Power management</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -167,9 +167,9 @@ drwxr-xr-x 2 root root  4096 Aug 29 23:59 apei
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

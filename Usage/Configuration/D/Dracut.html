@@ -2,7 +2,7 @@
     title: Dracut
     description: Migration of Dracut from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,12 +29,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/D/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
+<li><a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Read the mailing list announcement for a possible <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-dev-public/2019-May/029570.html">Mkinitcpio replacement with Dracut</a>.</div>
-<p><a rel="nofollow"  href="https://dracut.wiki.kernel.org/">dracut</a> creates an initial image used by the kernel for preloading the block device modules (such as IDE, SCSI or RAID) which are needed to access the root filesystem. Upon installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>, you can choose between <a href="/Usage/Configuration/D/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> and dracut. dracut is used by Fedora, RHEL, Gentoo, and Debian, among others.
+<p><a rel="nofollow"  href="https://dracut.wiki.kernel.org/">dracut</a> creates an initial image used by the kernel for preloading the block device modules (such as IDE, SCSI or RAID) which are needed to access the root filesystem. Upon installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>, you can choose between <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> and dracut. dracut is used by Fedora, RHEL, Gentoo, and Debian, among others.
 </p>
 <p>You can read the full project documentation for dracut <a rel="nofollow"  href="https://mirrors.edge.kernel.org/pub/linux/utils/boot/dracut/dracut.html">in the kernel documentation</a>.
 </p>
@@ -76,10 +76,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dracut">dracut</a></span> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dracut-git/">dracut-git</a></span><sup><small>AUR</small></sup> for the latest development version.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dracut">dracut</a></span> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dracut-git/">dracut-git</a></span><sup><small>AUR</small></sup> for the latest development version.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If dracut works on your machine <b>after you test it</b>, you can <a href="/Usage/Configuration/D/Pacman.html#Removing_packages" class="mw-redirect" title="Uninstall">uninstall</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkinitcpio">mkinitcpio</a></span>.</div>
+<strong>Tip:</strong> If dracut works on your machine <b>after you test it</b>, you can <a href="/Usage/Configuration/P/Pacman.html#Removing_packages" class="mw-redirect" title="Uninstall">uninstall</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkinitcpio">mkinitcpio</a></span>.</div>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>If you wish to always execute dracut with a certain set of flags, you can save a specified configuration in a <code>.conf</code> file in <code>/etc/dracut.conf.d/</code>. For example:
 </p>
@@ -128,7 +128,7 @@ rd.info</pre>
 </p>
 <pre># dracut -N /boot/initramfs-linux-fallback.img
 </pre>
-<p><code>/boot/initramfs-linux.img</code> refers to the output image file. If you are using the non-regular kernel, consider changing the file name. For example, for the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> kernel, the output file should be named <code>/boot/initramfs-linux-lts.img</code>. However, you can name these files whatever you wish as long as your <a href="/Usage/Configuration/D/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> configuration uses the same file names.
+<p><code>/boot/initramfs-linux.img</code> refers to the output image file. If you are using the non-regular kernel, consider changing the file name. For example, for the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> kernel, the output file should be named <code>/boot/initramfs-linux-lts.img</code>. However, you can name these files whatever you wish as long as your <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> configuration uses the same file names.
 </p>
 <h3><span class="mw-headline" id="Additional_flags">Additional flags</span></h3>
 <p>The <code>--hostonly</code> flag creates an image that only contains the files needed to boot the local host system, instead of creating a generic image with more files. Using this flag reduces the size of the generated image, but you will not be able to use it on other computers or switch to a different root file system without generating a new image.
@@ -141,7 +141,7 @@ rd.info</pre>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Add instructions for creating a <a href="/Usage/Configuration/D/Systemd-boot.html#Preparing_a_unified_kernel_image" class="mw-redirect" title="Unified kernel image">unified kernel image</a> using the <code>--uefi</code> option. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dracut#Unified_kernel_image">Talk:Dracut#Unified kernel image</a>)</div>
+<b>Reason:</b> Add instructions for creating a <a href="/Usage/Configuration/S/Systemd-boot.html#Preparing_a_unified_kernel_image" class="mw-redirect" title="Unified kernel image">unified kernel image</a> using the <code>--uefi</code> option. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dracut#Unified_kernel_image">Talk:Dracut#Unified kernel image</a>)</div>
 </div>
 <h3><span class="mw-headline" id="View_information_about_generated_image">View information about generated image</span></h3>
 <p>You can view information about a generated initramfs image, which you may wish to view in a pager: 
@@ -182,7 +182,7 @@ compress="lz4"
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dracut-hook/">dracut-hook</a></span><sup><small>AUR</small></sup> package includes hooks and scripts similar to the below.</div>
-<p>As the command to figure out the kernel version is somewhat complex, it will not work by itself in a <a href="/Usage/Configuration/D/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>. So create a script anywhere on your system. For this example it will be created in <code>/usr/local/bin/</code>.
+<p>As the command to figure out the kernel version is somewhat complex, it will not work by itself in a <a href="/Usage/Configuration/P/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a>. So create a script anywhere on your system. For this example it will be created in <code>/usr/local/bin/</code>.
 </p>
 <p>The script will also copy the new <code>vmlinuz</code> kernel file to <code>/boot/</code>, since the kernel packages do not place files in <code>/boot/</code> anymore.<a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-general/2019-October/047056.html">[3]</a>
 </p>
@@ -213,9 +213,9 @@ while read -r line; do
 	fi
 done
 </pre>
-<p>You need to make the scripts <a href="/Usage/Configuration/D/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. If you wish to add or remove flags, you should <a href="#Configuration">add them to your dracut configuration</a>.
+<p>You need to make the scripts <a href="/Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. If you wish to add or remove flags, you should <a href="#Configuration">add them to your dracut configuration</a>.
 </p>
-<p>The next step is creating <a href="/Usage/Configuration/D/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hooks</a>:
+<p>The next step is creating <a href="/Usage/Configuration/P/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hooks</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/90-dracut-install.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -242,16 +242,16 @@ When = PreTransaction
 Exec = /usr/local/bin/dracut-remove.sh
 NeedsTargets
 </pre>
-<p>You should stop <a href="/Usage/Configuration/D/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> from creating and removing initramfs images as well, either by removing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkinitcpio">mkinitcpio</a></span> or with the following commands:
+<p>You should stop <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> from creating and removing initramfs images as well, either by removing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mkinitcpio">mkinitcpio</a></span> or with the following commands:
 </p>
 <pre># ln -sf /dev/null /etc/pacman.d/hooks/90-mkinitcpio-install.hook
 # ln -sf /dev/null /etc/pacman.d/hooks/60-mkinitcpio-remove.hook
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Spaces_in_kernel_parameters">Spaces in kernel parameters</span></h3>
-<p>dracut does not support quoted values with spaces in the <code>root=</code> and <code>resume=</code> <a href="/Usage/Configuration/D/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. For example <code>root="PARTLABEL=TOS Linux"</code>. See <a rel="nofollow"  href="https://github.com/dracutdevs/dracut/issues/720">dracut issue 720</a>.
+<p>dracut does not support quoted values with spaces in the <code>root=</code> and <code>resume=</code> <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. For example <code>root="PARTLABEL=TOS Linux"</code>. See <a rel="nofollow"  href="https://github.com/dracutdevs/dracut/issues/720">dracut issue 720</a>.
 </p>
-<p>You will need to specify the parameters using a different block device naming scheme like <a href="/Usage/Configuration/D/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a>.
+<p>You will need to specify the parameters using a different block device naming scheme like <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -262,9 +262,9 @@ NeedsTargets
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -282,9 +282,9 @@ NeedsTargets
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

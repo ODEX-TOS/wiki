@@ -2,7 +2,7 @@
     title: Backlight
     description: Migration of Backlight from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -112,14 +112,14 @@ bl_power           device/            power/             type
 </p>
 <pre># echo 5 &gt; /sys/class/backlight/acpi_video0/brightness
 </pre>
-<p>By default, only <code>root</code> can change the brightness by this method. To allow users in the <code>video</code> group to change the brightness, a <a href="/Usage/Configuration/B/Udev.html" title="Udev">udev</a> rule such as the following can be used:
+<p>By default, only <code>root</code> can change the brightness by this method. To allow users in the <code>video</code> group to change the brightness, a <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> rule such as the following can be used:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/backlight.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
 ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
 </pre>
 <h4><span class="mw-headline" id="Kernel_command-line_options">Kernel command-line options</span></h4>
-<p>Sometimes ACPI does not work well due to different motherboard implementations and ACPI quirks. This results in, for instance, inaccurate brightness notifications. This includes some laptops with dual graphics (e.g., Nvidia/Radeon dedicated GPU with Intel/AMD integrated GPU). Additionally, ACPI sometimes needs to register its own <code>acpi_video0</code> backlight even if one already exists (such as <code>intel_backlight</code>), which can be done by adding one of the following <a href="/Usage/Configuration/B/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>:
+<p>Sometimes ACPI does not work well due to different motherboard implementations and ACPI quirks. This results in, for instance, inaccurate brightness notifications. This includes some laptops with dual graphics (e.g., Nvidia/Radeon dedicated GPU with Intel/AMD integrated GPU). Additionally, ACPI sometimes needs to register its own <code>acpi_video0</code> backlight even if one already exists (such as <code>intel_backlight</code>), which can be done by adding one of the following <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>:
 </p>
 <pre>acpi_backlight=video
 acpi_backlight=vendor
@@ -131,12 +131,12 @@ acpi_backlight=native
 <strong>Tip:</strong> 
 <ul>
 <li>On Nvidia Optimus laptops, the kernel parameter <code>nomodeset</code> can interfere with the ability to adjust the backlight.</li>
-<li>On an Asus notebooks you might also need to load the <code>asus-nb-wmi</code> <a href="/Usage/Configuration/B/Kernel_module.html" title="Kernel module">kernel module</a>.</li>
+<li>On an Asus notebooks you might also need to load the <code>asus-nb-wmi</code> <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a>.</li>
 <li>Disabling legacy boot on Dell XPS13 breaks backlight support.</li>
 </ul>
 </div>
 <h4><span class="mw-headline" id="Udev_rule">Udev rule</span></h4>
-<p>If the ACPI interface is available, the backlight level can be set at boot using a <a href="/Usage/Configuration/B/Udev.html" title="Udev">udev</a> rule:
+<p>If the ACPI interface is available, the backlight level can be set at boot using a <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> rule:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/81-backlight.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Set backlight level to 8
@@ -144,7 +144,7 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The systemd-backlight service restores the previous backlight brightness level at boot. To prevent conflicts for the above rules, see <a href="#Save_and_restore_functionality">#Save and restore functionality</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> To set the backlight depending on power state, see <a href="/Usage/Configuration/B/Power_management.html#Using_a_script_and_an_udev_rule" title="Power management">Power management#Using a script and an udev rule</a> and use your favourite <a href="#Backlight_utilities">backlight utility</a> in the script.</div>
+<strong>Tip:</strong> To set the backlight depending on power state, see <a href="/Usage/Configuration/P/Power_management.html#Using_a_script_and_an_udev_rule" title="Power management">Power management#Using a script and an udev rule</a> and use your favourite <a href="#Backlight_utilities">backlight utility</a> in the script.</div>
 <h3><span class="mw-headline" id="setpci">setpci</span></h3>
 <p>In some cases (e.g. Intel Mobile 945GME <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/xserver-xorg-video-intel/+bug/397617">[1]</a>), it is possible to set the register of the graphic card to adjust the backlight. It means you adjust the backlight by manipulating the hardware directly, which can be risky and generally is not a good idea. Not all of the graphic cards support this method.
 </p>
@@ -153,7 +153,7 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 <pre># setpci -s 00:02.0 F4.B=0
 </pre>
 <h3><span class="mw-headline" id="External_monitors">External monitors</span></h3>
-<p><a href="https://en.wikipedia.org/wiki/Display_Data_Channel#DDC.2FCI"  title="wikipedia:Display Data Channel">DDC/CI</a> (Display Data Channel Command Interface) can be used to communicate with external monitors implementing MCCS (Monitor Control Command Set) over I2C. DDC can control brightness, contrast, inputs, etc on supported monitors. Settings available via the OSD (On-Screen Display) panel can usually also be managed via DDC. The <a href="/Usage/Configuration/B/Kernel_module.html" title="Kernel module">kernel module</a> <code>i2c-dev</code> may need to be loaded if the <code>/dev/i2c-*</code> devices do not exist.
+<p><a href="https://en.wikipedia.org/wiki/Display_Data_Channel#DDC.2FCI"  title="wikipedia:Display Data Channel">DDC/CI</a> (Display Data Channel Command Interface) can be used to communicate with external monitors implementing MCCS (Monitor Control Command Set) over I2C. DDC can control brightness, contrast, inputs, etc on supported monitors. Settings available via the OSD (On-Screen Display) panel can usually also be managed via DDC. The <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> <code>i2c-dev</code> may need to be loaded if the <code>/dev/i2c-*</code> devices do not exist.
 </p>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddcutil/">ddcutil</a></span><sup><small>AUR</small></sup> can be used to query and set brightness settings:
 </p>
@@ -164,17 +164,17 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">VCP code 0x10 (Brightness                    ): current value =    60, max value =   100</pre>
 <pre># ddcutil setvcp 10 70
 </pre>
-<p>Alternatively, one may use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddcci-driver-linux-dkms/">ddcci-driver-linux-dkms</a></span><sup><small>AUR</small></sup> to expose external monitors in sysfs. Then, after loading the <code>ddcci</code> <a href="/Usage/Configuration/B/Kernel_module.html" title="Kernel module">kernel module</a>, one can use any <a href="#Backlight_utilities">backlight utility</a>.
+<p>Alternatively, one may use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ddcci-driver-linux-dkms/">ddcci-driver-linux-dkms</a></span><sup><small>AUR</small></sup> to expose external monitors in sysfs. Then, after loading the <code>ddcci</code> <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a>, one can use any <a href="#Backlight_utilities">backlight utility</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Using <code>ddcci</code> and <code>i2c-dev</code> simultaneously may result in resource conflicts such as a <code>Device or resource busy</code> error.</div>
 <h2><span class="mw-headline" id="Switch_off_the_backlight">Switch off the backlight</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/B/Display_Power_Management_Signaling.html" class="mw-redirect" title="DPMS">DPMS</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/D/Display_Power_Management_Signaling.html" class="mw-redirect" title="DPMS">DPMS</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Same topic. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Backlight">Talk:Backlight#</a>)</div>
 </div>
-<p>Switching off the backlight (for example when one locks a notebook) can be useful to conserve battery energy. Ideally the following command should work for any <a href="/Usage/Configuration/B/Xorg.html" title="Xorg">Xorg</a> graphical session:
+<p>Switching off the backlight (for example when one locks a notebook) can be useful to conserve battery energy. Ideally the following command should work for any <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> graphical session:
 </p>
 <pre>xset dpms force off
 </pre>
@@ -188,13 +188,13 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 </p>
 <pre>$ vbetool dpms on
 </pre>
-<p>For example, this can be put to use when closing the notebook lid using <a href="/Usage/Configuration/B/Acpid.html" title="Acpid">Acpid</a>.
+<p>For example, this can be put to use when closing the notebook lid using <a href="/Usage/Configuration/A/Acpid.html" title="Acpid">Acpid</a>.
 </p>
 <h2><span class="mw-headline" id="Save_and_restore_functionality">Save and restore functionality</span></h2>
-<p>The <a href="/Usage/Configuration/B/Systemd.html" title="Systemd">systemd</a> package includes the service <code>systemd-backlight@.service</code>, which is enabled by default and "static". It saves the backlight brightness level at shutdown and restores it at boot. The service uses the ACPI method described in <a href="#ACPI">#ACPI</a>,  generating services for each folder found in <code>/sys/class/backlight/</code>. For example, if there is a folder named <code>acpi_video0</code>, it generates a service called <code>systemd-backlight@backlight:acpi_video0.service</code>. When using other methods of setting the backlight at boot, it is recommended to stop systemd-backlight from restoring the backlight by setting the <a href="/Usage/Configuration/B/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> parameter <code>systemd.restore_state=0</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-backlight@.service"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-backlight%40.service.8">systemd-backlight@.service(8)</a></span> for details.
+<p>The <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> package includes the service <code>systemd-backlight@.service</code>, which is enabled by default and "static". It saves the backlight brightness level at shutdown and restores it at boot. The service uses the ACPI method described in <a href="#ACPI">#ACPI</a>,  generating services for each folder found in <code>/sys/class/backlight/</code>. For example, if there is a folder named <code>acpi_video0</code>, it generates a service called <code>systemd-backlight@backlight:acpi_video0.service</code>. When using other methods of setting the backlight at boot, it is recommended to stop systemd-backlight from restoring the backlight by setting the <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> parameter <code>systemd.restore_state=0</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-backlight@.service"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-backlight%40.service.8">systemd-backlight@.service(8)</a></span> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Some laptops have multiple video cards (e.g. Optimus) and the backlight restoration fails. Try <a href="/Usage/Configuration/B/Systemd.html#Using_units" title="Systemd">masking</a> an instance of the service (e.g. <code>systemd-backlight@backlight:acpi_video1</code> for <code>acpi_video1</code>).</div>
+<strong>Note:</strong> Some laptops have multiple video cards (e.g. Optimus) and the backlight restoration fails. Try <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">masking</a> an instance of the service (e.g. <code>systemd-backlight@backlight:acpi_video1</code> for <code>acpi_video1</code>).</div>
 <p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/relight/">relight</a></span><sup><small>AUR</small></sup> package provides an alternative systemd-based method of saving and restoring screen brightness.
 </p>
 <p>Additionally, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/brillo/">brillo</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=light">light</a></span> utilities support save and restore functionality. These two may be more useful if one wishes to restore the screen brightness on a per-user basis, however no systemd units are provided to accomplish this.
@@ -320,7 +320,7 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 </td>
 <td>GPL-3.0-or-later
 </td>
-<td>Manages screen temperature (<a href="/Usage/Configuration/B/Xorg.html" title="Xorg">Xorg</a> only) and smoothly dims brightness after a timeout. Supports ambient light sensors <a rel="nofollow"  href="https://github.com/FedeDP/Clightd/wiki/Sensors">[2]</a>. Can turn webcam into an ambient light sensor.
+<td>Manages screen temperature (<a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> only) and smoothly dims brightness after a timeout. Supports ambient light sensors <a rel="nofollow"  href="https://github.com/FedeDP/Clightd/wiki/Sensors">[2]</a>. Can turn webcam into an ambient light sensor.
 </td>
 </tr>
 <tr>
@@ -406,7 +406,7 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>xbacklight only works with <a href="/Usage/Configuration/B/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>. Other drivers (e.g. <a href="/Usage/Configuration/B/ATI.html" class="mw-redirect" title="Radeon">Radeon</a>) did not add support for the RandR backlight property.</li>
+<li>xbacklight only works with <a href="/Usage/Configuration/I/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a>. Other drivers (e.g. <a href="/Usage/Configuration/A/ATI.html" class="mw-redirect" title="Radeon">Radeon</a>) did not add support for the RandR backlight property.</li>
 <li>xbacklight currently does not work with the modesetting driver <a rel="nofollow"  href="https://gitlab.freedesktop.org/xorg/xserver/issues/47">[3]</a>.</li>
 </ul>
 </div>
@@ -420,8 +420,8 @@ SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="
 $ xbacklight -dec 10
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> These commands can be bound to keyboard keys as described in <a href="/Usage/Configuration/B/Keyboard_shortcuts.html#Xorg" title="Keyboard shortcuts">Keyboard shortcuts#Xorg</a>.</div>
-<p>If you get the "No outputs have backlight property" error, it is because xrandr/xbacklight does not choose the right directory in <code>/sys/class/backlight</code>. You can specify the directory by setting the <code>Backlight</code> option of the device section in <code>/etc/X11/xorg.conf.d/20-<i>video</i>.conf</code>. For instance, if the name of the directory is <code>intel_backlight</code> and using the <a href="/Usage/Configuration/B/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> driver, the device section may be configured as follows:
+<strong>Tip:</strong> These commands can be bound to keyboard keys as described in <a href="/Usage/Configuration/K/Keyboard_shortcuts.html#Xorg" title="Keyboard shortcuts">Keyboard shortcuts#Xorg</a>.</div>
+<p>If you get the "No outputs have backlight property" error, it is because xrandr/xbacklight does not choose the right directory in <code>/sys/class/backlight</code>. You can specify the directory by setting the <code>Backlight</code> option of the device section in <code>/etc/X11/xorg.conf.d/20-<i>video</i>.conf</code>. For instance, if the name of the directory is <code>intel_backlight</code> and using the <a href="/Usage/Configuration/I/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> driver, the device section may be configured as follows:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/20-intel.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "Device"
@@ -431,7 +431,7 @@ $ xbacklight -dec 10
 EndSection</pre>
 <p>See <a rel="nofollow"  href="https://bugs.archlinux.org/task/27677">FS#27677</a> and <a rel="nofollow"  href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=651741">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=651741</a> for details.
 </p>
-<p>If you have enabled <a href="/Usage/Configuration/B/Intel_graphics.html#Fastboot" title="Intel graphics">Intel Fastboot</a> you might also get the <code>No outputs have backlight property</code> error. In this case, trying the above method may cause Xorg to crash on start up. You should disable it to fix the issue. It is <a rel="nofollow"  href="https://bugs.freedesktop.org/show_bug.cgi?id=108225">known</a> to cause issues with brightness control.
+<p>If you have enabled <a href="/Usage/Configuration/I/Intel_graphics.html#Fastboot" title="Intel graphics">Intel Fastboot</a> you might also get the <code>No outputs have backlight property</code> error. In this case, trying the above method may cause Xorg to crash on start up. You should disable it to fix the issue. It is <a rel="nofollow"  href="https://bugs.freedesktop.org/show_bug.cgi?id=108225">known</a> to cause issues with brightness control.
 </p>
 <h3><span class="mw-headline" id="Using_DBus_with_Gnome">Using DBus with Gnome</span></h3>
 <p>Brightness can also be adjusted as the gnome controls do. Changes are reflected in the gnome UI using this method.
@@ -447,7 +447,7 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Which utilities require <a href="/Usage/Configuration/B/Xorg.html" title="Xorg">Xorg</a> and which work in <a href="/Usage/Configuration/B/Wayland.html" title="Wayland">Wayland</a>? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Backlight">Talk:Backlight#</a>)</div>
+<b>Reason:</b> Which utilities require <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> and which work in <a href="/Usage/Configuration/W/Wayland.html" title="Wayland">Wayland</a>? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Backlight">Talk:Backlight#</a>)</div>
 </div>
 <p>Color correction does not change the backlight power, it just modifies the video LUT table: this means that your battery life will be unaffected by the change. Nevertheless, it could be useful when no backlight control is available (desktop PCs or laptops with OLED screens).
 </p>
@@ -467,7 +467,7 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 <a rel="nofollow"  href="https://web.archive.org/web/20090815224839/http://www.pcbypaul.com/software/monica.html">https://web.archive.org/web/20090815224839/http://www.pcbypaul.com/software/monica.html</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/monica/">monica</a></span><sup><small>AUR</small></sup>
 </dd></dl>
 <ul><li>
-<b><a href="/Usage/Configuration/B/Redshift.html" title="Redshift">Redshift</a></b> — Color temperature adjustment tool. It adjusts the color temperature of your screen according to your surroundings. This may help your eyes hurt less if you are working in front of the screen at night. This program is inspired by <a href="https://en.wikipedia.org/wiki/f.lux"  title="wikipedia:f.lux">f.lux</a>.</li></ul>
+<b><a href="/Usage/Configuration/R/Redshift.html" title="Redshift">Redshift</a></b> — Color temperature adjustment tool. It adjusts the color temperature of your screen according to your surroundings. This may help your eyes hurt less if you are working in front of the screen at night. This program is inspired by <a href="https://en.wikipedia.org/wiki/f.lux"  title="wikipedia:f.lux">f.lux</a>.</li></ul>
 <dl><dd>
 <a rel="nofollow"  href="http://jonls.dk/redshift/">http://jonls.dk/redshift/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=redshift">redshift</a></span>
 </dd></dl>
@@ -482,10 +482,10 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 <a rel="nofollow"  href="https://xorg.freedesktop.org/">https://xorg.freedesktop.org/</a> || <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xgamma">xorg-xgamma</a></span>
 </dd></dl>
 <h3><span class="mw-headline" id="NVIDIA_settings">NVIDIA settings</span></h3>
-<p>Users of <a href="/Usage/Configuration/B/NVIDIA.html" title="NVIDIA">NVIDIA's proprietary drivers</a> users can change display brightness via the nvidia-settings utility under "X Server Color Correction." However, note that this has absolutely nothing to do with backlight (intensity), it merely adjusts the color output. (Reducing brightness this way is a power-inefficient last resort when all other options fail; increasing brightness spoils your color output completely, in a way similar to overexposed photos.)
+<p>Users of <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA's proprietary drivers</a> users can change display brightness via the nvidia-settings utility under "X Server Color Correction." However, note that this has absolutely nothing to do with backlight (intensity), it merely adjusts the color output. (Reducing brightness this way is a power-inefficient last resort when all other options fail; increasing brightness spoils your color output completely, in a way similar to overexposed photos.)
 </p>
 <h3><span class="mw-headline" id="Increase_brightness_above_maximum_level">Increase brightness above maximum level</span></h3>
-<p>You can use <a href="/Usage/Configuration/B/Xrandr.html" title="Xrandr">xrandr</a> to increase perceived brightness above its maximum level (the same caveats mentioned above for Nvidia apply):
+<p>You can use <a href="/Usage/Configuration/X/Xrandr.html" title="Xrandr">xrandr</a> to increase perceived brightness above its maximum level (the same caveats mentioned above for Nvidia apply):
 </p>
 <pre>$ xrandr --output <i>output_name</i> --brightness 2
 </pre>
@@ -527,7 +527,7 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 <li>switching from X to another VT turns the backlight off</li>
 <li>the brightness keys are inverted (i.e. turning up the brightness makes the screen darker)</li>
 </ul>
-<p>This problem may be solved by adding <code>i915.invert_brightness=1</code> to the list of <a href="/Usage/Configuration/B/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+<p>This problem may be solved by adding <code>i915.invert_brightness=1</code> to the list of <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
 </p>
 <h3>
 <span id="Unable_to_control_eDP_Panel_brightness_.28Intel_i915_only.29"></span><span class="mw-headline" id="Unable_to_control_eDP_Panel_brightness_(Intel_i915_only)">Unable to control eDP Panel brightness (Intel i915 only)</span>
@@ -536,14 +536,14 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 </p>
 <p>By default the i915 driver tries to use PWM to control backlight brightness, which might not work.
 </p>
-<p>To set the backlight through writes to DPCD registers using the AUX channel set <code>i915.enable_dpcd_backlight=1</code> as a <a href="/Usage/Configuration/B/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
+<p>To set the backlight through writes to DPCD registers using the AUX channel set <code>i915.enable_dpcd_backlight=1</code> as a <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The parameter changed from bool to int in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> 5.4.</div>
 <h3><span class="mw-headline" id="sysfs_modified_but_no_brightness_change">sysfs modified but no brightness change</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This behavior and their workarounds have been confirmed on the Dell M6700 with Nvidia K5000m (BIOS version prior to A10) and Clevo P750ZM (Eurocom P5 Pro Extreme) with Nvidia 980m.</div>
-<p>On some systems, the brightness hotkeys on your keyboard correctly modify the values of the acpi interface in <code>/sys/class/backlight/acpi_video0/actual_brightness</code> but the brightness of the screen is not changed. Brightness applets from <a href="/Usage/Configuration/B/Desktop_environment.html" class="mw-redirect" title="Desktop environments">desktop environments</a> may also show changes to no effect.
+<p>On some systems, the brightness hotkeys on your keyboard correctly modify the values of the acpi interface in <code>/sys/class/backlight/acpi_video0/actual_brightness</code> but the brightness of the screen is not changed. Brightness applets from <a href="/Usage/Configuration/D/Desktop_environment.html" class="mw-redirect" title="Desktop environments">desktop environments</a> may also show changes to no effect.
 </p>
 <p>If you have tested the recommended kernel parameters and only <code>xbacklight</code> works, then you may be facing an incompatibility between your BIOS and kernel driver.
 </p>
@@ -551,7 +551,7 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 </p>
 <p>A workaround is to use the inotify kernel api to trigger <code>xbacklight</code> each time the value of <code>/sys/class/backlight/acpi_video0/actual_brightness</code> changes.
 </p>
-<p>First <a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=inotify-tools">inotify-tools</a></span>. Then create a script around inotify that will be launched upon each boot or through <a href="/Usage/Configuration/B/Autostarting.html" class="mw-redirect" title="Autostart">autostart</a>.
+<p>First <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=inotify-tools">inotify-tools</a></span>. Then create a script around inotify that will be launched upon each boot or through <a href="/Usage/Configuration/A/Autostarting.html" class="mw-redirect" title="Autostart">autostart</a>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/local/bin/xbacklightmon</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -573,7 +573,7 @@ inotifywait -me modify --format '' "$path"/actual_brightness | while read; do
 done
 </pre>
 <h3><span class="mw-headline" id="Backlight_not_working_in_MATE">Backlight not working in MATE</span></h3>
-<p>Make sure the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mate-power-manager">mate-power-manager</a></span> package is <a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a>.
+<p>Make sure the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mate-power-manager">mate-power-manager</a></span> package is <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a>.
 </p>
 <h3><span class="mw-headline" id="Backlight_keys_not_working_in_Xfce">Backlight keys not working in Xfce</span></h3>
 <p>In xfce4, the <a rel="nofollow"  href="https://docs.xfce.org/xfce/xfce4-power-manager/start">Xfce4 Power Manager</a> handles the brightness keys.
@@ -592,14 +592,14 @@ done
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/B/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
-<li><a href="/Usage/Configuration/B/Category:Power_management.html" title="Category:Power management">Power management</a></li>
+<li><a href="/Usage/Configuration/C/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
+<li><a href="/Usage/Configuration/C/Category:Power_management.html" title="Category:Power management">Power management</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
-<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/B/Category:Pages_with_missing_package_links.html" title="Category:Pages with missing package links">Pages with missing package links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_missing_package_links.html" title="Category:Pages with missing package links">Pages with missing package links</a></li>
 </ul>
 </div>
 </div>
@@ -618,9 +618,9 @@ done
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Dynamic_Kernel_Module_Support
     description: Migration of Dynamic_Kernel_Module_Support from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <p>From <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support"  title="wikipedia:Dynamic Kernel Module Support">Wikipedia</a>:
 </p>
 <dl><dd>Dynamic Kernel Module Support (DKMS) is a program/framework that enables generating Linux kernel modules whose sources generally reside outside the kernel source tree. The concept is to have DKMS modules automatically rebuilt when a new kernel is installed.</dd></dl>
-<p>This means that a user does not have to wait for a company, project, or package maintainer to release a new version of the module. Since the introduction of <a href="/Usage/Configuration/D/Pacman.html#Hooks" class="mw-redirect" title="Pacman hooks">pacman hooks</a>, the rebuild of the modules is handled automatically when a kernel is upgraded.
+<p>This means that a user does not have to wait for a company, project, or package maintainer to release a new version of the module. Since the introduction of <a href="/Usage/Configuration/P/Pacman.html#Hooks" class="mw-redirect" title="Pacman hooks">pacman hooks</a>, the rebuild of the modules is handled automatically when a kernel is upgraded.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -69,12 +69,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> package and the headers for the target kernel/kernels. For example, for the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> kernel this would be <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span>.  Other kernels have their own respective headers packages.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dkms">dkms</a></span> package and the headers for the target kernel/kernels. For example, for the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> kernel this would be <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span>.  Other kernels have their own respective headers packages.
 </p>
 <p>A good number of modules that lie outside the kernel source tree have a DKMS variant; a few are hosted in the <a rel="nofollow"  href="https://www.archlinux.org/packages/?&amp;q=dkms">official repositories</a>, most are found in the <a rel="nofollow"  href="https://aur.archlinux.org/packages/?SeB=n&amp;K=dkms">AUR</a>.
 </p>
 <h2><span class="mw-headline" id="Upgrades">Upgrades</span></h2>
-<p>Though the rebuild of the DKMS modules is usually seamless during a kernel upgrade, it may still happen that the rebuild fails. You should pay extra attention to the <a href="/Usage/Configuration/D/Pacman.html" title="Pacman">pacman</a> output. This applies in particular if the system relies on the DKMS module to boot successfully and/or if you use DKMS with a custom kernel not in the <a href="/Usage/Configuration/D/Official_repositories.html" title="Official repositories">official repositories</a>. 
+<p>Though the rebuild of the DKMS modules is usually seamless during a kernel upgrade, it may still happen that the rebuild fails. You should pay extra attention to the <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> output. This applies in particular if the system relies on the DKMS module to boot successfully and/or if you use DKMS with a custom kernel not in the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>. 
 </p>
 <p>To deal with changes in the kernel, fix bugs, or add necessary features consider upgrading the DKMS package before rebooting.
 </p>
@@ -219,9 +219,9 @@ AUTOINSTALL="yes"</pre>
 <p>Now pacman has DKMS hooks implemented, you do not have to specify DKMS-specific configuration in your .install file. Calls to <code>dkms install</code> and <code>dkms remove</code> will be automatic.
 </p>
 <h2><span class="mw-headline" id="Initial_ramdisk">Initial ramdisk</span></h2>
-<p>In case you've got any kernel modules installed via DKMS that are used in <a href="https://en.wikipedia.org/wiki/Initial_ramdisk"  title="wikipedia:Initial ramdisk">initial ramdisk</a>, e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup>, you may want to write a <a href="/Usage/Configuration/D/Pacman.html" title="Pacman">pacman</a> hook to automate the process of regenerating initramfs image(s).
+<p>In case you've got any kernel modules installed via DKMS that are used in <a href="https://en.wikipedia.org/wiki/Initial_ramdisk"  title="wikipedia:Initial ramdisk">initial ramdisk</a>, e.g. <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup>, you may want to write a <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> hook to automate the process of regenerating initramfs image(s).
 </p>
-<p>For example, when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> and <a href="/Usage/Configuration/D/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>, to update <a href="/Usage/Configuration/D/ZFS.html" title="ZFS">ZFS</a> module after each <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup> upgrade,
+<p>For example, when using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span> and <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>, to update <a href="/Usage/Configuration/Z/ZFS.html" title="ZFS">ZFS</a> module after each <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/zfs-dkms/">zfs-dkms</a></span><sup><small>AUR</small></sup> upgrade,
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/90-mkinitcpio-dkms-linux.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
@@ -246,9 +246,9 @@ Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Move.html" title="Category:Pages or sections flagged with Template:Move">Pages or sections flagged with Template:Move</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -266,9 +266,9 @@ Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

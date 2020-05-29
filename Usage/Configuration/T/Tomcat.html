@@ -2,7 +2,7 @@
     title: Tomcat
     description: Migration of Tomcat from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -158,9 +158,9 @@ To keep it short, <code>tomcat</code> is the mandatory role used to run, <code>m
 <h2>
 <span id="Start.2Fstop_Tomcat"></span><span class="mw-headline" id="Start/stop_Tomcat">Start/stop Tomcat</span>
 </h2>
-<p><a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> the <code>tomcat7</code> service.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> the <code>tomcat7</code> service.
 </p>
-<p>Once Tomcat is started, you can visit this page to see the result: <a rel="nofollow"  href="http://localhost:8080">http://localhost:8080</a>. If a nice Tomcat local home page is displayed this means your Servlet container is up and running and ready to host you web apps. If the startup script failed or you can only see a Java error displayed in you browser, have a look at startup logs using systemd's <a href="/Usage/Configuration/T/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a>. Google is full of answers on recurrent issues found in Tomcat logs.
+<p>Once Tomcat is started, you can visit this page to see the result: <a rel="nofollow"  href="http://localhost:8080">http://localhost:8080</a>. If a nice Tomcat local home page is displayed this means your Servlet container is up and running and ready to host you web apps. If the startup script failed or you can only see a Java error displayed in you browser, have a look at startup logs using systemd's <a href="/Usage/Configuration/S/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a>. Google is full of answers on recurrent issues found in Tomcat logs.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> To improve security, TOS Linux's Tomcat packages use the <a rel="nofollow"  href="http://commons.apache.org/daemon/jsvc.html">jsvc</a> binary from Apache's <a rel="nofollow"  href="http://commons.apache.org/daemon/">common-daemons</a>. Tomcat's <code>systemd</code> service runs this Apache binary with root privileges which itself starts Tomcat with an underprivileged user (<code>tomcat7:tomcat7</code> in TOS Linux). This prevents malicious code that could be executed in a bad web application from causing too much damage. This also enables the use of ports under 1024 if needed. See <code>man jsvc</code> for options available and pass them through the <code>CATALINA_OPTS</code> environment variable declared in <code>/etc/conf.d/tomcat7</code>.</div>
@@ -213,7 +213,7 @@ Go to <code>/etc/tomcat&lt;number&gt;/Catalina/localhost/</code> and create your
 If tomcat is unable to load the files, it might be an issue with permissions. <code>chmod o+x /home/archie/code/jsp/myProject</code> should fix the issue.
 </p>
 <h2><span class="mw-headline" id="Logging">Logging</span></h2>
-<p>Tomcat when used with official TOS Linux packages uses systemd's <a href="/Usage/Configuration/T/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> <b>for startup log</b>. This means that files <code>/var/log/tomcat7/catalina.err</code> and <code>/var/log/tomcat7/catalina.out</code> are <b>not</b> used. Other logs such as access logs and business logs defined in <code>/etc/tomcat7/server.xml</code> as <code>Valve</code> will still by default end up in <code>/var/log/tomcat7/</code>.
+<p>Tomcat when used with official TOS Linux packages uses systemd's <a href="/Usage/Configuration/S/Systemd/Journal.html" class="mw-redirect" title="Journalctl">journalctl</a> <b>for startup log</b>. This means that files <code>/var/log/tomcat7/catalina.err</code> and <code>/var/log/tomcat7/catalina.out</code> are <b>not</b> used. Other logs such as access logs and business logs defined in <code>/etc/tomcat7/server.xml</code> as <code>Valve</code> will still by default end up in <code>/var/log/tomcat7/</code>.
 </p>
 <p>To restore upstream style logging, copy systemd file <code>/lib/systemd/system/tomcat7.service</code> to <code>/etc/systemd/system/tomcat7.service</code> and change both <code>SYSLOG</code> for the absolute paths of log files.
 </p>
@@ -228,7 +228,7 @@ If tomcat is unable to load the files, it might be an issue with permissions. <c
 </h3>
 <p>Apart from installing the desired JRE/JDK, the only requirement is to set the TOMCAT_JAVA_HOME variable in Tomcat's <code>systemd</code> service file.
 </p>
-<p>The variable can be overridden by a custom configuration, as described in <a href="/Usage/Configuration/T/Systemd.html#Editing_provided_units" title="Systemd">Systemd#Editing provided units</a>:
+<p>The variable can be overridden by a custom configuration, as described in <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">Systemd#Editing provided units</a>:
 </p>
 <ol>
 <li>create the directory <i>/etc/systemd/system/tomcat7.service.d</i>
@@ -309,7 +309,7 @@ server.built=
 <h3>
 <span id="Tomcat_service_is_started.2C_but_page_is_not_loaded"></span><span class="mw-headline" id="Tomcat_service_is_started,_but_page_is_not_loaded">Tomcat service is started, but page is not loaded</span>
 </h3>
-<p>First check <code>/etc/tomcat7/tomcat-users.xml</code> for any syntax error. If everything is fine and <code>tomcat7</code> is correctly running, type <code>journalctl -r</code> to check the logs for any exception thrown (see <a href="#Logging">Logging</a>). If you read anything like <code>java.lang.Exception: Socket bind failed: [98] Address already in use</code>, this is due to some other service listening on the same port. For instance, it is possible that <a href="/Usage/Configuration/T/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and Tomcat are listening on the same port (if for example you have Apache running on port 8080 with <a href="/Usage/Configuration/T/Nginx.html" title="Nginx">Nginx</a> serving it as a proxy on port 80). If this is the case, edit the <code>/etc/tomcat7/server.xml</code> file and change the Connector port to something else under <code>&lt;Service name="Catalina"&gt;</code>:
+<p>First check <code>/etc/tomcat7/tomcat-users.xml</code> for any syntax error. If everything is fine and <code>tomcat7</code> is correctly running, type <code>journalctl -r</code> to check the logs for any exception thrown (see <a href="#Logging">Logging</a>). If you read anything like <code>java.lang.Exception: Socket bind failed: [98] Address already in use</code>, this is due to some other service listening on the same port. For instance, it is possible that <a href="/Usage/Configuration/A/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a> and Tomcat are listening on the same port (if for example you have Apache running on port 8080 with <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">Nginx</a> serving it as a proxy on port 80). If this is the case, edit the <code>/etc/tomcat7/server.xml</code> file and change the Connector port to something else under <code>&lt;Service name="Catalina"&gt;</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tomcat7/server.xml</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;?xml version='1.0' encoding='utf-8'?&gt;
@@ -323,7 +323,7 @@ server.built=
 ...
 ...
 &lt;/Service&gt;</pre>
-<p>Finally <a href="/Usage/Configuration/T/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>tomcat7</code> and <code>httpd</code> services.
+<p>Finally <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>tomcat7</code> and <code>httpd</code> services.
 </p>
 <p>If you have no solution and you are in a VM, it can help to delete /dev/random and create it again (cf. <a rel="nofollow"  href="https://www.nofluffjuststuff.com/blog/pratik_patel/2010/01/solution_futex_wait_hangs_java_on_linux__ubuntu_in_vmware_or_virtual_box">Solution: FUTEX_WAIT hangs Java on Linux / Ubuntu in vmware or virtual box</a>):
 </p>
@@ -336,9 +336,9 @@ mknod -m 644 /dev/random c 1 9
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/T/Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Web_server.html" title="Category:Web server">Web server</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/T/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>

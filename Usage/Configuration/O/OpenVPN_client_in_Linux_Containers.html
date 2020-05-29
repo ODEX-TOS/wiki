@@ -2,7 +2,7 @@
     title: OpenVPN_client_in_Linux_Containers
     description: Migration of OpenVPN_client_in_Linux_Containers from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,17 +27,17 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/O/TOS Wiki:TOSive.html" class="mw-redirect" title="AirVPN">AirVPN</a></li>
-<li><a href="/Usage/Configuration/O/Docker.html" title="Docker">Docker</a></li>
-<li><a href="/Usage/Configuration/O/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
+<li><a href="/Usage/Configuration/T/TOS Wiki:TOSive.html" class="mw-redirect" title="AirVPN">AirVPN</a></li>
+<li><a href="/Usage/Configuration/D/Docker.html" title="Docker">Docker</a></li>
+<li><a href="/Usage/Configuration/L/Linux_Containers.html" title="Linux Containers">Linux Containers</a></li>
 <li><a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a></li>
 <li><a href="/Usage/Configuration/O/OpenVPN_server_in_Linux_Containers.html" title="OpenVPN server in Linux Containers">OpenVPN server in Linux Containers</a></li>
-<li><a href="/Usage/Configuration/O/PeerGuardian_Linux.html" title="PeerGuardian Linux">PeerGuardian_Linux</a></li>
-<li><a href="/Usage/Configuration/O/Systemd-nspawn.html" title="Systemd-nspawn">Systemd-nspawn</a></li>
-<li><a href="/Usage/Configuration/O/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a></li>
+<li><a href="/Usage/Configuration/P/PeerGuardian_Linux.html" title="PeerGuardian Linux">PeerGuardian_Linux</a></li>
+<li><a href="/Usage/Configuration/S/Systemd-nspawn.html" title="Systemd-nspawn">Systemd-nspawn</a></li>
+<li><a href="/Usage/Configuration/U/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a></li>
 </ul>
 </div>
-<p>This article describes how to setup a <a href="/Usage/Configuration/O/Linux_Containers.html" class="mw-redirect" title="Linux Container">Linux Container</a> to run OpenVPN in client mode with a "kill switch" for secure/private internet use.  Doing so offers a distinct advantage over using full-blown virtualization like <a href="/Usage/Configuration/O/VirtualBox.html" title="VirtualBox">VirtualBox</a> or <a href="/Usage/Configuration/O/QEMU.html" title="QEMU">QEMU</a> in that the resource overhead is minimal by comparison and able to run on low powered devices.
+<p>This article describes how to setup a <a href="/Usage/Configuration/L/Linux_Containers.html" class="mw-redirect" title="Linux Container">Linux Container</a> to run OpenVPN in client mode with a "kill switch" for secure/private internet use.  Doing so offers a distinct advantage over using full-blown virtualization like <a href="/Usage/Configuration/V/VirtualBox.html" title="VirtualBox">VirtualBox</a> or <a href="/Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a> in that the resource overhead is minimal by comparison and able to run on low powered devices.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -70,7 +70,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Container_setup">Container setup</span></h2>
-<p>Basic setup and understanding of <a href="/Usage/Configuration/O/Linux_Containers.html" title="Linux Containers">Linux Containers</a> is required.  This article assumes that readers have a base LXC setup operational.  Newcomers to these are directed to the aforementioned article.
+<p>Basic setup and understanding of <a href="/Usage/Configuration/L/Linux_Containers.html" title="Linux Containers">Linux Containers</a> is required.  This article assumes that readers have a base LXC setup operational.  Newcomers to these are directed to the aforementioned article.
 </p>
 <h3><span class="mw-headline" id="LXC_config">LXC config</span></h3>
 <p>The container's config should be modified to include several key lines in order to both run OpenVPN and have internet programs (browsers, email clients, torrent clients, etc.) interact with the host system from within the LXC and from behind the VPN.
@@ -85,7 +85,7 @@ lxc.mount.entry = /dev/net dev/net none bind,create=dir
 lxc.cgroup.devices.allow = c 10:200 rwm
 </pre>
 <h3><span class="mw-headline" id="Needed_packages_within_the_container">Needed packages within the container</span></h3>
-<p>In addition to the base system, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> is required and available from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.  A properly configured <a href="/Usage/Configuration/O/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> to run within the container is <i>highly</i> recommended.  The role of the firewall within the container is two fold:
+<p>In addition to the base system, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> is required and available from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.  A properly configured <a href="/Usage/Configuration/C/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a> to run within the container is <i>highly</i> recommended.  The role of the firewall within the container is two fold:
 </p>
 <ol>
 <li>Provide a functional "kill switch" to maintain privacy should the connection to the VPN fail.</li>
@@ -97,7 +97,7 @@ lxc.cgroup.devices.allow = c 10:200 rwm
 <h4><span class="mw-headline" id="OpenVPN">OpenVPN</span></h4>
 <p>Configuration of OpenVPN is beyond the scope of this article.  Readers are encouraged to read the <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> article to properly setup the software for a given VPN provider.  Note that many private VPN providers include links to directly download a properly configured openvpn.opvn profile unique to their particular service.  For the purposes of this guide, <code>/etc/openvpn/client/myprofile.conf</code> will refer to that config.
 </p>
-<p>Verify openvpn functionality within the container; <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> openvpn via <code>openvpn-client@myprofile.service</code> and once satisfied <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to run at boot.
+<p>Verify openvpn functionality within the container; <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> openvpn via <code>openvpn-client@myprofile.service</code> and once satisfied <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to run at boot.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Users running openvpn within an <i>unprivileged</i> container will need to create a custom systemd unit to start it within the container.  Simply copy the package-provided <code>/usr/lib/systemd/system/openvpn-client@.service</code> to <code>/etc/systemd/system/openvpn-client@.service</code> and modify the new file commenting out the the line beginning with: <code>LimitNPROC...</code>
@@ -108,7 +108,7 @@ lxc.cgroup.devices.allow = c 10:200 rwm
 <h4><span class="mw-headline" id="ufw">ufw</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The following applies to inside the container.</div>
-<p>Configuration of <a href="/Usage/Configuration/O/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a> is described in <a href="/Usage/Configuration/O/OpenVPN.html#Firewall_configuration" title="OpenVPN">OpenVPN#Firewall configuration</a>.  Once modified as described, additional setup is simply to define the protocols to run (ssh, torrent, etc.) and also define the IP address or address range of the VPN provider.  Again, these are available from the private providers.
+<p>Configuration of <a href="/Usage/Configuration/U/Uncomplicated_Firewall.html" class="mw-redirect" title="Ufw">ufw</a> is described in <a href="/Usage/Configuration/O/OpenVPN.html#Firewall_configuration" title="OpenVPN">OpenVPN#Firewall configuration</a>.  Once modified as described, additional setup is simply to define the protocols to run (ssh, torrent, etc.) and also define the IP address or address range of the VPN provider.  Again, these are available from the private providers.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The following needs to be executed as the root user; the "#" sign prefixing these commands per standard wiki notation has been omitted to allow for a clean copy/paste into a terminal.</div>
@@ -131,12 +131,12 @@ ufw allow out from 50.121.10.200 to any
 </p>
 <pre>ufw allow from 192.168.0.0/24
 </pre>
-<p>Start ufw and <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ufw.service</code> to start at boot.
+<p>Start ufw and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ufw.service</code> to start at boot.
 </p>
 <pre># ufw enable
 </pre>
 <h4><span class="mw-headline" id="pgl">pgl</span></h4>
-<p>Additional protection can be had via using <a href="/Usage/Configuration/O/PeerGuardian_Linux.html" class="mw-redirect" title="Pgl">pgl</a> within the container.  See: <a href="/Usage/Configuration/O/PeerGuardian_Linux.html#Running_pgl_from_within_a_container" title="PeerGuardian Linux">PeerGuardian Linux#Running pgl from within a container</a>.
+<p>Additional protection can be had via using <a href="/Usage/Configuration/P/PeerGuardian_Linux.html" class="mw-redirect" title="Pgl">pgl</a> within the container.  See: <a href="/Usage/Configuration/P/PeerGuardian_Linux.html#Running_pgl_from_within_a_container" title="PeerGuardian Linux">PeerGuardian Linux#Running pgl from within a container</a>.
 </p>
 <h2><span class="mw-headline" id="Test_the_service">Test the service</span></h2>
 <p>From within the running container, (connected via ssh or via <code>lxc-attach -n playtime</code>) test the setup by exporting a browser to the host's machine X server:
@@ -151,8 +151,8 @@ ufw allow out from 50.121.10.200 to any
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/O/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li>
-<li><a href="/Usage/Configuration/O/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="/Usage/Configuration/C/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li>
+<li><a href="/Usage/Configuration/C/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -170,9 +170,9 @@ ufw allow out from 50.121.10.200 to any
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/O/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/O/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/O/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

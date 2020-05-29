@@ -2,7 +2,7 @@
     title: FAQ
     description: Migration of FAQ from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/F/Systemd.html" title="Systemd">Systemd</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/S/Systemd.html" title="Systemd">Systemd</a></span></div>
 		
 		
 		
@@ -29,10 +29,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="..//Usage/Configuration/F/Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="..//Usage/Configuration/F/Systemd/User.html" title="Systemd/User">systemd/User</a></li>
-<li><a href="..//Usage/Configuration/F/Daemons.html#List_of_daemons" title="Daemons">Daemons#List of daemons</a></li>
-<sup>[<a href="..//Usage/Configuration/F/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>
+<li><a href="..//Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="..//Usage/Configuration/S/Systemd/User.html" title="Systemd/User">systemd/User</a></li>
+<li><a href="..//Usage/Configuration/D/Daemons.html#List_of_daemons" title="Daemons">Daemons#List of daemons</a></li>
+<sup>[<a href="..//Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>
 </ul>
 </div>
 <div id="toc" >
@@ -66,7 +66,7 @@
 <h3>
 <span id="Why_do_I_get_log_messages_on_my_console.3F"></span><span class="mw-headline" id="Why_do_I_get_log_messages_on_my_console?">Why do I get log messages on my console?</span>
 </h3>
-<p>You must set the kernel loglevel yourself. Historically, <code>/etc/rc.sysinit</code> did this for us and set dmesg loglevel to <code>3</code>, which was a reasonably quiet loglevel. Either add <code>loglevel=3</code> or <code>quiet</code> to your <a href="..//Usage/Configuration/F/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+<p>You must set the kernel loglevel yourself. Historically, <code>/etc/rc.sysinit</code> did this for us and set dmesg loglevel to <code>3</code>, which was a reasonably quiet loglevel. Either add <code>loglevel=3</code> or <code>quiet</code> to your <a href="..//Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
 </p>
 <h3>
 <span id="How_do_I_change_the_default_number_of_gettys.3F"></span><span class="mw-headline" id="How_do_I_change_the_default_number_of_gettys?">How do I change the default number of gettys?</span>
@@ -75,7 +75,7 @@
 </p>
 <p>By default, the number of auto-activated gettys is capped at six. Thus [F7] through [F12] won't launch a getty.
 </p>
-<p>If you want to change this behavior, then edit <code>/etc/systemd/logind.conf</code> and change the value of <code>NAutoVTs</code>. If you want all [F<i>x</i>] keys to start a getty, increase the value of NAutoVTs to 12. If you are <a href="..//Usage/Configuration/F/Systemd/Journal.html#Forward_journald_to_.2Fdev.2Ftty12" title="Systemd/Journal">forwarding journald to tty12</a>, increase the value of NAutoVTs to 11 (thus leaving tty12 free).
+<p>If you want to change this behavior, then edit <code>/etc/systemd/logind.conf</code> and change the value of <code>NAutoVTs</code>. If you want all [F<i>x</i>] keys to start a getty, increase the value of NAutoVTs to 12. If you are <a href="..//Usage/Configuration/S/Systemd/Journal.html#Forward_journald_to_.2Fdev.2Ftty12" title="Systemd/Journal">forwarding journald to tty12</a>, increase the value of NAutoVTs to 11 (thus leaving tty12 free).
 </p>
 <p>You can also pre-activate gettys which will be running from boot.
 </p>
@@ -101,7 +101,7 @@
 <h3>
 <span id="How_do_I_avoid_clearing_the_console_after_boot.3F"></span><span class="mw-headline" id="How_do_I_avoid_clearing_the_console_after_boot?">How do I avoid clearing the console after boot?</span>
 </h3>
-<p>Create a directory called <code>/etc/systemd/system/getty@.service.d</code> and place <code>nodisallocate.conf</code> in there to <a href="..//Usage/Configuration/F/Systemd.html#Editing_provided_units" title="Systemd">override</a> the <code>TTYVTDisallocate</code> option to <code>no</code>.
+<p>Create a directory called <code>/etc/systemd/system/getty@.service.d</code> and place <code>nodisallocate.conf</code> in there to <a href="..//Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">override</a> the <code>TTYVTDisallocate</code> option to <code>no</code>.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/getty@.service.d/nodisallocate.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -152,9 +152,9 @@ ExecStart=/usr/bin/my-script
  
 [Install]
 WantedBy=multi-user.target</pre>
-<p>This example assumes you want your script to start up when the target multi-user is launched. Make sure the script is <a href="..//Usage/Configuration/F/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
+<p>This example assumes you want your script to start up when the target multi-user is launched. Make sure the script is <a href="..//Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
 </p>
-<p><a href="..//Usage/Configuration/F/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <i>myscript</i>.service to start the service at boot.
+<p><a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <i>myscript</i>.service to start the service at boot.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> In case you want to start a shell script, make sure you have <code>#!/bin/sh</code> in the first line of the script. Do <b>not</b> write something like <code>ExecStart=/bin/sh /path/to/script.sh</code> because that will not work.</div>
@@ -179,11 +179,11 @@ WantedBy=multi-user.target</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="..//Usage/Configuration/F/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
-<li><a href="..//Usage/Configuration/F/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/F/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -201,9 +201,9 @@ WantedBy=multi-user.target</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

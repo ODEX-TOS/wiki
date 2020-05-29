@@ -2,7 +2,7 @@
     title: Mullvad
     description: Migration of Mullvad from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://mullvad.net/wiki/">Mullvad</a> is a VPN service based in Sweden which uses <a href="/Usage/Configuration/M/OpenVPN.html" title="OpenVPN">OpenVPN</a> and <a href="/Usage/Configuration/M/WireGuard.html" title="WireGuard">WireGuard</a>.
+<p><a rel="nofollow"  href="https://mullvad.net/wiki/">Mullvad</a> is a VPN service based in Sweden which uses <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> and <a href="/Usage/Configuration/W/WireGuard.html" title="WireGuard">WireGuard</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -42,27 +42,27 @@
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>The new <a rel="nofollow"  href="https://mullvad.net/download/">official GUI client</a> is available as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mullvad-vpn/">mullvad-vpn</a></span><sup><small>AUR</small></sup>.
 </p>
-<p>After installation you will need to enable and start the <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> service <code>mullvad-daemon.service</code>.
+<p>After installation you will need to enable and start the <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service <code>mullvad-daemon.service</code>.
 </p>
-<p>Alternatively you can use the old client or <a href="/Usage/Configuration/M/OpenVPN.html" title="OpenVPN">OpenVPN</a> with a configuration file for Mullvad as explained in <a href="#Manual_configuration">#Manual configuration</a>.
+<p>Alternatively you can use the old client or <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> with a configuration file for Mullvad as explained in <a href="#Manual_configuration">#Manual configuration</a>.
 </p>
 <h2><span class="mw-headline" id="Manual_configuration">Manual configuration</span></h2>
 <p>First make sure the packages <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openresolv">openresolv</a></span> are installed, then proceed to download Mullvad's OpenVPN configuration file package from <a rel="nofollow"  href="https://www.mullvad.net/download/config/">their website</a> (under the "other platforms" tab) and unzip the downloaded file to <code>/etc/openvpn/client/</code>.
 </p>
-<p>Rename mullvad_linux.conf for a shorter name to be used with the <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> service later:
+<p>Rename mullvad_linux.conf for a shorter name to be used with the <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service later:
 </p>
 <pre># mv /etc/openvpn/client/mullvad_linux.conf /etc/openvpn/client/mullvad.conf
 </pre>
-<p>In order to use the nameservers supplied by Mullvad, <a href="/Usage/Configuration/M/OpenVPN.html#Update_resolv-conf_script" title="OpenVPN">update-resolv-conf script</a><sup>[<a href="/Usage/Configuration/M/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> is being called upon starting and stopping the connection with OpenVPN to modify <a href="/Usage/Configuration/M/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to include the correct IP addresses. This script is also included in the Mullvad configuration zipfile, but should be moved to <code>/etc/openvpn/</code> to match the path specified in the Mullvad configuration file:
+<p>In order to use the nameservers supplied by Mullvad, <a href="/Usage/Configuration/O/OpenVPN.html#Update_resolv-conf_script" title="OpenVPN">update-resolv-conf script</a><sup>[<a href="/Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> is being called upon starting and stopping the connection with OpenVPN to modify <a href="/Usage/Configuration/D/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to include the correct IP addresses. This script is also included in the Mullvad configuration zipfile, but should be moved to <code>/etc/openvpn/</code> to match the path specified in the Mullvad configuration file:
 </p>
 <pre># mv /etc/openvpn/client/update-resolv-conf /etc/openvpn/
 </pre>
 <p>The script can be kept updated with the <a rel="nofollow"  href="https://github.com/masterkorp/openvpn-update-resolv-conf">openvpn-update-resolv-conf</a> script, which also contains a fix for DNS leaks.
 </p>
-<p>After configuration the VPN connection can be <a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Enabled">managed</a> with <code>openvpn-client@mullvad.service</code>. If the service fails to start with an error like <code>Cannot open TUN/TAP dev /dev/net/tun: No such device (errno=19)</code>, you might need to reboot the system to enable OpenVPN creating the correct network device for the task.
+<p>After configuration the VPN connection can be <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enabled">managed</a> with <code>openvpn-client@mullvad.service</code>. If the service fails to start with an error like <code>Cannot open TUN/TAP dev /dev/net/tun: No such device (errno=19)</code>, you might need to reboot the system to enable OpenVPN creating the correct network device for the task.
 </p>
 <h2><span class="mw-headline" id="DNS_leaks">DNS leaks</span></h2>
-<p>By default, the Mullvad openvpn configurations allow DNS leaks and for usual VPN use cases this is an unfavorable privacy defect. Mullvad's new GUI client automatically stops DNS leaks by removing every DNS server IP from the system configuration and replacing them with an IP pointing out to Mullvad's own non-logging DNS server, valid during the VPN connection. This fix can also be applied with the plain OpenVPN method by configuring <a href="/Usage/Configuration/M/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to use <b>only</b> the Mullvad DNS server IP specified on their <a rel="nofollow"  href="https://www.mullvad.net/guides/dns-leaks/">website</a>.
+<p>By default, the Mullvad openvpn configurations allow DNS leaks and for usual VPN use cases this is an unfavorable privacy defect. Mullvad's new GUI client automatically stops DNS leaks by removing every DNS server IP from the system configuration and replacing them with an IP pointing out to Mullvad's own non-logging DNS server, valid during the VPN connection. This fix can also be applied with the plain OpenVPN method by configuring <a href="/Usage/Configuration/D/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to use <b>only</b> the Mullvad DNS server IP specified on their <a rel="nofollow"  href="https://www.mullvad.net/guides/dns-leaks/">website</a>.
 </p>
 <p>The resolv.conf update script version in <a rel="nofollow"  href="https://github.com/masterkorp/openvpn-update-resolv-conf">openvpn-update-resolv-conf</a> implements a different fix for the leaks by using the exclusive interface switch <code>-x</code> when running the <code>resolvconf</code> command, but this might cause another form of DNS leakage by making even every local network address resolve via the DNS server provided by Mullvad, as noted in the <a rel="nofollow"  href="https://github.com/masterkorp/openvpn-update-resolv-conf/issues/18">script's GitHub issue page</a>.
 </p>
@@ -75,9 +75,9 @@
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:VPN_providers.html" title="Category:VPN providers">VPN providers</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:VPN_providers.html" title="Category:VPN providers">VPN providers</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/M/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -95,9 +95,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

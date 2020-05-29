@@ -2,7 +2,7 @@
     title: DSDT
     description: Migration of DSDT from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/D/ACPI_modules.html" title="ACPI modules">ACPI modules</a></li>
-<li><a href="/Usage/Configuration/D/Acpid.html" title="Acpid">acpid</a></li>
+<li><a href="/Usage/Configuration/A/ACPI_modules.html" title="ACPI modules">ACPI modules</a></li>
+<li><a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a></li>
 </ul>
 </div>
 <p>DSDT (Differentiated System Description Table) is a part of the <a href="https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface"  title="wikipedia:Advanced Configuration and Power Interface">ACPI</a> specification. It supplies information about supported power events in a given system. ACPI tables are provided in firmware from the manufacturer. A common Linux problem is missing ACPI functionality, such as: fans not running, screens not turning off when the lid is closed, etc.  This can stem from DSDTs made with Windows specifically in mind, which can be patched after installation. The goal of this article is to analyze and rebuild a faulty DSDT, so that the kernel can override the default one.
@@ -36,7 +36,7 @@
 <p>Basically a DSDT table is the code run on ACPI (Power Management) events.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The goal of the <a rel="nofollow"  href="https://01.org/linux-acpi">Linux ACPI</a> project is that Linux should work on unmodified firmware.  If you still find this type of workaround necessary on modern kernels then you should consider <a href="/Usage/Configuration/D/Bug_reporting_guidelines.html" class="mw-redirect" title="Reporting bug guidelines">submitting a bug report</a>. </div>
+<strong>Note:</strong> The goal of the <a rel="nofollow"  href="https://01.org/linux-acpi">Linux ACPI</a> project is that Linux should work on unmodified firmware.  If you still find this type of workaround necessary on modern kernels then you should consider <a href="/Usage/Configuration/B/Bug_reporting_guidelines.html" class="mw-redirect" title="Reporting bug guidelines">submitting a bug report</a>. </div>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -171,7 +171,7 @@ Error    4105 -          Invalid object type for reserved name ^  (found BUFFER,
 </p>
 <pre># cp acpi_override /boot
 </pre>
-<p>Lastly, configure the <a href="/Usage/Configuration/D/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a> to load your CPIO archive. For example, using <a href="/Usage/Configuration/D/Systemd-boot.html" title="Systemd-boot">Systemd-boot</a>, <code>/boot/loader/entries/arch.conf</code> might look like this:
+<p>Lastly, configure the <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Bootloader">bootloader</a> to load your CPIO archive. For example, using <a href="/Usage/Configuration/S/Systemd-boot.html" title="Systemd-boot">Systemd-boot</a>, <code>/boot/loader/entries/arch.conf</code> might look like this:
 </p>
 <pre>title	 TOS Linux
 linux	 /vmlinuz-linux
@@ -182,7 +182,7 @@ options  root=PARTUUID=ec9d5998-a9db-4bd8-8ea0-35a45df04701 resume=PARTUUID=58d0
 <p>Now all that is left to do is to reboot and to <a href="#Verify_successful_override">verify the result.</a>
 </p>
 <h3><span class="mw-headline" id="Compiling_into_the_kernel">Compiling into the kernel</span></h3>
-<p>You'll want to be familiar with <a href="/Usage/Configuration/D/Kernel.html" class="mw-redirect" title="Kernels">compiling your own kernel</a>.  The most straightforward way is with the "traditional" approach.
+<p>You'll want to be familiar with <a href="/Usage/Configuration/K/Kernel.html" class="mw-redirect" title="Kernels">compiling your own kernel</a>.  The most straightforward way is with the "traditional" approach.
 After compiling DSDT, iasl produce two files: <code>dsdt.hex</code> and <code>dsdt.aml</code>.
 </p>
 <p><b>Using <code>menuconfig</code>:</b>
@@ -209,9 +209,9 @@ After compiling DSDT, iasl produce two files: <code>dsdt.hex</code> and <code>ds
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/D/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
-<li><a href="/Usage/Configuration/D/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
-<li><a href="/Usage/Configuration/D/Category:Power_management.html" title="Category:Power management">Power management</a></li>
+<li><a href="/Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Power_management.html" title="Category:Power management">Power management</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -229,9 +229,9 @@ After compiling DSDT, iasl produce two files: <code>dsdt.hex</code> and <code>ds
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

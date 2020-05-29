@@ -2,7 +2,7 @@
     title: Stunnel
     description: Migration of Stunnel from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -26,8 +26,8 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><a rel="nofollow"  href="https://www.stunnel.org">stunnel</a> (“Secure Tunnel”) is a
 </p>
-<dl><dd>multi-platform application used to provide a universal TLS/SSL tunneling service. It is sort of proxy designed to add TLS encryption functionality to existing clients and servers without any changes in the programs' code. It is designed for security, portability, and scalability (including load-balancing), making it suitable for large deployments. It uses <a href="/Usage/Configuration/S/OpenSSL.html" title="OpenSSL">OpenSSL</a>, and distributed under GNU GPL version 2 or later with OpenSSL exception.</dd></dl>
-<p>Can tunnel only TCP packets. Its <a rel="nofollow"  href="https://www.stunnel.org/faq.html">FAQ</a> has some work around for UDP. <a href="/Usage/Configuration/S/WireGuard.html" title="WireGuard">WireGuard</a> also has UDP capabilities.
+<dl><dd>multi-platform application used to provide a universal TLS/SSL tunneling service. It is sort of proxy designed to add TLS encryption functionality to existing clients and servers without any changes in the programs' code. It is designed for security, portability, and scalability (including load-balancing), making it suitable for large deployments. It uses <a href="/Usage/Configuration/O/OpenSSL.html" title="OpenSSL">OpenSSL</a>, and distributed under GNU GPL version 2 or later with OpenSSL exception.</dd></dl>
+<p>Can tunnel only TCP packets. Its <a rel="nofollow"  href="https://www.stunnel.org/faq.html">FAQ</a> has some work around for UDP. <a href="/Usage/Configuration/W/WireGuard.html" title="WireGuard">WireGuard</a> also has UDP capabilities.
 </p>
 <p>Authentication can also be used by the server to allow access only to approved clients.
 </p>
@@ -57,7 +57,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=stunnel">stunnel</a></span> from <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=stunnel">stunnel</a></span> from <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <p>Depending on your usage, you might also <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">Systemd#Editing provided units</a> to better <a href="/Usage/Configuration/S/Systemd.html#Handling_dependencies" title="Systemd">Systemd#Handling dependencies</a>. In order for the stunnel to start up automatically at system boot you must <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
 </p>
@@ -120,16 +120,16 @@ setgid     = stunnel</pre>
 <pre># openssl rand -base64 -out /etc/stunnel/psk.txt 180
 # sed --in-place '1s/^/psk:/' /etc/stunnel/psk.txt
 </pre>
-<p>and copied to the other machine by secure means before starting stunnel. The <a href="/Usage/Configuration/S/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> for each <code>psk.txt</code> file should be set appropriately. The psk string from the <code>sed</code> command is just a random name for the sake of the example. Do read <span class="plainlinks archwiki-template-man" title="$ man 8 stunnel"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/stunnel.8">stunnel(8)</a></span>.
+<p>and copied to the other machine by secure means before starting stunnel. The <a href="/Usage/Configuration/F/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a> for each <code>psk.txt</code> file should be set appropriately. The psk string from the <code>sed</code> command is just a random name for the sake of the example. Do read <span class="plainlinks archwiki-template-man" title="$ man 8 stunnel"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/stunnel.8">stunnel(8)</a></span>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_Tricks">Tips and Tricks</span></h2>
 <h3><span class="mw-headline" id="DNS_over_TLS">DNS over TLS</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/S/DNS_over_HTTPS_servers.html#DNS_over_TLS_configuration_via_stunnel" title="DNS over HTTPS servers">DNS over HTTPS servers#DNS over TLS configuration via stunnel</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/D/DNS_over_HTTPS_servers.html#DNS_over_TLS_configuration_via_stunnel" title="DNS over HTTPS servers">DNS over HTTPS servers#DNS over TLS configuration via stunnel</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Some configuration examples are provided there. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Stunnel">Talk:Stunnel#</a>)</div>
 </div>
-<p><a href="/Usage/Configuration/S/BIND.html" title="BIND">BIND</a> does not offer builtin facilities for encryption of queries and answers. Bind knowledge base suggests using stunnel. See <a rel="nofollow"  href="https://kb.isc.org/docs/aa-01386">https://kb.isc.org/docs/aa-01386</a>. The link mentions <a href="/Usage/Configuration/S/Unbound.html" title="Unbound">unbound</a> at the bottom of the page. A user that have only shell accounts on both the client and the server can still tunnel DNS traffic even when both the resolver and the NS do not support DNS over TLS.
+<p><a href="/Usage/Configuration/B/BIND.html" title="BIND">BIND</a> does not offer builtin facilities for encryption of queries and answers. Bind knowledge base suggests using stunnel. See <a rel="nofollow"  href="https://kb.isc.org/docs/aa-01386">https://kb.isc.org/docs/aa-01386</a>. The link mentions <a href="/Usage/Configuration/U/Unbound.html" title="Unbound">unbound</a> at the bottom of the page. A user that have only shell accounts on both the client and the server can still tunnel DNS traffic even when both the resolver and the NS do not support DNS over TLS.
 </p>
 <h3><span class="mw-headline" id="Encrypting_NFSv4_with_Stunnel_TLS">Encrypting NFSv4 with Stunnel TLS</span></h3>
 <p>See <a rel="nofollow"  href="https://www.linuxjournal.com/content/encrypting-nfsv4-stunnel-tls">Encrypting NFSv4 with Stunnel TLS</a>
@@ -144,9 +144,9 @@ setgid     = stunnel</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -164,9 +164,9 @@ setgid     = stunnel</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

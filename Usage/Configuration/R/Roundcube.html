@@ -2,7 +2,7 @@
     title: Roundcube
     description: Migration of Roundcube from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://roundcube.net">Roundcube</a> is a full-featured, <a href="/Usage/Configuration/R/PHP.html" title="PHP">PHP</a> web-based mail client.
+<p><a rel="nofollow"  href="https://roundcube.net">Roundcube</a> is a full-featured, <a href="/Usage/Configuration/P/PHP.html" title="PHP">PHP</a> web-based mail client.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -76,11 +76,11 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=roundcubemail">roundcubemail</a></span> package.
-Further you will need a database (e.g. <a href="/Usage/Configuration/R/MariaDB.html" title="MariaDB">MariaDB</a>) and a <a href="/Usage/Configuration/R/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> with <a href="/Usage/Configuration/R/PHP.html" title="PHP">PHP</a>-support (this guide will assume the <a href="/Usage/Configuration/R/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>).
+Further you will need a database (e.g. <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>) and a <a href="/Usage/Configuration/L/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> with <a href="/Usage/Configuration/P/PHP.html" title="PHP">PHP</a>-support (this guide will assume the <a href="/Usage/Configuration/A/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>).
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="MariaDB">MariaDB</span></h3>
-<p>Here's an example on how you could setup a database for Roundcube with <a href="/Usage/Configuration/R/MariaDB.html" title="MariaDB">MariaDB</a> called <code>roundcubemail</code> for the user <code>roundcube</code> identified by the password <code>password</code>:
+<p>Here's an example on how you could setup a database for Roundcube with <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a> called <code>roundcubemail</code> for the user <code>roundcube</code> identified by the password <code>password</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ mysql -u root -p</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">CREATE DATABASE `<b>roundcubemail</b>` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
@@ -88,7 +88,7 @@ CREATE USER `<b>roundcube</b>`@'localhost' IDENTIFIED BY '<b>password'</b>;
 GRANT ALL PRIVILEGES ON `<b>roundcubemail</b>`.* TO `<b>roundcube</b>`@`localhost`;
 \q
 </pre>
-<p>For any database you use, you will need to initialize the roundcubemail database tables.  Here is an example of how to do this with <a href="/Usage/Configuration/R/MariaDB.html" title="MariaDB">MariaDB</a>:
+<p>For any database you use, you will need to initialize the roundcubemail database tables.  Here is an example of how to do this with <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>:
 </p>
 <pre>$ mysql -u root -p roundcubemail &lt; /usr/share/webapps/roundcubemail/SQL/mysql.initial.sql
 </pre>
@@ -96,7 +96,7 @@ GRANT ALL PRIVILEGES ON `<b>roundcubemail</b>`.* TO `<b>roundcube</b>`@`localhos
 <p>A SQLite DB will be created automatically by Roundcube. Ensure the file specified in the configuration is located in a basedir location. Consider adding /var/lib/roundcubemail to your basedir definition. This implies creating the directory and chowning it to http.
 </p>
 <h3><span class="mw-headline" id="Other_Databases">Other Databases</span></h3>
-<p>Roundcubemail has installation scripts for mssql, Oracle, and <a href="/Usage/Configuration/R/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p>Roundcubemail has installation scripts for mssql, Oracle, and <a href="/Usage/Configuration/P/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
 <h3><span class="mw-headline" id="Roundcube">Roundcube</span></h3>
 <p>Copy the example configuration file and adjust it to your configuration:
@@ -157,7 +157,7 @@ $config['enable_installer'] = true;
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> This is an example configuration of RoundCube running in an subdirectory of the web root and has been compiled based on experiments with information from multiple sources, proceed with caution</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This assumes you already have a working <a href="/Usage/Configuration/R/Nginx.html" title="Nginx">nginx</a> server setup with <a href="/Usage/Configuration/R/Nginx.html#FastCGI" title="Nginx">php-fpm</a>.</div>
+<strong>Note:</strong> This assumes you already have a working <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">nginx</a> server setup with <a href="/Usage/Configuration/N/Nginx.html#FastCGI" title="Nginx">php-fpm</a>.</div>
 <p>Add a location block for RoundCube
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/nginx/nginx.conf</pre>
@@ -210,7 +210,7 @@ $config['enable_installer'] = true;
         }
 }
 </pre>
-<p>Finally <a href="/Usage/Configuration/R/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>nginx.service</code> unit.
+<p>Finally <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>nginx.service</code> unit.
 </p>
 <h2><span class="mw-headline" id="Install_Roundcube">Install Roundcube</span></h2>
 <p>Finally you can visit the Roundcube installation wizard in your browser: <a rel="nofollow"  href="http://localhost/roundcube/installer">http://localhost/roundcube/installer</a>
@@ -308,7 +308,7 @@ where <code>mail.my_domain.org</code> is the <code>CN</code> host name in your S
 );
 </pre>
 <h3><span class="mw-headline" id="Synchronize_address_book_with_CardDav_contacts">Synchronize address book with CardDav contacts</span></h3>
-<p>It's useful to use the Roundcube address book to have auto-completion features for address fields etc. If you have your contacts stored somewhere else and the remote application offers a CardDav server for synchronization, then you can use the  <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/roundcube-rcmcarddav/">roundcube-rcmcarddav</a></span><sup><small>AUR</small></sup> extension from the <a href="/Usage/Configuration/R/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> to access your remote address book in Roundcube. To enable it, adjust following lines in your config file:
+<p>It's useful to use the Roundcube address book to have auto-completion features for address fields etc. If you have your contacts stored somewhere else and the remote application offers a CardDav server for synchronization, then you can use the  <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/roundcube-rcmcarddav/">roundcube-rcmcarddav</a></span><sup><small>AUR</small></sup> extension from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> to access your remote address book in Roundcube. To enable it, adjust following lines in your config file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/webapps/roundcubemail/config/config.inc.php</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">$config['plugins'] = array(
@@ -344,8 +344,8 @@ $config['smtp_pass'] = '%p';
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/R/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
-<li><a href="/Usage/Configuration/R/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="/Usage/Configuration/C/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
+<li><a href="/Usage/Configuration/C/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -363,9 +363,9 @@ $config['smtp_pass'] = '%p';
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

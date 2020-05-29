@@ -2,7 +2,7 @@
     title: Sendmail
     description: Migration of Sendmail from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a href="https://en.wikipedia.org/wiki/Sendmail"  title="wikipedia:Sendmail">Sendmail</a> is the classic <a href="/Usage/Configuration/S/Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a> from the Unix world. This article builds upon <a href="/Usage/Configuration/S/Mail_server.html" title="Mail server">Mail server</a>.
+<p><a href="https://en.wikipedia.org/wiki/Sendmail"  title="wikipedia:Sendmail">Sendmail</a> is the classic <a href="/Usage/Configuration/M/Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a> from the Unix world. This article builds upon <a href="/Usage/Configuration/M/Mail_server.html" title="Mail server">Mail server</a>.
 </p>
 <p>The goal of this article is to setup Sendmail for local user accounts, without using MySQL or other database, and allowing also the creation of <i>mail-only accounts</i>.
 </p>
@@ -69,18 +69,18 @@
 <div>
 <b>Reason:</b> What is the m4 package for? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Sendmail">Talk:Sendmail#</a>)</div>
 </div>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sendmail/">sendmail</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procmail">procmail</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=m4">m4</a></span> packages.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sendmail/">sendmail</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=procmail">procmail</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=m4">m4</a></span> packages.
 </p>
 <h2><span class="mw-headline" id="Adding_users">Adding users</span></h2>
-<p>Create a <a href="/Usage/Configuration/S/Users_and_groups.html" title="Users and groups">Linux user</a> for each user that wants to receive email at <i>username@your-domain.com</i>. To add <i>mail-only accounts</i>, that is, users who can get email, but can't have shell access or login on X, you can add them like this:
+<p>Create a <a href="/Usage/Configuration/U/Users_and_groups.html" title="Users and groups">Linux user</a> for each user that wants to receive email at <i>username@your-domain.com</i>. To add <i>mail-only accounts</i>, that is, users who can get email, but can't have shell access or login on X, you can add them like this:
 </p>
 <pre># useradd -m -s /usr/bin/nologin <i>username</i>
 </pre>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Obtain_TLS_certificate">Obtain TLS certificate</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> and <a rel="nofollow"  href="http://disablessl3.com/">disable SSLv3</a> to prevent vulnerabilities. For more information see <a href="/Usage/Configuration/S/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
-<p>To obtain a certificate, see <a href="/Usage/Configuration/S/OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
+<strong>Warning:</strong> If you deploy <a href="https://en.wikipedia.org/wiki/TLS"  title="wikipedia:TLS">TLS</a>, be sure to follow <a rel="nofollow"  href="https://weakdh.org/sysadmin.html">weakdh.org's guide</a> and <a rel="nofollow"  href="http://disablessl3.com/">disable SSLv3</a> to prevent vulnerabilities. For more information see <a href="/Usage/Configuration/T/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
+<p>To obtain a certificate, see <a href="/Usage/Configuration/O/OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
 </p>
 <h3><span class="mw-headline" id="sendmail.cf">sendmail.cf</span></h3>
 <p>Create the file <code>/etc/mail/sendmail.mc</code>. 
@@ -164,7 +164,7 @@ joe@my-other.tk                       joenobody
 <pre># makemap hash /etc/mail/virtusertable.db &lt; /etc/mail/virtusertable
 </pre>
 <h3><span class="mw-headline" id="Start_on_boot">Start on boot</span></h3>
-<p>Enable and start the following services. Read <a href="/Usage/Configuration/S/Daemons.html" title="Daemons">Daemons</a> for more datails.
+<p>Enable and start the following services. Read <a href="/Usage/Configuration/D/Daemons.html" title="Daemons">Daemons</a> for more datails.
 </p>
 <ul>
 <li><code>saslauthd.service</code></li>
@@ -189,11 +189,11 @@ joe@my-other.tk                       joenobody
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -212,9 +212,9 @@ joe@my-other.tk                       joenobody
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

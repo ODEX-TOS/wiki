@@ -2,7 +2,7 @@
     title: KDE_Wallet
     description: Migration of KDE_Wallet from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -48,22 +48,22 @@
 </div>
 
 <h2><span class="mw-headline" id="Unlock_KDE_Wallet_automatically_on_login">Unlock KDE Wallet automatically on login</span></h2>
-<p>To unlock KDE Wallet automatically on login, <a href="/Usage/Configuration/K/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> for the <a href="/Usage/Configuration/K/PAM.html" title="PAM">PAM</a> compatible module. The chosen KWallet password must be the same as the current <a href="/Usage/Configuration/K/Users_and_groups.html" class="mw-redirect" title="User">user</a> password.
+<p>To unlock KDE Wallet automatically on login, <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> for the <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> compatible module. The chosen KWallet password must be the same as the current <a href="/Usage/Configuration/U/Users_and_groups.html" class="mw-redirect" title="User">user</a> password.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
 <li>
-<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> is not compatible with <a href="/Usage/Configuration/K/GnuPG.html" title="GnuPG">GnuPG</a> keys, the KDE Wallet must use the standard <code>blowfish</code> encryption.</li>
+<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> is not compatible with <a href="/Usage/Configuration/G/GnuPG.html" title="GnuPG">GnuPG</a> keys, the KDE Wallet must use the standard <code>blowfish</code> encryption.</li>
 <li>The wallet cannot be unlocked when using autologin.</li>
 <li>The wallet cannot be unlocked when using a fingerprint reader to login</li>
 <li>The wallet must be named <code>kdewallet</code> (default name). It does not unlock any other wallet(s).</li>
-<li>If using <a href="/Usage/Configuration/K/KDE.html" title="KDE">KDE</a>, one may want to disable <i>Close when last application stops using it</i> in KDE Wallet settings to prevent the wallet from being closed after each usage (<a href="/Usage/Configuration/K/Network_configuration/Wireless.html" class="mw-redirect" title="WiFi">WiFi</a>-passphrase unlock, etc.).</li>
+<li>If using <a href="/Usage/Configuration/K/KDE.html" title="KDE">KDE</a>, one may want to disable <i>Close when last application stops using it</i> in KDE Wallet settings to prevent the wallet from being closed after each usage (<a href="/Usage/Configuration/N/Network_configuration/Wireless.html" class="mw-redirect" title="WiFi">WiFi</a>-passphrase unlock, etc.).</li>
 <li>It may be needed to remove the default created wallet first, thus removing all stored entries.</li>
 <li>If the kwallet Migration Assistant asks for a password after every login, rename or delete the <code>~/.kde4/share/apps/kwallet</code> folder.</li>
 </ul>
 </div>
-<p>Optional <a href="/Usage/Configuration/K/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwalletmanager">kwalletmanager</a></span> for the wallet management tool. This tool can be used to create a KDE Wallet with <code>blowfish</code> encryption and more settings not provided by the <i>kcm-module</i>.
+<p>Optional <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwalletmanager">kwalletmanager</a></span> for the wallet management tool. This tool can be used to create a KDE Wallet with <code>blowfish</code> encryption and more settings not provided by the <i>kcm-module</i>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> An alternative is to use KWalletManager and set an empty Kwallet-password, thus preventing the need of entering a password to unlock a wallet. Simply do not enter a password on both fields in <i>Change Password..</i>. This may however lead to unwanted (read/write) access to the user's wallet. Enabling <i>Prompt when an application accesses a wallet</i> under <i>Access Control</i> is highly recommended to prevent unwanted access to the wallet.</div>
@@ -72,12 +72,12 @@
 </p>
 <pre>auth            optional        pam_kwallet5.so
 session         optional        pam_kwallet5.so auto_start</pre>
-<p>Edit the <a href="/Usage/Configuration/K/PAM.html" title="PAM">PAM</a> configuration corresponding to your situation:
+<p>Edit the <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> configuration corresponding to your situation:
 </p>
 <ul>
-<li>For <a href="/Usage/Configuration/K/SDDM.html" title="SDDM">SDDM</a> no further edits should be needed because the lines are already present in <code>/etc/pam.d/sddm</code>.</li>
-<li>For <a href="/Usage/Configuration/K/GDM.html" title="GDM">GDM</a> edit <code>/etc/pam.d/gdm-password</code> accordingly.</li>
-<li>For <a href="/Usage/Configuration/K/LightDM.html" title="LightDM">LightDM</a> edit <code>/etc/pam.d/lightdm</code> and <code>/etc/pam.d/lightdm-greeter</code> files:</li>
+<li>For <a href="/Usage/Configuration/S/SDDM.html" title="SDDM">SDDM</a> no further edits should be needed because the lines are already present in <code>/etc/pam.d/sddm</code>.</li>
+<li>For <a href="/Usage/Configuration/G/GDM.html" title="GDM">GDM</a> edit <code>/etc/pam.d/gdm-password</code> accordingly.</li>
+<li>For <a href="/Usage/Configuration/L/LightDM.html" title="LightDM">LightDM</a> edit <code>/etc/pam.d/lightdm</code> and <code>/etc/pam.d/lightdm-greeter</code> files:</li>
 <li>For unlocking on tty login (no display manager), edit <code>/etc/pam.d/login</code> accordingly.</li>
 </ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/lightdm</pre>
@@ -93,10 +93,10 @@ session         include         system-login
 <b>session         optional        pam_kwallet5.so auto_start</b></pre>
 <h2><span class="mw-headline" id="Using_the_KDE_Wallet_to_store_ssh_key_passphrases">Using the KDE Wallet to store ssh key passphrases</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> A <a href="/Usage/Configuration/K/SSH_keys.html#SSH_agents" class="mw-redirect" title="SSH agent">SSH agent</a> should be up and running.</div>
-<p><a href="/Usage/Configuration/K/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> package.
+<strong>Note:</strong> A <a href="/Usage/Configuration/S/SSH_keys.html#SSH_agents" class="mw-redirect" title="SSH agent">SSH agent</a> should be up and running.</div>
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> package.
 </p>
-<p><a href="/Usage/Configuration/K/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">Create</a> an <a href="/Usage/Configuration/K/KDE.html#Autostart" title="KDE">autostart script file</a> and mark it as <a href="/Usage/Configuration/K/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Create">Create</a> an <a href="/Usage/Configuration/K/KDE.html#Autostart" title="KDE">autostart script file</a> and mark it as <a href="/Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/autostart-scripts/ssh-add.sh</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -109,7 +109,7 @@ ssh-add -q &lt; /dev/null
 ssh-add -q ~/.ssh/key1 ~/.ssh/key2 ~/.ssh/key3 &lt; /dev/null
 </pre>
 </div>
-<p>You also have to set the <code>SSH_ASKPASS</code> <a href="/Usage/Configuration/K/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to <code>ksshaskpass</code>. For example, create the following <a href="/Usage/Configuration/K/KDE.html#Autostart" title="KDE">autostart script file</a> and mark it <a href="/Usage/Configuration/K/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
+<p>You also have to set the <code>SSH_ASKPASS</code> <a href="/Usage/Configuration/E/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a> to <code>ksshaskpass</code>. For example, create the following <a href="/Usage/Configuration/K/KDE.html#Autostart" title="KDE">autostart script file</a> and mark it <a href="/Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/plasma-workspace/env/askpass.sh</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -124,11 +124,11 @@ export SSH_ASKPASS='/usr/bin/ksshaskpass'</pre>
 <p>and append the key to the list of keys in <code>~/.config/autostart-scripts/ssh-add.sh</code> as explained above to have it unlocked upon providing the kwallet password.
 </p>
 <h2><span class="mw-headline" id="Using_the_KDE_Wallet_to_store_Git_credentials">Using the KDE Wallet to store Git credentials</span></h2>
-<p><a href="/Usage/Configuration/K/Git.html" title="Git">Git</a> can delegate credential handling to a credential helper. By using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> as a credential helper, the HTTP/HTTPS and SMTP passwords can be safely stored in the KDE Wallet.
+<p><a href="/Usage/Configuration/G/Git.html" title="Git">Git</a> can delegate credential handling to a credential helper. By using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> as a credential helper, the HTTP/HTTPS and SMTP passwords can be safely stored in the KDE Wallet.
 </p>
-<p><a href="/Usage/Configuration/K/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ksshaskpass">ksshaskpass</a></span> package.
 </p>
-<p>Configure Git by setting the <code>GIT_ASKPASS</code> <a href="/Usage/Configuration/K/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>:
+<p>Configure Git by setting the <code>GIT_ASKPASS</code> <a href="/Usage/Configuration/E/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/plasma-workspace/env/askpass.sh</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -139,7 +139,7 @@ export GIT_ASKPASS='/usr/bin/ksshaskpass'</pre>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 7 gitcredentials"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gitcredentials.7">gitcredentials(7)</a></span> for alternatives and more details.
 </p>
 <h2><span class="mw-headline" id="KDE_Wallet_for_Chrome_and_Chromium">KDE Wallet for Chrome and Chromium</span></h2>
-<p>Chrome/Chromium has built in wallet integration. To enable it, run Chromium with the <code>--password-store=kwallet</code> or <code>--password-store=detect</code> argument. To make the change persistent, see <a href="/Usage/Configuration/K/Chromium/Tips_and_tricks.html#Making_flags_persistent" title="Chromium/Tips and tricks">Chromium/Tips and tricks#Making flags persistent</a>. (Setting CHROMIUM_USER_FLAGS will not work.)
+<p>Chrome/Chromium has built in wallet integration. To enable it, run Chromium with the <code>--password-store=kwallet</code> or <code>--password-store=detect</code> argument. To make the change persistent, see <a href="/Usage/Configuration/C/Chromium/Tips_and_tricks.html#Making_flags_persistent" title="Chromium/Tips and tricks">Chromium/Tips and tricks#Making flags persistent</a>. (Setting CHROMIUM_USER_FLAGS will not work.)
 </p>
 <h2><span class="mw-headline" id="Query_passwords_from_the_terminal">Query passwords from the terminal</span></h2>
 <p>Instead of storing passwords in plain text files, you can manually add new entries in your wallet and retrieve them with <i>kwallet-query</i>.
@@ -152,7 +152,7 @@ export GIT_ASKPASS='/usr/bin/ksshaskpass'</pre>
 </p>
 <h2><span class="mw-headline" id="Unlocking_KWallet_automatically_in_i3">Unlocking KWallet automatically in i3</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/K/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> This is most likely not specific to i3. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:KDE_Wallet">Talk:KDE Wallet#</a>)</div>
 </div>
@@ -160,7 +160,7 @@ export GIT_ASKPASS='/usr/bin/ksshaskpass'</pre>
 </p>
 <pre>exec --no-startup-id /usr/lib/pam_kwallet_init
 </pre>
-<p>to the i3 config file in addition to configuring <a href="/Usage/Configuration/K/PAM.html" title="PAM">PAM</a>.
+<p>to the i3 config file in addition to configuring <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li><a rel="nofollow"  href="https://www.dennogumi.org/2014/04/unlocking-kwallet-with-pam/">Unlocking KWallet with PAM</a></li></ul>
@@ -168,9 +168,9 @@ export GIT_ASKPASS='/usr/bin/ksshaskpass'</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/K/Category:KDE.html" title="Category:KDE">KDE</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:KDE.html" title="Category:KDE">KDE</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/K/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -188,9 +188,9 @@ export GIT_ASKPASS='/usr/bin/ksshaskpass'</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/K/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/K/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/K/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

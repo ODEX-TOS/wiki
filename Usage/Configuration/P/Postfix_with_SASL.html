@@ -2,7 +2,7 @@
     title: Postfix_with_SASL
     description: Migration of Postfix_with_SASL from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -28,10 +28,10 @@
 <p>Related articles</p>
 <ul>
 <li><a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="/Usage/Configuration/P/Dovecot.html" title="Dovecot">Dovecot</a></li>
+<li><a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a></li>
 </ul>
 </div>
-<p>SMTP protocol specifications include a possibility for user authentication, but do not provide the exact details of protocol message exchange, deferring instead to the SASL (Simple Authentication and Security Layer) standard (see <a rel="nofollow"  href="https://tools.ietf.org/html/rfc4954">RFC4954</a> and <a rel="nofollow"  href="https://tools.ietf.org/html/rfc4422">RFC4422</a>). SASL is a generic authentication framework for authentication mechanisms, of which there are many, and each of them has its own peculiar procedure that prescribes the necessary cryptographic steps to perform with the authentication data and messages to exchange over the connection. Therefore, in order to avoid imposing artificial limits on what authentication mechanisms can be used with it, Postfix, by itself, does not authenticate SMTP users with usernames and passwords, or via any other means. It offloads this task to a SASL implementation, which has to be installed separately. SASL authentication daemon is responsible both for the policy (i.e. where valid usernames and secrets such as passwords are kept) and mechanism (how exactly clients supply credentials). This is in contrast with e.g. <a href="/Usage/Configuration/P/OpenSMTPD.html" title="OpenSMTPD">OpenSMTPD</a>, which supports only PLAIN and LOGIN SASL mechanisms, but does not rely on any external library or daemon.
+<p>SMTP protocol specifications include a possibility for user authentication, but do not provide the exact details of protocol message exchange, deferring instead to the SASL (Simple Authentication and Security Layer) standard (see <a rel="nofollow"  href="https://tools.ietf.org/html/rfc4954">RFC4954</a> and <a rel="nofollow"  href="https://tools.ietf.org/html/rfc4422">RFC4422</a>). SASL is a generic authentication framework for authentication mechanisms, of which there are many, and each of them has its own peculiar procedure that prescribes the necessary cryptographic steps to perform with the authentication data and messages to exchange over the connection. Therefore, in order to avoid imposing artificial limits on what authentication mechanisms can be used with it, Postfix, by itself, does not authenticate SMTP users with usernames and passwords, or via any other means. It offloads this task to a SASL implementation, which has to be installed separately. SASL authentication daemon is responsible both for the policy (i.e. where valid usernames and secrets such as passwords are kept) and mechanism (how exactly clients supply credentials). This is in contrast with e.g. <a href="/Usage/Configuration/O/OpenSMTPD.html" title="OpenSMTPD">OpenSMTPD</a>, which supports only PLAIN and LOGIN SASL mechanisms, but does not rely on any external library or daemon.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -55,13 +55,13 @@
 </p>
 <ul>
 <li>Use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cyrus-sasl">cyrus-sasl</a></span> package.</li>
-<li>Or enable your already configured <a href="/Usage/Configuration/P/Dovecot.html" title="Dovecot">Dovecot</a> to handle Postfix authentication (as well as its own).</li>
+<li>Or enable your already configured <a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a> to handle Postfix authentication (as well as its own).</li>
 </ul>
 <p>From <a rel="nofollow"  href="http://www.postfix.org/SASL_README.html">Postfix's site</a>:
 </p>
 <dl><dd>People who go to the trouble of installing Postfix may have the expectation that Postfix is more secure than some other mailers. The Cyrus SASL library contains a lot of code. With this, Postfix becomes as secure as other mail systems that use the Cyrus SASL library. Dovecot provides an alternative that may be worth considering.</dd></dl>
 <h2><span class="mw-headline" id="Configuration_with_cyrus-sasl_package">Configuration with cyrus-sasl package</span></h2>
-<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cyrus-sasl">cyrus-sasl</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cyrus-sasl">cyrus-sasl</a></span> package.
 </p>
 <p>To enable SASL for accepting mail from other users, open the <a rel="nofollow"  href="http://tools.ietf.org/html/rfc6409">"Message submission"</a> port (TCP 587) in <code>/etc/postfix/master.cf</code>, by uncommenting these lines (which are there by default, just commented):
 </p>
@@ -94,9 +94,9 @@ log_level: 7
 auth            required        pam_unix.so
 account         required        pam_unix.so
 </pre>
-<p><a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>saslauthd.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> the <code>saslauthd.service</code>.
 </p>
-<p><a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>postfix.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>postfix.service</code>.
 </p>
 <p>Hopefully you should be able to telnet to your Postfix server with:
 </p>
@@ -124,7 +124,7 @@ EHLO example.com
 250 8BITMIME
 </pre>
 <h2><span class="mw-headline" id="Configuration_with_Dovecot">Configuration with Dovecot</span></h2>
-<p>If you are using <a href="/Usage/Configuration/P/Dovecot.html" title="Dovecot">Dovecot</a> as your IMAP or POP mail server and your users already authenticate (with PAM maybe), then there is no need to configure another package.
+<p>If you are using <a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a> as your IMAP or POP mail server and your users already authenticate (with PAM maybe), then there is no need to configure another package.
 </p>
 <p>Simply edit <code>/etc/postfix/master.cf</code> and add the following lines under the <code>submission</code> or <code>smtp</code> section (depending on what you are using):
 </p>
@@ -153,7 +153,7 @@ EHLO example.com
 </pre>
 <p>As you can see a unix socket is created in <code>/var/spool/postfix/private/auth</code>, the same specified in <code>smtpd_sasl_path</code> option of <code>master.cf</code>
 </p>
-<p>Finally <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> both postfix and dovecot services.
+<p>Finally <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> both postfix and dovecot services.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li>
@@ -164,7 +164,7 @@ EHLO example.com
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -181,9 +181,9 @@ EHLO example.com
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

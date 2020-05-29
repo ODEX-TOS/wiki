@@ -2,7 +2,7 @@
     title: Sonerezh
     description: Migration of Sonerezh from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -25,24 +25,24 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/S/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Don't show simple commands like cp or even how to reload systemctl. Instead write out the instructions in those cases and link to the relevant pages. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Sonerezh">Talk:Sonerezh#</a>)</div>
 </div>
 <p><a rel="nofollow"  href="https://www.sonerezh.bzh">Sonerezh</a> is a self-hosted, web-based application for streaming your music everywhere.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sonerezh/">sonerezh</a></span><sup><small>AUR</small></sup>. You will need a database (e.g. <a href="/Usage/Configuration/S/MariaDB.html" title="MariaDB">MariaDB</a>) and a web server (like <a href="/Usage/Configuration/S/Nginx.html" title="Nginx">Nginx</a>) with PHP support. You may refer following sites:
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sonerezh/">sonerezh</a></span><sup><small>AUR</small></sup>. You will need a database (e.g. <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>) and a web server (like <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">Nginx</a>) with PHP support. You may refer following sites:
 </p>
 <ul>
-<li><a href="/Usage/Configuration/S/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
-<li><a href="/Usage/Configuration/S/Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
-<li><a href="/Usage/Configuration/S/Nginx.html" title="Nginx">Nginx</a></li>
+<li><a href="/Usage/Configuration/A/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
+<li><a href="/Usage/Configuration/L/Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
+<li><a href="/Usage/Configuration/N/Nginx.html" title="Nginx">Nginx</a></li>
 </ul>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>In <code>/etc/php/php.ini</code>, uncomment <code>extension=gd</code> and set your timezone as described in <a href="/Usage/Configuration/S/PHP.html#Configuration" title="PHP">PHP#Configuration</a>.
+<p>In <code>/etc/php/php.ini</code>, uncomment <code>extension=gd</code> and set your timezone as described in <a href="/Usage/Configuration/P/PHP.html#Configuration" title="PHP">PHP#Configuration</a>.
 </p>
-<p>In this configuration, we will configure the <a href="/Usage/Configuration/S/Nginx.html" title="Nginx">Nginx</a> web server to serve Sonerezh on localhost in the root location without SSL enabled (even though it's recommended to use it with SSL). First, place a copy of the Sonerezh Nginx configuration.
+<p>In this configuration, we will configure the <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">Nginx</a> web server to serve Sonerezh on localhost in the root location without SSL enabled (even though it's recommended to use it with SSL). First, place a copy of the Sonerezh Nginx configuration.
 </p>
 <p>Copy <code>/usr/share/doc/sonerezh/example_nginx_vhost.conf</code> to <code>/etc/webapps/sonerezh/nginx.conf</code>.
 </p>
@@ -57,7 +57,7 @@ http {
     [...]
  }
 </pre>
-<p>Here's an example on how you could setup a database for Sonerezh with <a href="/Usage/Configuration/S/MariaDB.html" title="MariaDB">MariaDB</a> called <code>sonerezh</code> for the user <code>sonerezh</code> identified by the password <code>sonerezh</code>:
+<p>Here's an example on how you could setup a database for Sonerezh with <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a> called <code>sonerezh</code> for the user <code>sonerezh</code> identified by the password <code>sonerezh</code>:
 </p>
 <pre>CREATE DATABASE sonerezh;
 GRANT ALL PRIVILEGES ON sonerezh.* TO sonerezh@'localhost' IDENTIFIED BY 'sonerezh';
@@ -72,11 +72,11 @@ FLUSH PRIVILEGES;
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/S/Category:Music.html" title="Category:Music">Music</a></li>
-<li><a href="/Usage/Configuration/S/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="/Usage/Configuration/C/Category:Music.html" title="Category:Music">Music</a></li>
+<li><a href="/Usage/Configuration/C/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -94,9 +94,9 @@ FLUSH PRIVILEGES;
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

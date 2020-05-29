@@ -2,7 +2,7 @@
     title: Prometheus
     description: Migration of Prometheus from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/P/Zabbix.html" title="Zabbix">Zabbix</a></li>
-<li><a href="/Usage/Configuration/P/Munin.html" title="Munin">Munin</a></li>
-<li><a href="/Usage/Configuration/P/Grafana.html" title="Grafana">Grafana</a></li>
-<li><a href="/Usage/Configuration/P/TICK_stack.html" title="TICK stack">TICK stack</a></li>
+<li><a href="/Usage/Configuration/Z/Zabbix.html" title="Zabbix">Zabbix</a></li>
+<li><a href="/Usage/Configuration/M/Munin.html" title="Munin">Munin</a></li>
+<li><a href="/Usage/Configuration/G/Grafana.html" title="Grafana">Grafana</a></li>
+<li><a href="/Usage/Configuration/T/TICK_stack.html" title="TICK stack">TICK stack</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://prometheus.io/">Prometheus</a> is an open-source metrics collection and processing tool. It consists primarily of a timeseries database and a query language to access and process the metrics it stores. Separate services perform metric exposure, from which the Prometheus server can pull. It provides a very minimal web UI out of the box. To get a functional dashboard system, third-party tools like <a href="/Usage/Configuration/P/Grafana.html" title="Grafana">Grafana</a> can be used.
+<p><a rel="nofollow"  href="https://prometheus.io/">Prometheus</a> is an open-source metrics collection and processing tool. It consists primarily of a timeseries database and a query language to access and process the metrics it stores. Separate services perform metric exposure, from which the Prometheus server can pull. It provides a very minimal web UI out of the box. To get a functional dashboard system, third-party tools like <a href="/Usage/Configuration/G/Grafana.html" title="Grafana">Grafana</a> can be used.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -62,7 +62,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=prometheus">prometheus</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/prometheus-bin/">prometheus-bin</a></span><sup><small>AUR</small></sup> package. After that you can <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>prometheus</code> service and access the application via HTTP on port 9090 by default.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=prometheus">prometheus</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/prometheus-bin/">prometheus-bin</a></span><sup><small>AUR</small></sup> package. After that you can <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>prometheus</code> service and access the application via HTTP on port 9090 by default.
 </p>
 <p>The default configuration monitors the <code>prometheus</code> process itself, but not much beyond that. To perform system monitoring, you can install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=prometheus-node-exporter">prometheus-node-exporter</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/prometheus-node-exporter-bin/">prometheus-node-exporter-bin</a></span><sup><small>AUR</small></sup>, which performs metric scraping from the local system. You can start and enable the <code>prometheus-node-exporter</code> service. It will open port 9100 by default. Once the service is running, you will need to configure <code>prometheus</code> to scrape the exporter service periodically in order actually to collect the data. Do this by following the steps to <a href="#Adding_metric">add a metric</a> as shown below.
 </p>
@@ -139,7 +139,7 @@
 <span id="Tips_.26_Tricks"></span><span class="mw-headline" id="Tips_&amp;_Tricks">Tips &amp; Tricks</span>
 </h2>
 <h3><span class="mw-headline" id="Telegraf_instead_of_exporters">Telegraf instead of exporters</span></h3>
-<p><a href="/Usage/Configuration/P/TICK_stack.html#Telegraf" class="mw-redirect" title="Telegraf">Telegraf</a> can be used instead of multiple exporters when used with <a rel="nofollow"  href="https://github.com/influxdata/telegraf/tree/master/plugins/outputs/prometheus_client">Prometheus Output Plugin</a>. This reduces metrics collection into a single binary and offers more flexible configuration when compared to standard Prometheus exporters.
+<p><a href="/Usage/Configuration/T/TICK_stack.html#Telegraf" class="mw-redirect" title="Telegraf">Telegraf</a> can be used instead of multiple exporters when used with <a rel="nofollow"  href="https://github.com/influxdata/telegraf/tree/master/plugins/outputs/prometheus_client">Prometheus Output Plugin</a>. This reduces metrics collection into a single binary and offers more flexible configuration when compared to standard Prometheus exporters.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li><a rel="nofollow"  href="https://prometheus.io/">Official homepage</a></li></ul>
@@ -147,8 +147,8 @@
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/P/Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li>
-<li><a href="/Usage/Configuration/P/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
+<li><a href="/Usage/Configuration/C/Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li>
+<li><a href="/Usage/Configuration/C/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -166,9 +166,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

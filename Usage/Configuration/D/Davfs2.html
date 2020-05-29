@@ -2,7 +2,7 @@
     title: Davfs2
     description: Migration of Davfs2 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="http://savannah.nongnu.org/projects/davfs2">davfs2</a> is a Linux file system driver that allows to <a href="/Usage/Configuration/D/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> a <a href="/Usage/Configuration/D/WebDAV.html" title="WebDAV">WebDAV</a> resource. WebDAV is an extension to HTTP/1.1 that allows remote collaborative authoring of Web resources.
+<p><a rel="nofollow"  href="http://savannah.nongnu.org/projects/davfs2">davfs2</a> is a Linux file system driver that allows to <a href="/Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> a <a href="/Usage/Configuration/W/WebDAV.html" title="WebDAV">WebDAV</a> resource. WebDAV is an extension to HTTP/1.1 that allows remote collaborative authoring of Web resources.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -60,7 +60,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installing_davfs2">Installing davfs2</span></h2>
-<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=davfs2">davfs2</a></span> from <a href="/Usage/Configuration/D/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=davfs2">davfs2</a></span> from <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
 <h2><span class="mw-headline" id="Mount_WebDAV-resource">Mount WebDAV-resource</span></h2>
 <h3><span class="mw-headline" id="Configuration_and_mount_options">Configuration and mount options</span></h3>
@@ -78,7 +78,7 @@
 <pre># mount -t davfs http(s)://addres:&lt;port&gt;/path /mount/point
 </pre>
 <h3><span class="mw-headline" id="Using_systemd">Using systemd</span></h3>
-<p>To use <a href="/Usage/Configuration/D/Systemd.html#Mounting" title="Systemd">systemd mounting</a>:
+<p>To use <a href="/Usage/Configuration/S/Systemd.html#Mounting" title="Systemd">systemd mounting</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/mnt-webdav-service.mount</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -111,10 +111,10 @@ TimeoutIdleSec=300
 [Install]
 WantedBy=remote-fs.target
 </pre>
-<p>See <a href="/Usage/Configuration/D/Fstab.html#Automount_with_systemd" title="Fstab">Fstab#Automount with systemd</a> for more tips and tricks when using systemd mount units.
+<p>See <a href="/Usage/Configuration/F/Fstab.html#Automount_with_systemd" title="Fstab">Fstab#Automount with systemd</a> for more tips and tricks when using systemd mount units.
 </p>
 <h3><span class="mw-headline" id="Using_fstab">Using fstab</span></h3>
-<p>To define how the webdav resource should be mounted into the filesystem, <a href="/Usage/Configuration/D/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> a <a href="/Usage/Configuration/D/Fstab.html" title="Fstab">fstab</a> entry under the following format:
+<p>To define how the webdav resource should be mounted into the filesystem, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> a <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a> entry under the following format:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">https://<i>webdav.example/path</i> /mnt/<i>webdav</i> davfs rw,user,uid=<i>username</i>,noauto 0 0</pre>
@@ -126,7 +126,7 @@ WantedBy=remote-fs.target
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/davfs2/secrets</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">https://<i>webdav.example/path</i> <i>davusername</i> <i>davpassword</i></pre>
-<p>Make sure the <i>secrets file</i> contains the correct <a href="/Usage/Configuration/D/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a>, for <i>root</i> mounting:
+<p>Make sure the <i>secrets file</i> contains the correct <a href="/Usage/Configuration/F/File_permissions_and_attributes.html" class="mw-redirect" title="Permissions">permissions</a>, for <i>root</i> mounting:
 </p>
 <pre># chmod 600 /etc/davfs2/secrets
 # chown root:root /etc/davfs2/secrets
@@ -151,8 +151,8 @@ Default for this parameter is <code>1</code> which locks files on the server whe
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/D/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="/Usage/Configuration/D/Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li>
+<li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/C/Category:WebDAV.html" title="Category:WebDAV">WebDAV</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -170,9 +170,9 @@ Default for this parameter is <code>1</code> which locks files on the server whe
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

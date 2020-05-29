@@ -2,7 +2,7 @@
     title: Device_encryption
     description: Migration of Device_encryption from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -142,7 +142,7 @@ This section covers how to manually utilize <i>dm-crypt</i> from the command lin
 </div>
 
 <h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<p>Before using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cryptsetup">cryptsetup</a></span>, always make sure the <code>dm_crypt</code> <a href="..//Usage/Configuration/D/Kernel_module.html" title="Kernel module">kernel module</a> is loaded.
+<p>Before using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cryptsetup">cryptsetup</a></span>, always make sure the <code>dm_crypt</code> <a href="..//Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> is loaded.
 </p>
 <h2><span class="mw-headline" id="Cryptsetup_usage">Cryptsetup usage</span></h2>
 <p><i>Cryptsetup</i> is the command line tool to interface with <i>dm-crypt</i> for creating, accessing and managing encrypted devices. The tool was later expanded to support different encryption types that rely on the Linux kernel <b>d</b>evice-<b>m</b>apper and the <b>crypt</b>ographic modules. The most notable expansion was for the Linux Unified Key Setup (LUKS) extension, which stores all of the needed setup information for dm-crypt on the disk itself and abstracts partition and key management in an attempt to improve ease of use. Devices accessed via the device-mapper are called blockdevices. For further information see <a href="..//Usage/Configuration/D/Data-at-rest_encryption.html#Block_device_encryption" title="Data-at-rest encryption">Data-at-rest encryption#Block device encryption</a>. 
@@ -163,12 +163,12 @@ Since different parameters are required or optional, depending on encryption mod
 <p>can give guidance on deciding for an algorithm and key-size prior to installation. If certain AES ciphers excel with a considerable higher throughput, these are probably the ones with hardware support in the CPU.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> You may want to practise encrypting a virtual hard drive in a <a href="..//Usage/Configuration/D/Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machine</a> when learning.</div>
+<strong>Tip:</strong> You may want to practise encrypting a virtual hard drive in a <a href="..//Usage/Configuration/C/Category:Virtualization.html" class="mw-redirect" title="Virtual machine">virtual machine</a> when learning.</div>
 <h3><span class="mw-headline" id="Cryptsetup_passphrases_and_keys">Cryptsetup passphrases and keys</span></h3>
 <p>An encrypted blockdevice is protected by a key. A key is either: 
 </p>
 <ul>
-<li>a passphrase: see <a href="..//Usage/Configuration/D/Security.html#Passwords" title="Security">Security#Passwords</a>.</li>
+<li>a passphrase: see <a href="..//Usage/Configuration/S/Security.html#Passwords" title="Security">Security#Passwords</a>.</li>
 <li>a keyfile, see <a href="#Keyfiles">#Keyfiles</a>.</li>
 </ul>
 <p>Both key types have default maximum sizes: passphrases can be up to 512 characters and keyfiles up to 8192kiB. 
@@ -190,7 +190,7 @@ Since different parameters are required or optional, depending on encryption mod
 <li>
 <code>--type loopaes</code> for a loopaes legacy mode,</li>
 <li>
-<code>--type tcrypt</code> for a <a href="..//Usage/Configuration/D/TrueCrypt.html" title="TrueCrypt">TrueCrypt</a> compatibility mode.</li>
+<code>--type tcrypt</code> for a <a href="..//Usage/Configuration/T/TrueCrypt.html" title="TrueCrypt">TrueCrypt</a> compatibility mode.</li>
 </ul>
 <p>The basic cryptographic options for encryption cipher and hashes available can be used for all modes and rely on the kernel cryptographic backend features. All that are loaded and available to use as options at runtime can be viewed with:
 </p>
@@ -288,7 +288,7 @@ Since different parameters are required or optional, depending on encryption mod
 <td>
 <code>--use-random</code>
 </td>
-<td>Selects which <a href="..//Usage/Configuration/D/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> to use. Quoting the cryptsetup manual page: "In a low-entropy situation (e.g. in an embedded system), both  selections are problematic. Using /dev/urandom can lead to weak keys. Using /dev/random can block a long time, potentially forever, if not enough entropy can be harvested  by the kernel."
+<td>Selects which <a href="..//Usage/Configuration/R/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> to use. Quoting the cryptsetup manual page: "In a low-entropy situation (e.g. in an embedded system), both  selections are problematic. Using /dev/urandom can lead to weak keys. Using /dev/random can block a long time, potentially forever, if not enough entropy can be harvested  by the kernel."
 </td>
 </tr>
 <tr>
@@ -465,7 +465,7 @@ We can now check that the mapping has been made:
 <p>This section shows how to employ the options for creating new encrypted blockdevices and accessing them manually. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> GRUB does not support LUKS2 headers; see <a rel="nofollow"  href="https://savannah.gnu.org/bugs/?55093">GRUB bug #55093</a>. Therefore, if you plan to <a href="..//Usage/Configuration/D/GRUB.html#Encrypted_/boot" title="GRUB">unlock an encrypted boot partition with GRUB</a>, specify <code>--type luks1</code> on encrypted devices that GRUB will need to access.</div>
+<strong>Warning:</strong> GRUB does not support LUKS2 headers; see <a rel="nofollow"  href="https://savannah.gnu.org/bugs/?55093">GRUB bug #55093</a>. Therefore, if you plan to <a href="..//Usage/Configuration/G/GRUB.html#Encrypted_/boot" title="GRUB">unlock an encrypted boot partition with GRUB</a>, specify <code>--type luks1</code> on encrypted devices that GRUB will need to access.</div>
 <h3><span class="mw-headline" id="Encrypting_devices_with_LUKS_mode">Encrypting devices with LUKS mode</span></h3>
 <h4><span class="mw-headline" id="Formatting_LUKS_partitions">Formatting LUKS partitions</span></h4>
 <p>In order to setup a partition as an encrypted LUKS partition execute:
@@ -512,11 +512,11 @@ We can now check that the mapping has been made:
 </p>
 <p>For setting up LVM ontop the encryption layer the device file for the decrypted volume group would be anything like <code>/dev/mapper/cryptroot</code> instead of <code>/dev/sda1</code>. LVM will then give additional names to all logical volumes created, e.g. <code>/dev/lvmpool/root</code> and <code>/dev/lvmpool/swap</code>.
 </p>
-<p>In order to write encrypted data into the partition it must be accessed through the device mapped name. The first step of access will typically be to <a href="..//Usage/Configuration/D/File_systems.html#Create_a_file_system" title="File systems">create a filesystem</a>. For example:
+<p>In order to write encrypted data into the partition it must be accessed through the device mapped name. The first step of access will typically be to <a href="..//Usage/Configuration/F/File_systems.html#Create_a_file_system" title="File systems">create a filesystem</a>. For example:
 </p>
 <pre># mkfs -t ext4 /dev/mapper/cryptroot
 </pre>
-<p>The device <code>/dev/mapper/cryptroot</code> can then be <a href="..//Usage/Configuration/D/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mounted</a> like any other partition.
+<p>The device <code>/dev/mapper/cryptroot</code> can then be <a href="..//Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mounted</a> like any other partition.
 </p>
 <p>To close the luks container, unmount the partition and do:
 </p>
@@ -839,7 +839,7 @@ MK bits:       	128
 <div class="noprint archwiki-template-message">
 <p><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> This section should be rewritten to introduce resizing more generically. Perhaps work on it together with <a href="..//Usage/Configuration/D/Resizing_LVM-on-LUKS.html" title="Resizing LVM-on-LUKS">Resizing LVM-on-LUKS</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dm-crypt/Device_encryption">Talk:Dm-crypt/Device encryption#</a>)</div>
+<b>Reason:</b> This section should be rewritten to introduce resizing more generically. Perhaps work on it together with <a href="..//Usage/Configuration/R/Resizing_LVM-on-LUKS.html" title="Resizing LVM-on-LUKS">Resizing LVM-on-LUKS</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dm-crypt/Device_encryption">Talk:Dm-crypt/Device encryption#</a>)</div>
 </div>
 <p>If a storage device encrypted with dm-crypt is being cloned (with a tool like dd) to another larger device, the underlying dm-crypt device must be resized to use the whole space. 
 </p>
@@ -944,7 +944,7 @@ That means if such a file is lost or changed, decrypting the volume may no longe
 </p>
 <pre># shred --remove --zero mykeyfile
 </pre>
-<p>to securely overwrite it. For overaged filesystems like FAT or ext2 this will suffice while in the case of journaling filesystems, flash memory hardware and other cases it is highly recommended to <a href="..//Usage/Configuration/D/Securely_wipe_disk.html" title="Securely wipe disk">wipe the entire device</a>.
+<p>to securely overwrite it. For overaged filesystems like FAT or ext2 this will suffice while in the case of journaling filesystems, flash memory hardware and other cases it is highly recommended to <a href="..//Usage/Configuration/S/Securely_wipe_disk.html" title="Securely wipe disk">wipe the entire device</a>.
 </p>
 <h4><span class="mw-headline" id="Storing_the_keyfile_in_ramfs">Storing the keyfile in ramfs</span></h4>
 <p>Alternatively, you can mount a ramfs for storing the keyfile temporarily:
@@ -971,7 +971,7 @@ Command successful.
 <pre># cryptsetup open /dev/sda2 <i>dm_name</i> --key-file /etc/mykeyfile
 </pre>
 <h3><span class="mw-headline" id="Unlocking_the_root_partition_at_boot">Unlocking the root partition at boot</span></h3>
-<p>This is simply a matter of configuring <a href="..//Usage/Configuration/D/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> to include the necessary modules or files and configuring the <a href="..//Usage/Configuration/D/Dm-crypt/System_configuration.html#cryptkey" title="Dm-crypt/System configuration">cryptkey</a> <a href="..//Usage/Configuration/D/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to know where to find the keyfile.
+<p>This is simply a matter of configuring <a href="..//Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> to include the necessary modules or files and configuring the <a href="..//Usage/Configuration/D/Dm-crypt/System_configuration.html#cryptkey" title="Dm-crypt/System configuration">cryptkey</a> <a href="..//Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to know where to find the keyfile.
 </p>
 <p>Two cases are covered below:
 </p>
@@ -989,7 +989,7 @@ Command successful.
 </p>
 <p>If you have a non-US keyboard, it might prove useful to load your keyboard layout before you are prompted to enter the password to unlock the root partition at boot. For this, you will need the <code>keymap</code> hook before <code>encrypt</code>.
 </p>
-<p><a href="..//Usage/Configuration/D/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
+<p><a href="..//Usage/Configuration/M/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a>.
 </p>
 <h5><span class="mw-headline" id="Configuring_the_kernel_parameters">Configuring the kernel parameters</span></h5>
 <div class="noprint archwiki-template-message">
@@ -997,7 +997,7 @@ Command successful.
 <div>
 <b>Notes:</b> Keep all <code>encrypt</code> hook parameters in one place. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dm-crypt/Device_encryption">Talk:Dm-crypt/Device encryption#</a>)</div>
 </div>
-<p>Add the following options to the <a href="..//Usage/Configuration/D/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> if using the <code>encrypt</code> hook. If using <code>sd-encrypt</code> see <a href="..//Usage/Configuration/D/Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" title="Dm-crypt/System configuration">dm-crypt/System configuration#Using sd-encrypt hook</a>.
+<p>Add the following options to the <a href="..//Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> if using the <code>encrypt</code> hook. If using <code>sd-encrypt</code> see <a href="..//Usage/Configuration/D/Dm-crypt/System_configuration.html#Using_sd-encrypt_hook" title="Dm-crypt/System configuration">dm-crypt/System configuration#Using sd-encrypt hook</a>.
 </p>
 <pre>cryptdevice=/dev/<i>&lt;partition1&gt;</i>:root cryptkey=/dev/<i>&lt;partition2&gt;</i>:&lt;fstype&gt;:&lt;path&gt;
 </pre>
@@ -1011,7 +1011,7 @@ Command successful.
 </pre>
 <p>As an advantage, it is harder to accidentally delete the key.
 </p>
-<p>The naming of device nodes like <code>/dev/sdb1</code> is not guaranteed to stay the same across reboots. It is more reliable to access the device with udev's <a href="..//Usage/Configuration/D/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a> instead. To assure that the <code>encrypt</code> hook finds your keyfile when reading it from an external storage device, persistent block device names must be used. See the article <a href="..//Usage/Configuration/D/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a>.
+<p>The naming of device nodes like <code>/dev/sdb1</code> is not guaranteed to stay the same across reboots. It is more reliable to access the device with udev's <a href="..//Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a> instead. To assure that the <code>encrypt</code> hook finds your keyfile when reading it from an external storage device, persistent block device names must be used. See the article <a href="..//Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">persistent block device naming</a>.
 </p>
 <h4><span class="mw-headline" id="With_a_keyfile_embedded_in_the_initramfs">With a keyfile embedded in the initramfs</span></h4>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -1019,10 +1019,10 @@ Command successful.
 <ul>
 <li>Using some form of authentication earlier in the boot process. Otherwise auto-decryption will occur, defeating completely the purpose of block device encryption.</li>
 <li>
-<code>/boot</code> is encrypted. Otherwise root on a different installation (including the <a href="..//Usage/Configuration/D/Installation_guide.html#Boot_the_live_environment" title="Installation guide">live environment</a>) can extract your key from the initramfs, and unlock the device without any other authentication.</li>
+<code>/boot</code> is encrypted. Otherwise root on a different installation (including the <a href="..//Usage/Configuration/I/Installation_guide.html#Boot_the_live_environment" title="Installation guide">live environment</a>) can extract your key from the initramfs, and unlock the device without any other authentication.</li>
 </ul>
 </div>
-<p>This method allows to use a specially named keyfile that will be embedded in the <a href="..//Usage/Configuration/D/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> and picked up by the <code>encrypt</code> <a href="..//Usage/Configuration/D/Mkinitcpio.html#HOOKS" title="Mkinitcpio">hook</a> to unlock the root filesystem (<code>cryptdevice</code>) automatically. It may be useful to apply when using the <a href="..//Usage/Configuration/D/GRUB.html#Encrypted_/boot" title="GRUB">GRUB early cryptodisk</a> feature, in order to avoid entering two passphrases during boot.
+<p>This method allows to use a specially named keyfile that will be embedded in the <a href="..//Usage/Configuration/T/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initramfs">initramfs</a> and picked up by the <code>encrypt</code> <a href="..//Usage/Configuration/M/Mkinitcpio.html#HOOKS" title="Mkinitcpio">hook</a> to unlock the root filesystem (<code>cryptdevice</code>) automatically. It may be useful to apply when using the <a href="..//Usage/Configuration/G/GRUB.html#Encrypted_/boot" title="GRUB">GRUB early cryptodisk</a> feature, in order to avoid entering two passphrases during boot.
 </p>
 <p>The <code>encrypt</code> hook lets the user specify a keyfile with the <code>cryptkey</code> kernel parameter: in the case of initramfs, the syntax is <code>rootfs:<i>path</i></code>. See <a href="..//Usage/Configuration/D/Dm-crypt/System_configuration.html#cryptkey" title="Dm-crypt/System configuration">dm-crypt/System configuration#cryptkey</a>. Besides, this kernel parameter defaults to use <code>/crypto_keyfile.bin</code>, and if the initramfs contains a valid key with this name, decryption will occur automatically without the need to configure the <code>cryptkey</code> parameter.
 </p>
@@ -1037,11 +1037,11 @@ Command successful.
 </pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> When initramfs' permissions are set to 644 (by default), then all users will be able to dump the keyfile. Make sure the permissions are still 600 if you install a new kernel.</div>
-<p>Include the key in <a href="..//Usage/Configuration/D/Mkinitcpio.html#BINARIES_and_FILES" title="Mkinitcpio">mkinitcpio's FILES array</a>:
+<p>Include the key in <a href="..//Usage/Configuration/M/Mkinitcpio.html#BINARIES_and_FILES" title="Mkinitcpio">mkinitcpio's FILES array</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">FILES=(/crypto_keyfile.bin)</pre>
-<p>Finally <a href="..//Usage/Configuration/D/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
+<p>Finally <a href="..//Usage/Configuration/M/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">regenerate the initramfs</a>.
 </p>
 <p>On the next reboot you should only have to enter your container decryption passphrase once.
 </p>
@@ -1051,11 +1051,11 @@ Command successful.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/D/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/C/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="..//Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="..//Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -1074,9 +1074,9 @@ Command successful.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

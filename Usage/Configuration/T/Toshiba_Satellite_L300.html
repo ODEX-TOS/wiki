@@ -2,7 +2,7 @@
     title: Toshiba_Satellite_L300
     description: Migration of Toshiba_Satellite_L300 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -93,7 +93,7 @@
 <p>PCMCIA, Modem.
 </p>
 <h2><span class="mw-headline" id="Configurations">Configurations</span></h2>
-<p><b>Video:</b> Follow the <a href="/Usage/Configuration/T/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> wiki entry for Intel video. Edit your /boot/grub/menu.lst kernel boot line. See below. If these suggested changes to /boot/grub/menu.lst and /etc/X11/xorg.conf are not made you may not be able to resume from suspend, will get flickering video on shutdown and other minor video faults, but your screen will generally work OK. Here is a suggested /etc/X11/xorg.conf file for reference:
+<p><b>Video:</b> Follow the <a href="/Usage/Configuration/I/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> wiki entry for Intel video. Edit your /boot/grub/menu.lst kernel boot line. See below. If these suggested changes to /boot/grub/menu.lst and /etc/X11/xorg.conf are not made you may not be able to resume from suspend, will get flickering video on shutdown and other minor video faults, but your screen will generally work OK. Here is a suggested /etc/X11/xorg.conf file for reference:
 </p>
 <pre>Section "ServerLayout"
         Identifier     "X.org Configured"
@@ -188,9 +188,9 @@ EndSection
 <p><br>
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> <a href="/Usage/Configuration/T/GRUB.html" class="mw-redirect" title="GRUB2">GRUB2</a> The fan will work properly assigning the parameter: <div class="archwiki-template-box archwiki-template-box-note">
+<strong>Warning:</strong> <a href="/Usage/Configuration/G/GRUB.html" class="mw-redirect" title="GRUB2">GRUB2</a> The fan will work properly assigning the parameter: <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi=Linux"</div> in <code>/etc/default/grub</code>.</div>
-<p><b>kernel boot parameters (/boot/grub/menu.lst):</b> Heed the <a href="/Usage/Configuration/T/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> video changes and boot manager kernel parameters should include:
+<p><b>kernel boot parameters (/boot/grub/menu.lst):</b> Heed the <a href="/Usage/Configuration/I/Intel_graphics.html" class="mw-redirect" title="Intel">Intel</a> video changes and boot manager kernel parameters should include:
 </p>
 <pre>kernel /vmlinuz-linux-tosroot=/dev/disk/by-uuid/your_UUID_here acpi_osi="Linux" ro i915.modeset=1 resume=/dev/sda3
 </pre>
@@ -200,7 +200,7 @@ EndSection
 </p>
 <p><b>Function Keys:</b> To get the "Fn" key to work one may need to upgrade your BIOS (see below). With a working Fn key the Num Lock key will function. However, you will still have to bind the hardware function key combinations to specific Linux facilities depending on what desktop environment you use. For instance "Fn+F4" is the "hibernate" facility. You have to bind the hibernate script that you specifically use to that key combo. The same goes for screen brightness, suspend, etc. This is not done automatically in Linux. The old "toshiba_acpi" and "fnfx" modules do not work with the InsydeH2O BIOS, they only work with Toshiba-written BIOSes.
 </p>
-<p>For information on how to bind keycodes (e.g. Fn+F4) read <a href="/Usage/Configuration/T/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a>. E.G.: bind these following key combinations to their keycodes and then to the following scripts:
+<p>For information on how to bind keycodes (e.g. Fn+F4) read <a href="/Usage/Configuration/E/Extra_keyboard_keys.html" title="Extra keyboard keys">Extra keyboard keys</a>. E.G.: bind these following key combinations to their keycodes and then to the following scripts:
 </p>
 <ul>
 <li>Fn+F1 - xscreensaver-command -lock</li>
@@ -212,9 +212,9 @@ EndSection
 <li>Fn+F9 - (see the "Software Toggle" here): <a href="/Usage/Configuration/T/Touchpad_Synaptics.html" title="Touchpad Synaptics">Touchpad Synaptics</a>
 </li>
 </ul>
-<p><b>Audio:</b> Should just work, but ensure by using "alsamixer", that the "Front" mixer is set to max, or near max. By default it may be set at zero. Read <a href="/Usage/Configuration/T/Advanced_Linux_Sound_TOSitecture.html#Restore_ALSA_Mixer_settings_at_startup" title="Advanced Linux Sound TOSitecture">restoring alsa settings</a><sup>[<a href="/Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> to find out how to store alsamixer settings between reboots.
+<p><b>Audio:</b> Should just work, but ensure by using "alsamixer", that the "Front" mixer is set to max, or near max. By default it may be set at zero. Read <a href="/Usage/Configuration/A/Advanced_Linux_Sound_TOSitecture.html#Restore_ALSA_Mixer_settings_at_startup" title="Advanced Linux Sound TOSitecture">restoring alsa settings</a><sup>[<a href="/Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> to find out how to store alsamixer settings between reboots.
 </p>
-<p><b>Bluetooth:</b> This laptop does not have in-built Bluetooth, but works just great with any bluetooth dongle via USB if you follow these <a href="/Usage/Configuration/T/Bluetooth.html" title="Bluetooth">Bluetooth</a> instructions.
+<p><b>Bluetooth:</b> This laptop does not have in-built Bluetooth, but works just great with any bluetooth dongle via USB if you follow these <a href="/Usage/Configuration/B/Bluetooth.html" title="Bluetooth">Bluetooth</a> instructions.
 </p>
 <h2><span class="mw-headline" id="Upgrading_your_BIOS">Upgrading your BIOS</span></h2>
 <p>It seems that most of the L300 and L305 series laptops come with the InsydeH2O BIOS version 1.50. This BIOS is faulty with Linux and results in a dead Fn key and an improperly controlled fan. It is vital to get the fan working properly especially if you wish to use suspend and/or hibernate. The dead Fn key problem however is not a show stopper. The upgraded BIOS will also mean the PC speaker will start working! Toshiba Canada has the latest BIOS version (v2.2 at January 2011) here: <a rel="nofollow"  href="http://support.toshiba.ca/support/Download/ln_byModel.asp">http://support.toshiba.ca/support/Download/ln_byModel.asp</a> <sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-03 ⓘ]</sup>. Ensure you get the correct file for your specific model. This file is a Windows-only executable - it does not contain anything usable under DOS. Nor can this BIOS be flashed using the Linux "flashrom" application. There are only two ways to flash the ROM with that file:
@@ -244,11 +244,11 @@ EndSection
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/T/Category:Toshiba.html" title="Category:Toshiba">Toshiba</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Toshiba.html" title="Category:Toshiba">Toshiba</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/T/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
-<li><a href="/Usage/Configuration/T/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>

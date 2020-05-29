@@ -2,7 +2,7 @@
     title: HP_TC1100
     description: Migration of HP_TC1100 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -80,32 +80,32 @@
 <li>Select "CD-Rom" and press jog-dial again</li>
 </ol>
 <h2><span class="mw-headline" id="Post_Install">Post Install</span></h2>
-<p>For additional tablet related information, please read the <a href="/Usage/Configuration/H/Tablet_PC.html" title="Tablet PC">Tablet PC</a> page.
+<p>For additional tablet related information, please read the <a href="/Usage/Configuration/T/Tablet_PC.html" title="Tablet PC">Tablet PC</a> page.
 </p>
 <h3><span class="mw-headline" id="Graphics">Graphics</span></h3>
-<p><a href="/Usage/Configuration/H/Nouveau.html" title="Nouveau">Nouveau</a> works fine, including the 3D support
+<p><a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a> works fine, including the 3D support
 </p>
 <h3><span class="mw-headline" id="Power">Power</span></h3>
 <p>Install and setup the following
 </p>
 <ul>
-<li><a href="/Usage/Configuration/H/CPU_frequency_scaling.html" class="mw-redirect" title="Cpufreq">Cpufreq</a></li>
+<li><a href="/Usage/Configuration/C/CPU_frequency_scaling.html" class="mw-redirect" title="Cpufreq">Cpufreq</a></li>
 <li>
-<a href="/Usage/Configuration/H/Acpid.html" class="mw-redirect" title="ACPI hotkeys">ACPI hotkeys</a> (acpi and acpid for suspend button to work)</li>
+<a href="/Usage/Configuration/A/Acpid.html" class="mw-redirect" title="ACPI hotkeys">ACPI hotkeys</a> (acpi and acpid for suspend button to work)</li>
 </ul>
 <h4><span class="mw-headline" id="Suspending_and_Resuming">Suspending and Resuming</span></h4>
-<p>See <a href="/Usage/Configuration/H/Power_management/Suspend_and_hibernate.html" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate</a>.
+<p>See <a href="/Usage/Configuration/P/Power_management/Suspend_and_hibernate.html" title="Power management/Suspend and hibernate">Power management/Suspend and hibernate</a>.
 </p>
 <p>Resuming after suspending to disk causes the stylus to cease functioning.  No data will be sent by the digitizer until it receives the <code>ISDV4_SAMPLING</code> command, which is merely the ASCII character "1" (49).  Unfortunately, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-wacom">xf86-input-wacom</a></span> driver only sends that particular command during initialization.  I suppose the proper way to fix this would be to modify the driver to recognize when it's resuming from a suspend to disk and send the command accordingly.  As a workaround, run the <code>xset -display :0 q 2&gt;&amp;1 | head -1 | grep -Eqx 'No protocol specified|Keyboard Control:' &amp;&amp; printf 1 &gt;&gt;/dev/ttyS0</code> (it requires <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xset">xorg-xset</a></span>).
 </p>
 <h3><span class="mw-headline" id="Stylus">Stylus</span></h3>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-wacom">xf86-input-wacom</a></span> package. A reboot may be required for Xorg to recognize the serial digitizer
-For additional help, see the <a href="/Usage/Configuration/H/Wacom_tablet.html" class="mw-redirect" title="Wacom">Wacom</a> page.
+For additional help, see the <a href="/Usage/Configuration/W/Wacom_tablet.html" class="mw-redirect" title="Wacom">Wacom</a> page.
 </p>
 <h3><span class="mw-headline" id="Stylus_Buttons">Stylus Buttons</span></h3>
 <p>I've done a <a rel="nofollow"  href="https://docs.google.com/open?id=0B1SyqFJr-62rMXhPWUo2VVBYY28">quick and dirty hack</a> of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-wacom">xf86-input-wacom</a></span> to get the stylus-activated buttons working.
 </p>
-<p>Unpack it, build it using <a href="/Usage/Configuration/H/Makepkg.html" title="Makepkg">makepkg</a>, and install the resulting package with <a href="/Usage/Configuration/H/Pacman.html" title="Pacman">pacman</a>.  The stylus buttons will now generate keycodes when triggered, and these can be bound to actions by either your <a href="/Usage/Configuration/H/Window_manager.html" title="Window manager">window manager</a> or <a href="/Usage/Configuration/H/Xbindkeys.html" title="Xbindkeys">xbindkeys</a>.  The specific keycodes are as follows:
+<p>Unpack it, build it using <a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a>, and install the resulting package with <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a>.  The stylus buttons will now generate keycodes when triggered, and these can be bound to actions by either your <a href="/Usage/Configuration/W/Window_manager.html" title="Window manager">window manager</a> or <a href="/Usage/Configuration/X/Xbindkeys.html" title="Xbindkeys">xbindkeys</a>.  The specific keycodes are as follows:
 </p>
 <table >
 <tbody>
@@ -143,9 +143,9 @@ For additional help, see the <a href="/Usage/Configuration/H/Wacom_tablet.html" 
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:HP.html" title="Category:HP">HP</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:HP.html" title="Category:HP">HP</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/H/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -163,9 +163,9 @@ For additional help, see the <a href="/Usage/Configuration/H/Wacom_tablet.html" 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Install_TOS_Linux_from_existing_Linux
     description: Migration of Install_TOS_Linux_from_existing_Linux from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -38,10 +38,10 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <ul>
 <li>remotely installing TOS Linux, e.g. a (virtual) root server</li>
 <li>replacing an existing Linux without a LiveCD (see <a href="#Replacing_the_existing_system_without_a_LiveCD">#Replacing the existing system without a LiveCD</a>)</li>
-<li>creating a new Linux distribution or <a href="/Usage/Configuration/I/TOS-based_distributions.html" title="TOS-based distributions">LiveMedia based on TOS Linux</a>
+<li>creating a new Linux distribution or <a href="/Usage/Configuration/T/TOS-based_distributions.html" title="TOS-based distributions">LiveMedia based on TOS Linux</a>
 </li>
 <li>creating an TOS Linux chroot environment, e.g. for a Docker base container</li>
-<li><a href="/Usage/Configuration/I/Diskless_system.html" class="mw-redirect" title="Diskless network boot NFS root">rootfs-over-NFS for diskless machines</a></li>
+<li><a href="/Usage/Configuration/D/Diskless_system.html" class="mw-redirect" title="Diskless network boot NFS root">rootfs-over-NFS for diskless machines</a></li>
 </ul>
 <p>The goal of the bootstrapping procedure is to setup an environment from which the scripts from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span> (such as <code>pacstrap</code> and <code>arch-chroot</code>) can be run.
 </p>
@@ -140,14 +140,14 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
-<li>In order to avoid redownloading all the packages, consider following <a href="/Usage/Configuration/I/Pacman/Tips_and_tricks.html#Network_shared_pacman_cache" title="Pacman/Tips and tricks">Pacman/Tips and tricks#Network shared pacman cache</a>, or use <i>pacstrap</i>'s <code>-c</code> option to use your host machine's package cache.</li>
+<li>In order to avoid redownloading all the packages, consider following <a href="/Usage/Configuration/P/Pacman/Tips_and_tricks.html#Network_shared_pacman_cache" title="Pacman/Tips and tricks">Pacman/Tips and tricks#Network shared pacman cache</a>, or use <i>pacstrap</i>'s <code>-c</code> option to use your host machine's package cache.</li>
 <li>When the grub boot-loader is used, the <code>grub-mkconfig</code> may detect devices incorrectly. This will result in <code>Error:no such device</code> when trying to boot from the stick. To solve this problem, from the host running TOS Linux, mount the newly installed partitions, <i>arch-chroot</i> to the new partition, then install and configure grub. The last step may require disabling <i>lvmetad</i> from <code>/etc/lvm/lvm.conf</code> by setting <code>use_lvmetad=0</code>.</li>
 </ul>
 </div>
 <h3><span class="mw-headline" id="Create_a_copy_of_an_existing_TOS_installation">Create a copy of an existing TOS installation</span></h3>
 <p>It is possible to replicate an existing TOS Linux installation by copying the host filesystem to the new partition and make some adjustments to it to make it bootable and unique.
 </p>
-<p>The first step is to copy the host files into the mounted new partition, for this, consider using the approach exhibited in <a href="/Usage/Configuration/I/Rsync.html#Full_system_backup" title="Rsync">rsync#Full system backup</a>.
+<p>The first step is to copy the host files into the mounted new partition, for this, consider using the approach exhibited in <a href="/Usage/Configuration/R/Rsync.html#Full_system_backup" title="Rsync">rsync#Full system backup</a>.
 </p>
 <p>Then, follow the procedure described in <a href="/Usage/Configuration/I/Installation_guide.html#Configure_the_system" title="Installation guide">Installation guide#Configure the system</a> with some caveats and additional steps:
 </p>
@@ -155,7 +155,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <li>
 <a href="/Usage/Configuration/I/Installation_guide.html#Time_zone" title="Installation guide">Installation guide#Time zone</a>, <a href="/Usage/Configuration/I/Installation_guide.html#Localization" title="Installation guide">Installation guide#Localization</a> and  <a href="/Usage/Configuration/I/Installation_guide.html#Root_password" title="Installation guide">Installation guide#Root password</a> can be skipped</li>
 <li>
-<a href="/Usage/Configuration/I/Installation_guide.html#Initramfs" title="Installation guide">Installation guide#Initramfs</a> may be required in particular if changing filesystem, for example from <a href="/Usage/Configuration/I/Ext4.html" title="Ext4">ext4</a> to <a href="/Usage/Configuration/I/Btrfs.html" title="Btrfs">Btrfs</a>
+<a href="/Usage/Configuration/I/Installation_guide.html#Initramfs" title="Installation guide">Installation guide#Initramfs</a> may be required in particular if changing filesystem, for example from <a href="/Usage/Configuration/E/Ext4.html" title="Ext4">ext4</a> to <a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a>
 </li>
 <li>Regarding <a href="/Usage/Configuration/I/Installation_guide.html#Boot_loader" title="Installation guide">Installation guide#Boot loader</a>, it is necessary to reinstall the bootloader</li>
 <li>Delete <code>/etc/machine-id</code> so that a new, unique one, is generated at the next boot</li>
@@ -163,9 +163,9 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <p>If the mirrored TOS installation may be used within a different configuration or with another hardware, consider the following additional operations:
 </p>
 <ul>
-<li>Use the CPU <a href="/Usage/Configuration/I/Microcode.html" title="Microcode">microcode</a> update adapted to the target system during the step <a href="/Usage/Configuration/I/Installation_guide.html#Boot_loader" title="Installation guide">Installation guide#Boot loader</a>
+<li>Use the CPU <a href="/Usage/Configuration/M/Microcode.html" title="Microcode">microcode</a> update adapted to the target system during the step <a href="/Usage/Configuration/I/Installation_guide.html#Boot_loader" title="Installation guide">Installation guide#Boot loader</a>
 </li>
-<li>If any specific <a href="/Usage/Configuration/I/Xorg.html#Configuration" title="Xorg">Xorg#Configuration</a> was present on the host and may be incompatible with the target system, follow <a href="/Usage/Configuration/I/Moving_an_existing_install_into_(or_out_of)_a_virtual_machine.html#Disable_any_Xorg-related_files" title="Moving an existing install into (or out of) a virtual machine">Moving an existing install into (or out of) a virtual machine#Disable any Xorg-related files</a>
+<li>If any specific <a href="/Usage/Configuration/X/Xorg.html#Configuration" title="Xorg">Xorg#Configuration</a> was present on the host and may be incompatible with the target system, follow <a href="/Usage/Configuration/M/Moving_an_existing_install_into_(or_out_of)_a_virtual_machine.html#Disable_any_Xorg-related_files" title="Moving an existing install into (or out of) a virtual machine">Moving an existing install into (or out of) a virtual machine#Disable any Xorg-related files</a>
 </li>
 <li>Make any other adjustment appropriate to the target system, like reconfiguring the network or the audio.</li>
 </ul>
@@ -182,7 +182,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <li>
 <a rel="nofollow"  href="https://gitlab.com/drizzt/vps2arch">vps2arch</a> (Bash)</li>
 </ul>
-<p>The manual way is presented in the following subsections. The idea is to either get <a href="/Usage/Configuration/I/Pacman.html" title="Pacman">pacman</a> working directly on the host system, or to run an TOS system inside the host system, with the actual installation being executed from the TOS system. The nested system is contained inside a chroot.
+<p>The manual way is presented in the following subsections. The idea is to either get <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> working directly on the host system, or to run an TOS system inside the host system, with the actual installation being executed from the TOS system. The nested system is contained inside a chroot.
 </p>
 <h3><span class="mw-headline" id="Using_pacman_from_the_host_system">Using pacman from the host system</span></h3>
 <p><a rel="nofollow"  href="https://git.archlinux.org/pacman.git/">Pacman</a> can be compiled on most Linux distributions, and used directly on the host system to bootstrap TOS Linux. The <a rel="nofollow"  href="https://git.archlinux.org/arch-install-scripts.git/about/">arch-install-scripts</a> should run without issues directly from the downloaded sources on any recent distribution.
@@ -197,7 +197,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 </h4>
 <p>Download the bootstrap image from a <a rel="nofollow"  href="https://www.archlinux.org/download">mirror</a> into <code>/tmp</code>.
 </p>
-<p>You can also download the signature (same URL with <code>.sig</code> added) and <a href="/Usage/Configuration/I/GnuPG.html#Verify_a_signature" title="GnuPG">verify it with GnuPG</a>.
+<p>You can also download the signature (same URL with <code>.sig</code> added) and <a href="/Usage/Configuration/G/GnuPG.html#Verify_a_signature" title="GnuPG">verify it with GnuPG</a>.
 </p>
 <p>Extract the tarball:
 </p>
@@ -229,7 +229,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <ul><li>To unsquash the root image, run</li></ul>
 <pre># unsquashfs airootfs.sfs
 </pre>
-<ul><li>Before <a href="/Usage/Configuration/I/Chroot.html" class="mw-redirect" title="Change root">chrooting</a> to it, we need to set up some mount points and copy the resolv.conf for networking.</li></ul>
+<ul><li>Before <a href="/Usage/Configuration/C/Chroot.html" class="mw-redirect" title="Change root">chrooting</a> to it, we need to set up some mount points and copy the resolv.conf for networking.</li></ul>
 <pre># mount --bind squashfs-root squashfs-root
 # mount -t proc none squashfs-root/proc
 # mount -t sysfs none squashfs-root/sys
@@ -244,7 +244,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <p>The bootstrap environment is really barebones (no <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nano">nano</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lvm2">lvm2</a></span>). Therefore, we need to set up pacman in order to download other necessary packages.
 </p>
 <h4><span class="mw-headline" id="Initializing_pacman_keyring">Initializing pacman keyring</span></h4>
-<p>Before starting the installation, pacman keys need to be setup. Before running the following two commands, read <a href="/Usage/Configuration/I/Pacman/Package_signing.html#Initializing_the_keyring" class="mw-redirect" title="Pacman-key">pacman-key#Initializing the keyring</a> to understand the entropy requirements:
+<p>Before starting the installation, pacman keys need to be setup. Before running the following two commands, read <a href="/Usage/Configuration/P/Pacman/Package_signing.html#Initializing_the_keyring" class="mw-redirect" title="Pacman-key">pacman-key#Initializing the keyring</a> to understand the entropy requirements:
 </p>
 <pre># pacman-key --init
 # pacman-key --populate archlinux
@@ -253,7 +253,7 @@ After bootstrapping, the installation proceeds as described in the <a href="/Usa
 <strong>Tip:</strong> Installing and running <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=haveged">haveged</a></span> must be done on the host system, since it is not possible to install packages before initializing pacman keyring and because <i>systemd</i> will detect it is running in a chroot and <a rel="nofollow"  href="https://superuser.com/questions/688733/start-a-systemd-service-inside-chroot">ignore activation request</a>.
 If you go with doing <code>ls -Ra /</code> in another console (TTY, terminal, SSH session...), do not be afraid of running it in a loop a few times: five or six runs from the host proved sufficient to generate enough entropy on a remote headless server.</div>
 <h4><span class="mw-headline" id="Selecting_a_mirror_and_downloading_basic_tools">Selecting a mirror and downloading basic tools</span></h4>
-<p>After <a href="/Usage/Configuration/I/Mirrors.html#Enabling_a_specific_mirror" title="Mirrors">selecting a mirror</a>, <a href="/Usage/Configuration/I/Mirrors.html#Force_pacman_to_refresh_the_package_lists" title="Mirrors">refresh the package lists</a> and <a href="/Usage/Configuration/I/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> what you need: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/base-devel/">base-devel</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=parted">parted</a></span> etc.
+<p>After <a href="/Usage/Configuration/M/Mirrors.html#Enabling_a_specific_mirror" title="Mirrors">selecting a mirror</a>, <a href="/Usage/Configuration/M/Mirrors.html#Force_pacman_to_refresh_the_package_lists" title="Mirrors">refresh the package lists</a> and <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> what you need: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/base-devel/">base-devel</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=parted">parted</a></span> etc.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -285,7 +285,7 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 <h6>
 <span id=".2Fdev.2Fpts"></span><span class="mw-headline" id="/dev/pts">/dev/pts</span>
 </h6>
-<p>While installing <code>archlinux-2015.07.01-x86_64</code> from a Debian 7 host, the following error prevented both <a rel="nofollow"  href="https://projects.archlinux.org/arch-install-scripts.git/tree/pacstrap.in">pacstrap</a> and <a href="/Usage/Configuration/I/Chroot.html#Using_arch-chroot" class="mw-redirect" title="Change root">arch-chroot</a> from working:
+<p>While installing <code>archlinux-2015.07.01-x86_64</code> from a Debian 7 host, the following error prevented both <a rel="nofollow"  href="https://projects.archlinux.org/arch-install-scripts.git/tree/pacstrap.in">pacstrap</a> and <a href="/Usage/Configuration/C/Chroot.html#Using_arch-chroot" class="mw-redirect" title="Change root">arch-chroot</a> from working:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># pacstrap -i /mnt</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">mount: mount point /mnt/dev/pts does not exist
@@ -293,7 +293,7 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 </pre>
 <p>Apparently, this is because these two scripts use a common function. <code>chroot_setup()</code><a rel="nofollow"  href="https://projects.archlinux.org/arch-install-scripts.git/tree/common#n76">[1]</a> relies on newer features of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=util-linux">util-linux</a></span>, which are incompatible with Debian 7 userland (see <a rel="nofollow"  href="https://bugs.archlinux.org/task/45737">FS#45737</a>).
 </p>
-<p>The solution for <i>pacstrap</i> is to manually execute its <a rel="nofollow"  href="https://projects.archlinux.org/arch-install-scripts.git/tree/pacstrap.in#n77">various tasks</a>, but use the <a href="/Usage/Configuration/I/Chroot.html#Using_chroot" class="mw-redirect" title="Change root">regular procedure</a> to mount the kernel filesystems on the target directory (<code>"$newroot"</code>):
+<p>The solution for <i>pacstrap</i> is to manually execute its <a rel="nofollow"  href="https://projects.archlinux.org/arch-install-scripts.git/tree/pacstrap.in#n77">various tasks</a>, but use the <a href="/Usage/Configuration/C/Chroot.html#Using_chroot" class="mw-redirect" title="Change root">regular procedure</a> to mount the kernel filesystems on the target directory (<code>"$newroot"</code>):
 </p>
 <pre># newroot=/mnt
 # mkdir -m 0755 -p "$newroot"/var/{cache/pacman/pkg,lib/pacman,log} "$newroot"/{dev,run,etc}
@@ -313,7 +313,7 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 <pre># chroot "$newroot"
 </pre>
 <h6><span class="mw-headline" id="lvmetad">lvmetad</span></h6>
-<p>Trying to create <a href="/Usage/Configuration/I/LVM.html" title="LVM">LVM</a> <a href="/Usage/Configuration/I/LVM.html#Logical_volumes" title="LVM">logical volumes</a> from an <code>archlinux-bootstrap-2015.07.01-x86_64</code> environment on a Debian 7 host resulted in the following error:
+<p>Trying to create <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> <a href="/Usage/Configuration/L/LVM.html#Logical_volumes" title="LVM">logical volumes</a> from an <code>archlinux-bootstrap-2015.07.01-x86_64</code> environment on a Debian 7 host resulted in the following error:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># lvcreate -L 20G lvm -n root</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">  /run/lvm/lvmetad.socket: connect failed: No such file or directory
@@ -353,37 +353,37 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 <b>Reason:</b> Is it the problem with LVM on Debian or with trying to install TOS on LVM? (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Install_TOS_Linux_from_existing_Linux">Talk:Install TOS Linux from existing Linux#</a>)</div>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/I/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> poor style (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Install_TOS_Linux_from_existing_Linux">Talk:Install TOS Linux from existing Linux#</a>)</div>
 </div>
 <p>This will trigger later an error on boot in the initrd stage. Therefore, you have to change it back after the grub generation. In a software RAID + LVM, steps would be the following:
 </p>
 <ul>
-<li>After installing the system, double check your <a href="/Usage/Configuration/I/Mkinitcpio.html" title="Mkinitcpio">Mkinitcpio</a> and your bootloader settings. See <a href="/Usage/Configuration/I/TOS_boot_process.html#Boot_loader" title="TOS boot process">TOS boot process#Boot loader</a> for a list of bootloaders.</li>
-<li>You may need to change your <code>/etc/mdadm.conf</code> to reflect your <a href="/Usage/Configuration/I/RAID.html" title="RAID">RAID</a> settings (if applicable).</li>
-<li>You may need to change your <code>HOOKS</code> and <code>MODULES</code> according to your <a href="/Usage/Configuration/I/LVM.html" title="LVM">LVM</a> and <a href="/Usage/Configuration/I/RAID.html" title="RAID">RAID</a> requirements: <code>MODULES="dm_mod" HOOKS="base udev <b>mdadm_udev</b> ... block <b>lvm2</b> filesystems ..."</code>
+<li>After installing the system, double check your <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">Mkinitcpio</a> and your bootloader settings. See <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" title="TOS boot process">TOS boot process#Boot loader</a> for a list of bootloaders.</li>
+<li>You may need to change your <code>/etc/mdadm.conf</code> to reflect your <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> settings (if applicable).</li>
+<li>You may need to change your <code>HOOKS</code> and <code>MODULES</code> according to your <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> and <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> requirements: <code>MODULES="dm_mod" HOOKS="base udev <b>mdadm_udev</b> ... block <b>lvm2</b> filesystems ..."</code>
 </li>
-<li>You will most likely need to generate new initrd images with mkinitcpio. See <a href="/Usage/Configuration/I/Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">Mkinitcpio#Image creation and activation</a>.</li>
+<li>You will most likely need to generate new initrd images with mkinitcpio. See <a href="/Usage/Configuration/M/Mkinitcpio.html#Image_creation_and_activation" title="Mkinitcpio">Mkinitcpio#Image creation and activation</a>.</li>
 <li>Set <code>use_lvmetad = 0</code> in <code>/etc/lvm/lvm.conf</code>.</li>
 <li>Update your bootloader settings. See your bootloader's wiki page for details.</li>
 <li>Set <code>use_lvmetad = 1</code> in <code>/etc/lvm/lvm.conf</code>.</li>
 </ul>
 <h5><span class="mw-headline" id="Fedora-based_host">Fedora-based host</span></h5>
-<p>On Fedora based hosts and live USBs you may encounter problems when using <i>genfstab</i> to generate your <a href="/Usage/Configuration/I/Fstab.html" title="Fstab">fstab</a>. Remove duplicate entries and the "seclabel" option where it appears, as this is Fedora-specific and will keep your system from booting normally.
+<p>On Fedora based hosts and live USBs you may encounter problems when using <i>genfstab</i> to generate your <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a>. Remove duplicate entries and the "seclabel" option where it appears, as this is Fedora-specific and will keep your system from booting normally.
 </p>
 <h2><span class="mw-headline" id="Things_to_check_before_you_reboot">Things to check before you reboot</span></h2>
 <p>Before rebooting, doublecheck a few details in your installation to achieve a successful installation. To do so, first chroot into the newly-installed system, and then:
 </p>
 <ul>
 <li>
-<a href="/Usage/Configuration/I/Users_and_groups.html#User_management" title="Users and groups">create a user with password</a>, so you can login via <i>ssh</i>. This is critical since root login is disabled by default since OpenSSH-7.1p2.</li>
+<a href="/Usage/Configuration/U/Users_and_groups.html#User_management" title="Users and groups">create a user with password</a>, so you can login via <i>ssh</i>. This is critical since root login is disabled by default since OpenSSH-7.1p2.</li>
 <li>
-<a href="/Usage/Configuration/I/Users_and_groups.html#User_management" title="Users and groups">set a root password</a> so that you can switch to root via <i>su</i> later</li>
+<a href="/Usage/Configuration/U/Users_and_groups.html#User_management" title="Users and groups">set a root password</a> so that you can switch to root via <i>su</i> later</li>
 <li>
-<a href="/Usage/Configuration/I/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> a <a href="/Usage/Configuration/I/Secure_Shell.html" class="mw-redirect" title="Ssh">ssh</a> solution and <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> its server instance to start automatically at boot.</li>
-<li>set up your <a href="/Usage/Configuration/I/Network_configuration.html" title="Network configuration">network configuration</a>  in order to have a connection started automatically at boot.</li>
-<li>set up a <a href="/Usage/Configuration/I/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> and configure it to use the swap partition you appropriated earlier as the root partition. You might want to configure your bootloader to be able to boot into your old system; it is helpful to re-use the server's existing <code>/boot</code> partition in the new system for this purpose.</li>
+<a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> a <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="Ssh">ssh</a> solution and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> its server instance to start automatically at boot.</li>
+<li>set up your <a href="/Usage/Configuration/N/Network_configuration.html" title="Network configuration">network configuration</a>  in order to have a connection started automatically at boot.</li>
+<li>set up a <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> and configure it to use the swap partition you appropriated earlier as the root partition. You might want to configure your bootloader to be able to boot into your old system; it is helpful to re-use the server's existing <code>/boot</code> partition in the new system for this purpose.</li>
 </ul>
 <h2><span class="mw-headline" id="Replacing_the_existing_system_without_a_LiveCD">Replacing the existing system without a LiveCD</span></h2>
 <p>Find ~700 MB of free space somewhere on the disk, e.g. by partitioning a swap partition. You can disable the swap partition and set up your system there. 
@@ -414,17 +414,17 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 <h3><span class="mw-headline" id="Installation">Installation</span></h3>
 <p><a href="/Usage/Configuration/I/Installation_guide.html#Install_essential_packages" title="Installation guide">Install essentials packages</a> and any other package required to get a system with internet connection up and running in the temporary partition, being careful with the limit of ~700 MB space. When specifying packages to be installed with <i>pacstrap</i>, consider adding the <code>-c</code> flag to avoid filling up valuable space by downloading packages to the host system.
 </p>
-<p>Once the new TOS Linux system is installed, fix the bootloader configuration, then reboot into the newly created system, and <a href="/Usage/Configuration/I/Rsync.html#Full_system_backup" title="Rsync">rsync the entire system</a> to the primary partition.
+<p>Once the new TOS Linux system is installed, fix the bootloader configuration, then reboot into the newly created system, and <a href="/Usage/Configuration/R/Rsync.html#Full_system_backup" title="Rsync">rsync the entire system</a> to the primary partition.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/I/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
 </ul>
 </div>
 </div>
@@ -443,9 +443,9 @@ mount: mount point /mnt/dev/shm is a symbolic link to nowhere
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

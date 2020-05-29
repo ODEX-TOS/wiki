@@ -2,7 +2,7 @@
     title: Systemd-boot
     description: Migration of Systemd-boot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,14 +29,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/TOS_boot_process.html" title="TOS boot process">TOS boot process</a></li>
-<li><a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a></li>
-<li><a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></li>
+<li><a href="/Usage/Configuration/T/TOS_boot_process.html" title="TOS boot process">TOS boot process</a></li>
+<li><a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a></li>
+<li><a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></li>
 </ul>
 </div>
-<p><b>systemd-boot</b>, previously called <b>gummiboot</b> (German for: 'rubber dinghy'), is a simple UEFI <a href="/Usage/Configuration/S/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot manager">boot manager</a> which executes configured EFI images. The default entry is selected by a configured pattern (glob) or an on-screen menu to be navigated via arrow-keys. It is included with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>, which is installed on an TOS system by default.
+<p><b>systemd-boot</b>, previously called <b>gummiboot</b> (German for: 'rubber dinghy'), is a simple UEFI <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot manager">boot manager</a> which executes configured EFI images. The default entry is selected by a configured pattern (glob) or an on-screen menu to be navigated via arrow-keys. It is included with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span>, which is installed on an TOS system by default.
 </p>
-<p>It is simple to configure but it can only start EFI executables such as the Linux kernel <a href="/Usage/Configuration/S/EFISTUB.html" title="EFISTUB">EFISTUB</a>, UEFI Shell, GRUB, or the Windows Boot Manager.
+<p>It is simple to configure but it can only start EFI executables such as the Linux kernel <a href="/Usage/Configuration/E/EFISTUB.html" title="EFISTUB">EFISTUB</a>, UEFI Shell, GRUB, or the Windows Boot Manager.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -102,9 +102,9 @@
 <b>Reason:</b> Since v242, <i>bootctl</i> has <code>--esp-path</code> and <code>--boot-path</code> options. <a rel="nofollow"  href="https://github.com/systemd/systemd/blob/v245/NEWS#L1165-L1175">[1]</a> The <code>--path</code> option is not documented in <span class="plainlinks archwiki-template-man" title="$ man 1 bootctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/bootctl.1">bootctl(1)</a></span>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Systemd-boot">Talk:Systemd-boot#</a>)</div>
 </div>
 <h3><span class="mw-headline" id="Installing_the_EFI_boot_manager">Installing the EFI boot manager</span></h3>
-<p>To install the <i>systemd-boot</i> EFI boot manager, first make sure the system has booted in UEFI mode and that <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html#UEFI_variables" title="Unified Extensible Firmware Interface">UEFI variables</a> are accessible. This can be checked by running the command <code>efivar --list</code> or, if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efivar">efivar</a></span> is not installed, by doing <code>ls /sys/firmware/efi/efivars</code> (if the directory exists, the system is booted in UEFI mode).
+<p>To install the <i>systemd-boot</i> EFI boot manager, first make sure the system has booted in UEFI mode and that <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#UEFI_variables" title="Unified Extensible Firmware Interface">UEFI variables</a> are accessible. This can be checked by running the command <code>efivar --list</code> or, if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efivar">efivar</a></span> is not installed, by doing <code>ls /sys/firmware/efi/efivars</code> (if the directory exists, the system is booted in UEFI mode).
 </p>
-<p>It should be noted that <i>systemd-boot</i> is only able to load the <a href="/Usage/Configuration/S/EFISTUB.html" title="EFISTUB">EFISTUB</a> kernel from the <a href="/Usage/Configuration/S/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP). To keep the kernel updated, it is simpler and therefore <b>recommended</b> to mount the ESP to <code>/boot</code>. If the ESP is <b>not</b> mounted to <code>/boot</code>, the kernel and initramfs files must be copied onto that ESP. See <a href="/Usage/Configuration/S/EFI_system_partition.html#Alternative_mount_points" title="EFI system partition">EFI system partition#Alternative mount points</a> for details.
+<p>It should be noted that <i>systemd-boot</i> is only able to load the <a href="/Usage/Configuration/E/EFISTUB.html" title="EFISTUB">EFISTUB</a> kernel from the <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP). To keep the kernel updated, it is simpler and therefore <b>recommended</b> to mount the ESP to <code>/boot</code>. If the ESP is <b>not</b> mounted to <code>/boot</code>, the kernel and initramfs files must be copied onto that ESP. See <a href="/Usage/Configuration/E/EFI_system_partition.html#Alternative_mount_points" title="EFI system partition">EFI system partition#Alternative mount points</a> for details.
 </p>
 <p><code><i>esp</i></code> will be used throughout this page to denote the ESP mountpoint, e.g. <code>/boot</code>. This assumes that you have <code>chroot</code>ed to your system's mount point.
 </p>
@@ -133,7 +133,7 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This is also the command to use when migrating from <i>gummiboot</i>, before removing that package. If that package has already been removed, however, run <code>bootctl --path=<i>esp</i> install</code>.</div>
 <h4><span class="mw-headline" id="Automatic_update">Automatic update</span></h4>
-<p>The package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/systemd-boot-pacman-hook/">systemd-boot-pacman-hook</a></span><sup><small>AUR</small></sup> provides a <a href="/Usage/Configuration/S/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">Pacman hook</a> to automate the update process. <a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Installing</a> the package will add a hook which will be executed every time the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package is upgraded.
+<p>The package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/systemd-boot-pacman-hook/">systemd-boot-pacman-hook</a></span><sup><small>AUR</small></sup> provides a <a href="/Usage/Configuration/P/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">Pacman hook</a> to automate the update process. <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Installing</a> the package will add a hook which will be executed every time the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd">systemd</a></span> package is upgraded.
 Alternatively, to replicate what the <i>systemd-boot-pacman-hook</i> package does without installing it, place the following pacman hook in the <code>/etc/pacman.d/hooks/</code> directory:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/100-systemd-boot.hook</pre>
@@ -198,15 +198,15 @@ editor   no
 <li>
 <code>efi</code> – EFI program to start, relative to your ESP (<code><i>esp</i></code>); e.g. <code>/vmlinuz-linux</code>. <b>Either</b> this parameter or <code>linux</code> (see below) is <b>required</b>.</li>
 <li>
-<code>options</code> – command line options to pass to the EFI program or <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. Optional, but you will need at least <code>root=<i>dev</i></code> if booting Linux. This parameter can be omitted if the root partition is assigned the correct Root Partition Type GUID as defined in <a rel="nofollow"  href="https://systemd.io/DISCOVERABLE_PARTITIONS/">Discoverable Partitions Specification</a> and if the <code>systemd</code> <a href="/Usage/Configuration/S/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> hook is present.</li>
+<code>options</code> – command line options to pass to the EFI program or <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. Optional, but you will need at least <code>root=<i>dev</i></code> if booting Linux. This parameter can be omitted if the root partition is assigned the correct Root Partition Type GUID as defined in <a rel="nofollow"  href="https://systemd.io/DISCOVERABLE_PARTITIONS/">Discoverable Partitions Specification</a> and if the <code>systemd</code> <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> hook is present.</li>
 </ul>
 <p>For Linux boot, you can also use <code>linux</code> instead of <code>efi</code>. Or <code>initrd</code> in addition to <code>options</code>. The syntax is:
 </p>
 <ul><li>
 <code>linux</code> and <code>initrd</code> followed by the relative path of the corresponding files in the ESP;  e.g. <code>/vmlinuz-linux</code>; this will be automatically translated into <code>efi <i>path</i></code> and <code>options initrd=<i>path</i></code> – this syntax is only supported for convenience and has no differences in function.</li></ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If <code>options</code> is present in a boot entry and <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> is disabled, the value of <code>options</code> will override any <code>.cmdline</code> string embedded in the EFI image that is specified by <code>efi</code> or <code>linux</code> (see <a href="#Preparing_a_unified_kernel_image">#Preparing a unified kernel image</a>). With Secure Boot, however, <code>options</code> (and any edits made to the kernel command line in the bootloader UI) will be ignored, and only the embedded <code>.cmdline</code> will be used. </div>
-<p>An example of a loader file to launch TOS from a partition with the label <i>arch_os</i> and loading the Intel CPU <a href="/Usage/Configuration/S/Microcode.html" title="Microcode">microcode</a>  is:
+<strong>Note:</strong> If <code>options</code> is present in a boot entry and <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> is disabled, the value of <code>options</code> will override any <code>.cmdline</code> string embedded in the EFI image that is specified by <code>efi</code> or <code>linux</code> (see <a href="#Preparing_a_unified_kernel_image">#Preparing a unified kernel image</a>). With Secure Boot, however, <code>options</code> (and any edits made to the kernel command line in the bootloader UI) will be ignored, and only the embedded <code>.cmdline</code> will be used. </div>
+<p>An example of a loader file to launch TOS from a partition with the label <i>arch_os</i> and loading the Intel CPU <a href="/Usage/Configuration/M/Microcode.html" title="Microcode">microcode</a>  is:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"><i>esp</i>/loader/entries/arch.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">title   TOS Linux
@@ -214,14 +214,14 @@ linux-tos  /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
 options root="LABEL=<i>arch_os</i>" rw</pre>
-<p><i>bootctl</i> will automatically check at boot time for <b>Windows Boot Manager</b> at the location <code>/EFI/Microsoft/Boot/Bootmgfw.efi</code>, <b>EFI Shell</b> <code>/shellx64.efi</code> and <b>EFI Default Loader</b> <code>/EFI/BOOT/bootx64.efi</code>, as well as specially prepared kernel files found in <code>/EFI/Linux</code>. When detected, corresponding entries with titles <code>auto-windows</code>, <code>auto-efi-shell</code> and <code>auto-efi-default</code>, respectively, will be generated. These entries do not require manual loader configuration. However, it does not auto-detect other EFI applications (unlike <a href="/Usage/Configuration/S/REFInd.html" title="REFInd">rEFInd</a>), so for booting the Linux kernel, manual configuration entries must be created.
+<p><i>bootctl</i> will automatically check at boot time for <b>Windows Boot Manager</b> at the location <code>/EFI/Microsoft/Boot/Bootmgfw.efi</code>, <b>EFI Shell</b> <code>/shellx64.efi</code> and <b>EFI Default Loader</b> <code>/EFI/BOOT/bootx64.efi</code>, as well as specially prepared kernel files found in <code>/EFI/Linux</code>. When detected, corresponding entries with titles <code>auto-windows</code>, <code>auto-efi-shell</code> and <code>auto-efi-default</code>, respectively, will be generated. These entries do not require manual loader configuration. However, it does not auto-detect other EFI applications (unlike <a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a>), so for booting the Linux kernel, manual configuration entries must be created.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>If you dual-boot Windows, it is strongly recommended to disable its default <a href="/Usage/Configuration/S/Dual_boot_with_Windows.html#Fast_Startup_and_hibernation" title="Dual boot with Windows">Fast Startup</a> option.</li>
-<li>If you have an Intel or AMD CPU, load the <i>microcode</i> with <code>initrd</code> before other images, an example is provided in <a href="/Usage/Configuration/S/Microcode.html#systemd-boot" title="Microcode">Microcode#systemd-boot</a>.</li>
-<li>The root partition can be identified with its <code>LABEL</code>, <code>PARTUUID</code> or <code>UUID</code> (see <a href="/Usage/Configuration/S/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>). This is required only to identify the root partition, not the <code><i>esp</i></code>.</li>
+<li>If you dual-boot Windows, it is strongly recommended to disable its default <a href="/Usage/Configuration/D/Dual_boot_with_Windows.html#Fast_Startup_and_hibernation" title="Dual boot with Windows">Fast Startup</a> option.</li>
+<li>If you have an Intel or AMD CPU, load the <i>microcode</i> with <code>initrd</code> before other images, an example is provided in <a href="/Usage/Configuration/M/Microcode.html#systemd-boot" title="Microcode">Microcode#systemd-boot</a>.</li>
+<li>The root partition can be identified with its <code>LABEL</code>, <code>PARTUUID</code> or <code>UUID</code> (see <a href="/Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>). This is required only to identify the root partition, not the <code><i>esp</i></code>.</li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-tip">
@@ -229,11 +229,11 @@ options root="LABEL=<i>arch_os</i>" rw</pre>
 <ul>
 <li>The available boot entries which have been configured can be listed with the command <code>bootctl list</code>.</li>
 <li>An example entry file is located at <code>/usr/share/systemd/bootctl/arch.conf</code>.</li>
-<li>The <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for scenarios such as <a href="/Usage/Configuration/S/LVM.html" title="LVM">LVM</a>, <a href="/Usage/Configuration/S/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> or <a href="/Usage/Configuration/S/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> can be found on the relevant pages.</li>
+<li>The <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> for scenarios such as <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a>, <a href="/Usage/Configuration/D/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> or <a href="/Usage/Configuration/D/Dm-crypt.html" title="Dm-crypt">dm-crypt</a> can be found on the relevant pages.</li>
 </ul>
 </div>
 <h4><span class="mw-headline" id="EFI_Shells_or_other_EFI_apps">EFI Shells or other EFI apps</span></h4>
-<p>In case you installed <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">EFI shells</a> and <a href="/Usage/Configuration/S/REFInd.html#Tools" title="REFInd">other EFI application</a> into the ESP, you can use the following snippets.
+<p>In case you installed <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" title="Unified Extensible Firmware Interface">EFI shells</a> and <a href="/Usage/Configuration/R/REFInd.html#Tools" title="REFInd">other EFI application</a> into the ESP, you can use the following snippets.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The file path parameter for the <code>efi</code> line is relative to your <i>esp</i> mount point. If you are mounted on <code>/boot</code> and your EFI binaries reside at <code>/boot/EFI/xx.efi</code> and <code>/boot/yy.efi</code>, then you would specify the parameters as <code>efi /EFI/xx.efi</code> and <code>efi /yy.efi</code> respectively.</div>
@@ -248,10 +248,10 @@ efi     /EFI/shellx64_v1.efi
 efi     /EFI/shellx64_v2.efi
 </pre>
 <h3><span class="mw-headline" id="Booting_into_EFI_Firmware_Setup">Booting into EFI Firmware Setup</span></h3>
-<p>Most system firmware configured for EFI booting will add its own <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> entries to boot into UEFI Firmware Setup.
+<p>Most system firmware configured for EFI booting will add its own <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a> entries to boot into UEFI Firmware Setup.
 </p>
 <h3><span class="mw-headline" id="Support_hibernation">Support hibernation</span></h3>
-<p>See <a href="/Usage/Configuration/S/Power_management/Suspend_and_hibernate.html" class="mw-redirect" title="Suspend and hibernate">Suspend and hibernate</a>.
+<p>See <a href="/Usage/Configuration/P/Power_management/Suspend_and_hibernate.html" class="mw-redirect" title="Suspend and hibernate">Suspend and hibernate</a>.
 </p>
 <h3><span class="mw-headline" id="Kernel_parameters_editor_with_password_protection">Kernel parameters editor with password protection</span></h3>
 <p>Alternatively you can install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/systemd-boot-password/">systemd-boot-password</a></span><sup><small>AUR</small></sup> which supports <code>password</code> basic configuration option. Use <code>sbpctl generate</code> to generate a value for this option.
@@ -314,7 +314,7 @@ a specific entry:
 <pre>$ systemctl reboot --firmware-setup
 </pre>
 <h3><span class="mw-headline" id="Preparing_a_unified_kernel_image">Preparing a unified kernel image</span></h3>
-<p>systemd-boot searches in <code><i>esp</i>/EFI/Linux/</code> for <a rel="nofollow"  href="https://systemd.io/BOOT_LOADER_SPECIFICATION#type-2-efi-unified-kernel-images">unified kernel images</a>, which bundle the kernel, the init RAM disk (initrd), the kernel command line, <code>/etc/os-release</code>, and a splash image into one single file. This file can be easily signed for <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a>.
+<p>systemd-boot searches in <code><i>esp</i>/EFI/Linux/</code> for <a rel="nofollow"  href="https://systemd.io/BOOT_LOADER_SPECIFICATION#type-2-efi-unified-kernel-images">unified kernel images</a>, which bundle the kernel, the init RAM disk (initrd), the kernel command line, <code>/etc/os-release</code>, and a splash image into one single file. This file can be easily signed for <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a>.
 </p>
 <p>Put the kernel command line you want to use in a file, and create the bundle file like this:
 </p>
@@ -325,7 +325,7 @@ a specific entry:
     --add-section .linux="vmlinuz-file" --change-section-vma .linux=0x2000000 \
     --add-section .initrd="initrd-file" --change-section-vma .initrd=0x3000000 \
     "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "<i>linux</i>.efi"</pre>
-<p>Optionally <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface/Secure_Boot.html#Signing_EFI_binaries" class="mw-redirect" title="Secure Boot">sign</a> the <code><i>linux</i>.efi</code> file produced above.
+<p>Optionally <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface/Secure_Boot.html#Signing_EFI_binaries" class="mw-redirect" title="Secure Boot">sign</a> the <code><i>linux</i>.efi</code> file produced above.
 </p>
 <p>Copy <code><i>linux</i>.efi</code> into <code><i>esp</i>/EFI/Linux/</code>.
 </p>
@@ -357,11 +357,11 @@ options apm=power-off boot=live live-media-path=/grml/ nomce net.ifnames=0</pre>
 </p>
 <h3><span class="mw-headline" id="systemd-boot_on_BIOS_systems">systemd-boot on BIOS systems</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/S/Clover.html" title="Clover">Clover</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/C/Clover.html" title="Clover">Clover</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> Clover configuration belongs in the Clover article. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Systemd-boot">Talk:Systemd-boot#</a>)</div>
 </div>
-<p>If you need a bootloader for BIOS systems that follows <a rel="nofollow"  href="https://systemd.io/BOOT_LOADER_SPECIFICATION/">The Boot Loader Specification</a>, then systemd-boot can be pressed into service on BIOS systems. The <a href="/Usage/Configuration/S/Clover.html" title="Clover">Clover</a> boot loader supports booting from BIOS systems and provides a simulated EFI environment. This is the configuration file needed make <a href="/Usage/Configuration/S/Clover.html" title="Clover">Clover</a> chain-load systemd-boot.
+<p>If you need a bootloader for BIOS systems that follows <a rel="nofollow"  href="https://systemd.io/BOOT_LOADER_SPECIFICATION/">The Boot Loader Specification</a>, then systemd-boot can be pressed into service on BIOS systems. The <a href="/Usage/Configuration/C/Clover.html" title="Clover">Clover</a> boot loader supports booting from BIOS systems and provides a simulated EFI environment. This is the configuration file needed make <a href="/Usage/Configuration/C/Clover.html" title="Clover">Clover</a> chain-load systemd-boot.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"><i>esp</i>/CLOVER/config.plist</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -423,7 +423,7 @@ options apm=power-off boot=live live-media-path=/grml/ nomce net.ifnames=0</pre>
 </p>
 <pre># efibootmgr -c -d /dev/sdX -p Y -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager"
 </pre>
-<p>where <code>/dev/sdXY</code> is the <a href="/Usage/Configuration/S/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>.
+<p>where <code>/dev/sdXY</code> is the <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI system partition</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The path to the EFI image must use the backslash (<code>\</code>) as the separator</div>
@@ -438,7 +438,7 @@ options apm=power-off boot=live live-media-path=/grml/ nomce net.ifnames=0</pre>
 <pre># bcdedit /default {guid}
 </pre>
 <h3><span class="mw-headline" id="Menu_does_not_appear_after_Windows_upgrade">Menu does not appear after Windows upgrade</span></h3>
-<p>See <a href="/Usage/Configuration/S/Unified_Extensible_Firmware_Interface.html#Windows_changes_boot_order" class="mw-redirect" title="UEFI">UEFI#Windows changes boot order</a>.
+<p>See <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#Windows_changes_boot_order" class="mw-redirect" title="UEFI">UEFI#Windows changes boot order</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -449,11 +449,11 @@ options apm=power-off boot=live live-media-path=/grml/ nomce net.ifnames=0</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Boot_loaders.html" title="Category:Boot loaders">Boot loaders</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -472,9 +472,9 @@ options apm=power-off boot=live live-media-path=/grml/ nomce net.ifnames=0</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

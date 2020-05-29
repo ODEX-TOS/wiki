@@ -2,7 +2,7 @@
     title: AppArmor_(Bosanski)
     description: Migration of AppArmor_(Bosanski) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/A/Security.html" title="Security">Security</a></li>
-<li><a href="/Usage/Configuration/A/SELinux.html" title="SELinux">SELinux</a></li>
-<li><a href="/Usage/Configuration/A/TOMOYO_Linux.html" title="TOMOYO Linux">TOMOYO Linux</a></li>
+<li><a href="/Usage/Configuration/S/Security.html" title="Security">Security</a></li>
+<li><a href="/Usage/Configuration/S/SELinux.html" title="SELinux">SELinux</a></li>
+<li><a href="/Usage/Configuration/T/TOMOYO_Linux.html" title="TOMOYO Linux">TOMOYO Linux</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/AppArmor"  title="wikipedia:AppArmor">AppArmor</a> je <a href="/Usage/Configuration/A/Security.html#Mandatory_access_control" class="mw-redirect" title="Mandatory Access Control">Mandatory Access Control</a> (MAC) sistem, implementiran nad <a href="https://en.wikipedia.org/wiki/Linux_Security_Modules"  title="wikipedia:Linux Security Modules">Linux Security Modules</a> (LSM).
+<p><a href="https://en.wikipedia.org/wiki/AppArmor"  title="wikipedia:AppArmor">AppArmor</a> je <a href="/Usage/Configuration/S/Security.html#Mandatory_access_control" class="mw-redirect" title="Mandatory Access Control">Mandatory Access Control</a> (MAC) sistem, implementiran nad <a href="https://en.wikipedia.org/wiki/Linux_Security_Modules"  title="wikipedia:Linux Security Modules">Linux Security Modules</a> (LSM).
 </p>
 <p>AppArmor, kao i vecina drugih LSMs, potpomaze umjesto da u potpunosti zamjenjuje defaultni  Discretionary Access Control (DAC). Kao takav, nemoguce je dodijeliti procesu vise privilegija nego sto je imao na pocetku.
 </p>
@@ -87,9 +87,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Instalacija">Instalacija</span></h2>
-<p>AppArmor je dostupan u svim <a href="/Usage/Configuration/A/Kernel_(Bosanski).html#Oficijalno_podr%C5%BEani_kerneli" title="Kernel (Bosanski)">oficijalno podržanim kernelima</a>.
+<p>AppArmor je dostupan u svim <a href="/Usage/Configuration/K/Kernel_(Bosanski).html#Oficijalno_podr%C5%BEani_kerneli" title="Kernel (Bosanski)">oficijalno podržanim kernelima</a>.
 </p>
-<p>Da ukljucite AppArmor kao defaultni sigurnosni model prilikom svakog bootanja, podesite sljedece <a href="/Usage/Configuration/A/Kernel_parameters.html" title="Kernel parameters">kernel parametre</a>:
+<p>Da ukljucite AppArmor kao defaultni sigurnosni model prilikom svakog bootanja, podesite sljedece <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parametre</a>:
 </p>
 <pre>apparmor=1 lsm=lockdown,yama,apparmor
 </pre>
@@ -101,10 +101,10 @@
 <code>capability</code> se moze izostaviti iz <code>lsm=</code> jer ce uvijek biti ukljuceno automatski.</li>
 </ul>
 </div>
-<p><a href="/Usage/Configuration/A/Help:Reading_(Bosanski).html#Instalacija_paketa" title="Help:Reading (Bosanski)">Instalirajte</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apparmor">apparmor</a></span> za userspace alate i libraries za kontrolu AppArmora. Da loadate sve AppArmor profile pri startanju, <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Enable">enableajte</a> <code>apparmor.service</code>.
+<p><a href="/Usage/Configuration/H/Help:Reading_(Bosanski).html#Instalacija_paketa" title="Help:Reading (Bosanski)">Instalirajte</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apparmor">apparmor</a></span> za userspace alate i libraries za kontrolu AppArmora. Da loadate sve AppArmor profile pri startanju, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enableajte</a> <code>apparmor.service</code>.
 </p>
 <h4><span class="mw-headline" id="Custom_kernel">Custom kernel</span></h4>
-<p>When <a href="/Usage/Configuration/A/Kernel.html#Compilation" class="mw-redirect" title="Kernels">compiling the kernel</a>, it is required to set at least the following options:
+<p>When <a href="/Usage/Configuration/K/Kernel.html#Compilation" class="mw-redirect" title="Kernels">compiling the kernel</a>, it is required to set at least the following options:
 </p>
 <pre>CONFIG_SECURITY_APPARMOR=y
 CONFIG_AUDIT=y
@@ -142,11 +142,11 @@ CONFIG_DEFAULT_SECURITY_APPARMOR=y
 </p>
 <pre># aa-teardown 
 </pre>
-<p>To prevent from loading AppArmor profiles at the next boot <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Disable">disable</a> <code>apparmor.service</code>. To prevent the kernel from loading AppArmor, remove <code>apparmor=1 security=apparmor</code> from the <a href="/Usage/Configuration/A/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+<p>To prevent from loading AppArmor profiles at the next boot <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Disable">disable</a> <code>apparmor.service</code>. To prevent the kernel from loading AppArmor, remove <code>apparmor=1 security=apparmor</code> from the <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Auditing_and_generating_profiles">Auditing and generating profiles</span></h3>
-<p>To create new profiles the <a href="/Usage/Configuration/A/Audit_framework.html" title="Audit framework">Audit framework</a> should be running. This is because TOS Linux adopted <a href="/Usage/Configuration/A/Systemd.html" title="Systemd">systemd</a> and doesn't do kernel logging to file by default. AppArmor can grab kernel audit logs from the userspace auditd daemon, allowing you to build a profile.
+<p>To create new profiles the <a href="/Usage/Configuration/A/Audit_framework.html" title="Audit framework">Audit framework</a> should be running. This is because TOS Linux adopted <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> and doesn't do kernel logging to file by default. AppArmor can grab kernel audit logs from the userspace auditd daemon, allowing you to build a profile.
 </p>
 <p>New AppArmor profiles can be created by utilizing <span class="plainlinks archwiki-template-man" title="$ man 8 aa-genprof"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/aa-genprof.8">aa-genprof(8)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 8 aa-logprof"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/aa-logprof.8">aa-logprof(8)</a></span> tools available in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=apparmor">apparmor</a></span> package. Detailed guide about using those tools is available at <a rel="nofollow"  href="https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools">AppArmor wiki - Profiling with tools</a>.
 </p>
@@ -193,7 +193,7 @@ profile test /usr/lib/test/test_binary {
 <h3><span class="mw-headline" id="Get_desktop_notification_on_DENIED_actions">Get desktop notification on DENIED actions</span></h3>
 <p>The notification daemon displays desktop notifications whenever AppArmor denies a program access. To automatically start <code>aa-notify</code> daemon on login follow below steps:
 </p>
-<p>Install and enable <a href="/Usage/Configuration/A/Audit_framework.html" title="Audit framework">Audit framework</a>. Allow your desktop user to read audit logs in <code>/var/log/audit</code> by adding it to <code>audit</code> <a href="/Usage/Configuration/A/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
+<p>Install and enable <a href="/Usage/Configuration/A/Audit_framework.html" title="Audit framework">Audit framework</a>. Allow your desktop user to read audit logs in <code>/var/log/audit</code> by adding it to <code>audit</code> <a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a>:
 </p>
 <pre># groupadd -r audit
 # gpasswd -a &lt;username&gt; audit
@@ -204,7 +204,7 @@ profile test /usr/lib/test/test_binary {
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">log_group = audit</pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> You may use other already existing system groups like <code>wheel</code> or <code>adm</code>.</div>
-<p>Create <a href="/Usage/Configuration/A/Desktop_entries.html" class="mw-redirect" title="Desktop launcher">desktop launcher</a> with the below content:
+<p>Create <a href="/Usage/Configuration/D/Desktop_entries.html" class="mw-redirect" title="Desktop launcher">desktop launcher</a> with the below content:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/autostart/apparmor-notify.desktop</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Desktop Entry]
@@ -247,7 +247,7 @@ write-cache</pre>
 <h3>
 <span id="Failing_to_start_Samba_SMB.2FCIFS_server"></span><span class="mw-headline" id="Failing_to_start_Samba_SMB/CIFS_server">Failing to start Samba SMB/CIFS server</span>
 </h3>
-<p>See <a href="/Usage/Configuration/A/Samba.html#Permission_issues_on_AppArmor" title="Samba">Samba#Permission issues on AppArmor</a>.
+<p>See <a href="/Usage/Configuration/S/Samba.html#Permission_issues_on_AppArmor" title="Samba">Samba#Permission issues on AppArmor</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -271,8 +271,8 @@ write-cache</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/A/Category:Access_control_(Bosanski).html" title="Category:Access control (Bosanski)">Access control (Bosanski)</a></li>
-<li><a href="/Usage/Configuration/A/Category:Kernel_(Bosanski).html" title="Category:Kernel (Bosanski)">Kernel (Bosanski)</a></li>
+<li><a href="/Usage/Configuration/C/Category:Access_control_(Bosanski).html" title="Category:Access control (Bosanski)">Access control (Bosanski)</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel_(Bosanski).html" title="Category:Kernel (Bosanski)">Kernel (Bosanski)</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -290,9 +290,9 @@ write-cache</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

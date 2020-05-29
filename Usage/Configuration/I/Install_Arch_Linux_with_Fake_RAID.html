@@ -2,7 +2,7 @@
     title: Install_TOS_Linux_with_Fake_RAID
     description: Migration of Install_TOS_Linux_with_Fake_RAID from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/I/LVM_on_software_RAID.html" class="mw-redirect" title="Installing with Software RAID or LVM">Installing with Software RAID or LVM</a></li>
-<li><a href="/Usage/Configuration/I/Convert_a_single_drive_system_to_RAID.html" title="Convert a single drive system to RAID">Convert a single drive system to RAID</a></li>
+<li><a href="/Usage/Configuration/L/LVM_on_software_RAID.html" class="mw-redirect" title="Installing with Software RAID or LVM">Installing with Software RAID or LVM</a></li>
+<li><a href="/Usage/Configuration/C/Convert_a_single_drive_system_to_RAID.html" title="Convert a single drive system to RAID">Convert a single drive system to RAID</a></li>
 <li><a href="/Usage/Configuration/I/Installation_guide.html" title="Installation guide">Installation guide</a></li>
 </ul>
 </div>
@@ -87,10 +87,10 @@
 <dl><dd>These controllers are described by their manufacturers as RAID controllers, and it is rarely made clear to purchasers that the burden of RAID processing is borne by the host computer's central processing unit -- not the RAID controller itself -- thus introducing the aforementioned CPU overhead which hardware controllers do not suffer from. Firmware controllers often can only use certain types of hard drives in their RAID arrays (e.g. SATA for Intel Matrix RAID, as there is neither SCSI nor PATA support in modern Intel ICH southbridges; however, motherboard makers implement RAID controllers outside of the southbridge on some motherboards). Before their introduction, a "RAID controller" implied that the controller did the processing, and the new type has become known in technically knowledgeable circles as "fake RAID" even though the RAID itself is implemented correctly. Adaptec calls them "host RAID".</dd></dl>
 <p>See also <a rel="nofollow"  href="https://help.ubuntu.com/community/FakeRaidHowto">FakeRaidHowto @ Community Ubuntu Documentation</a> for more information.
 </p>
-<p>Despite the terminology, "fake RAID" via <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dmraid">dmraid</a></span> is a robust software RAID implementation that offers a solid system to mirror or stripe data across multiple disks with negligible overhead for any modern system. <i>dmraid</i> is comparable to <i>mdadm</i> (pure Linux software RAID) with the added benefit of being able to completely rebuild a drive after a failure <b>before</b> the system is ever booted. However, be aware that not all BIOS RAID implementations support drive rebuilding. Instead they rely on non-linux-tossoftware to perform the rebuild. If your system cannot rebuild a drive in the BIOS RAID setup utility, you are strongly encouraged to use mdraid (pure Linux Software Raid via mdadm - see <a href="/Usage/Configuration/I/RAID.html" title="RAID">RAID</a>) instead of dmraid or you will find yourself unable to rebuild an array in case of a drive failure - or unable to retrieve information from your array in case of a motherboard failure without a lot of additional work.
+<p>Despite the terminology, "fake RAID" via <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dmraid">dmraid</a></span> is a robust software RAID implementation that offers a solid system to mirror or stripe data across multiple disks with negligible overhead for any modern system. <i>dmraid</i> is comparable to <i>mdadm</i> (pure Linux software RAID) with the added benefit of being able to completely rebuild a drive after a failure <b>before</b> the system is ever booted. However, be aware that not all BIOS RAID implementations support drive rebuilding. Instead they rely on non-linux-tossoftware to perform the rebuild. If your system cannot rebuild a drive in the BIOS RAID setup utility, you are strongly encouraged to use mdraid (pure Linux Software Raid via mdadm - see <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a>) instead of dmraid or you will find yourself unable to rebuild an array in case of a drive failure - or unable to retrieve information from your array in case of a motherboard failure without a lot of additional work.
 </p>
 <h2><span class="mw-headline" id="History">History</span></h2>
-<p>In Linux 2.4, the ATARAID kernel framework provided support for fake RAID (software RAID assisted by the BIOS). For Linux 2.6 the device-mapper framework can, among other nice things like <a href="/Usage/Configuration/I/LVM.html" title="LVM">LVM</a> and EVMS, do the same kind of work as ATARAID in 2.4. Whilst the new code handling the RAID I/O still runs in the kernel, device-mapper is generally configured by a userspace application. It was clear that when using the device-mapper for RAID, detection would go to userspace.
+<p>In Linux 2.4, the ATARAID kernel framework provided support for fake RAID (software RAID assisted by the BIOS). For Linux 2.6 the device-mapper framework can, among other nice things like <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> and EVMS, do the same kind of work as ATARAID in 2.4. Whilst the new code handling the RAID I/O still runs in the kernel, device-mapper is generally configured by a userspace application. It was clear that when using the device-mapper for RAID, detection would go to userspace.
 </p>
 <p>Heinz Maulshagen created the dmraid tool to detect RAID sets and create mappings for them. The controllers supported are (mostly cheap) fake RAID IDE/SATA controllers which contain BIOS functions. Common examples include: Promise FastTrak controllers; HighPoint HPT37x; Intel Matrix RAID; Silicon Image Medley; and NVIDIA nForce.
 </p>
@@ -128,9 +128,9 @@
 </p>
 <h2><span class="mw-headline" id="MBR_Install_Example_Using_mdadm_on_and_Intel_FakeRAID">MBR Install Example Using mdadm on and Intel FakeRAID</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/I/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> see <a href="/Usage/Configuration/I/Help:Style.html" title="Help:Style">Help:Style</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Install_TOS_Linux_with_Fake_RAID">Talk:Install TOS Linux with Fake RAID#</a>)</div>
+<b>Reason:</b> see <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Install_TOS_Linux_with_Fake_RAID">Talk:Install TOS Linux with Fake RAID#</a>)</div>
 </div>
 <p>This is here because I spent hours making this work because there is so much information out there on different ways to do it, plus outdated information.  It may need integrated into this page better, with more explanation and TOS Linux WIKI syntax but I am wrapping this up ATM.  This is a basic command line dump that shows a successful RAID setup using the MBR partition structure.
 </p>
@@ -247,7 +247,7 @@ reboot
 /dev/mapper/sil_aiageicechah   &lt;- A RAID set on a Silicon Image SATA RAID controller
 /dev/mapper/sil_aiageicechah1  &lt;- First partition on this RAID Set
 </pre>
-<p>If there is only one file (<code>/dev/mapper/control</code>), check if your controller chipset module is loaded with <code>lsmod</code>. If it is, then <i>dmraid</i> does not support this controller or there are no RAID sets on the system (check RAID BIOS setup again). If correct, then you may be forced to use <a href="/Usage/Configuration/I/LVM_on_software_RAID.html" class="mw-redirect" title="Installing with Software RAID or LVM">software RAID</a> (this means no dual-booted RAID system on this controller).
+<p>If there is only one file (<code>/dev/mapper/control</code>), check if your controller chipset module is loaded with <code>lsmod</code>. If it is, then <i>dmraid</i> does not support this controller or there are no RAID sets on the system (check RAID BIOS setup again). If correct, then you may be forced to use <a href="/Usage/Configuration/L/LVM_on_software_RAID.html" class="mw-redirect" title="Installing with Software RAID or LVM">software RAID</a> (this means no dual-booted RAID system on this controller).
 </p>
 <p>If your chipset module is NOT loaded, load it now. For example:
 </p>
@@ -314,7 +314,7 @@ Leave programs running and switch to when needed.</div>
 </li></ul>
 <h2><span class="mw-headline" id="Install_the_bootloader">Install the bootloader</span></h2>
 <h3><span class="mw-headline" id="GRUB2">GRUB2</span></h3>
-<p>See <a href="/Usage/Configuration/I/GRUB.html" class="mw-redirect" title="GRUB2">GRUB2</a> for details on configuring GRUB2. <i>grub-bios</i> works out of the box with dm-raid partitions:
+<p>See <a href="/Usage/Configuration/G/GRUB.html" class="mw-redirect" title="GRUB2">GRUB2</a> for details on configuring GRUB2. <i>grub-bios</i> works out of the box with dm-raid partitions:
 </p>
 <pre> $ grub-install --target=i386-pc --recheck --debug /dev/mapper/sil_aiageicechah
 </pre>
@@ -333,7 +333,7 @@ Leave programs running and switch to when needed.</div>
 <p>Alternatively, if using a mirrored (RAID 1) array, users may temporarily bypass <i>dmraid</i> during the boot process and boot from a single drive:
 </p>
 <ol>
-<li>Edit the <b>kernel</b> line from the <a href="/Usage/Configuration/I/GRUB.html" title="GRUB">GRUB</a> menu
+<li>Edit the <b>kernel</b> line from the <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> menu
 <ol>
 <li>Remove references to dmraid devices (e.g. change <code>/dev/mapper/raidSet1</code> to <code>/dev/sda1</code>)</li>
 <li>Append <code>disablehooks=dmraid</code> to prevent a kernel panic when <i>dmraid</i> discovers the degraded array</li>
@@ -385,13 +385,13 @@ Error: Unable to determine major/minor number of root device '/dev/mapper/nvidia
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/I/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
-<li><a href="/Usage/Configuration/I/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li>
+<li><a href="/Usage/Configuration/C/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="/Usage/Configuration/C/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="/Usage/Configuration/I/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
 </ul>
 </div>
 </div>
@@ -410,9 +410,9 @@ Error: Unable to determine major/minor number of root device '/dev/mapper/nvidia
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

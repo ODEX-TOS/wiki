@@ -2,7 +2,7 @@
     title: Simple_stateful_firewall
     description: Migration of Simple_stateful_firewall from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Category:Firewalls.html" class="mw-redirect" title="Firewalls">Firewalls</a></li>
-<li><a href="/Usage/Configuration/S/Internet_sharing.html" title="Internet sharing">Internet sharing</a></li>
-<li><a href="/Usage/Configuration/S/Nftables.html#Simple_stateful_firewall" title="Nftables">Nftables#Simple stateful firewall</a></li>
-<li><a href="/Usage/Configuration/S/Router.html" title="Router">Router</a></li>
-<li><a href="/Usage/Configuration/S/Uncomplicated_Firewall.html" title="Uncomplicated Firewall">Uncomplicated Firewall</a></li>
+<li><a href="/Usage/Configuration/C/Category:Firewalls.html" class="mw-redirect" title="Firewalls">Firewalls</a></li>
+<li><a href="/Usage/Configuration/I/Internet_sharing.html" title="Internet sharing">Internet sharing</a></li>
+<li><a href="/Usage/Configuration/N/Nftables.html#Simple_stateful_firewall" title="Nftables">Nftables#Simple stateful firewall</a></li>
+<li><a href="/Usage/Configuration/R/Router.html" title="Router">Router</a></li>
+<li><a href="/Usage/Configuration/U/Uncomplicated_Firewall.html" title="Uncomplicated Firewall">Uncomplicated Firewall</a></li>
 </ul>
 </div>
-<p>This page explains how to set up a <a href="https://en.wikipedia.org/wiki/Stateful_firewall"  title="wikipedia:Stateful firewall">stateful</a> firewall using <a href="/Usage/Configuration/S/Iptables.html" title="Iptables">iptables</a>. It also explains what the rules mean and why they are needed. For simplicity, it is split into two major sections. The first section deals with a firewall for a single machine, the second sets up a NAT gateway in addition to the firewall from the first section.
+<p>This page explains how to set up a <a href="https://en.wikipedia.org/wiki/Stateful_firewall"  title="wikipedia:Stateful firewall">stateful</a> firewall using <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a>. It also explains what the rules mean and why they are needed. For simplicity, it is split into two major sections. The first section deals with a firewall for a single machine, the second sets up a NAT gateway in addition to the firewall from the first section.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  The rules below are given in the order they are executed and should only be followed while logged in locally. If you are logged into a remote machine, you may be locked out of the machine while setting up the rules. To get around this problem in a remote setup, the <a href="#Resulting_iptables.rules_file">example config file</a> can be used.</div>
@@ -143,7 +143,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 </p>
 <pre># iptables-restore &lt; /etc/iptables/empty.rules
 </pre>
-<p>Otherwise, see <a href="/Usage/Configuration/S/Iptables.html#Resetting_rules" title="Iptables">Iptables#Resetting rules</a>.
+<p>Otherwise, see <a href="/Usage/Configuration/I/Iptables.html#Resetting_rules" title="Iptables">Iptables#Resetting rules</a>.
 </p>
 <h2><span class="mw-headline" id="Firewall_for_a_single_machine">Firewall for a single machine</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -269,7 +269,7 @@ COMMIT
 </p>
 <pre># iptables -A TCP -p tcp --dport 22 -j ACCEPT
 </pre>
-<p>To accept incoming TCP/UDP requests for a <a href="/Usage/Configuration/S/Category:Domain_Name_System.html" class="mw-redirect" title="DNS server">DNS server</a> (port 53):
+<p>To accept incoming TCP/UDP requests for a <a href="/Usage/Configuration/C/Category:Domain_Name_System.html" class="mw-redirect" title="DNS server">DNS server</a> (port 53):
 </p>
 <pre># iptables -A TCP -p tcp --dport 53 -j ACCEPT
 # iptables -A UDP -p udp --dport 53 -j ACCEPT
@@ -277,7 +277,7 @@ COMMIT
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 8 iptables"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/iptables.8">iptables(8)</a></span> for more advanced rules, like matching multiple ports.
 </p>
 <h4><span class="mw-headline" id="Port_knocking">Port knocking</span></h4>
-<p>Port knocking is a method to externally open ports that, by default, the firewall keeps closed. It works by requiring connection attempts to a series of predefined closed ports. When the correct sequence of port "knocks" (connection attempts) is received, the firewall opens certain port(s) to allow a connection. See <a href="/Usage/Configuration/S/Port_knocking.html" title="Port knocking">Port knocking</a> for more information.
+<p>Port knocking is a method to externally open ports that, by default, the firewall keeps closed. It works by requiring connection attempts to a series of predefined closed ports. When the correct sequence of port "knocks" (connection attempts) is received, the firewall opens certain port(s) to allow a connection. See <a href="/Usage/Configuration/P/Port_knocking.html" title="Port knocking">Port knocking</a> for more information.
 </p>
 <h3><span class="mw-headline" id="Protection_against_spoofing_attacks">Protection against spoofing attacks</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -368,7 +368,7 @@ COMMIT
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  Using an IP blacklist will stop trivial attacks but it relies on an additional daemon and successful logging (the partition containing /var can become full, especially if an attacker is pounding on the server). Additionally, with the knowledge of your IP address, the attacker can send packets with a spoofed source header and get you locked out of the server. <a href="/Usage/Configuration/S/SSH_keys.html" title="SSH keys">SSH keys</a> provide an elegant solution to the problem of brute forcing without these problems.</div>
-<p>Two packages that ban IPs after too many password failures are <a href="/Usage/Configuration/S/Fail2ban.html" title="Fail2ban">Fail2ban</a> or, for <code>sshd</code> in particular, <a href="/Usage/Configuration/S/Sshguard.html" title="Sshguard">Sshguard</a>. These two applications update iptables rules to reject temporarily or permanently future connections from attackers.
+<p>Two packages that ban IPs after too many password failures are <a href="/Usage/Configuration/F/Fail2ban.html" title="Fail2ban">Fail2ban</a> or, for <code>sshd</code> in particular, <a href="/Usage/Configuration/S/Sshguard.html" title="Sshguard">Sshguard</a>. These two applications update iptables rules to reject temporarily or permanently future connections from attackers.
 </p>
 <p>The following rules give an example configuration to mitigate SSH bruteforce attacks using <code>iptables</code>.
 </p>
@@ -396,7 +396,7 @@ COMMIT
 <strong>Tip:</strong> For self-testing the rules after setup, the actual blacklisting can slow the test, making it difficult to fine-tune parameters. One can watch the incoming attempts via <code>cat /proc/net/xt_recent/sshbf</code>. To unblock the own IP during testing, root is needed <code>echo / &gt; /proc/net/xt_recent/sshbf</code>
 </div>
 <h3><span class="mw-headline" id="IPv6">IPv6</span></h3>
-<p>If you do not use IPv6, you can consider <a href="/Usage/Configuration/S/IPv6.html#Disable_IPv6" class="mw-redirect" title="Disabling IPv6">disabling it</a>, otherwise follow these steps to enable the IPv6 firewall rules.
+<p>If you do not use IPv6, you can consider <a href="/Usage/Configuration/I/IPv6.html#Disable_IPv6" class="mw-redirect" title="Disabling IPv6">disabling it</a>, otherwise follow these steps to enable the IPv6 firewall rules.
 </p>
 <p>Copy the IPv4 rules used in this example as a base, and change any IPs from IPv4 format to IPv6 format:
 </p>
@@ -514,9 +514,9 @@ COMMIT
 <pre># iptables -A fw-interfaces -i eth1 -j ACCEPT
 # iptables -t nat -A POSTROUTING -s 10.3.0.0/16 -o ppp0 -j MASQUERADE
 </pre>
-<p>The last step is to <a href="/Usage/Configuration/S/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">enable packet forwarding</a> (if it is not already enabled).
+<p>The last step is to <a href="/Usage/Configuration/I/Internet_sharing.html#Enable_packet_forwarding" title="Internet sharing">enable packet forwarding</a> (if it is not already enabled).
 </p>
-<p>Machines from these subnets can now use your new NAT machine as their gateway. Note that you may want to set up a DNS and <a href="/Usage/Configuration/S/Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> server like <a href="/Usage/Configuration/S/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> or a combination of <a href="/Usage/Configuration/S/BIND.html" title="BIND">BIND</a> and <a href="/Usage/Configuration/S/Dhcpd.html" title="Dhcpd">dhcpd</a> to simplify network settings DNS resolution on the client machines. This is not the topic of this guide.
+<p>Machines from these subnets can now use your new NAT machine as their gateway. Note that you may want to set up a DNS and <a href="/Usage/Configuration/N/Network_configuration.html#DHCP" class="mw-redirect" title="DHCP">DHCP</a> server like <a href="/Usage/Configuration/D/Dnsmasq.html" title="Dnsmasq">dnsmasq</a> or a combination of <a href="/Usage/Configuration/B/BIND.html" title="BIND">BIND</a> and <a href="/Usage/Configuration/D/Dhcpd.html" title="Dhcpd">dhcpd</a> to simplify network settings DNS resolution on the client machines. This is not the topic of this guide.
 </p>
 <h4><span class="mw-headline" id="Setting_up_the_PREROUTING_chain">Setting up the PREROUTING chain</span></h4>
 <p>Sometimes, we want to change the address of an incoming packet from the gateway to a LAN machine. To do this, we use the <b>fw-open</b> chain defined above, as well as the <b>PREROUTING</b> chain in the <b>nat</b> table in the following two simple examples. 
@@ -553,11 +553,11 @@ COMMIT
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -576,9 +576,9 @@ COMMIT
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: CPU_frequency_scaling
     description: Migration of CPU_frequency_scaling from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,14 +27,14 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/C/Power_management.html" class="mw-redirect" title="Power saving">Power saving</a></li>
-<li><a href="/Usage/Configuration/C/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a></li>
-<li><a href="/Usage/Configuration/C/PHC.html" title="PHC">PHC</a></li>
+<li><a href="/Usage/Configuration/P/Power_management.html" class="mw-redirect" title="Power saving">Power saving</a></li>
+<li><a href="/Usage/Configuration/L/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a></li>
+<li><a href="/Usage/Configuration/P/PHC.html" title="PHC">PHC</a></li>
 </ul>
 </div>
 <p>CPU frequency scaling enables the operating system to scale the CPU frequency up or down in order to save power. CPU frequencies can be scaled automatically depending on the system load, in response to ACPI events, or manually by userspace programs.
 </p>
-<p>CPU frequency scaling is implemented in the Linux kernel, the infrastructure is called <i>cpufreq</i>. Since kernel 3.4 the necessary modules are loaded automatically and the recommended <a href="#Scaling_governors">ondemand governor</a> is enabled by default. However, userspace tools like <a href="#cpupower">cpupower</a>, <a href="/Usage/Configuration/C/Acpid.html" title="Acpid">acpid</a>, <a href="/Usage/Configuration/C/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a>, or GUI tools provided for your desktop environment, may still be used for advanced configuration.
+<p>CPU frequency scaling is implemented in the Linux kernel, the infrastructure is called <i>cpufreq</i>. Since kernel 3.4 the necessary modules are loaded automatically and the recommended <a href="#Scaling_governors">ondemand governor</a> is enabled by default. However, userspace tools like <a href="#cpupower">cpupower</a>, <a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a>, <a href="/Usage/Configuration/L/Laptop_Mode_Tools.html" title="Laptop Mode Tools">Laptop Mode Tools</a>, or GUI tools provided for your desktop environment, may still be used for advanced configuration.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -95,18 +95,18 @@
 </p>
 <p>By default, it monitors CPU temperature using available CPU digital temperature sensors and maintains CPU temperature under control, before HW takes aggressive correction action. If there is a skin temperature sensor in thermal sysfs, then it tries to keep skin temperature under 45C.
 </p>
-<p>The associated systemd unit is <code>thermald.service</code>, which should be <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">started</a> and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a>.
+<p>The associated systemd unit is <code>thermald.service</code>, which should be <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">started</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enabled</a>.
 </p>
 <h3><span class="mw-headline" id="i7z">i7z</span></h3>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=i7z">i7z</a></span> is an i7 (and now i3, i5) CPU reporting tool for Linux. It can be launched from a Terminal with the command <code>i7z</code> or as GUI with <code>i7z-gui</code>.
 </p>
 <h3><span class="mw-headline" id="cpupower">cpupower</span></h3>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cpupower">cpupower</a></span> is a set of userspace utilities designed to assist with CPU frequency scaling. The package is not required to use scaling, but is highly recommended because it provides useful command-line utilities and a <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a> service to change the governor at boot.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cpupower">cpupower</a></span> is a set of userspace utilities designed to assist with CPU frequency scaling. The package is not required to use scaling, but is highly recommended because it provides useful command-line utilities and a <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service to change the governor at boot.
 </p>
-<p>The configuration file for <i>cpupower</i> is located in <code>/etc/default/cpupower</code>. This configuration file is read by a bash script in <code>/usr/lib/systemd/scripts/cpupower</code> which is activated by <i>systemd</i> with <code>cpupower.service</code>. You may want to <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>cpupower.service</code> to start at boot.
+<p>The configuration file for <i>cpupower</i> is located in <code>/etc/default/cpupower</code>. This configuration file is read by a bash script in <code>/usr/lib/systemd/scripts/cpupower</code> which is activated by <i>systemd</i> with <code>cpupower.service</code>. You may want to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>cpupower.service</code> to start at boot.
 </p>
 <h3><span class="mw-headline" id="cpupower-gui">cpupower-gui</span></h3>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cpupower-gui/">cpupower-gui</a></span><sup><small>AUR</small></sup> is a graphical utility designed to assist with CPU frequency scaling. The GUI is based on <a href="/Usage/Configuration/C/GTK.html" title="GTK">GTK</a> and is meant to provide the same options as <i>cpupower</i>. <i>cpupower-gui</i> can change the maximum/minimum CPU frequency and governor for each core. The application handles privilege granting through <a href="/Usage/Configuration/C/Polkit.html" title="Polkit">polkit</a> and allows any logged-in user in the <code>wheel</code> <a href="/Usage/Configuration/C/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to change the frequency and governor.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cpupower-gui/">cpupower-gui</a></span><sup><small>AUR</small></sup> is a graphical utility designed to assist with CPU frequency scaling. The GUI is based on <a href="/Usage/Configuration/G/GTK.html" title="GTK">GTK</a> and is meant to provide the same options as <i>cpupower</i>. <i>cpupower-gui</i> can change the maximum/minimum CPU frequency and governor for each core. The application handles privilege granting through <a href="/Usage/Configuration/P/Polkit.html" title="Polkit">polkit</a> and allows any logged-in user in the <code>wheel</code> <a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to change the frequency and governor.
 </p>
 <h2><span class="mw-headline" id="CPU_frequency_driver">CPU frequency driver</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -163,7 +163,7 @@
 </p>
 <pre>$ ls /usr/lib/modules/$(uname -r)/kernel/drivers/cpufreq/
 </pre>
-<p>Load the appropriate module (see <a href="/Usage/Configuration/C/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a> for details). Once the appropriate cpufreq driver is loaded, detailed information about the CPU(s) can be displayed by running
+<p>Load the appropriate module (see <a href="/Usage/Configuration/K/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a> for details). Once the appropriate cpufreq driver is loaded, detailed information about the CPU(s) can be displayed by running
 </p>
 <pre>$ cpupower frequency-info
 </pre>
@@ -264,7 +264,7 @@
 <strong>Note:</strong> 
 <ul>
 <li>To adjust for only a single CPU core, append <code>-c <i>core_number</i></code> to the command above.</li>
-<li>Activating a governor requires that specific <a href="/Usage/Configuration/C/Kernel_module.html" title="Kernel module">kernel module</a> (named <code>cpufreq_<i>governor</i></code>) is loaded. As of kernel 3.4, these modules are loaded automatically.</li>
+<li>Activating a governor requires that specific <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> (named <code>cpufreq_<i>governor</i></code>) is loaded. As of kernel 3.4, these modules are loaded automatically.</li>
 </ul>
 </div>
 <p>Alternatively, you can activate a governor on every available CPU manually:
@@ -302,24 +302,24 @@
 <pre># echo -n <i>value</i> &gt; /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
 </pre>
 <h4><span class="mw-headline" id="Make_changes_permanent">Make changes permanent</span></h4>
-<p>To have the desired scaling enabled at boot, <a href="/Usage/Configuration/C/Kernel_module.html#Using_files_in_/etc/modprobe.d/" class="mw-redirect" title="Kernel modules">kernel module options</a> and <a href="/Usage/Configuration/C/Systemd.html#Temporary_files" title="Systemd">systemd#Temporary files</a> are regular methods. 
+<p>To have the desired scaling enabled at boot, <a href="/Usage/Configuration/K/Kernel_module.html#Using_files_in_/etc/modprobe.d/" class="mw-redirect" title="Kernel modules">kernel module options</a> and <a href="/Usage/Configuration/S/Systemd.html#Temporary_files" title="Systemd">systemd#Temporary files</a> are regular methods. 
 </p>
 <p>For example, changing the up_threshold to 10:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/ondemand.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w- /sys/devices/system/cpu/cpufreq/ondemand/up_threshold - - - - 10</pre>
-<p>However, in some cases race conditions, as noted in <a href="/Usage/Configuration/C/Systemd.html#Temporary_files" title="Systemd">systemd#Temporary files</a> may exist and one can use <a href="/Usage/Configuration/C/Udev.html" title="Udev">udev</a> to avoid them.
+<p>However, in some cases race conditions, as noted in <a href="/Usage/Configuration/S/Systemd.html#Temporary_files" title="Systemd">systemd#Temporary files</a> may exist and one can use <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> to avoid them.
 </p>
 <p>For example, to set the scaling governor of the CPU core <code>0</code> to performance while the scaling driver is <code>acpi_cpufreq</code>, create the following udev rule:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/50-scaling-governor.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="module", ACTION=="add", KERNEL=="acpi_cpufreq", RUN+="/bin/sh -c 'echo performance &gt; /sys/devices/system/cpu/cpufreq/policy0/scaling_governor'"</pre>
-<p>To have the rule already applied in the <i>initramfs</i>, follow the example at <a href="/Usage/Configuration/C/Udev.html#Debug_output" title="Udev">udev#Debug output</a>.
+<p>To have the rule already applied in the <i>initramfs</i>, follow the example at <a href="/Usage/Configuration/U/Udev.html#Debug_output" title="Udev">udev#Debug output</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> Alternatively, configure the <a href="#cpupower">cpupower</a> utility and enable its systemd service.</div>
 <h2><span class="mw-headline" id="Interaction_with_ACPI_events">Interaction with ACPI events</span></h2>
-<p>Users may configure scaling governors to switch automatically based on different ACPI events such as connecting the AC adapter or closing a laptop lid. A quick example is given below, however it may be worth reading full article on <a href="/Usage/Configuration/C/Acpid.html" title="Acpid">acpid</a>.
+<p>Users may configure scaling governors to switch automatically based on different ACPI events such as connecting the AC adapter or closing a laptop lid. A quick example is given below, however it may be worth reading full article on <a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a>.
 </p>
 <p>Events are defined in <code>/etc/acpi/handler.sh</code>. If the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> package is installed, the file should already exist and be executable. For example, to change the scaling governor from <code>performance</code> to <code>conservative</code> when the AC adapter is disconnected and change it back if reconnected:
 </p>
@@ -356,7 +356,7 @@ ac_adapter)
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> systemd introduced logind which handles consolekit and policykit actions. The following code below does not work. With logind, simply edit in the file <code>/usr/share/polkit-1/actions/org.gnome.cpufreqselector.policy</code> the &lt;defaults&gt; elements according to your needs and the polkit manual <a rel="nofollow"  href="http://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html">[4]</a>.</div>
-<p><a href="/Usage/Configuration/C/GNOME.html" title="GNOME">GNOME</a> has a nice applet to change the governor on the fly. To use it without the need to enter the root password, simply create following file:
+<p><a href="/Usage/Configuration/G/GNOME.html" title="GNOME">GNOME</a> has a nice applet to change the governor on the fly. To use it without the need to enter the root password, simply create following file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/lib/polkit-1/localauthority/50-local.d/org.gnome.cpufreqselector.pkla</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[org.gnome.cpufreqselector]
@@ -367,7 +367,7 @@ ResultInactive=no
 ResultActive=yes</pre>
 <p>Where the word <i>user</i> is replaced with the username of interest.
 </p>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/desktop-privileges/">desktop-privileges</a></span><sup><small>AUR</small></sup> package in the <a href="/Usage/Configuration/C/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> contains a similar <code>.pkla</code> file for authorizing all users of the <code>power</code> <a href="/Usage/Configuration/C/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to change the governor.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/desktop-privileges/">desktop-privileges</a></span><sup><small>AUR</small></sup> package in the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> contains a similar <code>.pkla</code> file for authorizing all users of the <code>power</code> <a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> to change the governor.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <div class="noprint archwiki-template-message">
@@ -375,10 +375,10 @@ ResultActive=yes</pre>
 <div>
 <b>Reason:</b> Unverifiable and vague statements, lots of "some"s and "maybe"s. Troubleshooting items need to address concrete problems. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:CPU_frequency_scaling">Talk:CPU frequency scaling#</a>)</div>
 </div>
-<ul><li>Some applications, like <a href="/Usage/Configuration/C/Ntop.html" title="Ntop">ntop</a>, do not respond well to automatic frequency scaling. In the case of ntop it can result in segmentation faults and lots of lost information as even the <code>on-demand</code> governor cannot change the frequency quickly enough when a lot of packets suddenly arrive at the monitored network interface that cannot be handled by the current processor speed.</li></ul>
-<ul><li>Some CPU's may suffer from poor performance with the default settings of the <code>on-demand</code> governor (e.g. flash videos not playing smoothly or stuttering window animations). Instead of completely disabling frequency scaling to resolve these issues, the aggressiveness of frequency scaling can be increased by lowering the <i>up_threshold</i> <a href="/Usage/Configuration/C/Sysctl.html" title="Sysctl">sysctl</a> variable for each CPU. See <a href="#Switching_threshold">how to change the on-demand governor's threshold</a>.</li></ul>
+<ul><li>Some applications, like <a href="/Usage/Configuration/N/Ntop.html" title="Ntop">ntop</a>, do not respond well to automatic frequency scaling. In the case of ntop it can result in segmentation faults and lots of lost information as even the <code>on-demand</code> governor cannot change the frequency quickly enough when a lot of packets suddenly arrive at the monitored network interface that cannot be handled by the current processor speed.</li></ul>
+<ul><li>Some CPU's may suffer from poor performance with the default settings of the <code>on-demand</code> governor (e.g. flash videos not playing smoothly or stuttering window animations). Instead of completely disabling frequency scaling to resolve these issues, the aggressiveness of frequency scaling can be increased by lowering the <i>up_threshold</i> <a href="/Usage/Configuration/S/Sysctl.html" title="Sysctl">sysctl</a> variable for each CPU. See <a href="#Switching_threshold">how to change the on-demand governor's threshold</a>.</li></ul>
 <ul><li>Sometimes the on-demand governor may not throttle to the maximum frequency but one step below. This can be solved by setting max_freq value slightly higher than the real maximum. For example, if frequency range of the CPU is from 2.00 GHz to 3.00 GHz, setting max_freq to 3.01 GHz can be a good idea.</li></ul>
-<ul><li>Some combinations of <a href="/Usage/Configuration/C/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> drivers and sound chips may cause audio skipping as the governor changes between frequencies, switching back to a non-changing governor seems to stop the audio skipping.</li></ul>
+<ul><li>Some combinations of <a href="/Usage/Configuration/A/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> drivers and sound chips may cause audio skipping as the governor changes between frequencies, switching back to a non-changing governor seems to stop the audio skipping.</li></ul>
 <h3><span class="mw-headline" id="BIOS_frequency_limitation">BIOS frequency limitation</span></h3>
 <p>Some CPU/BIOS configurations may have difficulties to scale to the maximum frequency or scale to higher frequencies at all. This is most likely caused by BIOS events telling the OS to limit the frequency resulting in <code>/sys/devices/system/cpu/cpu0/cpufreq/bios_limit</code> set to a lower value.
 </p>
@@ -396,7 +396,7 @@ ResultActive=yes</pre>
 </p>
 <p>For trying this temporarily change the value in <code>/sys/module/processor/parameters/ignore_ppc</code> from <code>0</code> to <code>1</code>.
 </p>
-<p>For setting it permanently <a href="/Usage/Configuration/C/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a> describes alternatives. For example, you can add <code>processor.ignore_ppc=1</code> to your kernel boot line, or create
+<p>For setting it permanently <a href="/Usage/Configuration/K/Kernel_module.html#Setting_module_options" class="mw-redirect" title="Kernel modules">Kernel modules#Setting module options</a> describes alternatives. For example, you can add <code>processor.ignore_ppc=1</code> to your kernel boot line, or create
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/ignore_ppc.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># If the frequency of your machine gets wrongly limited by BIOS, this should help
@@ -437,9 +437,9 @@ options processor ignore_ppc=1</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

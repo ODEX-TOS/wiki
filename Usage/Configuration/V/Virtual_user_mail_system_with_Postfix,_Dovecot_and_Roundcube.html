@@ -2,7 +2,7 @@
     title: Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube
     description: Migration of Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,20 +27,20 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/V/Courier_Mail_Server.html" class="mw-redirect" title="Courier MTA">Courier MTA</a></li>
-<li><a href="/Usage/Configuration/V/OpenDKIM.html" title="OpenDKIM">OpenDKIM</a></li>
-<li><a href="/Usage/Configuration/V/Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="/Usage/Configuration/V/SOGo.html" title="SOGo">SOGo</a></li>
+<li><a href="/Usage/Configuration/C/Courier_Mail_Server.html" class="mw-redirect" title="Courier MTA">Courier MTA</a></li>
+<li><a href="/Usage/Configuration/O/OpenDKIM.html" title="OpenDKIM">OpenDKIM</a></li>
+<li><a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="/Usage/Configuration/S/SOGo.html" title="SOGo">SOGo</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/V/Postfix.html" title="Postfix">Postfix</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Notes:</b> Article duplicates <a href="/Usage/Configuration/V/Postfix.html" title="Postfix">Postfix</a>, <a href="/Usage/Configuration/V/Dovecot.html" title="Dovecot">Dovecot</a> and <a href="/Usage/Configuration/V/Roundcube.html" title="Roundcube">Roundcube</a> and mainly consists of config snippets intended to be copy'n'pasted. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube">Talk:Virtual user mail system with Postfix, Dovecot and Roundcube#</a>)</div>
+<b>Notes:</b> Article duplicates <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a>, <a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a> and <a href="/Usage/Configuration/R/Roundcube.html" title="Roundcube">Roundcube</a> and mainly consists of config snippets intended to be copy'n'pasted. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube">Talk:Virtual user mail system with Postfix, Dovecot and Roundcube#</a>)</div>
 </div>
 <p>This article describes how to set up a virtual user mail system, i.e. where the senders and recipients do not correspond to the Linux system users.
 </p>
-<p>Roughly, the components used in this article are <a href="/Usage/Configuration/V/Postfix.html" title="Postfix">Postfix</a> as the mail server, <a href="/Usage/Configuration/V/Dovecot.html" title="Dovecot">Dovecot</a> as the IMAP server, <a href="/Usage/Configuration/V/Roundcube.html" title="Roundcube">Roundcube</a> as the webmail interface and PostfixAdmin as the administration interface to manage it all.
+<p>Roughly, the components used in this article are <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a> as the mail server, <a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a> as the IMAP server, <a href="/Usage/Configuration/R/Roundcube.html" title="Roundcube">Roundcube</a> as the webmail interface and PostfixAdmin as the administration interface to manage it all.
 </p>
 <p>In the end, the provided solution will allow you to use the best currently available security mechanisms, you will be able to send mails using SMTP and SMTPS and receive mails using POP3, POP3S, IMAP and IMAPS. Additionally, configuration will be easy thanks to PostfixAdmin and users will be able to login using Roundcube.
 </p>
@@ -122,9 +122,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Before you start, you must have both a working MySQL server as described in <a href="/Usage/Configuration/V/MySQL.html" title="MySQL">MySQL</a> and a working Postfix server as described in <a href="/Usage/Configuration/V/Postfix.html" title="Postfix">Postfix</a>.
+<p>Before you start, you must have both a working MySQL server as described in <a href="/Usage/Configuration/M/MySQL.html" title="MySQL">MySQL</a> and a working Postfix server as described in <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a>.
 </p>
-<p><a href="/Usage/Configuration/V/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dovecot">dovecot</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=roundcubemail">roundcubemail</a></span> packages.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dovecot">dovecot</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=roundcubemail">roundcubemail</a></span> packages.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="User">User</span></h3>
@@ -151,7 +151,7 @@ FLUSH PRIVILEGES;
 <p>Now you can go to the PostfixAdmin's setup page, let PostfixAdmin create the needed tables and create the users in there.
 </p>
 <h4><span class="mw-headline" id="PostfixAdmin">PostfixAdmin</span></h4>
-<p>See <a href="/Usage/Configuration/V/PostfixAdmin.html" title="PostfixAdmin">PostfixAdmin</a>.
+<p>See <a href="/Usage/Configuration/P/PostfixAdmin.html" title="PostfixAdmin">PostfixAdmin</a>.
 </p>
 <h3><span class="mw-headline" id="SSL_certificate">SSL certificate</span></h3>
 <p>You will need a SSL certificate for all encrypted mail communications (SMTPS/IMAPS/POP3S). If you do not have one, create one:
@@ -161,7 +161,7 @@ FLUSH PRIVILEGES;
 # chmod 400 vmail.key
 # chmod 444 vmail.crt
 </pre>
-<p>Alternatively, create a free trusted certificate using <a href="/Usage/Configuration/V/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. The private key will be in <code>/etc/letsencrypt/live/<i>yourdomain</i>/privkey.pem</code>, the certificate in <code>/etc/letsencrypt/live/<i>yourdomain</i>/fullchain.pem</code>. Either change the configuration accordingly, or symlink the keys to <code>/etc/ssl/private</code>:
+<p>Alternatively, create a free trusted certificate using <a href="/Usage/Configuration/C/Certbot.html" class="mw-redirect" title="Let's Encrypt">Let's Encrypt</a>. The private key will be in <code>/etc/letsencrypt/live/<i>yourdomain</i>/privkey.pem</code>, the certificate in <code>/etc/letsencrypt/live/<i>yourdomain</i>/fullchain.pem</code>. Either change the configuration accordingly, or symlink the keys to <code>/etc/ssl/private</code>:
 </p>
 <pre># ln -s /etc/letsencrypt/live/<i>yourdomain</i>/privkey.pem /etc/ssl/private/vmail.key
 # ln -s /etc/letsencrypt/live/<i>yourdomain</i>/fullchain.pem /etc/ssl/private/vmail.crt
@@ -172,7 +172,7 @@ FLUSH PRIVILEGES;
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> <code>relay_domains</code> can be dangerous. You usually do not want Postfix to forward mail of strangers. <code>$mydestination</code> is a sane default value. Double check its value before running postfix! See <a rel="nofollow"  href="http://www.postfix.org/BASIC_CONFIGURATION_README.html#relay_to">http://www.postfix.org/BASIC_CONFIGURATION_README.html#relay_to</a>
 </div> 
-<p>Also follow <a href="/Usage/Configuration/V/Postfix.html#Secure_SMTP_(receiving)" title="Postfix">Postfix#Secure SMTP (receiving)</a> pointing to the files you created in <a href="#SSL_certificate">#SSL certificate</a>.
+<p>Also follow <a href="/Usage/Configuration/P/Postfix.html#Secure_SMTP_(receiving)" title="Postfix">Postfix#Secure SMTP (receiving)</a> pointing to the files you created in <a href="#SSL_certificate">#SSL certificate</a>.
 </p>
 <h4><span class="mw-headline" id="Setting_up_Postfix">Setting up Postfix</span></h4>
 <p>To <code>/etc/postfix/main.cf</code> append:
@@ -378,7 +378,7 @@ password_query = SELECT email as user, password, '/home/vmail/%d/%n' as userdb_h
 <pre>ssl_dh = &lt;/etc/dovecot/dh.pem
 </pre>
 <h3><span class="mw-headline" id="PostfixAdmin_2">PostfixAdmin</span></h3>
-<p>See <a href="/Usage/Configuration/V/PostfixAdmin.html" title="PostfixAdmin">PostfixAdmin</a>.
+<p>See <a href="/Usage/Configuration/P/PostfixAdmin.html" title="PostfixAdmin">PostfixAdmin</a>.
 </p>
 <p>Note: To match the configuration in this file, config.inc.php should contain the following.
 </p>
@@ -402,7 +402,7 @@ password_query = SELECT email as user, password, '/home/vmail/%d/%n' as userdb_h
 <li>See <a href="#Postfix">#Postfix</a> for an explanation on that.</li>
 <li>Make sure the resulting configuration file has <code>$config['smtp_user'] = '%u';</code> and <code>$config['smtp_pass'] = '%p';</code> lines in it or you will not be able to send email.</li>
 </ul>
-<p>The post install process is similar to any other webapp like <a href="/Usage/Configuration/V/PhpMyAdmin.html" title="PhpMyAdmin">PhpMyAdmin</a> or PostFixAdmin. The configuration file is in <code>/etc/webapps/roundcubemail/config/config.inc.php</code> which works as an override over <code>defaults.inc.php</code>.
+<p>The post install process is similar to any other webapp like <a href="/Usage/Configuration/P/PhpMyAdmin.html" title="PhpMyAdmin">PhpMyAdmin</a> or PostFixAdmin. The configuration file is in <code>/etc/webapps/roundcubemail/config/config.inc.php</code> which works as an override over <code>defaults.inc.php</code>.
 </p>
 <h4><span class="mw-headline" id="Apache_configuration">Apache configuration</span></h4>
 <p>If you are using Apache, copy the example configuration file to your webserver configuration directory.
@@ -439,13 +439,13 @@ $config['password_algorithm'] = 'dovecot';
 $config['password_query'] = 'UPDATE mailbox SET password=%P WHERE username=%u';
 </pre>
 <h2><span class="mw-headline" id="Fire_it_up">Fire it up</span></h2>
-<p>All necessary daemons should be started in order to test the configuration. <a href="/Usage/Configuration/V/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> both <code>postfix</code> and <code>dovecot</code>.
+<p>All necessary daemons should be started in order to test the configuration. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> both <code>postfix</code> and <code>dovecot</code>.
 </p>
 <p>Now for testing purposes, create a domain and mail account in PostfixAdmin. Try to login to this account using Roundcube. Now send yourself a mail.
 </p>
 <h2><span class="mw-headline" id="Testing">Testing</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/V/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Needs some cleanup. There are probably more general ways to write this. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Virtual_user_mail_system_with_Postfix,_Dovecot_and_Roundcube">Talk:Virtual user mail system with Postfix, Dovecot and Roundcube#</a>)</div>
 </div>
@@ -626,7 +626,7 @@ namespace inbox {
  }
 }</pre>
 <h3><span class="mw-headline" id="Dovecot_public_folder_and_global_ACLs">Dovecot public folder and global ACLs</span></h3>
-<p>In this section we enable IMAP namespace public folders combined with global and per-folder <a href="/Usage/Configuration/V/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACLs</a>.
+<p>In this section we enable IMAP namespace public folders combined with global and per-folder <a href="/Usage/Configuration/A/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACLs</a>.
 </p>
 <p>First, add the following lines to <code>/etc/dovecot/dovecot.conf</code>:
 </p>
@@ -711,12 +711,12 @@ $rcmail_config['protect_default_folders'] = true;</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/V/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/V/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
-<li><a href="/Usage/Configuration/V/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/V/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
 </ul>
 </div>
 </div>
@@ -735,9 +735,9 @@ $rcmail_config['protect_default_folders'] = true;</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/V/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/V/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/V/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Crostini
     description: Migration of Crostini from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -128,7 +128,7 @@ lxc list
 </p>
 <pre># passwd <i>username</i>
 </pre>
-<p>You may additionally want to install <a href="..//Usage/Configuration/C/Sudo.html" title="Sudo">sudo</a> and add the user to the wheel group. Use after installation:
+<p>You may additionally want to install <a href="..//Usage/Configuration/S/Sudo.html" title="Sudo">sudo</a> and add the user to the wheel group. Use after installation:
 </p>
 <pre># visudo
 </pre>
@@ -157,7 +157,7 @@ lxc list
 </p>
 <p>Install the Crostini container tools, Wayland for GUI application support and XWayland for X11 application support:
 </p>
-<p><a href="..//Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cros-container-guest-tools-git/">cros-container-guest-tools-git</a></span><sup><small>AUR</small></sup> package. Additionally install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wayland">wayland</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-server-xwayland">xorg-server-xwayland</a></span> to be able to use GUI tools. 
+<p><a href="..//Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cros-container-guest-tools-git/">cros-container-guest-tools-git</a></span><sup><small>AUR</small></sup> package. Additionally install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wayland">wayland</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-server-xwayland">xorg-server-xwayland</a></span> to be able to use GUI tools. 
 </p>
 <p>Enable and start the services (for Wayland, X11, Wayland (low density) and X11 (low density) accordingly):
 </p>
@@ -233,7 +233,7 @@ lxc file delete penguin/var/lib/lxcfs
 <p>Restart Linux subsystem and container started should start normally.
 </p>
 <h3><span class="mw-headline" id="No_network_in_container">No network in container</span></h3>
-<p>As was reported by multiple sources, systemd-networkd and systemd-resolved services in systemd-244.1 are not working properly for unprivileged LXC containers, which ends up in missing network connectivity inside the Crostini container. Proposed solution is completely disable systemd-networkd/systemd-resolved and perform network configuration by <a href="..//Usage/Configuration/C/Network_configuration.html#DHCP" class="mw-redirect" title="Dhclient">dhclient</a> service instead. First, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhclient">dhclient</a></span>, then, as the root user, run:
+<p>As was reported by multiple sources, systemd-networkd and systemd-resolved services in systemd-244.1 are not working properly for unprivileged LXC containers, which ends up in missing network connectivity inside the Crostini container. Proposed solution is completely disable systemd-networkd/systemd-resolved and perform network configuration by <a href="..//Usage/Configuration/N/Network_configuration.html#DHCP" class="mw-redirect" title="Dhclient">dhclient</a> service instead. First, install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dhclient">dhclient</a></span>, then, as the root user, run:
 </p>
 <pre>dhcpcd eth0
 systemctl disable systemd-networkd
@@ -243,7 +243,7 @@ touch /etc/resolv.conf
 systemctl enable dhclient@eth0
 systemctl start dhclient@eth0
 </pre>
-<p><a href="..//Usage/Configuration/C/NetworkManager.html" title="NetworkManager">NetworkManager</a> and <a href="..//Usage/Configuration/C/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> also can be used to address the issue if you prefer them over the proposed solution.
+<p><a href="..//Usage/Configuration/N/NetworkManager.html" title="NetworkManager">NetworkManager</a> and <a href="..//Usage/Configuration/D/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> also can be used to address the issue if you prefer them over the proposed solution.
 </p>
 <h3>
 <span id="App_not_opening_in_chrome_OS_.28infinite_spinner.29"></span><span class="mw-headline" id="App_not_opening_in_chrome_OS_(infinite_spinner)">App not opening in chrome OS (infinite spinner)</span>
@@ -261,7 +261,7 @@ lxc start penguin
 <p>Crostini support audio playback starting Chrome OS 74. With <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cros-container-guest-tools-git/">cros-container-guest-tools-git</a></span><sup><small>AUR</small></sup> installed both ALSA and PulseAudio playback should work out-of-the-box. Audio input is  supported starting Chrome OS 79.
 </p>
 <h3><span class="mw-headline" id="Video_playback">Video playback</span></h3>
-<p><a href="..//Usage/Configuration/C/Mpv.html" title="Mpv">mpv</a> can play videos using software rendering without any addition configuration, however this is CPU consuming and laggy experience for modern video codecs like H265. For hardware accelerated playback GPU acceleration is required. Take into account, that GPU acceleration for Crostini is based on <a rel="nofollow"  href="https://virgil3d.github.io/">Virgil 3D GPU project</a>, so no real GPU device pass-though is performed and hardware-specific APIs like VA-API or VPDAU are not available. However OpenGL acceleration can be used, i.e. this is example of mpv.conf config for [mpv] media player which enabled accelerated video and audio playback on Google Pixelbook starting Chrome OS 77:
+<p><a href="..//Usage/Configuration/M/Mpv.html" title="Mpv">mpv</a> can play videos using software rendering without any addition configuration, however this is CPU consuming and laggy experience for modern video codecs like H265. For hardware accelerated playback GPU acceleration is required. Take into account, that GPU acceleration for Crostini is based on <a rel="nofollow"  href="https://virgil3d.github.io/">Virgil 3D GPU project</a>, so no real GPU device pass-though is performed and hardware-specific APIs like VA-API or VPDAU are not available. However OpenGL acceleration can be used, i.e. this is example of mpv.conf config for [mpv] media player which enabled accelerated video and audio playback on Google Pixelbook starting Chrome OS 77:
 </p>
 <pre>vo=gpu
 ao=alsa</pre>
@@ -328,9 +328,9 @@ OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Zabbix
     description: Migration of Zabbix from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -81,11 +81,11 @@
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zabbix-frontend-php">zabbix-frontend-php</a></span> package. You also have to choose a web server with PHP support, e.g.:
 </p>
 <ul>
-<li><a href="/Usage/Configuration/Z/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
-<li><a href="/Usage/Configuration/Z/Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
-<li><a href="/Usage/Configuration/Z/Nginx.html" title="Nginx">nginx</a></li>
+<li><a href="/Usage/Configuration/A/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a></li>
+<li><a href="/Usage/Configuration/L/Lighttpd.html" title="Lighttpd">Lighttpd</a></li>
+<li><a href="/Usage/Configuration/N/Nginx.html" title="Nginx">nginx</a></li>
 </ul>
-<p>Or one of the other servers found in <a href="/Usage/Configuration/Z/Category:Web_server.html" title="Category:Web server">Category:Web server</a>.
+<p>Or one of the other servers found in <a href="/Usage/Configuration/C/Category:Web_server.html" title="Category:Web server">Category:Web server</a>.
 </p>
 <h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
 <p>Symlink the Zabbix web application directory to your http document root, e.g.:
@@ -94,7 +94,7 @@
 </pre>
 <p>To get working apache out of the box you need to enable php integration:
 </p>
-<ul><li>see <a href="/Usage/Configuration/Z/Apache_HTTP_Server.html#Using_php-fpm_and_mod_proxy_fcgi" title="Apache HTTP Server">Apache HTTP Server#Using php-fpm and mod_proxy_fcgi</a>
+<ul><li>see <a href="/Usage/Configuration/A/Apache_HTTP_Server.html#Using_php-fpm_and_mod_proxy_fcgi" title="Apache HTTP Server">Apache HTTP Server#Using php-fpm and mod_proxy_fcgi</a>
 </li></ul>
 <p>Make sure to adjust following variables to these minimal values in your <code>/etc/php/php.ini</code>:
 </p>
@@ -125,10 +125,10 @@ DBPassword=test</pre>
 <h3>
 <span id="ICMP.2Fping_discovery"></span><span class="mw-headline" id="ICMP/ping_discovery">ICMP/ping discovery</span>
 </h3>
-<p>To use ICMP discovery (e.g. ping) in Zabbix, <a href="/Usage/Configuration/Z/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fping">fping</a></span> package.
+<p>To use ICMP discovery (e.g. ping) in Zabbix, <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fping">fping</a></span> package.
 </p>
 <h3><span class="mw-headline" id="Starting">Starting</span></h3>
-<p><a href="/Usage/Configuration/Z/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/Z/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>zabbix-server-mysql.service</code> unit, if you are using MariaDB.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>zabbix-server-mysql.service</code> unit, if you are using MariaDB.
 </p>
 <p>Finally you can access Zabbix via your local web server, e.g.: <a rel="nofollow"  href="http://localhost/zabbix/">http://localhost/zabbix/</a>, finish the installation wizard and access the frontend the first time. The default username is <code>Admin</code> and password <code>zabbix</code>.
 </p>
@@ -147,7 +147,7 @@ ServerActive=&lt;IP of Zabbix server&gt;
 <p>Further make sure the port <code>10050</code> on your device being monitored is not blocked and is properly forwarded.
 </p>
 <h3><span class="mw-headline" id="Starting_2">Starting</span></h3>
-<p><a href="/Usage/Configuration/Z/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/Z/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>zabbix-agent</code> service.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>zabbix-agent</code> service.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Debugging_a_Zabbix_agent">Debugging a Zabbix agent</span></h3>
@@ -172,7 +172,7 @@ ServerActive=&lt;IP of Zabbix server&gt;
 <h3>
 <span id="Error_.22Specified_key_was_too_long.3B_max_key_length_is_767_bytes.22"></span><span class="mw-headline" id='Error_"Specified_key_was_too_long;_max_key_length_is_767_bytes"'>Error "Specified key was too long; max key length is 767 bytes"</span>
 </h3>
-<p>While importing the databases, you might get this error message. In order to solve this, you will have to change the code page configuration for your MariaDB database: <a href="/Usage/Configuration/Z/MariaDB.html#Using_UTF8MB4" title="MariaDB">MariaDB#Using UTF8MB4</a>.
+<p>While importing the databases, you might get this error message. In order to solve this, you will have to change the code page configuration for your MariaDB database: <a href="/Usage/Configuration/M/MariaDB.html#Using_UTF8MB4" title="MariaDB">MariaDB#Using UTF8MB4</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -183,7 +183,7 @@ ServerActive=&lt;IP of Zabbix server&gt;
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/Z/Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Network_monitoring.html" title="Category:Network monitoring">Network monitoring</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -200,9 +200,9 @@ ServerActive=&lt;IP of Zabbix server&gt;
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/Z/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/Z/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/Z/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

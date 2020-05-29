@@ -2,7 +2,7 @@
     title: Ethernet
     description: Migration of Ethernet from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/E/Network_configuration.html" title="Network configuration">Network configuration</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/N/Network_configuration.html" title="Network configuration">Network configuration</a></span></div>
 		
 		
 		
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This article describes <a href="https://en.wikipedia.org/wiki/Ethernet"  title="wikipedia:Ethernet">Ethernet</a> specifics, general network configuration is covered in <a href="..//Usage/Configuration/E/Network_configuration.html" title="Network configuration">Network configuration</a>.
+<p>This article describes <a href="https://en.wikipedia.org/wiki/Ethernet"  title="wikipedia:Ethernet">Ethernet</a> specifics, general network configuration is covered in <a href="..//Usage/Configuration/N/Network_configuration.html" title="Network configuration">Network configuration</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -71,7 +71,7 @@
 
 <h2><span class="mw-headline" id="Device_driver">Device driver</span></h2>
 <h3><span class="mw-headline" id="Check_the_status">Check the status</span></h3>
-<p><a href="..//Usage/Configuration/E/Udev.html" title="Udev">udev</a> should detect your <a href="https://en.wikipedia.org/wiki/Network_interface_controller"  title="wikipedia:Network interface controller">network interface controller</a> (NIC) and automatically load the necessary <a href="..//Usage/Configuration/E/Kernel_module.html" title="Kernel module">kernel module</a> at startup. Check the "Ethernet controller" entry (or similar) from the <code>lspci -v</code> output. It should tell you which kernel module contains the driver for your network device. For example:
+<p><a href="..//Usage/Configuration/U/Udev.html" title="Udev">udev</a> should detect your <a href="https://en.wikipedia.org/wiki/Network_interface_controller"  title="wikipedia:Network interface controller">network interface controller</a> (NIC) and automatically load the necessary <a href="..//Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> at startup. Check the "Ethernet controller" entry (or similar) from the <code>lspci -v</code> output. It should tell you which kernel module contains the driver for your network device. For example:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ lspci -v</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">02:00.0 Ethernet controller: Attansic Technology Corp. L1 Gigabit Ethernet Adapter (rev b0)
@@ -88,25 +88,25 @@ atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex
 <p>Skip the next section if the driver was loaded successfully. Otherwise, you will need to know which module is needed for your particular model.
 </p>
 <h3><span class="mw-headline" id="Load_the_module">Load the module</span></h3>
-<p>Search in the Internet for the right module/driver for the chipset. Some common modules are <code>8139too</code> for cards with a Realtek chipset, or <code>sis900</code> for cards with a SiS chipset. Once you know which module to use, try to <a href="..//Usage/Configuration/E/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">load it manually</a>. If you get an error saying that the module was not found, it is possible that the driver is not included in TOS kernel. You may search the <a href="..//Usage/Configuration/E/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> for the module name.
+<p>Search in the Internet for the right module/driver for the chipset. Some common modules are <code>8139too</code> for cards with a Realtek chipset, or <code>sis900</code> for cards with a SiS chipset. Once you know which module to use, try to <a href="..//Usage/Configuration/K/Kernel_module.html#Manual_module_handling" class="mw-redirect" title="Kernel modules">load it manually</a>. If you get an error saying that the module was not found, it is possible that the driver is not included in TOS kernel. You may search the <a href="..//Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> for the module name.
 </p>
-<p>If udev is not detecting and loading the proper module automatically during bootup, see <a href="..//Usage/Configuration/E/Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">Kernel module#Automatic module loading with systemd</a>.
+<p>If udev is not detecting and loading the proper module automatically during bootup, see <a href="..//Usage/Configuration/K/Kernel_module.html#Automatic_module_loading_with_systemd" title="Kernel module">Kernel module#Automatic module loading with systemd</a>.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="ifplugd_for_laptops">ifplugd for laptops</span></h3>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="..//Usage/Configuration/E/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> provides the same feature out of the box.</div>
+<strong>Tip:</strong> <a href="..//Usage/Configuration/D/Dhcpcd.html" title="Dhcpcd">dhcpcd</a> provides the same feature out of the box.</div>
 <p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifplugd">ifplugd</a></span> is a daemon which will automatically configure your Ethernet device when a cable is plugged in and automatically unconfigure it if the cable is pulled. This is useful on laptops with onboard network adapters, since it will only configure the interface when a cable is really connected. Another use is when you just need to restart the network but do not want to restart the computer or do it from the shell.
 </p>
 <p>By default it is configured to work for the <code>eth0</code> device. This and other settings like delays can be configured in <code>/etc/ifplugd/ifplugd.conf</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> <a href="..//Usage/Configuration/E/Netctl.html" title="Netctl">netctl</a> package includes <code>netctl-ifplugd@.service</code>, otherwise you can use <code>ifplugd@.service</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifplugd">ifplugd</a></span> package. For example, <a href="..//Usage/Configuration/E/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ifplugd@eth0.service</code>.</div>
+<strong>Note:</strong> <a href="..//Usage/Configuration/N/Netctl.html" title="Netctl">netctl</a> package includes <code>netctl-ifplugd@.service</code>, otherwise you can use <code>ifplugd@.service</code> from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ifplugd">ifplugd</a></span> package. For example, <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ifplugd@eth0.service</code>.</div>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Swapping_computers_on_the_cable_modem">Swapping computers on the cable modem</span></h3>
 <p>Some cable ISPs (Vidéotron for example) have the cable modem configured to recognize only one client PC, by the MAC address of its network interface. Once the cable modem has learned the MAC address of the first PC or equipment that talks to it, it will not respond to another MAC address in any way. Thus if you swap one PC for another (or for a router), the new PC (or router) will not work with the cable modem, because the new PC (or router) has a MAC address different from the old one. To reset the cable modem so that it will recognise the new PC, you must power the cable modem off and on again. Once the cable modem has rebooted and gone fully online again (indicator lights settled down), reboot the newly connected PC so that it makes a DHCP request, or manually make it request a new DHCP lease.
 </p>
-<p>If this method does not work, you will need to clone the MAC address of the original machine. See also <a href="..//Usage/Configuration/E/MAC_address_spoofing.html" title="MAC address spoofing">MAC address spoofing</a>.
+<p>If this method does not work, you will need to clone the MAC address of the original machine. See also <a href="..//Usage/Configuration/M/MAC_address_spoofing.html" title="MAC address spoofing">MAC address spoofing</a>.
 </p>
 <h3><span class="mw-headline" id="Explicit_Congestion_Notification">Explicit Congestion Notification</span></h3>
 <p><a href="https://en.wikipedia.org/wiki/Explicit_Congestion_Notification"  title="wikipedia:Explicit Congestion Notification">Explicit Congestion Notification</a> (ECN) may cause traffic problems with old/bad routers <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=239892">[1]</a>. As of <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/9748">systemd 239</a>, it is enabled for both ingoing and outgoing traffic.
@@ -127,7 +127,7 @@ atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex
 <p>Users with Realtek 8168 8169 8101 8111(C) based NICs (cards / and on-board) may notice a problem where the NIC seems to be disabled on boot and has no Link light. This can usually be found on a dual boot system where Windows is also installed. It seems that using the official Realtek drivers (dated anything after May 2007) under Windows is the cause. These newer drivers disable the Wake-On-LAN feature by disabling the NIC at Windows shutdown time, where it will remain disabled until the next time Windows boots. You will be able to notice if this problem is affecting you if the Link light remains off until Windows boots up; during Windows shutdown the Link light will switch off. Normal operation should be that the link light is always on as long as the system is on, even during POST. This problem will also affect other operating systems without newer drivers (eg. Live CDs). Here are a few fixes for this problem.
 </p>
 <h4><span class="mw-headline" id="Enable_the_NIC_directly_in_Linux">Enable the NIC directly in Linux</span></h4>
-<p>Follow <a href="..//Usage/Configuration/E/Network_configuration.html#Enabling_and_disabling_network_interfaces" title="Network configuration">Network configuration#Enabling and disabling network interfaces</a> to enable the interface.
+<p>Follow <a href="..//Usage/Configuration/N/Network_configuration.html#Enabling_and_disabling_network_interfaces" title="Network configuration">Network configuration#Enabling and disabling network interfaces</a> to enable the interface.
 </p>
 <h4>
 <span id="Rollback.2Fchange_Windows_driver"></span><span class="mw-headline" id="Rollback/change_Windows_driver">Rollback/change Windows driver</span>
@@ -184,7 +184,7 @@ atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mkinitcpio.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">MODULES=(.. broadcom tg3 ..)</pre>
 <ul>
-<li><a href="..//Usage/Configuration/E/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a></li>
+<li><a href="..//Usage/Configuration/M/Mkinitcpio.html#Image_creation_and_activation" class="mw-redirect" title="Regenerate the initramfs">Regenerate the initramfs</a></li>
 <li>Alternatively, you can create an <code>/etc/modprobe.d/broadcom.conf</code>:</li>
 </ul>
 <pre>softdep tg3 pre: broadcom
@@ -197,29 +197,29 @@ atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># lspci | grep Ethernet</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168B PCI Express Gigabit Ethernet controller (rev 02)
 </pre>
-<p>The adapter should be recognized by the <code>r8169</code> module. However, with some chip revisions the connection may go off and on all the time. The alternative <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r8168">r8168</a></span> should be used for a reliable connection in this case. <a href="..//Usage/Configuration/E/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">Blacklist</a> <code>r8169</code>, if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r8168">r8168</a></span> is not automatically loaded by <a href="..//Usage/Configuration/E/Udev.html" title="Udev">udev</a>, see <a href="..//Usage/Configuration/E/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
+<p>The adapter should be recognized by the <code>r8169</code> module. However, with some chip revisions the connection may go off and on all the time. The alternative <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r8168">r8168</a></span> should be used for a reliable connection in this case. <a href="..//Usage/Configuration/K/Kernel_module.html#Blacklisting" class="mw-redirect" title="Blacklist">Blacklist</a> <code>r8169</code>, if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=r8168">r8168</a></span> is not automatically loaded by <a href="..//Usage/Configuration/U/Udev.html" title="Udev">udev</a>, see <a href="..//Usage/Configuration/K/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
 </p>
 <div class="noprint archwiki-template-message">
 <p><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> "some revisions", no proof the driver is the cause, and not e.g poorly configured DNS servers (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Network_configuration/Ethernet">Talk:Network configuration/Ethernet#</a>)</div>
 </div>
-<p>Another fault in the drivers for some revisions of this adapter is poor IPv6 support. <a href="..//Usage/Configuration/E/IPv6.html#Disable_functionality" title="IPv6">IPv6#Disable functionality</a> can be helpful if you encounter issues such as hanging webpages and slow speeds.
+<p>Another fault in the drivers for some revisions of this adapter is poor IPv6 support. <a href="..//Usage/Configuration/I/IPv6.html#Disable_functionality" title="IPv6">IPv6#Disable functionality</a> can be helpful if you encounter issues such as hanging webpages and slow speeds.
 </p>
 <h3>
 <span id="Gigabyte_Motherboard_with_Realtek_8111.2F8168.2F8411"></span><span class="mw-headline" id="Gigabyte_Motherboard_with_Realtek_8111/8168/8411">Gigabyte Motherboard with Realtek 8111/8168/8411</span>
 </h3>
-<p>With motherboards such as the <i>Gigabyte GA-990FXA-UD3</i>, booting with <a href="..//Usage/Configuration/E/PCI_passthrough_via_OVMF.html#Setting_up_IOMMU" title="PCI passthrough via OVMF">IOMMU</a> off (which can be the default) will cause the network interface to be unreliable, often failing to connect or connecting but allowing no throughput. This will apply to the onboard NIC and to any other pci-NIC in the box because the IOMMU setting affects the entire network interface on the board. Enabling IOMMU and booting with the install media will throw AMD I-10/xhci page faults for a second, but then boots normally, resulting in a fully functional onboard NIC (even with the r8169 module).
+<p>With motherboards such as the <i>Gigabyte GA-990FXA-UD3</i>, booting with <a href="..//Usage/Configuration/P/PCI_passthrough_via_OVMF.html#Setting_up_IOMMU" title="PCI passthrough via OVMF">IOMMU</a> off (which can be the default) will cause the network interface to be unreliable, often failing to connect or connecting but allowing no throughput. This will apply to the onboard NIC and to any other pci-NIC in the box because the IOMMU setting affects the entire network interface on the board. Enabling IOMMU and booting with the install media will throw AMD I-10/xhci page faults for a second, but then boots normally, resulting in a fully functional onboard NIC (even with the r8169 module).
 </p>
-<p>When configuring the boot process for your installation, add <code>iommu=soft</code> as a <a href="..//Usage/Configuration/E/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to eliminate the error messages on boot and restore USB3.0 functionality.
+<p>When configuring the boot process for your installation, add <code>iommu=soft</code> as a <a href="..//Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to eliminate the error messages on boot and restore USB3.0 functionality.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/E/Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/C/Category:Network_configuration.html" title="Category:Network configuration">Network configuration</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/E/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -237,9 +237,9 @@ atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

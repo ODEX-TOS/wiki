@@ -2,7 +2,7 @@
     title: Jitsi-meet
     description: Migration of Jitsi-meet from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -69,7 +69,7 @@
 <li>
 <code>jicofo</code>: the Jitsi conference focus determining who is speaking</li>
 <li>
-<a href="/Usage/Configuration/J/Prosody.html" title="Prosody">Prosody</a>: a free XMPP server serving as the base of the setup</li>
+<a href="/Usage/Configuration/P/Prosody.html" title="Prosody">Prosody</a>: a free XMPP server serving as the base of the setup</li>
 </ul>
 <p>A graphical overview of the interfaces to the user and towards each other is given <a rel="nofollow"  href="https://github.com/jitsi/jitsi-meet/blob/master/doc/manual-install.md">here</a>.
 </p>
@@ -92,7 +92,7 @@
 <strong>Note:</strong> This configuration yields an open server for everyone to connect. Refer to the <a rel="nofollow"  href="https://jitsi.org/blog/security/">Jitsi philosophy</a> for rationale. See tips section for authentication.</div>
 <p>If your server name is <code>example.com</code> then a common choice for your jitsi will be <code>meet.example.com</code>, but you can choose freely. It is however strongly encouraged from security standpoint to host webapps on their own subdomain. You will need to update DNS record for your server with an entry of your chosen subdomain, in the above example <code>meet</code>. The remainder assumes that you have done this.
 </p>
-<p>Also you should have SSL/TLS certificates for your <code>meet.example.com</code> domain, on how to obtain free certificates see <a href="/Usage/Configuration/J/Certbot.html" title="Certbot">certbot</a>.
+<p>Also you should have SSL/TLS certificates for your <code>meet.example.com</code> domain, on how to obtain free certificates see <a href="/Usage/Configuration/C/Certbot.html" title="Certbot">certbot</a>.
 </p>
 <p>In the following, the following placeholders are used:
 </p>
@@ -157,7 +157,7 @@ Component "focus.${JITSIFQDN}"
 </p>
 <pre>trust anchor /var/lib/prosody/auth.<b>JITSIFQDN</b>.crt
 </pre>
-<p>Then <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>prosody</code> service (or <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> prosody if it was just installed).
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>prosody</code> service (or <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> prosody if it was just installed).
 </p>
 <h4><span class="mw-headline" id="Configure_jitsi-videobridge">Configure jitsi-videobridge</span></h4>
 <p>The configuration for jitsi-videobridge 
@@ -174,12 +174,12 @@ org.jitsi.impl.neomedia.transform.srtp.SRTPCryptoContext.checkReplay=false
 org.jitsi.videobridge.TCP_HARVESTER_PORT=4443</pre>
 <p>and copy <code>/opt/jitsi-videobridge/lib/logging.properties</code> to <code>/etc/jitsi/videobridge/logging.properties</code>.
 </p>
-<p>Then <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>jitsi-videobridge</code> service.
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>jitsi-videobridge</code> service.
 </p>
 <h4><span class="mw-headline" id="Configure_jicofo">Configure jicofo</span></h4>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/jitsi/jicofo/jicofo.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">flags="--host=localhost --domain=<b>JITSIFQDN</b> --secret=<b>SECRET2</b> --user_domain=auth.<b>JITSIFQDN</b> --user_name=focus --user_password=<b>SECRET3</b>"</pre>
-<p>Then <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>jicofo</code> service.
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>jicofo</code> service.
 </p>
 <h4><span class="mw-headline" id="Configure_jitsi-meet">Configure jitsi-meet</span></h4>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/opt/jitsi-meet/config.js</pre>
@@ -195,7 +195,7 @@ var config = {
         bosh: '//'+domainroot+'/http-bind',
 }</pre>
 <h4><span class="mw-headline" id="Configure_nginx">Configure nginx</span></h4>
-<p>Configure <a href="/Usage/Configuration/J/Nginx.html" title="Nginx">nginx</a> with TLS as described in <a href="/Usage/Configuration/J/Nginx.html#TLS" title="Nginx">nginx#TLS</a> and use the following configuration in the relevant <code>server</code> block for the Jitsi-meet components as shown in its documentation.
+<p>Configure <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">nginx</a> with TLS as described in <a href="/Usage/Configuration/N/Nginx.html#TLS" title="Nginx">nginx#TLS</a> and use the following configuration in the relevant <code>server</code> block for the Jitsi-meet components as shown in its documentation.
 </p>
 <pre>server {
     ...
@@ -230,7 +230,7 @@ var config = {
     }
 }
 </pre>
-<p>Then <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>nginx</code> service.
+<p>Then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the <code>nginx</code> service.
 </p>
 <h3><span class="mw-headline" id="Configuration_for_bin_packages">Configuration for bin packages</span></h3>
 <p>Their configuration layout differs from the above, as the -bin packages use "config" naming for the configuration files instead of specific names like "jicofo.conf".
@@ -287,7 +287,7 @@ JIGASI_OPTS=""
 LOGFILE=/var/log/jitsi/jigasi.log</pre>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/opt/jitsi-meet/config.js</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">hosts.call_control = 'callcontrol.meet.jit.si'</pre>
-<p>and then <a href="/Usage/Configuration/J/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>jigasi.service</code>.
+<p>and then <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> <code>jigasi.service</code>.
 </p>
 <h3><span class="mw-headline" id="Access_restrictions_for_room_creation">Access restrictions for room creation</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -359,8 +359,8 @@ To monitor server use one can use systemd logging to get an at least vague idea 
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/J/Category:Telephony.html" title="Category:Telephony">Telephony</a></li>
-<li><a href="/Usage/Configuration/J/Category:Voice_over_IP.html" title="Category:Voice over IP">Voice over IP</a></li>
+<li><a href="/Usage/Configuration/C/Category:Telephony.html" title="Category:Telephony">Telephony</a></li>
+<li><a href="/Usage/Configuration/C/Category:Voice_over_IP.html" title="Category:Voice over IP">Voice over IP</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -378,9 +378,9 @@ To monitor server use one can use systemd logging to get an at least vague idea 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/J/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/J/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/J/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Laptop_Mode_Tools
     description: Migration of Laptop_Mode_Tools from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,17 +27,17 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/L/Acpid.html" title="Acpid">acpid</a></li>
-<li><a href="/Usage/Configuration/L/Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="/Usage/Configuration/L/CPU_frequency_scaling.html" class="mw-redirect" title="Cpufrequtils">cpufrequtils</a></li>
+<li><a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a></li>
+<li><a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="/Usage/Configuration/C/CPU_frequency_scaling.html" class="mw-redirect" title="Cpufrequtils">cpufrequtils</a></li>
 <li><a href="/Usage/Configuration/L/Laptop.html" title="Laptop">Laptop</a></li>
-<li><a href="/Usage/Configuration/L/Powertop.html" title="Powertop">Powertop</a></li>
-<li><a href="/Usage/Configuration/L/TLP.html" title="TLP">TLP</a></li>
+<li><a href="/Usage/Configuration/P/Powertop.html" title="Powertop">Powertop</a></li>
+<li><a href="/Usage/Configuration/T/TLP.html" title="TLP">TLP</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://github.com/rickysarraf/laptop-mode-tools">Laptop Mode Tools</a> is a laptop power saving package for Linux systems. It is the primary way to enable the Laptop Mode feature of the Linux kernel, which lets your hard drive spin down. In addition, it allows you to tweak a number of other power-related settings using a simple configuration file.
 </p>
-<p>Combined with <a href="/Usage/Configuration/L/Acpid.html" title="Acpid">acpid</a> and <a href="/Usage/Configuration/L/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a>, LMT provides most users with a complete notebook power management suite.
+<p>Combined with <a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a> and <a href="/Usage/Configuration/C/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a>, LMT provides most users with a complete notebook power management suite.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -104,7 +104,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/L/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/laptop-mode-tools/">laptop-mode-tools</a></span><sup><small>AUR</small></sup> package or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/laptop-mode-tools-git/">laptop-mode-tools-git</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/laptop-mode-tools/">laptop-mode-tools</a></span><sup><small>AUR</small></sup> package or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/laptop-mode-tools-git/">laptop-mode-tools-git</a></span><sup><small>AUR</small></sup> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>Configuration is handled through:
@@ -121,10 +121,10 @@
 </p>
 <pre>$ grep -r '^\(CONTROL\|ENABLE\)_' /etc/laptop-mode/conf.d
 </pre>
-<p>Finally, <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>laptop-mode.service</code>.
+<p>Finally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>laptop-mode.service</code>.
 </p>
 <h3><span class="mw-headline" id="Hard_disks">Hard disks</span></h3>
-<p>For this you need to have <i>hdparm</i> and/or <i>sdparm</i> installed. See <a href="/Usage/Configuration/L/Hdparm.html" title="Hdparm">Hdparm</a>.
+<p>For this you need to have <i>hdparm</i> and/or <i>sdparm</i> installed. See <a href="/Usage/Configuration/H/Hdparm.html" title="Hdparm">Hdparm</a>.
 </p>
 <p>Spinning down the hard drive through <code>hdparm -S</code> values saves power and makes everything a lot more quiet. By using the readahead function you can allow the drives to spin down more often even though you are using the computer. LMT can also establish <code>hdparm -B</code> values. The maximum hard drive power saving is 1 and the minimum is 254. For example, set this value to 254 when on AC and 20 when on battery. If you find that normal activity hangs often while waiting for the disk to spin up, it might be a good idea to set it to a higher value (e.g. 128) which will make it spin down less often. <code>hdparm -S</code> and <code>hdparm -B</code> values are configured in <code>/etc/laptop-mode/laptop-mode.conf</code>.
 </p>
@@ -145,7 +145,7 @@
 <p><b>Answer:</b> They may be relevant, because (a) laptop mode will reduce the number of writes, which improves the lifetime of an SSD, and (b) laptop mode makes writes bursty, which enables power saving mechanisms like ALPM to kick in. However, your mileage may vary depending on the specific hardware involved. For some hardware, you will get no gain at all, for some the gain may be substantial.
 </p>
 <h3><span class="mw-headline" id="CPU_frequency">CPU frequency</span></h3>
-<p>For this you need to have a CPU frequency driver installed. See <a href="/Usage/Configuration/L/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a>.
+<p>For this you need to have a CPU frequency driver installed. See <a href="/Usage/Configuration/C/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a>.
 </p>
 <pre># cpufreq.conf
 # ThinkPad T40/T42/T60 Example
@@ -307,7 +307,7 @@ INTEL_HDA_DEVICE_CONTROLLER=0
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Laptop-mode-tools_is_not_picking_up_events">Laptop-mode-tools is not picking up events</span></h3>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> and enable its <a href="/Usage/Configuration/L/Systemd.html" title="Systemd">systemd</a> service <code>acpid.service</code>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=acpid">acpid</a></span> and enable its <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service <code>acpid.service</code>.
 </p>
 <p>If that does not help, go through the laptop-mode configuration files and make sure that the service you want to enable is set to 1. Many services (including cpufreq control) are by default set to "auto", which may not enable them.
 </p>
@@ -327,7 +327,7 @@ AUTOSUSPEND_DEVID_BLACKLIST="046d:c534"
 <p>Multiple IDs can be seperated with spaces.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Don't forget to <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the laptop-mode service. You might also need to reconnect the USB device.</div>
+<strong>Note:</strong> Don't forget to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> the laptop-mode service. You might also need to reconnect the USB device.</div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow"  href="https://github.com/rickysarraf/laptop-mode-tools/wiki">Laptop Mode Tools wiki</a></li>
@@ -338,8 +338,8 @@ AUTOSUSPEND_DEVID_BLACKLIST="046d:c534"
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/L/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
-<li><a href="/Usage/Configuration/L/Category:Power_management.html" title="Category:Power management">Power management</a></li>
+<li><a href="/Usage/Configuration/C/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
+<li><a href="/Usage/Configuration/C/Category:Power_management.html" title="Category:Power management">Power management</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -357,9 +357,9 @@ AUTOSUSPEND_DEVID_BLACKLIST="046d:c534"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

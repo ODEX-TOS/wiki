@@ -2,7 +2,7 @@
     title: PAM
     description: Migration of PAM from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/P/Security.html" title="Security">Security</a></li>
+<li><a href="/Usage/Configuration/S/Security.html" title="Security">Security</a></li>
 <li><a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a></li>
 <li><a href="/Usage/Configuration/P/Pam_usb.html" title="Pam usb">pam_usb</a></li>
 <li><a href="/Usage/Configuration/P/Pam_abl.html" title="Pam abl">pam_abl</a></li>
@@ -71,7 +71,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pam">pam</a></span> package is a dependency of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span> <a href="/Usage/Configuration/P/Meta_package_and_package_group.html#Difference_between_meta_package_and_package_group" class="mw-redirect" title="Meta package">meta package</a> and, thereby, normally installed on an TOS system. The PAM modules are installed into <code>/usr/lib/security</code> exclusively. 
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pam">pam</a></span> package is a dependency of the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=base">base</a></span> <a href="/Usage/Configuration/M/Meta_package_and_package_group.html#Difference_between_meta_package_and_package_group" class="mw-redirect" title="Meta package">meta package</a> and, thereby, normally installed on an TOS system. The PAM modules are installed into <code>/usr/lib/security</code> exclusively. 
 </p>
 <p>The repositories contain a number of optional PAM packages, the <a href="#Configuration_How-Tos">#Configuration How-Tos</a> show examples.
 </p>
@@ -90,7 +90,7 @@
 </p>
 <ul>
 <li>the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pambase">pambase</a></span> package, which contains the base-stack of TOS Linux specific PAM configuration to be used by applications, and</li>
-<li>other base packages. For example, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=util-linux">util-linux</a></span> adds configuration for the central <i>login</i> and other programs, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadow">shadow</a></span> package adds the TOS Linux defaults to secure and modify the user database (see <a href="/Usage/Configuration/P/Users_and_groups.html" title="Users and groups">Users and groups</a>).</li>
+<li>other base packages. For example, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=util-linux">util-linux</a></span> adds configuration for the central <i>login</i> and other programs, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=shadow">shadow</a></span> package adds the TOS Linux defaults to secure and modify the user database (see <a href="/Usage/Configuration/U/Users_and_groups.html" title="Users and groups">Users and groups</a>).</li>
 </ul>
 <p>The different configuration files of the base installation link together, are stacked during runtime. For example, on a local user logon, the <i>login</i> application sources the <code>system-local-login</code> policy, which in turn sources others: 
 </p>
@@ -145,56 +145,56 @@ auth      optional  pam_permit.so</pre>
 <h3><span class="mw-headline" id="Security_parameter_configuration">Security parameter configuration</span></h3>
 <p>The following sections describe examples to change the default PAM parameter configuration: 
 </p>
-<ul><li><a href="/Usage/Configuration/P/Security.html#Enforcing_strong_passwords_using_pam_cracklib" title="Security">Security#Enforcing strong passwords using pam_cracklib</a></li></ul>
+<ul><li><a href="/Usage/Configuration/S/Security.html#Enforcing_strong_passwords_using_pam_cracklib" title="Security">Security#Enforcing strong passwords using pam_cracklib</a></li></ul>
 <dl><dd>shows how to enforce strong passwords with <code>pam_cracklib.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Security.html#Lockout_user_after_three_failed_login_attempts" title="Security">Security#Lockout user after three failed login attempts</a></li></ul>
+<ul><li><a href="/Usage/Configuration/S/Security.html#Lockout_user_after_three_failed_login_attempts" title="Security">Security#Lockout user after three failed login attempts</a></li></ul>
 <dl><dd>shows how to limit login attempts with <code>pam_tally.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Security.html#Allow_only_certain_users" title="Security">Security#Allow only certain users</a></li></ul>
+<ul><li><a href="/Usage/Configuration/S/Security.html#Allow_only_certain_users" title="Security">Security#Allow only certain users</a></li></ul>
 <dl><dd>limits user logons with <code>pam_wheel.so</code>.</dd></dl>
 <ul><li>
-<a href="/Usage/Configuration/P/Realtime_process_management.html#Configuring_PAM" title="Realtime process management">Realtime process management#Configuring PAM</a> and <a href="/Usage/Configuration/P/Security.html#Limit_amount_of_processes" title="Security">Security#Limit amount of processes</a>
+<a href="/Usage/Configuration/R/Realtime_process_management.html#Configuring_PAM" title="Realtime process management">Realtime process management#Configuring PAM</a> and <a href="/Usage/Configuration/S/Security.html#Limit_amount_of_processes" title="Security">Security#Limit amount of processes</a>
 </li></ul>
 <dl><dd>detail how to configure system process limits with <code>pam_limits.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Environment_variables.html#Using_pam_env" title="Environment variables">Environment variables#Using pam_env</a></li></ul>
+<ul><li><a href="/Usage/Configuration/E/Environment_variables.html#Using_pam_env" title="Environment variables">Environment variables#Using pam_env</a></li></ul>
 <dl><dd>shows examples to set environment variables via <code>pam_env.so</code>.</dd></dl>
 <h3><span class="mw-headline" id="PAM_stack_and_module_configuration">PAM stack and module configuration</span></h3>
 <p>The following articles detail how to change the <a href="#PAM_base-stack">#PAM base-stack</a> for special use-cases.
 </p>
-<p>PAM modules from the <a href="/Usage/Configuration/P/Official_repositories.html" title="Official repositories">Official repositories</a>: 
+<p>PAM modules from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">Official repositories</a>: 
 </p>
 <ul><li><a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a></li></ul>
 <dl><dd>detail examples for using <code>pam_mount.so</code> to automount encrypted directory paths on user login.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/ECryptfs.html#Auto-mounting" title="ECryptfs">ECryptfs#Auto-mounting</a></li></ul>
+<ul><li><a href="/Usage/Configuration/E/ECryptfs.html#Auto-mounting" title="ECryptfs">ECryptfs#Auto-mounting</a></li></ul>
 <dl><dd>uses <code>pam_ecryptfs.so</code> to automount an encrypted directory.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Dm-crypt/Mounting_at_login.html" title="Dm-crypt/Mounting at login">Dm-crypt/Mounting at login</a></li></ul>
+<ul><li><a href="/Usage/Configuration/D/Dm-crypt/Mounting_at_login.html" title="Dm-crypt/Mounting at login">Dm-crypt/Mounting at login</a></li></ul>
 <dl><dd>shows how to use <code>pam_exec.so</code> to execute a custom script on a user login.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Active_Directory_integration.html#Configuring_PAM" title="Active Directory integration">Active Directory integration#Configuring PAM</a></li></ul>
-<dl><dd>uses <code>pam_winbind.so</code> and <code>pam_krb5.so</code> to let users authenticate via Active Directory (<a href="/Usage/Configuration/P/OpenLDAP.html" class="mw-redirect" title="LDAP">LDAP</a>, <a href="/Usage/Configuration/P/Kerberos.html" title="Kerberos">Kerberos</a>) services.</dd></dl>
+<ul><li><a href="/Usage/Configuration/A/Active_Directory_integration.html#Configuring_PAM" title="Active Directory integration">Active Directory integration#Configuring PAM</a></li></ul>
+<dl><dd>uses <code>pam_winbind.so</code> and <code>pam_krb5.so</code> to let users authenticate via Active Directory (<a href="/Usage/Configuration/O/OpenLDAP.html" class="mw-redirect" title="LDAP">LDAP</a>, <a href="/Usage/Configuration/K/Kerberos.html" title="Kerberos">Kerberos</a>) services.</dd></dl>
 <ul><li>
-<a href="/Usage/Configuration/P/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a> with its <a href="/Usage/Configuration/P/LDAP_authentication.html#NSS_and_PAM" title="LDAP authentication">LDAP authentication#NSS and PAM</a> section</li></ul>
+<a href="/Usage/Configuration/L/LDAP_authentication.html" title="LDAP authentication">LDAP authentication</a> with its <a href="/Usage/Configuration/L/LDAP_authentication.html#NSS_and_PAM" title="LDAP authentication">LDAP authentication#NSS and PAM</a> section</li></ul>
 <dl><dd>is an article about integrating LDAP client or server-side authentication with <code>pam_ldap.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/YubiKey.html#Two-factor_authentication_with_SSH" title="YubiKey">YubiKey#Two-factor authentication with SSH</a></li></ul>
+<ul><li><a href="/Usage/Configuration/Y/YubiKey.html#Two-factor_authentication_with_SSH" title="YubiKey">YubiKey#Two-factor authentication with SSH</a></li></ul>
 <dl><dd>relies on <code>pam_yubico.so</code> in the PAM stack to enable authentication via the proprietary Yubikey.</dd></dl>
 <ul><li><a href="/Usage/Configuration/P/Pam_oath.html" title="Pam oath">pam_oath</a></li></ul>
 <dl><dd>shows an example to implement software based two-factor authentication with <code>pam_oath.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Fprint.html" title="Fprint">fprint</a></li></ul>
+<ul><li><a href="/Usage/Configuration/F/Fprint.html" title="Fprint">fprint</a></li></ul>
 <dl><dd>employs <code>pam_fprintd.so</code> to setup fingerprint authentication.</dd></dl>
-<p>PAM modules from the <a href="/Usage/Configuration/P/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>: 
+<p>PAM modules from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a>: 
 </p>
 <ul><li><a href="/Usage/Configuration/P/Pam_usb.html" title="Pam usb">pam_usb</a></li></ul>
 <dl><dd>shows how to configure <code>pam_usb.so</code> to use an usb-device for, optionally two-factor, authentication.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/SSH_keys.html#pam_ssh" title="SSH keys">SSH keys#pam_ssh</a></li></ul>
+<ul><li><a href="/Usage/Configuration/S/SSH_keys.html#pam_ssh" title="SSH keys">SSH keys#pam_ssh</a></li></ul>
 <dl><dd>uses <code>pam_ssh.so</code> to authenticate as a remote user.</dd></dl>
 <ul><li><a href="/Usage/Configuration/P/Pam_abl.html" title="Pam abl">pam_abl</a></li></ul>
 <dl><dd>explains how <code>pam_abl.so</code> can be used to limit brute-forcing attacks via ssh.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/EncFS.html#.2Fetc.2Fpam.d.2F" title="EncFS">EncFS</a></li></ul>
+<ul><li><a href="/Usage/Configuration/E/EncFS.html#.2Fetc.2Fpam.d.2F" title="EncFS">EncFS</a></li></ul>
 <dl><dd>may get automounted via <code>pam_encfs.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Google_Authenticator.html" title="Google Authenticator">Google Authenticator</a></li></ul>
+<ul><li><a href="/Usage/Configuration/G/Google_Authenticator.html" title="Google Authenticator">Google Authenticator</a></li></ul>
 <dl><dd>shows how to set up two-factor authentication with <code>pam_google_authenticator.so</code>.</dd></dl>
-<ul><li><a href="/Usage/Configuration/P/Very_Secure_FTP_Daemon.html#PAM_with_virtual_users" title="Very Secure FTP Daemon">Very Secure FTP Daemon#PAM with virtual users</a></li></ul>
+<ul><li><a href="/Usage/Configuration/V/Very_Secure_FTP_Daemon.html#PAM_with_virtual_users" title="Very Secure FTP Daemon">Very Secure FTP Daemon#PAM with virtual users</a></li></ul>
 <dl><dd>explains how to configure a FTP chroot with <code>pam_pwdfile.so</code> to authenticate users without a local system account.</dd></dl>
 <h2><span class="mw-headline" id="Further_PAM_packages">Further PAM packages</span></h2>
-<p>Other than those packages mentioned so far, the <a href="/Usage/Configuration/P/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> contains a number of additional PAM modules and tools.  
+<p>Other than those packages mentioned so far, the <a href="/Usage/Configuration/T/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> contains a number of additional PAM modules and tools.  
 </p>
 <p>General purpose utilities relating to PAM are: 
 </p>
@@ -222,11 +222,11 @@ auth      optional  pam_permit.so</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/P/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
-<li><a href="/Usage/Configuration/P/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -244,9 +244,9 @@ auth      optional  pam_permit.so</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

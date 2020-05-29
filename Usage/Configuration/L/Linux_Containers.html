@@ -2,7 +2,7 @@
     title: Linux_Containers
     description: Migration of Linux_Containers from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,20 +27,20 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/L/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a></li>
-<li><a href="/Usage/Configuration/L/Cgroups.html" title="Cgroups">Cgroups</a></li>
-<li><a href="/Usage/Configuration/L/Docker.html" title="Docker">Docker</a></li>
+<li><a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a></li>
+<li><a href="/Usage/Configuration/C/Cgroups.html" title="Cgroups">Cgroups</a></li>
+<li><a href="/Usage/Configuration/D/Docker.html" title="Docker">Docker</a></li>
 <li><a href="/Usage/Configuration/L/LXD.html" title="LXD">LXD</a></li>
-<li><a href="/Usage/Configuration/L/OpenVPN.html" title="OpenVPN">OpenVPN</a></li>
-<li><a href="/Usage/Configuration/L/OpenVPN_client_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (client) in Linux containers">OpenVPN (client) in Linux containers</a></li>
-<li><a href="/Usage/Configuration/L/OpenVPN_server_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (server) in Linux containers">OpenVPN (server) in Linux containers</a></li>
-<li><a href="/Usage/Configuration/L/PeerGuardian_Linux.html" title="PeerGuardian Linux">PeerGuardian Linux</a></li>
-<li><a href="/Usage/Configuration/L/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
+<li><a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a></li>
+<li><a href="/Usage/Configuration/O/OpenVPN_client_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (client) in Linux containers">OpenVPN (client) in Linux containers</a></li>
+<li><a href="/Usage/Configuration/O/OpenVPN_server_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (server) in Linux containers">OpenVPN (server) in Linux containers</a></li>
+<li><a href="/Usage/Configuration/P/PeerGuardian_Linux.html" title="PeerGuardian Linux">PeerGuardian Linux</a></li>
+<li><a href="/Usage/Configuration/S/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://linuxcontainers.org/">Linux Containers</a> (LXC) is an operating-system-level virtualization method for running multiple isolated Linux systems (containers) on a single control host (LXC host). It does not provide a virtual machine, but rather provides a virtual environment that has its own CPU, memory, block I/O, network, etc. space and the resource control mechanism. This is provided by the <a href="https://en.wikipedia.org/wiki/Linux_namespaces"  title="wikipedia:Linux namespaces">namespaces</a> and <a href="/Usage/Configuration/L/Cgroups.html" title="Cgroups">cgroups</a> features in the Linux kernel on the LXC host. It is similar to a chroot, but offers much more isolation.
+<p><a rel="nofollow"  href="https://linuxcontainers.org/">Linux Containers</a> (LXC) is an operating-system-level virtualization method for running multiple isolated Linux systems (containers) on a single control host (LXC host). It does not provide a virtual machine, but rather provides a virtual environment that has its own CPU, memory, block I/O, network, etc. space and the resource control mechanism. This is provided by the <a href="https://en.wikipedia.org/wiki/Linux_namespaces"  title="wikipedia:Linux namespaces">namespaces</a> and <a href="/Usage/Configuration/C/Cgroups.html" title="Cgroups">cgroups</a> features in the Linux kernel on the LXC host. It is similar to a chroot, but offers much more isolation.
 </p>
-<p>Alternatives for using containers are <a href="/Usage/Configuration/L/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a>, <a href="/Usage/Configuration/L/Docker.html" title="Docker">docker</a> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rkt/">rkt</a></span><sup><small>AUR</small></sup>.
+<p>Alternatives for using containers are <a href="/Usage/Configuration/S/Systemd-nspawn.html" title="Systemd-nspawn">systemd-nspawn</a>, <a href="/Usage/Configuration/D/Docker.html" title="Docker">docker</a> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/rkt/">rkt</a></span><sup><small>AUR</small></sup>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -162,7 +162,7 @@ UID        PID  PPID  C STIME TTY          TIME CMD
 <h4>
 <span id="Enable_support_to_run_unprivileged_containers_.28optional.29"></span><span class="mw-headline" id="Enable_support_to_run_unprivileged_containers_(optional)">Enable support to run unprivileged containers (optional)</span>
 </h4>
-<p>Enable the <a href="/Usage/Configuration/L/Cgroups.html" class="mw-redirect" title="Control groups">control groups</a> <a href="/Usage/Configuration/L/PAM.html" title="PAM">PAM</a> module by modifying <code>/etc/pam.d/system-login</code> to additionally contain the following line:
+<p>Enable the <a href="/Usage/Configuration/C/Cgroups.html" class="mw-redirect" title="Control groups">control groups</a> <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> module by modifying <code>/etc/pam.d/system-login</code> to additionally contain the following line:
 </p>
 <pre>session    optional   pam_cgfs.so -c freezer,memory,name=systemd,unified
 </pre>
@@ -201,10 +201,10 @@ lxc.idmap = g 0 100000 65536
 <p>The NAT bridge does not require the host's network manager to manage the bridge.  <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=lxc">lxc</a></span> ships with <code>lxc-net</code> which creates a NAT bridge called <code>lxcbr0</code>.  The NAT bridge is a standalone bridge with a private network that is not bridged to the host's ethernet device or to a physical network. It exists as a private subnet in the host.
 </p>
 <h4><span class="mw-headline" id="Using_a_host_bridge">Using a host bridge</span></h4>
-<p>See <a href="/Usage/Configuration/L/Network_bridge.html" title="Network bridge">Network bridge</a>.
+<p>See <a href="/Usage/Configuration/N/Network_bridge.html" title="Network bridge">Network bridge</a>.
 </p>
 <h4><span class="mw-headline" id="Using_a_NAT_bridge">Using a NAT bridge</span></h4>
-<p><a href="/Usage/Configuration/L/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> which is a dependency for <code>lxc-net</code> and before starting the bridge, first create a configuration file for it:
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnsmasq">dnsmasq</a></span> which is a dependency for <code>lxc-net</code> and before starting the bridge, first create a configuration file for it:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/default/lxc-net</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Leave USE_LXC_BRIDGE as "true" if you want to use lxcbr0 for your
@@ -250,7 +250,7 @@ lxc.net.0.hwaddr = 00:16:3e:xx:xx:xx</pre>
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/lxc/dnsmasq.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">dhcp-host=playtime,10.0.3.100</pre>
-<p>Now <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>lxc-net.service</code> to create the bridge interface.
+<p>Now <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>lxc-net.service</code> to create the bridge interface.
 </p>
 <h5><span class="mw-headline" id="Firewall_considerations">Firewall considerations</span></h5>
 <p>Since the lxc is running on the 10.0.3.x subnet, access to services such as ssh, httpd, etc. will need to be actively forwarded to the lxc.  In principal, the firewall on the host needs to forward traffic incoming traffic on the expected port on the container.  
@@ -291,7 +291,7 @@ COMMIT
 </p>
 <p>A copy of the <code>/etc/lxc/default.conf</code> is needed in the non-root user's home directory, e.g. <code>~/.config/lxc/default.conf</code> (create the directory if needed).
 </p>
-<p>Running containers as a non-root user requires <code>+x</code> permissions on <code>~/.local/share/</code>. Make that change with <a href="/Usage/Configuration/L/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> before starting a container.
+<p>Running containers as a non-root user requires <code>+x</code> permissions on <code>~/.local/share/</code>. Make that change with <a href="/Usage/Configuration/F/File_permissions_and_attributes.html#Changing_permissions" class="mw-redirect" title="Chmod">chmod</a> before starting a container.
 </p>
 <h3><span class="mw-headline" id="Container_creation">Container creation</span></h3>
 <p>Containers are built using <code>lxc-create</code>.  With the release of lxc-3.0.0-1, upstream has deprecated locally stored templates.
@@ -305,9 +305,9 @@ COMMIT
 <pre># lxc-create -n playtime -t download
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Users may optionally install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=haveged">haveged</a></span> and <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>haveged.service</code> to avoid a perceived hang during the setup process while waiting for system entropy to be seeded.  Without it, the generation of private/GPG keys can add a lengthy wait to the process.</div>
+<strong>Tip:</strong> Users may optionally install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=haveged">haveged</a></span> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>haveged.service</code> to avoid a perceived hang during the setup process while waiting for system entropy to be seeded.  Without it, the generation of private/GPG keys can add a lengthy wait to the process.</div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Users of <a href="/Usage/Configuration/L/Btrfs.html" title="Btrfs">Btrfs</a> can append <code>-B btrfs</code> to create a Btrfs subvolume for storing containerized rootfs. This comes in handy if cloning containers with the help of <code>lxc-clone</code> command. <a href="/Usage/Configuration/L/ZFS.html" title="ZFS">ZFS</a> users may use <code>-B zfs</code>, correspondingly.</div>
+<strong>Tip:</strong> Users of <a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a> can append <code>-B btrfs</code> to create a Btrfs subvolume for storing containerized rootfs. This comes in handy if cloning containers with the help of <code>lxc-clone</code> command. <a href="/Usage/Configuration/Z/ZFS.html" title="ZFS">ZFS</a> users may use <code>-B zfs</code>, correspondingly.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Users wanting the legacy templates can find them in <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lxc-templates/">lxc-templates</a></span><sup><small>AUR</small></sup> or alternatively, users can build their own templates with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distrobuilder/">distrobuilder</a></span><sup><small>AUR</small></sup>.</div>
 <h3><span class="mw-headline" id="Container_configuration">Container configuration</span></h3>
@@ -363,7 +363,7 @@ In addition, add the following line <b>before</b> the above bind mount lines.
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> This will not work if using <i>unprivileged</i> containers.</div>
 <h4><span class="mw-headline" id="OpenVPN_considerations">OpenVPN considerations</span></h4>
-<p>Users wishing to run <a href="/Usage/Configuration/L/OpenVPN.html" title="OpenVPN">OpenVPN</a> within the container are requested to direct to either <a href="/Usage/Configuration/L/OpenVPN_client_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (client) in Linux containers">OpenVPN (client) in Linux containers</a> and/or <a href="/Usage/Configuration/L/OpenVPN_server_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (server) in Linux containers">OpenVPN (server) in Linux containers</a>.
+<p>Users wishing to run <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> within the container are requested to direct to either <a href="/Usage/Configuration/O/OpenVPN_client_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (client) in Linux containers">OpenVPN (client) in Linux containers</a> and/or <a href="/Usage/Configuration/O/OpenVPN_server_in_Linux_Containers.html" class="mw-redirect" title="OpenVPN (server) in Linux containers">OpenVPN (server) in Linux containers</a>.
 </p>
 <h2><span class="mw-headline" id="Managing_containers">Managing containers</span></h2>
 <h3><span class="mw-headline" id="Basic_usage">Basic usage</span></h3>
@@ -371,7 +371,7 @@ In addition, add the following line <b>before</b> the above bind mount lines.
 </p>
 <pre># lxc-ls -f
 </pre>
-<p>Systemd can be used to <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and to <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> LXCs via <code>lxc@CONTAINER_NAME.service</code>.  <a href="/Usage/Configuration/L/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <code>lxc@CONTAINER_NAME.service</code> to have it start when the host system boots.
+<p>Systemd can be used to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> and to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Stop">stop</a> LXCs via <code>lxc@CONTAINER_NAME.service</code>.  <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <code>lxc@CONTAINER_NAME.service</code> to have it start when the host system boots.
 </p>
 <p>Users can also start/stop LXCs without systemd.
 Start a container:
@@ -416,7 +416,7 @@ Start a container:
 </p>
 <pre># lxc-destroy -n snap1 -f
 </pre>
-<p>Systemd units and wrapper scripts to manage snapshots for <a href="/Usage/Configuration/L/Pi-hole.html" title="Pi-hole">pi-hole</a> and <a href="/Usage/Configuration/L/OpenVPN.html" title="OpenVPN">OpenVPN</a> are available to automate the process in <a rel="nofollow"  href="https://github.com/graysky2/lxc-service-snapshots">lxc-service-snapshots</a>.
+<p>Systemd units and wrapper scripts to manage snapshots for <a href="/Usage/Configuration/P/Pi-hole.html" title="Pi-hole">pi-hole</a> and <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> are available to automate the process in <a rel="nofollow"  href="https://github.com/graysky2/lxc-service-snapshots">lxc-service-snapshots</a>.
 </p>
 <h3><span class="mw-headline" id="Converting_a_privileged_container_to_an_unprivileged_container">Converting a privileged container to an unprivileged container</span></h3>
 <p>Once the system has been configured to use unprivileged containers (see, <a href="#Enable_support_to_run_unprivileged_containers_(optional)">#Enable support to run unprivileged containers (optional)</a>), <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nsexec-bzr/">nsexec-bzr</a></span><sup><small>AUR</small></sup> contains a utility called <code>uidmapshift</code> which is able to convert an existing <i>privileged</i> container to an <i>unprivileged</i> container to avoid a total rebuild of the image.
@@ -425,7 +425,7 @@ Start a container:
 <strong>Warning:</strong> 
 <ul>
 <li>It is recommended to backup the existing image before using this utility!</li>
-<li>This utility will not shift UIDs and GIDs in <a href="/Usage/Configuration/L/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACL</a>, users will need to shift them manually!</li>
+<li>This utility will not shift UIDs and GIDs in <a href="/Usage/Configuration/A/Access_Control_Lists.html" class="mw-redirect" title="ACL">ACL</a>, users will need to shift them manually!</li>
 </ul>
 </div>
 <p>Invoke the utility to convert over like so:
@@ -435,7 +435,7 @@ Start a container:
 <p>Additional options are available simply by calling <code>uidmapshift</code> without any arguments.
 </p>
 <h2><span class="mw-headline" id="Running_Xorg_programs">Running Xorg programs</span></h2>
-<p>Either attach to or <a href="/Usage/Configuration/L/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> into the target container and prefix the call to the program with the DISPLAY ID of the host's X session.  For most simple setups, the display is always 0.
+<p>Either attach to or <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> into the target container and prefix the call to the program with the DISPLAY ID of the host's X session.  For most simple setups, the display is always 0.
 </p>
 <p>An example of running Firefox from the container in the host's display:
 </p>
@@ -456,7 +456,7 @@ Login incorrect
 </p>
 <pre>pam_securetty(login:auth): access denied: tty 'pts/0' is not secure !
 </pre>
-<p>Delete <code>/etc/securetty</code><a rel="nofollow"  href="http://unix.stackexchange.com/questions/41840/effect-of-entries-in-etc-securetty/41939#41939">[1]</a> and <code>/usr/share/factory/etc/securetty</code> on the <b>container</b> file system. Optionally add them to <a href="/Usage/Configuration/L/Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">NoExtract</a> in <code>/etc/pacman.conf</code> to prevent them from getting reinstalled. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/45903">FS#45903</a> for details.
+<p>Delete <code>/etc/securetty</code><a rel="nofollow"  href="http://unix.stackexchange.com/questions/41840/effect-of-entries-in-etc-securetty/41939#41939">[1]</a> and <code>/usr/share/factory/etc/securetty</code> on the <b>container</b> file system. Optionally add them to <a href="/Usage/Configuration/P/Pacman.html#Skip_files_from_being_installed_to_system" title="Pacman">NoExtract</a> in <code>/etc/pacman.conf</code> to prevent them from getting reinstalled. See <a rel="nofollow"  href="https://bugs.archlinux.org/task/45903">FS#45903</a> for details.
 </p>
 <p>Alternatively, create a new user in lxc-attach and use it for logging in to the system, then switch to root.
 </p>
@@ -486,7 +486,7 @@ lxc.net.0.flags = up
 lxc.net.0.link = <code>bridge</code>
 ...
 </pre>
-<p>And then assign the IP through a preferred method <b>inside</b> the container, see also <a href="/Usage/Configuration/L/Network_configuration.html#Network_management" title="Network configuration">Network configuration#Network management</a>.
+<p>And then assign the IP through a preferred method <b>inside</b> the container, see also <a href="/Usage/Configuration/N/Network_configuration.html#Network_management" title="Network configuration">Network configuration#Network management</a>.
 </p>
 <h3><span class="mw-headline" id="Error:_unknown_command">Error: unknown command</span></h3>
 <p>The error may happen when a basic command (<i>ls</i>, <i>cat</i>, etc.) on an attached container is typed hen a different Linux distribution is containerized relative to the host system (e.g. Debian container in TOS Linux host system). Upon attaching, use the argument <code>--clear-env</code>: 
@@ -523,11 +523,11 @@ keyctl errno 38</pre>
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/L/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
-<li><a href="/Usage/Configuration/L/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li>
+<li><a href="/Usage/Configuration/C/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="/Usage/Configuration/C/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/L/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -545,9 +545,9 @@ keyctl errno 38</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

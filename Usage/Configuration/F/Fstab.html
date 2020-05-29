@@ -2,7 +2,7 @@
     title: Fstab
     description: Migration of Fstab from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,15 +29,15 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/F/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a></li>
+<li><a href="/Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a></li>
 <li><a href="/Usage/Configuration/F/File_systems.html" title="File systems">File systems</a></li>
-<li><a href="/Usage/Configuration/F/Tmpfs.html" title="Tmpfs">tmpfs</a></li>
-<li><a href="/Usage/Configuration/F/Swap.html" title="Swap">swap</a></li>
+<li><a href="/Usage/Configuration/T/Tmpfs.html" title="Tmpfs">tmpfs</a></li>
+<li><a href="/Usage/Configuration/S/Swap.html" title="Swap">swap</a></li>
 </ul>
 </div>
 <p>The <span class="plainlinks archwiki-template-man" title="$ man 5 fstab"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fstab.5">fstab(5)</a></span> file can be used to define how disk partitions, various other block devices, or remote filesystems should be mounted into the filesystem.
 </p>
-<p>Each filesystem is described in a separate line. These definitions will be converted into <a href="/Usage/Configuration/F/Systemd.html" title="Systemd">systemd</a> mount units dynamically at boot, and when the configuration of the system manager is reloaded. The default setup will automatically <a href="/Usage/Configuration/F/Fsck.html" title="Fsck">fsck</a> and mount filesystems before starting services that need them to be mounted. For example, systemd automatically makes sure that remote filesystem mounts like <a href="/Usage/Configuration/F/NFS.html" title="NFS">NFS</a> or <a href="/Usage/Configuration/F/Samba.html" title="Samba">Samba</a> are only started after the network has been set up. Therefore, local and remote filesystem mounts specified in <code>/etc/fstab</code> should work out-of-the-box. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.mount.5">systemd.mount(5)</a></span> for details.
+<p>Each filesystem is described in a separate line. These definitions will be converted into <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> mount units dynamically at boot, and when the configuration of the system manager is reloaded. The default setup will automatically <a href="/Usage/Configuration/F/Fsck.html" title="Fsck">fsck</a> and mount filesystems before starting services that need them to be mounted. For example, systemd automatically makes sure that remote filesystem mounts like <a href="/Usage/Configuration/N/NFS.html" title="NFS">NFS</a> or <a href="/Usage/Configuration/S/Samba.html" title="Samba">Samba</a> are only started after the network has been set up. Therefore, local and remote filesystem mounts specified in <code>/etc/fstab</code> should work out-of-the-box. See <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.mount.5">systemd.mount(5)</a></span> for details.
 </p>
 <p>The <code>mount</code> command will use fstab, if just one of either directory or device is given, to fill in the value for the other parameter. When doing so, mount options which are listed in fstab will also be used.
 </p>
@@ -106,8 +106,8 @@ UUID=b411dc99-f0a0-4c87-9e05-184977be8539 /home ext4   noatime   0      2</pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
 <ul>
-<li>The <code>auto</code> type lets the mount command guess what type of file system is used. This is useful for <a href="/Usage/Configuration/F/Optical_disc_drive.html" title="Optical disc drive">optical media</a> (CD/DVD/Blu-ray).</li>
-<li>If the root file system is <a href="/Usage/Configuration/F/Btrfs.html" title="Btrfs">btrfs</a>, the fsck order should be set to <code>0</code> instead of <code>1</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 fsck.btrfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fsck.btrfs.8">fsck.btrfs(8)</a></span>.</li>
+<li>The <code>auto</code> type lets the mount command guess what type of file system is used. This is useful for <a href="/Usage/Configuration/O/Optical_disc_drive.html" title="Optical disc drive">optical media</a> (CD/DVD/Blu-ray).</li>
+<li>If the root file system is <a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">btrfs</a>, the fsck order should be set to <code>0</code> instead of <code>1</code>. See <span class="plainlinks archwiki-template-man" title="$ man 8 fsck.btrfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fsck.btrfs.8">fsck.btrfs(8)</a></span>.</li>
 </ul>
 </div>
 <p>All specified devices within <code>/etc/fstab</code> will be automatically mounted on startup and when the <code>-a</code> flag is used with <span class="plainlinks archwiki-template-man" title="$ man 8 mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mount.8">mount(8)</a></span> unless the <code>noauto</code> option is specified. Devices that are listed and not present will result in an error unless the <code>nofail</code> option is used.
@@ -115,11 +115,11 @@ UUID=b411dc99-f0a0-4c87-9e05-184977be8539 /home ext4   noatime   0      2</pre>
 <p>See <span class="plainlinks archwiki-template-man" title="$ man 5 fstab"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/fstab.5#DESCRIPTION">fstab(5)</a></span> for details.
 </p>
 <h2><span class="mw-headline" id="Identifying_filesystems">Identifying filesystems</span></h2>
-<p>There are different ways to identify filesystems that will be mounted in <code>/etc/fstab</code>: kernel name descriptor, file system label and UUID, and GPT partition label and UUID for GPT disks. UUID or PARTUUID must be privileged over kernel name descriptors and labels. See <a href="/Usage/Configuration/F/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for more explanations. It is recommended to read that article first before continuing with this article.
+<p>There are different ways to identify filesystems that will be mounted in <code>/etc/fstab</code>: kernel name descriptor, file system label and UUID, and GPT partition label and UUID for GPT disks. UUID or PARTUUID must be privileged over kernel name descriptors and labels. See <a href="/Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a> for more explanations. It is recommended to read that article first before continuing with this article.
 </p>
-<p>In this section, we will describe how to mount filesystems using all the mount methods available via examples. The output of the commands <code>lsblk -f</code> and <code>blkid</code> used in the following examples are available in the article <a href="/Usage/Configuration/F/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>.
+<p>In this section, we will describe how to mount filesystems using all the mount methods available via examples. The output of the commands <code>lsblk -f</code> and <code>blkid</code> used in the following examples are available in the article <a href="/Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">Persistent block device naming</a>.
 </p>
-<p>To use <a href="/Usage/Configuration/F/Device_file.html#Block_device_names" title="Device file">kernel name descriptors</a>, use <code>/dev/sd<i>xy</i></code> in the first column. 
+<p>To use <a href="/Usage/Configuration/D/Device_file.html#Block_device_names" title="Device file">kernel name descriptors</a>, use <code>/dev/sd<i>xy</i></code> in the first column. 
 </p>
 <h3><span class="mw-headline" id="Kernel_name_descriptors">Kernel name descriptors</span></h3>
 <p>Run <code>lsblk -f</code> to list the partitions and prefix the values in the <i>NAME</i> column with <code>/dev/</code>.
@@ -132,9 +132,9 @@ UUID=b411dc99-f0a0-4c87-9e05-184977be8539 /home ext4   noatime   0      2</pre>
 /dev/sda4         none         swap          defaults         0      0
 </pre>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Kernel name descriptors are not <a href="/Usage/Configuration/F/Persistent_block_device_naming.html" title="Persistent block device naming">persistent</a> and can change each boot, they should not be used in configuration files.</div>
+<strong>Warning:</strong> Kernel name descriptors are not <a href="/Usage/Configuration/P/Persistent_block_device_naming.html" title="Persistent block device naming">persistent</a> and can change each boot, they should not be used in configuration files.</div>
 <h3><span class="mw-headline" id="File_system_labels">File system labels</span></h3>
-<p>Run <code>lsblk -f</code> to list the partitions, and prefix the values in the <a href="/Usage/Configuration/F/Persistent_block_device_naming.html#by-label" class="mw-redirect" title="LABEL">LABEL</a> column with <code>LABEL=</code> or alternatively run <code>blkid</code> and use the LABEL values without the quotes:
+<p>Run <code>lsblk -f</code> to list the partitions, and prefix the values in the <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-label" class="mw-redirect" title="LABEL">LABEL</a> column with <code>LABEL=</code> or alternatively run <code>blkid</code> and use the LABEL values without the quotes:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;device&gt;        &lt;dir&gt;        &lt;type&gt;        &lt;options&gt;        &lt;dump&gt; &lt;fsck&gt;
@@ -145,7 +145,7 @@ LABEL=SWAP        none         swap          defaults         0      0</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If any of your fields contains spaces, see <a href="#Filepath_spaces">#Filepath spaces</a>.</div>
 <h3><span class="mw-headline" id="File_system_UUIDs">File system UUIDs</span></h3>
-<p>Run <code>lsblk -f</code> to list the partitions, and prefix the values in the <a href="/Usage/Configuration/F/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> column with <code>UUID=</code> or alternatively run <code>blkid</code> and use the UUID values without the quotes::
+<p>Run <code>lsblk -f</code> to list the partitions, and prefix the values in the <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> column with <code>UUID=</code> or alternatively run <code>blkid</code> and use the UUID values without the quotes::
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;device&gt;                                &lt;dir&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;fsck&gt;
@@ -154,7 +154,7 @@ UUID=0a3407de-014b-458b-b5c1-848e92a327a3 /     ext4   defaults  0      1
 UUID=b411dc99-f0a0-4c87-9e05-184977be8539 /home ext4   defaults  0      2
 UUID=f9fe0b69-a280-415d-a03a-a32752370dee none  swap   defaults  0      0</pre>
 <h3><span class="mw-headline" id="GPT_partition_labels">GPT partition labels</span></h3>
-<p>Run <code>blkid</code> to list the partitions, and use the <a href="/Usage/Configuration/F/Persistent_block_device_naming.html#by-partlabel" class="mw-redirect" title="PARTLABEL">PARTLABEL</a> values without the quotes:
+<p>Run <code>blkid</code> to list the partitions, and use the <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-partlabel" class="mw-redirect" title="PARTLABEL">PARTLABEL</a> values without the quotes:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;device&gt;                           &lt;dir&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;fsck&gt;
@@ -165,7 +165,7 @@ PARTLABEL=SWAP                       none  swap   defaults  0      0</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If any of your fields contains spaces, see <a href="#Filepath_spaces">#Filepath spaces</a>.</div>
 <h3><span class="mw-headline" id="GPT_partition_UUIDs">GPT partition UUIDs</span></h3>
-<p>Run <code>blkid</code> to list the partitions, and use the <a href="/Usage/Configuration/F/Persistent_block_device_naming.html#by-partuuid" class="mw-redirect" title="PARTUUID">PARTUUID</a> values without the quotes:
+<p>Run <code>blkid</code> to list the partitions, and use the <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-partuuid" class="mw-redirect" title="PARTUUID">PARTUUID</a> values without the quotes:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;device&gt;                                    &lt;dir&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;fsck&gt;
@@ -186,7 +186,7 @@ PARTUUID=039b6c1c-7553-4455-9537-1befbc9fbc5b none  swap   defaults  0      0</p
 This method can be relevant if one has, for example, a significantly large <code>/home</code> partition.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This will make the filesystem type <code>autofs</code> which is ignored by <a href="/Usage/Configuration/F/Mlocate.html" title="Mlocate">mlocate</a> by default.</div>
+<strong>Note:</strong> This will make the filesystem type <code>autofs</code> which is ignored by <a href="/Usage/Configuration/M/Mlocate.html" title="Mlocate">mlocate</a> by default.</div>
 <h4><span class="mw-headline" id="Remote_filesystem">Remote filesystem</span></h4>
 <p>The same applies to remote filesystem mounts. If you want them to be mounted only upon access, you will need to use the <code>noauto,x-systemd.automount</code> parameters. In addition, you can use the <code>x-systemd.mount-timeout=</code> option to specify how long systemd should wait for the mount command to finish. Also, the <code>_netdev</code> option ensures systemd understands that the mount is network dependent and order it after the network is online.
 </p>
@@ -220,7 +220,7 @@ This method can be relevant if one has, for example, a significantly large <code
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">//host/share    /net/share        cifs   noauto,nofail,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.device-timeout=10,workgroup=workgroup,credentials=/foo/credentials    0 0</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This is an alternative to <a href="/Usage/Configuration/F/NetworkManager.html#Enable_NetworkManager_Wait_Online" title="NetworkManager">NetworkManager-wait-online</a> or <a href="/Usage/Configuration/F/Systemd-networkd.html#Mount_services_at_boot_fail" title="Systemd-networkd">systemd-networkd-wait-online</a> and does not stall the boot process.</div>
+<strong>Note:</strong> This is an alternative to <a href="/Usage/Configuration/N/NetworkManager.html#Enable_NetworkManager_Wait_Online" title="NetworkManager">NetworkManager-wait-online</a> or <a href="/Usage/Configuration/S/Systemd-networkd.html#Mount_services_at_boot_fail" title="Systemd-networkd">systemd-networkd-wait-online</a> and does not stall the boot process.</div>
 <h3><span class="mw-headline" id="Filepath_spaces">Filepath spaces</span></h3>
 <p>Since spaces are used in <code>fstab</code> to delimit fields, if any field (<i>PARTLABEL</i>, <i>LABEL</i> or the mount point) contains spaces, these spaces must be replaced by escape characters <code>\</code> followed by the 3 digit octal code <code>040</code>:
 </p>
@@ -239,7 +239,7 @@ This method can be relevant if one has, for example, a significantly large <code
 <li>
 <code>relatime</code> updates the access time only if the previous access time was earlier than the current modify or change time. In addition, since Linux 2.6.30, the access time is always updated if the previous access time was more than 24 hours old. This option is used when the <code>defaults</code> option, <code>atime</code> option (which means to use the kernel default, which is <code>relatime</code>; see <span class="plainlinks archwiki-template-man" title="$ man 8 mount"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/mount.8">mount(8)</a></span> and <a href="https://en.wikipedia.org/wiki/Stat_(system_call)#Criticism_of_atime"  title="wikipedia:Stat (system call)">wikipedia:Stat (system call)#Criticism of atime</a>) or no options at all are specified.</li>
 </ul>
-<p>When using <a href="/Usage/Configuration/F/Mutt.html" title="Mutt">Mutt</a> or other applications that need to know if a file has been read since the last time it was modified, the <code>noatime</code> option should not be used; using the <code>relatime</code> option is acceptable and still provides a performance improvement.
+<p>When using <a href="/Usage/Configuration/M/Mutt.html" title="Mutt">Mutt</a> or other applications that need to know if a file has been read since the last time it was modified, the <code>noatime</code> option should not be used; using the <code>relatime</code> option is acceptable and still provides a performance improvement.
 </p>
 <p>Since kernel 4.0 there is another related option:
 </p>
@@ -255,7 +255,7 @@ This method can be relevant if one has, for example, a significantly large <code
 <pre># mount -o remount,rw /
 </pre>
 <h3><span class="mw-headline" id="GPT_partition_automounting">GPT partition automounting</span></h3>
-<p>On a <a href="/Usage/Configuration/F/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> partitioned disk it is possible to omit <code>/</code>, <code>/home</code>, <code>/srv</code> and swap partitions from <code>/etc/fstab</code> by partitioning according to the <a rel="nofollow"  href="https://systemd.io/DISCOVERABLE_PARTITIONS/">Discoverable Partitions Specification</a>. See <a href="/Usage/Configuration/F/Systemd.html#GPT_partition_automounting" title="Systemd">systemd#GPT partition automounting</a>.
+<p>On a <a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> partitioned disk it is possible to omit <code>/</code>, <code>/home</code>, <code>/srv</code> and swap partitions from <code>/etc/fstab</code> by partitioning according to the <a rel="nofollow"  href="https://systemd.io/DISCOVERABLE_PARTITIONS/">Discoverable Partitions Specification</a>. See <a href="/Usage/Configuration/S/Systemd.html#GPT_partition_automounting" title="Systemd">systemd#GPT partition automounting</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -267,8 +267,8 @@ This method can be relevant if one has, for example, a significantly large <code
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/F/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="/Usage/Configuration/F/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
+<li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -286,9 +286,9 @@ This method can be relevant if one has, for example, a significantly large <code
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

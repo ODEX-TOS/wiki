@@ -2,7 +2,7 @@
     title: TOS_package_guidelines
     description: Migration of TOS_package_guidelines from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/A/Creating_packages.html" title="Creating packages">Creating packages</a></li>
-<li><a href="/Usage/Configuration/A/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a></li>
-<li><a href="/Usage/Configuration/A/Makepkg.html" title="Makepkg">makepkg</a></li>
-<li><a href="/Usage/Configuration/A/TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
-<li><a href="/Usage/Configuration/A/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
-<li><a href="/Usage/Configuration/A/Security_package_guidelines.html" title="Security package guidelines">Security package guidelines</a></li>
+<li><a href="/Usage/Configuration/C/Creating_packages.html" title="Creating packages">Creating packages</a></li>
+<li><a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a></li>
+<li><a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a></li>
+<li><a href="/Usage/Configuration/T/TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
+<li><a href="/Usage/Configuration/T/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a></li>
+<li><a href="/Usage/Configuration/S/Security_package_guidelines.html" title="Security package guidelines">Security package guidelines</a></li>
 </ul>
 </div>
 <p>When building packages for TOS Linux, <b>adhere to the package guidelines</b> below, especially if the intention is to <b>contribute</b> a new package to TOS Linux. You should also see the <span class="plainlinks archwiki-template-man" title="$ man 5 PKGBUILD"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/PKGBUILD.5">PKGBUILD(5)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 8 makepkg"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/makepkg.8">makepkg(8)</a></span> manpages.
@@ -112,7 +112,7 @@ package() {
 <b>Do not use makepkg subroutines</b> (e.g. <code>error</code>, <code>msg</code>, <code>msg2</code>, <code>plain</code>, <code>warning</code>) as they might change at any time. To print data, use <code>printf</code> or <code>echo</code>.</li>
 <li>All important messages should be echoed during install using an <b>.install file</b>. For example, if a package needs extra setup to work, directions should be included.</li>
 <li>
-<b>Dependencies</b> are the most common packaging error. Please take the time to verify them carefully, for example by running <code>ldd</code> on dynamic executables, checking tools required by scripts or looking at the documentation of the software. The <a href="/Usage/Configuration/A/Namcap.html" title="Namcap">namcap</a> utility can help you in this regard. This tool can analyze both PKGBUILD and the resulting package tarball and will warn you about bad permissions, missing dependencies, redundant dependencies, and other common mistakes.</li>
+<b>Dependencies</b> are the most common packaging error. Please take the time to verify them carefully, for example by running <code>ldd</code> on dynamic executables, checking tools required by scripts or looking at the documentation of the software. The <a href="/Usage/Configuration/N/Namcap.html" title="Namcap">namcap</a> utility can help you in this regard. This tool can analyze both PKGBUILD and the resulting package tarball and will warn you about bad permissions, missing dependencies, redundant dependencies, and other common mistakes.</li>
 <li>Any <b>optional dependencies</b> that are not needed to run the package or have it generally function should not be included in the <b>depends</b> array; instead the information should be added to the <b>optdepends</b> array:</li>
 </ul>
 <dl>
@@ -133,7 +133,7 @@ package() {
 <li>It is common practice to <b>preserve the order</b> of the <code>PKGBUILD</code> fields as shown above. However, this is not mandatory, as the only requirement in this context is <b>correct bash syntax</b>.</li>
 <li>
 <b>Quote</b> variables which may contain spaces, such as <code>"$pkgdir"</code> and <code>"$srcdir"</code>.</li>
-<li>To ensure the <b>integrity</b> of packages, make sure that the <a href="/Usage/Configuration/A/PKGBUILD.html#Integrity" title="PKGBUILD">integrity variables</a> contain correct values. These can be updated using the <code>updpkgsums</code> tool.</li>
+<li>To ensure the <b>integrity</b> of packages, make sure that the <a href="/Usage/Configuration/P/PKGBUILD.html#Integrity" title="PKGBUILD">integrity variables</a> contain correct values. These can be updated using the <code>updpkgsums</code> tool.</li>
 </ul>
 <h2><span class="mw-headline" id="Package_naming">Package naming</span></h2>
 <ul>
@@ -142,7 +142,7 @@ package() {
 </ul>
 <h2><span class="mw-headline" id="Package_versioning">Package versioning</span></h2>
 <ul>
-<li>Package versions (i.e. <a href="/Usage/Configuration/A/PKGBUILD.html#pkgver" title="PKGBUILD">PKGBUILD#pkgver</a>) <b>should be the same as the version released by the author</b>. Versions can include letters if need be (eg, nmap's version is 2.54BETA32). <b>Version tags may not include hyphens!</b> Letters, numbers, and periods only.</li>
+<li>Package versions (i.e. <a href="/Usage/Configuration/P/PKGBUILD.html#pkgver" title="PKGBUILD">PKGBUILD#pkgver</a>) <b>should be the same as the version released by the author</b>. Versions can include letters if need be (eg, nmap's version is 2.54BETA32). <b>Version tags may not include hyphens!</b> Letters, numbers, and periods only.</li>
 <li>
 <b>Stable packages package stable releases</b>: Release candidates (i.e. <code>1.0.0-rc1</code>), alpha (e.g. <code>1.0.0-alpha1</code>) and beta (e.g. <code>1.0.0-beta1</code>) releases are not allowed and are only to be used under the following circumstances:
 <ul>
@@ -151,18 +151,18 @@ package() {
 <li>The non-stable release allows the distribution to drop an EOL component (e.g. qt4, python2).</li>
 </ul>
 </li>
-<li>Package releases (i.e. <a href="/Usage/Configuration/A/PKGBUILD.html#pkgrel" title="PKGBUILD">PKGBUILD#pkgrel</a>) are <b>specific to TOS Linux packages</b>. These allow users to differentiate between newer and older package builds. When a new package version is first released, the <b>release count starts at 1</b>. Then as fixes and optimizations are made, the package will be <b>re-released</b> to the TOS Linux public and the <b>release number will increment</b>. When a new version comes out, the release count resets to 1. Package release tags follow the <b>same naming restrictions as version tags</b>.</li>
+<li>Package releases (i.e. <a href="/Usage/Configuration/P/PKGBUILD.html#pkgrel" title="PKGBUILD">PKGBUILD#pkgrel</a>) are <b>specific to TOS Linux packages</b>. These allow users to differentiate between newer and older package builds. When a new package version is first released, the <b>release count starts at 1</b>. Then as fixes and optimizations are made, the package will be <b>re-released</b> to the TOS Linux public and the <b>release number will increment</b>. When a new version comes out, the release count resets to 1. Package release tags follow the <b>same naming restrictions as version tags</b>.</li>
 </ul>
 <h2><span class="mw-headline" id="Package_dependencies">Package dependencies</span></h2>
 <ul>
 <li>
-<b>Do not rely on <a href="https://en.wikipedia.org/wiki/Transitive_dependency"  title="wikipedia:Transitive dependency">transitive dependencies</a></b> in any of the <a href="/Usage/Configuration/A/PKGBUILD.html#Dependencies" title="PKGBUILD">PKGBUILD#Dependencies</a>, as they might break, if one of the dependencies is updated.</li>
+<b>Do not rely on <a href="https://en.wikipedia.org/wiki/Transitive_dependency"  title="wikipedia:Transitive dependency">transitive dependencies</a></b> in any of the <a href="/Usage/Configuration/P/PKGBUILD.html#Dependencies" title="PKGBUILD">PKGBUILD#Dependencies</a>, as they might break, if one of the dependencies is updated.</li>
 <li>List all direct library dependencies. To identify them <span class="plainlinks archwiki-template-man" title="$ man 1 find-libdeps"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/find-libdeps.1">find-libdeps(1)</a></span> (part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span>) can be used.</li>
 </ul>
 <h2><span class="mw-headline" id="Package_relations">Package relations</span></h2>
 <ul>
-<li>Do not add <code>$pkgname</code> to <a href="/Usage/Configuration/A/PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a>, as it is always implicitely provided by the package.</li>
-<li>List all external shared libraries of a package in <a href="/Usage/Configuration/A/PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a> (e.g. <code>'libsomething.so'</code>). To identify them <span class="plainlinks archwiki-template-man" title="$ man 1 find-libprovides"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/find-libprovides.1">find-libprovides(1)</a></span> (part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span>) can be used.</li>
+<li>Do not add <code>$pkgname</code> to <a href="/Usage/Configuration/P/PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a>, as it is always implicitely provided by the package.</li>
+<li>List all external shared libraries of a package in <a href="/Usage/Configuration/P/PKGBUILD.html#provides" title="PKGBUILD">PKGBUILD#provides</a> (e.g. <code>'libsomething.so'</code>). To identify them <span class="plainlinks archwiki-template-man" title="$ man 1 find-libprovides"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/find-libprovides.1">find-libprovides(1)</a></span> (part of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=devtools">devtools</a></span>) can be used.</li>
 </ul>
 <h2><span class="mw-headline" id="Package_sources">Package sources</span></h2>
 <ul>
@@ -179,7 +179,7 @@ package() {
 <ul>
 <li>Report problems to upstream right away.</li>
 <li>Upstream patches wherever possible.</li>
-<li>Add comments with links to relevant (upstream) bug tracker tickets in the <a href="/Usage/Configuration/A/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> (this is particularly important, as it ensures, that other packagers can understand changes and work with a package as well).</li>
+<li>Add comments with links to relevant (upstream) bug tracker tickets in the <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> (this is particularly important, as it ensures, that other packagers can understand changes and work with a package as well).</li>
 </ul>
 <p>It is recommended to track upstream with tools such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvchecker">nvchecker</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=urlwatch">urlwatch</a></span> to be informed about new stable releases.
 </p>
@@ -298,7 +298,7 @@ package() {
 </ul>
 </li></ul>
 <h2><span class="mw-headline" id="Makepkg_duties">Makepkg duties</span></h2>
-<p>When <a href="/Usage/Configuration/A/Makepkg.html" title="Makepkg">makepkg</a> is used to build a package, it does the following automatically:
+<p>When <a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a> is used to build a package, it does the following automatically:
 </p>
 <ol>
 <li>Checks if package <b>dependencies</b> and <b>makedepends</b> are installed</li>
@@ -328,7 +328,7 @@ package() {
 <p>The <code>arch</code> array should contain <code>'x86_64'</code> if the compiled package is architecture-specific. Otherwise, use <code>'any'</code> for architecture independent packages.
 </p>
 <h2><span class="mw-headline" id="Licenses">Licenses</span></h2>
-<p>See <a href="/Usage/Configuration/A/PKGBUILD.html#license" title="PKGBUILD">PKGBUILD#license</a>.
+<p>See <a href="/Usage/Configuration/P/PKGBUILD.html#license" title="PKGBUILD">PKGBUILD#license</a>.
 </p>
 <h2><span class="mw-headline" id="Additional_guidelines">Additional guidelines</span></h2>
 <p>Be sure to read the above guidelines first - important points are listed on this page that will not be repeated in the following guideline pages. These specific guidelines are intended as an addition to the standards listed on this page.
@@ -336,7 +336,7 @@ package() {
 <div  style="display:block; text-align: center; margin-bottom: 1em;">
 <b><a class="mw-selflink selflink">TOS package guidelines</a></b>
 <hr>
-<p><a href="/Usage/Configuration/A/32-bit_package_guidelines.html" title="32-bit package guidelines">32-bit</a> – <a href="/Usage/Configuration/A/CLR_package_guidelines.html" title="CLR package guidelines">CLR</a> – <a href="/Usage/Configuration/A/CMake_package_guidelines.html" title="CMake package guidelines">CMake</a> – <a href="/Usage/Configuration/A/Cross-compiling_tools_package_guidelines.html" title="Cross-compiling tools package guidelines">Cross</a> – <a href="/Usage/Configuration/A/Eclipse_plugin_package_guidelines.html" title="Eclipse plugin package guidelines">Eclipse</a> – <a href="/Usage/Configuration/A/Electron_package_guidelines.html" title="Electron package guidelines">Electron</a> – <a href="/Usage/Configuration/A/Font_package_guidelines.html" class="mw-redirect" title="Font packaging guidelines">Font</a> – <a href="/Usage/Configuration/A/Free_Pascal_package_guidelines.html" title="Free Pascal package guidelines">Free Pascal</a> – <a href="/Usage/Configuration/A/GNOME_package_guidelines.html" title="GNOME package guidelines">GNOME</a> – <a href="/Usage/Configuration/A/Go_package_guidelines.html" title="Go package guidelines">Go</a> – <a href="/Usage/Configuration/A/Haskell_package_guidelines.html" title="Haskell package guidelines">Haskell</a> – <a href="/Usage/Configuration/A/Java_package_guidelines.html" title="Java package guidelines">Java</a> – <a href="/Usage/Configuration/A/KDE_package_guidelines.html" title="KDE package guidelines">KDE</a> – <a href="/Usage/Configuration/A/Kernel_module_package_guidelines.html" title="Kernel module package guidelines">Kernel</a> – <a href="/Usage/Configuration/A/Lisp_package_guidelines.html" title="Lisp package guidelines">Lisp</a> – <a href="/Usage/Configuration/A/MinGW_package_guidelines.html" title="MinGW package guidelines">MinGW</a> – <a href="/Usage/Configuration/A/Node.js_package_guidelines.html" title="Node.js package guidelines">Node.js</a> – <a href="/Usage/Configuration/A/Nonfree_applications_package_guidelines.html" title="Nonfree applications package guidelines">Nonfree</a> – <a href="/Usage/Configuration/A/OCaml_package_guidelines.html" title="OCaml package guidelines">OCaml</a> – <a href="/Usage/Configuration/A/Perl_package_guidelines.html" title="Perl package guidelines">Perl</a> – <a href="/Usage/Configuration/A/PHP_package_guidelines.html" title="PHP package guidelines">PHP</a> – <a href="/Usage/Configuration/A/Python_package_guidelines.html" title="Python package guidelines">Python</a> – <a href="/Usage/Configuration/A/R_package_guidelines.html" title="R package guidelines">R</a> – <a href="/Usage/Configuration/A/Ruby_Gem_package_guidelines.html" title="Ruby Gem package guidelines">Ruby</a> – <a href="/Usage/Configuration/A/Rust_package_guidelines.html" title="Rust package guidelines">Rust</a> – <a href="/Usage/Configuration/A/VCS_package_guidelines.html" title="VCS package guidelines">VCS</a> – <a href="/Usage/Configuration/A/Web_application_package_guidelines.html" title="Web application package guidelines">Web</a> – <a href="/Usage/Configuration/A/Wine_package_guidelines.html" title="Wine package guidelines">Wine</a>
+<p><a href="../wiki/32-bit_package_guidelines.html" title="32-bit package guidelines">32-bit</a> – <a href="/Usage/Configuration/C/CLR_package_guidelines.html" title="CLR package guidelines">CLR</a> – <a href="/Usage/Configuration/C/CMake_package_guidelines.html" title="CMake package guidelines">CMake</a> – <a href="/Usage/Configuration/C/Cross-compiling_tools_package_guidelines.html" title="Cross-compiling tools package guidelines">Cross</a> – <a href="/Usage/Configuration/E/Eclipse_plugin_package_guidelines.html" title="Eclipse plugin package guidelines">Eclipse</a> – <a href="/Usage/Configuration/E/Electron_package_guidelines.html" title="Electron package guidelines">Electron</a> – <a href="/Usage/Configuration/F/Font_package_guidelines.html" class="mw-redirect" title="Font packaging guidelines">Font</a> – <a href="/Usage/Configuration/F/Free_Pascal_package_guidelines.html" title="Free Pascal package guidelines">Free Pascal</a> – <a href="/Usage/Configuration/G/GNOME_package_guidelines.html" title="GNOME package guidelines">GNOME</a> – <a href="/Usage/Configuration/G/Go_package_guidelines.html" title="Go package guidelines">Go</a> – <a href="/Usage/Configuration/H/Haskell_package_guidelines.html" title="Haskell package guidelines">Haskell</a> – <a href="/Usage/Configuration/J/Java_package_guidelines.html" title="Java package guidelines">Java</a> – <a href="/Usage/Configuration/K/KDE_package_guidelines.html" title="KDE package guidelines">KDE</a> – <a href="/Usage/Configuration/K/Kernel_module_package_guidelines.html" title="Kernel module package guidelines">Kernel</a> – <a href="/Usage/Configuration/L/Lisp_package_guidelines.html" title="Lisp package guidelines">Lisp</a> – <a href="/Usage/Configuration/M/MinGW_package_guidelines.html" title="MinGW package guidelines">MinGW</a> – <a href="/Usage/Configuration/N/Node.js_package_guidelines.html" title="Node.js package guidelines">Node.js</a> – <a href="/Usage/Configuration/N/Nonfree_applications_package_guidelines.html" title="Nonfree applications package guidelines">Nonfree</a> – <a href="/Usage/Configuration/O/OCaml_package_guidelines.html" title="OCaml package guidelines">OCaml</a> – <a href="/Usage/Configuration/P/Perl_package_guidelines.html" title="Perl package guidelines">Perl</a> – <a href="/Usage/Configuration/P/PHP_package_guidelines.html" title="PHP package guidelines">PHP</a> – <a href="/Usage/Configuration/P/Python_package_guidelines.html" title="Python package guidelines">Python</a> – <a href="/Usage/Configuration/R/R_package_guidelines.html" title="R package guidelines">R</a> – <a href="/Usage/Configuration/R/Ruby_Gem_package_guidelines.html" title="Ruby Gem package guidelines">Ruby</a> – <a href="/Usage/Configuration/R/Rust_package_guidelines.html" title="Rust package guidelines">Rust</a> – <a href="/Usage/Configuration/V/VCS_package_guidelines.html" title="VCS package guidelines">VCS</a> – <a href="/Usage/Configuration/W/Web_application_package_guidelines.html" title="Web application package guidelines">Web</a> – <a href="/Usage/Configuration/W/Wine_package_guidelines.html" title="Wine package guidelines">Wine</a>
 </p>
 </div>
 <p>Packages submitted to the AUR must additionally comply with <a href="/Usage/Configuration/A/AUR_submission_guidelines.html" title="AUR submission guidelines">AUR submission guidelines</a>.
@@ -344,7 +344,7 @@ package() {
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/A/Category:TOS_package_guidelines.html" title="Category:TOS package guidelines">TOS package guidelines</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:TOS_package_guidelines.html" title="Category:TOS package guidelines">TOS package guidelines</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -361,9 +361,9 @@ package() {
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

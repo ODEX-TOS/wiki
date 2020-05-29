@@ -2,7 +2,7 @@
     title: Autofs
     description: Migration of Autofs from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -78,7 +78,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=autofs">autofs</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=autofs">autofs</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You no longer need to load <code>autofs4</code> module.</div>
@@ -115,7 +115,7 @@
 <ul><li>Open the file <code>/etc/nsswitch.conf</code> and add an entry for automount:</li></ul>
 <pre>automount: files
 </pre>
-<ul><li>When you are done configuring your templates (see below), launch the AutoFS daemon as root by <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> and starting the <code>autofs.service</code>.</li></ul>
+<ul><li>When you are done configuring your templates (see below), launch the AutoFS daemon as root by <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enabling">enabling</a> and starting the <code>autofs.service</code>.</li></ul>
 <p>Devices are now automatically mounted when they are accessed, they will remain mounted as long as you access them.
 </p>
 <h3><span class="mw-headline" id="Removable_media">Removable media</span></h3>
@@ -135,16 +135,16 @@
 </p>
 <h3><span class="mw-headline" id="NFS_network_mounts">NFS network mounts</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/A/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> "New" compared to what? In what way?; don't show systemctl start; formatting cleanup (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Autofs">Talk:Autofs#</a>)</div>
 </div>
-<p>AutoFS provides a new way of automatically discovering and mounting <a href="/Usage/Configuration/A/NFS.html" title="NFS">NFS</a>-shares on remote servers (the AutoFS network template in <code>/etc/autofs/auto.net</code> has been removed in autofs5). To enable automatic discovery and mounting of network shares from all accessible servers without any further configuration, you will need to add the following to the <code>/etc/autofs/auto.master</code> file:
+<p>AutoFS provides a new way of automatically discovering and mounting <a href="/Usage/Configuration/N/NFS.html" title="NFS">NFS</a>-shares on remote servers (the AutoFS network template in <code>/etc/autofs/auto.net</code> has been removed in autofs5). To enable automatic discovery and mounting of network shares from all accessible servers without any further configuration, you will need to add the following to the <code>/etc/autofs/auto.master</code> file:
 </p>
 <pre>/net -hosts --timeout=60
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Each host name needs to be resolveable, e.g. the name an IP address in <code>/etc/hosts</code> or via <a href="https://en.wikipedia.org/wiki/Domain_Name_System"  title="wikipedia:Domain Name System">DNS</a> and make sure you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nfs-utils">nfs-utils</a></span> installed and configured. You also have to <a href="/Usage/Configuration/A/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rpcbind</code> to browse shared Folders.</div>
+<strong>Note:</strong> Each host name needs to be resolveable, e.g. the name an IP address in <code>/etc/hosts</code> or via <a href="https://en.wikipedia.org/wiki/Domain_Name_System"  title="wikipedia:Domain Name System">DNS</a> and make sure you have <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nfs-utils">nfs-utils</a></span> installed and configured. You also have to <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>rpcbind</code> to browse shared Folders.</div>
 <p>For instance, if you have a remote server <i>fileserver</i> (the name of the directory is the hostname of the server) with an NFS share named <i>/home/share</i>, you can just access the share by typing:
 </p>
 <pre># cd /net/fileserver/home/share
@@ -193,7 +193,7 @@
 <h3>
 <span id="FTP_and_SSH_.28with_FUSE.29"></span><span class="mw-headline" id="FTP_and_SSH_(with_FUSE)">FTP and SSH (with FUSE)</span>
 </h3>
-<p>Remote FTP and <a href="/Usage/Configuration/A/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> servers can be accessed seamlessly with AutoFS using <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace"  title="wikipedia:Filesystem in Userspace">FUSE</a>, a virtual file system layer. 
+<p>Remote FTP and <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> servers can be accessed seamlessly with AutoFS using <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace"  title="wikipedia:Filesystem in Userspace">FUSE</a>, a virtual file system layer. 
 </p>
 <h4><span class="mw-headline" id="Remote_FTP">Remote FTP</span></h4>
 <p>First, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=curlftpfs">curlftpfs</a></span> package.
@@ -250,10 +250,10 @@ password mypassword
 <div>
 <b>Reason:</b> All the <i>ssh*</i> commands should be executed as the same user, as before <a rel="nofollow"  href="https://wiki.archlinux.org/index.php?title=Autofs&amp;diff=prev&amp;oldid=318335">this edit</a>. It should not matter if it is root or unprivileged. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Autofs">Talk:Autofs#</a>)</div>
 </div>
-<p>These are basic instructions to access a remote filesystem over <a href="/Usage/Configuration/A/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> with AutoFS. 
+<p>These are basic instructions to access a remote filesystem over <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> with AutoFS. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Password-less authentication may be convenient but also has security implications.  See <a href="/Usage/Configuration/A/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">SSH keypair</a> for more details</div>
+<strong>Note:</strong> Password-less authentication may be convenient but also has security implications.  See <a href="/Usage/Configuration/S/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">SSH keypair</a> for more details</div>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sshfs">sshfs</a></span> package.
 </p>
 <p>Load the <code>fuse</code> module:
@@ -264,7 +264,7 @@ password mypassword
 </p>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span>.
 </p>
-<p>Generate an <a href="/Usage/Configuration/A/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">SSH keypair</a>:
+<p>Generate an <a href="/Usage/Configuration/S/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">SSH keypair</a>:
 </p>
 <pre>$ ssh-keygen
 </pre>
@@ -291,7 +291,7 @@ password mypassword
 <p>After a restart your SSH server should be accessible through <code>/media/ssh/servername</code>.
 </p>
 <h2><span class="mw-headline" id="MTP">MTP</span></h2>
-<p>Media Transfer Protocol (<a href="/Usage/Configuration/A/Media_Transfer_Protocol.html" class="mw-redirect" title="MTP">MTP</a>) is used in some Android devices.
+<p>Media Transfer Protocol (<a href="/Usage/Configuration/M/Media_Transfer_Protocol.html" class="mw-redirect" title="MTP">MTP</a>) is used in some Android devices.
 </p>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=mtpfs">mtpfs</a></span> package.
 </p>
@@ -303,7 +303,7 @@ password mypassword
 <p>This section contains a few solutions for common issues with AutoFS.
 </p>
 <h3><span class="mw-headline" id="Using_NIS">Using NIS</span></h3>
-<p>Version 5.0.5 of AutoFS has more advanced support for <a href="/Usage/Configuration/A/NIS.html" title="NIS">NIS</a>. To use AutoFS together with NIS, add <code>yp:</code> in front of the template names in <code>/etc/autofs/auto.master</code>:
+<p>Version 5.0.5 of AutoFS has more advanced support for <a href="/Usage/Configuration/N/NIS.html" title="NIS">NIS</a>. To use AutoFS together with NIS, add <code>yp:</code> in front of the template names in <code>/etc/autofs/auto.master</code>:
 </p>
 <pre>/home   yp:auto_home    --timeout=60 
 /sbtn   yp:auto_sbtn    --timeout=60
@@ -325,7 +325,7 @@ password mypassword
 <p>After restarting the <code>autofs</code> daemon, verbose output is visible in <code>systemctl status</code> or in <code>journalctl</code>.
 </p>
 <h3><span class="mw-headline" id="Identify_multiple_devices">Identify multiple devices</span></h3>
-<p>If you use multiple USB drives/sticks and want to easily tell them apart, you can use AutoFS to set up the mount points and <a href="/Usage/Configuration/A/Udev.html" title="Udev">Udev</a> to create distinct names for your USB drives. See <a href="/Usage/Configuration/A/Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a> for instructions on setting up Udev rules.
+<p>If you use multiple USB drives/sticks and want to easily tell them apart, you can use AutoFS to set up the mount points and <a href="/Usage/Configuration/U/Udev.html" title="Udev">Udev</a> to create distinct names for your USB drives. See <a href="/Usage/Configuration/U/Udev.html#Setting_static_device_names" title="Udev">udev#Setting static device names</a> for instructions on setting up Udev rules.
 </p>
 <h3><span class="mw-headline" id="AutoFS_permissions">AutoFS permissions</span></h3>
 <p>If AutoFS is not working for you, make sure that the permissions of the templates files are correct, otherwise AutoFS will not start. This may happen if you backed up your configuration files in a manner which did not preserve file modes. Here are what the modes should be on the configuration files:
@@ -360,19 +360,19 @@ May  7 19:44:16 peterix automount[15218]: failed to mount /media/cifs/petr
 <h2><span class="mw-headline" id="Alternatives_to_AutoFS">Alternatives to AutoFS</span></h2>
 <ul>
 <li>
-<a href="/Usage/Configuration/A/Systemd.html" title="Systemd">Systemd</a> can automount filesystems upon demand; see <a href="/Usage/Configuration/A/Fstab.html#Automount_with_systemd" title="Fstab">here</a> for the description and the article on <a href="/Usage/Configuration/A/SSHFS.html#On_demand" title="SSHFS">sshfs</a> for an example.</li>
+<a href="/Usage/Configuration/S/Systemd.html" title="Systemd">Systemd</a> can automount filesystems upon demand; see <a href="/Usage/Configuration/F/Fstab.html#Automount_with_systemd" title="Fstab">here</a> for the description and the article on <a href="/Usage/Configuration/S/SSHFS.html#On_demand" title="SSHFS">sshfs</a> for an example.</li>
 <li>
-<a href="/Usage/Configuration/A/Thunar.html#Thunar_Volume_Manager" class="mw-redirect" title="Thunar Volume Manager">Thunar Volume Manager</a> is an automount system for users of the <a href="/Usage/Configuration/A/Thunar.html" title="Thunar">Thunar</a> file manager.</li>
+<a href="/Usage/Configuration/T/Thunar.html#Thunar_Volume_Manager" class="mw-redirect" title="Thunar Volume Manager">Thunar Volume Manager</a> is an automount system for users of the <a href="/Usage/Configuration/T/Thunar.html" title="Thunar">Thunar</a> file manager.</li>
 <li>
-<a href="/Usage/Configuration/A/PCManFM.html" title="PCManFM">PCManFM</a> is a lightweight file manager with built-in support for accessing remote shares</li>
+<a href="/Usage/Configuration/P/PCManFM.html" title="PCManFM">PCManFM</a> is a lightweight file manager with built-in support for accessing remote shares</li>
 <li>
-<a href="/Usage/Configuration/A/Udisks.html" title="Udisks">Udisks</a> is a minimalistic automatic disk mounting service</li>
+<a href="/Usage/Configuration/U/Udisks.html" title="Udisks">Udisks</a> is a minimalistic automatic disk mounting service</li>
 </ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>FTP and SFTP usage with AutoFS is based on this Gentoo Wiki article: <a rel="nofollow"  href="https://web.archive.org/web/20130414074212/http://en.gentoo-wiki.com/wiki/Mounting_SFTP_and_FTP_shares">https://web.archive.org/web/20130414074212/http://en.gentoo-wiki.com/wiki/Mounting_SFTP_and_FTP_shares</a>
 </li>
-<li>More information on SSH can be found on the <a href="/Usage/Configuration/A/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> and <a href="/Usage/Configuration/A/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">Using SSH Keys</a> pages of this wiki.</li>
+<li>More information on SSH can be found on the <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> and <a href="/Usage/Configuration/S/SSH_keys.html" class="mw-redirect" title="Using SSH Keys">Using SSH Keys</a> pages of this wiki.</li>
 <li>Ubuntu's Autofs help wiki is at <a rel="nofollow"  href="https://help.ubuntu.com/community/Autofs">https://help.ubuntu.com/community/Autofs</a>
 </li>
 <li>For filesystem specific mount options check <a rel="nofollow"  href="http://manpages.ubuntu.com/manpages/natty/wiki/man8/mount.8.html#contenttoc5">http://manpages.ubuntu.com/manpages/natty/wiki/man8/mount.8.html#contenttoc5</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-28 ⓘ]</sup>
@@ -385,14 +385,14 @@ May  7 19:44:16 peterix automount[15218]: failed to mount /media/cifs/petr
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/A/Category:File_systems.html" title="Category:File systems">File systems</a></li>
-<li><a href="/Usage/Configuration/A/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
+<li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/C/Category:Daemons.html" title="Category:Daemons">Daemons</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/A/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="/Usage/Configuration/A/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/A/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -411,9 +411,9 @@ May  7 19:44:16 peterix automount[15218]: failed to mount /media/cifs/petr
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

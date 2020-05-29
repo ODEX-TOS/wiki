@@ -2,7 +2,7 @@
     title: Extra_keyboard_keys
     description: Migration of Extra_keyboard_keys from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,9 +24,9 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This article assumes you have read <a href="/Usage/Configuration/E/Keyboard_input.html" title="Keyboard input">Keyboard input</a>.
+<p>This article assumes you have read <a href="/Usage/Configuration/K/Keyboard_input.html" title="Keyboard input">Keyboard input</a>.
 </p>
-<p>Many keyboards include some <i>special keys</i> (also called <i>hotkeys</i> or <i>multimedia keys</i>), which are supposed to execute an application or print special characters (not included in the standard national keymaps). <a href="/Usage/Configuration/E/Udev.html" title="Udev">udev</a> contains a large database of mappings specific to individual keyboards, so common keyboards usually work out of the box. If you have very recent or uncommon piece of hardware, you may need to adjust the mapping manually.
+<p>Many keyboards include some <i>special keys</i> (also called <i>hotkeys</i> or <i>multimedia keys</i>), which are supposed to execute an application or print special characters (not included in the standard national keymaps). <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> contains a large database of mappings specific to individual keyboards, so common keyboards usually work out of the box. If you have very recent or uncommon piece of hardware, you may need to adjust the mapping manually.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -57,14 +57,14 @@
 
 <h2><span class="mw-headline" id="Laptops">Laptops</span></h2>
 <h3><span class="mw-headline" id="Apple_MacBooks">Apple MacBooks</span></h3>
-<p>All the required information is available on the <a href="/Usage/Configuration/E/Apple_Keyboard.html" title="Apple Keyboard">Apple Keyboard</a> dedicated article.
+<p>All the required information is available on the <a href="/Usage/Configuration/A/Apple_Keyboard.html" title="Apple Keyboard">Apple Keyboard</a> dedicated article.
 </p>
 <h3><span class="mw-headline" id="Asus_M_series">Asus M series</span></h3>
 <p>In order to have control over the light sensor and the multimedia keys on your Asus machine, you should use the following command:
 </p>
 <pre># echo 1 &gt; /sys/devices/platform/asus_laptop/ls_switch
 </pre>
-<p>To have it run on boot create a <a href="/Usage/Configuration/E/Systemd.html#Temporary_files" title="Systemd">Systemd tmpfile</a>:
+<p>To have it run on boot create a <a href="/Usage/Configuration/S/Systemd.html#Temporary_files" title="Systemd">Systemd tmpfile</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/local.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w /sys/devices/platform/asus_laptop/ls_switch - - - - 1
@@ -78,12 +78,12 @@
 </p>
 <pre># modprobe asus-nb-wmi
 </pre>
-<p>then check xev again. If you combine this with the acpi_osi="!Windows 2012" boot option, you may get weird results in xev, so try not using it. If this did fix things, make sure to make the module load at boot with methods described in <a href="/Usage/Configuration/E/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
+<p>then check xev again. If you combine this with the acpi_osi="!Windows 2012" boot option, you may get weird results in xev, so try not using it. If this did fix things, make sure to make the module load at boot with methods described in <a href="/Usage/Configuration/K/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a>.
 </p>
 <h3>
 <span id="Lenovo_T460p_.28or_possibly_others.29"></span><span class="mw-headline" id="Lenovo_T460p_(or_possibly_others)">Lenovo T460p (or possibly others)</span>
 </h3>
-<p>Out of the box, the backlight keys (on F5, F6) might not be available, even via the <code>/dev/input</code> interface. To fix this, follow <a href="/Usage/Configuration/E/Backlight.html#Kernel_command-line_options" title="Backlight">Backlight#Kernel command-line options</a>.
+<p>Out of the box, the backlight keys (on F5, F6) might not be available, even via the <code>/dev/input</code> interface. To fix this, follow <a href="/Usage/Configuration/B/Backlight.html#Kernel_command-line_options" title="Backlight">Backlight#Kernel command-line options</a>.
 </p>
 <h2><span class="mw-headline" id="Gaming_Keyboards">Gaming Keyboards</span></h2>
 <p>Gaming keyboards have some special features which may cause them to "misbehave" in Linux.
@@ -101,7 +101,7 @@
 <h3>
 <span id="Logitech_G_series_G710_and_710.2B"></span><span class="mw-headline" id="Logitech_G_series_G710_and_710+">Logitech G series G710 and 710+</span>
 </h3>
-<p>This keyboard has a row of 6 programmable G keys. In order to use them as intended by Logitech, you need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sidewinderd/">sidewinderd</a></span><sup><small>AUR</small></sup> and <a href="/Usage/Configuration/E/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>sidewinderd.service</code>.
+<p>This keyboard has a row of 6 programmable G keys. In order to use them as intended by Logitech, you need to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sidewinderd/">sidewinderd</a></span><sup><small>AUR</small></sup> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>sidewinderd.service</code>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li>
@@ -109,7 +109,7 @@
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/E/Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -126,9 +126,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: NTFS-3G
     description: Migration of NTFS-3G from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/N/File_systems.html" title="File systems">File systems</a></li>
+<li><a href="/Usage/Configuration/F/File_systems.html" title="File systems">File systems</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="http://www.tuxera.com/community/ntfs-3g-download/">NTFS-3G</a> is an open source implementation of <a href="https://en.wikipedia.org/wiki/NTFS"  title="w:NTFS">Microsoft NTFS</a> that includes read <i>and</i> write support (the Linux kernel only supports reading NTFS). NTFS-3G developers use the FUSE file system to facilitate development and to help with portability.
@@ -69,7 +69,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/N/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntfs-3g">ntfs-3g</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntfs-3g">ntfs-3g</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Manual_mounting">Manual mounting</span></h2>
 <p>Two options exist when manually mounting NTFS partitions. The traditional:
@@ -92,10 +92,10 @@
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <code>-Q</code> speeds up the formatting by not zeroing the drive and not checking for bad sectors.</div>
 <h2><span class="mw-headline" id="Configuring">Configuring</span></h2>
-<p>Your NTFS partition(s) can be setup to mount automatically, or pre-configured to be able to mount in a certain way when you would like them to be mounted. This configuration can be done in the static filesystem configuration (<a href="/Usage/Configuration/N/Fstab.html" title="Fstab">fstab</a>) or by the use of udev rules.
+<p>Your NTFS partition(s) can be setup to mount automatically, or pre-configured to be able to mount in a certain way when you would like them to be mounted. This configuration can be done in the static filesystem configuration (<a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a>) or by the use of udev rules.
 </p>
 <h3><span class="mw-headline" id="Default_settings">Default settings</span></h3>
-<p>Using the default settings will mount the NTFS partition(s) at boot. With this method, <b>if</b> the parent folder that it is mounted upon has the proper user or group <a href="/Usage/Configuration/N/Users_and_groups.html" title="Users and groups">permissions</a> (e.g. /run/media/&lt;username&gt;/), <b>then</b> that user or group will be able to read and write on that partition(s).
+<p>Using the default settings will mount the NTFS partition(s) at boot. With this method, <b>if</b> the parent folder that it is mounted upon has the proper user or group <a href="/Usage/Configuration/U/Users_and_groups.html" title="Users and groups">permissions</a> (e.g. /run/media/&lt;username&gt;/), <b>then</b> that user or group will be able to read and write on that partition(s).
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/fstab</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># &lt;file system&gt;		&lt;dir&gt;		&lt;type&gt;	&lt;options&gt;	&lt;dump&gt;	&lt;pass&gt;
@@ -129,7 +129,7 @@
 <p>For most, the above settings should suffice. Here are a few other options that are general common options for various Linux filesystems. For a complete list, see <span class="plainlinks archwiki-template-man" title="$ man 8 ntfs-3g"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ntfs-3g.8#OPTIONS">ntfs-3g(8)</a></span>.
 </p>
 <dl>
-<dt><a href="/Usage/Configuration/N/Umask.html" title="Umask">umask</a></dt>
+<dt><a href="/Usage/Configuration/U/Umask.html" title="Umask">umask</a></dt>
 <dd>umask is a built-in shell command which automatically sets file permissions on newly created files. For TOS Linux, the default umask for root and user is 0022. With 0022 new folders have the directory permissions of 755 and new files have permissions of 644. You can read more about umask permissions <a rel="nofollow"  href="http://www.cyberciti.biz/tips/understanding-linux-unix-umask-value-usage.html">here</a>.</dd>
 <dt>fmask and dmask</dt>
 <dd>Like <code>umask</code> but defining file and directory respectively individually.</dd>
@@ -148,17 +148,17 @@
 <dd>prevents files, directories and extended attributes to be created with a name not allowed by windows.</dd>
 </dl>
 <h3><span class="mw-headline" id="Allowing_user_to_mount">Allowing user to mount</span></h3>
-<p>By default, <i>ntfs-3g</i> requires root rights to mount the filesystem if it is a <a href="/Usage/Configuration/N/Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a>, even with the <code>user</code> option in <code>/etc/fstab</code>. See <a rel="nofollow"  href="http://www.tuxera.com/community/ntfs-3g-faq/#useroption">ntfs-3g-faq</a> for details. The <code>user</code> option in the fstab is still required.
+<p>By default, <i>ntfs-3g</i> requires root rights to mount the filesystem if it is a <a href="/Usage/Configuration/D/Device_file.html#Block_devices" class="mw-redirect" title="Block device">block device</a>, even with the <code>user</code> option in <code>/etc/fstab</code>. See <a rel="nofollow"  href="http://www.tuxera.com/community/ntfs-3g-faq/#useroption">ntfs-3g-faq</a> for details. The <code>user</code> option in the fstab is still required.
 </p>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/N/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> "longer story" is informal. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:NTFS-3G">Talk:NTFS-3G#</a>)</div>
 </div>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntfs-3g">ntfs-3g</a></span> package does not have internal FUSE support. Rebuild the package using <a href="/Usage/Configuration/N/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>, or install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ntfs-3g-fuse/">ntfs-3g-fuse</a></span><sup><small>AUR</small></sup>.
+<li>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ntfs-3g">ntfs-3g</a></span> package does not have internal FUSE support. Rebuild the package using <a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a>, or install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ntfs-3g-fuse/">ntfs-3g-fuse</a></span><sup><small>AUR</small></sup>.
 <ul>
 <li>The longer story is that "user" and "users" work via a setuid <code>mount</code> not dropping its setuid privillage so that the block device can be used without root. However, ntfs-3g has a hard-coded restriction in ntfs-3g that bails on setuid if an external libfuse is used.</li>
 <li>There is no good technical reason for not allowing setuid for external FUSE besides a mistrust of the library. <a rel="nofollow"  href="https://github.com/AOSC-Dev/ntfs-3g/commit/c918fb79f9f340bce1a19dacf4b720d19922450d">This patch</a> removes the said restriction.</li>
@@ -179,7 +179,7 @@
 <strong>Note:</strong> Please ensure you have a backup before attempting this if your data is important!</div>
 <p>Most systems that are purchased already have <a href="https://en.wikipedia.org/wiki/Windows"  title="wikipedia:Windows">Windows</a> installed on it, and some people would prefer not wipe it off completely when doing an TOS Linux installation. For this reason, among others, it is useful to resize the existing Windows partition to make room for a Linux partition or two. This is often accomplished with a <a href="https://en.wikipedia.org/wiki/Live_CD"  title="wikipedia:Live CD">Live CD</a> or bootable USB thumb drive.
 </p>
-<p>For Live CDs the typical procedure is to download an ISO file, burn it to a CD, and then boot from it. <a rel="nofollow"  href="http://infrarecorder.org/">InfraRecorder</a> is a free (as in GPL3) CD/DVD burning application for Windows which fits the bill nicely. If you would rather use a bootable USB media instead, see <a href="/Usage/Configuration/N/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a> for methods to create bootable USB stick.
+<p>For Live CDs the typical procedure is to download an ISO file, burn it to a CD, and then boot from it. <a rel="nofollow"  href="http://infrarecorder.org/">InfraRecorder</a> is a free (as in GPL3) CD/DVD burning application for Windows which fits the bill nicely. If you would rather use a bootable USB media instead, see <a href="/Usage/Configuration/U/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a> for methods to create bootable USB stick.
 </p>
 <p>There are a number of bootable CD/USB images avaliable. This list is not exhaustive, but is a good place to start:
 </p>
@@ -199,7 +199,7 @@
 </dd></dl>
 <p>Note that the important programs for resizing NTFS partitions include ntfs-3g and a utility like (G)parted or fdisk, provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=util-linux">util-linux</a></span> package. Unless you are an "advanced" user it is advisable to use a tool like GParted to perform any resize operations to minimize the chance of data loss due to user error.
 </p>
-<p>If you already have TOS Linux installed on your system and simply want to resize an existing NTFS partition, you can use the parted and ntfs-3g packages to do it. Optionally, you can use the GParted GUI after installing the <a href="/Usage/Configuration/N/Parted.html" class="mw-redirect" title="GParted">GParted</a> package. At the core of the resizing is the <span class="plainlinks archwiki-template-man" title="$ man 8 ntfsresize"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ntfsresize.8">ntfsresize(8)</a></span> command.
+<p>If you already have TOS Linux installed on your system and simply want to resize an existing NTFS partition, you can use the parted and ntfs-3g packages to do it. Optionally, you can use the GParted GUI after installing the <a href="/Usage/Configuration/P/Parted.html" class="mw-redirect" title="GParted">GParted</a> package. At the core of the resizing is the <span class="plainlinks archwiki-template-man" title="$ man 8 ntfsresize"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/ntfsresize.8">ntfsresize(8)</a></span> command.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Compressed_files">Compressed files</span></h3>
@@ -271,10 +271,10 @@ read-only with the 'ro' mount option.
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Please note that this method means that the saved Windows session will be completely lost. Use this option under your own responsibility.</div>
 <h3><span class="mw-headline" id="Mount_failure">Mount failure</span></h3>
-<p>If you cannot mount your NTFS partition even when following this guide, try using the <a href="/Usage/Configuration/N/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> instead of device name in <code>/etc/fstab</code> for all NTFS partitions. See <a href="/Usage/Configuration/N/Fstab.html#File_system_UUIDs" title="Fstab">fstab#File system UUIDs</a> for an example.
+<p>If you cannot mount your NTFS partition even when following this guide, try using the <a href="/Usage/Configuration/P/Persistent_block_device_naming.html#by-uuid" class="mw-redirect" title="UUID">UUID</a> instead of device name in <code>/etc/fstab</code> for all NTFS partitions. See <a href="/Usage/Configuration/F/Fstab.html#File_system_UUIDs" title="Fstab">fstab#File system UUIDs</a> for an example.
 </p>
 <h3><span class="mw-headline" id="Windows_mount_failure">Windows mount failure</span></h3>
-<p>Windows will not recognize a NTFS partition that does not have a corresponding partition type. A common pitfall when creating an NTFS partition to work with Windows is forgetting to set the partition type as NTFS. See <a href="/Usage/Configuration/N/Fdisk.html" title="Fdisk">fdisk</a> or one of the <a href="/Usage/Configuration/N/Partitioning.html#Partitioning_tools" class="mw-redirect" title="Partitioning tools">partitioning tools</a>.
+<p>Windows will not recognize a NTFS partition that does not have a corresponding partition type. A common pitfall when creating an NTFS partition to work with Windows is forgetting to set the partition type as NTFS. See <a href="/Usage/Configuration/F/Fdisk.html" title="Fdisk">fdisk</a> or one of the <a href="/Usage/Configuration/P/Partitioning.html#Partitioning_tools" class="mw-redirect" title="Partitioning tools">partitioning tools</a>.
 </p>
 <h2>
 <span id="Beta_features_.26_releases"></span><span class="mw-headline" id="Beta_features_&amp;_releases">Beta features &amp; releases</span>
@@ -302,11 +302,11 @@ read-only with the 'ro' mount option.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/N/Category:FUSE.html" title="Category:FUSE">FUSE</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:FUSE.html" title="Category:FUSE">FUSE</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="/Usage/Configuration/N/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -325,9 +325,9 @@ read-only with the 'ro' mount option.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: TOS_boot_process_(Bosanski)
     description: Migration of TOS_boot_process_(Bosanski) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,17 +27,17 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/A/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a></li>
-<li><a href="/Usage/Configuration/A/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a></li>
-<li><a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></li>
-<li><a href="/Usage/Configuration/A/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
-<li><a href="/Usage/Configuration/A/Init.html" title="Init">init</a></li>
-<li><a href="/Usage/Configuration/A/Systemd.html" title="Systemd">systemd</a></li>
-<li><a href="/Usage/Configuration/A/Fstab.html" title="Fstab">fstab</a></li>
+<li><a href="/Usage/Configuration/P/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="Master Boot Record">Master Boot Record</a></li>
+<li><a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GUID Partition Table">GUID Partition Table</a></li>
+<li><a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a></li>
+<li><a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a></li>
+<li><a href="/Usage/Configuration/I/Init.html" title="Init">init</a></li>
+<li><a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a></li>
+<li><a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a></li>
 <li><a href="/Usage/Configuration/A/Autostarting.html" title="Autostarting">Autostarting</a></li>
 </ul>
 </div>
-<p>Da bi se mogao bootati TOS Linux, potrebno je podesiti <a href="#Boot_loader">boot loader</a> koji zna raditi sa Linuxom. Boot loader je odgovoran za učitavanje kernela i <a href="/Usage/Configuration/A/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initial ramdisk">inicijalnog ramdiska</a> prije započinjanja boot procesa. Procedura se razlikuje za <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS</a> i <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> sisteme, detaljne instrukcije su date na ovoj ili na linkovanim stranicama.
+<p>Da bi se mogao bootati TOS Linux, potrebno je podesiti <a href="#Boot_loader">boot loader</a> koji zna raditi sa Linuxom. Boot loader je odgovoran za učitavanje kernela i <a href="/Usage/Configuration/T/TOS_boot_process.html#initramfs" class="mw-redirect" title="Initial ramdisk">inicijalnog ramdiska</a> prije započinjanja boot procesa. Procedura se razlikuje za <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS</a> i <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> sisteme, detaljne instrukcije su date na ovoj ili na linkovanim stranicama.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -83,12 +83,12 @@
 <p><a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS</a> ili Basic Input-Output System (Osnovni ulazno-izlazni sistem) je prvi program(firmware) koji se pokreće kada se sistem uključi. U većini slučajeva, smješten je u flash memorije na matičnoj ploči i nezavisan od sistemskog skladišta.
 </p>
 <h3><span class="mw-headline" id="UEFI">UEFI</span></h3>
-<p><a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a> ima podršku za čitanje tabele particija kao i fajl sistema. UEFI ne pokreće nikakav <a href="/Usage/Configuration/A/Partitioning.html#Master_Boot_Record_(bootstrap_code)" title="Partitioning">boot kode iz Master Boot Recorda-a (MBR)</a> bilo da on postoji ili ne, umjesto toga bootanje se oslanja na boot entry-e unutar <a href="https://en.wikipedia.org/wiki/Non-volatile_random-access_memory"  title="wikipedia:Non-volatile random-access memory">NVRAM</a>-a.
+<p><a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" title="Unified Extensible Firmware Interface">Unified Extensible Firmware Interface</a> ima podršku za čitanje tabele particija kao i fajl sistema. UEFI ne pokreće nikakav <a href="/Usage/Configuration/P/Partitioning.html#Master_Boot_Record_(bootstrap_code)" title="Partitioning">boot kode iz Master Boot Recorda-a (MBR)</a> bilo da on postoji ili ne, umjesto toga bootanje se oslanja na boot entry-e unutar <a href="https://en.wikipedia.org/wiki/Non-volatile_random-access_memory"  title="wikipedia:Non-volatile random-access memory">NVRAM</a>-a.
 </p>
-<p>UEFI specifikacije obavezuju podršku za <a href="/Usage/Configuration/A/FAT.html" title="FAT">FAT12, FAT16 i FAT32</a> fajl sisteme (vidi <a rel="nofollow"  href="https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf#G17.1019485">UEFI specifikacija verzija 2.8, sekcija 13.3.1.1</a>)),
-ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a href="/Usage/Configuration/A/Mac.html" title="Mac">Mac</a> podržava (i po defaultu koriste) svoje HFS+ fajl sistem drivere. UEFI implementacija također podržava ISO-9660 za optičke diskove.
+<p>UEFI specifikacije obavezuju podršku za <a href="/Usage/Configuration/F/FAT.html" title="FAT">FAT12, FAT16 i FAT32</a> fajl sisteme (vidi <a rel="nofollow"  href="https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf#G17.1019485">UEFI specifikacija verzija 2.8, sekcija 13.3.1.1</a>)),
+ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a href="/Usage/Configuration/M/Mac.html" title="Mac">Mac</a> podržava (i po defaultu koriste) svoje HFS+ fajl sistem drivere. UEFI implementacija također podržava ISO-9660 za optičke diskove.
 </p>
-<p>UEFI pokreće EFI aplikacija, npr <a href="#Boot_loader">boot loadere</a>, boot menadžere, <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a>-ove itd. Ove aplikacije su obično spašene kao fajlovi u <a href="/Usage/Configuration/A/EFI_system_partition.html" title="EFI system partition">EFI sistemskoj particiji</a>. Svaki vendor može spasiti svoje fajlove u EFI sistemsku particiju pod <code>/EFI/<i>vendor_naziv</i></code> folderom. Aplikacija može biti pokrenuta dodavanjem boot entry-a u NVRAM ili iz UEFI shella.
+<p>UEFI pokreće EFI aplikacija, npr <a href="#Boot_loader">boot loadere</a>, boot menadžere, <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a>-ove itd. Ove aplikacije su obično spašene kao fajlovi u <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI sistemskoj particiji</a>. Svaki vendor može spasiti svoje fajlove u EFI sistemsku particiju pod <code>/EFI/<i>vendor_naziv</i></code> folderom. Aplikacija može biti pokrenuta dodavanjem boot entry-a u NVRAM ili iz UEFI shella.
 </p>
 <p>UEFI specifikacija također ima podršku za legacy BIOS bootanje sa svojim [[<a href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#CSM_booting"  title="wikipedia:Unified Extensible Firmware Interface">Compatibility Support Module (CSM)</a> (Modul za podršku kompatibilnosti). Ako je CSM uključen po defaultu, UEFI će generisati CSM boot entry za sve drive-ove. Ako je CSM boot entry odabran da se sistem boota sa njega, UEFI-ov CSM će pokušati da boota sa drive-ovogo MBR bootstrap koda.
 </p>
@@ -97,14 +97,14 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <ol>
 <li>Sistem uključen, <a href="https://en.wikipedia.org/wiki/Power-on_self-test"  title="wikipedia:Power-on self-test">power-on self-test (POST)</a> se izvršava.</li>
 <li>Nakon POST-a, BIOS inicijalizira potrebni sistemski hardware za bootanje (disk, kontrolere tastature, itd.).</li>
-<li>BIOS pokreće prvih 440 bajtova (<a href="/Usage/Configuration/A/Partitioning.html#Master_Boot_Record_(bootstrap_code)" title="Partitioning">Master Boot Record-a bootstrap koda</a>) prvog diska u BIOS disk poretku bootanja.</li>
+<li>BIOS pokreće prvih 440 bajtova (<a href="/Usage/Configuration/P/Partitioning.html#Master_Boot_Record_(bootstrap_code)" title="Partitioning">Master Boot Record-a bootstrap koda</a>) prvog diska u BIOS disk poretku bootanja.</li>
 <li>Boot loaderova prva faza je u MBR boot kodu i zatim pokreće drugu fazu (ako je ima) sa:
 <ul>
 <li>sljedećeg disk sektora poslije MBR-a, tzv. post-MBR gap</li>
 <li>
 <a href="https://en.wikipedia.org/wiki/Volume_boot_record"  title="wikipedia:Volume boot record">volume boot record-a (VBR)</a> sa particije</li>
 <li>
-<a href="/Usage/Configuration/A/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot particije</a> (<a href="/Usage/Configuration/A/GRUB.html" title="GRUB">GRUB</a> na BIOS/GTP samo).</li>
+<a href="/Usage/Configuration/G/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot particije</a> (<a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> na BIOS/GTP samo).</li>
 </ul>
 </li>
 <li>Aktuelni <a href="#Boot_loader">boot loader</a> je pokrenut.</li>
@@ -115,30 +115,30 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <li>Sistem uključen, <a href="https://en.wikipedia.org/wiki/Power-on_self-test"  title="wikipedia:Power-on self-test">power-on self-test (POST)</a> se izvršava.</li>
 <li>UEFI inicijalizira hardware potreban za bootanje.</li>
 <li>Firmware čita boot entry-e iz NVRAM-a da zaključi koju EFI aplikaciju da pokrene i odakle (npr. sa kojeg diska i koje particije).</li>
-<li>Boot entry može jednostavno biti disk. U ovom slučaju, firmware traži <a href="/Usage/Configuration/A/EFI_system_partition.html" title="EFI system partition">EFI sistemsku particiju</a> na tom disku i pokušava da nađe EFI aplikaciju u fallback boot putanji <code>\EFI\BOOT\BOOTX64.EFI</code> (<code>BOOTIA32.EFI</code>) na <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html#UEFI_firmware_bitness" title="Unified Extensible Firmware Interface">sistemima sa IA32 (32-bit) UEFI</a>). Ovako radi bootabilni UEFI removable media.</li>
+<li>Boot entry može jednostavno biti disk. U ovom slučaju, firmware traži <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI sistemsku particiju</a> na tom disku i pokušava da nađe EFI aplikaciju u fallback boot putanji <code>\EFI\BOOT\BOOTX64.EFI</code> (<code>BOOTIA32.EFI</code>) na <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#UEFI_firmware_bitness" title="Unified Extensible Firmware Interface">sistemima sa IA32 (32-bit) UEFI</a>). Ovako radi bootabilni UEFI removable media.</li>
 <li>Firmware pokreće zatim EFI aplikaciju.
 <ul>
-<li>Ovo može biti <a href="#Boot_loader">boot loader</a> ili TOS <a href="/Usage/Configuration/A/Kernel.html" title="Kernel">kernel</a> koristeći <a href="/Usage/Configuration/A/EFISTUB.html" title="EFISTUB">EFISTUB</a>.</li>
-<li>To može biti neka drugi EFI aplikacija, poput UEFI shella ili <a href="#Boot_loader">boot menadžera</a> poput <a href="/Usage/Configuration/A/Systemd-boot.html" title="Systemd-boot">systemd-boot</a>-a ili <a href="/Usage/Configuration/A/REFInd.html" title="REFInd">rEFInd</a>-a.</li>
+<li>Ovo može biti <a href="#Boot_loader">boot loader</a> ili TOS <a href="/Usage/Configuration/K/Kernel.html" title="Kernel">kernel</a> koristeći <a href="/Usage/Configuration/E/EFISTUB.html" title="EFISTUB">EFISTUB</a>.</li>
+<li>To može biti neka drugi EFI aplikacija, poput UEFI shella ili <a href="#Boot_loader">boot menadžera</a> poput <a href="/Usage/Configuration/S/Systemd-boot.html" title="Systemd-boot">systemd-boot</a>-a ili <a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a>-a.</li>
 </ul>
 </li>
 </ol>
-<p>Ako je <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> uključen, boot process će verifikovati autentičnost EFI binary-a gledajući potpis.
+<p>Ako je <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface/Secure_Boot.html" class="mw-redirect" title="Secure Boot">Secure Boot</a> uključen, boot process će verifikovati autentičnost EFI binary-a gledajući potpis.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Neki UEFI sistemi se samo mogu bootati sa fallback boot putanje.</div>
 <h3>
 <span id="Vi.C5.A1estruko_bootanje_u_UEFI-u"></span><span class="mw-headline" id="Višestruko_bootanje_u_UEFI-u">Višestruko bootanje u UEFI-u</span>
 </h3>
-<p>Pošto svaki OS ili vendor može održavati svoje fajlove unutar <a href="/Usage/Configuration/A/EFI_system_partition.html" title="EFI system partition">EFI sistemske particija</a> bez da utiče na druge, višestruko bootanje koristeći UEFI postaje stvar pokretanje druge EFI aplikacije koja odgovara boot loaderu toga operativnog sistema. Ovo uklanja potrebu za oslanjanjem na mehanizam <a href="https://en.wikipedia.org/wiki/Chain_loading"  title="wikipedia:Chain loading">lančanog učitavanja</a> jednog <a href="#Boot_loader">boot loadera</a> da se učita drugi OS.
+<p>Pošto svaki OS ili vendor može održavati svoje fajlove unutar <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI sistemske particija</a> bez da utiče na druge, višestruko bootanje koristeći UEFI postaje stvar pokretanje druge EFI aplikacije koja odgovara boot loaderu toga operativnog sistema. Ovo uklanja potrebu za oslanjanjem na mehanizam <a href="https://en.wikipedia.org/wiki/Chain_loading"  title="wikipedia:Chain loading">lančanog učitavanja</a> jednog <a href="#Boot_loader">boot loadera</a> da se učita drugi OS.
 </p>
-<p>Vidite i <a href="/Usage/Configuration/A/Dual_boot_with_Windows.html" title="Dual boot with Windows">Dual boot sa Windowsom</a>.
+<p>Vidite i <a href="/Usage/Configuration/D/Dual_boot_with_Windows.html" title="Dual boot with Windows">Dual boot sa Windowsom</a>.
 </p>
 <h2><span class="mw-headline" id="Boot_loader">Boot loader</span></h2>
-<p>Boot loader je dio software pokrenut od strane <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS-a</a> ili <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>-a. Odgovoran je za učitavanje kernela sa željenim <a href="/Usage/Configuration/A/Kernel_parameters.html" title="Kernel parameters">kernel parametrima</a> i <a href="/Usage/Configuration/A/Mkinitcpio.html" title="Mkinitcpio">inicijalnim RAM diskom</a> bazirano na konfiguracijskim fajlovima. U slučaju UEFI-a, kernel može se direktno pokrenuti od strane UEFI-a koristeći EFI boot stub. Odvojeni boot loader ili boot menadžer može i dalje biti korišten za editovanje kernel parametara prije bootanja.
+<p>Boot loader je dio software pokrenut od strane <a href="https://en.wikipedia.org/wiki/BIOS"  title="wikipedia:BIOS">BIOS-a</a> ili <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>-a. Odgovoran je za učitavanje kernela sa željenim <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parametrima</a> i <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">inicijalnim RAM diskom</a> bazirano na konfiguracijskim fajlovima. U slučaju UEFI-a, kernel može se direktno pokrenuti od strane UEFI-a koristeći EFI boot stub. Odvojeni boot loader ili boot menadžer može i dalje biti korišten za editovanje kernel parametara prije bootanja.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Učitavanje <a href="/Usage/Configuration/A/Microcode.html" title="Microcode">update-a mikro koda</a> zahtjeva podešavanja konfiguracije boot loadera. <a rel="nofollow"  href="https://www.archlinux.org/news/changes-to-intel-microcodeupdates/">[1]</a>
+<strong>Note:</strong> Učitavanje <a href="/Usage/Configuration/M/Microcode.html" title="Microcode">update-a mikro koda</a> zahtjeva podešavanja konfiguracije boot loadera. <a rel="nofollow"  href="https://www.archlinux.org/news/changes-to-intel-microcodeupdates/">[1]</a>
 </div>
 <h3><span class="mw-headline" id="Uporedba_feature-a">Uporedba feature-a</span></h3>
 <div class="noprint archwiki-template-message">
@@ -151,7 +151,7 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <ul>
 <li>Boot loaderi trebaju samo da podržavaju fajl sistem na kojem se nalaze kernel i initramfs (fajl sistem na kojem je <code>/boot</code>).</li>
 <li>Pošto je GPT dio UEFI specifikacije, svi UEFI boot loaderi podržavaju GTP diskove. GPT na BIOS sistemima je moguć korištenjem ili "hibridnog bootanja" sa <a rel="nofollow"  href="https://www.rodsbooks.com/gdisk/hybrid.html">Hybrid MBR</a> ili novijim <a rel="nofollow"  href="http://repo.or.cz/syslinux.git/blob/HEAD:/doc/gpt.txt">GPT-only</a> protokolom. Ovaj protokol zna praviti probleme sa određenim BIOS implementacijama; vidite <a rel="nofollow"  href="http://www.rodsbooks.com/gdisk/bios.html#bios">rodsbooks</a> za detalje.</li>
-<li>Metoda enkripcije spomenuta u podršci za fajl sistem je <a href="https://en.wikipedia.org/wiki/Filesystem-level_encryption"  title="wikipedia:Filesystem-level encryption">filesystem-level encryption</a> (Enkripcija na nivou fajl sistema), ne utiče na <a href="/Usage/Configuration/A/Dm-crypt.html" title="Dm-crypt">block-level encryption</a>.</li>
+<li>Metoda enkripcije spomenuta u podršci za fajl sistem je <a href="https://en.wikipedia.org/wiki/Filesystem-level_encryption"  title="wikipedia:Filesystem-level encryption">filesystem-level encryption</a> (Enkripcija na nivou fajl sistema), ne utiče na <a href="/Usage/Configuration/D/Dm-crypt.html" title="Dm-crypt">block-level encryption</a>.</li>
 </ul>
 </div>
 <table >
@@ -162,12 +162,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <th colspan="2">Firmware
 </th>
 <th colspan="2">
-<a href="/Usage/Configuration/A/Partitioning.html#Partition_table" class="mw-redirect" title="Partition table">Partition table</a>
+<a href="/Usage/Configuration/P/Partitioning.html#Partition_table" class="mw-redirect" title="Partition table">Partition table</a>
 </th>
 <th rowspan="2">Multi-boot
 </th>
 <th colspan="5">
-<a href="/Usage/Configuration/A/File_systems.html" title="File systems">File systems</a>
+<a href="/Usage/Configuration/F/File_systems.html" title="File systems">File systems</a>
 </th>
 <th rowspan="2">Notes
 </th>
@@ -175,23 +175,23 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <tr>
 <th>BIOS</th>
 <th>
-<a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>
+<a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>
 </th>
-<th><a href="/Usage/Configuration/A/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a></th>
+<th><a href="/Usage/Configuration/P/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a></th>
 <th>
-<a href="/Usage/Configuration/A/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>
+<a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>
 </th>
-<th><a href="/Usage/Configuration/A/Btrfs.html" title="Btrfs">Btrfs</a></th>
-<th><a href="/Usage/Configuration/A/Ext4.html" title="Ext4">ext4</a></th>
+<th><a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">Btrfs</a></th>
+<th><a href="/Usage/Configuration/E/Ext4.html" title="Ext4">ext4</a></th>
 <th>ReiserFS</th>
-<th><a href="/Usage/Configuration/A/FAT.html" class="mw-redirect" title="VFAT">VFAT</a></th>
+<th><a href="/Usage/Configuration/F/FAT.html" class="mw-redirect" title="VFAT">VFAT</a></th>
 <th>
-<a href="/Usage/Configuration/A/XFS.html" title="XFS">XFS</a>
+<a href="/Usage/Configuration/X/XFS.html" title="XFS">XFS</a>
 </th>
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/EFISTUB.html" title="EFISTUB">EFISTUB</a>
+<a href="/Usage/Configuration/E/EFISTUB.html" title="EFISTUB">EFISTUB</a>
 </th>
 <td data-sort-value="5" style="background: inherit; color: inherit; vertical-align: middle; text-align: center;">–</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
@@ -207,12 +207,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">ESP only</td>
 <td data-sort-value="5" style="background: inherit; color: inherit; vertical-align: middle; text-align: center;">–
 </td>
-<td>Kernel preveden u EFI executable da se učita direktno iz <a href="/Usage/Configuration/A/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware ili iz drugog boot loadera.
+<td>Kernel preveden u EFI executable da se učita direktno iz <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> firmware ili iz drugog boot loadera.
 </td>
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/Clover.html" title="Clover">Clover</a>
+<a href="/Usage/Configuration/C/Clover.html" title="Clover">Clover</a>
 </th>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">emulates UEFI</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
@@ -233,7 +233,7 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/GRUB.html" title="GRUB">GRUB</a>
+<a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>
 </th>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
@@ -249,12 +249,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
 </td>
-<td>Na BIOS/GTP konfiguraciji zahtjeva <a href="/Usage/Configuration/A/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot particiju</a>. <br>Podržava RAID, LUKS1 i LVM
+<td>Na BIOS/GTP konfiguraciji zahtjeva <a href="/Usage/Configuration/G/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot particiju</a>. <br>Podržava RAID, LUKS1 i LVM
 </td>
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/REFInd.html" title="REFInd">rEFInd</a>
+<a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a>
 </th>
 <td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
@@ -275,17 +275,17 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/Syslinux.html" title="Syslinux">Syslinux</a>
+<a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">Syslinux</a>
 </th>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">
-<a href="/Usage/Configuration/A/Syslinux.html#Limitations_of_UEFI_Syslinux" title="Syslinux">Parcijalno</a>
+<a href="/Usage/Configuration/S/Syslinux.html#Limitations_of_UEFI_Syslinux" title="Syslinux">Parcijalno</a>
 </td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
 </td>
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">
-<a href="/Usage/Configuration/A/Syslinux.html#Chainloading" title="Syslinux">Parcijalno</a>
+<a href="/Usage/Configuration/S/Syslinux.html#Chainloading" title="Syslinux">Parcijalno</a>
 </td>
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">bez: multi-device volume-a, kompresije, enkripcije</td>
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">bez enkripcije</td>
@@ -293,12 +293,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">MBR samo; bez prorijeđenih inode-ova
 </td>
-<td>Bez podrške za određene <a href="/Usage/Configuration/A/File_systems.html" class="mw-redirect" title="File system">fajl sistem</a> feature. <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Filesystem">[2]</a> <br>Boot loader može samo pristupiti fajl sistemu na koji je instaliran.<a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=33">[3]</a>
+<td>Bez podrške za određene <a href="/Usage/Configuration/F/File_systems.html" class="mw-redirect" title="File system">fajl sistem</a> feature. <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Filesystem">[2]</a> <br>Boot loader može samo pristupiti fajl sistemu na koji je instaliran.<a rel="nofollow"  href="https://bugzilla.syslinux.org/show_bug.cgi?id=33">[3]</a>
 </td>
 </tr>
 <tr>
 <th>
-<a href="/Usage/Configuration/A/Systemd-boot.html" title="Systemd-boot">systemd-boot</a>
+<a href="/Usage/Configuration/S/Systemd-boot.html" title="Systemd-boot">systemd-boot</a>
 </th>
 <td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No</td>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes
@@ -314,12 +314,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">ESP only</td>
 <td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
 </td>
-<td>Ne može pokrenuti binary-e iz particija mimo <a href="/Usage/Configuration/A/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
+<td>Ne može pokrenuti binary-e iz particija mimo <a href="/Usage/Configuration/E/EFI_system_partition.html" class="mw-redirect" title="ESP">ESP</a>.
 </td>
 </tr>
 <tr>
 <th style="background: #ddd; color: inherit; vertical-align: middle; text-align: center;">
-<a href="/Usage/Configuration/A/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>
+<a href="/Usage/Configuration/G/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>
 </th>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
@@ -336,12 +336,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <td data-sort-value="3" style="background: #ffa; color: inherit; vertical-align: middle; text-align: center;">v4 only
 </td>
 <td>
-<a rel="nofollow"  href="https://www.gnu.org/software/grub/grub-legacy.html">Zamijenjen</a> sa <a href="/Usage/Configuration/A/GRUB.html" title="GRUB">GRUB</a>-om.
+<a rel="nofollow"  href="https://www.gnu.org/software/grub/grub-legacy.html">Zamijenjen</a> sa <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>-om.
 </td>
 </tr>
 <tr>
 <th style="background: #ddd; color: inherit; vertical-align: middle; text-align: center;">
-<a href="/Usage/Configuration/A/LILO.html" title="LILO">LILO</a>
+<a href="/Usage/Configuration/L/LILO.html" title="LILO">LILO</a>
 </th>
 <td data-sort-value="5" style="background: #afa; color: inherit; vertical-align: middle; text-align: center;">Yes</td>
 <td data-sort-value="1" style="background: #faa; color: inherit; vertical-align: middle; text-align: center;">No
@@ -368,27 +368,27 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <p>Vidite i <a href="https://en.wikipedia.org/wiki/Comparison_of_boot_loaders"  title="wikipedia:Comparison of boot loaders">Uporedba boot loadera</a>.
 </p>
 <h2><span class="mw-headline" id="Kernel">Kernel</span></h2>
-<p><a href="/Usage/Configuration/A/Kernel.html" title="Kernel">Kernel</a> je jezgro operativnog sistema. Radi na niskom nivou (<i>kernelspace</i>) gdje vrši interakciju između hardware-a na mašini i programa koji koriste hardware da se pokreću. Da se iskoristi CPU efikasno, kernel koristi scheduler da određuje koji task ima prioritet izvršavanja u datom trenutku, te tako kreira iluziju da se više taskova izvršava simultano.
+<p><a href="/Usage/Configuration/K/Kernel.html" title="Kernel">Kernel</a> je jezgro operativnog sistema. Radi na niskom nivou (<i>kernelspace</i>) gdje vrši interakciju između hardware-a na mašini i programa koji koriste hardware da se pokreću. Da se iskoristi CPU efikasno, kernel koristi scheduler da određuje koji task ima prioritet izvršavanja u datom trenutku, te tako kreira iluziju da se više taskova izvršava simultano.
 </p>
 <h2><span class="mw-headline" id="initramfs">initramfs</span></h2>
-<p>Nakon što <a href="#Boot_loader">boot loader</a> učita <a href="/Usage/Configuration/A/Kernel_(Bosanski).html" title="Kernel (Bosanski)">kernel (Bosanski)</a> i moguće initramfs fajlovu te izvrši kernel, kernel zatim raspakuje initramfs (inicijalni RAM fajl sistem) arhivu u (tada prazan) rootfs (inicijalni root fajl sistem, specifično ramfs ili tmpfs). Prvi ekstraktovani initramfs je onaj koji je ugrađen u kernel binary tokom buildanja kernela, zatim se eventualni drugi initramfs fajlovi ekstraktuju. Što znači da eksterni fajlovi sa istim imenom prepisuju one u ugrađenom initramfs-u. Kernel zatim izvršava <code>/init</code> (u rootfs-u) kao prvi proces. <i>Rani userspace</i> time je započeo.
+<p>Nakon što <a href="#Boot_loader">boot loader</a> učita <a href="/Usage/Configuration/K/Kernel_(Bosanski).html" title="Kernel (Bosanski)">kernel (Bosanski)</a> i moguće initramfs fajlovu te izvrši kernel, kernel zatim raspakuje initramfs (inicijalni RAM fajl sistem) arhivu u (tada prazan) rootfs (inicijalni root fajl sistem, specifično ramfs ili tmpfs). Prvi ekstraktovani initramfs je onaj koji je ugrađen u kernel binary tokom buildanja kernela, zatim se eventualni drugi initramfs fajlovi ekstraktuju. Što znači da eksterni fajlovi sa istim imenom prepisuju one u ugrađenom initramfs-u. Kernel zatim izvršava <code>/init</code> (u rootfs-u) kao prvi proces. <i>Rani userspace</i> time je započeo.
 </p>
-<p>TOS Linux koristi praznu arhivu kao ugrađeni initramfs (defaultno tokom buildanja Linuxa). Vidite <a href="/Usage/Configuration/A/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> za više TOS specifičnih informacija o eksternom initramfs-u.
+<p>TOS Linux koristi praznu arhivu kao ugrađeni initramfs (defaultno tokom buildanja Linuxa). Vidite <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> za više TOS specifičnih informacija o eksternom initramfs-u.
 </p>
-<p>Svrha initramfs-a je da bootstrapa sistem do tačke gdje može da pristupi root fajl sistemu (vidite <a href="/Usage/Configuration/A/Frequently_asked_questions.html#Does_TOS_follow_the_Linux_Foundation's_Filesystem_Hierarchy_Standard_(FHS)?" class="mw-redirect" title="FHS">FHS</a> za detalje). To znači da bilo koji moduli koji su potrebni za uređaje, poput IDE, SCSI, SATA, USB/FW (ako se boota sa eksternog uređaja) moraju se moći učitati iz initramfs-a ako nisu buildani u kernel; nakon što su odgovarajući kernel moduli učitani (eksplicitno koristeći program ili skriptu ili implicitno sa <a href="/Usage/Configuration/A/Udev.html" title="Udev">udev</a>-om), boot proces se nastavlja. Iz ovog razloga, initramfs treba samo da sadržava module potrebne za pristup root fajl sistemu; ne treba da ima sve module koji će se koristiti. Većina modula će se kasnije učitati od strane udev-a, tokom init procesa.later on by udev, during the init process.
+<p>Svrha initramfs-a je da bootstrapa sistem do tačke gdje može da pristupi root fajl sistemu (vidite <a href="/Usage/Configuration/F/Frequently_asked_questions.html#Does_TOS_follow_the_Linux_Foundation's_Filesystem_Hierarchy_Standard_(FHS)?" class="mw-redirect" title="FHS">FHS</a> za detalje). To znači da bilo koji moduli koji su potrebni za uređaje, poput IDE, SCSI, SATA, USB/FW (ako se boota sa eksternog uređaja) moraju se moći učitati iz initramfs-a ako nisu buildani u kernel; nakon što su odgovarajući kernel moduli učitani (eksplicitno koristeći program ili skriptu ili implicitno sa <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a>-om), boot proces se nastavlja. Iz ovog razloga, initramfs treba samo da sadržava module potrebne za pristup root fajl sistemu; ne treba da ima sve module koji će se koristiti. Većina modula će se kasnije učitati od strane udev-a, tokom init procesa.later on by udev, during the init process.
 </p>
 <h2><span class="mw-headline" id="init_proces">init proces</span></h2>
-<p>Na zadnjoj fazi ranog userspace-a, stvarni root je mountan i zamjenjuje inicijalni root fajl sistem. <code>/sbin/init</code> se izvršava, zamjenjujući <code>/init</code> proces. TOS koristi <a href="/Usage/Configuration/A/Systemd.html" title="Systemd">systemd</a> kao defaultni <a href="/Usage/Configuration/A/Init.html" title="Init">init</a>.
+<p>Na zadnjoj fazi ranog userspace-a, stvarni root je mountan i zamjenjuje inicijalni root fajl sistem. <code>/sbin/init</code> se izvršava, zamjenjujući <code>/init</code> proces. TOS koristi <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> kao defaultni <a href="/Usage/Configuration/I/Init.html" title="Init">init</a>.
 </p>
 <h2><span class="mw-headline" id="getty">getty</span></h2>
-<p><a href="/Usage/Configuration/A/Init.html" title="Init">init</a> poziva <a href="/Usage/Configuration/A/Getty.html" title="Getty">getty</a> jednom za svaki <a href="https://en.wikipedia.org/wiki/Virtual_console"  title="wikipedia:Virtual console">virtualni termina</a> (obično 6 ih ima), koji inicijalizira svaki tty i pita za username i lozinku. Nakon što su username i lozinka ukucani, getty ih provjerava gledajući u <code>/etc/passwd</code> i <code>/etc/shadow</code> te zatim poziva <a href="#Login">login</a>. Alternativno, getty može pokrenuti display menadžera ukoliko postoji na sistemu.
+<p><a href="/Usage/Configuration/I/Init.html" title="Init">init</a> poziva <a href="/Usage/Configuration/G/Getty.html" title="Getty">getty</a> jednom za svaki <a href="https://en.wikipedia.org/wiki/Virtual_console"  title="wikipedia:Virtual console">virtualni termina</a> (obično 6 ih ima), koji inicijalizira svaki tty i pita za username i lozinku. Nakon što su username i lozinka ukucani, getty ih provjerava gledajući u <code>/etc/passwd</code> i <code>/etc/shadow</code> te zatim poziva <a href="#Login">login</a>. Alternativno, getty može pokrenuti display menadžera ukoliko postoji na sistemu.
 </p>
 <h2>
 <span id="Display_menad.C5.BEer"></span><span class="mw-headline" id="Display_menadžer">Display menadžer</span>
 </h2>
-<p><a href="/Usage/Configuration/A/Display_manager.html" title="Display manager">Display menadžer</a> može biti konfigurisan da zamijenit getty login prompt na tty-u.
+<p><a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">Display menadžer</a> može biti konfigurisan da zamijenit getty login prompt na tty-u.
 </p>
-<p>Da bi se automatski inicijalizirao display menadžer nakon bootanja, potrebno je manuelno uključiti service unit-e sa <a href="/Usage/Configuration/A/Systemd.html" title="Systemd">systemd</a>-om. Za više informacija vezanih za enablanje i startanje service unit-a, vidite <a href="/Usage/Configuration/A/Systemd.html#Using_units" title="Systemd">systemd#Using units</a>.
+<p>Da bi se automatski inicijalizirao display menadžer nakon bootanja, potrebno je manuelno uključiti service unit-e sa <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>-om. Za više informacija vezanih za enablanje i startanje service unit-a, vidite <a href="/Usage/Configuration/S/Systemd.html#Using_units" title="Systemd">systemd#Using units</a>.
 </p>
 <h2><span class="mw-headline" id="Login">Login</span></h2>
 <p><i>login</i> program započinje sesiju za korisnika tako što podešava environment varijable i pokreće korisnički shell, bazirano na <code>/etc/passwd</code>.
@@ -396,12 +396,12 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 <p><i>login</i> program prikaziju sadržaj <a href="https://en.wikipedia.org/wiki/motd_(Unix)"  title="wikipedia:motd (Unix)">/etc/motd</a> (<i>m</i>essage <i>o</i>f <i>t</i>he <i>d</i>ay) (poruka dana) nakon uspješnog logovanja, prije nego što izvrši shell. To je dobro mjesto za prikazati Uslove korištenja da se podsjete korisnici lokalnih polica ili bilo čega drugog što želite da im kažete.
 </p>
 <h2><span class="mw-headline" id="Shell">Shell</span></h2>
-<p>Nakon što je korisnički <a href="/Usage/Configuration/A/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> pokrenut, obično se pokreće runtime konfiguracijski fajl, poput <a href="/Usage/Configuration/A/Bash.html#Configuration_files" class="mw-redirect" title="Bashrc">bashrc</a> prije prikazivanja prompta korisniku. Ako je korisnički account podešen za <a href="/Usage/Configuration/A/Xinit.html#Autostart_X_at_login" class="mw-redirect" title="Start X at login">pokretanje X na loginu</a>, runtime konfiguracijski fajl će pozvati <a href="/Usage/Configuration/A/Xinit.html" class="mw-redirect" title="Startx">startx</a> ili <a href="/Usage/Configuration/A/Xinit.html" title="Xinit">xinit</a>.
+<p>Nakon što je korisnički <a href="/Usage/Configuration/C/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a> pokrenut, obično se pokreće runtime konfiguracijski fajl, poput <a href="/Usage/Configuration/B/Bash.html#Configuration_files" class="mw-redirect" title="Bashrc">bashrc</a> prije prikazivanja prompta korisniku. Ako je korisnički account podešen za <a href="/Usage/Configuration/X/Xinit.html#Autostart_X_at_login" class="mw-redirect" title="Start X at login">pokretanje X na loginu</a>, runtime konfiguracijski fajl će pozvati <a href="/Usage/Configuration/X/Xinit.html" class="mw-redirect" title="Startx">startx</a> ili <a href="/Usage/Configuration/X/Xinit.html" title="Xinit">xinit</a>.
 </p>
 <h2>
 <span id="GUI.2C_xinit_or_wayland"></span><span class="mw-headline" id="GUI,_xinit_or_wayland">GUI, xinit or wayland</span>
 </h2>
-<p><a href="/Usage/Configuration/A/Xinit.html" title="Xinit">xinit</a> pokreće korisnički <a href="/Usage/Configuration/A/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a> runtime konfiguracijski fajl, koji obično pokreće <a href="/Usage/Configuration/A/Window_manager.html" title="Window manager">window menadžera</a>. Nakon što korisnik završi i izađe iz window menadžera, <i>xinit</i>, <i>startx</i>, shell i login će se izgasiti u ovom redu, vraćajući se na <a href="#getty">getty</a>.
+<p><a href="/Usage/Configuration/X/Xinit.html" title="Xinit">xinit</a> pokreće korisnički <a href="/Usage/Configuration/X/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a> runtime konfiguracijski fajl, koji obično pokreće <a href="/Usage/Configuration/W/Window_manager.html" title="Window manager">window menadžera</a>. Nakon što korisnik završi i izađe iz window menadžera, <i>xinit</i>, <i>startx</i>, shell i login će se izgasiti u ovom redu, vraćajući se na <a href="#getty">getty</a>.
 </p>
 <h2><span class="mw-headline" id="Vidite_i">Vidite i</span></h2>
 <ul>
@@ -419,11 +419,11 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/A/Category:Boot_process_(Bosanski).html" title="Category:Boot process (Bosanski)">Boot process (Bosanski)</a></li>
-<li><a href="/Usage/Configuration/A/Category:About_TOS_(Bosanski).html" title="Category:About TOS (Bosanski)">About TOS (Bosanski)</a></li>
+<li><a href="/Usage/Configuration/C/Category:Boot_process_(Bosanski).html" title="Category:Boot process (Bosanski)">Boot process (Bosanski)</a></li>
+<li><a href="/Usage/Configuration/C/Category:About_TOS_(Bosanski).html" title="Category:About TOS (Bosanski)">About TOS (Bosanski)</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/A/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -441,9 +441,9 @@ ali drugi vendori mogu dodati podršku za dodatne fajl sisteme; npr, Apple <a hr
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

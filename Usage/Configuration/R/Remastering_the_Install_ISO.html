@@ -2,7 +2,7 @@
     title: Remastering_the_Install_ISO
     description: Migration of Remastering_the_Install_ISO from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/R/TOSiso.html" title="TOSiso">TOSiso</a></li>
+<li><a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a></li>
 </ul>
 </div>
 <p>Remastering the official TOS Linux install ISO image is not necessary for most applications. However, it may be desirable in some cases.
@@ -35,7 +35,7 @@
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> This article is out of date.  It was built with the 2012.09 iso.  The instructions found here are no longer valid.  Follow the <a href="/Usage/Configuration/R/TOSiso.html" title="TOSiso">TOSiso</a> method instead. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Remastering_the_Install_ISO">Talk:Remastering the Install ISO#</a>)</div>
+<b>Reason:</b> This article is out of date.  It was built with the 2012.09 iso.  The instructions found here are no longer valid.  Follow the <a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a> method instead. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Remastering_the_Install_ISO">Talk:Remastering the Install ISO#</a>)</div>
 </div>
 <ul>
 <li>Basic hardware is not supported by the core install. (rare)</li>
@@ -71,7 +71,7 @@
 </div>
 
 <h2><span class="mw-headline" id="TOSiso">TOSiso</span></h2>
-<p>It is often preferable to rebuild the installation ISO with <a href="/Usage/Configuration/R/TOSiso.html" title="TOSiso">TOSiso</a>, instead of remastering an existing ISO.
+<p>It is often preferable to rebuild the installation ISO with <a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a>, instead of remastering an existing ISO.
 </p>
 <h2><span class="mw-headline" id="Manually">Manually</span></h2>
 <h3><span class="mw-headline" id="How_it_works">How it works</span></h3>
@@ -121,7 +121,7 @@
 <ul>
 <li>
 <code>arch-chroot</code> is part of the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=arch-install-scripts">arch-install-scripts</a></span>.</li>
-<li>If the <code>arch-chroot</code> script is not available in your system (e.g, when remastering from other distributions), mount the API file systems and copy over your DNS details. See <a href="/Usage/Configuration/R/Chroot.html#Using_chroot" title="Chroot">Chroot#Using chroot</a>.</li>
+<li>If the <code>arch-chroot</code> script is not available in your system (e.g, when remastering from other distributions), mount the API file systems and copy over your DNS details. See <a href="/Usage/Configuration/C/Chroot.html#Using_chroot" title="Chroot">Chroot#Using chroot</a>.</li>
 </ul>
 </div>
 <p>To be able to install package, you have to initialise the pacman keyring:
@@ -130,7 +130,7 @@
 (chroot) # pacman-key --populate archlinux
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> This step can take quite a while, be patient. See <a href="/Usage/Configuration/R/Pacman/Package_signing.html#Initializing_the_keyring" title="Pacman/Package signing">Pacman/Package signing#Initializing the keyring</a>.</div>
+<strong>Note:</strong> This step can take quite a while, be patient. See <a href="/Usage/Configuration/P/Pacman/Package_signing.html#Initializing_the_keyring" title="Pacman/Package signing">Pacman/Package signing#Initializing the keyring</a>.</div>
 <p>If the kernel or initrd is updated, additional steps are required. In this case you have to install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=archiso">archiso</a></span> inside the chroot and change the content of <code>/etc/mkinitcpio.conf</code>:
 </p>
 <pre>(chroot) # pacman -Syu --force archiso linux
@@ -227,7 +227,7 @@ $ xorriso -as mkisofs \
        -output arch-custom.iso \ 
        ~/customiso
 </pre>
-<p>Option <code>-isohybrid-mbr</code> needs an <a href="/Usage/Configuration/R/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> template file. Most probably there is already such a file <code>/isolinux/isohdpfx.bin</code> in the original ISO, which matches the SYSLINUX version used in the ISO.
+<p>Option <code>-isohybrid-mbr</code> needs an <a href="/Usage/Configuration/P/Partitioning.html#Master_Boot_Record" class="mw-redirect" title="MBR">MBR</a> template file. Most probably there is already such a file <code>/isolinux/isohdpfx.bin</code> in the original ISO, which matches the SYSLINUX version used in the ISO.
 Only if this file is missing in the copied ISO content, it has to be cut out of the original ISO image file, before above xorriso run is performed:
 </p>
 <pre>$ dd if=/path/to/archISO bs=512 count=1 of=~/customiso/isolinux/isohdpfx.bin
@@ -240,7 +240,7 @@ Only if this file is missing in the copied ISO content, it has to be cut out of 
 </pre>
 <p>The file <code>/EFI/archiso/efiboot.img</code> is a FAT filesystem image file. If it is missing in the original ISO, then there was no UEFI support in that ISO.
 </p>
-<p>The newly created ISO image <code>arch-custom.iso</code> is found in the home directory. You can write the ISO image to a USB stick as explained in <a href="/Usage/Configuration/R/USB_flash_installation_media.html" class="mw-redirect" title="USB Installation Media">USB Installation Media</a>. Alternatively you can burn the ISO image on a CD, DVD, or BD with your preferred software. On TOS, that is covered in the <a href="/Usage/Configuration/R/Optical_disc_drive.html#Burning_an_ISO_image_to_CD,_DVD,_or_BD" title="Optical disc drive">article about burning an ISO image</a>.
+<p>The newly created ISO image <code>arch-custom.iso</code> is found in the home directory. You can write the ISO image to a USB stick as explained in <a href="/Usage/Configuration/U/USB_flash_installation_media.html" class="mw-redirect" title="USB Installation Media">USB Installation Media</a>. Alternatively you can burn the ISO image on a CD, DVD, or BD with your preferred software. On TOS, that is covered in the <a href="/Usage/Configuration/O/Optical_disc_drive.html#Burning_an_ISO_image_to_CD,_DVD,_or_BD" title="Optical disc drive">article about burning an ISO image</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -253,9 +253,9 @@ Only if this file is missing in the copied ISO content, it has to be cut out of 
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Live_TOS_systems.html" title="Category:Live TOS systems">Live TOS systems</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/R/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -273,9 +273,9 @@ Only if this file is missing in the copied ISO content, it has to be cut out of 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

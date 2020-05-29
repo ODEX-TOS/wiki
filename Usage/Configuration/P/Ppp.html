@@ -2,7 +2,7 @@
     title: Ppp
     description: Migration of Ppp from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -25,7 +25,7 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><span></span>
-<b>ppp</b> (Paul's PPP Package) is an open source package which implements the <a href="https://en.wikipedia.org/wiki/point-to-point_protocol"  title="wikipedia:point-to-point protocol">point-to-point protocol</a> (PPP) on Linux and Solaris systems. It is implemented as single <i>pppd</i> daemon and acts as backend for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xl2tpd">xl2tpd</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pptpd">pptpd</a></span> and <a href="/Usage/Configuration/P/Netctl.html" title="Netctl">netctl</a>. <a href="https://en.wikipedia.org/wiki/3G"  title="wikipedia:3G">3G</a>, <a href="https://en.wikipedia.org/wiki/L2TP"  title="wikipedia:L2TP">L2TP</a> and <a href="https://en.wikipedia.org/wiki/PPPoE"  title="wikipedia:PPPoE">PPPoE</a> connections are internally based on PPP protocol and therefore can be managed by ppp.
+<b>ppp</b> (Paul's PPP Package) is an open source package which implements the <a href="https://en.wikipedia.org/wiki/point-to-point_protocol"  title="wikipedia:point-to-point protocol">point-to-point protocol</a> (PPP) on Linux and Solaris systems. It is implemented as single <i>pppd</i> daemon and acts as backend for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xl2tpd">xl2tpd</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pptpd">pptpd</a></span> and <a href="/Usage/Configuration/N/Netctl.html" title="Netctl">netctl</a>. <a href="https://en.wikipedia.org/wiki/3G"  title="wikipedia:3G">3G</a>, <a href="https://en.wikipedia.org/wiki/L2TP"  title="wikipedia:L2TP">L2TP</a> and <a href="https://en.wikipedia.org/wiki/PPPoE"  title="wikipedia:PPPoE">PPPoE</a> connections are internally based on PPP protocol and therefore can be managed by ppp.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -66,7 +66,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ppp">ppp</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ppp">ppp</a></span> package.
 </p>
 <p>Make sure that your kernel is compiled with PPPoE support (present in default kernel):
 </p>
@@ -155,9 +155,9 @@ Jul 09 22:42:39 localhost pppd[239]: secondary DNS address 210.21.196.6
 </p>
 <h3><span class="mw-headline" id="Starting_pppd_on_boot">Starting pppd on boot</span></h3>
 <ul>
-<li>Configure the <code>ppp_generic</code> module to load on boot. See <a href="/Usage/Configuration/P/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a> for more information.</li>
+<li>Configure the <code>ppp_generic</code> module to load on boot. See <a href="/Usage/Configuration/K/Kernel_module.html#Automatic_module_loading_with_systemd" class="mw-redirect" title="Kernel modules">Kernel modules#Automatic module loading with systemd</a> for more information.</li>
 <li>
-<a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the systemd service <code>ppp@<i>your_provider</i>.service</code>.</li>
+<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the systemd service <code>ppp@<i>your_provider</i>.service</code>.</li>
 </ul>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Do_an_auto_redial">Do an auto redial</span></h3>
@@ -172,7 +172,7 @@ Jul 09 22:42:39 localhost pppd[239]: secondary DNS address 210.21.196.6
 <strong>Note:</strong> Make sure you have <code>persist</code> option enabled in your <code>/etc/ppp/peers/provider</code> tab. Additionally you might want to set <code>holdoff 0</code> to reconnect without waiting.</div>
 <h4><span class="mw-headline" id="Using_cron">Using cron</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  There are many <a href="/Usage/Configuration/P/Cron.html" title="Cron">cron</a> implementations, but none of them are installed by default as the base system uses <a href="/Usage/Configuration/P/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> instead.</div>
+<strong>Note:</strong>  There are many <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> implementations, but none of them are installed by default as the base system uses <a href="/Usage/Configuration/S/Systemd/Timers.html" title="Systemd/Timers">systemd/Timers</a> instead.</div>
 <p>As root, do the following:
 </p>
 <p>Create a bash script similar to this and give it a name (e.g. <code>pppd_redial.sh</code>):
@@ -191,12 +191,12 @@ echo $message
 </p>
 <pre>0 4 * * * /bin/bash /root/pppd_redial.sh
 </pre>
-<p>Confirm that <code>cronie</code> service is up and running. If this is not the case, just <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> it.
+<p>Confirm that <code>cronie</code> service is up and running. If this is not the case, just <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> it.
 </p>
 <p>Save and exit. Your PPPoE connection will now restart every day at 4AM.
 </p>
 <h4><span class="mw-headline" id="Using_a_systemd_timer">Using a systemd timer</span></h4>
-<p>An alternative way to force a reconnect is using a <a href="/Usage/Configuration/P/Systemd.html" title="Systemd">systemd</a> timer and the <i>poff</i> script (in particular its <code>-r</code> option). Simply create a <i>.service</i> and <i>.timer</i> files with the same name:
+<p>An alternative way to force a reconnect is using a <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> timer and the <i>poff</i> script (in particular its <code>-r</code> option). Simply create a <i>.service</i> and <i>.timer</i> files with the same name:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">ppp-redial.timer</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Unit]
@@ -216,7 +216,7 @@ Description=Reconnect PPP connections
 Type=simple
 ExecStart=/usr/bin/poff -r
 </pre>
-<p>Now just <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the timer and systemd will cause a restart at the specified time.
+<p>Now just <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the timer and systemd will cause a restart at the specified time.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Default_route">Default route</span></h3>
@@ -234,11 +234,11 @@ ExecStart=/usr/bin/poff -r
 <p>Note: Make sure you have a script named 'ip-pre-up' which launches *.sh in 'ip-pre-up.d' like other launch scripts do.
 </p>
 <ul><li>
-<a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>pppd</code> service.</li></ul>
+<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>pppd</code> service.</li></ul>
 <h3><span class="mw-headline" id="Masquerading_seems_to_be_working_fine_but_some_sites_do_not_work">Masquerading seems to be working fine but some sites do not work</span></h3>
 <p>The MTU under pppoe is 1492 bytes. Most sites use an MTU of 1500. So your connection sends an ICMP 3:4 (fragmentation needed) packet, asking for a smaller MTU, but some sites have their firewall blocking that.
 </p>
-<p>Enabling the PMTU clamping in <a href="/Usage/Configuration/P/Iptables.html" title="Iptables">iptables</a> can solve that:
+<p>Enabling the PMTU clamping in <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> can solve that:
 </p>
 <pre>iptables -I FORWARD -o ppp0 -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 </pre>
@@ -257,7 +257,7 @@ ExecStart=/usr/bin/iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS 
 [Install]
 WantedBy=multi-user.target
 </pre>
-<p>And <a href="/Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
+<p>And <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
 </p>
 <h3><span class="mw-headline" id="pppd_cannot_load_kernel_module_ppp_generic">pppd cannot load kernel module ppp_generic</span></h3>
 <p>When starting PPTP client, the <i>pppd</i> process cannot locate the appropriate module:
@@ -280,7 +280,7 @@ Please load the ppp_generic kernel module.
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Networking.html" title="Category:Networking">Networking</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -297,9 +297,9 @@ Please load the ppp_generic kernel module.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

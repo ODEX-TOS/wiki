@@ -2,7 +2,7 @@
     title: Boot_process
     description: Migration of Boot_process from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/B/Improving_performance.html" title="Improving performance">Improving performance</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/I/Improving_performance.html" title="Improving performance">Improving performance</a></span></div>
 		
 		
 		
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="..//Usage/Configuration/B/Improving_performance.html" title="Improving performance">Improving performance</a></li>
-<li><a href="..//Usage/Configuration/B/Silent_boot.html" title="Silent boot">Silent boot</a></li>
-<li><a href="..//Usage/Configuration/B/Daemons.html" class="mw-redirect" title="Daemon">Daemon</a></li>
-<li><a href="..//Usage/Configuration/B/E4rat.html" title="E4rat">e4rat</a></li>
-<li><a href="..//Usage/Configuration/B/Kexec.html" title="Kexec">Kexec</a></li>
+<li><a href="..//Usage/Configuration/I/Improving_performance.html" title="Improving performance">Improving performance</a></li>
+<li><a href="..//Usage/Configuration/S/Silent_boot.html" title="Silent boot">Silent boot</a></li>
+<li><a href="..//Usage/Configuration/D/Daemons.html" class="mw-redirect" title="Daemon">Daemon</a></li>
+<li><a href="..//Usage/Configuration/E/E4rat.html" title="E4rat">e4rat</a></li>
+<li><a href="..//Usage/Configuration/K/Kexec.html" title="Kexec">Kexec</a></li>
 </ul>
 </div>
 <p>Improving the boot performance of a system can provide reduced boot wait times and a means to learn more about how certain system files and scripts interact with one another. This article attempts to aggregate methods on how to improve the boot performance of an TOS Linux system.
@@ -61,14 +61,14 @@
 
 <h2><span class="mw-headline" id="Analyzing_the_boot_process">Analyzing the boot process</span></h2>
 <h3><span class="mw-headline" id="Using_systemd-analyze">Using systemd-analyze</span></h3>
-<p><a href="..//Usage/Configuration/B/Systemd.html" title="Systemd">systemd</a> provides a tool called <code>systemd-analyze</code> that can be used to show timing details about the boot process, including an svg plot showing units waiting for their dependencies. You can see which unit files are causing your boot process to slow down. You can then optimize your system accordingly.
+<p><a href="..//Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> provides a tool called <code>systemd-analyze</code> that can be used to show timing details about the boot process, including an svg plot showing units waiting for their dependencies. You can see which unit files are causing your boot process to slow down. You can then optimize your system accordingly.
 </p>
 <p>To see how much time was spent in kernelspace and userspace on boot, simply use:
 </p>
 <pre>$ systemd-analyze
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If you boot via <a href="..//Usage/Configuration/B/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> and use a boot loader which implements systemd's <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/systemd/BootLoaderInterface">Boot Loader Interface</a> (which currently <a href="..//Usage/Configuration/B/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> and <a href="..//Usage/Configuration/B/GRUB.html" title="GRUB">GRUB</a> do), <i>systemd-analyze</i> can additionally show you how much time was spent in the EFI firmware and the boot loader itself.</div>
+<strong>Tip:</strong> If you boot via <a href="..//Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> and use a boot loader which implements systemd's <a rel="nofollow"  href="http://www.freedesktop.org/wiki/Software/systemd/BootLoaderInterface">Boot Loader Interface</a> (which currently <a href="..//Usage/Configuration/S/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> and <a href="..//Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> do), <i>systemd-analyze</i> can additionally show you how much time was spent in the EFI firmware and the boot loader itself.</div>
 <p>To list the started unit files, sorted by the time each of them took to start up:
 </p>
 <pre>$ systemd-analyze blame
@@ -89,7 +89,7 @@
 <div>
 <b>Notes:</b> different instructions from the main page (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Improving_performance/Boot_process">Talk:Improving performance/Boot process#</a>)</div>
 </div>
-<p>You could also use a version of bootchart to visualize the boot sequence. Since you are not able to put a second init into the kernel command line you won't be able to use any of the standard bootchart setups. However the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bootchart2-git/">bootchart2-git</a></span><sup><small>AUR</small></sup> package from <a href="..//Usage/Configuration/B/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> comes with an undocumented <i>systemd</i> service. After you've installed bootchart2 do:
+<p>You could also use a version of bootchart to visualize the boot sequence. Since you are not able to put a second init into the kernel command line you won't be able to use any of the standard bootchart setups. However the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bootchart2-git/">bootchart2-git</a></span><sup><small>AUR</small></sup> package from <a href="..//Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> comes with an undocumented <i>systemd</i> service. After you've installed bootchart2 do:
 </p>
 <pre># systemctl enable bootchart2
 </pre>
@@ -100,13 +100,13 @@
 <p>Read the <a rel="nofollow"  href="https://github.com/mmeeks/bootchart">bootchart2 documentation</a> for further details on using this version of bootchart.
 </p>
 <h2><span class="mw-headline" id="Compiling_a_custom_kernel">Compiling a custom kernel</span></h2>
-<p>Compiling a custom kernel can reduce boot time and memory usage. Though with the standardization of the 64 bit architecture and the modular nature of the Linux kernel, these benefits may not be as great as expected. See <a href="..//Usage/Configuration/B/Kernel.html#Compilation" title="Kernel">Kernel#Compilation</a> for more info.
+<p>Compiling a custom kernel can reduce boot time and memory usage. Though with the standardization of the 64 bit architecture and the modular nature of the Linux kernel, these benefits may not be as great as expected. See <a href="..//Usage/Configuration/K/Kernel.html#Compilation" title="Kernel">Kernel#Compilation</a> for more info.
 </p>
 <h2><span class="mw-headline" id="Initramfs">Initramfs</span></h2>
-<p>In a similar approach to <a href="#Compiling_a_custom_kernel">#Compiling a custom kernel</a>, the initramfs can be slimmed down. A simple way is to include the <a href="..//Usage/Configuration/B/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> <code>autodetect</code> hook. If you want to go further than that, see <a href="..//Usage/Configuration/B/Minimal_initramfs.html" title="Minimal initramfs">Minimal initramfs</a>.
+<p>In a similar approach to <a href="#Compiling_a_custom_kernel">#Compiling a custom kernel</a>, the initramfs can be slimmed down. A simple way is to include the <a href="..//Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> <code>autodetect</code> hook. If you want to go further than that, see <a href="..//Usage/Configuration/M/Minimal_initramfs.html" title="Minimal initramfs">Minimal initramfs</a>.
 </p>
 <h2><span class="mw-headline" id="Early_start_for_services">Early start for services</span></h2>
-<p>One central feature of systemd is <a href="..//Usage/Configuration/B/D-Bus.html" title="D-Bus">D-Bus</a> and socket activation. This causes services to be started when they are first accessed and is generally a good thing. However, if you know that a service (like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=upower">upower</a></span>) will always be started during boot, then the overall boot time might be reduced by starting it as early as possible. This can be achieved (if the service file is set up for it, which in most cases it is) by issuing:
+<p>One central feature of systemd is <a href="..//Usage/Configuration/D/D-Bus.html" title="D-Bus">D-Bus</a> and socket activation. This causes services to be started when they are first accessed and is generally a good thing. However, if you know that a service (like <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=upower">upower</a></span>) will always be started during boot, then the overall boot time might be reduced by starting it as early as possible. This can be achieved (if the service file is set up for it, which in most cases it is) by issuing:
 </p>
 <pre># systemctl enable upower
 </pre>
@@ -119,37 +119,37 @@
 </pre>
 <p>If it wasn't used during boot, there will be no output.
 </p>
-<p>To disable it, add <code>libahci.ignore_sss=1</code> <a href="..//Usage/Configuration/B/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
+<p>To disable it, add <code>libahci.ignore_sss=1</code> <a href="..//Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>.
 </p>
 <h2><span class="mw-headline" id="Filesystem_mounts">Filesystem mounts</span></h2>
-<p>Thanks to <a href="..//Usage/Configuration/B/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook, you can avoid a possibly costly remount of the root partition by changing <code>ro</code> to <code>rw</code> on the kernel line: options can be set with <code>rootflags=<b>rw</b>,<i>other_mount_options</i></code>. The entry must be removed from the <code>/etc/fstab</code> file, otherwise the <code>systemd-remount-fs.service</code> will continue to try applying these settings. Alternatively, one could try to mask that unit.
+<p>Thanks to <a href="..//Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook, you can avoid a possibly costly remount of the root partition by changing <code>ro</code> to <code>rw</code> on the kernel line: options can be set with <code>rootflags=<b>rw</b>,<i>other_mount_options</i></code>. The entry must be removed from the <code>/etc/fstab</code> file, otherwise the <code>systemd-remount-fs.service</code> will continue to try applying these settings. Alternatively, one could try to mask that unit.
 </p>
-<p>If <a href="..//Usage/Configuration/B/Btrfs.html" title="Btrfs">btrfs</a> is in use for the root filesystem, there is no need for a fsck on every boot like other filesystems. If this is the case, <a href="..//Usage/Configuration/B/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook can be removed. You may also want to mask the <code>systemd-fsck-root.service</code>, or tell it not to fsck the root filesystem from the kernel command line using <code>fsck.mode=skip</code>. Without <a href="..//Usage/Configuration/B/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook, systemd will still fsck any relevant filesystems with the <code>systemd-fsck@.service</code>
+<p>If <a href="..//Usage/Configuration/B/Btrfs.html" title="Btrfs">btrfs</a> is in use for the root filesystem, there is no need for a fsck on every boot like other filesystems. If this is the case, <a href="..//Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook can be removed. You may also want to mask the <code>systemd-fsck-root.service</code>, or tell it not to fsck the root filesystem from the kernel command line using <code>fsck.mode=skip</code>. Without <a href="..//Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>'s <code>fsck</code> hook, systemd will still fsck any relevant filesystems with the <code>systemd-fsck@.service</code>
 </p>
 <p>You can also remove API filesystems from <code>/etc/fstab</code>, as systemd will mount them itself (see <code>pacman -Ql systemd | grep '\.mount$'</code> for a list). It is not uncommon for users to have a <code>/tmp</code> entry carried over from sysvinit, but you may have noticed from the command above that systemd already takes care of this. Ergo, it may be safely removed.
 </p>
-<p>Other filesystems like <code>/home</code> or <a href="..//Usage/Configuration/B/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> can be mounted with custom mount units. Adding <code>noauto,x-systemd.automount</code> to mount options will buffer all access to that partition, and will fsck and mount it on first access, reducing the number of filesystems it must fsck/mount during the boot process.
+<p>Other filesystems like <code>/home</code> or <a href="..//Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> can be mounted with custom mount units. Adding <code>noauto,x-systemd.automount</code> to mount options will buffer all access to that partition, and will fsck and mount it on first access, reducing the number of filesystems it must fsck/mount during the boot process.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>This will make your <code>/home</code> filesystem type <code>autofs</code>, which is ignored by <a href="..//Usage/Configuration/B/Mlocate.html" title="Mlocate">mlocate</a> by default. The speedup of automounting <code>/home</code> may not be more than a second or two, depending on your system, so this trick may not be worth it.</li>
+<li>This will make your <code>/home</code> filesystem type <code>autofs</code>, which is ignored by <a href="..//Usage/Configuration/M/Mlocate.html" title="Mlocate">mlocate</a> by default. The speedup of automounting <code>/home</code> may not be more than a second or two, depending on your system, so this trick may not be worth it.</li>
 <li>If the system is installed into a <i>btrfs</i> subvolume (specifically: the root directory <code>/</code> itself is a subvolume) and <code>/home</code> is a separate file system, you may also want to prevent the creation of a <code>/home</code> subvolume. Mask the <code>home.conf</code> tmpfile: <code>ln -s /dev/null /etc/tmpfiles.d/home.conf</code>.</li>
 </ul>
 </div>
 <h2><span class="mw-headline" id="Less_output_during_boot">Less output during boot</span></h2>
-<p>For some systems, particularly those with an SSD, the slow performance of the TTY is actually a bottleneck, and so less output means faster booting. See the <a href="..//Usage/Configuration/B/Silent_boot.html" title="Silent boot">Silent boot</a> article for suggestions.
+<p>For some systems, particularly those with an SSD, the slow performance of the TTY is actually a bottleneck, and so less output means faster booting. See the <a href="..//Usage/Configuration/S/Silent_boot.html" title="Silent boot">Silent boot</a> article for suggestions.
 </p>
 <h2><span class="mw-headline" id="Suspend_to_RAM">Suspend to RAM</span></h2>
-<p>The best way to reduce boot time is not booting at all. Consider <a href="..//Usage/Configuration/B/Power_management/Suspend_and_hibernate.html" title="Power management/Suspend and hibernate">suspending your system to RAM</a> instead.
+<p>The best way to reduce boot time is not booting at all. Consider <a href="..//Usage/Configuration/P/Power_management/Suspend_and_hibernate.html" title="Power management/Suspend and hibernate">suspending your system to RAM</a> instead.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/B/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="..//Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -167,9 +167,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

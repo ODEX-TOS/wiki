@@ -2,7 +2,7 @@
     title: Xinit
     description: Migration of Xinit from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,7 +29,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/X/Display_manager.html" title="Display manager">Display manager</a></li>
+<li><a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">Display manager</a></li>
 <li><a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a></li>
 <li><a href="/Usage/Configuration/X/Xprofile.html" title="Xprofile">xprofile</a></li>
 <li><a href="/Usage/Configuration/X/X_resources.html" class="mw-redirect" title="Xresources">Xresources</a></li>
@@ -38,7 +38,7 @@
 <p>From <a href="https://en.wikipedia.org/wiki/xinit"  title="wikipedia:xinit">Wikipedia</a>:
 </p>
 <dl><dd>The <b>xinit</b> program allows a user to manually start an <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> display server. The <span class="plainlinks archwiki-template-man" title="$ man 1 startx"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/startx.1">startx(1)</a></span> script is a front-end for <span class="plainlinks archwiki-template-man" title="$ man 1 xinit"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xinit.1">xinit(1)</a></span>.</dd></dl>
-<p><i>xinit</i> is typically used to start <a href="/Usage/Configuration/X/Window_manager.html" title="Window manager">window managers</a> or <a href="/Usage/Configuration/X/Desktop_environment.html" title="Desktop environment">desktop environments</a>. While you can also use <i>xinit</i> to run GUI applications without a window manager, many graphical applications expect an <a href="https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints"  title="wikipedia:Extended Window Manager Hints">EWMH</a> compliant window manager. <a href="/Usage/Configuration/X/Display_manager.html" title="Display manager">Display managers</a> start <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> for you and generally source <a href="/Usage/Configuration/X/Xprofile.html" title="Xprofile">xprofile</a>. 
+<p><i>xinit</i> is typically used to start <a href="/Usage/Configuration/W/Window_manager.html" title="Window manager">window managers</a> or <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">desktop environments</a>. While you can also use <i>xinit</i> to run GUI applications without a window manager, many graphical applications expect an <a href="https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints"  title="wikipedia:Extended Window Manager Hints">EWMH</a> compliant window manager. <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">Display managers</a> start <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> for you and generally source <a href="/Usage/Configuration/X/Xprofile.html" title="Xprofile">xprofile</a>. 
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -69,7 +69,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/X/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xinit">xorg-xinit</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xinit">xorg-xinit</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p><i>xinit</i> and <i>startx</i> take an optional client program argument, see <a href="#Override_xinitrc">#Override xinitrc</a>.  If you do not provide one they will look for <code>~/.xinitrc</code> to run as a shell script to start up client programs.
@@ -79,11 +79,11 @@
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <i>Xinit</i> has its own default behaviour instead of executing the file. See <span class="plainlinks archwiki-template-man" title="$ man 1 xinit"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xinit.1">xinit(1)</a></span> for details.</div>
-<p>This default xinitrc will start a basic environment with <a href="/Usage/Configuration/X/Twm.html" title="Twm">Twm</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xclock">xorg-xclock</a></span> and <a href="/Usage/Configuration/X/Xterm.html" title="Xterm">Xterm</a> (assuming that the necessary packages are installed). Therefore, to start a different window manager or desktop environment, first create a copy of the default <code>xinitrc</code> in your home directory:
+<p>This default xinitrc will start a basic environment with <a href="/Usage/Configuration/T/Twm.html" title="Twm">Twm</a>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-xclock">xorg-xclock</a></span> and <a href="/Usage/Configuration/X/Xterm.html" title="Xterm">Xterm</a> (assuming that the necessary packages are installed). Therefore, to start a different window manager or desktop environment, first create a copy of the default <code>xinitrc</code> in your home directory:
 </p>
 <pre>$ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 </pre>
-<p>Then <a href="/Usage/Configuration/X/Help:Reading.html#Append,_add,_create,_edit" title="Help:Reading">edit</a> the file and replace the default programs with desired commands. Remember that lines following a command using <code>exec</code> would be ignored. For example, to start <code>xscreensaver</code> in the background and then start <a href="/Usage/Configuration/X/Openbox.html#Standalone" title="Openbox">openbox</a>, use the following:
+<p>Then <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" title="Help:Reading">edit</a> the file and replace the default programs with desired commands. Remember that lines following a command using <code>exec</code> would be ignored. For example, to start <code>xscreensaver</code> in the background and then start <a href="/Usage/Configuration/O/Openbox.html#Standalone" title="Openbox">openbox</a>, use the following:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -96,7 +96,7 @@ exec openbox-session</pre>
 <h3><span class="mw-headline" id="xserverrc">xserverrc</span></h3>
 <p>The <code>xserverrc</code> file is a shell script responsible for starting up the X server. Both <i>startx</i> and <i>xinit</i> execute <code>~/.xserverrc</code> if it exists, <i>startx</i> will use <code>/etc/X11/xinit/xserverrc</code> otherwise.
 </p>
-<p>In order to maintain an <a href="/Usage/Configuration/X/General_troubleshooting.html#Session_permissions" title="General troubleshooting">authenticated session</a> with <code>logind</code> and to prevent bypassing the screen locker by switching terminals, <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> has to be started on the same virtual terminal where the login occurred <a rel="nofollow"  href="http://blog.falconindy.com/articles/back-to-basics-with-x-and-systemd.html">[1]</a>. Therefore it is recommended to specify <code>vt$XDG_VTNR</code> in the <code>~/.xserverrc</code> file:
+<p>In order to maintain an <a href="/Usage/Configuration/G/General_troubleshooting.html#Session_permissions" title="General troubleshooting">authenticated session</a> with <code>logind</code> and to prevent bypassing the screen locker by switching terminals, <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> has to be started on the same virtual terminal where the login occurred <a rel="nofollow"  href="http://blog.falconindy.com/articles/back-to-basics-with-x-and-systemd.html">[1]</a>. Therefore it is recommended to specify <code>vt$XDG_VTNR</code> in the <code>~/.xserverrc</code> file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xserverrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#!/bin/sh
@@ -152,7 +152,7 @@ exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
 <p>See also <span class="plainlinks archwiki-template-man" title="$ man 1 startx"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/startx.1">startx(1)</a></span>.
 </p>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/X/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Make the note understandable even if the reader did not follow the link. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Xinit">Talk:Xinit#</a>)</div>
 </div>
@@ -160,11 +160,11 @@ exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
 <strong>Note:</strong> Display needs to be specified (as loading <code>/etc/X11/xinit/xinitrc.d/</code> is skipped) for some operations to work (e.g. notification daemons). <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=202812">[2]</a>
 </div>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> This can be used to start regular GUI programs but without any of the basic window manager features. See also <a href="#Starting_applications_without_a_window_manager">#Starting applications without a window manager</a> and <a href="/Usage/Configuration/X/Gaming.html#Starting_games_in_a_separate_X_server" class="mw-redirect" title="Running program in separate X display">Running program in separate X display</a>.</div>
+<strong>Tip:</strong> This can be used to start regular GUI programs but without any of the basic window manager features. See also <a href="#Starting_applications_without_a_window_manager">#Starting applications without a window manager</a> and <a href="/Usage/Configuration/G/Gaming.html#Starting_games_in_a_separate_X_server" class="mw-redirect" title="Running program in separate X display">Running program in separate X display</a>.</div>
 <h3><span class="mw-headline" id="Autostart_X_at_login">Autostart X at login</span></h3>
 <p>Make sure that <i>startx</i> is properly <a href="#Configuration">configured</a>.
 </p>
-<p>For <a href="/Usage/Configuration/X/Bash.html" title="Bash">Bash</a>, add the following to the bottom of <code>~/.bash_profile</code>. If the file does not exist, copy a skeleton version from <code>/etc/skel/.bash_profile</code>. For <a href="/Usage/Configuration/X/Zsh.html" title="Zsh">Zsh</a>, add it to <code>~/.zprofile</code>.
+<p>For <a href="/Usage/Configuration/B/Bash.html" title="Bash">Bash</a>, add the following to the bottom of <code>~/.bash_profile</code>. If the file does not exist, copy a skeleton version from <code>/etc/skel/.bash_profile</code>. For <a href="/Usage/Configuration/Z/Zsh.html" title="Zsh">Zsh</a>, add it to <code>~/.zprofile</code>.
 </p>
 <pre>if systemctl -q is-active graphical.target &amp;&amp; [[ ! $DISPLAY &amp;&amp; $XDG_VTNR -eq 1 ]]; then
   exec startx
@@ -172,18 +172,18 @@ fi
 </pre>
 <p>You can replace the <code>-eq</code> comparison with one like <code>-le 3</code> (for vt1 to vt3) if you want to use graphical logins on more than one virtual terminal.
 </p>
-<p>Alternative conditions to detect the virtual terminal include <code>"$(tty)" = "/dev/tty1"</code>, which does not allow comparison with <code>-le</code>, and <code>"$(fgconsole 2&gt;/dev/null || echo -1)" -eq 1</code>, which does not work in <a href="/Usage/Configuration/X/Working_with_the_serial_console.html" class="mw-redirect" title="Serial console">serial consoles</a>.
+<p>Alternative conditions to detect the virtual terminal include <code>"$(tty)" = "/dev/tty1"</code>, which does not allow comparison with <code>-le</code>, and <code>"$(fgconsole 2&gt;/dev/null || echo -1)" -eq 1</code>, which does not work in <a href="/Usage/Configuration/W/Working_with_the_serial_console.html" class="mw-redirect" title="Serial console">serial consoles</a>.
 </p>
 <p>If you would like to remain logged in when the X session ends, remove <code>exec</code>.
 </p>
-<p>See also <a href="/Usage/Configuration/X/Fish.html#Start_X_at_login" title="Fish">Fish#Start X at login</a> and <a href="/Usage/Configuration/X/Systemd/User.html#Automatic_login_into_Xorg_without_display_manager" title="Systemd/User">Systemd/User#Automatic login into Xorg without display manager</a>.
+<p>See also <a href="/Usage/Configuration/F/Fish.html#Start_X_at_login" title="Fish">Fish#Start X at login</a> and <a href="/Usage/Configuration/S/Systemd/User.html#Automatic_login_into_Xorg_without_display_manager" title="Systemd/User">Systemd/User#Automatic login into Xorg without display manager</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> This method can be combined with <a href="/Usage/Configuration/X/Getty.html#Automatic_login_to_virtual_console" class="mw-redirect" title="Automatic login to virtual console">automatic login to virtual console</a>.</div>
+<strong>Tip:</strong> This method can be combined with <a href="/Usage/Configuration/G/Getty.html#Automatic_login_to_virtual_console" class="mw-redirect" title="Automatic login to virtual console">automatic login to virtual console</a>.</div>
 <h3>
 <span id="Switching_between_desktop_environments.2Fwindow_managers"></span><span class="mw-headline" id="Switching_between_desktop_environments/window_managers">Switching between desktop environments/window managers</span>
 </h3>
-<p>If you are frequently switching between different desktop environments or window managers, it is convenient to either use a <a href="/Usage/Configuration/X/Display_manager.html" title="Display manager">display manager</a> or expand <code>~/.xinitrc</code> to make the switching possible.
+<p>If you are frequently switching between different desktop environments or window managers, it is convenient to either use a <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a> or expand <code>~/.xinitrc</code> to make the switching possible.
 </p>
 <p>The following example shows how to start a particular desktop environment or window manager with an argument:
 </p>
@@ -223,7 +223,7 @@ exec chromium
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> This can be useful to launch graphical games, where excluding the overhead of a compositor can help improve the game's performance.</div>
-<p>See also <a href="/Usage/Configuration/X/Display_manager.html#Starting_applications_without_a_window_manager" title="Display manager">Display manager#Starting applications without a window manager</a>.
+<p>See also <a href="/Usage/Configuration/D/Display_manager.html#Starting_applications_without_a_window_manager" title="Display manager">Display manager#Starting applications without a window manager</a>.
 </p>
 <h3><span class="mw-headline" id="Output_redirection_using_startx">Output redirection using startx</span></h3>
 <p>See <a href="/Usage/Configuration/X/Xorg.html#Session_log_redirection" title="Xorg">Xorg#Session log redirection</a> for details.
@@ -232,9 +232,9 @@ exec chromium
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/X/Category:Xorg_commands.html" title="Category:Xorg commands">Xorg commands</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Xorg_commands.html" title="Category:Xorg commands">Xorg commands</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/X/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -252,9 +252,9 @@ exec chromium
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/X/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/X/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/X/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

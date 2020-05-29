@@ -2,7 +2,7 @@
     title: Uncomplicated_Firewall
     description: Migration of Uncomplicated_Firewall from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/U/Iptables.html" title="Iptables">iptables</a></li>
-<li><a href="/Usage/Configuration/U/Sshguard.html" title="Sshguard">sshguard</a></li>
+<li><a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a></li>
+<li><a href="/Usage/Configuration/S/Sshguard.html" title="Sshguard">sshguard</a></li>
 </ul>
 </div>
 <p>From the project <a rel="nofollow"  href="https://launchpad.net/ufw">home page</a>:
 </p>
-<dl><dd>Ufw stands for Uncomplicated Firewall, and is a program for managing a netfilter <a href="/Usage/Configuration/U/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>. It provides a command line interface and aims to be uncomplicated and easy to use.</dd></dl>
+<dl><dd>Ufw stands for Uncomplicated Firewall, and is a program for managing a netfilter <a href="/Usage/Configuration/C/Category:Firewalls.html" class="mw-redirect" title="Firewall">firewall</a>. It provides a command line interface and aims to be uncomplicated and easy to use.</dd></dl>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
 <h2>Contents</h2>
@@ -66,9 +66,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/U/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ufw">ufw</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ufw">ufw</a></span> package.
 </p>
-<p><a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ufw.service</code> to make it available at boot. Note that this will not work if <code>iptables.service</code> is also enabled (and same for its ipv6 counterpart).
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>ufw.service</code> to make it available at boot. Note that this will not work if <code>iptables.service</code> is also enabled (and same for its ipv6 counterpart).
 </p>
 <h2><span class="mw-headline" id="Basic_configuration">Basic configuration</span></h2>
 <p>A very simplistic configuration which will deny all by default, allow any protocol from inside a 192.168.0.1-192.168.0.255 LAN, and allow incoming Deluge and <a href="#Rate_limiting_with_ufw">rate limited</a> SSH traffic from <i>anywhere</i>:
@@ -83,7 +83,7 @@
 <pre># ufw enable
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Make sure <code>ufw.service</code> has been <a href="/Usage/Configuration/U/Systemd.html#Using_units" class="mw-redirect" title="Enabled">enabled</a>.</div>
+<strong>Note:</strong> Make sure <code>ufw.service</code> has been <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enabled">enabled</a>.</div>
 <p>Finally, query the rules being applied via the status command:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;"># ufw status</pre>
@@ -107,7 +107,7 @@ SSH                        LIMIT       Anywhere
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If special network variables are set on the system in <code>/etc/sysctl.d/*</code>, it may be necessary to update <code>/etc/ufw/sysctl.conf</code> accordingly since this configuration overrides the default settings.</div>
 <h2><span class="mw-headline" id="Forward_policy">Forward policy</span></h2>
-<p>Users needing to run a <a href="/Usage/Configuration/U/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> such as <a href="/Usage/Configuration/U/OpenVPN.html" title="OpenVPN">OpenVPN</a> or <a href="/Usage/Configuration/U/WireGuard.html" title="WireGuard">WireGuard</a> will need to adjust the <b>DEFAULT_FORWARD_POLICY</b> variable in <code>/etc/default/ufw</code> from a value of <b>"DROP"</b> to <b>"ACCEPT"</b> for proper VPN operation.
+<p>Users needing to run a <a href="/Usage/Configuration/C/Category:Virtual_Private_Network.html" class="mw-redirect" title="VPN">VPN</a> such as <a href="/Usage/Configuration/O/OpenVPN.html" title="OpenVPN">OpenVPN</a> or <a href="/Usage/Configuration/W/WireGuard.html" title="WireGuard">WireGuard</a> will need to adjust the <b>DEFAULT_FORWARD_POLICY</b> variable in <code>/etc/default/ufw</code> from a value of <b>"DROP"</b> to <b>"ACCEPT"</b> for proper VPN operation.
 </p>
 <h2><span class="mw-headline" id="Adding_other_applications">Adding other applications</span></h2>
 <p>The PKG comes with some defaults based on the default ports of many common daemons and programs.  Inspect the options by looking in the <code>/etc/ufw/applications.d</code> directory or by listing them in the program itself:
@@ -163,7 +163,7 @@ Deluge-my                  ALLOW       Anywhere
 COMMIT
 </pre>
 <h2><span class="mw-headline" id="Rate_limiting_with_ufw">Rate limiting with ufw</span></h2>
-<p>ufw has the ability to deny connections from an IP address that has attempted to initiate 6 or more connections in the last 30 seconds.  Users should consider using this option for services such as <a href="/Usage/Configuration/U/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>.
+<p>ufw has the ability to deny connections from an IP address that has attempted to initiate 6 or more connections in the last 30 seconds.  Users should consider using this option for services such as <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>.
 </p>
 <p>Using the above basic configuration, to enable rate limiting we would simply replace the allow parameter with the limit parameter.  The new rule will then replace the previous.
 </p>
@@ -215,9 +215,9 @@ Deluge-my                  ALLOW       Anywhere
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/U/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/U/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -235,9 +235,9 @@ Deluge-my                  ALLOW       Anywhere
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/U/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/U/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/U/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

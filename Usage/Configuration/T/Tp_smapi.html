@@ -2,7 +2,7 @@
     title: Tp_smapi
     description: Migration of Tp_smapi from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -71,9 +71,9 @@ In case your TP does not support stop_threshold but only start_threshold please 
 <code>*40</code> or <code>*50</code> models), tp_smapi will not work. Use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tpacpi-bat">tpacpi-bat</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tpacpi-bat-git/">tpacpi-bat-git</a></span><sup><small>AUR</small></sup>.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/T/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tp_smapi">tp_smapi</a></span> package. For the custom <a href="/Usage/Configuration/T/Linux-ck.html" title="Linux-ck">linux-ck</a> kernel there is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tp_smapi-ck/">tp_smapi-ck</a></span><sup><small>AUR</small></sup> in the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> for all other kernels (ex: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-zen">linux-zen</a></span>, consider using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tp_smapi-dkms/">tp_smapi-dkms</a></span><sup><small>AUR</small></sup> 
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tp_smapi">tp_smapi</a></span> package. For the custom <a href="/Usage/Configuration/L/Linux-ck.html" title="Linux-ck">linux-ck</a> kernel there is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tp_smapi-ck/">tp_smapi-ck</a></span><sup><small>AUR</small></sup> in the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> for all other kernels (ex: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-zen">linux-zen</a></span>, consider using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tp_smapi-dkms/">tp_smapi-dkms</a></span><sup><small>AUR</small></sup> 
 </p>
-<p>It provides you 3 <a href="/Usage/Configuration/T/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>:
+<p>It provides you 3 <a href="/Usage/Configuration/K/Kernel_module.html" class="mw-redirect" title="Kernel modules">Kernel modules</a>:
 </p>
 <table >
 <tbody>
@@ -86,7 +86,7 @@ In case your TP does not support stop_threshold but only start_threshold please 
 <tr>
 <td>hdaps
 </td>
-<td>IBM Hard Drive Active Protection System (<a href="/Usage/Configuration/T/Hard_Drive_Active_Protection_System.html" class="mw-redirect" title="HDAPS">HDAPS</a>) driver
+<td>IBM Hard Drive Active Protection System (<a href="/Usage/Configuration/H/Hard_Drive_Active_Protection_System.html" class="mw-redirect" title="HDAPS">HDAPS</a>) driver
 </td>
 </tr>
 <tr>
@@ -125,14 +125,14 @@ More specific instructions follow.
 echo ${2:-40} &gt; /sys/devices/platform/smapi/BAT${1:-0}/start_charge_thresh
 echo ${3:-80} &gt; /sys/devices/platform/smapi/BAT${1:-0}/stop_charge_thresh
 </pre>
-<p>Make it <a href="/Usage/Configuration/T/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. With this script to set a battery threshold is very simple,
+<p>Make it <a href="/Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>. With this script to set a battery threshold is very simple,
 just type (if set_bat_thresh is the name of the script):
 </p>
 <pre>set_battery_thresholds 0 96 100
 </pre>
 <p>Or run it with no arguments to default to BAT0, and thresholds of 40% and 80%.
 </p>
-<p>Let <a href="/Usage/Configuration/T/Systemd.html" title="Systemd">systemd</a> execute the script at startup (Using rc.local from initscripts is deprecated).
+<p>Let <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> execute the script at startup (Using rc.local from initscripts is deprecated).
 Thus, create <code>/etc/systemd/system/tp_smapi_set_battery_thresholds.service</code>:
 </p>
 <pre>[Unit]
@@ -150,7 +150,7 @@ WantedBy=multi-user.target
 </p>
 <pre># systemctl enable tp_smapi_set_battery_thresholds.service
 </pre>
-<p>You can also make it run when a battery is inserted. This requires that <a href="/Usage/Configuration/T/Acpid.html" title="Acpid">acpid</a> is installed and running. Edit <code>/etc/acpi/handler.sh</code>:
+<p>You can also make it run when a battery is inserted. This requires that <a href="/Usage/Configuration/A/Acpid.html" title="Acpid">acpid</a> is installed and running. Edit <code>/etc/acpi/handler.sh</code>:
 </p>
 <pre>#... other ACPI stuff
 battery)
@@ -172,7 +172,7 @@ cat /sys/devices/platform/smapi/BAT0/stop_charge_thresh
 </pre>
 <h3><span class="mw-headline" id="Protect_the_hard_disk_from_drops">Protect the hard disk from drops</span></h3>
 <p>tp_smapi includes a driver to read the accelerometer in your laptop to detect drops and other events that
-could cause damage to your hard drive. See the <a href="/Usage/Configuration/T/Hard_Drive_Active_Protection_System.html" class="mw-redirect" title="HDAPS">HDAPS</a> page for more information on this useful feature.
+could cause damage to your hard drive. See the <a href="/Usage/Configuration/H/Hard_Drive_Active_Protection_System.html" class="mw-redirect" title="HDAPS">HDAPS</a> page for more information on this useful feature.
 </p>
 <h2><span class="mw-headline" id="Workaround_for_partially_supported_laptops">Workaround for partially supported laptops</span></h2>
 <p>For partially supported laptops you can still gain control over your battery.
@@ -252,8 +252,8 @@ Other interesting parameters can be found under <code>/sys/class/power_supply/BA
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/T/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
-<li><a href="/Usage/Configuration/T/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Laptops.html" title="Category:Laptops">Laptops</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
 </ul>
 </div></div>
 		<div ></div>

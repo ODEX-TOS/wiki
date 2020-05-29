@@ -2,7 +2,7 @@
     title: Ansible
     description: Migration of Ansible from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -69,9 +69,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>On the control machine (master), <a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ansible">ansible</a></span> package.
+<p>On the control machine (master), <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ansible">ansible</a></span> package.
 </p>
-<p>On the managed machines (nodes),  where you want to automate deployment or configuration tasks, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python">python</a></span> is required and it may be necessary to indicate the specific <a href="#Python_binary_location">#Python binary location</a> in some circumstances.  A way to communicate with the node is also necessary, this is usually <a href="/Usage/Configuration/A/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>. Note that a functioning <a href="/Usage/Configuration/A/SSH_keys.html#Copying_the_public_key_to_the_remote_server" title="SSH keys">SSH key</a> setup eases the use of Ansible but is not required.
+<p>On the managed machines (nodes),  where you want to automate deployment or configuration tasks, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=python">python</a></span> is required and it may be necessary to indicate the specific <a href="#Python_binary_location">#Python binary location</a> in some circumstances.  A way to communicate with the node is also necessary, this is usually <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>. Note that a functioning <a href="/Usage/Configuration/S/SSH_keys.html#Copying_the_public_key_to_the_remote_server" title="SSH keys">SSH key</a> setup eases the use of Ansible but is not required.
 </p>
 <h2><span class="mw-headline" id="Basic_usage">Basic usage</span></h2>
 <h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
@@ -154,12 +154,12 @@ mysecret: !vault |
 other_not_secret: othervalue</pre>
 <h3><span class="mw-headline" id="Package_management">Package management</span></h3>
 <h4><span class="mw-headline" id="Official_repositories">Official repositories</span></h4>
-<p>Ansible has a <a rel="nofollow"  href="http://docs.ansible.com/ansible/latest/pacman_module.html">pacman module</a> to handle installation, removal and system upgrades with <a href="/Usage/Configuration/A/Pacman.html" title="Pacman">pacman</a>.
+<p>Ansible has a <a rel="nofollow"  href="http://docs.ansible.com/ansible/latest/pacman_module.html">pacman module</a> to handle installation, removal and system upgrades with <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a>.
 </p>
 <h4><span class="mw-headline" id="AUR">AUR</span></h4>
-<p>For the <a href="/Usage/Configuration/A/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> <i>(AUR)</i>, it is required to use the external module <a rel="nofollow"  href="https://github.com/kewlfft/ansible-aur">ansible-aur</a>. See the README for use and installation instructions.
+<p>For the <a href="/Usage/Configuration/T/TOS_User_Repository.html" title="TOS User Repository">TOS User Repository</a> <i>(AUR)</i>, it is required to use the external module <a rel="nofollow"  href="https://github.com/kewlfft/ansible-aur">ansible-aur</a>. See the README for use and installation instructions.
 </p>
-<p>While Ansible expects to ssh as root, AUR helpers do not allow executing operations as root, they all fail with "you cannot perform this operation as root". For Ansible automation, it is therefore recommended to create a user, for example named <i>aur_builder</i>, that has no need for password with pacman in <a href="/Usage/Configuration/A/Sudo.html#Configuration" class="mw-redirect" title="Sudoers">sudoers</a>. This can be done in Ansible with the following actions:
+<p>While Ansible expects to ssh as root, AUR helpers do not allow executing operations as root, they all fail with "you cannot perform this operation as root". For Ansible automation, it is therefore recommended to create a user, for example named <i>aur_builder</i>, that has no need for password with pacman in <a href="/Usage/Configuration/S/Sudo.html#Configuration" class="mw-redirect" title="Sudoers">sudoers</a>. This can be done in Ansible with the following actions:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">task.yml</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">- user: name=<i>aur_builder</i>
@@ -170,7 +170,7 @@ other_not_secret: othervalue</pre>
      line: "<i>aur_builder</i> ALL=(ALL) NOPASSWD: /usr/bin/pacman"
      validate: /usr/sbin/visudo -cf %s
      create: yes</pre>
-<p>Then, AUR helpers or <a href="/Usage/Configuration/A/Makepkg.html" title="Makepkg">makepkg</a> can be used associated with the Ansible parameters <code>become: yes</code> and <code>become_user: aur_builder</code>
+<p>Then, AUR helpers or <a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a> can be used associated with the Ansible parameters <code>become: yes</code> and <code>become_user: aur_builder</code>
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="User_account_creation">User account creation</span></h3>
@@ -194,7 +194,7 @@ other_not_secret: othervalue</pre>
 <pre>$ python -c 'import crypt; print(crypt.crypt("<i>user_password</i>", crypt.mksalt(crypt.METHOD_SHA512)))'
 </pre>
 <h3><span class="mw-headline" id="Python_binary_location">Python binary location</span></h3>
-<p>Ansible requires <a href="/Usage/Configuration/A/Python.html" title="Python">Python</a> on the target machine. By default Ansible assumes it can find a <code>/usr/bin/python</code> on the remote system that is a 2.X or 3.X version, specifically 2.6 or higher.
+<p>Ansible requires <a href="/Usage/Configuration/P/Python.html" title="Python">Python</a> on the target machine. By default Ansible assumes it can find a <code>/usr/bin/python</code> on the remote system that is a 2.X or 3.X version, specifically 2.6 or higher.
 </p>
 <p>If some of your modules specifically require Python2, you need to inform Ansible about its location by setting the <code>ansible_python_interpreter</code> variable in the inventory file. This can be done by using host groups in the inventory:
 </p>
@@ -224,7 +224,7 @@ ansible_python_interpreter=/usr/bin/python2</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/A/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -241,9 +241,9 @@ ansible_python_interpreter=/usr/bin/python2</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

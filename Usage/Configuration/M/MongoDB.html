@@ -2,7 +2,7 @@
     title: MongoDB
     description: Migration of MongoDB from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -54,9 +54,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>MongoDB has been removed from the <a href="/Usage/Configuration/M/Official_repositories.html" title="Official repositories">official repositories</a> due to its re-licensing issues <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-dev-public/2019-January/029430.html">[1]</a>.
+<p>MongoDB has been removed from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a> due to its re-licensing issues <a rel="nofollow"  href="https://lists.archlinux.org/pipermail/arch-dev-public/2019-January/029430.html">[1]</a>.
 </p>
-<p><a href="/Usage/Configuration/M/PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> are provided in <a href="/Usage/Configuration/M/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>:
+<p><a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILDs</a> are provided in <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>:
 </p>
 <ul>
 <li>
@@ -64,7 +64,7 @@
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb-bin/">mongodb-bin</a></span><sup><small>AUR</small></sup> - prebuilt MongoDB binary extracted from <a rel="nofollow"  href="https://repo.mongodb.org/apt/ubuntu/">official MongoDB Ubuntu repository</a> packages. Compilation options used are unknown.</li>
 </ul>
-<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> tools (<code>mongoimport</code>, <code>mongoexport</code>, <code>mongodump</code>, <code>mongorestore</code>, among others) using the <a href="/Usage/Configuration/M/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> from the <a href="/Usage/Configuration/M/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> corresponding to the main <a href="/Usage/Configuration/M/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> you chose:
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> tools (<code>mongoimport</code>, <code>mongoexport</code>, <code>mongodump</code>, <code>mongorestore</code>, among others) using the <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> corresponding to the main <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> you chose:
 </p>
 <ul>
 <li>
@@ -75,7 +75,7 @@
 </li>
 </ul>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p><a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a>/<a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>mongodb.service</code> daemon.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a>/<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>mongodb.service</code> daemon.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> During the first startup of the mongodb service, it will <a rel="nofollow"  href="https://docs.mongodb.com/manual/faq/storage/#preallocated-data-files">pre-allocate space</a>, by creating large files (for its journal and other data). This step may take a while, during which the MongoDB shell is unavailable.</div>
@@ -123,7 +123,7 @@ db.createUser(
     roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
   }
 )</pre>
-<p>If your <code>/etc/mongodb.conf</code> uses the new YAML format, <a href="/Usage/Configuration/M/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a>:
+<p>If your <code>/etc/mongodb.conf</code> uses the new YAML format, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mongodb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">security:
@@ -133,7 +133,7 @@ db.createUser(
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/mongodb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth = true</pre>
-<p><a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mongodb.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mongodb.service</code>.
 </p>
 <h3><span class="mw-headline" id="NUMA">NUMA</span></h3>
 <p>Running MongoDB with Non-Uniform Access Memory (NUMA) can significantly impact performance.  <a rel="nofollow"  href="https://docs.mongodb.com/manual/administration/production-notes/#mongodb-and-numa-hardware">[5]</a>
@@ -168,12 +168,12 @@ db.createUser(
 </pre>
 <p>Zone claim also needs to be disabled, but on arch, <code>/proc/sys/vm/zone_reclaim_mode</code> defaults to <code>0</code>.
 </p>
-<p><a href="/Usage/Configuration/M/Systemd.html#Replacement_unit_files" title="Systemd">Reenable</a> and <a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mongodb.service</code>.  (Merely restarting it will not switch to the <code>/etc</code> version.)
+<p><a href="/Usage/Configuration/S/Systemd.html#Replacement_unit_files" title="Systemd">Reenable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mongodb.service</code>.  (Merely restarting it will not switch to the <code>/etc</code> version.)
 </p>
 <h3><span class="mw-headline" id="Clean_Start_and_Stop">Clean Start and Stop</span></h3>
-<p>By default, <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> immediately kills anything after asking it to start or stop, if it has not finished doing so within 90 seconds.
+<p>By default, <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> immediately kills anything after asking it to start or stop, if it has not finished doing so within 90 seconds.
 </p>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> makes <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> wait as long as it takes for MongoDB to start, but <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb-bin/">mongodb-bin</a></span><sup><small>AUR</small></sup> does not.  Both packages allow <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> to kill MongoDB after it's asked to stop, if it hasn't finished within 90 seconds.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> makes <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> wait as long as it takes for MongoDB to start, but <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb-bin/">mongodb-bin</a></span><sup><small>AUR</small></sup> does not.  Both packages allow <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> to kill MongoDB after it's asked to stop, if it hasn't finished within 90 seconds.
 </p>
 <p>Large MongoDB databases can take a considerable amount of time to cleanly shut down, especially if swap is being used.  (An active 450GB database on a top of the line NVMe with 64GB RAM and 16GB swap can take an hour to shut down.)
 </p>
@@ -182,15 +182,15 @@ db.createUser(
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> If you disable journaling, failing to require a clean shutdown severely risks data loss, so you really need to require a clean shutdown. <a rel="nofollow"  href="https://docs.mongodb.com/manual/tutorial/recover-data-following-unexpected-shutdown/">[8]</a>
 </div>
-<p>To prevent <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> from killing MongoDB after 90 seconds, make and then <a href="/Usage/Configuration/M/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> your own <code>.service</code> file, i.e.:
+<p>To prevent <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> from killing MongoDB after 90 seconds, make and then <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> your own <code>.service</code> file, i.e.:
 </p>
 <pre># cp /usr/lib/systemd/system/mongodb.service /etc/systemd/system
 </pre>
-<p>To allow MongoDB to cleanly shutdown, <a href="/Usage/Configuration/M/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[Service]</code> section: (On large databases, this may substantially slow down your system shutdown time, but speeds up your next MongoDB start time)
+<p>To allow MongoDB to cleanly shutdown, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[Service]</code> section: (On large databases, this may substantially slow down your system shutdown time, but speeds up your next MongoDB start time)
 </p>
 <pre>TimeoutStopSec=infinity
 </pre>
-<p>If MongoDB needs a long time to start back up, it can be very problematic for <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> to keep killing and restarting it every 90 seconds <a rel="nofollow"  href="https://jira.mongodb.org/browse/SERVER-38086">[9]</a>, so <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> prevents this.  If using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb-bin/">mongodb-bin</a></span><sup><small>AUR</small></sup>, to make <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">systemd</a> wait as long as it takes for MongoDB to start, <a href="/Usage/Configuration/M/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[Service]</code> section:
+<p>If MongoDB needs a long time to start back up, it can be very problematic for <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> to keep killing and restarting it every 90 seconds <a rel="nofollow"  href="https://jira.mongodb.org/browse/SERVER-38086">[9]</a>, so <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> prevents this.  If using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb-bin/">mongodb-bin</a></span><sup><small>AUR</small></sup>, to make <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> wait as long as it takes for MongoDB to start, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> to the <code>[Service]</code> section:
 </p>
 <pre>TimeoutStartSec=infinity
 </pre>
@@ -198,7 +198,7 @@ db.createUser(
 <h3>
 <span id="MongoDB_won.27t_start"></span><span class="mw-headline" id="MongoDB_won't_start">MongoDB won't start</span>
 </h3>
-<p>If MongoDB won't start, and you just upgraded to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> 4.0.6-2+, you probably have a custom <code>/etc/mongodb.conf</code>.  When MongoDB was in the <a href="/Usage/Configuration/M/Official_repositories.html" title="Official repositories">Official repositories</a>, it used an TOS-specific configuration file that used the systemd service type of simple.  It now supplies upstream's systemd service and configuration files, which instead use a systemd service type of forking.  Pacman will automatically upgrade your systemd service file, but will only automatically upgrade your <code>/etc/mongodb.conf</code> <a href="/Usage/Configuration/M/Pacman/Pacnew_and_Pacsave.html" title="Pacman/Pacnew and Pacsave">if you never modified it</a>.  In that case, systemd will be expecting <code>mongod</code> to fork, but its configuration file will tell it not to.  You need to: switch to the new configuration file installed at <code>/etc/mongodb.conf.pacnew</code>, and duplicate changes you made to the old one that you still need, considering the new one is now in the YAML format, and the old one is probably in the MongoDB 2.4 format; or modify your existing one to enable forking.  (To continue using the old 2.4 file format instead of YAML, adding <code>fork: true</code> should be what is needed.)
+<p>If MongoDB won't start, and you just upgraded to <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mongodb/">mongodb</a></span><sup><small>AUR</small></sup> 4.0.6-2+, you probably have a custom <code>/etc/mongodb.conf</code>.  When MongoDB was in the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">Official repositories</a>, it used an TOS-specific configuration file that used the systemd service type of simple.  It now supplies upstream's systemd service and configuration files, which instead use a systemd service type of forking.  Pacman will automatically upgrade your systemd service file, but will only automatically upgrade your <code>/etc/mongodb.conf</code> <a href="/Usage/Configuration/P/Pacman/Pacnew_and_Pacsave.html" title="Pacman/Pacnew and Pacsave">if you never modified it</a>.  In that case, systemd will be expecting <code>mongod</code> to fork, but its configuration file will tell it not to.  You need to: switch to the new configuration file installed at <code>/etc/mongodb.conf.pacnew</code>, and duplicate changes you made to the old one that you still need, considering the new one is now in the YAML format, and the old one is probably in the MongoDB 2.4 format; or modify your existing one to enable forking.  (To continue using the old 2.4 file format instead of YAML, adding <code>fork: true</code> should be what is needed.)
 </p>
 <p>Check that the systemctl service is configured to use the correct database location:
 </p>
@@ -231,13 +231,13 @@ db.createUser(
 <h3>
 <span id="Warning_about_Transparent_Huge_Pages_.28THP.29"></span><span class="mw-headline" id="Warning_about_Transparent_Huge_Pages_(THP)">Warning about Transparent Huge Pages (THP)</span>
 </h3>
-<p>One may want to permanently disable this feature by using a <a href="/Usage/Configuration/M/Systemd.html#Temporary_files" class="mw-redirect" title="Tmpfile">tmpfile</a>:
+<p>One may want to permanently disable this feature by using a <a href="/Usage/Configuration/S/Systemd.html#Temporary_files" class="mw-redirect" title="Tmpfile">tmpfile</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/tmpfiles.d/mongodb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">w /sys/kernel/mm/transparent_hugepage/enabled - - - - never
 w /sys/kernel/mm/transparent_hugepage/defrag - - - - never
 </pre>
-<p>Use <a href="/Usage/Configuration/M/Sysctl.html" title="Sysctl">sysctl</a> to disable THP at runtime:
+<p>Use <a href="/Usage/Configuration/S/Sysctl.html" title="Sysctl">sysctl</a> to disable THP at runtime:
 </p>
 <pre># echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
 # echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
@@ -245,7 +245,7 @@ w /sys/kernel/mm/transparent_hugepage/defrag - - - - never
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Database_management_systems.html" title="Category:Database management systems">Database management systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Database_management_systems.html" title="Category:Database management systems">Database management systems</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -262,9 +262,9 @@ w /sys/kernel/mm/transparent_hugepage/defrag - - - - never
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: PRIME
     description: Migration of PRIME from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>PRIME is a technology used to manage hybrid graphics found on recent desktops and laptops (<a href="/Usage/Configuration/P/NVIDIA_Optimus.html" title="NVIDIA Optimus">Optimus for NVIDIA</a>, AMD Dynamic Switchable Graphics for Radeon).
+<p>PRIME is a technology used to manage hybrid graphics found on recent desktops and laptops (<a href="/Usage/Configuration/N/NVIDIA_Optimus.html" title="NVIDIA Optimus">Optimus for NVIDIA</a>, AMD Dynamic Switchable Graphics for Radeon).
 <b>PRIME GPU offloading</b> and <b>Reverse PRIME</b> is an attempt to support muxless hybrid graphics in the Linux kernel.
 </p>
 <div id="toc" >
@@ -103,9 +103,9 @@ Provider 1: id: 0x56 cap: 0xf, Source Output, Sink Output, Source Offload, Sink 
 </p>
 <ul>
 <li>
-<a href="/Usage/Configuration/P/AMD_Catalyst.html" class="mw-redirect" title="Catalyst">Catalyst</a> or <a href="/Usage/Configuration/P/AMDGPU_PRO.html" title="AMDGPU PRO">AMDGPU PRO</a> to install drivers for ATI/AMD GPUs.</li>
+<a href="/Usage/Configuration/A/AMD_Catalyst.html" class="mw-redirect" title="Catalyst">Catalyst</a> or <a href="/Usage/Configuration/A/AMDGPU_PRO.html" title="AMDGPU PRO">AMDGPU PRO</a> to install drivers for ATI/AMD GPUs.</li>
 <li>
-<a href="/Usage/Configuration/P/NVIDIA.html" title="NVIDIA">NVIDIA</a> to install drivers for NVIDIA GPUs.</li>
+<a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> to install drivers for NVIDIA GPUs.</li>
 </ul>
 <p>After you have the driver installed, do <i>not</i> reboot or relaunch Xorg. Depending on your system configuration, this may render your Xorg system unusable until reconfigured.
 </p>
@@ -141,12 +141,12 @@ Provider 1: id: 0x56 cap: 0xf, Source Output, Sink Output, Source Offload, Sink 
 <p>It needs a specific set of patches to the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xorg-server">xorg-server</a></span> that are present since version 1.20.6-1 on TOS.
 </p>
 <p>As per the <a rel="nofollow"  href="https://download.nvidia.com/XFree86/Linux-x86_64/440.44/README/primerenderoffload.html">official documentation</a>, it only works with
-the modesetting driver over Intel graphics card; success has been had with the Intel driver instead regardless. Refer to <a href="/Usage/Configuration/P/Intel_graphics.html#Installation" title="Intel graphics">Intel graphics#Installation</a> for more information.
+the modesetting driver over Intel graphics card; success has been had with the Intel driver instead regardless. Refer to <a href="/Usage/Configuration/I/Intel_graphics.html#Installation" title="Intel graphics">Intel graphics#Installation</a> for more information.
 </p>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia-prime">nvidia-prime</a></span> package provides the <a href="/Usage/Configuration/P/Xorg.html" title="Xorg">Xorg</a> configuration necessary and also a script that can be used to run programs on the NVIDIA
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia-prime">nvidia-prime</a></span> package provides the <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> configuration necessary and also a script that can be used to run programs on the NVIDIA
 card.
 </p>
-<p>If, for some reason automatic configuration does not work, it might be necessary to explicitly configure X with a <a href="/Usage/Configuration/P/Xorg.html#Using_xorg.conf" title="Xorg">Xorg#Using xorg.conf</a> file:
+<p>If, for some reason automatic configuration does not work, it might be necessary to explicitly configure X with a <a href="/Usage/Configuration/X/Xorg.html#Using_xorg.conf" title="Xorg">Xorg#Using xorg.conf</a> file:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "Device"
@@ -164,7 +164,7 @@ Section "Device"
   Driver "nvidia"
 EndSection
 </pre>
-<p>In some cases, it might even be necessary to also include the appropriate <code>BusID</code> for the iGPU and dGPU devices in the configuration above, as per <a href="/Usage/Configuration/P/Xorg.html#More_than_one_graphics_card" title="Xorg">Xorg#More than one graphics card</a>.
+<p>In some cases, it might even be necessary to also include the appropriate <code>BusID</code> for the iGPU and dGPU devices in the configuration above, as per <a href="/Usage/Configuration/X/Xorg.html#More_than_one_graphics_card" title="Xorg">Xorg#More than one graphics card</a>.
 </p>
 <p>If you had <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bumblebee">bumblebee</a></span> package installed you should remove it because it blacklists nvidia_drm driver which is required to load nvidia driver by X server for offloading.
 </p>
@@ -261,7 +261,7 @@ EndSection
 <h3>
 <span id="When_an_application_is_rendered_with_the_discrete_card.2C_it_only_renders_a_black_screen"></span><span class="mw-headline" id="When_an_application_is_rendered_with_the_discrete_card,_it_only_renders_a_black_screen">When an application is rendered with the discrete card, it only renders a black screen</span>
 </h3>
-<p>In some cases PRIME needs a composition manager to properly work. If your window manager doesn’t do compositing, you can use <a href="/Usage/Configuration/P/Xcompmgr.html" title="Xcompmgr">xcompmgr</a> on top of it.
+<p>In some cases PRIME needs a composition manager to properly work. If your window manager doesn’t do compositing, you can use <a href="/Usage/Configuration/X/Xcompmgr.html" title="Xcompmgr">xcompmgr</a> on top of it.
 </p>
 <p>If you use Xfce, you can go to Menu-&gt;Settings-&gt;Window Manager Tweaks-&gt;Compositor and enable compositing, then try again your application. 
 </p>
@@ -294,7 +294,7 @@ EndSection
 <h3>
 <span id="Glitches.2FGhosting_synchronization_problem_on_second_monitor_when_using_reverse_PRIME"></span><span class="mw-headline" id="Glitches/Ghosting_synchronization_problem_on_second_monitor_when_using_reverse_PRIME">Glitches/Ghosting synchronization problem on second monitor when using reverse PRIME</span>
 </h3>
-<p>This problem can affect users when not using a <a href="/Usage/Configuration/P/Xorg.html#Composite" class="mw-redirect" title="Composite manager">composite manager</a>, such as with <a href="/Usage/Configuration/P/I3.html" title="I3">i3</a>. <a rel="nofollow"  href="https://bugs.freedesktop.org/show_bug.cgi?id=75579">[2]</a>
+<p>This problem can affect users when not using a <a href="/Usage/Configuration/X/Xorg.html#Composite" class="mw-redirect" title="Composite manager">composite manager</a>, such as with <a href="/Usage/Configuration/I/I3.html" title="I3">i3</a>. <a rel="nofollow"  href="https://bugs.freedesktop.org/show_bug.cgi?id=75579">[2]</a>
 </p>
 <p>If you experience this problem under Gnome, then a possible fix is to set some environment variables in <code>/etc/environment</code> <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=177925">[3]</a>
 </p>
@@ -330,11 +330,11 @@ You can overcome this error by appending radeon.runpm=0 to the kernel parameters
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Graphics.html" title="Category:Graphics">Graphics</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/P/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -353,9 +353,9 @@ You can overcome this error by appending radeon.runpm=0 to the kernel parameters
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

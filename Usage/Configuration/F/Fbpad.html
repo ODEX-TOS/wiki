@@ -2,7 +2,7 @@
     title: Fbpad
     description: Migration of Fbpad from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="http://repo.or.cz/w/fbpad.git">fbpad</a> is a small framebuffer terminal that manages many terminals through single character tags. It is exceptionally lightweight, being written in C and using its own font format, tinyfont, which avoids <a href="/Usage/Configuration/F/Xorg.html" title="Xorg">xorg</a> font dependencies. fbpad optionally supports 256 colors, bold fonts, and saving the framebuffer contents to memory, all which combined make fbpad a viable alternative to the <a href="/Usage/Configuration/F/Xorg.html" class="mw-redirect" title="X">X</a> server for many purposes.
+<p><a rel="nofollow"  href="http://repo.or.cz/w/fbpad.git">fbpad</a> is a small framebuffer terminal that manages many terminals through single character tags. It is exceptionally lightweight, being written in C and using its own font format, tinyfont, which avoids <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">xorg</a> font dependencies. fbpad optionally supports 256 colors, bold fonts, and saving the framebuffer contents to memory, all which combined make fbpad a viable alternative to the <a href="/Usage/Configuration/X/Xorg.html" class="mw-redirect" title="X">X</a> server for many purposes.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -54,12 +54,12 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fbpad-git/">fbpad-git</a></span><sup><small>AUR</small></sup> can be installed from the <a href="/Usage/Configuration/F/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>, which by default imports the "bold" and "scrsnap" branches of fbpad, which add in 256-colors and bold fonts, and saving the contents of the framebuffer, respectively. fbpad is customized via a <code>config.h</code> file, and edits to the <code>config.h</code> file are incorporated into fbpad after recompiling fbpad, using the command <code>makepkg --skipinteg -i</code>. 
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fbpad-git/">fbpad-git</a></span><sup><small>AUR</small></sup> can be installed from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>, which by default imports the "bold" and "scrsnap" branches of fbpad, which add in 256-colors and bold fonts, and saving the contents of the framebuffer, respectively. fbpad is customized via a <code>config.h</code> file, and edits to the <code>config.h</code> file are incorporated into fbpad after recompiling fbpad, using the command <code>makepkg --skipinteg -i</code>. 
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>Users most likely will want to edit the definitions in the <code>config.h</code> for fonts (more on this later), <code>SHELL</code>, <code>MAIL</code>, and <code>EDITOR</code> prior to use, to their preferred programs.
 </p>
-<p><a href="/Usage/Configuration/F/Dwm.html" title="Dwm">dwm</a> users should have no problems accustoming to fbpad. fbpad-specific keybindings are initiated with the modifier key, which is hardcoded as the <code>Alt</code> key, just like in dwm. <code>Alt+j</code> and <code>Alt+k</code> switch between terminals in an open tag, <code>Alt+o</code> switches to the last open tag, and <code>Alt+p</code> shows the list of open tags, to name a few. Users comfortable with manually patching source code can edit the <code>fbpad.c</code> file to edit/add keybindings. 
+<p><a href="/Usage/Configuration/D/Dwm.html" title="Dwm">dwm</a> users should have no problems accustoming to fbpad. fbpad-specific keybindings are initiated with the modifier key, which is hardcoded as the <code>Alt</code> key, just like in dwm. <code>Alt+j</code> and <code>Alt+k</code> switch between terminals in an open tag, <code>Alt+o</code> switches to the last open tag, and <code>Alt+p</code> shows the list of open tags, to name a few. Users comfortable with manually patching source code can edit the <code>fbpad.c</code> file to edit/add keybindings. 
 </p>
 <p>If you re-compile fbpad often, you would probably like to be able to reload fbpad without having to manually re-launch it. The following code starts fbpad post login in tty1 and will reload it if you quit fbpad with <code>Ctrl+Alt+q</code>.
 </p>
@@ -125,7 +125,7 @@ fi
 <p>
 By default, the AUR package installs the custom terminfo for fbpad, but you will need to add </p>
 <pre>export TERM=fbpad-256</pre>
-<p> to your shellrc to take advantage of the 256 color support. Clearly, commands not spawned in your default shell (for instance, those for <code>EDITOR</code> and <code>MAIL</code>) will not read your shellrc file, so you will need to edit their definitions in your <code>config.h</code> file to have the commands for <code>EDITOR</code> and <code>MAIL</code> run in a parent shell. For instance, the author of this article, who uses <a href="/Usage/Configuration/F/Zsh.html" title="Zsh">zsh</a>, changed the default command for <code>MAIL</code> from:
+<p> to your shellrc to take advantage of the 256 color support. Clearly, commands not spawned in your default shell (for instance, those for <code>EDITOR</code> and <code>MAIL</code>) will not read your shellrc file, so you will need to edit their definitions in your <code>config.h</code> file to have the commands for <code>EDITOR</code> and <code>MAIL</code> run in a parent shell. For instance, the author of this article, who uses <a href="/Usage/Configuration/Z/Zsh.html" title="Zsh">zsh</a>, changed the default command for <code>MAIL</code> from:
 </p>
 <pre>#define MAIL		"mailx"
 </pre>
@@ -143,10 +143,10 @@ By default, the AUR package installs the custom terminfo for fbpad, but you will
 <p>The following are examples of how some general desktop needs may be implemented in fbpad.
 </p>
 <h3><span class="mw-headline" id="Copying_Text">Copying Text</span></h3>
-<p>As everything is done mouselessly in fbpad, to copy text, users can make a "screenshot" of all the text on the screen with the <code>Alt+s</code> command. This will save all viewable text to the file <code>/tmp/scr</code>. Then, if your shell supports editing the commandline with <a href="/Usage/Configuration/F/Vim.html" title="Vim">vim</a> (for instance, the edit-command-line ZLE function in zsh), you can open the <code>/tmp/scr</code> file as a new buffer in vim and use its copy keybindings to paste the needed text into your original buffer. <a href="/Usage/Configuration/F/Emacs.html" title="Emacs">Emacs</a> users probably can adopt a similar scheme to copy text.
+<p>As everything is done mouselessly in fbpad, to copy text, users can make a "screenshot" of all the text on the screen with the <code>Alt+s</code> command. This will save all viewable text to the file <code>/tmp/scr</code>. Then, if your shell supports editing the commandline with <a href="/Usage/Configuration/V/Vim.html" title="Vim">vim</a> (for instance, the edit-command-line ZLE function in zsh), you can open the <code>/tmp/scr</code> file as a new buffer in vim and use its copy keybindings to paste the needed text into your original buffer. <a href="/Usage/Configuration/E/Emacs.html" title="Emacs">Emacs</a> users probably can adopt a similar scheme to copy text.
 </p>
 <h3><span class="mw-headline" id="Watching_YouTube">Watching YouTube</span></h3>
-<p>If one is using <a href="/Usage/Configuration/F/MPlayer.html" title="MPlayer">MPlayer</a> with the video output driver set to <code>fbdev2</code>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=youtube-viewer">youtube-viewer</a></span> can be used for searching YouTube and watching with MPlayer from the commandline in fbpad. Alternatively, one can add the following script as an external browser in the commandline web browser <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=w3m">w3m</a></span>, and launch playback of videos from YouTube websites with one's media player of choice. The script below employs <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fbff-git/">fbff-git</a></span><sup><small>AUR</small></sup>, a lightweight media player also written by the author of fbpad, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/yturl/">yturl</a></span><sup><small>AUR</small></sup>, a simple program, that, rather UNIX-like, functions solely to convert YouTube URLs into directly watchable URLs.
+<p>If one is using <a href="/Usage/Configuration/M/MPlayer.html" title="MPlayer">MPlayer</a> with the video output driver set to <code>fbdev2</code>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=youtube-viewer">youtube-viewer</a></span> can be used for searching YouTube and watching with MPlayer from the commandline in fbpad. Alternatively, one can add the following script as an external browser in the commandline web browser <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=w3m">w3m</a></span>, and launch playback of videos from YouTube websites with one's media player of choice. The script below employs <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fbff-git/">fbff-git</a></span><sup><small>AUR</small></sup>, a lightweight media player also written by the author of fbpad, and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/yturl/">yturl</a></span><sup><small>AUR</small></sup>, a simple program, that, rather UNIX-like, functions solely to convert YouTube URLs into directly watchable URLs.
 </p>
 <pre>#!/bin/sh
 video=$(yturl $1)
@@ -168,7 +168,7 @@ fbff -f $video &gt; /dev/null 2&gt;&amp;1</pre>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fbv">fbv</a></span> - an image viewer</li>
 <li>
-<a href="/Usage/Configuration/F/GNU_Screen.html" title="GNU Screen">GNU Screen</a> - a terminal multiplexer</li>
+<a href="/Usage/Configuration/G/GNU_Screen.html" title="GNU Screen">GNU Screen</a> - a terminal multiplexer</li>
 <li>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=w3m">w3m</a></span> - a commandline web browser</li>
 </ul>
@@ -181,7 +181,7 @@ fbff -f $video &gt; /dev/null 2&gt;&amp;1</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Terminal_emulators.html" title="Category:Terminal emulators">Terminal emulators</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -198,9 +198,9 @@ fbff -f $video &gt; /dev/null 2&gt;&amp;1</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

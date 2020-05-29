@@ -2,7 +2,7 @@
     title: LVM_on_software_RAID
     description: Migration of LVM_on_software_RAID from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/L/RAID.html" title="RAID">RAID</a></li>
+<li><a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a></li>
 <li><a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a></li>
-<li><a href="/Usage/Configuration/L/Install_TOS_Linux_with_Fake_RAID.html" class="mw-redirect" title="Installing with Fake RAID">Installing with Fake RAID</a></li>
-<li><a href="/Usage/Configuration/L/Convert_a_single_drive_system_to_RAID.html" title="Convert a single drive system to RAID">Convert a single drive system to RAID</a></li>
+<li><a href="/Usage/Configuration/I/Install_TOS_Linux_with_Fake_RAID.html" class="mw-redirect" title="Installing with Fake RAID">Installing with Fake RAID</a></li>
+<li><a href="/Usage/Configuration/C/Convert_a_single_drive_system_to_RAID.html" title="Convert a single drive system to RAID">Convert a single drive system to RAID</a></li>
 </ul>
 </div>
-<p>This article will provide an example of how to install and configure TOS Linux with Logical Volume Manager (<a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a>) on top of a software <a href="/Usage/Configuration/L/RAID.html" title="RAID">RAID</a>.
+<p>This article will provide an example of how to install and configure TOS Linux with Logical Volume Manager (<a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a>) on top of a software <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -105,8 +105,8 @@
 
 <h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Be sure to review the <a href="/Usage/Configuration/L/RAID.html" title="RAID">RAID</a> article and be aware of all applicable warnings, particularly if you select RAID5.</div>
-<p>Although <a href="/Usage/Configuration/L/RAID.html" title="RAID">RAID</a> and <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> may seem like analogous technologies they each present unique features. This article uses an example with three similar 1TB SATA hard drives. The article assumes that the drives are accessible as <code>/dev/sda</code>, <code>/dev/sdb</code>, and <code>/dev/sdc</code>. If you are using IDE drives, for maximum performance make sure that each drive is a master on its own separate channel.
+<strong>Warning:</strong> Be sure to review the <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> article and be aware of all applicable warnings, particularly if you select RAID5.</div>
+<p>Although <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> and <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> may seem like analogous technologies they each present unique features. This article uses an example with three similar 1TB SATA hard drives. The article assumes that the drives are accessible as <code>/dev/sda</code>, <code>/dev/sdb</code>, and <code>/dev/sdc</code>. If you are using IDE drives, for maximum performance make sure that each drive is a master on its own separate channel.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> It is good practice to ensure that only the drives involved in the installation are attached while performing the installation.</div>
@@ -199,17 +199,17 @@
 <p>Many tutorials treat the swap space differently, either by creating a separate RAID1 array or a LVM logical volume. Creating the swap space on a separate array is not intended to provide additional redundancy, but instead, to prevent a corrupt swap space from rendering the system inoperable, which is more likely to happen when the swap space is located on the same partition as the root directory.
 </p>
 <h3><span class="mw-headline" id="Boot_loader">Boot loader</span></h3>
-<p>This tutorial will use <a href="/Usage/Configuration/L/Syslinux.html" title="Syslinux">Syslinux</a> instead of <a href="/Usage/Configuration/L/GRUB.html" title="GRUB">GRUB</a>. GRUB when used in conjunction with <a href="/Usage/Configuration/L/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> requires an additional <a href="/Usage/Configuration/L/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>. 
+<p>This tutorial will use <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">Syslinux</a> instead of <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>. GRUB when used in conjunction with <a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> requires an additional <a href="/Usage/Configuration/G/GRUB.html#GUID_Partition_Table_(GPT)_specific_instructions" class="mw-redirect" title="BIOS boot partition">BIOS boot partition</a>. 
 </p>
-<p>GRUB supports the default style of metadata currently created by mdadm (i.e. 1.2) when combined with an initramfs, which has replaced in TOS Linux with <a href="/Usage/Configuration/L/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>. Syslinux-tosonly supports version 1.0, and therefore requires the <code>--metadata=1.0</code> option.
+<p>GRUB supports the default style of metadata currently created by mdadm (i.e. 1.2) when combined with an initramfs, which has replaced in TOS Linux with <a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a>. Syslinux-tosonly supports version 1.0, and therefore requires the <code>--metadata=1.0</code> option.
 </p>
-<p>Some boot loaders (e.g. <a href="/Usage/Configuration/L/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>, <a href="/Usage/Configuration/L/LILO.html" title="LILO">LILO</a>) will not support any 1.x metadata versions, and instead require the older version, 0.90. If you would like to use one of those boot loaders make sure to add the option <code>--metadata=0.90</code> to the <code>/boot</code> array during <a href="#RAID_installation">RAID installation</a>.
+<p>Some boot loaders (e.g. <a href="/Usage/Configuration/G/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a>, <a href="/Usage/Configuration/L/LILO.html" title="LILO">LILO</a>) will not support any 1.x metadata versions, and instead require the older version, 0.90. If you would like to use one of those boot loaders make sure to add the option <code>--metadata=0.90</code> to the <code>/boot</code> array during <a href="#RAID_installation">RAID installation</a>.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Obtain the latest installation media and boot the TOS Linux installer as outlined in <a href="/Usage/Configuration/L/Installation_guide.html" class="mw-redirect" title="Getting and installing TOS">Getting and installing TOS</a>.
+<p>Obtain the latest installation media and boot the TOS Linux installer as outlined in <a href="/Usage/Configuration/I/Installation_guide.html" class="mw-redirect" title="Getting and installing TOS">Getting and installing TOS</a>.
 </p>
 <h3><span class="mw-headline" id="Load_kernel_modules">Load kernel modules</span></h3>
-<p><a href="/Usage/Configuration/L/Kernel_module.html#Manual_module_handling" title="Kernel module">Load</a> the appropriate RAID (e.g. <code>raid0</code>, <code>raid1</code>, <code>raid5</code>, <code>raid6</code>, <code>raid10</code>) and LVM (i.e. <code>dm-mod</code>) modules. The following example makes use of RAID1 and RAID5.
+<p><a href="/Usage/Configuration/K/Kernel_module.html#Manual_module_handling" title="Kernel module">Load</a> the appropriate RAID (e.g. <code>raid0</code>, <code>raid1</code>, <code>raid5</code>, <code>raid6</code>, <code>raid10</code>) and LVM (i.e. <code>dm-mod</code>) modules. The following example makes use of RAID1 and RAID5.
 </p>
 <pre># modprobe raid1
 # modprobe raid5
@@ -221,7 +221,7 @@
 <p>The boot partition must be RAID1; i.e it cannot be striped (RAID0) or RAID5, RAID6, etc.. This is because GRUB does not have RAID drivers. Any other level will prevent your system from booting. Additionally, if there is a problem with one boot partition, the boot loader can boot normally from the other two partitions in the <code>/boot</code> array.
 </p>
 <h4><span class="mw-headline" id="Partition_hard_drives">Partition hard drives</span></h4>
-<p>We will use <a href="/Usage/Configuration/L/GPT_fdisk.html" class="mw-redirect" title="Gdisk">gdisk</a> to create three partitions on each of the three hard drives (i.e. <code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/sdc</code>):
+<p>We will use <a href="/Usage/Configuration/G/GPT_fdisk.html" class="mw-redirect" title="Gdisk">gdisk</a> to create three partitions on each of the three hard drives (i.e. <code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/sdc</code>):
 </p>
 <pre>   Name        Flags      Part Type  FS Type          [Label]        Size (MB)
 -------------------------------------------------------------------------------
@@ -232,7 +232,7 @@
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a><b>This section is being considered for removal.</b><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Duplicates <a href="/Usage/Configuration/L/GPT_fdisk.html#Create_a_partition_table_and_partitions" class="mw-redirect" title="Gdisk">gdisk#Create a partition table and partitions</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:LVM_on_software_RAID">Talk:LVM on software RAID#</a>)</div>
+<b>Reason:</b> Duplicates <a href="/Usage/Configuration/G/GPT_fdisk.html#Create_a_partition_table_and_partitions" class="mw-redirect" title="Gdisk">gdisk#Create a partition table and partitions</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:LVM_on_software_RAID">Talk:LVM on software RAID#</a>)</div>
 </div>
 <p>Open <code>gdisk</code> with the first hard drive:
 </p>
@@ -253,7 +253,7 @@
 <li>Write the table to disk and exit: <code>w</code>
 </li>
 </ol>
-<p>Repeat this process for <code>/dev/sdb</code> and <code>/dev/sdc</code> or use alternatively use <i>sgdisk</i> to clone the partition layout to the other drives, see <a href="/Usage/Configuration/L/GPT_fdisk.html#Backup_and_restore_partition_table" class="mw-redirect" title="Gdisk">gdisk#Backup and restore partition table</a>. You may need to reboot to allow the kernel to recognize the new tables.
+<p>Repeat this process for <code>/dev/sdb</code> and <code>/dev/sdc</code> or use alternatively use <i>sgdisk</i> to clone the partition layout to the other drives, see <a href="/Usage/Configuration/G/GPT_fdisk.html#Backup_and_restore_partition_table" class="mw-redirect" title="Gdisk">gdisk#Backup and restore partition table</a>. You may need to reboot to allow the kernel to recognize the new tables.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Make sure to create the same exact partitions on each disk. If a group of partitions of different sizes are assembled to create a RAID partition, it will work, but <i>the redundant partition will be in multiples of the size of the smallest partition</i>, leaving the unallocated space to waste.</div>
@@ -391,7 +391,7 @@ md0 : active raid1 sdb1[0] sdc1[1]
 <pre># mdadm --examine --scan &gt;&gt; /etc/mdadm.conf
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Read the note in the <a href="/Usage/Configuration/L/RAID.html#Update_configuration_file" title="RAID">Update configuration file</a> section about ensuring that you write to the correct <code>mdadm.conf</code> file from within the installer.</div>
+<strong>Note:</strong> Read the note in the <a href="/Usage/Configuration/R/RAID.html#Update_configuration_file" title="RAID">Update configuration file</a> section about ensuring that you write to the correct <code>mdadm.conf</code> file from within the installer.</div>
 <h3><span class="mw-headline" id="Prepare_hard_drive">Prepare hard drive</span></h3>
 <p>Follow the directions outlined the in <a href="#Installation">#Installation</a> section until you reach the <i>Prepare Hard Drive</i> section. Skip the first two steps and navigate to the <i>Manually Configure block devices, filesystems and mountpoints</i> page. Remember to only configure the PVs (e.g. <code>/dev/VolGroupArray/lvhome</code>) and <b>not</b> the actual disks (e.g. <code>/dev/sda1</code>).
 </p>
@@ -399,9 +399,9 @@ md0 : active raid1 sdb1[0] sdc1[1]
 <strong>Warning:</strong> <code>mkfs.xfs</code> will not align the chunk size and stripe size for optimum performance (see: <a rel="nofollow"  href="http://www.linuxpromagazine.com/Issues/2009/108/RAID-Performance">Optimum RAID</a>).</div>
 <h3><span class="mw-headline" id="Configure_system">Configure system</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Follow the steps in the <a href="/Usage/Configuration/L/LVM.html#Configure_mkinitcpio" title="LVM">LVM#Configure mkinitcpio</a><sup>[<a href="/Usage/Configuration/L/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> section before proceeding with the installation.</div>
+<strong>Warning:</strong> Follow the steps in the <a href="/Usage/Configuration/L/LVM.html#Configure_mkinitcpio" title="LVM">LVM#Configure mkinitcpio</a><sup>[<a href="/Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup> section before proceeding with the installation.</div>
 <h4><span class="mw-headline" id="mkinitcpio.conf">mkinitcpio.conf</span></h4>
-<p><a href="/Usage/Configuration/L/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> can use a hook to assemble the arrays on boot. For more information see <a href="/Usage/Configuration/L/Mkinitcpio.html#Using_RAID" title="Mkinitcpio">mkinitcpio Using RAID</a>. Add the <code>mdadm_udev</code> and <code>lvm2</code> hooks to the <code>HOOKS</code> array in <code>/etc/mkinitcpio.conf</code> after <code>udev</code>.
+<p><a href="/Usage/Configuration/M/Mkinitcpio.html" title="Mkinitcpio">mkinitcpio</a> can use a hook to assemble the arrays on boot. For more information see <a href="/Usage/Configuration/M/Mkinitcpio.html#Using_RAID" title="Mkinitcpio">mkinitcpio Using RAID</a>. Add the <code>mdadm_udev</code> and <code>lvm2</code> hooks to the <code>HOOKS</code> array in <code>/etc/mkinitcpio.conf</code> after <code>udev</code>.
 </p>
 <h3><span class="mw-headline" id="Conclusion">Conclusion</span></h3>
 <p>Once it is complete you can safely reboot your machine:
@@ -417,7 +417,7 @@ md0 : active raid1 sdb1[0] sdc1[1]
 <pre># /usr/sbin/syslinux-install_update -iam
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For this to work with <a href="/Usage/Configuration/L/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> package is needed as the backend for setting the boot flag.</div>
+<strong>Note:</strong> For this to work with <a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a>, the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gptfdisk">gptfdisk</a></span> package is needed as the backend for setting the boot flag.</div>
 <p>Syslinux-toswill deal with installing the bootloader to the MBR on each of the members of the RAID array:
 </p>
 <pre>Detected RAID on /boot - installing Syslinux-toswith --raid
@@ -444,7 +444,7 @@ grub&gt; quit
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a><b>This section is being considered for removal.</b><a href="../File:Tango-edit-cut.png" ><img alt="Tango-edit-cut.png" src="../File:Tango-edit-cut.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Duplicates <a href="/Usage/Configuration/L/Fdisk.html#Backup_and_restore_partition_table" title="Fdisk">fdisk#Backup and restore partition table</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:LVM_on_software_RAID">Talk:LVM on software RAID#</a>)</div>
+<b>Reason:</b> Duplicates <a href="/Usage/Configuration/F/Fdisk.html#Backup_and_restore_partition_table" title="Fdisk">fdisk#Backup and restore partition table</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:LVM_on_software_RAID">Talk:LVM on software RAID#</a>)</div>
 </div>
 <p>Now that you are done, it is worth taking a second to archive off the partition state of each of your drives. This guarantees that it will be trivially easy to replace/rebuild a disk in the event that one fails. You do this with the <code>sfdisk</code> tool and the following steps:
 </p>
@@ -454,7 +454,7 @@ grub&gt; quit
 # sfdisk --dump /dev/sdc &gt;/etc/partitions/disc2.partitions
 </pre>
 <h2><span class="mw-headline" id="Management">Management</span></h2>
-<p>For further information on how to maintain your software RAID or LVM review the <a href="/Usage/Configuration/L/RAID.html" title="RAID">RAID</a> and <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> aritcles.
+<p>For further information on how to maintain your software RAID or LVM review the <a href="/Usage/Configuration/R/RAID.html" title="RAID">RAID</a> and <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> aritcles.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -475,13 +475,13 @@ grub&gt; quit
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/L/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
-<li><a href="/Usage/Configuration/L/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li>
+<li><a href="/Usage/Configuration/C/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="/Usage/Configuration/C/Category:Storage_virtualization.html" title="Category:Storage virtualization">Storage virtualization</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/L/Category:Sections_flagged_with_Template:Remove.html" title="Category:Sections flagged with Template:Remove">Sections flagged with Template:Remove</a></li>
-<li><a href="/Usage/Configuration/L/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Sections_flagged_with_Template:Remove.html" title="Category:Sections flagged with Template:Remove">Sections flagged with Template:Remove</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
 </ul>
 </div>
 </div>
@@ -500,9 +500,9 @@ grub&gt; quit
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/L/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/L/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/L/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

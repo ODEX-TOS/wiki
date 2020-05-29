@@ -2,7 +2,7 @@
     title: CrashPlan
     description: Migration of CrashPlan from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://www.crashplan.com/en-us/">CrashPlan</a> is a <a href="/Usage/Configuration/C/Synchronization_and_backup_programs.html" class="mw-redirect" title="Backup program">backup program</a> that backs up data to remote servers, other computers, or hard drives. Backing up to the cloud servers requires a monthly subscription.
+<p><a rel="nofollow"  href="https://www.crashplan.com/en-us/">CrashPlan</a> is a <a href="/Usage/Configuration/S/Synchronization_and_backup_programs.html" class="mw-redirect" title="Backup program">backup program</a> that backs up data to remote servers, other computers, or hard drives. Backing up to the cloud servers requires a monthly subscription.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -60,13 +60,13 @@
 <p>There are <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/crashplan-pro/">crashplan-pro</a></span><sup><small>AUR</small></sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/crashplan-pro-e/">crashplan-pro-e</a></span><sup><small>AUR</small></sup> available which are the paid enterprise packages.
 </p>
 <h2><span class="mw-headline" id="Basic_Usage">Basic Usage</span></h2>
-<p>Before accessing CrashPlan's graphical user interface, you should <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>crashplan.service</code> unit.
+<p>Before accessing CrashPlan's graphical user interface, you should <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>crashplan.service</code> unit.
 </p>
 <p>CrashPlan can be configured entirely through its graphical user interface. To start the graphical interface:
 </p>
 <pre>$ CrashPlanDesktop
 </pre>
-<p>To make CrashPlan automatically start upon system startup, <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the systemd unit.
+<p>To make CrashPlan automatically start upon system startup, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> the systemd unit.
 </p>
 <h2><span class="mw-headline" id="Running_Crashplan_on_a_headless_server">Running Crashplan on a headless server</span></h2>
 <p>Running CrashPlan on a headless server is not officially supported. However, it is possible to do so.
@@ -83,7 +83,7 @@
 </p>
 <ol>
 <li>
-<a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> the CrashPlan daemon on the server.</li>
+<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> the CrashPlan daemon on the server.</li>
 <li>Create an SSH tunnel. On the client: <code>ssh -N -L 4243:localhost:4243 headless.example.com</code>.</li>
 <li>Start the CrashPlan client. (Again, the executable is named <code>CrashPlanDesktop</code>.)</li>
 </ol>
@@ -105,16 +105,16 @@
 </p>
 <pre># mkdir /var/tmp/crashplan
 </pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> CrashPlan.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> CrashPlan.
 </p>
 <h3><span class="mw-headline" id="Restore_stuck_preparing">Restore stuck preparing</span></h3>
-<p>If a restore gets stuck at «Preparing», it may be due to a permission restriction on <code>/tmp</code> that causes communication between the restore tool and backup engine to fail. This can be caused by the sysctl variable <code>fs.protected_fifos</code> restricting the engine (running as <code>root</code>) from connecting to a named pipe owned by the desktop user contained in <code>/tmp</code> (similar to <a href="/Usage/Configuration/C/Tmpfs.html#Opening_symlinks_in_tmpfs_as_root_fails" title="Tmpfs">tmpfs#Opening symlinks in tmpfs as root fails</a>).
+<p>If a restore gets stuck at «Preparing», it may be due to a permission restriction on <code>/tmp</code> that causes communication between the restore tool and backup engine to fail. This can be caused by the sysctl variable <code>fs.protected_fifos</code> restricting the engine (running as <code>root</code>) from connecting to a named pipe owned by the desktop user contained in <code>/tmp</code> (similar to <a href="/Usage/Configuration/T/Tmpfs.html#Opening_symlinks_in_tmpfs_as_root_fails" title="Tmpfs">tmpfs#Opening symlinks in tmpfs as root fails</a>).
 </p>
 <p>The protection can be disabled to permit the restore to occur with
 </p>
 <pre># sysctl fs.protected_fifos=0
 </pre>
-<p>See <a href="/Usage/Configuration/C/Sysctl.html" title="Sysctl">Sysctl</a> for instructions on making the change permanent.
+<p>See <a href="/Usage/Configuration/S/Sysctl.html" title="Sysctl">Sysctl</a> for instructions on making the change permanent.
 </p>
 <h3><span class="mw-headline" id="Desktop_GUI_Crashes_on_startup">Desktop GUI Crashes on startup</span></h3>
 <p>On systems with Gnome 3 installed, or with libwebkit-gtk installed, there may be an issue where the GUI crashes on launch. This can be fixed by following the instructions <a rel="nofollow"  href="https://support.code42.com/CrashPlan/Latest/Troubleshooting/CrashPlan_Client_Closes_In_Some_Linux_Installations">here</a>.
@@ -124,7 +124,7 @@
 </p>
 <h3><span class="mw-headline" id="Real_time_protection">Real time protection</span></h3>
 <p>If you use real time protection for your backup set and have a lot of files to backup, the default system configuration might not be able to allocate all required handles to follow all files in real time. This issue can manifest itself with logs like "inotify_add_watch: No space left on device" in the syslog journal. 
-CrashPlan Support has instructions <a rel="nofollow"  href="https://support.crashplan.com/Troubleshooting/Real-Time_Backup_For_Network-Attached_Drives">here</a> describing how to modify inotify max_user_watches to a bigger value to fix the issue. <b>You cannot follow their instructions directly though</b>, you need to create a new file in /etc/sysctl.d as /etc/sysctl.conf is now ignored by systemd. See <a href="/Usage/Configuration/C/Sysctl.html#Configuration" title="Sysctl">sysctl#Configuration</a> for more information.
+CrashPlan Support has instructions <a rel="nofollow"  href="https://support.crashplan.com/Troubleshooting/Real-Time_Backup_For_Network-Attached_Drives">here</a> describing how to modify inotify max_user_watches to a bigger value to fix the issue. <b>You cannot follow their instructions directly though</b>, you need to create a new file in /etc/sysctl.d as /etc/sysctl.conf is now ignored by systemd. See <a href="/Usage/Configuration/S/Sysctl.html#Configuration" title="Sysctl">sysctl#Configuration</a> for more information.
 </p>
 <h3><span class="mw-headline" id="JRE_Version_Update">JRE Version Update</span></h3>
 <p>If, during upgrade, CrashPlan is attempting to upgrade the self-installed JRE version and the upgrade never gets passed downloading the JRE from CrashPlan (checking in logs/upgrade&lt;unique_number&gt;.log, the last message is a curl/wget for the "latest" JRE tgz), it's possible to stop CrashPlan, download the JRE (from the ugprade log) manually and replace the jre folder in the CrashPlan install with the upgrade version. This should allow CrashPlan to get past being stuck trying to upgrade the JRE.
@@ -162,9 +162,9 @@ CrashPlan Support has instructions <a rel="nofollow"  href="https://support.cras
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: SysVinit
     description: Migration of SysVinit from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Init.html" title="Init">init</a></li>
+<li><a href="/Usage/Configuration/I/Init.html" title="Init">init</a></li>
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/S/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Blog-like writing, duplicate information (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:SysVinit">Talk:SysVinit#</a>)</div>
 </div>
@@ -110,11 +110,11 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sysvinit/">sysvinit</a></span><sup><small>AUR</small></sup> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/initscripts-fork/">initscripts-fork</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/S/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. This step will remove <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-sysvcompat">systemd-sysvcompat</a></span>, and you will use sysvinit on reboot. To restore <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>, append <code>init=/usr/lib/systemd/systemd</code> to the <a href="/Usage/Configuration/S/Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/sysvinit/">sysvinit</a></span><sup><small>AUR</small></sup> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/initscripts-fork/">initscripts-fork</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>. This step will remove <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=systemd-sysvcompat">systemd-sysvcompat</a></span>, and you will use sysvinit on reboot. To restore <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>, append <code>init=/usr/lib/systemd/systemd</code> to the <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel command line">kernel command line</a>.
 </p>
 <p>A snapshot of init scripts as packaged in TOS Linux before <a rel="nofollow"  href="https://www.archlinux.org/news/end-of-initscripts-support/">migration to systemd</a>  is available at <a rel="nofollow"  href="https://bitbucket.org/TZ86/arch-rcscripts/src/3e83aeed6c68c6252b8db1428c10a717bc9e05ff/community/?at=master">arch-rcscripts</a>. For support with newer packages, see <a href="#Writing_rc.d_scripts">#Writing rc.d scripts</a>.
 </p>
-<p>See <a href="/Usage/Configuration/S/Init.html#Configuration" title="Init">Init#Configuration</a> for generic configuration steps.
+<p>See <a href="/Usage/Configuration/I/Init.html#Configuration" title="Init">Init#Configuration</a> for generic configuration steps.
 </p>
 <h2><span class="mw-headline" id="Overview_of_init_and_inittab">Overview of init and inittab</span></h2>
 <p>init is always process 1 and, other than managing some swap space, is the parent process to <b>all</b> other processes. You can get an idea of where init lies in the process hierarchy of your system with <code>pstree</code>:
@@ -143,7 +143,7 @@
 </p>
 <h2><span class="mw-headline" id="Switching_runlevel">Switching runlevel</span></h2>
 <h3><span class="mw-headline" id="Through_bootloader">Through bootloader</span></h3>
-<p>To change the runlevel the system boots into, simply add the desired runlevel <code>n</code> to the respective bootloader's configuration line. A common application of this is <a href="/Usage/Configuration/S/Xinit.html#Autostart_X_at_login" title="Xinit">Xinit#Autostart X at login</a>. To boot to the desired runlevel, add its number to the <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> (e.g. <code>3</code> for runlevel 3).
+<p>To change the runlevel the system boots into, simply add the desired runlevel <code>n</code> to the respective bootloader's configuration line. A common application of this is <a href="/Usage/Configuration/X/Xinit.html#Autostart_X_at_login" title="Xinit">Xinit#Autostart X at login</a>. To boot to the desired runlevel, add its number to the <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> (e.g. <code>3</code> for runlevel 3).
 </p>
 <p>The run-level was appended to the end so the kernel knows what run-level to start with. To use another init program (e.g. <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>), add <code>init=/usr/lib/systemd/systemd</code> or similar. 
 </p>
@@ -173,12 +173,12 @@ rm:2345:wait:/etc/rc.multi
 rh:06:wait:/etc/rc.shutdown
 </pre>
 <h3><span class="mw-headline" id="Single_User_Boot">Single User Boot</span></h3>
-<p>Sometimes your kernel may fail to boot up all the way, due to a corrupted or dead hard drive or filesystem, missing key files, etc. In that case your init image may automatically enter into <b>single-user mode</b> which only allows root login and uses <code>/sbin/sulogin</code> instead of <code>/sbin/login</code> to control the login process. You can also boot into single-user mode by appending the letter <code>S</code> to your kernel command line in your <a href="/Usage/Configuration/S/GRUB.html" title="GRUB">GRUB</a>, <a href="/Usage/Configuration/S/LILO.html" title="LILO">LILO</a>, or <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">syslinux</a> configuration. If you would like something other than sulogin to run, specify it here.
+<p>Sometimes your kernel may fail to boot up all the way, due to a corrupted or dead hard drive or filesystem, missing key files, etc. In that case your init image may automatically enter into <b>single-user mode</b> which only allows root login and uses <code>/sbin/sulogin</code> instead of <code>/sbin/login</code> to control the login process. You can also boot into single-user mode by appending the letter <code>S</code> to your kernel command line in your <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>, <a href="/Usage/Configuration/L/LILO.html" title="LILO">LILO</a>, or <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">syslinux</a> configuration. If you would like something other than sulogin to run, specify it here.
 </p>
 <pre>su:S:wait:/sbin/sulogin -p
 </pre>
 <h3><span class="mw-headline" id="Gettys_and_Login">Gettys and Login</span></h3>
-<p>These are crucial entries that run the <a href="/Usage/Configuration/S/Getty.html" title="Getty">gettys</a> on your terminals. Most default configurations will have several gettys running on ttys1-6 which is what pops up on your screen with the login prompt. Also see openvt, chvt, stty, and ioctl.
+<p>These are crucial entries that run the <a href="/Usage/Configuration/G/Getty.html" title="Getty">gettys</a> on your terminals. Most default configurations will have several gettys running on ttys1-6 which is what pops up on your screen with the login prompt. Also see openvt, chvt, stty, and ioctl.
 </p>
 <pre>c1:234:respawn:/sbin/agetty 9600 tty1 xterm-color
 c5:5:respawn:/sbin/agetty 57600 tty2 xterm-256color
@@ -218,7 +218,7 @@ pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
 Keyboard Request -- edit /etc/inittab to customize
 </pre>
 <h2><span class="mw-headline" id="Writing_rc.d_scripts">Writing rc.d scripts</span></h2>
-<p>Initscripts uses rc.d scripts to used to control the starting, stopping and restarting of <a href="/Usage/Configuration/S/Daemons.html" title="Daemons">daemons</a>.
+<p>Initscripts uses rc.d scripts to used to control the starting, stopping and restarting of <a href="/Usage/Configuration/D/Daemons.html" title="Daemons">daemons</a>.
 </p>
 <h3><span class="mw-headline" id="Guideline">Guideline</span></h3>
 <ul>
@@ -302,7 +302,7 @@ esac
 </pre>
 <h2><span class="mw-headline" id="Runlevels">Runlevels</span></h2>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/S/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Reason:</b> Duplication with other article parts (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:SysVinit">Talk:SysVinit#</a>)</div>
 </div>
@@ -549,7 +549,7 @@ DAEMONS4=(syslog-ng network netfs !sshd alsa jack gpm)      # runlevel 4
 </p>
 <pre>DAEMONS_FOO=( ...whatever... )
 </pre>
-<p>and to run the system with this runlevel, simply add <code>runlevel=FOO</code> to your boot arguments in <a href="/Usage/Configuration/S/LILO.html" title="LILO">LILO</a> or <a href="/Usage/Configuration/S/GRUB.html" title="GRUB">GRUB</a>.
+<p>and to run the system with this runlevel, simply add <code>runlevel=FOO</code> to your boot arguments in <a href="/Usage/Configuration/L/LILO.html" title="LILO">LILO</a> or <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>.
 </p>
 <h3><span class="mw-headline" id="Other_distributions">Other distributions</span></h3>
 <p>Runlevels exist in all Linux distributions and while runlevel 1 is usually single-user "emergency mode", 0 means halt and 6 mean reboot, the meaning of other runlevels varies from one distribution to another.
@@ -563,11 +563,11 @@ DAEMONS4=(syslog-ng network netfs !sshd alsa jack gpm)      # runlevel 4
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Init.html" title="Category:Init">Init</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Init.html" title="Category:Init">Init</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="/Usage/Configuration/S/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
 </ul>
 </div>
 </div>
@@ -586,9 +586,9 @@ DAEMONS4=(syslog-ng network netfs !sshd alsa jack gpm)      # runlevel 4
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

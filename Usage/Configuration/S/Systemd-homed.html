@@ -2,7 +2,7 @@
     title: Systemd-homed
     description: Migration of Systemd-homed from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,9 +29,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Fscrypt.html" title="Fscrypt">fscrypt</a></li>
+<li><a href="/Usage/Configuration/F/Fscrypt.html" title="Fscrypt">fscrypt</a></li>
 <li><a href="/Usage/Configuration/S/Security.html" title="Security">Security</a></li>
-<li><a href="/Usage/Configuration/S/PAM.html" title="PAM">PAM</a></li>
+<li><a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a></li>
 </ul>
 </div>
 <p><b>systemd-homed</b> is a <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> service providing portable human-user accounts that are not dependent on current system configuration.
@@ -101,7 +101,7 @@
 </p>
 <h2><span class="mw-headline" id="Storage_mechanism">Storage mechanism</span></h2>
 <h3><span class="mw-headline" id="Directory_or_Btrfs_subvolume">Directory or Btrfs subvolume</span></h3>
-<p>A user home folder is stored in <code>/home/<i>user</i>.homedir</code> and mounted to <code>/home/<i>user</i></code> using bind <a href="/Usage/Configuration/S/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> on unlocking. When this method is used no encryption is provided. 
+<p>A user home folder is stored in <code>/home/<i>user</i>.homedir</code> and mounted to <code>/home/<i>user</i></code> using bind <a href="/Usage/Configuration/F/File_systems.html#Mount_a_file_system" class="mw-redirect" title="Mount">mount</a> on unlocking. When this method is used no encryption is provided. 
 To use this mechanism provide <code>--storage=directory</code> or <code>--storage=subvolume</code> to <i>homectl</i>.
 </p>
 <h3><span class="mw-headline" id="fscrypt_directory">fscrypt directory</span></h3>
@@ -109,28 +109,28 @@ To use this mechanism provide <code>--storage=directory</code> or <code>--storag
 To use this mechanism provide <code>--storage=fscrypt</code> to <i>homectl</i>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong>  Filesystems with fscrypt support include <a href="/Usage/Configuration/S/Ext4.html" title="Ext4">ext4</a> and <a href="/Usage/Configuration/S/F2FS.html" title="F2FS">F2FS</a>
+<strong>Tip:</strong>  Filesystems with fscrypt support include <a href="/Usage/Configuration/E/Ext4.html" title="Ext4">ext4</a> and <a href="/Usage/Configuration/F/F2FS.html" title="F2FS">F2FS</a>
 </div>
 <h3><span class="mw-headline" id="CIFS_server">CIFS server</span></h3>
 <p>Here, the home directory is mounted from a CIFS (<i>Common Internet File System</i>) server at login. Note that CIFS is implemented via the <a href="/Usage/Configuration/S/Samba.html" title="Samba">Samba</a> protocol. Use <code>--storage=cifs</code> on the <i>homectl</i> command line.
 The local password of the user is used to log into the CIFS service.
 </p>
 <h3><span class="mw-headline" id="LUKS_home_directory">LUKS home directory</span></h3>
-<p>A user home folder is stored in a Linux <a href="/Usage/Configuration/S/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a>, inside an encrypted <a href="/Usage/Configuration/S/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> (<i>Linux Unified Key Setup</i>) volume inside a loopback file or any removable media. 
+<p>A user home folder is stored in a Linux <a href="/Usage/Configuration/F/File_systems.html" class="mw-redirect" title="Filesystem">filesystem</a>, inside an encrypted <a href="/Usage/Configuration/D/Dm-crypt.html" class="mw-redirect" title="LUKS">LUKS</a> (<i>Linux Unified Key Setup</i>) volume inside a loopback file or any removable media. 
 To use this mechanism provide <code>--storage=luks</code> to <i>homectl</i>.
 </p>
 <p>If you are using a removable media, make sure that these conditions are met:
 </p>
 <ul><li>The image contains a GPT partition table. For now it should only contain a single partition, and that partition must have the type <code>UUID 773f91ef-66d4-49b5-bd83-d683bf40ad16</code>. Its partition label must be the user name.</li></ul>
 <ul><li>This partition must contain a LUKS2 volume, whose label must be the user name. The LUKS2 volume must contain a LUKS2 token field of type systemd-homed. The JSON data of this token must have a record field, containing a string with base64-encoded data. This data is the JSON user record, in the same serialization as in ~/.identity, though encrypted. The JSON data of this token must also have an iv field, which contains a base64-encoded binary initialization vector for the encryption. The encryption used is the same as the LUKS2 volume itself uses, unlocked by the same volume key, but based on its own IV.</li></ul>
-<ul><li>Inside of this LUKS2 volume must be a Linux file system, one of <a href="/Usage/Configuration/S/Ext4.html" title="Ext4">ext4</a>, <a href="/Usage/Configuration/S/Btrfs.html" title="Btrfs">btrfs</a> and <a href="/Usage/Configuration/S/XFS.html" title="XFS">XFS</a>. The file system label must be the user name.</li></ul>
+<ul><li>Inside of this LUKS2 volume must be a Linux file system, one of <a href="/Usage/Configuration/E/Ext4.html" title="Ext4">ext4</a>, <a href="/Usage/Configuration/B/Btrfs.html" title="Btrfs">btrfs</a> and <a href="/Usage/Configuration/X/XFS.html" title="XFS">XFS</a>. The file system label must be the user name.</li></ul>
 <ul><li>This file system should contain a single directory named after the user. This directory will become the home directory of the user when activated. It contains a second copy of the user record in the <code>~/.identity</code> file, like in the other storage mechanisms.</li></ul>
 <h2><span class="mw-headline" id="Enabling_PAM_modules">Enabling PAM modules</span></h2>
-<p>Since there are no records of <i>systemd-homed</i> users in traditional UNIX <a href="/Usage/Configuration/S/NSS.html" title="NSS">NSS</a> databases (such as <code>/etc/passwd</code>, <code>/etc/shadow</code> and <code>/etc/group</code>), <code>pam_unix.so</code> <a href="/Usage/Configuration/S/PAM.html" title="PAM">PAM</a> module will not authorize these users. It is therefore necessary to use a <code>pam_systemd_home.so</code> module provided. While the user is logged in <i>systemd-homed</i> will synthesize the <a href="/Usage/Configuration/S/NSS.html" title="NSS">NSS</a> records for it.
+<p>Since there are no records of <i>systemd-homed</i> users in traditional UNIX <a href="/Usage/Configuration/N/NSS.html" title="NSS">NSS</a> databases (such as <code>/etc/passwd</code>, <code>/etc/shadow</code> and <code>/etc/group</code>), <code>pam_unix.so</code> <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> module will not authorize these users. It is therefore necessary to use a <code>pam_systemd_home.so</code> module provided. While the user is logged in <i>systemd-homed</i> will synthesize the <a href="/Usage/Configuration/N/NSS.html" title="NSS">NSS</a> records for it.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Mistakes in <a href="/Usage/Configuration/S/PAM.html" title="PAM">PAM</a> configuration can break the system authorization up to not being able to login even as <i>root</i>. Backing up existing configuration files is recommended before making any changes.</div> 
-<p>Only one of the two modules will permit authorization, so <a href="/Usage/Configuration/S/PAM.html" title="PAM">PAM</a> should be instructed to disregard the other one's failure. For this a <i>sufficient</i> control value can be used, but on module success this control value causes skipping the rest of the stack. One way to solve this is a <i>substack</i>:
+<strong>Warning:</strong> Mistakes in <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> configuration can break the system authorization up to not being able to login even as <i>root</i>. Backing up existing configuration files is recommended before making any changes.</div> 
+<p>Only one of the two modules will permit authorization, so <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> should be instructed to disregard the other one's failure. For this a <i>sufficient</i> control value can be used, but on module success this control value causes skipping the rest of the stack. One way to solve this is a <i>substack</i>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/nss-auth</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">#%PAM-1.0
@@ -211,7 +211,7 @@ session   optional  pam_permit.so</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Security.html" title="Category:Security">Security</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Security.html" title="Category:Security">Security</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -228,9 +228,9 @@ session   optional  pam_permit.so</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

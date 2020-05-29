@@ -2,7 +2,7 @@
     title: OpenSMTPD
     description: Migration of OpenSMTPD from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/O/Dovecot.html" title="Dovecot">Dovecot</a></li>
-<li><a href="/Usage/Configuration/O/Postfix.html" title="Postfix">Postfix</a></li>
-<li><a href="/Usage/Configuration/O/Exim.html" title="Exim">Exim</a></li>
+<li><a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a></li>
+<li><a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a></li>
+<li><a href="/Usage/Configuration/E/Exim.html" title="Exim">Exim</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.opensmtpd.org/">OpenSMTPD</a> is a free <a href="/Usage/Configuration/O/Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a>, developed as part of the OpenBSD project. This article builds upon <a href="/Usage/Configuration/O/Mail_server.html" title="Mail server">Mail server</a>.
+<p><a rel="nofollow"  href="https://www.opensmtpd.org/">OpenSMTPD</a> is a free <a href="/Usage/Configuration/M/Mail_server.html" class="mw-redirect" title="Mail transfer agent">mail transfer agent</a>, developed as part of the OpenBSD project. This article builds upon <a href="/Usage/Configuration/M/Mail_server.html" title="Mail server">Mail server</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -79,7 +79,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensmtpd">opensmtpd</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensmtpd">opensmtpd</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>OpenSMTPD is configured in <code>/etc/smtpd/</code>.
@@ -92,7 +92,7 @@
 <div>
 <b>Reason:</b> OpenSMTPD 6.6.3p1 changed the default configuration to use <a href="https://en.wikipedia.org/wiki/Maildir"  title="wikipedia:Maildir">Maildir</a> instead of <a href="https://en.wikipedia.org/wiki/Mbox"  title="wikipedia:Mbox">mbox</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:OpenSMTPD">Talk:OpenSMTPD#</a>)</div>
 </div>
-<p>To have local mail working, for example for <a href="/Usage/Configuration/O/Cron.html" title="Cron">cron</a> mails, it is enough to simply <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>smtpd.service</code>.
+<p>To have local mail working, for example for <a href="/Usage/Configuration/C/Cron.html" title="Cron">cron</a> mails, it is enough to simply <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>smtpd.service</code>.
 </p>
 <p>The default configuration of OpenSMTPD is to do local retrieval and delivery of mail, and also relay outgoing mail. See <span class="plainlinks archwiki-template-man" title="$ man 5 smtpd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/smtpd.conf.5">smtpd.conf(5)</a></span>.
 </p>
@@ -120,7 +120,7 @@ match for any action "relay"
 your convenience.
 </p>
 <h4><span class="mw-headline" id="Relay_only">Relay only</span></h4>
-<p>To send all local emails through a relay invoke <a href="/Usage/Configuration/O/Procmail.html" title="Procmail">procmail</a>:
+<p>To send all local emails through a relay invoke <a href="/Usage/Configuration/P/Procmail.html" title="Procmail">procmail</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/smtpd/smtpd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">action "local" mda "procmail -f -" virtual &lt;aliases&gt;
@@ -140,7 +140,7 @@ match for any action "relay"
 <p>To obtain a certificate, see <a href="/Usage/Configuration/O/OpenSSL.html#Usage" title="OpenSSL">OpenSSL#Usage</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> OpenSMTPD has solid defaults, SSLv3 is always disabled and the default <code>ciphers</code> are not known to be insecure. You might still want to test the server as described in <a href="/Usage/Configuration/O/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
+<strong>Note:</strong> OpenSMTPD has solid defaults, SSLv3 is always disabled and the default <code>ciphers</code> are not known to be insecure. You might still want to test the server as described in <a href="/Usage/Configuration/T/Transport_Layer_Security.html#Server-side_recommendations" class="mw-redirect" title="Server-side TLS">Server-side TLS</a>.</div>
 <h4><span class="mw-headline" id="Create_user_accounts">Create user accounts</span></h4>
 <ul><li>Create a user account on the mail server for each desired mailbox.</li></ul>
 <pre># useradd -m -s /bin/bash roger
@@ -195,11 +195,11 @@ shirley                            &lt;password hash created using 'smtpctl encr
 <h3><span class="mw-headline" id="Test_the_configuration">Test the configuration</span></h3>
 <pre># smtpd -n
 </pre>
-<p>If you get a message that says 'configuration OK' - you're ready to <a href="/Usage/Configuration/O/Systemd.html" title="Systemd">rock and roll</a>. If not, work on any configuration errors and try again.
+<p>If you get a message that says 'configuration OK' - you're ready to <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">rock and roll</a>. If not, work on any configuration errors and try again.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="Console_debugging">Console debugging</span></h3>
-<p>If you're having problems with mail delivery, try <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Stop">stopping</a> the <code>smtpd.service</code> and launching the daemon manually with the 'do not daemonize' and 'verbose output' options. Then watch the console for errors.
+<p>If you're having problems with mail delivery, try <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Stop">stopping</a> the <code>smtpd.service</code> and launching the daemon manually with the 'do not daemonize' and 'verbose output' options. Then watch the console for errors.
 </p>
 <pre># smtpd -dv
 </pre>
@@ -239,10 +239,10 @@ dXNlcm5hbWUAdXNlcm5hbWUAcGFzc3dvcmQ=
 <h3>
 <span id=".22Helo_command_rejected:_need_fully-qualified_hostname.22"></span><span class="mw-headline" id='"Helo_command_rejected:_need_fully-qualified_hostname"'>"Helo command rejected: need fully-qualified hostname"</span>
 </h3>
-<p>When sending email, if you get this kind of messages, set your FQDN in the file <code>/etc/smtpd/mailname</code>. Otherwise, the server name is derived from the local <a href="/Usage/Configuration/O/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> returned by <span class="plainlinks archwiki-template-man" title="$ man 3p gethostname"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gethostname.3p">gethostname(3p)</a></span>, either directly if it is a fully qualified domain name, or by retrieving the associated canonical name through <span class="plainlinks archwiki-template-man" title="$ man 3 getaddrinfo"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/getaddrinfo.3">getaddrinfo(3)</a></span>.
+<p>When sending email, if you get this kind of messages, set your FQDN in the file <code>/etc/smtpd/mailname</code>. Otherwise, the server name is derived from the local <a href="/Usage/Configuration/N/Network_configuration.html#Set_the_hostname" class="mw-redirect" title="Hostname">hostname</a> returned by <span class="plainlinks archwiki-template-man" title="$ man 3p gethostname"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/gethostname.3p">gethostname(3p)</a></span>, either directly if it is a fully qualified domain name, or by retrieving the associated canonical name through <span class="plainlinks archwiki-template-man" title="$ man 3 getaddrinfo"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/getaddrinfo.3">getaddrinfo(3)</a></span>.
 </p>
 <h3><span class="mw-headline" id="System_users_authentication_failure">System users authentication failure</span></h3>
-<p>If you are using the system users and the authentication with valid credentials fails, you have to configure <a href="/Usage/Configuration/O/PAM.html" title="PAM">PAM</a>:
+<p>If you are using the system users and the authentication with valid credentials fails, you have to configure <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pam.d/smtpd</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">auth required pam_unix.so
@@ -253,7 +253,7 @@ session required pam_unix.so
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/OpenSMTPD"  title="wikipedia:OpenSMTPD">Wikipedia:OpenSMTPD</a></li>
-<li>OpenSMTPD pairs well with <a href="/Usage/Configuration/O/Dovecot.html" title="Dovecot">Dovecot</a>. Combine the two for a nice minimalist mailserver</li>
+<li>OpenSMTPD pairs well with <a href="/Usage/Configuration/D/Dovecot.html" title="Dovecot">Dovecot</a>. Combine the two for a nice minimalist mailserver</li>
 <li><a rel="nofollow"  href="http://opensmtpd.org/">OpenSMTPD project page</a></li>
 <li><a rel="nofollow"  href="https://coderwall.com/p/eejzja">Simple SMTP server with OpenSMTPD</a></li>
 </ul>
@@ -262,11 +262,11 @@ session required pam_unix.so
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/O/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
-<li><a href="/Usage/Configuration/O/Category:OpenBSD.html" title="Category:OpenBSD">OpenBSD</a></li>
+<li><a href="/Usage/Configuration/C/Category:Mail_server.html" title="Category:Mail server">Mail server</a></li>
+<li><a href="/Usage/Configuration/C/Category:OpenBSD.html" title="Category:OpenBSD">OpenBSD</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/O/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -284,9 +284,9 @@ session required pam_unix.so
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/O/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/O/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/O/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

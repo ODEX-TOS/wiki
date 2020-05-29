@@ -2,7 +2,7 @@
     title: Map_scancodes_to_keycodes
     description: Migration of Map_scancodes_to_keycodes from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,14 +24,14 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page assumes that you have read <a href="/Usage/Configuration/M/Keyboard_input.html" title="Keyboard input">Keyboard input</a>, which provides wider context.
+<p>This page assumes that you have read <a href="/Usage/Configuration/K/Keyboard_input.html" title="Keyboard input">Keyboard input</a>, which provides wider context.
 </p>
 <p>Mapping <i>scancodes</i> to <i>keycodes</i> is universal and not specific to Linux console or Xorg, which means that changes to this mapping will be effective in both.
 </p>
 <p>There are two ways of mapping <i>scancodes</i> to <i>keycodes</i>:
 </p>
 <ul>
-<li>Using <a href="/Usage/Configuration/M/Udev.html" title="Udev">udev</a>
+<li>Using <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a>
 </li>
 <li>Using <span class="plainlinks archwiki-template-man" title="$ man 8 setkeycodes"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/setkeycodes.8">setkeycodes(8)</a></span>
 </li>
@@ -59,10 +59,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Identifying_scancodes">Identifying scancodes</span></h2>
-<p>You need to know the <i>scancodes</i> of keys you wish to remap. See <a href="/Usage/Configuration/M/Keyboard_input.html#Identifying_scancodes" title="Keyboard input">Keyboard input#Identifying scancodes</a> for details.
+<p>You need to know the <i>scancodes</i> of keys you wish to remap. See <a href="/Usage/Configuration/K/Keyboard_input.html#Identifying_scancodes" title="Keyboard input">Keyboard input#Identifying scancodes</a> for details.
 </p>
 <h2><span class="mw-headline" id="Using_udev">Using udev</span></h2>
-<p><a href="/Usage/Configuration/M/Udev.html" title="Udev">udev</a> provides a builtin function called <i>hwdb</i> to maintain the hardware database index in <code>/etc/udev/hwdb.bin</code>. The database is compiled from files with <i>.hwdb</i> extension located in directories <code>/usr/lib/udev/hwdb.d/</code>, <code>/run/udev/hwdb.d/</code> and <code>/etc/udev/hwdb.d/</code>. The default <i>scancodes-to-keycodes</i> mapping file is <code>/usr/lib/udev/hwdb.d/60-keyboard.hwdb</code>. See <span class="plainlinks archwiki-template-man" title="$ man 7 udev"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/udev.7">udev(7)</a></span> for details.
+<p><a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> provides a builtin function called <i>hwdb</i> to maintain the hardware database index in <code>/etc/udev/hwdb.bin</code>. The database is compiled from files with <i>.hwdb</i> extension located in directories <code>/usr/lib/udev/hwdb.d/</code>, <code>/run/udev/hwdb.d/</code> and <code>/etc/udev/hwdb.d/</code>. The default <i>scancodes-to-keycodes</i> mapping file is <code>/usr/lib/udev/hwdb.d/60-keyboard.hwdb</code>. See <span class="plainlinks archwiki-template-man" title="$ man 7 udev"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/udev.7">udev(7)</a></span> for details.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> From systemd 220 the udev ABI changed. Users using custom udev hwdb rules should update them according to the new ABI</div>
@@ -110,7 +110,7 @@ evdev:atkbd:dmi:*            # built-in keyboard: match all AT keyboards for now
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Don't edit in <code>/usr/lib/</code>, use <a href="/Usage/Configuration/M/Systemd.html#Editing_provided_units" title="Systemd">systemctl edit</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Map_scancodes_to_keycodes">Talk:Map scancodes to keycodes#</a>)</div>
+<b>Reason:</b> Don't edit in <code>/usr/lib/</code>, use <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">systemctl edit</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Map_scancodes_to_keycodes">Talk:Map scancodes to keycodes#</a>)</div>
 </div>
 <ul><li>Update automatically on each reboot by commenting out <code>ConditionNeedsUpdate</code> in <code>systemd-hwdb-update.service</code>.</li></ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/lib/systemd/system/systemd-hwdb-update.service</pre>
@@ -124,8 +124,8 @@ evdev:atkbd:dmi:*            # built-in keyboard: match all AT keyboards for now
 <p>After <code>systemd-hwdb-update.service</code> finished loading <code>systemd-trigger.service</code> will reload the changes from 
 <code>hwdb.bin</code>.
 </p>
-<ul><li>Automatically after <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">Systemd</a> upgrade.</li></ul>
-<p>On each upgrade of <a href="/Usage/Configuration/M/Systemd.html" title="Systemd">Systemd</a>, the installation script rebuilds <code>hwdb.bin</code> by running <code>udevadm hwdb --update</code> as the root user, so we do not need to care about it.
+<ul><li>Automatically after <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">Systemd</a> upgrade.</li></ul>
+<p>On each upgrade of <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">Systemd</a>, the installation script rebuilds <code>hwdb.bin</code> by running <code>udevadm hwdb --update</code> as the root user, so we do not need to care about it.
 </p>
 <h3><span class="mw-headline" id="Reloading_the_Hardware_Database_Index">Reloading the Hardware Database Index</span></h3>
 <p>The kernel loads <code>hwdb.bin</code> as part of the boot process, rebooting the system will promise the loading of the updated <code>hwdb.bin</code>.
@@ -163,11 +163,11 @@ failed to set scancode 620d3 to keycode 31
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Keyboard_configuration.html" title="Category:Keyboard configuration">Keyboard configuration</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/M/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
-<li><a href="/Usage/Configuration/M/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
 </ul>
 </div>
 </div>
@@ -186,9 +186,9 @@ failed to set scancode 620d3 to keycode 31
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

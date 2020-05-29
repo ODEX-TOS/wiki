@@ -2,7 +2,7 @@
     title: Windows_PE
     description: Migration of Windows_PE from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -160,17 +160,17 @@ pause
 <p>After creating a bootable ISO of Windows PE (<code>winpe.iso</code>) as described in the previous section, you may want to boot Windows PE in the following ways:
 </p>
 <h3><span class="mw-headline" id="In_virtual_machine">In virtual machine</span></h3>
-<p>Run a virtual machine with <code>winpe.iso</code> attached as a CD-ROM.  Be sure to give it adequate memory, definitely more than the size of the ISO, since Windows PE runs from memory.  See <a href="/Usage/Configuration/W/Category:Hypervisors.html" title="Category:Hypervisors">Category:Hypervisors</a> for a list of available virtualization software.
+<p>Run a virtual machine with <code>winpe.iso</code> attached as a CD-ROM.  Be sure to give it adequate memory, definitely more than the size of the ISO, since Windows PE runs from memory.  See <a href="/Usage/Configuration/C/Category:Hypervisors.html" title="Category:Hypervisors">Category:Hypervisors</a> for a list of available virtualization software.
 </p>
 <h3><span class="mw-headline" id="From_USB_key">From USB key</span></h3>
 <p>If you have prepared a USB key for UEFI systems according to the guide above, it should just boot. It may take some time to boot (10 to 20 seconds is not uncommon, depending on your USB key) because the loader seems to copy some/all data to RAM.
 </p>
 <h3><span class="mw-headline" id="From_CD">From CD</span></h3>
-<p>Simply <a href="/Usage/Configuration/W/Optical_disc_drive.html#Burning" title="Optical disc drive">burn</a> <code>winpe.iso</code> onto a CD, and you can boot from it.
+<p>Simply <a href="/Usage/Configuration/O/Optical_disc_drive.html#Burning" title="Optical disc drive">burn</a> <code>winpe.iso</code> onto a CD, and you can boot from it.
 </p>
 <h3><span class="mw-headline" id="From_Network">From Network</span></h3>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/W/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a><b>This article or section is a candidate for merging with <a href="/Usage/Configuration/P/Preboot_Execution_Environment.html" class="mw-redirect" title="PXE">PXE</a>.</b><a href="../File:Merge-arrows-2.png" ><img alt="Merge-arrows-2.png" src="../File:Merge-arrows-2.png" decoding="async" width="48" height="48"></a></p>
 <div>
 <b>Notes:</b> The PXE article already describes most of this stuff, no need for duplication.  Also rc.d?  Just make sure that configuration file is not lost if it's necessary for windows.  Besides that everything is dupe. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Windows_PE">Talk:Windows PE#</a>)</div>
 </div>
@@ -178,15 +178,15 @@ pause
 </p>
 <p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=syslinux">syslinux</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=tftp-hpa">tftp-hpa</a></span>.
 </p>
-<p>Copy needed PXELINUX files to the <a href="/Usage/Configuration/W/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a> root directory.
+<p>Copy needed PXELINUX files to the <a href="/Usage/Configuration/T/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a> root directory.
 </p>
 <pre># rsync -aq /usr/lib/syslinux/bios/ /var/tftpboot/
 </pre>
-<p>Put <code>winpe.iso</code> in the <a href="/Usage/Configuration/W/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a> root directory.
+<p>Put <code>winpe.iso</code> in the <a href="/Usage/Configuration/T/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a> root directory.
 </p>
 <pre># mv winpe.iso /var/tftpboot
 </pre>
-<p>Create a <a href="/Usage/Configuration/W/Syslinux.html#Configuration" title="Syslinux">configuration file</a> for PXELINUX similar to the following:
+<p>Create a <a href="/Usage/Configuration/S/Syslinux.html#Configuration" title="Syslinux">configuration file</a> for PXELINUX similar to the following:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/var/tftpboot/pxelinux.cfg/default</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">UI         menu.c32
@@ -203,9 +203,9 @@ LABEL      localboot
 MENU LABEL Boot from local disk
 LOCALBOOT  0
 </pre>
-<p>Start the <a href="/Usage/Configuration/W/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a>.
+<p>Start the <a href="/Usage/Configuration/T/TFTP.html" class="mw-redirect" title="Tftpd server">TFTP server</a>.
 </p>
-<p>Configure your DHCP server (such as <a href="/Usage/Configuration/W/Dhcpd.html" title="Dhcpd">Dhcpd</a> or <a href="/Usage/Configuration/W/Dnsmasq.html" title="Dnsmasq">Dnsmasq</a>) to point to <code>pxelinux.0</code> as the boot file, with the Linux server's IP address.  Beware: if your DHCP server is on a router, it may not be possible to do this without installing custom firmware.
+<p>Configure your DHCP server (such as <a href="/Usage/Configuration/D/Dhcpd.html" title="Dhcpd">Dhcpd</a> or <a href="/Usage/Configuration/D/Dnsmasq.html" title="Dnsmasq">Dnsmasq</a>) to point to <code>pxelinux.0</code> as the boot file, with the Linux server's IP address.  Beware: if your DHCP server is on a router, it may not be possible to do this without installing custom firmware.
 </p>
 <p>After completing the above steps, you should be able to boot Windows PE from the network.
 </p>
@@ -216,7 +216,7 @@ LOCALBOOT  0
 <h2><span class="mw-headline" id="Installing_Windows_from_Windows_PE">Installing Windows from Windows PE</span></h2>
 <p>Once booted into Windows PE, you can install Windows from an installation media.
 </p>
-<p>The installation media can be a network share (Samba). See <a href="/Usage/Configuration/W/Samba.html" title="Samba">Samba</a> for seting up a Samba server on another machine on the LAN. To share the installation image mounted at <code>/media/winimg</code>, add the following share definition to <code>/etc/samba/smb.conf</code>:
+<p>The installation media can be a network share (Samba). See <a href="/Usage/Configuration/S/Samba.html" title="Samba">Samba</a> for seting up a Samba server on another machine on the LAN. To share the installation image mounted at <code>/media/winimg</code>, add the following share definition to <code>/etc/samba/smb.conf</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/samba/smb.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[REMINST]
@@ -269,9 +269,9 @@ Apparently whatever part hides this from the user didn't make it into the PE bui
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/W/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/W/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -289,9 +289,9 @@ Apparently whatever part hides this from the user didn't make it into the PE bui
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/W/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/W/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/W/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

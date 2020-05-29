@@ -2,7 +2,7 @@
     title: Powerpill
     description: Migration of Powerpill from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a rel="nofollow"  href="https://xyne.archlinux.ca/projects/powerpill/">Powerpill</a> is a <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> wrapper that uses parallel and segmented downloading to try to speed up downloads for Pacman. Internally it uses <a href="/Usage/Configuration/P/Aria2.html" title="Aria2">Aria2</a> and <a href="/Usage/Configuration/P/Reflector.html" title="Reflector">Reflector</a> to achieve this. Powerpill can also use <a href="/Usage/Configuration/P/Rsync.html" title="Rsync">rsync</a> for official mirrors that support it. This can be efficient for users who already use full bandwidth when downloading from a single mirror. <a href="/Usage/Configuration/P/Pacserve.html" title="Pacserve">Pacserve</a> is also supported via the configuration file and will be used before downloading from external mirrors. Example: One wants to update and issues a <i>pacman -Syu</i> which returns a list of 20 packages that are available for update totaling 200 megs. If the user downloads them via pacman, they will come down one-at-a-time. If the user downloads them via powerpill, they will come down simultaneously in many cases several times faster (depending on one's connection speed, the availability of packages on servers, and speed from server/load, etc.)
+<p><a rel="nofollow"  href="https://xyne.archlinux.ca/projects/powerpill/">Powerpill</a> is a <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> wrapper that uses parallel and segmented downloading to try to speed up downloads for Pacman. Internally it uses <a href="/Usage/Configuration/A/Aria2.html" title="Aria2">Aria2</a> and <a href="/Usage/Configuration/R/Reflector.html" title="Reflector">Reflector</a> to achieve this. Powerpill can also use <a href="/Usage/Configuration/R/Rsync.html" title="Rsync">rsync</a> for official mirrors that support it. This can be efficient for users who already use full bandwidth when downloading from a single mirror. <a href="/Usage/Configuration/P/Pacserve.html" title="Pacserve">Pacserve</a> is also supported via the configuration file and will be used before downloading from external mirrors. Example: One wants to update and issues a <i>pacman -Syu</i> which returns a list of 20 packages that are available for update totaling 200 megs. If the user downloads them via pacman, they will come down one-at-a-time. If the user downloads them via powerpill, they will come down simultaneously in many cases several times faster (depending on one's connection speed, the availability of packages on servers, and speed from server/load, etc.)
 </p>
 <p>A test of pacman vs. powerpill on one system revealed a 4x speed up in the above scenario where the pacman downloads averages 300 kB/sec and the powerpill downloads averaged 1.2 MB/sec.
 </p>
@@ -51,16 +51,16 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/powerpill/">powerpill</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/powerpill/">powerpill</a></span><sup><small>AUR</small></sup> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <p>Powerpill has a single configure file <code>/etc/powerpill/powerpill.json</code> you can edit to your liking. Refer to the <span class="plainlinks archwiki-template-man" title="$ man 1 powerpill.json"><a rel="nofollow"  href="https://xyne.archlinux.ca/projects/powerpill/#powerpill.json1">powerpill.json(1)</a></span> man page for details.
 </p>
 <h2><span class="mw-headline" id="Using_Reflector">Using Reflector</span></h2>
-<p>By default, Powerpill is configured to use <a href="/Usage/Configuration/P/Reflector.html" title="Reflector">Reflector</a> to retrieve the current list of mirrors from the TOS Linux server's web API and use them for parallel downloads. This is to make sure that there are enough servers in the list for significant speed improvements.
+<p>By default, Powerpill is configured to use <a href="/Usage/Configuration/R/Reflector.html" title="Reflector">Reflector</a> to retrieve the current list of mirrors from the TOS Linux server's web API and use them for parallel downloads. This is to make sure that there are enough servers in the list for significant speed improvements.
 </p>
 <h2><span class="mw-headline" id="Using_rsync">Using rsync</span></h2>
-<p><a href="/Usage/Configuration/P/Rsync.html" title="Rsync">Rsync</a> support is available for some mirrors. When enabled, database synchronizations (<code>pacman -Sy</code>) and other operations may be much faster because a single connection is used. The rsync protocol itself also speeds up update checks and sometimes file transfers.
+<p><a href="/Usage/Configuration/R/Rsync.html" title="Rsync">Rsync</a> support is available for some mirrors. When enabled, database synchronizations (<code>pacman -Sy</code>) and other operations may be much faster because a single connection is used. The rsync protocol itself also speeds up update checks and sometimes file transfers.
 </p>
 <p>To find a suitable mirror with rsync support, use <code>reflector</code>:
 </p>
@@ -114,7 +114,7 @@ It is because signature files are missing for that repo and you have not set </p
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -131,9 +131,9 @@ It is because signature files are missing for that repo and you have not set </p
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

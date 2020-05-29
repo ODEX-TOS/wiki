@@ -2,7 +2,7 @@
     title: Signed_kernel_modules
     description: Migration of Signed_kernel_modules from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,12 +27,12 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Kernel.html" class="mw-redirect" title="Kernels">Kernels</a></li>
-<li><a href="/Usage/Configuration/S/Kernel_module.html" title="Kernel module">Kernel module</a></li>
-<li><a href="/Usage/Configuration/S/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a></li>
+<li><a href="/Usage/Configuration/K/Kernel.html" class="mw-redirect" title="Kernels">Kernels</a></li>
+<li><a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">Kernel module</a></li>
+<li><a href="/Usage/Configuration/K/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html">Signed</a> <a href="/Usage/Configuration/S/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> provide a mechanism for the kernel to verify the integrity of a module.
+<p><a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html">Signed</a> <a href="/Usage/Configuration/K/Kernel_module.html" class="mw-redirect" title="Kernel modules">kernel modules</a> provide a mechanism for the kernel to verify the integrity of a module.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -72,14 +72,14 @@
 <ul>
 <li>Standard <i>in-tree</i> modules which come with the kernel source code. They are compiled during the normal kernel build.</li>
 <li>
-<i>Out-of-tree</i> modules which are not part of the kernel source distribution. They are built outside of the kernel tree, requiring the kernel headers package for each kernel they are to be built for. They can be built manually for a specific kernel and packaged, or they can be built whenever needed using <a href="/Usage/Configuration/S/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a>. Examples of such packages, provided by TOS, include <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-modules-arch">virtualbox-guest-modules-arch</a></span><sup>[<a href="/Usage/Configuration/S/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: replaced by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>]</sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireguard-arch">wireguard-arch</a></span><sup>[<a href="/Usage/Configuration/S/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: replaced by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>]</sup>.</li>
+<i>Out-of-tree</i> modules which are not part of the kernel source distribution. They are built outside of the kernel tree, requiring the kernel headers package for each kernel they are to be built for. They can be built manually for a specific kernel and packaged, or they can be built whenever needed using <a href="/Usage/Configuration/D/Dynamic_Kernel_Module_Support.html" class="mw-redirect" title="DKMS">DKMS</a>. Examples of such packages, provided by TOS, include <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=virtualbox-guest-modules-arch">virtualbox-guest-modules-arch</a></span><sup>[<a href="/Usage/Configuration/H/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: replaced by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>]</sup> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=wireguard-arch">wireguard-arch</a></span><sup>[<a href="/Usage/Configuration/H/Help:Procedures.html#Fix_broken_package_links" title="Help:Procedures">broken link</a>: replaced by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>]</sup>.</li>
 </ul>
 <p>During a standard kernel compilation, the kernel build tools create a private/public key pair and sign every in-tree module (using the private key). The public key is saved in the kernel itself. When a module is subsequently loaded, the public key can then be used to verify that the module is unchanged.
 </p>
-<p>The kernel can be enabled to always verify modules and report any failures to standard logs. The choice to permit the loading and use of a module which could not be verified can be either compiled into kernel or turned on at runtime using a <a href="/Usage/Configuration/S/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> as explained below.
+<p>The kernel can be enabled to always verify modules and report any failures to standard logs. The choice to permit the loading and use of a module which could not be verified can be either compiled into kernel or turned on at runtime using a <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> as explained below.
 </p>
 <h2><span class="mw-headline" id="Summary_of_what_needs_to_be_done">Summary of what needs to be done</span></h2>
-<p>The starting point is based on a custom kernel package as outlined in <a href="/Usage/Configuration/S/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a>. We will modify the build to sign the standard in-tree kernel modules and to provide the prerequisites for signing and verifying out-of-tree modules.
+<p>The starting point is based on a custom kernel package as outlined in <a href="/Usage/Configuration/K/Kernel/TOS_Build_System.html" title="Kernel/TOS Build System">Kernel/TOS Build System</a>. We will modify the build to sign the standard in-tree kernel modules and to provide the prerequisites for signing and verifying out-of-tree modules.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
@@ -117,7 +117,7 @@ Compress modules on installation        - activate
 Allow loading of modules with missing namespace imports - set to no
 </pre>
 <h3><span class="mw-headline" id="Kernel_command_line">Kernel command line</span></h3>
-<p>When you have confirmed that the modules are being signed and that the kernel works as it should, you can enable the following <a href="/Usage/Configuration/S/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to require that the kernel only permits verified modules to be loaded:
+<p>When you have confirmed that the modules are being signed and that the kernel works as it should, you can enable the following <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> to require that the kernel only permits verified modules to be loaded:
 </p>
 <pre>module.sig_enforce=1
 </pre>
@@ -233,15 +233,15 @@ Allow loading of modules with missing namespace imports - set to no
 <li><a rel="nofollow"  href="https://github.com/gene-git/TOS-SKM/blob/master/certs-local/dkms/kernel-sign.conf">certs-local/dkms/kernel-sign.conf</a></li>
 <li><a rel="nofollow"  href="https://github.com/gene-git/TOS-SKM/blob/master/certs-local/dkms/kernel-sign.sh">certs-local/dkms/kernel-sign.sh</a></li>
 </ul>
-<p>Remember to ensure that the scripts are <a href="/Usage/Configuration/S/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
+<p>Remember to ensure that the scripts are <a href="/Usage/Configuration/H/Help:Reading.html#Make_executable" class="mw-redirect" title="Executable">executable</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/S/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_broken_package_links.html" title="Category:Pages with broken package links">Pages with broken package links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -259,9 +259,9 @@ Allow loading of modules with missing namespace imports - set to no
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

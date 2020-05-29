@@ -2,7 +2,7 @@
     title: Distcc
     description: Migration of Distcc from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,8 +29,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/D/TORQUE.html" title="TORQUE">TORQUE</a></li>
-<li><a href="/Usage/Configuration/D/Slurm.html" title="Slurm">Slurm</a></li>
+<li><a href="/Usage/Configuration/T/TORQUE.html" title="TORQUE">TORQUE</a></li>
+<li><a href="/Usage/Configuration/S/Slurm.html" title="Slurm">Slurm</a></li>
 </ul>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/distcc"  title="wikipedia:distcc">distcc</a> is a program to distribute builds of C, C++, Objective C or Objective C++ code across several machines on a network to speed up building. It should always generate the same results as a local build, is simple to install and use, and is usually much faster than a local compile. Further, one can use it together with native TOS build tools such as makepkg.
@@ -112,7 +112,7 @@
 <dd>The volunteer is the computer accepting compilation requests sent by the client.  One can setup multiple volunteers or just a single one.</dd>
 </dl>
 <h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
-<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=distcc">distcc</a></span> package on all participating  PCs in the distcc cluster.  For other distros, or even operating systems including Windows through using Cygwin, refer to the <a rel="nofollow"  href="http://distcc.samba.org/doc.html">distcc docs</a> or the included man pages <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 distccd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distccd.1">distccd(1)</a></span>.  Be sure to allow traffic on the port on which distcc runs (the default is 3632/tcp), see <a href="/Usage/Configuration/D/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=distcc">distcc</a></span> package on all participating  PCs in the distcc cluster.  For other distros, or even operating systems including Windows through using Cygwin, refer to the <a rel="nofollow"  href="http://distcc.samba.org/doc.html">distcc docs</a> or the included man pages <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 1 distccd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distccd.1">distccd(1)</a></span>.  Be sure to allow traffic on the port on which distcc runs (the default is 3632/tcp), see <a href="/Usage/Configuration/C/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a>.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Volunteers">Volunteers</span></h3>
@@ -122,7 +122,7 @@
 </pre>
 <p>If multiple interfaces are present on the machine, consider passing the --listen ADDRESS option as well.  Other options can be defined.  Refer to <span class="plainlinks archwiki-template-man" title="$ man 1 distccd"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distccd.1">distccd(1)</a></span>. 
 </p>
-<p><a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>distccd.service</code> on every participating volunteer. To have <code>distccd.service</code> start at boot-up, <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> <code>distccd.service</code> on every participating volunteer. To have <code>distccd.service</code> start at boot-up, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it.
 </p>
 <h3><span class="mw-headline" id="Client">Client</span></h3>
 <h4><span class="mw-headline" id="For_use_with_makepkg">For use with makepkg</span></h4>
@@ -194,7 +194,7 @@ $ export PATH="/usr/lib/distcc/bin:$PATH"
 <p>This section details how to use TOS Linux (x86_64) volunteers to help an TOS ARM device cross-compile.  Significant speed gains can be realized with just a single x86_64 machine helping an ARM device compile.
 </p>
 <h4><span class="mw-headline" id="Volunteers_2">Volunteers</span></h4>
-<p>The TOS ARM developers <i>highly</i> recommend using the official project <a rel="nofollow"  href="https://archlinuxarm.org/wiki/Distcc_Cross-Compiling">toolchains</a> which should be installed on the x86_64 volunteer(s).  Rather than manually managing these, the <a href="/Usage/Configuration/D/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> provides all four toolchains as well as simple systemd service units:
+<p>The TOS ARM developers <i>highly</i> recommend using the official project <a rel="nofollow"  href="https://archlinuxarm.org/wiki/Distcc_Cross-Compiling">toolchains</a> which should be installed on the x86_64 volunteer(s).  Rather than manually managing these, the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> provides all four toolchains as well as simple systemd service units:
 </p>
 <ul>
 <li>
@@ -212,7 +212,7 @@ $ export PATH="/usr/lib/distcc/bin:$PATH"
 </ul>
 <p>Setup on the volunteer containing the toolchain is identical to <a href="#Volunteers">#Volunteers</a> except that the name of the configuration and systemd service file matches that of the respective package.  For example, for armv7h the config file is <code>/etc/conf.d/distccd-armv7h</code> and the systemd service unit is <code>distccd-armv7h.service</code>.
 </p>
-<p>Note that each of the toolchains runs on a unique port thus allowing all four of them to co-exist on the volunteer if needed.  Be sure to allow traffic to the port on which distcc runs see <a href="/Usage/Configuration/D/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a> and <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span>.
+<p>Note that each of the toolchains runs on a unique port thus allowing all four of them to co-exist on the volunteer if needed.  Be sure to allow traffic to the port on which distcc runs see <a href="/Usage/Configuration/C/Category:Firewalls.html" title="Category:Firewalls">Category:Firewalls</a> and <span class="plainlinks archwiki-template-man" title="$ man 1 distcc"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/distcc.1">distcc(1)</a></span>.
 </p>
 <table  align="center">
 
@@ -245,7 +245,7 @@ $ export PATH="/usr/lib/distcc/bin:$PATH"
 </tbody>
 </table>
 <h4><span class="mw-headline" id="Client_2">Client</span></h4>
-<p>The easiest method to setup the TOS ARM client is to use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-arch-arm/">distccd-arch-arm</a></span><sup><small>AUR</small></sup> package.  It provides the matched set of distccd configuration and systemd service units.  For example, if the client is an armv7h device, optionally edit <code>/etc/conf.d/distccd-armv7h</code> and change the defaults therein.  When ready to build, <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>distccd-armv7h.service</code> and compile.
+<p>The easiest method to setup the TOS ARM client is to use the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/distccd-arch-arm/">distccd-arch-arm</a></span><sup><small>AUR</small></sup> package.  It provides the matched set of distccd configuration and systemd service units.  For example, if the client is an armv7h device, optionally edit <code>/etc/conf.d/distccd-armv7h</code> and change the defaults therein.  When ready to build, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>distccd-armv7h.service</code> and compile.
 </p>
 <p>If one would rather setup the client without using the AUR package mentioned above, manual setup of the client is identical to <a href="#Client">#Client</a> except, one needs to modify the following two files to define the now non-standard port the volunteers are expected to use.  Refer to the table above if using the AUR package.
 </p>
@@ -323,12 +323,12 @@ $ export PATH="/usr/lib/distcc/bin:$PATH"
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/D/Category:Distributed_computing.html" title="Category:Distributed computing">Distributed computing</a></li>
-<li><a href="/Usage/Configuration/D/Category:Development.html" title="Category:Development">Development</a></li>
-<li><a href="/Usage/Configuration/D/Category:Package_development.html" title="Category:Package development">Package development</a></li>
+<li><a href="/Usage/Configuration/C/Category:Distributed_computing.html" title="Category:Distributed computing">Distributed computing</a></li>
+<li><a href="/Usage/Configuration/C/Category:Development.html" title="Category:Development">Development</a></li>
+<li><a href="/Usage/Configuration/C/Category:Package_development.html" title="Category:Package development">Package development</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/D/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -346,9 +346,9 @@ $ export PATH="/usr/lib/distcc/bin:$PATH"
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

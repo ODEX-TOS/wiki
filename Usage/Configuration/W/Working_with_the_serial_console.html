@@ -2,7 +2,7 @@
     title: Working_with_the_serial_console
     description: Migration of Working_with_the_serial_console from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -92,7 +92,7 @@ The administering machine can be any Unix/Linux or Windows machine with a termin
 <h2><span class="mw-headline" id="Configure_console_access_on_the_target_machine">Configure console access on the target machine</span></h2>
 <h3><span class="mw-headline" id="Boot_loader">Boot loader</span></h3>
 <h4><span class="mw-headline" id="GRUB">GRUB</span></h4>
-<p>When using <a href="/Usage/Configuration/W/GRUB.html" title="GRUB">GRUB</a> with a generated <code>grub.cfg</code>, edit <code>/etc/default/grub</code> and enable serial input and output support:
+<p>When using <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> with a generated <code>grub.cfg</code>, edit <code>/etc/default/grub</code> and enable serial input and output support:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/default/grub</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
@@ -108,7 +108,7 @@ GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200"</pre>
 <p>Read GRUB's manual on <a rel="nofollow"  href="https://www.gnu.org/software/grub/manual/grub/grub.html#Serial-terminal">Using GRUB via a serial line</a> and the <a rel="nofollow"  href="https://www.gnu.org/software/grub/manual/grub/grub.html#serial">serial command</a> for detailed explanation of the available options.
 </p>
 <h4><span class="mw-headline" id="GRUB_Legacy">GRUB Legacy</span></h4>
-<p>Edit the <a href="/Usage/Configuration/W/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> configuration file <code>/boot/grub/menu.lst</code> and add these lines to the general area of the configuration:
+<p>Edit the <a href="/Usage/Configuration/G/GRUB_Legacy.html" title="GRUB Legacy">GRUB Legacy</a> configuration file <code>/boot/grub/menu.lst</code> and add these lines to the general area of the configuration:
 </p>
 <pre>serial --unit=0 --speed=9600
 terminal --timeout=5 serial console
@@ -116,10 +116,10 @@ terminal --timeout=5 serial console
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> When the <code>terminal --timeout=5 serial console</code> line is added to your <code>menu.lst</code>, your boot sequence will now show a series of <code>Press any key to continue</code> messages. If no key is pressed, the boot menu will appear on whichever (serial or console) appears first in the <code>terminal</code> configuration line.</div>
 <h4><span class="mw-headline" id="rEFInd">rEFInd</span></h4>
-<p><a href="/Usage/Configuration/W/REFInd.html" title="REFInd">rEFInd</a> supports serial console only in text mode. Edit <code>refind.conf</code> and uncomment <code>textonly</code>.
+<p><a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a> supports serial console only in text mode. Edit <code>refind.conf</code> and uncomment <code>textonly</code>.
 </p>
 <h4><span class="mw-headline" id="Syslinux">Syslinux</span></h4>
-<p>To enable serial console in <a href="/Usage/Configuration/W/Syslinux.html" title="Syslinux">Syslinux</a>, edit <code>syslinux.cfg</code> and add <code>SERIAL</code> as the first directive in the configuration file.
+<p>To enable serial console in <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">Syslinux</a>, edit <code>syslinux.cfg</code> and add <code>SERIAL</code> as the first directive in the configuration file.
 </p>
 <p>For COM1 (<code>/dev/ttyS0</code>) with baud rate of 115200 bit/s:
 </p>
@@ -128,16 +128,16 @@ terminal --timeout=5 serial console
 <p>The serial parameters are hardcoded to 8 bits, no parity and 1 stop bit.<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php/SYSLINUX#SERIAL_port_.5Bbaudrate_.5Bflowcontrol.5D.5D">[1]</a>. Read <a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Config#SERIAL">Syslinux-tosWiki:Config#SERIAL</a> for the directive's options.
 </p>
 <h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
-<p>Kernel's output can be sent to serial console by setting the <code>console=</code> <a href="/Usage/Configuration/W/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>. The last specified <code>console=</code> will be set as <code>/dev/console</code>.
+<p>Kernel's output can be sent to serial console by setting the <code>console=</code> <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a>. The last specified <code>console=</code> will be set as <code>/dev/console</code>.
 </p>
 <pre>console=tty0 console=ttyS0,115200
 </pre>
 <p>See <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/serial-console.html">https://www.kernel.org/doc/html/latest/admin-guide/serial-console.html</a>.
 </p>
 <h3><span class="mw-headline" id="getty">getty</span></h3>
-<p>At boot, <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-getty-generator"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-getty-generator.8">systemd-getty-generator(8)</a></span> will start a <a href="/Usage/Configuration/W/Getty.html" title="Getty">getty</a> instance for each console specified in the kernel command line.
+<p>At boot, <span class="plainlinks archwiki-template-man" title="$ man 8 systemd-getty-generator"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd-getty-generator.8">systemd-getty-generator(8)</a></span> will start a <a href="/Usage/Configuration/G/Getty.html" title="Getty">getty</a> instance for each console specified in the kernel command line.
 </p>
-<p>If you have not configured <code>console=</code> in kernel command line <a href="/Usage/Configuration/W/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>serial-getty@<i>device</i>.service</code>. For <code>/dev/ttyS0</code> (COM1) that would be <code>serial-getty@ttyS0.service</code>. <a href="/Usage/Configuration/W/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the service to start it at boot. 
+<p>If you have not configured <code>console=</code> in kernel command line <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>serial-getty@<i>device</i>.service</code>. For <code>/dev/ttyS0</code> (COM1) that would be <code>serial-getty@ttyS0.service</code>. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the service to start it at boot. 
 </p>
 <p>Unless specified otherwise in the kernel command line, getty will be expecting 38400 bit/s baud rate, 8 data bits, no parity and one stop bit-times.
 </p>
@@ -147,7 +147,7 @@ terminal --timeout=5 serial console
 <strong>Note:</strong> Before making a connection, it is recommended to add your user to the <code>uucp</code> group. Otherwise you will need root's permission to make a connection:
 <pre># gpasswd -a <i>username</i> uucp
 </pre>
-See <a href="/Usage/Configuration/W/Users_and_groups.html#User_groups" title="Users and groups">Users and groups#User groups</a> for details.</div>
+See <a href="/Usage/Configuration/U/Users_and_groups.html#User_groups" title="Users and groups">Users and groups#User groups</a> for details.</div>
 <p>Perform these steps on the machine used to connect the remote console.
 </p>
 <h4><span class="mw-headline" id="Command_line">Command line</span></h4>
@@ -183,7 +183,7 @@ To end the session, press <code>Ctrl+A</code> followed by <code>Ctrl+X</code>.
 <p>See its manual for detailed usage.
 </p>
 <h5><span class="mw-headline" id="Screen">Screen</span></h5>
-<p><a href="/Usage/Configuration/W/GNU_Screen.html" title="GNU Screen">GNU Screen</a> is able to connect to a serial port. It will connect at 9600 baud by default:
+<p><a href="/Usage/Configuration/G/GNU_Screen.html" title="GNU Screen">GNU Screen</a> is able to connect to a serial port. It will connect at 9600 baud by default:
 </p>
 <pre>$ screen /dev/ttyS0
 </pre>
@@ -273,7 +273,7 @@ To end the session, press <code>Ctrl+A</code> followed by <code>Ctrl+X</code>.
 </div>
 <p>The number of serial ports using the generic 8250 driver on the default kernel configuration is set to 4 at runtime with a maximum of 32. This will prevent the creation of <code>/dev/ttyS4</code> and above. Counting the typical built in serial port on the motherboard this prevents the use of the 4th serial port on a 4 port expansion card.
 </p>
-<p>This can be overridden with the <a href="/Usage/Configuration/W/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>8250.nr_uarts</code>. E.g.:
+<p>This can be overridden with the <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> <code>8250.nr_uarts</code>. E.g.:
 </p>
 <pre>8250.nr_uarts=5
 </pre>
@@ -281,9 +281,9 @@ To end the session, press <code>Ctrl+A</code> followed by <code>Ctrl+X</code>.
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/W/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/W/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -301,9 +301,9 @@ To end the session, press <code>Ctrl+A</code> followed by <code>Ctrl+X</code>.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/W/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/W/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/W/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

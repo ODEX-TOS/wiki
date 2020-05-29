@@ -2,7 +2,7 @@
     title: SELinux
     description: Migration of SELinux from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -28,8 +28,8 @@
 <p>Related articles</p>
 <ul>
 <li><a href="/Usage/Configuration/S/Security.html" title="Security">Security</a></li>
-<li><a href="/Usage/Configuration/S/AppArmor.html" title="AppArmor">AppArmor</a></li>
-<li><a href="/Usage/Configuration/S/TOMOYO_Linux.html" title="TOMOYO Linux">TOMOYO Linux</a></li>
+<li><a href="/Usage/Configuration/A/AppArmor.html" title="AppArmor">AppArmor</a></li>
+<li><a href="/Usage/Configuration/T/TOMOYO_Linux.html" title="TOMOYO Linux">TOMOYO Linux</a></li>
 </ul>
 </div>
 <p>Security-Enhanced Linux (SELinux) is a Linux feature that provides a variety of security policies, including U.S. Department of Defense style <a href="/Usage/Configuration/S/Security.html#Mandatory_access_control" class="mw-redirect" title="Mandatory Access Control">Mandatory Access Control</a> (MAC), through the use of Linux Security Modules (LSM) in the Linux kernel. It is not a Linux distribution, but rather a set of modifications that can be applied to Unix-like operating systems, such as Linux and BSD.
@@ -138,12 +138,12 @@
 </tr>
 <tr>
 <td>linux</td>
-<td>Need following <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at boot: <code>selinux=1 security=selinux</code>
+<td>Need following <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at boot: <code>selinux=1 security=selinux</code>
 </td>
 </tr>
 <tr>
 <td>linux-hardened</td>
-<td>Need following <a href="/Usage/Configuration/S/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at boot: <code>selinux=1 security=selinux</code>
+<td>Need following <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> at boot: <code>selinux=1 security=selinux</code>
 </td>
 </tr>
 <tr>
@@ -254,7 +254,7 @@
 <dt>
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/dbus-selinux/">dbus-selinux</a></span><sup><small>AUR</small></sup>
 </dt>
-<dd>An SELinux aware version of <a href="/Usage/Configuration/S/D-Bus.html" title="D-Bus">D-Bus</a>. It replaces the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dbus">dbus</a></span> package.</dd>
+<dd>An SELinux aware version of <a href="/Usage/Configuration/D/D-Bus.html" title="D-Bus">D-Bus</a>. It replaces the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dbus">dbus</a></span> package.</dd>
 </dl>
 <dl>
 <dt>
@@ -279,7 +279,7 @@
 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/openssh-selinux/">openssh-selinux</a></span><sup><small>AUR</small></sup>
 </dt>
 <dd>
-<a href="/Usage/Configuration/S/OpenSSH.html" title="OpenSSH">OpenSSH</a> package compiled with SELinux support to set security context for user sessions. It replaces the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span> package.</dd>
+<a href="/Usage/Configuration/O/OpenSSH.html" title="OpenSSH">OpenSSH</a> package compiled with SELinux support to set security context for user sessions. It replaces the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openssh">openssh</a></span> package.</dd>
 </dl>
 <dl>
 <dt>
@@ -482,7 +482,7 @@ linux-tos/vmlinuz-linux-selinux
 initrd /initramfs-linux-selinux.img
 options root=/dev/sda2 ro selinux=1 security=selinux</pre>
 <h3><span class="mw-headline" id="Checking_PAM">Checking PAM</span></h3>
-<p>A correctly set-up <a href="/Usage/Configuration/S/PAM.html" title="PAM">PAM</a> is important to get the proper security context after login. Check for the presence of the following lines in <code>/etc/pam.d/system-login</code>:
+<p>A correctly set-up <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> is important to get the proper security context after login. Check for the presence of the following lines in <code>/etc/pam.d/system-login</code>:
 </p>
 <pre># pam_selinux.so close should be the first session rule
 session         required        pam_selinux.so close</pre>
@@ -575,7 +575,7 @@ allow udev_t var_run_t:sock_file write;</pre>
 <p>This is required to remove a few messages from <code>/var/log/audit/audit.log</code> which are a nuisance to deal with in the reference policy. This is an ugly hack and it should be made very clear that the policy so installed simply patches the reference policy in order to hide the effects of incorrect labelling.
 </p>
 <h3><span class="mw-headline" id="Testing_in_a_Vagrant_virtual_machine">Testing in a Vagrant virtual machine</span></h3>
-<p>It is possible to use <a href="/Usage/Configuration/S/Vagrant.html" title="Vagrant">Vagrant</a> to provision a virtual TOS Linux machine with SELinux configured. This is a convenient way to test an TOS Linux system running SELinux without modifying a current system. Here are commands which can be used to achieve this:
+<p>It is possible to use <a href="/Usage/Configuration/V/Vagrant.html" title="Vagrant">Vagrant</a> to provision a virtual TOS Linux machine with SELinux configured. This is a convenient way to test an TOS Linux system running SELinux without modifying a current system. Here are commands which can be used to achieve this:
 </p>
 <pre> git clone <a rel="nofollow"  href="https://github.com/archlinuxhardened/selinux">https://github.com/archlinuxhardened/selinux</a>
  cd selinux/_vagrant
@@ -669,9 +669,9 @@ Max kernel policy version:      28</pre>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/S/Category:Access_control.html" title="Category:Access control">Access control</a></li>
-<li><a href="/Usage/Configuration/S/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
-<li><a href="/Usage/Configuration/S/Category:Red_Hat.html" title="Category:Red Hat">Red Hat</a></li>
+<li><a href="/Usage/Configuration/C/Category:Access_control.html" title="Category:Access control">Access control</a></li>
+<li><a href="/Usage/Configuration/C/Category:Kernel.html" title="Category:Kernel">Kernel</a></li>
+<li><a href="/Usage/Configuration/C/Category:Red_Hat.html" title="Category:Red Hat">Red Hat</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -689,9 +689,9 @@ Max kernel policy version:      28</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

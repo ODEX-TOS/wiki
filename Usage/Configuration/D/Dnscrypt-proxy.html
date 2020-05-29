@@ -2,7 +2,7 @@
     title: Dnscrypt-proxy
     description: Migration of Dnscrypt-proxy from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -85,7 +85,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/D/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnscrypt-proxy">dnscrypt-proxy</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=dnscrypt-proxy">dnscrypt-proxy</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
 <h3><span class="mw-headline" id="Startup">Startup</span></h3>
@@ -121,7 +121,7 @@
 <div>
 <b>Reason:</b> systemd-resolved listens on 127.0.0.53:53, it should not affect dnscrypt-proxy that listens on 127.0.0.1:53. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Dnscrypt-proxy">Talk:Dnscrypt-proxy#</a>)</div>
 </div>
-<p>If the output contains more than the first line of column names, you need to disable whatever service is using port 53. One common culprit is <code>systemd-resolved.service</code>(<a href="/Usage/Configuration/D/NetworkManager.html#Unit_dbus-org.freedesktop.resolve1.service_not_found" title="NetworkManager">NetworkManager#Unit dbus-org.freedesktop.resolve1.service not found</a>), but other network managers may have analogous components. You are ready to proceed once the above command outputs nothing more than the following line:
+<p>If the output contains more than the first line of column names, you need to disable whatever service is using port 53. One common culprit is <code>systemd-resolved.service</code>(<a href="/Usage/Configuration/N/NetworkManager.html#Unit_dbus-org.freedesktop.resolve1.service_not_found" title="NetworkManager">NetworkManager#Unit dbus-org.freedesktop.resolve1.service not found</a>), but other network managers may have analogous components. You are ready to proceed once the above command outputs nothing more than the following line:
 </p>
 <pre> Netid               State                 Recv-Q                Send-Q                                 Local Address:Port                                   Peer Address:Port
 </pre>
@@ -140,7 +140,7 @@ options edns0 single-request-reopen
 <p>Other programs may overwrite this setting; see <a href="/Usage/Configuration/D/Domain_name_resolution.html#Overwriting_of_/etc/resolv.conf" class="mw-redirect" title="Resolv.conf">resolv.conf#Overwriting of /etc/resolv.conf</a> for details.
 </p>
 <h3><span class="mw-headline" id="Start_systemd_service">Start systemd service</span></h3>
-<p>Finally, <a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>dnscrypt-proxy.service</code> unit or <code>dnscrypt-proxy.socket</code>, depending on which method you chose above.
+<p>Finally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>dnscrypt-proxy.service</code> unit or <code>dnscrypt-proxy.socket</code>, depending on which method you chose above.
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Local_DNS_cache_configuration">Local DNS cache configuration</span></h3>
@@ -155,7 +155,7 @@ options edns0 single-request-reopen
 </p>
 <p><b>Socket method</b>
 </p>
-<p><a href="/Usage/Configuration/D/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> <code>dnscrypt-proxy.socket</code> with the following contents:
+<p><a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">Edit</a> <code>dnscrypt-proxy.socket</code> with the following contents:
 </p>
 <pre>[Socket]
 ListenStream=
@@ -177,7 +177,7 @@ ListenDatagram=[::1]:53000
 <p>The following configurations should work with <i>dnscrypt-proxy</i> and assume that it is listening on port <code>53000</code>.
 </p>
 <h5><span class="mw-headline" id="Unbound">Unbound</span></h5>
-<p>Configure <a href="/Usage/Configuration/D/Unbound.html" title="Unbound">Unbound</a> to your liking (in particular, see <a href="/Usage/Configuration/D/Unbound.html#Local_DNS_server" title="Unbound">Unbound#Local DNS server</a>) and add the following lines to the end of the <code>server</code> section in <code>/etc/unbound/unbound.conf</code>:
+<p>Configure <a href="/Usage/Configuration/U/Unbound.html" title="Unbound">Unbound</a> to your liking (in particular, see <a href="/Usage/Configuration/U/Unbound.html#Local_DNS_server" title="Unbound">Unbound#Local DNS server</a>) and add the following lines to the end of the <code>server</code> section in <code>/etc/unbound/unbound.conf</code>:
 </p>
 <pre>  do-not-query-localhost: no
 forward-zone:
@@ -187,7 +187,7 @@ forward-zone:
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you are setting up a server, add <code>interface: 0.0.0.0@53</code> and <code>access-control: <i>your-network</i>/<i>subnet-mask</i> allow</code> inside the <code>server:</code> section so that the other computers can connect to the server. A client must be configured with <code>nameserver <i>address-of-your-server</i></code> in <code>/etc/resolv.conf</code>.</div>
-<p><a href="/Usage/Configuration/D/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>unbound.service</code> to apply the changes.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>unbound.service</code> to apply the changes.
 </p>
 <h5><span class="mw-headline" id="dnsmasq">dnsmasq</span></h5>
 <p>Configure dnsmasq as a <a href="/Usage/Configuration/D/Dnsmasq.html#DNS_server" title="Dnsmasq">local DNS cache</a>. The basic configuration to work with <i>dnscrypt-proxy</i>:
@@ -205,7 +205,7 @@ dnssec</pre>
 <p>Restart <code>dnsmasq.service</code> to apply the changes.
 </p>
 <h5><span class="mw-headline" id="pdnsd">pdnsd</span></h5>
-<p>Install <a href="/Usage/Configuration/D/Pdnsd.html" title="Pdnsd">pdnsd</a>. A basic configuration to work with <i>dnscrypt-proxy</i> is:
+<p>Install <a href="/Usage/Configuration/P/Pdnsd.html" title="Pdnsd">pdnsd</a>. A basic configuration to work with <i>dnscrypt-proxy</i> is:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pdnsd.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">global {
@@ -277,14 +277,14 @@ rst.x4055.x4049.x3827.rs.dns-oarc.net.
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/D/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
-<li><a href="/Usage/Configuration/D/Category:Encryption.html" title="Category:Encryption">Encryption</a></li>
+<li><a href="/Usage/Configuration/C/Category:Domain_Name_System.html" title="Category:Domain Name System">Domain Name System</a></li>
+<li><a href="/Usage/Configuration/C/Category:Encryption.html" title="Category:Encryption">Encryption</a></li>
 </ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
-<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/D/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Out_of_date.html" title="Category:Pages or sections flagged with Template:Out of date">Pages or sections flagged with Template:Out of date</a></li>
 </ul>
 </div>
 </div>
@@ -303,9 +303,9 @@ rst.x4055.x4049.x3827.rs.dns-oarc.net.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Gitea
     description: Migration of Gitea from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -81,16 +81,16 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/G/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gitea">gitea</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gitea-git/">gitea-git</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=gitea">gitea</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/gitea-git/">gitea-git</a></span><sup><small>AUR</small></sup> package.
 </p>
 <p>Gitea requires the use of a database backend, the following are supported:
 </p>
 <ul>
 <li>
-<a href="/Usage/Configuration/G/MariaDB.html" title="MariaDB">MariaDB</a>/<a href="/Usage/Configuration/G/MySQL.html" title="MySQL">MySQL</a>
+<a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>/<a href="/Usage/Configuration/M/MySQL.html" title="MySQL">MySQL</a>
 </li>
-<li><a href="/Usage/Configuration/G/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a></li>
-<li><a href="/Usage/Configuration/G/SQLite.html" title="SQLite">SQLite</a></li>
+<li><a href="/Usage/Configuration/P/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a></li>
+<li><a href="/Usage/Configuration/S/SQLite.html" title="SQLite">SQLite</a></li>
 <li>
 <a rel="nofollow"  href="https://github.com/pingcap/tidb">TiDB</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/tidb/">tidb</a></span><sup><small>AUR</small></sup> (experimental, not recommended)</li>
 <li>MSSQL</li>
@@ -103,7 +103,7 @@
 <p>See the <a rel="nofollow"  href="https://docs.gitea.io/en-us/customizing-gitea/">Gitea docs</a> for more configuration examples.
 </p>
 <h3><span class="mw-headline" id="PostgreSQL">PostgreSQL</span></h3>
-<p><a href="/Usage/Configuration/G/PostgreSQL.html#Installation" title="PostgreSQL">Install</a> and <a href="/Usage/Configuration/G/PostgreSQL.html#Initial_configuration" title="PostgreSQL">configure</a> <a href="/Usage/Configuration/G/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p><a href="/Usage/Configuration/P/PostgreSQL.html#Installation" title="PostgreSQL">Install</a> and <a href="/Usage/Configuration/P/PostgreSQL.html#Initial_configuration" title="PostgreSQL">configure</a> <a href="/Usage/Configuration/P/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
 <p>Choose between TCP or UNIX Socket, and jump to the corresponding section.
 </p>
@@ -118,7 +118,7 @@
 </p>
 <pre>[postgres]$ createdb -O gitea gitea
 </pre>
-<p><a href="/Usage/Configuration/G/PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>
+<p><a href="/Usage/Configuration/P/PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>
 </p>
 <p>Verify it works:
 </p>
@@ -146,7 +146,7 @@ PASSWD              = <b>password</b></pre>
 </p>
 <pre>local    gitea           gitea           peer
 </pre>
-<p><a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>postgresql.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>postgresql.service</code>.
 </p>
 <p>Verify it works:
 </p>
@@ -165,7 +165,7 @@ PASSWD              =</pre>
 </h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> MySQL socket support can be enabled by using <code>/var/run/mysqld/mysqld.sock</code> as the listen address.</div>
-<p>The following is an example of setting up <a href="/Usage/Configuration/G/MariaDB.html" title="MariaDB">MariaDB</a>, setting your desired password:
+<p>The following is an example of setting up <a href="/Usage/Configuration/M/MariaDB.html" title="MariaDB">MariaDB</a>, setting your desired password:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">$ mysql -u root -p</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">mysql&gt; CREATE DATABASE `gitea` DEFAULT CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;
@@ -186,7 +186,7 @@ NAME     = gitea
 USER     = <i>gitea</i>
 PASSWD   = <b>password</b></pre>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p><a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>gitea.service</code>, the webinterface should listen on <code><a rel="nofollow"  href="http://localhost:3000">http://localhost:3000</a></code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>gitea.service</code>, the webinterface should listen on <code><a rel="nofollow"  href="http://localhost:3000">http://localhost:3000</a></code>.
 </p>
 <p>When running Gitea for the first time it should redirect to <code><a rel="nofollow"  href="http://localhost:3000/install">http://localhost:3000/install</a></code>.
 </p>
@@ -196,7 +196,7 @@ PASSWD   = <b>password</b></pre>
 <strong>Note:</strong> If you want Gitea to listen on all interfaces, set <code>HTTP_ADDR = 0.0.0.0</code> in <code>/etc/gitea/app.ini</code>.</div>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="Enable_SSH_Support">Enable SSH Support</span></h3>
-<p>Make sure <a href="/Usage/Configuration/G/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> is properly configured and running.
+<p>Make sure <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> is properly configured and running.
 </p>
 <h4><span class="mw-headline" id="Setup_your_domain">Setup your domain</span></h4>
 <p>You might want to set <code>SSH_DOMAIN</code>, e.g.:
@@ -213,20 +213,20 @@ PASSWD   = <b>password</b></pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
 UsePAM yes
 ...</pre>
-<p>If you use <code>AllowUsers</code> in your <a href="/Usage/Configuration/G/OpenSSH.html#Configuration_2" title="OpenSSH">SSH configuration</a>, add <code>AllowUsers gitea</code> to it, e.g.:
+<p>If you use <code>AllowUsers</code> in your <a href="/Usage/Configuration/O/OpenSSH.html#Configuration_2" title="OpenSSH">SSH configuration</a>, add <code>AllowUsers gitea</code> to it, e.g.:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/ssh/sshd_config</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
 AllowUsers archie <b>gitea</b>
 ...</pre>
-<p><a href="/Usage/Configuration/G/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code> if you use it (nothing to do if you use <code>sshd.socket</code>).
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>sshd.service</code> if you use it (nothing to do if you use <code>sshd.socket</code>).
 </p>
 <h3><span class="mw-headline" id="Disable_HTTP_protocol">Disable HTTP protocol</span></h3>
 <p>By default, the ability to interact with repositories by HTTP protocol is enabled.
-You may want to disable HTTP-support if using <a href="/Usage/Configuration/G/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>, by setting <code>DISABLE_HTTP_GIT</code> to <code>true</code>.
+You may want to disable HTTP-support if using <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>, by setting <code>DISABLE_HTTP_GIT</code> to <code>true</code>.
 </p>
 <h3><span class="mw-headline" id="Binding_on_restricted_ports">Binding on restricted ports</span></h3>
-<p>If you use the built-in SSH server and want Gitea to bind it on port 22, or if you want to bind Gitea webserver directly on ports 80/443 (that is in a setup without proxy), you will need to add a <a href="/Usage/Configuration/G/Systemd.html#Drop-in_files" title="Systemd">drop-in systemd unit override</a>:
+<p>If you use the built-in SSH server and want Gitea to bind it on port 22, or if you want to bind Gitea webserver directly on ports 80/443 (that is in a setup without proxy), you will need to add a <a href="/Usage/Configuration/S/Systemd.html#Drop-in_files" title="Systemd">drop-in systemd unit override</a>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/gitea.service.d/override.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Service]
@@ -240,9 +240,9 @@ PrivateUsers=false</pre>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a><b>This article or section needs expansion.</b><a href="../File:Tango-view-fullscreen.png" ><img alt="Tango-view-fullscreen.png" src="../File:Tango-view-fullscreen.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Missing <a href="/Usage/Configuration/G/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>/<a href="/Usage/Configuration/G/Caddy.html" title="Caddy">Caddy</a> proxy example (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Gitea">Talk:Gitea#</a>)</div>
+<b>Reason:</b> Missing <a href="/Usage/Configuration/A/Apache_HTTP_Server.html" title="Apache HTTP Server">Apache HTTP Server</a>/<a href="/Usage/Configuration/C/Caddy.html" title="Caddy">Caddy</a> proxy example (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Gitea">Talk:Gitea#</a>)</div>
 </div>
-<p>The following is an example of using <a href="/Usage/Configuration/G/Nginx.html#Managing_server_entries" title="Nginx">nginx</a> as reverse proxy for Gitea over unix socket (you need to <a href="/Usage/Configuration/G/Transport_Layer_Security.html#Obtaining_a_certificate" title="Transport Layer Security">provide the SSL certificate</a>):
+<p>The following is an example of using <a href="/Usage/Configuration/N/Nginx.html#Managing_server_entries" title="Nginx">nginx</a> as reverse proxy for Gitea over unix socket (you need to <a href="/Usage/Configuration/T/Transport_Layer_Security.html#Obtaining_a_certificate" title="Transport Layer Security">provide the SSL certificate</a>):
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/nginx/servers-available/gitea.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">server {
@@ -289,9 +289,9 @@ COOKIE_SECURE              = true</pre>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/G/Category:Git_web_interfaces.html" title="Category:Git web interfaces">Git web interfaces</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Git_web_interfaces.html" title="Category:Git web interfaces">Git web interfaces</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/G/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -309,9 +309,9 @@ COOKIE_SECURE              = true</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/G/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/G/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/G/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

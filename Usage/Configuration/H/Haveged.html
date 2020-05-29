@@ -2,7 +2,7 @@
     title: Haveged
     description: Migration of Haveged from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/H/Rng-tools.html" title="Rng-tools">Rng-tools</a></li>
+<li><a href="/Usage/Configuration/R/Rng-tools.html" title="Rng-tools">Rng-tools</a></li>
 </ul>
 </div>
-<p>The <a rel="nofollow"  href="http://www.issihosts.com/haveged/">haveged project</a> is an attempt to provide an easy-to-use, unpredictable <a href="/Usage/Configuration/H/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> based upon an adaptation of the HAVEGE algorithm. Haveged was created to remedy low-entropy conditions in the Linux random device that can occur under some workloads, especially on headless servers.
+<p>The <a rel="nofollow"  href="http://www.issihosts.com/haveged/">haveged project</a> is an attempt to provide an easy-to-use, unpredictable <a href="/Usage/Configuration/R/Random_number_generation.html" class="mw-redirect" title="Random number generator">random number generator</a> based upon an adaptation of the HAVEGE algorithm. Haveged was created to remedy low-entropy conditions in the Linux random device that can occur under some workloads, especially on headless servers.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  The quality of the generated entropy is not guaranteed and sometimes contested (see <a rel="nofollow"  href="https://lwn.net/Articles/525459/">LCE: Do not play dice with random numbers</a> and <a rel="nofollow"  href="http://security.stackexchange.com/questions/34523/is-it-appropriate-to-use-haveged-as-a-source-of-entropy-on-virtual-machines">Is it appropriate to use haveged as a source of entropy on virtual machines?</a>). Use it at your own risk or use it with a hardware based random number generator with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=rng-tools">rng-tools</a></span> (see <a href="#Alternative">#Alternative</a> section)</div>
@@ -51,19 +51,19 @@
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=haveged">haveged</a></span> package.
 </p>
-<p><a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/H/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>haveged.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>haveged.service</code>.
 </p>
 <h2><span class="mw-headline" id="List_available_entropy">List available entropy</span></h2>
 <p>If you are not sure, whether you need haveged, run:
 </p>
 <pre># cat /proc/sys/kernel/random/entropy_avail
 </pre>
-<p>This command shows you how much entropy your server has collected. If it is rather low (&lt;1000), you should probably install haveged. Otherwise cryptographic applications will <a href="https://en.wikipedia.org/wiki/Blocking_(computing)"  title="wikipedia:Blocking (computing)">block</a> until there is enough entropy available, which eg. could result in slow wlan speed, if your server is a <a href="/Usage/Configuration/H/Software_access_point.html" title="Software access point">Software access point</a>.
+<p>This command shows you how much entropy your server has collected. If it is rather low (&lt;1000), you should probably install haveged. Otherwise cryptographic applications will <a href="https://en.wikipedia.org/wiki/Blocking_(computing)"  title="wikipedia:Blocking (computing)">block</a> until there is enough entropy available, which eg. could result in slow wlan speed, if your server is a <a href="/Usage/Configuration/S/Software_access_point.html" title="Software access point">Software access point</a>.
 </p>
 <p>You should use this command again to verify how much haveged boosted your entropy pool after the installation.
 </p>
 <h2><span class="mw-headline" id="Alternative">Alternative</span></h2>
-<p>Unless you have a specific reason to not trust any hardware random number generator on your system, you should try to use them with the <a href="/Usage/Configuration/H/Rng-tools.html" title="Rng-tools">rng-tools</a> first and if it turns out not to be enough (or if you do not have a hardware random number generator available), then use Haveged.
+<p>Unless you have a specific reason to not trust any hardware random number generator on your system, you should try to use them with the <a href="/Usage/Configuration/R/Rng-tools.html" title="Rng-tools">rng-tools</a> first and if it turns out not to be enough (or if you do not have a hardware random number generator available), then use Haveged.
 </p>
 <h2><span class="mw-headline" id="Virtual_machines">Virtual machines</span></h2>
 <p>As discussed at <a rel="nofollow"  href="http://security.stackexchange.com/questions/34523/is-it-appropriate-to-use-haveged-as-a-source-of-entropy-on-virtual-machines">Is it appropriate to use haveged as a source of entropy on virtual machines?</a>, it can be contested whether haveged provides quality entropy within a virtual environment. Haveged relies on the rdtsc instruction, which may be virtualized within a virtual machine resulting in lower quantity entropy. On some hypervisors, it is possible to disable the virtualization of rdtsc, which would in theory allow haveged to provide higher quality entropy.
@@ -78,7 +78,7 @@
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/H/Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Cryptography.html" title="Category:Cryptography">Cryptography</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -95,9 +95,9 @@
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/H/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/H/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/H/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

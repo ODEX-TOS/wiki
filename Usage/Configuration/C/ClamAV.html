@@ -2,7 +2,7 @@
     title: ClamAV
     description: Migration of ClamAV from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -76,7 +76,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/C/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clamav">clamav</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=clamav">clamav</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Updating_database">Updating database</span></h2>
 <p>Update the virus definitions with:
@@ -91,12 +91,12 @@
 /var/lib/clamav/main.cvd
 /var/lib/clamav/bytecode.cvd
 </pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>clamav-freshclam.service</code> so that the virus definitions are kept recent.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>clamav-freshclam.service</code> so that the virus definitions are kept recent.
 </p>
 <h2><span class="mw-headline" id="Starting_the_daemon">Starting the daemon</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> You will need to run <code>freshclam</code> before starting the service for the first time or you will run into trouble/errors which will prevent ClamAV from starting correctly.</div>
-<p>The service is called <code>clamav-daemon.service</code>. <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> it and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to start at boot.
+<p>The service is called <code>clamav-daemon.service</code>. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> it and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> it to start at boot.
 </p>
 <h2><span class="mw-headline" id="Testing_the_software">Testing the software</span></h2>
 <p>In order to make sure ClamAV and the definitions are installed correctly, scan the <a rel="nofollow"  href="http://2016.eicar.org/86-0-Intended-use.html">EICAR test file</a> (a harmless signature with no virus code) with clamscan.
@@ -127,12 +127,12 @@
 </p>
 <pre># sudo -u clamav /usr/bin/fangfrisch --conf /etc/fangfrisch/fangfrisch.conf initdb
 </pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>fangfrisch.timer</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>fangfrisch.timer</code>.
 </p>
 <h3>
 <span id="Option_.232:_Set_up_clamav-unofficial-sigs"></span><span class="mw-headline" id="Option_#2:_Set_up_clamav-unofficial-sigs">Option #2: Set up clamav-unofficial-sigs</span>
 </h3>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>clamav-unofficial-sigs.timer</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> the <code>clamav-unofficial-sigs.timer</code>.
 </p>
 <p>This will regularly update the unofficial signatures based on the configuration files in the directory <code>/etc/clamav-unofficial-sigs</code>.
 </p>
@@ -143,7 +143,7 @@
 <p>To change any default settings, refer and modify <code>/etc/clamav-unofficial-sigs/user.conf</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> You still must have the <code>clamav-freshclam.service</code> <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Started">started</a> in order to have official signature updates from ClamAV mirrors.</div>
+<strong>Note:</strong> You still must have the <code>clamav-freshclam.service</code> <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Started">started</a> in order to have official signature updates from ClamAV mirrors.</div>
 <h4><span class="mw-headline" id="MalwarePatrol_database">MalwarePatrol database</span></h4>
 <p>If you would like to use the MalwarePatrol database, sign up for an account at <a rel="nofollow"  href="https://www.malwarepatrol.net/free-guard-upgrade-option">https://www.malwarepatrol.net/free-guard-upgrade-option</a>.
 </p>
@@ -197,9 +197,9 @@ ExecStart=/usr/bin/clamav-milter --config-file /etc/clamav/clamav-milter.conf
 
 [Install]
 WantedBy=multi-user.target</pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>clamav-milter.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>clamav-milter.service</code>.
 </p>
-<p>For <a href="/Usage/Configuration/C/Postfix.html" title="Postfix">Postfix</a> add the following lines to <code>/etc/postfix/main.cf</code>:
+<p>For <a href="/Usage/Configuration/P/Postfix.html" title="Postfix">Postfix</a> add the following lines to <code>/etc/postfix/main.cf</code>:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">etc/postfix/main.cf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">smtpd_milters = unix:/tmp/clamav-milter.socket
@@ -275,11 +275,11 @@ for XUSER in $XUSERS; do
                        /usr/bin/notify-send -i dialog-warning "clamAV" "$alert"
 done
 </pre>
-<p>If you are using <a href="/Usage/Configuration/C/AppArmor.html" title="AppArmor">AppArmor</a>, it is also necessary to allow clamd to run as root:
+<p>If you are using <a href="/Usage/Configuration/A/AppArmor.html" title="AppArmor">AppArmor</a>, it is also necessary to allow clamd to run as root:
 </p>
 <pre># aa-complain clamd
 </pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>clamav-daemon.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> the <code>clamav-daemon.service</code>.
 </p>
 <p>Source: <a rel="nofollow"  href="http://blog.clamav.net/2016/03/configuring-on-access-scanning-in-clamav.html">http://blog.clamav.net/2016/03/configuring-on-access-scanning-in-clamav.html</a>
 </p>
@@ -299,7 +299,7 @@ done
 </p>
 <pre>LocalSocket /run/clamav/clamd.ctl
 </pre>
-<p>Save the file and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>clamav-daemon.service</code>.
+<p>Save the file and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>clamav-daemon.service</code>.
 </p>
 <h3><span class="mw-headline" id="Error:_No_supported_database_files_found">Error: No supported database files found</span></h3>
 <p>If you get the next error when starting the daemon:
@@ -366,9 +366,9 @@ in /var/lib/clamav ERROR: Not supported data format
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

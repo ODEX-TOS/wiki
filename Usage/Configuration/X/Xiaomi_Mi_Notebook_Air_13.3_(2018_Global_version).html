@@ -2,7 +2,7 @@
     title: Xiaomi_Mi_Notebook_Air_13.3_(2018_Global_version)
     description: Migration of Xiaomi_Mi_Notebook_Air_13.3_(2018_Global_version) from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -138,7 +138,7 @@
 <li>Security -&gt; Disable Secure Boot</li>
 <li>reset the password by setting the password again but letting the "New Password" fields blank</li>
 </ul>
-<p>Installation of TOS can proceed normally. Refer to the <a href="/Usage/Configuration/X/Installation_guide.html" title="Installation guide">Installation guide</a> for more info.
+<p>Installation of TOS can proceed normally. Refer to the <a href="/Usage/Configuration/I/Installation_guide.html" title="Installation guide">Installation guide</a> for more info.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Remember that your SSD is called <code>nvme0n1</code>, not <code>sda</code>.</div>
@@ -152,26 +152,26 @@
 </p>
 <ul>
 <li>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-intel">xf86-video-intel</a></span> package</li>
-<li>Blacklist the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia">nvidia</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-nouveau">xf86-video-nouveau</a></span> kernel modules <a href="/Usage/Configuration/X/Kernel_module.html#Blacklisting" class="mw-redirect" title="Kernel modules">Kernel modules#Blacklisting</a>
+<li>Blacklist the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nvidia">nvidia</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-video-nouveau">xf86-video-nouveau</a></span> kernel modules <a href="/Usage/Configuration/K/Kernel_module.html#Blacklisting" class="mw-redirect" title="Kernel modules">Kernel modules#Blacklisting</a>
 </li>
 </ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/nouveau.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">blacklist nouveau
 blacklist nvidia</pre>
-<ul><li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bbswitch">bbswitch</a></span> to <a href="/Usage/Configuration/X/Bumblebee.html#Power_management" title="Bumblebee">turn off the card</a>
+<ul><li>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bbswitch">bbswitch</a></span> to <a href="/Usage/Configuration/B/Bumblebee.html#Power_management" title="Bumblebee">turn off the card</a>
 </li></ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/modprobe.d/bbswitch.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">options bbswitch load_state=0 unload_state=0</pre>
 <h3>
 <span id="Intel.2FNvidia_Hybrid_Configuration"></span><span class="mw-headline" id="Intel/Nvidia_Hybrid_Configuration">Intel/Nvidia Hybrid Configuration</span>
 </h3>
-<p>You can enable hybrid GPUs by either using <a href="/Usage/Configuration/X/Bumblebee.html" title="Bumblebee">Bumblebee</a> or <a href="/Usage/Configuration/X/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a>. Bumblebee is generally better for battery-life and compatibility but not officially supported by NVIDIA.
+<p>You can enable hybrid GPUs by either using <a href="/Usage/Configuration/B/Bumblebee.html" title="Bumblebee">Bumblebee</a> or <a href="/Usage/Configuration/N/NVIDIA_Optimus.html" title="NVIDIA Optimus">NVIDIA Optimus</a>. Bumblebee is generally better for battery-life and compatibility but not officially supported by NVIDIA.
 </p>
 <p>Refer to the respective articles.
 </p>
 <h2><span class="mw-headline" id="Input">Input</span></h2>
 <h3><span class="mw-headline" id="Touchpad">Touchpad</span></h3>
-<p>To use the touchpad like a normal one, you have to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-libinput">xf86-input-libinput</a></span>. If you use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-evdev">xf86-input-evdev</a></span>, your touchpad acts like a touchscreen (e.g it maps your movements directly to your screen). But if you are using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-synaptics">xf86-input-synaptics</a></span> (although you really should not, because it is deprecated (see <a href="/Usage/Configuration/X/Touchpad_Synaptics.html" class="mw-redirect" title="Synaptics">Synaptics</a>)) things are only working sporadically. This configuration of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libinput">libinput</a></span> using XOrg configuration files enables two finger gestures, tap-to-click and 2-and 3-finger clicks (for right- and middle-click respectively).
+<p>To use the touchpad like a normal one, you have to use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-libinput">xf86-input-libinput</a></span>. If you use <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-evdev">xf86-input-evdev</a></span>, your touchpad acts like a touchscreen (e.g it maps your movements directly to your screen). But if you are using <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=xf86-input-synaptics">xf86-input-synaptics</a></span> (although you really should not, because it is deprecated (see <a href="/Usage/Configuration/T/Touchpad_Synaptics.html" class="mw-redirect" title="Synaptics">Synaptics</a>)) things are only working sporadically. This configuration of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libinput">libinput</a></span> using XOrg configuration files enables two finger gestures, tap-to-click and 2-and 3-finger clicks (for right- and middle-click respectively).
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/X11/xorg.conf.d/20-touchpad.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">Section "InputClass"
@@ -184,7 +184,7 @@ blacklist nvidia</pre>
         Option "NaturalScrolling" "true"
 EndSection</pre>
 <h3><span class="mw-headline" id="Fn-Keys">Fn-Keys</span></h3>
-<p>On this notebook the Fn-keys are enabled as default (e.g. pressing F1 mutes the sound). If pressing the keys does nothing you are most likely using a <a href="/Usage/Configuration/X/Window_manager.html" title="Window manager">Window manager</a> and not a <a href="/Usage/Configuration/X/Desktop_environment.html" title="Desktop environment">Desktop environment</a>. Use the respective configuration files to bind the keys to their use. For example <a href="/Usage/Configuration/X/Xbindkeys.html" title="Xbindkeys">Xbindkeys</a> or <a href="/Usage/Configuration/X/I3.html" title="I3">i3</a>'s <code>bindsym</code>.
+<p>On this notebook the Fn-keys are enabled as default (e.g. pressing F1 mutes the sound). If pressing the keys does nothing you are most likely using a <a href="/Usage/Configuration/W/Window_manager.html" title="Window manager">Window manager</a> and not a <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">Desktop environment</a>. Use the respective configuration files to bind the keys to their use. For example <a href="/Usage/Configuration/X/Xbindkeys.html" title="Xbindkeys">Xbindkeys</a> or <a href="/Usage/Configuration/I/I3.html" title="I3">i3</a>'s <code>bindsym</code>.
 </p>
 <p>Most Fn-keys return the correct keycodes. Here is a table containing that information:
 </p>
@@ -297,7 +297,7 @@ EndSection</pre>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The Fn lock (Fn+Esc) is an hardware functionality and cannot be detected with showkey or another key detection tool.</div>
 <h2><span class="mw-headline" id="Display_Calibration">Display Calibration</span></h2>
-<p>Factory display calibration is poor. In lieu of a colorimeter, try the <a href="/Usage/Configuration/X/ICC_profiles.html" title="ICC profiles">ICC profiles</a> at <a rel="nofollow"  href="https://github.com/tlvince/xiaomi-mi-notebook-air-13/tree/master/display-calibration">tlvince/xiaomi-mi-notebook-air-13</a>.
+<p>Factory display calibration is poor. In lieu of a colorimeter, try the <a href="/Usage/Configuration/I/ICC_profiles.html" title="ICC profiles">ICC profiles</a> at <a rel="nofollow"  href="https://github.com/tlvince/xiaomi-mi-notebook-air-13/tree/master/display-calibration">tlvince/xiaomi-mi-notebook-air-13</a>.
 </p>
 <h2><span class="mw-headline" id="Hardware_information">Hardware information</span></h2>
 <p>The output of <i>lspci</i> is
@@ -347,7 +347,7 @@ EndSection</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/X/Category:Xiaomi.html" title="Category:Xiaomi">Xiaomi</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Xiaomi.html" title="Category:Xiaomi">Xiaomi</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -364,9 +364,9 @@ EndSection</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/X/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/X/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/X/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

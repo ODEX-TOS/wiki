@@ -2,7 +2,7 @@
     title: Mattermost
     description: Migration of Mattermost from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -82,8 +82,8 @@
 <p>The Mattermost server can be installed in two ways:
 </p>
 <ul>
-<li>Using <a href="/Usage/Configuration/M/Docker.html" title="Docker">Docker</a> by following the steps described in <a href="#With_Docker">#With Docker</a>;</li>
-<li>Using an <a href="/Usage/Configuration/M/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> package, by following the steps described in <a href="#With_AUR">#With AUR</a>.</li>
+<li>Using <a href="/Usage/Configuration/D/Docker.html" title="Docker">Docker</a> by following the steps described in <a href="#With_Docker">#With Docker</a>;</li>
+<li>Using an <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> package, by following the steps described in <a href="#With_AUR">#With AUR</a>.</li>
 </ul>
 <p>An <a rel="nofollow"  href="https://electron.atom.io/">Electron</a>-based desktop client is provided by the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mattermost-desktop/">mattermost-desktop</a></span><sup><small>AUR</small></sup> package.
 </p>
@@ -94,7 +94,7 @@
 </p>
 <ul>
 <li>
-<a href="/Usage/Configuration/M/Docker.html#Installation" title="Docker">Install Docker</a> (including <code>docker-compose</code>).</li>
+<a href="/Usage/Configuration/D/Docker.html#Installation" title="Docker">Install Docker</a> (including <code>docker-compose</code>).</li>
 <li>Download the source:</li>
 </ul>
 <dl><dd><pre>$ git clone https://github.com/mattermost/mattermost-docker.git 
@@ -120,7 +120,7 @@ $ docker-compose up -d
 <p>There are also some Docker images provided on the <a rel="nofollow"  href="https://hub.docker.com/r/mattermost/">official Mattermost Docker Hub page</a>. Please also refer to <a rel="nofollow"  href="https://github.com/mattermost/mattermost-docker">the repository of the Mattermost Docker images</a>.
 </p>
 <h3><span class="mw-headline" id="With_AUR">With AUR</span></h3>
-<p><a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mattermost/">mattermost</a></span><sup><small>AUR</small></sup> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mattermost-git/">mattermost-git</a></span><sup><small>AUR</small></sup> for the development version.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mattermost/">mattermost</a></span><sup><small>AUR</small></sup> package, or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/mattermost-git/">mattermost-git</a></span><sup><small>AUR</small></sup> for the development version.
 </p>
 <ul>
 <li>The installation will create the <code>mattermost</code> user and group.</li>
@@ -135,13 +135,13 @@ $ docker-compose up -d
 <code>plugins</code>, a folder related to the plugins (server part).</li>
 </ul>
 </li>
-<li>In <code>/var/log/mattermost</code>, a folder created on the fly during the install process (cf. <a href="/Usage/Configuration/M/Systemd.html#Temporary_files" title="Systemd">tmpfiles.d</a>) which stores the server logs as json. <code>/var/log/mattermost</code> and <code>/var/log/mattermost/mattermost.log</code> are both owned by <code>mattermost:mattermost</code>.</li>
+<li>In <code>/var/log/mattermost</code>, a folder created on the fly during the install process (cf. <a href="/Usage/Configuration/S/Systemd.html#Temporary_files" title="Systemd">tmpfiles.d</a>) which stores the server logs as json. <code>/var/log/mattermost</code> and <code>/var/log/mattermost/mattermost.log</code> are both owned by <code>mattermost:mattermost</code>.</li>
 <li>The rest of the immutable Mattermost directory is located at <code>/usr/share/webapps/mattermost/</code> and is recursively owned by <code>root:root</code>.</li>
 </ul>
 <p>Continue with <a href="#Database_setup">#Database setup</a>.
 </p>
 <h2><span class="mw-headline" id="Database_setup">Database setup</span></h2>
-<p>Mattermost requires a database back-end. If you plan to run it on the same machine, first install either <a href="/Usage/Configuration/M/MySQL.html" title="MySQL">MySQL</a> or <a href="/Usage/Configuration/M/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> as database.
+<p>Mattermost requires a database back-end. If you plan to run it on the same machine, first install either <a href="/Usage/Configuration/M/MySQL.html" title="MySQL">MySQL</a> or <a href="/Usage/Configuration/P/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a> as database.
 </p>
 <p>Follow one of the following sections and then proceed with <a href="#Configuring_Mattermost">#Configuring Mattermost</a>.
 </p>
@@ -154,7 +154,7 @@ CREATE USER mmuser IDENTIFIED BY 'mmuser_password';
 GRANT ALL ON mattermostdb.* TO mmuser;
 </pre>
 <h3><span class="mw-headline" id="PostgreSQL">PostgreSQL</span></h3>
-<p>1. <a href="/Usage/Configuration/M/PostgreSQL.html#Installation" title="PostgreSQL">Install</a> and <a href="/Usage/Configuration/M/PostgreSQL.html#Initial_configuration" title="PostgreSQL">configure</a> <a href="/Usage/Configuration/M/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
+<p>1. <a href="/Usage/Configuration/P/PostgreSQL.html#Installation" title="PostgreSQL">Install</a> and <a href="/Usage/Configuration/P/PostgreSQL.html#Initial_configuration" title="PostgreSQL">configure</a> <a href="/Usage/Configuration/P/PostgreSQL.html" title="PostgreSQL">PostgreSQL</a>.
 </p>
 <p>2. Choose between TCP or UNIX Socket, and jump to the corresponding section.
 </p>
@@ -167,7 +167,7 @@ GRANT ALL ON mattermostdb.* TO mmuser;
 <p>4. Create the Mattermost database, owned by <code>mmuser</code> user:
 </p>
 <dl><dd><pre>sudo -u postgres createdb -O mmuser mattermostdb</pre></dd></dl>
-<p>5. <a href="/Usage/Configuration/M/PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>
+<p>5. <a href="/Usage/Configuration/P/PostgreSQL.html#Configure_PostgreSQL_to_be_accessible_from_remote_hosts" title="PostgreSQL">PostgreSQL#Configure PostgreSQL to be accessible from remote hosts</a>
 </p>
 <p>6. Verify it works:
 </p>
@@ -182,7 +182,7 @@ GRANT ALL ON mattermostdb.* TO mmuser;
 <p>5. Setup the Unix socket by adding the following line to <code>/var/lib/postgres/data/pg_hba.conf</code>:
 </p>
 <dl><dd><pre>local    mattermostdb    mattermost    peer</pre></dd></dl>
-<p>6. <a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>postgresql.service</code>.
+<p>6. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>postgresql.service</code>.
 </p>
 <p>7. Verify it works:
 </p>
@@ -208,7 +208,7 @@ GRANT ALL ON mattermostdb.* TO mmuser;
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Be sure to replace <code>mmuser_password</code> with the password of the user.</div>
-<p><a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>mattermost.service</code> and open <a rel="nofollow"  href="http://localhost:8065/">http://localhost:8065/</a>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">Start/enable</a> <code>mattermost.service</code> and open <a rel="nofollow"  href="http://localhost:8065/">http://localhost:8065/</a>.
 </p>
 <h2><span class="mw-headline" id="Setting_up_Mattermost">Setting up Mattermost</span></h2>
 <ol>
@@ -242,7 +242,7 @@ GRANT ALL ON mattermostdb.* TO mmuser;
 <li>Update <i>General &gt; Logging</i> settings by setting <i>Log to The Console</i> to <i>false</i>.</li>
 <li>Feel free to modify other settings.</li>
 <li>
-<a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mattermost.service</code>.</li>
+<a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>mattermost.service</code>.</li>
 </ol>
 <h3><span class="mw-headline" id="Plugins">Plugins</span></h3>
 <p>Plugins are enabled by default, but require access to the plugins directory which needs to be created with the correct owner:
@@ -265,7 +265,7 @@ $ chown mattermost:mattermost /usr/share/webapps/mattermost/client/plugins
 <p>Proxying can be achieved with most web servers.
 </p>
 <h4><span class="mw-headline" id="nginx">nginx</span></h4>
-<p>1. Install and run <a href="/Usage/Configuration/M/Nginx.html" title="Nginx">nginx</a>, preferably <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx-mainline">nginx-mainline</a></span>.
+<p>1. Install and run <a href="/Usage/Configuration/N/Nginx.html" title="Nginx">nginx</a>, preferably <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=nginx-mainline">nginx-mainline</a></span>.
 </p>
 <p>2. Point your domain name eg. <code>mattermost.example.com</code> to the server.
 </p>
@@ -327,13 +327,13 @@ server {
 <dl><dd><pre># mkdir /etc/nginx/sites-enabled
 # ln -s /etc/nginx/sites-available/mattermost /etc/nginx/sites-enabled/mattermost
 </pre></dd></dl>
-<p>5. <a href="/Usage/Configuration/M/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>nginx.service</code>.
+<p>5. <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">Restart</a> <code>nginx.service</code>.
 </p>
 <p>6. Verify you can access Mattermost through the proxy:
 </p>
 <dl><dd><pre>curl <a rel="nofollow"  href="http://localhost/">http://localhost/</a></pre></dd></dl>
 <dl><dd>You should see a page titled <code>Mattermost</code>.</dd></dl>
-<p>7. Set up <a href="/Usage/Configuration/M/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>.
+<p>7. Set up <a href="/Usage/Configuration/C/Certbot.html" class="mw-redirect" title="Let’s Encrypt">Let’s Encrypt</a>.
 </p>
 <h4><span class="mw-headline" id="Lighttpd2">Lighttpd2</span></h4>
 <p>A configuration sample for <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lighttpd2-git/">lighttpd2-git</a></span><sup><small>AUR</small></sup> to act as a proxy for Mattermost, assuming you have a certificate at <code>/etc/lighttpd2/certs/lighttpd2.pem</code>.
@@ -386,7 +386,7 @@ proxy "127.0.0.1:8065";
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Web_applications.html" title="Category:Web applications">Web applications</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -403,9 +403,9 @@ proxy "127.0.0.1:8065";
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

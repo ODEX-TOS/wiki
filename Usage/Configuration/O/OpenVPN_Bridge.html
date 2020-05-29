@@ -2,7 +2,7 @@
     title: OpenVPN_Bridge
     description: Migration of OpenVPN_Bridge from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -49,7 +49,7 @@
 <p>There are multiple ways to set bridging up. The dynamic method is where OpenVPN will be managing its own bridge on the system and will start, stop and configure it itself. This is the quickest way to set bridging up, although it interrupts other network services when OpenVPN starts and stops. If the system is going to manage its own bridge, maybe because other virtual network adapters connect to the bridge besides just that of OpenVPN, then it is preferable to use the static method.
 </p>
 <h2><span class="mw-headline" id="Dynamic_Bridge_Installation">Dynamic Bridge Installation</span></h2>
-<p>You will need to <a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> OpenVPN and Linux bridging utilities which are available in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span> packages.
+<p>You will need to <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> OpenVPN and Linux bridging utilities which are available in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span> packages.
 </p>
 <h2><span class="mw-headline" id="Dynamic_Bridge_Configuration">Dynamic Bridge Configuration</span></h2>
 <p>OpenVPN will create/destroy the TAP device automatically for the name specified in the config file. OpenVPN settings common to TUN or TAP are not shown in the example config file below, only settings that affect TAP mode. Make sure the 'up' and 'down' scripts are executable with 'chmod +x' after you write them.
@@ -139,14 +139,14 @@ brctl delbr $br
 <p>These examples are for using dhcp. If you are going to use static IP addresses, you will need to adjust accordingly.
 </p>
 <h2><span class="mw-headline" id="Using_Systemd">Using Systemd</span></h2>
-<p>The OpenVPN systemd script looks for &lt;name&gt;.conf files in the /etc/openvpn folder by default. So assuming you have a file named server.conf, you can <a href="/Usage/Configuration/O/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and start <code>openvpn@server</code>.
+<p>The OpenVPN systemd script looks for &lt;name&gt;.conf files in the /etc/openvpn folder by default. So assuming you have a file named server.conf, you can <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and start <code>openvpn@server</code>.
 </p>
 <p>Be careful about having dhcpcd enabled separately (ie. dhcpcd@eth0.service) at the same time. It is possible, though unlikely, for it to complete after OpenVPN and ruin your dhcp setup for OpenVPN. You could probably disable dhcpcd@eth0.service since you know openvpn@server.service will be resetting dhcp anyway.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong>  The Static Bridge section does not describe a method using systemd at all. In addition, it may contain outdated information. It should be revised at some point.</div>
 <h2><span class="mw-headline" id="Static_Bridge_Installation">Static Bridge Installation</span></h2>
-<p>The first thing you want to do is <a href="/Usage/Configuration/O/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> these packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=netctl">netctl</a></span>.
+<p>The first thing you want to do is <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> these packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=bridge-utils">bridge-utils</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=netctl">netctl</a></span>.
 </p>
 <h2><span class="mw-headline" id="Static_Bridge_Configuration">Static Bridge Configuration</span></h2>
 <p>Earlier versions of guides for OpenVPN provided by the OpenVPN team or various Linux packagers give example scripts for constructing a bridge when starting OpenVPN and destroying it when shutting OpenVPN down. 
@@ -155,7 +155,7 @@ brctl delbr $br
 </p>
 <p>Also, constructing the bridge is relatively slow compared to all other parts of the network initialization process. (In fact, so slow that dhcpcd will time out before the bridge is ready. See <a href="#Static_Bridge_Troubleshooting">#Static Bridge Troubleshooting</a>.) Also, when restarting OpenVPN after configuration changes, there is no reason to rebuild a working bridge, interrupting all your other network applications. So, setting up a static bridge configuration as follows is the recommended method.
 </p>
-<p>To create an OpenVPN bridge for your server, you are going to have to use <a href="/Usage/Configuration/O/Netctl.html" title="Netctl">netctl</a> and create two network profiles - one for the tap interface and one for the bridge.
+<p>To create an OpenVPN bridge for your server, you are going to have to use <a href="/Usage/Configuration/N/Netctl.html" title="Netctl">netctl</a> and create two network profiles - one for the tap interface and one for the bridge.
 </p>
 <p>Go to <code>/etc/netctl</code> and copy the tuntap example file to the directory:
 </p>
@@ -188,7 +188,7 @@ IP=static
 Address=('192.168.11.1/24')
 Gateway='192.168.11.254'
 DNS=('192.168.11.254')</pre>
-<p>For more information, for example how to use DHCP instead, check the <a href="/Usage/Configuration/O/Netctl.html" title="Netctl">netctl</a> article.
+<p>For more information, for example how to use DHCP instead, check the <a href="/Usage/Configuration/N/Netctl.html" title="Netctl">netctl</a> article.
 </p>
 <p>Now enable and start both profiles with:
 </p>
@@ -212,7 +212,7 @@ DNS=('192.168.11.254')</pre>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/O/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Virtual_Private_Network.html" title="Category:Virtual Private Network">Virtual Private Network</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -229,9 +229,9 @@ DNS=('192.168.11.254')</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/O/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/O/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/O/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

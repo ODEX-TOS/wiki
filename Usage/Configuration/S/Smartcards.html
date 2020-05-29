@@ -2,7 +2,7 @@
     title: Smartcards
     description: Migration of Smartcards from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Common_Access_Card.html" title="Common Access Card">Common Access Card</a></li>
-<li><a href="/Usage/Configuration/S/Electronic_identification.html" title="Electronic identification">Electronic identification</a></li>
-<li><a href="/Usage/Configuration/S/Trusted_Platform_Module.html" title="Trusted Platform Module">Trusted Platform Module</a></li>
+<li><a href="/Usage/Configuration/C/Common_Access_Card.html" title="Common Access Card">Common Access Card</a></li>
+<li><a href="/Usage/Configuration/E/Electronic_identification.html" title="Electronic identification">Electronic identification</a></li>
+<li><a href="/Usage/Configuration/T/Trusted_Platform_Module.html" title="Trusted Platform Module">Trusted Platform Module</a></li>
 </ul>
 </div>
 <p>This page explains how to setup your system in order to use a <a href="https://en.wikipedia.org/wiki/Smart_card"  title="wikipedia:Smart card">smart card</a> reader.
@@ -67,9 +67,9 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ccid">ccid</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensc">opensc</a></span> from the <a href="/Usage/Configuration/S/Official_repositories.html" title="Official repositories">official repositories</a>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ccid">ccid</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=opensc">opensc</a></span> from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>.
 </p>
-<p>If the card reader does not have a PIN pad, <a href="/Usage/Configuration/S/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the line(s) and set <code>enable_pinpad = false</code> in the opensc configuration file <code>/etc/opensc.conf</code>.
+<p>If the card reader does not have a PIN pad, <a href="/Usage/Configuration/H/Help:Reading.html#Append,_add,_create,_edit" class="mw-redirect" title="Append">append</a> the line(s) and set <code>enable_pinpad = false</code> in the opensc configuration file <code>/etc/opensc.conf</code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ccid">ccid</a></span> provides a generic USB interface driver for smart card reader. If the smart card at hand is not supported by the generic driver or simply it needs a specific one, feel free to install the best for that device.</div>
@@ -78,7 +78,7 @@
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> If you get the error <code>Failed to start pcscd.service: Unit pcscd.socket not found.</code>, just reload systemd units with this <code>systemctl daemon-reload</code> command.</div>
 <h2><span class="mw-headline" id="Scan_for_card_reader">Scan for card reader</span></h2>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pcsc-tools">pcsc-tools</a></span> and start the <i>pcsc_scan</i> utility, then connect the Smart card reader and finally insert a card.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pcsc-tools">pcsc-tools</a></span> and start the <i>pcsc_scan</i> utility, then connect the Smart card reader and finally insert a card.
 If you see output like this, the smart card reader and also the card have been successfully recognized.
 </p>
 <pre>$ pcsc_scan 
@@ -130,7 +130,7 @@ Possibly identified card (using /usr/share/pcsc/smartcard_list.txt):
 Open the <b>Security Devices</b> page (reach it via Preferences, Privacy &amp; Security, Certificates), then click <b>Load</b> and set the Module Name to <i>CAC Module</i> and module filename to <code>/usr/lib/opensc-pkcs11.so</code>.
 </p>
 <h3><span class="mw-headline" id="Chromium">Chromium</span></h3>
-<p>Chromium uses <a href="/Usage/Configuration/S/Network_Security_Services.html" title="Network Security Services">NSS</a>. Open a shell in your home directory and verify that the <i>CAC Module</i> is not already present:
+<p>Chromium uses <a href="/Usage/Configuration/N/Network_Security_Services.html" title="Network Security Services">NSS</a>. Open a shell in your home directory and verify that the <i>CAC Module</i> is not already present:
 </p>
 <pre> $ modutil -list -dbdir ~/.pki/nssdb/
  
@@ -168,7 +168,7 @@ Open the <b>Security Devices</b> page (reach it via Preferences, Privacy &amp; S
 <h3>
 <span id="Smargo.2FTV_Card_reader"></span><span class="mw-headline" id="Smargo/TV_Card_reader">Smargo/TV Card reader</span>
 </h3>
-<p>When interfacing with a TV-card for live TV and recording (PVR/DVR), you may need to assign the smartcard reader to the <code>video</code> <a href="/Usage/Configuration/S/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> allowing decryption. When using a Smargo Smartreader consider the following <a href="/Usage/Configuration/S/Udev.html" title="Udev">udev</a> rule:
+<p>When interfacing with a TV-card for live TV and recording (PVR/DVR), you may need to assign the smartcard reader to the <code>video</code> <a href="/Usage/Configuration/U/Users_and_groups.html#Group_management" class="mw-redirect" title="User group">user group</a> allowing decryption. When using a Smargo Smartreader consider the following <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a> rule:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/98-smargo.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", GROUP="video", MODE="0666", SYMLINK+="smargo"</pre>
@@ -192,8 +192,8 @@ To solve this issue, simply restart Firefox.
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/S/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
-<li><a href="/Usage/Configuration/S/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li>
+<li><a href="/Usage/Configuration/C/Category:Authentication.html" title="Category:Authentication">Authentication</a></li>
+<li><a href="/Usage/Configuration/C/Category:Other_hardware.html" title="Category:Other hardware">Other hardware</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -211,9 +211,9 @@ To solve this issue, simply restart Firefox.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

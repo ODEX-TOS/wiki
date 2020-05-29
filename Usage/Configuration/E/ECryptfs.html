@@ -2,7 +2,7 @@
     title: ECryptfs
     description: Migration of ECryptfs from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <p><span></span>
 This article describes basic usage of <a rel="nofollow"  href="https://launchpad.net/ecryptfs">eCryptfs</a>. It guides you through the process of creating a private and secure encrypted directory within your home directory to store sensitive files and private data.
 </p>
-<p>In implementation eCryptfs differs from <a href="/Usage/Configuration/E/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which provides a <i>block device encryption layer</i>, while eCryptfs is an actual file-system – a <a href="https://en.wikipedia.org/wiki/Cryptographic_filesystems"  title="wikipedia:Cryptographic filesystems">stacked cryptographic file system</a>. For comparison of the two you can refer to the <a href="/Usage/Configuration/E/Data-at-rest_encryption.html#Comparison_table" title="Data-at-rest encryption">Data-at-rest encryption#Comparison table</a>. One distinguished feature is that the encryption is stacked on an existing filesystem; eCryptfs can be mounted onto any single existing directory and does not require a separate partition (or size pre-allocation). 
+<p>In implementation eCryptfs differs from <a href="/Usage/Configuration/D/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>, which provides a <i>block device encryption layer</i>, while eCryptfs is an actual file-system – a <a href="https://en.wikipedia.org/wiki/Cryptographic_filesystems"  title="wikipedia:Cryptographic filesystems">stacked cryptographic file system</a>. For comparison of the two you can refer to the <a href="/Usage/Configuration/D/Data-at-rest_encryption.html#Comparison_table" title="Data-at-rest encryption">Data-at-rest encryption#Comparison table</a>. One distinguished feature is that the encryption is stacked on an existing filesystem; eCryptfs can be mounted onto any single existing directory and does not require a separate partition (or size pre-allocation). 
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -98,7 +98,7 @@ This article describes basic usage of <a rel="nofollow"  href="https://launchpad
 </div>
 
 <h2><span class="mw-headline" id="Basics">Basics</span></h2>
-<p>As mentioned in the summary eCryptfs does not require special on-disk storage allocation effort, such as a separate partition or pre-allocated space. Instead, you can mount eCryptfs on top of any single directory to protect it. That includes, for example, a user's entire home directory or single dedicated directories within it. All cryptographic metadata is stored in the headers of files, so encrypted data can be easily moved, stored for backup and recovered. There are other advantages, but there are also drawbacks, for instance eCryptfs is not suitable for encrypting complete partitions which also means you cannot protect swap space with it (but you can, of course, combine it with <a href="/Usage/Configuration/E/Dm-crypt/Swap_encryption.html" title="Dm-crypt/Swap encryption">Dm-crypt/Swap encryption</a>). If you are just starting to set up disk encryption, swap encryption and other points to consider are covered in <a href="/Usage/Configuration/E/Data-at-rest_encryption.html#Preparation" title="Data-at-rest encryption">Data-at-rest encryption#Preparation</a>.
+<p>As mentioned in the summary eCryptfs does not require special on-disk storage allocation effort, such as a separate partition or pre-allocated space. Instead, you can mount eCryptfs on top of any single directory to protect it. That includes, for example, a user's entire home directory or single dedicated directories within it. All cryptographic metadata is stored in the headers of files, so encrypted data can be easily moved, stored for backup and recovered. There are other advantages, but there are also drawbacks, for instance eCryptfs is not suitable for encrypting complete partitions which also means you cannot protect swap space with it (but you can, of course, combine it with <a href="/Usage/Configuration/D/Dm-crypt/Swap_encryption.html" title="Dm-crypt/Swap encryption">Dm-crypt/Swap encryption</a>). If you are just starting to set up disk encryption, swap encryption and other points to consider are covered in <a href="/Usage/Configuration/D/Data-at-rest_encryption.html#Preparation" title="Data-at-rest encryption">Data-at-rest encryption#Preparation</a>.
 </p>
 <p>To familiarize with eCryptfs a few points: 
 </p>
@@ -107,7 +107,7 @@ This article describes basic usage of <a rel="nofollow"  href="https://launchpad
 <li>It is possible to share an encrypted directory between users. However, the encryption is linked to one passphrase so this must be shared as well. It is also possible to share a directory with differently encrypted files (different passphrases).</li>
 <li>Several eCryptfs terms are used throughout the documentation:
 <ul>
-<li>The encrypted directory is referred to as the <b>lower</b> and the unencrypted as the <b>upper</b> directory throughout the eCryptfs documentation and this article. While not relevant for this article, the <a href="/Usage/Configuration/E/Overlay_filesystem.html" title="Overlay filesystem">Overlay filesystem</a> introduced with Linux 3.18 uses <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html#upper-and-lower">the same upper/lower nomenclature</a> for the stacking of filesystems.</li>
+<li>The encrypted directory is referred to as the <b>lower</b> and the unencrypted as the <b>upper</b> directory throughout the eCryptfs documentation and this article. While not relevant for this article, the <a href="/Usage/Configuration/O/Overlay_filesystem.html" title="Overlay filesystem">Overlay filesystem</a> introduced with Linux 3.18 uses <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html#upper-and-lower">the same upper/lower nomenclature</a> for the stacking of filesystems.</li>
 <li>The <b>mount</b> passphrase (or key) is what gives access to the encrypted files, i.e. unlocks the encryption. eCryptfs uses the term <b>wrapped</b> passphrase to refer to the cryptographically secured mount passphrase.</li>
 <li>
 <code>FEFEK</code> refers to a <b>F</b>ile's <b>E</b>ncryption key <b>E</b>ncryption <b>Key</b> (see <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/security/keys/ecryptfs.html">kernel documentation</a>).</li>
@@ -127,7 +127,7 @@ This article describes basic usage of <a rel="nofollow"  href="https://launchpad
 <dl><dd>eCryptfs has long-standing <a rel="nofollow"  href="https://bugs.launchpad.net/ecryptfs/+bug/277578">bugs</a> when used on top of NFS and possibly other networked filesystems, for example, <a href="#Mounting_may_fail_on_a_remote_host_when_connecting_via_Mosh">#Mounting may fail on a remote host when connecting via Mosh</a>. It is always possible to use eCryptfs on a local directory and then copy the encrypted files from the local directory to a network host. However, if you want to set up eCryptfs directly on top of an NFS mount, with no local copy of the files, eCryptfs may crash or behave incorrectly. If in doubt, <a href="/Usage/Configuration/E/EncFS.html" title="EncFS">EncFS</a> may be a better choice in this case.</dd></dl>
 <ul><li>Sparse files</li></ul>
 <dl><dd>
-<a href="https://en.wikipedia.org/wiki/Sparse_file"  title="wikipedia:Sparse file">Sparse files</a> written to eCryptfs will produce larger, non-sparse encrypted files in the lower directory. For example, in an eCryptfs directory running <code>truncate -s 1G file.img</code> creates a 1GB encrypted file on the underlying filesystem, with the corresponding resource (disk space, data throughput) requirements. If the same file were created on an unencrypted filesystem or a filesystem using <a href="/Usage/Configuration/E/Data-at-rest_encryption.html#Block_device_encryption" class="mw-redirect" title="Disk encryption">block device encryption</a>, it would only take a few kilobytes.</dd></dl>
+<a href="https://en.wikipedia.org/wiki/Sparse_file"  title="wikipedia:Sparse file">Sparse files</a> written to eCryptfs will produce larger, non-sparse encrypted files in the lower directory. For example, in an eCryptfs directory running <code>truncate -s 1G file.img</code> creates a 1GB encrypted file on the underlying filesystem, with the corresponding resource (disk space, data throughput) requirements. If the same file were created on an unencrypted filesystem or a filesystem using <a href="/Usage/Configuration/D/Data-at-rest_encryption.html#Block_device_encryption" class="mw-redirect" title="Disk encryption">block device encryption</a>, it would only take a few kilobytes.</dd></dl>
 <dl><dd>This should be considered before encrypting large portions of the directory structure, though in most cases the disadvantages will be minor. If you need to use large sparse files, you can work around this issue by putting the sparse files in an unencrypted directory or using block device encryption for them.</dd></dl>
 <h2>
 <span id="Setup_.26_mounting"></span><span class="mw-headline" id="Setup_&amp;_mounting">Setup &amp; mounting</span>
@@ -138,7 +138,7 @@ This article describes basic usage of <a rel="nofollow"  href="https://launchpad
 </p>
 <pre># modprobe ecryptfs
 </pre>
-<p>To actually mount an eCryptfs filesystem, you need to use userspace tools provided by the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ecryptfs-utils">ecryptfs-utils</a></span> available in the <a href="/Usage/Configuration/E/Official_repositories.html" title="Official repositories">Official repositories</a>. Unfortunately, due to the poor design of these tools, you must choose between three ways of setting up eCryptfs with different tradeoffs:
+<p>To actually mount an eCryptfs filesystem, you need to use userspace tools provided by the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ecryptfs-utils">ecryptfs-utils</a></span> available in the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">Official repositories</a>. Unfortunately, due to the poor design of these tools, you must choose between three ways of setting up eCryptfs with different tradeoffs:
 </p>
 <ol>
 <li>Use the high-level <a href="#Ubuntu_tools">#Ubuntu tools</a>, which set things up automatically but require the lower directory to be <code>~/.Private/</code>, and allow only one encrypted filesystem per user.</li>
@@ -240,11 +240,11 @@ $ echo /path/to/new/folder &gt; ~/.ecryptfs/Private.mnt
 <p>will unmount it again. 
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If it is not required to access the private data permanently during a user session, maybe define an <a href="/Usage/Configuration/E/Bash.html#Aliases" class="mw-redirect" title="Alias">alias</a> to speed the manual step up.</div>
+<strong>Tip:</strong> If it is not required to access the private data permanently during a user session, maybe define an <a href="/Usage/Configuration/B/Bash.html#Aliases" class="mw-redirect" title="Alias">alias</a> to speed the manual step up.</div>
 <p>The tools include another script that can be very handy to access an encrypted <code>.Private</code> data or home directory. Executing  <code>ecryptfs-recover-private</code> as root will search the system (or an optional specific path) for the directory, interactively query the passphrase for it and mount the directory. It can, for example, be used from a live-CD or different system to access the encrypted data in case of a recovery. Note that if booting from an TOS Linux ISO you must first install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=ecryptfs-utils">ecryptfs-utils</a></span> to it. Further, it will only be able to mount <code>.Private</code> directories created with the Ubuntu tools.
 </p>
 <h5><span class="mw-headline" id="Auto-mounting">Auto-mounting</span></h5>
-<p>The default way to auto-mount an encrypted directory is via <a href="/Usage/Configuration/E/Pam_mount.html" title="Pam mount">PAM</a>. See <span class="plainlinks archwiki-template-man" title="$ man 8 pam_ecryptfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_ecryptfs.8">pam_ecryptfs(8)</a></span> and - for more details - 'PAM MODULE' in:
+<p>The default way to auto-mount an encrypted directory is via <a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">PAM</a>. See <span class="plainlinks archwiki-template-man" title="$ man 8 pam_ecryptfs"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_ecryptfs.8">pam_ecryptfs(8)</a></span> and - for more details - 'PAM MODULE' in:
 </p>
 <pre>/usr/share/doc/ecryptfs-utils/README
 </pre>
@@ -282,7 +282,7 @@ $ echo /path/to/new/folder &gt; ~/.ecryptfs/Private.mnt
 <strong>Warning:</strong> Unfortunately the automatic unmounting is susceptible to <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=194509">break</a> with systemd and bugs are filed against it.<a rel="nofollow"  href="https://bugs.freedesktop.org/show_bug.cgi?id=72759">[2]</a> <a rel="nofollow"  href="https://nwrickert2.wordpress.com/2013/12/16/systemd-user-manager-ecryptfs-and-opensuse-13-1/">[3]</a> <a rel="nofollow"  href="https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/313812/comments/43">[4]</a> <a rel="nofollow"  href="http://lists.alioth.debian.org/pipermail/pkg-systemd-maintainers/2014-October/004088.html">[5]</a> 
 If you experience this problem, you can test it by commenting out <code>-session   optional   pam_systemd.so</code> in <code>/etc/pam.d/system-login</code>. However, this is no solution because commenting out will break other systemd functionalities.</div>
 <h3><span class="mw-headline" id="ecryptfs-simple">ecryptfs-simple</span></h3>
-<p>Use <a rel="nofollow"  href="http://xyne.archlinux.ca/projects/ecryptfs-simple/">ecryptfs-simple</a> if you just want to use eCryptfs to mount arbitrary directories the way you can with <a href="/Usage/Configuration/E/EncFS.html" title="EncFS">EncFS</a>. ecryptfs-simple does not require root privileges or entries in <code>/etc/fstab</code>, nor is it limited to hard-coded directories such as <code>~/.Private</code>. The package is available to be <a href="/Usage/Configuration/E/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ecryptfs-simple/">ecryptfs-simple</a></span><sup><small>AUR</small></sup> and from <a rel="nofollow"  href="http://xyne.archlinux.ca/repos/">Xyne's repos</a>.
+<p>Use <a rel="nofollow"  href="http://xyne.archlinux.ca/projects/ecryptfs-simple/">ecryptfs-simple</a> if you just want to use eCryptfs to mount arbitrary directories the way you can with <a href="/Usage/Configuration/E/EncFS.html" title="EncFS">EncFS</a>. ecryptfs-simple does not require root privileges or entries in <code>/etc/fstab</code>, nor is it limited to hard-coded directories such as <code>~/.Private</code>. The package is available to be <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installed</a> as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/ecryptfs-simple/">ecryptfs-simple</a></span><sup><small>AUR</small></sup> and from <a rel="nofollow"  href="http://xyne.archlinux.ca/repos/">Xyne's repos</a>.
 </p>
 <p>As the name implies, usage is simple:
 </p>
@@ -442,7 +442,7 @@ $ keyctl clear @u
 <h5><span class="mw-headline" id="Auto-mounting_2">Auto-mounting</span></h5>
 <p>Different methods can be employed to automount the previously defined user-mount in <code>/etc/fstab</code> on login. As a first general step, follow point (1) and (2) of <a href="#Auto-mounting">#Auto-mounting</a>. 
 </p>
-<p>Then, if you login via console, a simple way is to specify the <a href="#Mounting_2">user-interactive</a> <i>mount</i> and <i>umount</i> in the user's shell configuration files, for example <a href="/Usage/Configuration/E/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a>. 
+<p>Then, if you login via console, a simple way is to specify the <a href="#Mounting_2">user-interactive</a> <i>mount</i> and <i>umount</i> in the user's shell configuration files, for example <a href="/Usage/Configuration/B/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a>. 
 </p>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
@@ -450,7 +450,7 @@ $ keyctl clear @u
 <b>Reason:</b> <br>- the section should be more generic than it is now<br>
 - the described method does not work for users, for encountered problems: (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:ECryptfs##Automounting">Talk:ECryptfs##Automounting</a>)</div>
 </div>
-<p>Another method is to automount the eCryptfs directory on user login using <a href="/Usage/Configuration/E/Pam_mount.html" title="Pam mount">pam_mount</a>. To configure this method, add the following lines to <code>/etc/security/pam_mount.conf.xml</code>:
+<p>Another method is to automount the eCryptfs directory on user login using <a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a>. To configure this method, add the following lines to <code>/etc/security/pam_mount.conf.xml</code>:
 </p>
 <pre>&lt;luserconf name=".pam_mount.conf.xml" /&gt;
 &lt;mntoptions require="" /&gt; 
@@ -472,7 +472,7 @@ Explanation:
 </pre>
 <p>"noroot" is needed because the encryption key will be added to the user's keyring.
 </p>
-<p>Finally, edit <code>/etc/pam.d/login</code> as described in the <a href="/Usage/Configuration/E/Pam_mount.html" title="Pam mount">pam_mount</a> article.
+<p>Finally, edit <code>/etc/pam.d/login</code> as described in the <a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a> article.
 </p>
 <h6><span class="mw-headline" id="Optional_step">Optional step</span></h6>
 <p>To avoid wasting time needlessly unwrapping the passphrase you can create a script that will check <i>pmvarrun</i> to see the number of open sessions:
@@ -503,7 +503,7 @@ auth    required                      pam_ecryptfs.so unwrap
  (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:ECryptfs#Major_restructuring/rewrite">Talk:ECryptfs#Major_restructuring/rewrite</a>)</div>
 </div>
 <h3><span class="mw-headline" id="Symlinking_into_the_encrypted_directory">Symlinking into the encrypted directory</span></h3>
-<p>Besides using your private directory as storage for sensitive files, and private data, you can also use it to protect application data. <a href="/Usage/Configuration/E/Firefox.html" title="Firefox">Firefox</a> for example has an internal password manager, but the browsing history and cache can also be sensitive. Protecting it is easy:
+<p>Besides using your private directory as storage for sensitive files, and private data, you can also use it to protect application data. <a href="/Usage/Configuration/F/Firefox.html" title="Firefox">Firefox</a> for example has an internal password manager, but the browsing history and cache can also be sensitive. Protecting it is easy:
 </p>
 <pre> $ mv ~/.mozilla ~/Private/mozilla
  $ ln -s ~/Private/mozilla ~/.mozilla
@@ -550,12 +550,12 @@ auth    required                      pam_ecryptfs.so unwrap
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/E/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/E/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="/Usage/Configuration/E/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/E/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Expansion.html" title="Category:Pages or sections flagged with Template:Expansion">Pages or sections flagged with Template:Expansion</a></li>
 </ul>
 </div>
 </div>
@@ -574,9 +574,9 @@ auth    required                      pam_ecryptfs.so unwrap
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

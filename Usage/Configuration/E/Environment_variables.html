@@ -2,7 +2,7 @@
     title: Environment_variables
     description: Migration of Environment_variables from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/E/Default_applications.html" title="Default applications">Default applications</a></li>
+<li><a href="/Usage/Configuration/D/Default_applications.html" title="Default applications">Default applications</a></li>
 </ul>
 </div>
 <p>An environment variable is a named object that contains data used by one or more applications. In simple terms, it is a variable with a name and a value. The value of an environmental variable can for example be the location of all executable files in the file system, the default editor that should be used, or the system locale settings. Users new to Linux may often find this way of managing settings a bit unmanageable. However, environment variables provide a simple way to share configuration settings between multiple applications and processes in Linux.
@@ -74,9 +74,9 @@
 </p>
 <pre>$ env EDITOR=vim xterm
 </pre>
-<p>The <a href="/Usage/Configuration/E/Bash.html" title="Bash">Bash</a> builtin <i>set</i> allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables. For more information, see <a rel="nofollow"  href="http://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin">the set builtin documentation</a>.
+<p>The <a href="/Usage/Configuration/B/Bash.html" title="Bash">Bash</a> builtin <i>set</i> allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables. For more information, see <a rel="nofollow"  href="http://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin">the set builtin documentation</a>.
 </p>
-<p>Each process stores their environment in the <code>/proc/$PID/environ</code> file. This file contains each key value pair delimited by a nul character (<code>\x0</code>). A more human readable format can be obtained with <a href="/Usage/Configuration/E/Core_utilities.html#Essentials" class="mw-redirect" title="Sed">sed</a>, e.g. <code>sed 's:\x0:\n:g' /proc/$PID/environ</code>.
+<p>Each process stores their environment in the <code>/proc/$PID/environ</code> file. This file contains each key value pair delimited by a nul character (<code>\x0</code>). A more human readable format can be obtained with <a href="/Usage/Configuration/C/Core_utilities.html#Essentials" class="mw-redirect" title="Sed">sed</a>, e.g. <code>sed 's:\x0:\n:g' /proc/$PID/environ</code>.
 </p>
 <h2><span class="mw-headline" id="Defining_variables">Defining variables</span></h2>
 <h3><span class="mw-headline" id="Globally">Globally</span></h3>
@@ -87,7 +87,7 @@
 <ul>
 <li>
 <code>/etc/environment</code> is used by the pam_env module and is shell agnostic so scripting or glob expansion cannot be used. The file only accepts <code><i>variable=value</i></code> pairs. See <span class="plainlinks archwiki-template-man" title="$ man 8 pam_env"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.8">pam_env(8)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 5 pam_env.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.conf.5">pam_env.conf(5)</a></span> for details.</li>
-<li>Global configuration files of your <a href="/Usage/Configuration/E/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a>, initializes variables and runs scripts. For example <a href="/Usage/Configuration/E/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a> or <a href="/Usage/Configuration/E/Zsh.html#Startup/Shutdown_files" title="Zsh">Zsh#Startup/Shutdown files</a>.</li>
+<li>Global configuration files of your <a href="/Usage/Configuration/C/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a>, initializes variables and runs scripts. For example <a href="/Usage/Configuration/B/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a> or <a href="/Usage/Configuration/Z/Zsh.html#Startup/Shutdown_files" title="Zsh">Zsh#Startup/Shutdown files</a>.</li>
 <li>
 <code>/etc/profile</code> initializes variables for login shells <i>only</i>. It does, however, run scripts and can be used by all <a href="https://en.wikipedia.org/wiki/Bourne_shell"  title="wikipedia:Bourne shell">Bourne shell</a> compatible shells.</li>
 </ul>
@@ -102,37 +102,37 @@ fi
 </pre>
 <h3><span class="mw-headline" id="Per_user">Per user</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The dbus daemon and the user instance of systemd do not inherit any of the environment variables set in places like <code>~/.bashrc</code> etc. This means that, for example, dbus activated programs like Gnome Files will not use them by default. See <a href="/Usage/Configuration/E/Systemd/User.html#Environment_variables" title="Systemd/User">Systemd/User#Environment variables</a>.</div>
+<strong>Note:</strong> The dbus daemon and the user instance of systemd do not inherit any of the environment variables set in places like <code>~/.bashrc</code> etc. This means that, for example, dbus activated programs like Gnome Files will not use them by default. See <a href="/Usage/Configuration/S/Systemd/User.html#Environment_variables" title="Systemd/User">Systemd/User#Environment variables</a>.</div>
 <p>You do not always want to define an environment variable globally. For instance, you might want to add <code>/home/my_user/bin</code> to the <code>PATH</code> variable but do not want all other users on your system to have that in their <code>PATH</code> too. Local environment variables can be defined in many different files:
 </p>
 <ul>
 <li>
 <code>~/.pam_environment</code> is the user specific equivalent of <code>/etc/security/pam_env.conf</code> <a rel="nofollow"  href="https://github.com/linux-pam/linux-pam/issues/6">[1]</a>, used by pam_env module. See <span class="plainlinks archwiki-template-man" title="$ man 8 pam_env"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.8">pam_env(8)</a></span> and <span class="plainlinks archwiki-template-man" title="$ man 5 pam_env.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.conf.5">pam_env.conf(5)</a></span> for details.</li>
-<li>User configuration files of your <a href="/Usage/Configuration/E/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a>, for example <a href="/Usage/Configuration/E/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a> or <a href="/Usage/Configuration/E/Zsh.html#Startup/Shutdown_files" title="Zsh">Zsh#Startup/Shutdown files</a>.</li>
+<li>User configuration files of your <a href="/Usage/Configuration/C/Command-line_shell.html" class="mw-redirect" title="Shell">shell</a>, for example <a href="/Usage/Configuration/B/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a> or <a href="/Usage/Configuration/Z/Zsh.html#Startup/Shutdown_files" title="Zsh">Zsh#Startup/Shutdown files</a>.</li>
 <li>
-<a href="/Usage/Configuration/E/Systemd.html" title="Systemd">systemd</a> will load environment variables from <code>~/.config/environment.d/*.conf</code> see <span class="plainlinks archwiki-template-man" title="$ man 5 environment.d"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/environment.d.5">environment.d(5)</a></span> and <a rel="nofollow"  href="https://wiki.gnome.org/Initiatives/Wayland/SessionStart">https://wiki.gnome.org/Initiatives/Wayland/SessionStart</a>.</li>
+<a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> will load environment variables from <code>~/.config/environment.d/*.conf</code> see <span class="plainlinks archwiki-template-man" title="$ man 5 environment.d"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/environment.d.5">environment.d(5)</a></span> and <a rel="nofollow"  href="https://wiki.gnome.org/Initiatives/Wayland/SessionStart">https://wiki.gnome.org/Initiatives/Wayland/SessionStart</a>.</li>
 </ul>
 <p>To add a directory to the <code>PATH</code> for local usage, put following in <code>~/.bash_profile</code>:
 </p>
 <pre>export PATH="${PATH}:/home/my_user/bin"
 </pre>
-<p>To update the variable, re-login or <a href="/Usage/Configuration/E/Help:Reading.html#Source" class="mw-redirect" title="Source">source</a> the file: <code>$ source ~/.bash_profile</code>.
+<p>To update the variable, re-login or <a href="/Usage/Configuration/H/Help:Reading.html#Source" class="mw-redirect" title="Source">source</a> the file: <code>$ source ~/.bash_profile</code>.
 </p>
 <h4><span class="mw-headline" id="Graphical_environment">Graphical environment</span></h4>
-<p>Environment variables for <a href="/Usage/Configuration/E/Xorg.html" title="Xorg">Xorg</a> applications can be set in <a href="/Usage/Configuration/E/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>, or in <a href="/Usage/Configuration/E/Xprofile.html" title="Xprofile">xprofile</a> when using a <a href="/Usage/Configuration/E/Display_manager.html" title="Display manager">display manager</a>, for example:
+<p>Environment variables for <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a> applications can be set in <a href="/Usage/Configuration/X/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a>, or in <a href="/Usage/Configuration/X/Xprofile.html" title="Xprofile">xprofile</a> when using a <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a>, for example:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">export PATH="${PATH}:${HOME}/scripts"
 export GUIVAR=value</pre>
-<p>Applications running on <a href="/Usage/Configuration/E/Wayland.html" title="Wayland">Wayland</a> may use <a href="/Usage/Configuration/E/Systemd/User.html#Environment_variables" title="Systemd/User">systemd user environment variables</a> instead, as Wayland does not initiate any Xorg related files:
+<p>Applications running on <a href="/Usage/Configuration/W/Wayland.html" title="Wayland">Wayland</a> may use <a href="/Usage/Configuration/S/Systemd/User.html#Environment_variables" title="Systemd/User">systemd user environment variables</a> instead, as Wayland does not initiate any Xorg related files:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.config/environment.d/envvars.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">PATH=$PATH:$HOME/scripts
 GUIVAR=value</pre>
-<p>To set environment variables only for a specific application instead of the whole session, edit the application's <i>.desktop</i> file. See <a href="/Usage/Configuration/E/Desktop_entries.html#Modify_environment_variables" title="Desktop entries">Desktop entries#Modify environment variables</a> for instructions.
+<p>To set environment variables only for a specific application instead of the whole session, edit the application's <i>.desktop</i> file. See <a href="/Usage/Configuration/D/Desktop_entries.html#Modify_environment_variables" title="Desktop entries">Desktop entries#Modify environment variables</a> for instructions.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> <a href="/Usage/Configuration/E/KDE.html#Plasma" class="mw-redirect" title="KDE Plasma">KDE Plasma</a> supports executing shell scripts at login and even before launching Plasma, they can be used to set environment variables. See <a href="/Usage/Configuration/E/KDE.html#Autostart" title="KDE">KDE#Autostart</a>.</div>
+<strong>Tip:</strong> <a href="/Usage/Configuration/K/KDE.html#Plasma" class="mw-redirect" title="KDE Plasma">KDE Plasma</a> supports executing shell scripts at login and even before launching Plasma, they can be used to set environment variables. See <a href="/Usage/Configuration/K/KDE.html#Autostart" title="KDE">KDE#Autostart</a>.</div>
 <h3><span class="mw-headline" id="Per_session">Per session</span></h3>
 <p>Sometimes even stricter definitions are required. One might want to temporarily run executables from a specific directory created without having to type the absolute path to each one, or editing shell configuration files for the short time needed to run them.
 </p>
@@ -144,14 +144,14 @@ GUIVAR=value</pre>
 <p>The following section lists a number of common environment variables used by a Linux system and describes their values.
 </p>
 <ul><li>
-<code>DE</code> indicates the <i>D</i>esktop <i>E</i>nvironment being used. <a href="/Usage/Configuration/E/Xdg-utils.html#xdg-open" class="mw-redirect" title="Xdg-open">xdg-open</a> will use it to choose more user-friendly file-opener application that desktop environment provides. Some packages need to be installed to use this feature. For <a href="/Usage/Configuration/E/GNOME.html" title="GNOME">GNOME</a>, that would be <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libgnome/">libgnome</a></span><sup><small>AUR</small></sup>; for <a href="/Usage/Configuration/E/Xfce.html" title="Xfce">Xfce</a> this is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=exo">exo</a></span>. Recognised values of <code>DE</code> variable are: <code>gnome</code>, <code>kde</code>, <code>xfce</code>, <code>lxde</code> and <code>mate</code>.</li></ul>
+<code>DE</code> indicates the <i>D</i>esktop <i>E</i>nvironment being used. <a href="/Usage/Configuration/X/Xdg-utils.html#xdg-open" class="mw-redirect" title="Xdg-open">xdg-open</a> will use it to choose more user-friendly file-opener application that desktop environment provides. Some packages need to be installed to use this feature. For <a href="/Usage/Configuration/G/GNOME.html" title="GNOME">GNOME</a>, that would be <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libgnome/">libgnome</a></span><sup><small>AUR</small></sup>; for <a href="/Usage/Configuration/X/Xfce.html" title="Xfce">Xfce</a> this is <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=exo">exo</a></span>. Recognised values of <code>DE</code> variable are: <code>gnome</code>, <code>kde</code>, <code>xfce</code>, <code>lxde</code> and <code>mate</code>.</li></ul>
 <dl><dd>The <code>DE</code> environment variable needs to be exported before starting the window manager. For example:</dd></dl>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">export DE="xfce"
 exec openbox</pre>
 <dl><dd>This will make <i>xdg-open</i> use the more user-friendly <i>exo-open</i>, because it assumes it is running inside Xfce. Use <i>exo-preferred-applications</i> for configuring.</dd></dl>
 <ul><li>
-<code>DESKTOP_SESSION</code> is similar to <code>DE</code>, but used in <a href="/Usage/Configuration/E/LXDE.html" title="LXDE">LXDE</a> desktop environment: when <code>DESKTOP_SESSION</code> is set to <code>LXDE</code>, <i>xdg-open</i> will use <i>pcmanfm</i> file associations.</li></ul>
+<code>DESKTOP_SESSION</code> is similar to <code>DE</code>, but used in <a href="/Usage/Configuration/L/LXDE.html" title="LXDE">LXDE</a> desktop environment: when <code>DESKTOP_SESSION</code> is set to <code>LXDE</code>, <i>xdg-open</i> will use <i>pcmanfm</i> file associations.</li></ul>
 <ul><li>
 <code>PATH</code> contains a colon-separated list of directories in which your system looks for executable files. When a regular command (e.g. <i>ls</i>, <i>systemctl</i> or <i>pacman</i>) is interpreted by the shell (e.g. <i>bash</i> or <i>zsh</i>), the shell looks for an executable file with the same name as your command in the listed directories, and executes it. To run executables that are not listed in <code>PATH</code>, a relative or absolute path to the executable must be given, e.g. <code>./a.out</code> or <code>/bin/ls</code>.</li></ul>
 <div class="archwiki-template-box archwiki-template-box-note">
@@ -183,17 +183,17 @@ http_proxy="http://192.168.0.1:80"
 <code>TZ</code> can be used to to set a time zone different to the system zone for a user. The zones listed in <code>/usr/share/zoneinfo/</code> can be used as reference, for example <code>TZ=":/usr/share/zoneinfo/Pacific/Fiji"</code>. When pointing the <code>TZ</code> variable to a zoneinfo file, it should start with a colon per <a rel="nofollow"  href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html">the GNU manual</a>.</li></ul>
 <h3><span class="mw-headline" id="Default_programs">Default programs</span></h3>
 <ul><li>
-<code>SHELL</code> contains the path to the user's <a rel="nofollow"  href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html#tag_08_03">preferred shell</a>. Note that this is not necessarily the shell that is currently running, although <a href="/Usage/Configuration/E/Bash.html" title="Bash">Bash</a> sets this variable on startup.</li></ul>
+<code>SHELL</code> contains the path to the user's <a rel="nofollow"  href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html#tag_08_03">preferred shell</a>. Note that this is not necessarily the shell that is currently running, although <a href="/Usage/Configuration/B/Bash.html" title="Bash">Bash</a> sets this variable on startup.</li></ul>
 <ul><li>
 <code>PAGER</code> contains command to run the program used to list the contents of files, e.g., <code>/bin/less</code>.</li></ul>
 <ul><li>
-<code>EDITOR</code> contains the command to run the lightweight program used for editing files, e.g., <code>/usr/bin/nano</code>. For example, you can write an interactive switch between <i>gedit</i> under <a href="/Usage/Configuration/E/Xorg.html" class="mw-redirect" title="X">X</a> or <i>nano</i>, in this example:</li></ul>
+<code>EDITOR</code> contains the command to run the lightweight program used for editing files, e.g., <code>/usr/bin/nano</code>. For example, you can write an interactive switch between <i>gedit</i> under <a href="/Usage/Configuration/X/Xorg.html" class="mw-redirect" title="X">X</a> or <i>nano</i>, in this example:</li></ul>
 <pre>export EDITOR="$(if [[ -n $DISPLAY ]]; then echo 'gedit'; else echo 'nano'; fi)"
 </pre>
 <ul><li>
-<code>VISUAL</code> contains command to run the full-fledged editor that is used for more demanding tasks, such as editing mail (e.g., <code>vi</code>, <a href="/Usage/Configuration/E/Vim.html" title="Vim">vim</a>, <a href="/Usage/Configuration/E/Emacs.html" title="Emacs">emacs</a> etc).</li></ul>
+<code>VISUAL</code> contains command to run the full-fledged editor that is used for more demanding tasks, such as editing mail (e.g., <code>vi</code>, <a href="/Usage/Configuration/V/Vim.html" title="Vim">vim</a>, <a href="/Usage/Configuration/E/Emacs.html" title="Emacs">emacs</a> etc).</li></ul>
 <ul><li>
-<code>BROWSER</code> contains the path to the web browser. Helpful to set in an interactive shell configuration file so that it may be dynamically altered depending on the availability of a graphic environment, such as <a href="/Usage/Configuration/E/Xorg.html" class="mw-redirect" title="X">X</a>:</li></ul>
+<code>BROWSER</code> contains the path to the web browser. Helpful to set in an interactive shell configuration file so that it may be dynamically altered depending on the availability of a graphic environment, such as <a href="/Usage/Configuration/X/Xorg.html" class="mw-redirect" title="X">X</a>:</li></ul>
 <pre>if [ -n "$DISPLAY" ]; then
     export BROWSER=firefox
 else 
@@ -201,7 +201,7 @@ else
 fi
 </pre>
 <h3><span class="mw-headline" id="Using_pam_env">Using pam_env</span></h3>
-<p>The <a href="/Usage/Configuration/E/PAM.html" title="PAM">PAM</a> module <span class="plainlinks archwiki-template-man" title="$ man 8 pam_env"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.8">pam_env(8)</a></span> loads the variables to be set in the environment from the following files: <code>/etc/security/pam_env.conf</code>, <code>/etc/environment</code> and <code>~/.pam_environment</code>.
+<p>The <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> module <span class="plainlinks archwiki-template-man" title="$ man 8 pam_env"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/pam_env.8">pam_env(8)</a></span> loads the variables to be set in the environment from the following files: <code>/etc/security/pam_env.conf</code>, <code>/etc/environment</code> and <code>~/.pam_environment</code>.
 </p>
 <ul>
 <li>
@@ -221,7 +221,7 @@ fi
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/E/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:System_administration.html" title="Category:System administration">System administration</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -238,9 +238,9 @@ fi
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

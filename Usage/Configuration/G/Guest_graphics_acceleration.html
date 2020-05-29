@@ -2,7 +2,7 @@
     title: Guest_graphics_acceleration
     description: Migration of Guest_graphics_acceleration from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/G/QEMU.html" title="QEMU">QEMU</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a></span></div>
 		
 		
 		
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="..//Usage/Configuration/G/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough via OVMF</a></li>
-<li><a href="..//Usage/Configuration/G/QEMU.html" title="QEMU">QEMU</a></li>
-<li><a href="..//Usage/Configuration/G/KVM.html" title="KVM">KVM</a></li>
+<li><a href="..//Usage/Configuration/P/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough via OVMF</a></li>
+<li><a href="..//Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a></li>
+<li><a href="..//Usage/Configuration/K/KVM.html" title="KVM">KVM</a></li>
 </ul>
 </div>
 <p>There are multiple methods for virtual machine (VM) graphics display which yield greatly accelerated or near-bare metal performance.
@@ -60,23 +60,23 @@
 
 <h2><span class="mw-headline" id="Methods_for_QEMU_guest_graphics_acceleration">Methods for QEMU guest graphics acceleration</span></h2>
 <h3><span class="mw-headline" id="QXL_video_driver_and_SPICE_client_for_display">QXL video driver and SPICE client for display</span></h3>
-<p><a href="..//Usage/Configuration/G/QEMU.html#qxl" title="QEMU">QXL/SPICE</a> is a high-performance display method.  However, it is not designed to offer near-bare metal performance.
+<p><a href="..//Usage/Configuration/Q/QEMU.html#qxl" title="QEMU">QXL/SPICE</a> is a high-performance display method.  However, it is not designed to offer near-bare metal performance.
 </p>
 <h3><span class="mw-headline" id="PCI_GPU_passthrough">PCI GPU passthrough</span></h3>
 <h4>
 <span id="PCI_VGA.2FGPU_passthrough_via_OVMF"></span><span class="mw-headline" id="PCI_VGA/GPU_passthrough_via_OVMF">PCI VGA/GPU passthrough via OVMF</span>
 </h4>
-<p><a href="..//Usage/Configuration/G/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough</a> currently seems to be the most popular method for optimal performance.  <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=162768&amp;p=1">This forum thread</a> (now closed, and may be outdated) may be of interest for problem solving.
+<p><a href="..//Usage/Configuration/P/PCI_passthrough_via_OVMF.html" title="PCI passthrough via OVMF">PCI passthrough</a> currently seems to be the most popular method for optimal performance.  <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=162768&amp;p=1">This forum thread</a> (now closed, and may be outdated) may be of interest for problem solving.
 </p>
 <h4><span class="mw-headline" id="Looking_Glass">Looking Glass</span></h4>
 <p>There is a fairly recent passthrough method called <a rel="nofollow"  href="https://looking-glass.hostfission.com/">Looking Glass</a>.  See <a rel="nofollow"  href="https://forum.level1techs.com/t/looking-glass-guides-help-and-support/122387">this guide to getting started</a> which provides some problem solving and user support.  Looking Glass uses DXGI (MS DirectX Graphics Infrastructure) to pass complete frames captured from the VM's passed-through video card via shared memory to the host system where they are read (scraped) by a display client running on the bare-metal host.
 </p>
 <h3><span class="mw-headline" id="Fully_virtualized_GPU_support_via_Intel-specific_iGVT-g_extension">Fully virtualized GPU support via Intel-specific iGVT-g extension</span></h3>
-<p>iGVT-g is limited to integrated Intel graphics on recent Intel CPUs (starting with 5th generation Intel Core(TM) processors). For more information, see <a href="..//Usage/Configuration/G/Intel_GVT-g.html" title="Intel GVT-g">Intel GVT-g</a>.
+<p>iGVT-g is limited to integrated Intel graphics on recent Intel CPUs (starting with 5th generation Intel Core(TM) processors). For more information, see <a href="..//Usage/Configuration/I/Intel_GVT-g.html" title="Intel GVT-g">Intel GVT-g</a>.
 </p>
 <h3><span class="mw-headline" id="Virgil3d_virtio-gpu_paravirtualized_device_driver">Virgil3d virtio-gpu paravirtualized device driver</span></h3>
-<p><a rel="nofollow"  href="https://virgil3d.github.io/">Virgil3d</a> virtio-gpu is a paravirtualized 3d accelerated graphics driver, similar to <a href="..//Usage/Configuration/G/QEMU.html#Installing_virtio_drivers" title="QEMU">non-graphics virtio drivers</a> (see <a rel="nofollow"  href="https://www.linux-kvm.org/page/Virtio">virtio driver information</a> and <a rel="nofollow"  href="https://www.linux-kvm.org/page/WindowsGuestDrivers/Download_Drivers">virtio Windows guest drivers</a>).  
-For Linux guests, <a href="..//Usage/Configuration/G/QEMU.html#virtio" title="QEMU">virtio-gpu</a> is fairly mature, having been available since Linux kernel version 4.4 and QEMU version 2.6.  See <a rel="nofollow"  href="https://www.reddit.com/r/archlinux/comments/7nmceg/kvmqemu_with_virtiogpu_virgl_support_enabled/">this Reddit TOS thread</a> and <a rel="nofollow"  href="https://www.kraxel.org/blog/2016/09/using-virtio-gpu-with-libvirt-and-spice/">Gerd Hoffmann's blog for using this with libvirt and spice</a>.
+<p><a rel="nofollow"  href="https://virgil3d.github.io/">Virgil3d</a> virtio-gpu is a paravirtualized 3d accelerated graphics driver, similar to <a href="..//Usage/Configuration/Q/QEMU.html#Installing_virtio_drivers" title="QEMU">non-graphics virtio drivers</a> (see <a rel="nofollow"  href="https://www.linux-kvm.org/page/Virtio">virtio driver information</a> and <a rel="nofollow"  href="https://www.linux-kvm.org/page/WindowsGuestDrivers/Download_Drivers">virtio Windows guest drivers</a>).  
+For Linux guests, <a href="..//Usage/Configuration/Q/QEMU.html#virtio" title="QEMU">virtio-gpu</a> is fairly mature, having been available since Linux kernel version 4.4 and QEMU version 2.6.  See <a rel="nofollow"  href="https://www.reddit.com/r/archlinux/comments/7nmceg/kvmqemu_with_virtiogpu_virgl_support_enabled/">this Reddit TOS thread</a> and <a rel="nofollow"  href="https://www.kraxel.org/blog/2016/09/using-virtio-gpu-with-libvirt-and-spice/">Gerd Hoffmann's blog for using this with libvirt and spice</a>.
 </p>
 <p>For Windows guests, there is very little information on <a rel="nofollow"  href="https://studiopixl.com/2017-08-27/3d-acceleration-using-virtio.html">VirtIO-gpu OpenGL drivers</a>.  <a rel="nofollow"  href="https://gist.github.com/Keenuts/199184f9a6d7a68d9a62cf0011147c0b">A project summary</a>, <a rel="nofollow"  href="https://gitlab.com/spice/win32/virtio-gpu-wddm-dod">the DOD (Windows kernel) driver</a> and <a rel="nofollow"  href="https://github.com/Keenuts/virtio-gpu-win-icd">the ICD (Windows userland) driver</a> are available.  In addition, see <a rel="nofollow"  href="https://www.phoronix.com/scan.php?page=news_item&amp;px=QEMU-3D-Windows-Guests">this Phoronix article</a> and its comments.
 </p>
@@ -84,8 +84,8 @@ For Linux guests, <a href="..//Usage/Configuration/G/QEMU.html#virtio" title="QE
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="..//Usage/Configuration/G/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
-<li><a href="..//Usage/Configuration/G/Category:Emulation.html" title="Category:Emulation">Emulation</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Virtualization.html" title="Category:Virtualization">Virtualization</a></li>
+<li><a href="..//Usage/Configuration/C/Category:Emulation.html" title="Category:Emulation">Emulation</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -103,9 +103,9 @@ For Linux guests, <a href="..//Usage/Configuration/G/QEMU.html#virtio" title="QE
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/G/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/G/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/G/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

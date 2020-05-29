@@ -2,7 +2,7 @@
     title: Create_root_filesystem_snapshots_with_LVM
     description: Migration of Create_root_filesystem_snapshots_with_LVM from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,11 +27,11 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/C/LVM.html" title="LVM">LVM</a></li>
-<li><a href="/Usage/Configuration/C/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a></li>
+<li><a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a></li>
+<li><a href="/Usage/Configuration/F/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a></li>
 </ul>
 </div>
-<p>This article describes how to set up root filesystem LVM snapshot creation during system start. Such snapshots can be used for <a href="/Usage/Configuration/C/Full_system_backup_with_tar.html" title="Full system backup with tar">full system backups</a> with minimal downtime or testing system updates with the option to revert them.
+<p>This article describes how to set up root filesystem LVM snapshot creation during system start. Such snapshots can be used for <a href="/Usage/Configuration/F/Full_system_backup_with_tar.html" title="Full system backup with tar">full system backups</a> with minimal downtime or testing system updates with the option to revert them.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -53,8 +53,8 @@
 </div>
 
 <h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
-<p>You need a system with <a href="/Usage/Configuration/C/LVM.html" title="LVM">LVM</a> root filesystem and <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a>.
-Ensure that <a href="/Usage/Configuration/C/LVM.html#Snapshots" title="LVM">LVM snapshots</a> prerequisites are correctly setup.
+<p>You need a system with <a href="/Usage/Configuration/L/LVM.html" title="LVM">LVM</a> root filesystem and <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>.
+Ensure that <a href="/Usage/Configuration/L/LVM.html#Snapshots" title="LVM">LVM snapshots</a> prerequisites are correctly setup.
 </p>
 <h2><span class="mw-headline" id="Setup">Setup</span></h2>
 <p>During system start a clean snapshot of the root volume is
@@ -90,10 +90,10 @@ Description=Make Snapshots
 Requires=<i>multi-user.target</i></pre>
 <p>Adapt the base target, if <code>multi-user.target</code> is not your default target. If you want to get into your desktop, you need to change it to <code>graphical.target</code>.
 </p>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <code>mk-lvm-snapshots.service</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> <code>mk-lvm-snapshots.service</code>.
 </p>
 <p>If the system is started with the new target, LVM snapshot(s) are created just after mounting the local filesystems.
-To get a <a href="/Usage/Configuration/C/GRUB.html" title="GRUB">GRUB</a> menu entry starting this target create <code>/boot/grub/custom.cfg</code> based on the
+To get a <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> menu entry starting this target create <code>/boot/grub/custom.cfg</code> based on the
 <code>grub.cfg</code> entry for your normal startup. The kernel command line is extended to start the new
 <code>make-snapshots.target</code>:
 </p>
@@ -115,7 +115,7 @@ menuentry 'TOS GNU/Linux, make snapshots' --class arch --class gnu-linux-tos--cl
 <h3><span class="mw-headline" id="Backup">Backup</span></h3>
 <p>To use this functionality for a full system backup, restart your system with the snapshot creation target.
 Mount the snapshot volume (and further volumes, if required), preferably using the read only (<code>-o</code>) option.
-Then backup your system, for example with tar as described in <a href="/Usage/Configuration/C/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a>.
+Then backup your system, for example with tar as described in <a href="/Usage/Configuration/F/Full_system_backup_with_tar.html" title="Full system backup with tar">Full system backup with tar</a>.
 </p>
 <p>During backup you can continue to use your system normally, since all changes to your regular volumes are invisible in
 the snapshots. Do not forget to delete the snapshot volume after the backup – changes to your regular volume will
@@ -138,7 +138,7 @@ option is desired.</div>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a><b>This article or section is out of date.</b><a href="../File:Tango-view-refresh-red.png" ><img alt="Tango-view-refresh-red.png" src="../File:Tango-view-refresh-red.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Linked report is from 2011, "currently" is August 2016. Is this still an issue? Either way, the systemd configuration should be moved to <a href="/Usage/Configuration/C/Systemd.html" title="Systemd">systemd</a> as other programs may block shutdown, e.g. <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/2691">[1]</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Create_root_filesystem_snapshots_with_LVM">Talk:Create root filesystem snapshots with LVM#</a>)</div>
+<b>Reason:</b> Linked report is from 2011, "currently" is August 2016. Is this still an issue? Either way, the systemd configuration should be moved to <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> as other programs may block shutdown, e.g. <a rel="nofollow"  href="https://github.com/systemd/systemd/issues/2691">[1]</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Create_root_filesystem_snapshots_with_LVM">Talk:Create root filesystem snapshots with LVM#</a>)</div>
 </div>
 <p>Due to <a rel="nofollow"  href="https://bugzilla.redhat.com/show_bug.cgi?id=681582">bug 681582</a> shutting down the system with active
 snapshots may hang for some time (currently 1...3 minutes). As a workaround a shorter job timeout can be set.
@@ -184,9 +184,9 @@ OOMScoreAdjust=-1000</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

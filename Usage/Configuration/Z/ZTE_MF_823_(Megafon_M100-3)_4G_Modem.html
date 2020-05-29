@@ -2,7 +2,7 @@
     title: ZTE_MF_823_(Megafon_M100-3)_4G_Modem
     description: Migration of ZTE_MF_823_(Megafon_M100-3)_4G_Modem from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -41,7 +41,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Preparations">Preparations</span></h2>
-<p>As described bellow, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usb_modeswitch">usb_modeswitch</a></span> will likely comes out handy. <a href="/Usage/Configuration/Z/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> it.
+<p>As described bellow, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=usb_modeswitch">usb_modeswitch</a></span> will likely comes out handy. <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> it.
 </p>
 <h2><span class="mw-headline" id="Device_Identification">Device Identification</span></h2>
 <p>Examine the output of <code>lsusb</code>. When the device is switched to an 1405 product code you will get:
@@ -56,7 +56,7 @@
 </dl>
 <dl>
 <dt>1403</dt>
-<dd>A Communication mode in which the device has an <a href="https://en.wikipedia.org/wiki/RNDIS"  title="wikipedia:RNDIS">wikipedia:RNDIS</a> like interface in addition to the card reader interface. The <a rel="nofollow"  href="https://cateee.net/lkddb/web-lkddb/USB_NET_RNDIS_HOST.html">non recommended</a> <a href="/Usage/Configuration/Z/Kernel_module.html" title="Kernel module">kernel module</a> rndis_host might handle such an interface. Corresponds to AT+ZCDRUN=8+AT+ZCDRUN=F.</dd>
+<dd>A Communication mode in which the device has an <a href="https://en.wikipedia.org/wiki/RNDIS"  title="wikipedia:RNDIS">wikipedia:RNDIS</a> like interface in addition to the card reader interface. The <a rel="nofollow"  href="https://cateee.net/lkddb/web-lkddb/USB_NET_RNDIS_HOST.html">non recommended</a> <a href="/Usage/Configuration/K/Kernel_module.html" title="Kernel module">kernel module</a> rndis_host might handle such an interface. Corresponds to AT+ZCDRUN=8+AT+ZCDRUN=F.</dd>
 </dl>
 <dl>
 <dt>1405</dt>
@@ -70,10 +70,10 @@
 <dt>0076</dt>
 <dd>"real" Download Mode. Includes a standard for devices running QC methods.</dd>
 </dl>
-<p>If your modem does not appear as 19d2:1405 (or 1403), check the <a href="/Usage/Configuration/Z/USB_3G_Modem.html#Mode_switching" title="USB 3G Modem">USB 3G Modem#Mode switching</a> article.
+<p>If your modem does not appear as 19d2:1405 (or 1403), check the <a href="/Usage/Configuration/U/USB_3G_Modem.html#Mode_switching" title="USB 3G Modem">USB 3G Modem#Mode switching</a> article.
 </p>
 <h2><span class="mw-headline" id="Ethernet_Connection_Established">Ethernet Connection Established</span></h2>
-<p>When the device has an Ethernet interface the usual <a href="/Usage/Configuration/Z/Network_configuration.html" title="Network configuration">Network configuration</a> programs should handle it. When they are, you will see that the LED (Blue - 2G/3G or Green - 4G) on modem is not blinking. To establish a connection, the following link (CGI command) should be entered in a browser:
+<p>When the device has an Ethernet interface the usual <a href="/Usage/Configuration/N/Network_configuration.html" title="Network configuration">Network configuration</a> programs should handle it. When they are, you will see that the LED (Blue - 2G/3G or Green - 4G) on modem is not blinking. To establish a connection, the following link (CGI command) should be entered in a browser:
 </p>
 <p><a rel="nofollow"  href="http://192.168.0.1/goform/goform_set_cmd_process?goformId=CONNECT_NETWORK">http://192.168.0.1/goform/goform_set_cmd_process?goformId=CONNECT_NETWORK</a>
 </p>
@@ -81,7 +81,7 @@
 </p>
 <p><a rel="nofollow"  href="http://192.168.0.1/goform/goform_set_cmd_process?goformId=SET_CONNECTION_MODE&amp;ConnectionMode=auto_dial">http://192.168.0.1/goform/goform_set_cmd_process?goformId=SET_CONNECTION_MODE&amp;ConnectionMode=auto_dial</a>
 </p>
-<p>If you are setting up internet using a <a href="/Usage/Configuration/Z/Command-line_shell.html" title="Command-line shell">command-line shell</a> you should make request with referrer, as in:
+<p>If you are setting up internet using a <a href="/Usage/Configuration/C/Command-line_shell.html" title="Command-line shell">command-line shell</a> you should make request with referrer, as in:
 </p>
 <pre>curl --header "Referer: <a rel="nofollow"  href="http://192.168.0.1/index.html">http://192.168.0.1/index.html</a>" <a rel="nofollow"  href="http://192.168.0.1/goform/goform_set_cmd_process?goformId=CONNECT_NETWORK">http://192.168.0.1/goform/goform_set_cmd_process?goformId=CONNECT_NETWORK</a>
 </pre>
@@ -120,7 +120,7 @@ GSM_AND_LTE
 # modem-cmd /dev/ttyUSB1 AT+ZCDRUN=F     # exit DOWNLOAD mode and switch to selected mode (RNDIS or default)
 </pre>
 <h2><span class="mw-headline" id="Telnet_Connection">Telnet Connection</span></h2>
-<p>The modem is available for <a href="/Usage/Configuration/Z/Telnet.html" title="Telnet">telnet</a> connection:
+<p>The modem is available for <a href="/Usage/Configuration/T/Telnet.html" title="Telnet">telnet</a> connection:
 </p>
 <pre>telnet 192.168.0.1
 login: root
@@ -170,7 +170,7 @@ OK
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/Z/Category:Modems.html" title="Category:Modems">Modems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Modems.html" title="Category:Modems">Modems</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -187,9 +187,9 @@ OK
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/Z/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/Z/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/Z/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

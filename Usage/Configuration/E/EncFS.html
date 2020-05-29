@@ -2,7 +2,7 @@
     title: EncFS
     description: Migration of EncFS from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/E/Data-at-rest_encryption.html" title="Data-at-rest encryption">Data-at-rest encryption</a></li>
+<li><a href="/Usage/Configuration/D/Data-at-rest_encryption.html" title="Data-at-rest encryption">Data-at-rest encryption</a></li>
 </ul>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/EncFS"  title="wikipedia:EncFS">EncFS</a> is a userspace stackable cryptographic file-system similar to <a href="/Usage/Configuration/E/ECryptfs.html" title="ECryptfs">eCryptfs</a>, and aims to secure data with the minimum hassle. It uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace"  title="wikipedia:Filesystem in Userspace">FUSE</a> to mount an encrypted directory onto another directory specified by the user. It does not use a loopback system like some other comparable systems such as <a href="/Usage/Configuration/E/TrueCrypt.html" title="TrueCrypt">TrueCrypt</a> and <a href="/Usage/Configuration/E/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>.
+<p><a href="https://en.wikipedia.org/wiki/EncFS"  title="wikipedia:EncFS">EncFS</a> is a userspace stackable cryptographic file-system similar to <a href="/Usage/Configuration/E/ECryptfs.html" title="ECryptfs">eCryptfs</a>, and aims to secure data with the minimum hassle. It uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace"  title="wikipedia:Filesystem in Userspace">FUSE</a> to mount an encrypted directory onto another directory specified by the user. It does not use a loopback system like some other comparable systems such as <a href="/Usage/Configuration/T/TrueCrypt.html" title="TrueCrypt">TrueCrypt</a> and <a href="/Usage/Configuration/D/Dm-crypt.html" title="Dm-crypt">dm-crypt</a>.
 </p>
 <p>EncFS is definitely the simplest software if you want to try disk encryption on Linux.
 </p>
@@ -40,7 +40,7 @@
 </p>
 <p>This particular method of securing data is obviously not perfect, but there are situations in which it is useful.
 </p>
-<p>For more details on how EncFS compares to other disk encryption solution, see <a href="/Usage/Configuration/E/Data-at-rest_encryption.html#Comparison_table" title="Data-at-rest encryption">Data-at-rest encryption#Comparison table</a>.
+<p>For more details on how EncFS compares to other disk encryption solution, see <a href="/Usage/Configuration/D/Data-at-rest_encryption.html#Comparison_table" title="Data-at-rest encryption">Data-at-rest encryption#Comparison table</a>.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -106,7 +106,7 @@
 <p>The performance of both depends on the type of disk activity. While eCryptFS can perform faster in some cases because there is less overhead by context switching (between kernel and userspace), EncFS has advantages in other cases because the encryption metadata is centralized and not stored in the individual files' headers. For more information <a rel="nofollow"  href="https://github.com/vgough/encfs/blob/master/PERFORMANCE.md">benchmark examples</a> are provided by the EncFS project.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/E/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=encfs">encfs</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=encfs">encfs</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> A security <a rel="nofollow"  href="https://defuse.ca/audits/encfs.htm">review</a> (February 2014) of <i>encfs</i> discovered a number of security issues in the stable release 1.7.4 (June 2014). Please consider the report and the references in it for updated information before using the release.</div>
@@ -118,7 +118,7 @@
 <p>Note that absolute paths must be used. This will be followed by a prompt about whether you want to go with the default options, expert configuration or a paranoid preset. The first is a fairly secure default setup. The second allows specifying algorithms and other options. After entering a key for the encryption, the encoded file-system will be created and mounted. The encoded files are stored, in this example, at <code>~/.<i>encrypted</i></code>, and their unencrypted versions in <code>~/<i>origin</i></code>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Using EncFS on a FUSE <a href="/Usage/Configuration/E/File_systems.html" class="mw-redirect" title="File system">file system</a>, e.g. <a href="/Usage/Configuration/E/NTFS-3G.html" title="NTFS-3G">NTFS-3G</a>, might end up with slow performance. Consider changing the file system if possible.</div> 
+<strong>Tip:</strong> Using EncFS on a FUSE <a href="/Usage/Configuration/F/File_systems.html" class="mw-redirect" title="File system">file system</a>, e.g. <a href="/Usage/Configuration/N/NTFS-3G.html" title="NTFS-3G">NTFS-3G</a>, might end up with slow performance. Consider changing the file system if possible.</div> 
 <p>To unmount the file-system, type:
 </p>
 <pre>$ fusermount -u ~/<i>name</i>
@@ -143,7 +143,7 @@
 This method has the advantage that mounting and can automated and the password does not have to be the same as your user password.
 </p>
 <h3><span class="mw-headline" id="Mount_using_CryptKeeper_trayicon">Mount using CryptKeeper trayicon</span></h3>
-<p>Quite simple app, just <a href="/Usage/Configuration/E/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cryptkeeper/">cryptkeeper</a></span><sup><small>AUR</small></sup> and add it to your X session.
+<p>Quite simple app, just <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/cryptkeeper/">cryptkeeper</a></span><sup><small>AUR</small></sup> and add it to your X session.
 </p>
 <h3><span class="mw-headline" id="Mount_using_encfsui">Mount using encfsui</span></h3>
 <p>A bash script <a rel="nofollow"  href="http://github.com/bulletmark/encfsui">encfsui</a> provides a simple <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=zenity">zenity</a></span> gui around the EncFS command line utility to mount and unmount an encrypted directory. It includes a desktop launcher. Install it from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/encfsui/">encfsui</a></span><sup><small>AUR</small></sup>.
@@ -171,7 +171,7 @@ This method has the advantage that mounting and can automated and the password d
 </ul>
 <h4><span class="mw-headline" id="Single_password">Single password</span></h4>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> Note that if you will use same password (eg.: using try_first_pass or use_first_pass) for login and encfs (so encfs will mount during your login) then you should use <a href="/Usage/Configuration/E/SHA_password_hashes.html" title="SHA password hashes">SHA password hashes</a> (Preferably SHA512 with some huge number of rounds) and (which is most important) <b>secure password</b>, because hash of your password is probably stored in unencrypted form in <code>/etc/shadow</code> and it can be cracked in order to get your encfs password (because it is same as your regular unix login password).</div>
+<strong>Warning:</strong> Note that if you will use same password (eg.: using try_first_pass or use_first_pass) for login and encfs (so encfs will mount during your login) then you should use <a href="/Usage/Configuration/S/SHA_password_hashes.html" title="SHA password hashes">SHA password hashes</a> (Preferably SHA512 with some huge number of rounds) and (which is most important) <b>secure password</b>, because hash of your password is probably stored in unencrypted form in <code>/etc/shadow</code> and it can be cracked in order to get your encfs password (because it is same as your regular unix login password).</div>
 <h4>
 <span id=".2Fetc.2Fpam.d.2F"></span><span class="mw-headline" id="/etc/pam.d/">/etc/pam.d/</span>
 </h4>
@@ -258,7 +258,7 @@ session         required        pam_encfs.so
 foo             /home/foo/EncryptedFolder             /home/foo/DecryptedFolder       -v                    allow_other
 </pre>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> It is not possible to mount multiple EncFS folders at login using <code>pam_encfs</code>. If multiple entries are specified in <code>/etc/security/pam_encfs.conf</code>, only the first one will be mounted, and the rest will be ignored. To mount multiple EncFS folders at login it is necessary to use <a href="/Usage/Configuration/E/Pam_mount.html" title="Pam mount">pam_mount</a>. See <a href="#Mount_at_login_using_pam_mount">#Mount at login using pam_mount</a> for details.</div>
+<strong>Note:</strong> It is not possible to mount multiple EncFS folders at login using <code>pam_encfs</code>. If multiple entries are specified in <code>/etc/security/pam_encfs.conf</code>, only the first one will be mounted, and the rest will be ignored. To mount multiple EncFS folders at login it is necessary to use <a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a>. See <a href="#Mount_at_login_using_pam_mount">#Mount at login using pam_mount</a> for details.</div>
 <p>Also, if you see the following line, remove <code>allow_root</code> from the options. Otherwise, it will be in conflict with <code>allow_other</code> defined above.
 </p>
 <pre>fuse_default allow_root,nonempty
@@ -273,7 +273,7 @@ Uncomment:
 <p>To test your config, open a new virtual terminal (e.g. <code>Ctrl+Alt+F4</code>) and login.  You should see pam successfuly mount your EncFS folder.
 </p>
 <h3><span class="mw-headline" id="Mount_at_login_using_pam_mount">Mount at login using pam_mount</span></h3>
-<p>Install and configure <a href="/Usage/Configuration/E/Pam_mount.html" title="Pam mount">pam_mount</a> as explained on its wiki page. EncFS mounts can be specified in pam_mount's configuration file as follows:
+<p>Install and configure <a href="/Usage/Configuration/P/Pam_mount.html" title="Pam mount">pam_mount</a> as explained on its wiki page. EncFS mounts can be specified in pam_mount's configuration file as follows:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/security/pam_mount.conf.xml</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">&lt;volume fstype="fuse" path="encfs#<i>/path/to/encfs/encrypted/data</i>" mountpoint="<i>/path/to/decrypted/data/mountpoint</i>" options="nonempty" /&gt;</pre>
@@ -353,7 +353,7 @@ rm "$lock" 2&gt;/dev/null
 <b>8.</b> Do not forget to unmount encfs before removing drive.
 </p>
 <h3><span class="mw-headline" id="Mount_using_KDE_KWallet">Mount using KDE KWallet</span></h3>
-<p>This can be done in KDE with the <a rel="nofollow"  href="http://pastebin.com/RR1hguwE">kdeencfs</a> script. You will also have to <a href="/Usage/Configuration/E/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kdialog">kdialog</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kdebase-runtime/">kdebase-runtime</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qt5-tools">qt5-tools</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> packages from the <a href="/Usage/Configuration/E/Official_repositories.html" title="Official repositories">official repositories</a>. kwallet-pam has to started with the session which it is by default. <i>(If not: Add /usr/lib/pam_kwallet_init to sessionstart.)</i> It can be used by calling <i>kdeencfs encrypted-folder decrypted-folder</i>.
+<p>This can be done in KDE with the <a rel="nofollow"  href="http://pastebin.com/RR1hguwE">kdeencfs</a> script. You will also have to <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kdialog">kdialog</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/kdebase-runtime/">kdebase-runtime</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=qt5-tools">qt5-tools</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=kwallet-pam">kwallet-pam</a></span> packages from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>. kwallet-pam has to started with the session which it is by default. <i>(If not: Add /usr/lib/pam_kwallet_init to sessionstart.)</i> It can be used by calling <i>kdeencfs encrypted-folder decrypted-folder</i>.
 </p>
 <h2><span class="mw-headline" id="Encrypted_backup">Encrypted backup</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
@@ -408,11 +408,11 @@ $ fusermount -u /tmp/thesisbackup
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/E/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li>
-<li><a href="/Usage/Configuration/E/Category:FUSE.html" title="Category:FUSE">FUSE</a></li>
+<li><a href="/Usage/Configuration/C/Category:Data-at-rest_encryption.html" title="Category:Data-at-rest encryption">Data-at-rest encryption</a></li>
+<li><a href="/Usage/Configuration/C/Category:FUSE.html" title="Category:FUSE">FUSE</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/E/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -430,9 +430,9 @@ $ fusermount -u /tmp/thesisbackup
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Bcache
     description: Migration of Bcache from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -25,21 +25,21 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/B/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Some first-person comments, see <a href="/Usage/Configuration/B/Help:Style.html" title="Help:Style">Help:Style</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Bcache">Talk:Bcache#</a>)</div>
+<b>Reason:</b> Some first-person comments, see <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a>. (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:Bcache">Talk:Bcache#</a>)</div>
 </div>
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/B/Flashcache.html" title="Flashcache">Flashcache</a></li>
-<li><a href="/Usage/Configuration/B/EnhanceIO.html" title="EnhanceIO">EnhanceIO</a></li>
-<li><a href="/Usage/Configuration/B/LVM.html" class="mw-redirect" title="LVM2">LVM2</a></li>
+<li><a href="/Usage/Configuration/F/Flashcache.html" title="Flashcache">Flashcache</a></li>
+<li><a href="/Usage/Configuration/E/EnhanceIO.html" title="EnhanceIO">EnhanceIO</a></li>
+<li><a href="/Usage/Configuration/L/LVM.html" class="mw-redirect" title="LVM2">LVM2</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://bcache.evilpiepirate.org/">Bcache</a> (block cache) allows one to use an SSD as a read/write cache (in writeback mode) or read cache (writethrough or writearound) for another blockdevice (generally a rotating HDD or array). This article will show how to install arch using Bcache as the root partition. For an intro to bcache itself, see <a rel="nofollow"  href="http://bcache.evilpiepirate.org/">the bcache homepage</a>. Be sure to read and reference <a rel="nofollow"  href="https://evilpiepirate.org/git/linux-bcache.git/tree/Documentation/bcache.txt">the bcache manual</a>. Bcache is in the mainline kernel since 3.10. The kernel on the arch install disk includes the bcache module since 2013.08.01.
 </p>
-<p>An alternative to Bcache is Facebook's <a href="/Usage/Configuration/B/Flashcache.html" title="Flashcache">Flashcache</a> and its offspring <a href="/Usage/Configuration/B/EnhanceIO.html" title="EnhanceIO">EnhanceIO</a>. Alternatively, one uses the <a href="/Usage/Configuration/B/LVM.html#LVM_cache" class="mw-redirect" title="LVM2">LVM2#LVM cache</a> caching logical volume.
+<p>An alternative to Bcache is Facebook's <a href="/Usage/Configuration/F/Flashcache.html" title="Flashcache">Flashcache</a> and its offspring <a href="/Usage/Configuration/E/EnhanceIO.html" title="EnhanceIO">EnhanceIO</a>. Alternatively, one uses the <a href="/Usage/Configuration/L/LVM.html#LVM_cache" class="mw-redirect" title="LVM2">LVM2#LVM cache</a> caching logical volume.
 </p>
 <div class="noprint archwiki-template-message">
 <p><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a><b>The factual accuracy of this article or section is disputed.</b><a href="../File:Tango-inaccurate.png" ><img alt="Tango-inaccurate.png" src="../File:Tango-inaccurate.png" decoding="async" width="48" height="48"></a></p>
@@ -101,8 +101,8 @@
 
 <h2><span class="mw-headline" id="Setting_up_a_bcache_device_on_an_existing_system">Setting up a bcache device on an existing system</span></h2>
 <div class="archwiki-template-box archwiki-template-box-warning">
-<strong>Warning:</strong> make-bcache <b>will not</b> import an existing drive or partition – it will reformat it. If you want to use an existing data partition as backing device, see <a href="#Converting_existing_disks">#Converting existing disks</a><sup>[<a href="/Usage/Configuration/B/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.</div>
-<p>1. <a href="/Usage/Configuration/B/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from <a href="/Usage/Configuration/B/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<strong>Warning:</strong> make-bcache <b>will not</b> import an existing drive or partition – it will reformat it. If you want to use an existing data partition as backing device, see <a href="#Converting_existing_disks">#Converting existing disks</a><sup>[<a href="/Usage/Configuration/T/TOS Wiki:Requests.html#Broken_section_links" class="mw-redirect" title="TOS Wiki:Requests">broken link</a>: invalid section]</sup>.</div>
+<p>1. <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <p>2. Create a backing device (This will typically be your mechanical drive). The backing device can be a whole device, a partition or any other standard block device. This will create /dev/bcache0
 </p>
@@ -177,13 +177,13 @@
 <h2><span class="mw-headline" id="Installation_to_a_bcache_device">Installation to a bcache device</span></h2>
 <p>1. Boot on the install disk (2013.08.01 minimum).
 </p>
-<p>2. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from <a href="/Usage/Configuration/B/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<p>2. Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <p>3. Partition your hdd
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> While it may be true that Grub2 does not offer support for bcache as noted below, it does, however, fully support UEFI. It follows then, that so long as the necessary modules for the linux-toskernel to properly handle your boot device are either compiled into the kernel or are included in an initramfs, and you can include these files on it, the separate boot partition described below may be omitted in favor of the FAT EFI system partition. See <a href="/Usage/Configuration/B/GRUB.html" title="GRUB">GRUB</a> and/or <a href="/Usage/Configuration/B/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> for more.</div>
-<p>grub cannot handle bcache, so you will need at least 2 partitions (boot and one for the bcache backing device). If you are doing UEFI, you will need an <a href="/Usage/Configuration/B/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP) as well. E.g.:
+<strong>Note:</strong> While it may be true that Grub2 does not offer support for bcache as noted below, it does, however, fully support UEFI. It follows then, that so long as the necessary modules for the linux-toskernel to properly handle your boot device are either compiled into the kernel or are included in an initramfs, and you can include these files on it, the separate boot partition described below may be omitted in favor of the FAT EFI system partition. See <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> and/or <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a> for more.</div>
+<p>grub cannot handle bcache, so you will need at least 2 partitions (boot and one for the bcache backing device). If you are doing UEFI, you will need an <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP) as well. E.g.:
 </p>
 <pre>     1            2048           22527   10.0 MiB    EF00  EFI System
      2           22528          432127   200.0 MiB   8300  arch_boot
@@ -240,12 +240,12 @@
 # mkdir /boot/efi
 # mount /dev/sda1 /mnt/boot/efi/
 </pre>
-<p>8. Install the system as per the <a href="/Usage/Configuration/B/Installation_guide.html#Connect_to_the_internet" title="Installation guide">Installation Guide</a> as normal except this:
+<p>8. Install the system as per the <a href="/Usage/Configuration/I/Installation_guide.html#Connect_to_the_internet" title="Installation guide">Installation Guide</a> as normal except this:
 </p>
 <p>Before you edit <code>/etc/mkinitcpio.conf</code> and run <code>mkinitcpio -p linux</code>:
 </p>
 <ul>
-<li>install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from the <a href="/Usage/Configuration/B/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> on the new system.</li>
+<li>install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/bcache-tools/">bcache-tools</a></span><sup><small>AUR</small></sup> package from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> on the new system.</li>
 <li>Edit <code>/etc/mkinitcpio.conf</code>:
 <ul>
 <li>add the "bcache" module</li>
@@ -400,7 +400,7 @@ b6b2d82b-f87e-44d5-bbc5-c51dd7aace15     register     register_quiet
 <h3>
 <span id=".2Fsys.2Ffs.2Fbcache.2F_does_not_exist"></span><span class="mw-headline" id="/sys/fs/bcache/_does_not_exist">/sys/fs/bcache/ does not exist</span>
 </h3>
-<p>The kernel you booted is not bcache enabled, or you the bcache <a href="/Usage/Configuration/B/Kernel_module.html#Manual_module_handling" title="Kernel module">module is not loaded</a>
+<p>The kernel you booted is not bcache enabled, or you the bcache <a href="/Usage/Configuration/K/Kernel_module.html#Manual_module_handling" title="Kernel module">module is not loaded</a>
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -411,13 +411,13 @@ b6b2d82b-f87e-44d5-bbc5-c51dd7aace15     register     register_quiet
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/B/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:File_systems.html" title="Category:File systems">File systems</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="/Usage/Configuration/B/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
-<li><a href="/Usage/Configuration/B/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
-<li><a href="/Usage/Configuration/B/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Accuracy.html" title="Category:Pages or sections flagged with Template:Accuracy">Pages or sections flagged with Template:Accuracy</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_broken_section_links.html" title="Category:Pages with broken section links">Pages with broken section links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -436,9 +436,9 @@ b6b2d82b-f87e-44d5-bbc5-c51dd7aace15     register     register_quiet
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/B/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/B/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/B/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: Printer_sharing
     description: Migration of Printer_sharing from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -16,7 +16,7 @@
 	
 	<div id="bodyContent" class="mw-body-content">
 		<div id="siteSub" >From TOS Wiki</div>
-		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a></span></div>
+		<div id="contentSub"><span >&lt; <a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a></span></div>
 		
 		
 		
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="..//Usage/Configuration/P/Samba.html" title="Samba">Samba</a></li>
-<li><a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a></li>
+<li><a href="..//Usage/Configuration/S/Samba.html" title="Samba">Samba</a></li>
+<li><a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a></li>
 </ul>
 </div>
 <p>This article contains instruction on sharing printers from a GNU/Linux system.
@@ -52,7 +52,7 @@
 <a href="https://en.wikipedia.org/wiki/Zero-configuration_networking#DNS-based_service_discovery"  title="wikipedia:Zero-configuration networking">Discovery (DNS-SD/mDNS)</a>
 </th>
 <td>
-<a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a> with <a href="..//Usage/Configuration/P/Avahi.html" title="Avahi">Avahi</a>
+<a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a> with <a href="..//Usage/Configuration/A/Avahi.html" title="Avahi">Avahi</a>
 </td>
 <td>Native support since <a rel="nofollow"  href="https://www.ctrl.blog/entry/windows-mdns-dnssd.html">Windows 10</a>
 </td>
@@ -64,7 +64,7 @@
 <a href="https://en.wikipedia.org/wiki/Internet_Printing_Protocol"  title="wikipedia:Internet Printing Protocol">Internet Printing Protocol</a>
 </th>
 <td>
-<a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a>
+<a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a>
 </td>
 <td>
 <i>Control Panel &gt; Programs &gt; Turn Windows features on or off &gt; Print and Document Services &gt; Internet Printing Client</i>
@@ -77,7 +77,7 @@
 <a href="https://en.wikipedia.org/wiki/Server_Message_Block"  title="wikipedia:Server Message Block">SMB</a> shared printer
 </th>
 <td>
-<a href="..//Usage/Configuration/P/Samba.html" title="Samba">Samba</a> with <a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a>
+<a href="..//Usage/Configuration/S/Samba.html" title="Samba">Samba</a> with <a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a>
 </td>
 <td>Native support
 </td>
@@ -89,7 +89,7 @@
 <a href="https://en.wikipedia.org/wiki/Line_Printer_Daemon_protocol"  title="wikipedia:Line Printer Daemon protocol">Line Printer Daemon protocol</a>
 </th>
 <td>
-<a href="..//Usage/Configuration/P/CUPS.html" title="CUPS">CUPS</a>
+<a href="..//Usage/Configuration/C/CUPS.html" title="CUPS">CUPS</a>
 </td>
 <td>
 <i>Control Panel &gt; Programs &gt; Turn Windows features on or off &gt; Print services &gt;</i><br><i>LPD Print Service</i> and <i>LPR Port Monitor</i>
@@ -137,7 +137,7 @@
 </p>
 <h2><span class="mw-headline" id="Printer_sharing">Printer sharing</span></h2>
 <h3><span class="mw-headline" id="DNS-SD_advertisement">DNS-SD advertisement</span></h3>
-<p>To announce the printer to the network over DNS-SD/mDNS (Bonjour in Apple world), <a href="..//Usage/Configuration/P/Avahi.html" title="Avahi">Avahi</a> must be installed and running on the server.
+<p>To announce the printer to the network over DNS-SD/mDNS (Bonjour in Apple world), <a href="..//Usage/Configuration/A/Avahi.html" title="Avahi">Avahi</a> must be installed and running on the server.
 </p>
 <p>To enable it, either select <i>Share printers connected to this system</i> in the web interface, or manually set <code>Browsing On</code> in <code>/etc/cups/cupsd.conf</code>:
 </p>
@@ -146,11 +146,11 @@
 Browsing On
 ...
 </pre>
-<p>Afterwards <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
+<p>Afterwards <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
 </p>
 <p>Note that "browsing" at the print server is a different thing from "browsing" at a remote networked host.  On the print server, <code>cupsd</code> provides the DNS-SD protocol support which the <code>avahi-daemon</code> broadcasts.  The <code>cups-browsed</code> service is unnecessary on the print server, unless also broadcasting the old CUPS protocol, or the print server is also "browsing" for other networked printers.  On the remote networked host, the <code>cups-browsed</code> service is <i>required</i> to "browse" for network broadcasts of print services, and running <code>cups-browsed</code> will also automatically start <code>cupsd</code>.
 </p>
-<p>The <code>org.cups.cupsd.service</code> service will be automatically started when a USB printer is plugged in, however this may not be the case for other connection types. If <code>cupsd</code> is not running, <code>avahi-daemon</code> does not broadcast the print services, so in that case the systemd unit service file must be modified to start on boot, and then the service must again be "enabled/installed" with the new dependency. To do this, <a href="..//Usage/Configuration/P/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service file <code>[Install]</code> section to add a <code>WantedBy=default.target</code> dependency, and then <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>org.cups.cupsd.service</code> service.
+<p>The <code>org.cups.cupsd.service</code> service will be automatically started when a USB printer is plugged in, however this may not be the case for other connection types. If <code>cupsd</code> is not running, <code>avahi-daemon</code> does not broadcast the print services, so in that case the systemd unit service file must be modified to start on boot, and then the service must again be "enabled/installed" with the new dependency. To do this, <a href="..//Usage/Configuration/S/Systemd.html#Editing_provided_units" class="mw-redirect" title="Edit">edit</a> the service file <code>[Install]</code> section to add a <code>WantedBy=default.target</code> dependency, and then <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> and <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the <code>org.cups.cupsd.service</code> service.
 </p>
 <h3><span class="mw-headline" id="Sharing_via_Internet_Printing_Protocol">Sharing via Internet Printing Protocol</span></h3>
 <p>The server can be configured using either the web interface or by manually editing <code>/etc/cups/cupsd.conf</code>.
@@ -176,15 +176,15 @@ Listen &lt;hostname&gt;:631
 </pre>
 <p>There are more configuration possibilities, including automatic methods, which are described in detail in <a rel="nofollow"  href="https://www.cups.org/doc/network.html">Using Network Printers</a> and <span class="plainlinks archwiki-template-man" title="$ man 5 cupsd.conf"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/cupsd.conf.5">cupsd.conf(5)</a></span>.
 </p>
-<p>After making any modifications, <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
+<p>After making any modifications, <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>org.cups.cupsd.service</code>.
 </p>
-<p>If CUPS is started using socket activation, create a <a href="..//Usage/Configuration/P/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>org.cups.cupsd.socket</code> so that socket activation also works for remote connections:
+<p>If CUPS is started using socket activation, create a <a href="..//Usage/Configuration/S/Systemd.html#Editing_provided_units" class="mw-redirect" title="Drop-in snippet">drop-in snippet</a> for <code>org.cups.cupsd.socket</code> so that socket activation also works for remote connections:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/systemd/system/org.cups.cupsd.socket.d/override.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Socket]
 ListenStream=631</pre>
 <h3><span class="mw-headline" id="Sharing_via_Samba">Sharing via Samba</span></h3>
-<p><a href="..//Usage/Configuration/P/Samba.html" title="Samba">Samba</a> is an implementation of the Windows file and printer sharing protocols, even the most vintage ones.
+<p><a href="..//Usage/Configuration/S/Samba.html" title="Samba">Samba</a> is an implementation of the Windows file and printer sharing protocols, even the most vintage ones.
 </p>
 <p>To configure Samba on the Linux server, edit <code>/etc/samba/smb.conf</code> file to allow access to printers. File <code>smb.conf</code> can look something like this:
 </p>
@@ -219,16 +219,16 @@ printing = CUPS
     writable = no
     write list = root @adm @wheel <i>yourusername</i>
     valid users = root @adm @wheel <i>yourusername</i></pre>
-<p>Please note that this assumes configuration was made so that users must have a valid account to access the printer. To have a public printer, set <code>guest ok</code> to <code>yes</code>, and remove the <code>valid users</code> line. To add accounts, set up a regular GNU/Linux account and then set up a Samba password on the server. See <a href="..//Usage/Configuration/P/Samba.html#User_Management" title="Samba">Samba#User Management</a>.
+<p>Please note that this assumes configuration was made so that users must have a valid account to access the printer. To have a public printer, set <code>guest ok</code> to <code>yes</code>, and remove the <code>valid users</code> line. To add accounts, set up a regular GNU/Linux account and then set up a Samba password on the server. See <a href="..//Usage/Configuration/S/Samba.html#User_Management" title="Samba">Samba#User Management</a>.
 </p>
-<p>After this, <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>smb.service</code> and <code>nmb.service</code>.
+<p>After this, <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Restart">restart</a> <code>smb.service</code> and <code>nmb.service</code>.
 </p>
 <p>See Samba's documentation <a rel="nofollow"  href="https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Print_Server">Setting up Samba as a Print Server</a> for more details.
 </p>
 <h3><span class="mw-headline" id="Sharing_via_Line_Printer_Daemon_protocol">Sharing via Line Printer Daemon protocol</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> <i>cups-lpd</i> does not perform any access control based on the settings in <code>/etc/cups/cupsd.conf</code>. Therefore, running <i>cups-lpd</i> on your server will allow any computer on your network (and perhaps the entire Internet) to print to your server.</div>
-<p><a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="..//Usage/Configuration/P/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>org.cups.cups-lpd.socket</code>.
+<p><a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="..//Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> <code>org.cups.cups-lpd.socket</code>.
 </p>
 <h2><span class="mw-headline" id="Remote_administration">Remote administration</span></h2>
 <p>Once the server is set up as described in <a href="#Printer_sharing">#Printer sharing</a>, it can also be configured so that it can be remotely administered. Add the allowed hosts to the <code>&lt;Location /admin&gt;</code> block in <code>/etc/cups/cupsd.conf</code>, using the same syntax as described in <a href="#Sharing_via_Internet_Printing_Protocol">#Sharing via Internet Printing Protocol</a>. Note that three levels of access can be granted:
@@ -276,14 +276,14 @@ Allow from @LOCAL
 <p>This should avoid the error: 426 - Upgrade Required when using the CUPS web interface from a remote machine.
 </p>
 <h3><span class="mw-headline" id="Kerberos">Kerberos</span></h3>
-<p><a href="..//Usage/Configuration/P/Kerberos.html" title="Kerberos">Kerberos</a> can be used to authenticate users accessing a remote CUPS server. This assumes that your machine has a keytab and it will need a ticket for "HTTP". Instead of using <code>http://localhost:631</code> you must use <code>https://host.example.co.uk:631</code> - encryption is required for auth (hence https) and the full hostname is needed so that Kerberos/Negotiate can work. In addition, the server must be configured in <code>/etc/cups/cupsd.conf</code> to use a <code>DefaultAuthType</code> of <code>Negotiate</code>.
+<p><a href="..//Usage/Configuration/K/Kerberos.html" title="Kerberos">Kerberos</a> can be used to authenticate users accessing a remote CUPS server. This assumes that your machine has a keytab and it will need a ticket for "HTTP". Instead of using <code>http://localhost:631</code> you must use <code>https://host.example.co.uk:631</code> - encryption is required for auth (hence https) and the full hostname is needed so that Kerberos/Negotiate can work. In addition, the server must be configured in <code>/etc/cups/cupsd.conf</code> to use a <code>DefaultAuthType</code> of <code>Negotiate</code>.
 </p>
-<p>If you are using <a href="..//Usage/Configuration/P/Samba.html" title="Samba">Samba</a>'s winbind NSS support, you can add an AD group name to <code>/etc/cups/cups-files.conf</code> - in the following example <code>sysadmin</code> might be an AD group: 
+<p>If you are using <a href="..//Usage/Configuration/S/Samba.html" title="Samba">Samba</a>'s winbind NSS support, you can add an AD group name to <code>/etc/cups/cups-files.conf</code> - in the following example <code>sysadmin</code> might be an AD group: 
 </p>
 <pre>SystemGroup sys root sysadmin
 </pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>See <a href="..//Usage/Configuration/P/CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a> for general troubleshooting tips.
+<p>See <a href="..//Usage/Configuration/C/CUPS/Troubleshooting.html" title="CUPS/Troubleshooting">CUPS/Troubleshooting</a> for general troubleshooting tips.
 </p>
 <h3><span class="mw-headline" id="Cannot_print_with_GTK_applications">Cannot print with GTK applications</span></h3>
 <p>If you get a <i>getting printer information failed</i> message when you try to print from GTK applications, add this line to your <code>/etc/hosts</code>:
@@ -301,7 +301,7 @@ Allow from @LOCAL
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/P/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
+<a href="../../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="..//Usage/Configuration/C/Category:Printers.html" title="Category:Printers">Printers</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -318,9 +318,9 @@ Allow from @LOCAL
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="..//Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="..//Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="..//Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="..//Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="..//Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

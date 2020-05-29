@@ -2,7 +2,7 @@
     title: Firejail
     description: Migration of Firejail from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,7 +27,7 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/F/Security.html" title="Security">Security</a></li>
+<li><a href="/Usage/Configuration/S/Security.html" title="Security">Security</a></li>
 </ul>
 </div>
 <p><a rel="nofollow"  href="https://firejail.wordpress.com/">Firejail</a> is an easy to use SUID sandbox program that reduces the risk of security breaches by restricting the running environment of untrusted applications using Linux namespaces, seccomp-bpf and Linux capabilities.
@@ -98,10 +98,10 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/F/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> either <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firejail">firejail</a></span>, or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/firejail-git/">firejail-git</a></span><sup><small>AUR</small></sup> package. A GUI application for use with Firejail is also available, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firetools">firetools</a></span>.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> either <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firejail">firejail</a></span>, or the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/firejail-git/">firejail-git</a></span><sup><small>AUR</small></sup> package. A GUI application for use with Firejail is also available, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=firetools">firetools</a></span>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> For information about <span class="plainlinks archwiki-template-man" title="$ man 7 user_namespaces"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/user_namespaces.7">user_namespaces(7)</a></span> support in TOS Linux kernels see <a href="/Usage/Configuration/F/Security.html#Sandboxing_applications" title="Security">Security#Sandboxing applications</a>. <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1842#issuecomment-376642039">Firejail can use it even if it is disabled</a>.</div>
+<strong>Note:</strong> For information about <span class="plainlinks archwiki-template-man" title="$ man 7 user_namespaces"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/user_namespaces.7">user_namespaces(7)</a></span> support in TOS Linux kernels see <a href="/Usage/Configuration/S/Security.html#Sandboxing_applications" title="Security">Security#Sandboxing applications</a>. <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1842#issuecomment-376642039">Firejail can use it even if it is disabled</a>.</div>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> While upstream is gradually adopting whitelists, (cf <code>/etc/firejail/firefox.profile</code>,) most of the supplied profiles still rely heavily on blacklists. This means that anything not explicitly forbidden by the profile will be accessible to the application. For example, if you have btrfs snapshots available in <code>/mnt/btrfs</code>, a jailed program may be forbidden from accessing <code>$HOME/.ssh</code>, but would still be able to access <code>/mnt/btrfs/@some-snapshot/$HOME/.ssh</code>. Make sure to audit your profiles, see <a href="#Testing_profiles">#Testing profiles</a>
 </div>
@@ -153,7 +153,7 @@
 <p>This creates symbolic links in <code>/usr/local/bin</code> pointing to <code>/usr/bin/firejail</code>, for all programs for which firejail has default profiles.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> A <a href="/Usage/Configuration/F/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a> can be used to automatically run <code>firecfg</code> on <a href="/Usage/Configuration/F/Pacman.html" title="Pacman">pacman</a> operations:
+<strong>Tip:</strong> A <a href="/Usage/Configuration/P/Pacman.html#Hooks" class="mw-redirect" title="Pacman hook">pacman hook</a> can be used to automatically run <code>firecfg</code> on <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> operations:
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/pacman.d/hooks/firejail.hook</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">[Trigger]
 Type = Path
@@ -178,9 +178,9 @@ Exec = /bin/sh -c 'firecfg &amp;&gt;/dev/null'</pre>
 <strong>Note:</strong> 
 <ul>
 <li>
-<code>/usr/local/bin</code> should be set before <code>/usr/bin</code> in the <code>PATH</code> <a href="/Usage/Configuration/F/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>.</li>
+<code>/usr/local/bin</code> should be set before <code>/usr/bin</code> in the <code>PATH</code> <a href="/Usage/Configuration/E/Environment_variables.html" class="mw-redirect" title="Environment variable">environment variable</a>.</li>
 <li>To run a symbolic program with custom Firejail setting, simple prefix <i>firejail</i> as seen in <a href="#Usage">#Usage</a>.</li>
-<li>For a daemon, you will need to overwrite the systemd unit file for that daemon to call firejail, see <a href="/Usage/Configuration/F/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a>.</li>
+<li>For a daemon, you will need to overwrite the systemd unit file for that daemon to call firejail, see <a href="/Usage/Configuration/S/Systemd.html#Editing_provided_units" title="Systemd">systemd#Editing provided units</a>.</li>
 <li>
 <code>firecfg</code> doesn't work with some cli shells such as: <code>tar</code>, <code>curl</code>, <code>wget</code>, and <code>git</code> which need to be symlinked manually.</li>
 <li>Symbolic links to <code>gzip</code> and <code>xz</code> interfere with <code>makepkg</code>'s ability to preload <code>libfakeroot.so</code>. See <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=230913">BBS#230913</a>.</li>
@@ -195,7 +195,7 @@ Exec = /bin/sh -c 'firecfg &amp;&gt;/dev/null'</pre>
 <p>The various environment variables and settings that can be used to tune hardened_malloc can be found on it's <a rel="nofollow"  href="https://github.com/GrapheneOS/hardened_malloc">github page</a>.
 </p>
 <h3><span class="mw-headline" id="Enable_AppArmor_support">Enable AppArmor support</span></h3>
-<p>There are a number of ways to enable <a href="/Usage/Configuration/F/AppArmor.html" title="AppArmor">AppArmor</a> confinement on top of a Firejail security profile:
+<p>There are a number of ways to enable <a href="/Usage/Configuration/A/AppArmor.html" title="AppArmor">AppArmor</a> confinement on top of a Firejail security profile:
 </p>
 <ul>
 <li>Pass the <code>--apparmor</code> flag to Firejail in the command line, e.g. <code>$ firejail --apparmor firefox</code>
@@ -292,7 +292,7 @@ Examples:
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> The audit feature is not implemented for --x11 commands.</div>
 <h2><span class="mw-headline" id="Firejail_with_Xephyr">Firejail with Xephyr</span></h2>
-<p><a href="/Usage/Configuration/F/Xephyr.html" title="Xephyr">Xephyr</a> will allow you to sandbox <a href="/Usage/Configuration/F/Xorg.html" title="Xorg">Xorg</a>. If you want to be able to resize windows, install a window manager such as <a href="/Usage/Configuration/F/Openbox.html" title="Openbox">Openbox</a>.
+<p><a href="/Usage/Configuration/X/Xephyr.html" title="Xephyr">Xephyr</a> will allow you to sandbox <a href="/Usage/Configuration/X/Xorg.html" title="Xorg">Xorg</a>. If you want to be able to resize windows, install a window manager such as <a href="/Usage/Configuration/O/Openbox.html" title="Openbox">Openbox</a>.
 </p>
 <p><code>xephyr-screen <i>Width</i>x<i>Height</i></code> can be set in <code>/etc/firejail/firejail.config</code> where <code><i>Width</i></code> and <code><i>Height</i></code> are in pixels and based on your screen resolution.
 </p>
@@ -300,10 +300,10 @@ Examples:
 </p>
 <pre>$ firejail --x11 --net=<i>device</i> openbox
 </pre>
-<p><code><i>device</i></code> is your active <a href="/Usage/Configuration/F/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>. Then right click and select your applications to run.
+<p><code><i>device</i></code> is your active <a href="/Usage/Configuration/N/Network_configuration.html#Network_interfaces" class="mw-redirect" title="Network interface">network interface</a>. Then right click and select your applications to run.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> If you use <a href="/Usage/Configuration/F/Unbound.html" title="Unbound">Unbound</a>, <a href="/Usage/Configuration/F/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>, <a href="/Usage/Configuration/F/Pdnsd.html" title="Pdnsd">Pdnsd</a> or any other local cache as your resolver on 127.0.0.1 for example, you would leave <code>--net=<i>device</i></code> out of the command as your network should work automatically.</div>
+<strong>Note:</strong> If you use <a href="/Usage/Configuration/U/Unbound.html" title="Unbound">Unbound</a>, <a href="/Usage/Configuration/D/Dnsmasq.html" title="Dnsmasq">dnsmasq</a>, <a href="/Usage/Configuration/P/Pdnsd.html" title="Pdnsd">Pdnsd</a> or any other local cache as your resolver on 127.0.0.1 for example, you would leave <code>--net=<i>device</i></code> out of the command as your network should work automatically.</div>
 <p>A great guide can be found on the <a rel="nofollow"  href="https://firejail.wordpress.com/documentation-2/x11-guide/#configurexephyr">Firejail Wordpress</a>.
 </p>
 <p>According to the guide:
@@ -312,10 +312,10 @@ Examples:
 <p>Note that the statement:
 </p>
 <dl><dd>The only way to disable the abstract socket <code>@/tmp/.X11-unix/X0</code> is by using a network namespace. If for any reasons you cannot use a network namespace, the abstract socket will still be visible inside the sandbox. Hackers can attach keylogger and screenshot programs to this socket.</dd></dl>
-<p>is incorrect, <a href="/Usage/Configuration/F/Xinit.html#xserverrc" title="Xinit">xserverrc</a> can be edited to <code>-nolisten local</code> which disables the abstract sockets of X11 and helps isolate it.
+<p>is incorrect, <a href="/Usage/Configuration/X/Xinit.html#xserverrc" title="Xinit">xserverrc</a> can be edited to <code>-nolisten local</code> which disables the abstract sockets of X11 and helps isolate it.
 </p>
 <h3><span class="mw-headline" id="Sandboxing_a_browser">Sandboxing a browser</span></h3>
-<p><a href="/Usage/Configuration/F/Openbox.html" title="Openbox">Openbox</a> can be configured to start a certain browser at startup. <code><i>program</i>.profile</code> is the respective profile contained in <code>/etc/firejail</code>, and <code>--startup "<i>command</i>"</code> is the command line used to start the program. For example, to start Chromium in the sandbox:
+<p><a href="/Usage/Configuration/O/Openbox.html" title="Openbox">Openbox</a> can be configured to start a certain browser at startup. <code><i>program</i>.profile</code> is the respective profile contained in <code>/etc/firejail</code>, and <code>--startup "<i>command</i>"</code> is the command line used to start the program. For example, to start Chromium in the sandbox:
 </p>
 <pre>$ firejail --x11 --profile=/etc/firejail/chromium.profile openbox --startup "chromium"
 </pre>
@@ -340,7 +340,7 @@ Examples:
 </p>
 <pre># firecfg --clean
 </pre>
-<p>Verify if any leftovers of <a href="/Usage/Configuration/F/Desktop_entries.html" title="Desktop entries">Desktop entries</a> are still overruled by Firejail.
+<p>Verify if any leftovers of <a href="/Usage/Configuration/D/Desktop_entries.html" title="Desktop entries">Desktop entries</a> are still overruled by Firejail.
 </p>
 <h3><span class="mw-headline" id="Desktop_files">Desktop files</span></h3>
 <p>Some GUI application launchers (<code>.desktop</code> files) are coded using absolute paths to an executable, which circumvents firejail's symlink method of ensuring that it is being used. The <i>firecfg</i> tool includes an option to over-ride this on a per-user basis by copying the <code>.desktop</code> files from <code>/usr/share/applications/*.desktop</code> to <code>~/.local/share/applications/</code> and replacing the absolute paths with simple file names.
@@ -352,17 +352,17 @@ Examples:
 <h3><span class="mw-headline" id="PulseAudio">PulseAudio</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Using PulseAudio version 9.0 or later should fix this issue.</div>
-<p>If Firejail causes <a href="/Usage/Configuration/F/PulseAudio.html" title="PulseAudio">PulseAudio</a> issues with sandboxed applications <a rel="nofollow"  href="https://firejail.wordpress.com/support/known-problems/#pulseaudio">[2]</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>, the following command may be used:
+<p>If Firejail causes <a href="/Usage/Configuration/P/PulseAudio.html" title="PulseAudio">PulseAudio</a> issues with sandboxed applications <a rel="nofollow"  href="https://firejail.wordpress.com/support/known-problems/#pulseaudio">[2]</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup>, the following command may be used:
 </p>
 <pre>$ firecfg --fix-sound
 </pre>
 <p>This commands creates a custom <code>~/.config/pulse/client.conf</code> file for the <i>current</i> user with <code>enable-shm = no</code> and possible other workarounds.
 </p>
 <h3><span class="mw-headline" id="Hidepid">Hidepid</span></h3>
-<p>If you have <a href="/Usage/Configuration/F/Security.html#hidepid" class="mw-redirect" title="Hidepid">hidepid</a> installed, Firemon can only be run as root. This, among other things, will cause problems with the Firetools GUI incorrectly reporting "Capabilities", "Protocols" and the status of "Seccomp". See <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1564">[3]</a>
+<p>If you have <a href="/Usage/Configuration/S/Security.html#hidepid" class="mw-redirect" title="Hidepid">hidepid</a> installed, Firemon can only be run as root. This, among other things, will cause problems with the Firetools GUI incorrectly reporting "Capabilities", "Protocols" and the status of "Seccomp". See <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1564">[3]</a>
 </p>
 <h3><span class="mw-headline" id="Proprietary_Nvidia_drivers">Proprietary Nvidia drivers</span></h3>
-<p>Some users report problems when using Firejail and proprietary graphic drivers from <a href="/Usage/Configuration/F/NVIDIA.html" title="NVIDIA">NVIDIA</a> (e.g. <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1753">[4]</a>, <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/879">[5]</a> or <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/841">[6]</a>). This can often be solved by disabling the <code>noroot</code> Firejail option in the application's profile file.
+<p>Some users report problems when using Firejail and proprietary graphic drivers from <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> (e.g. <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/1753">[4]</a>, <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/879">[5]</a> or <a rel="nofollow"  href="https://github.com/netblue30/firejail/issues/841">[6]</a>). This can often be solved by disabling the <code>noroot</code> Firejail option in the application's profile file.
 </p>
 <h3>
 <span id="--net_options_and_Linux_kernel_.3E.3D4.20.0"></span><span class="mw-headline" id="--net_options_and_Linux_kernel_&gt;=4.20.0">--net options and Linux kernel &gt;=4.20.0</span>
@@ -393,7 +393,7 @@ As root, run "aa-enforce firejail-default" to load it.
 </p>
 <pre>ERROR: Cache read/write disabled: interface file missing. (Kernel needs AppArmor 2.4 compatibility patch.)
 </pre>
-<p>This means that <a href="/Usage/Configuration/F/AppArmor.html" title="AppArmor">AppArmor</a> is not enabled as a kernel parameter, so you have to set it according to <a href="/Usage/Configuration/F/AppArmor.html#Installation" title="AppArmor">AppArmor#Installation</a>.
+<p>This means that <a href="/Usage/Configuration/A/AppArmor.html" title="AppArmor">AppArmor</a> is not enabled as a kernel parameter, so you have to set it according to <a href="/Usage/Configuration/A/AppArmor.html#Installation" title="AppArmor">AppArmor#Installation</a>.
 </p>
 <h3>
 <span id=".2Fusr.2Fbin.2Fpatch:_.2A.2A.2A.2A_Can.27t_open_patch_file"></span><span class="mw-headline" id="/usr/bin/patch:_****_Can't_open_patch_file">/usr/bin/patch: **** Can't open patch file</span>
@@ -412,17 +412,17 @@ As root, run "aa-enforce firejail-default" to load it.
 <ul>
 <li><a rel="nofollow"  href="https://github.com/netblue30/firejail">Firejail GitHub project page</a></li>
 <li>
-<a href="/Usage/Configuration/F/Bubblewrap.html" title="Bubblewrap">bubblewrap</a>, a minimal alternative to Firejail</li>
+<a href="/Usage/Configuration/B/Bubblewrap.html" title="Bubblewrap">bubblewrap</a>, a minimal alternative to Firejail</li>
 </ul>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Sandboxing.html" title="Category:Sandboxing">Sandboxing</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/F/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
-<li><a href="/Usage/Configuration/F/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Merge.html" title="Category:Pages or sections flagged with Template:Merge">Pages or sections flagged with Template:Merge</a></li>
 </ul>
 </div>
 </div>
@@ -441,9 +441,9 @@ As root, run "aa-enforce firejail-default" to load it.
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

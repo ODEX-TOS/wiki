@@ -2,7 +2,7 @@
     title: Downgrading_packages
     description: Migration of Downgrading_packages from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/D/TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
-<li><a href="/Usage/Configuration/D/Makepkg.html" title="Makepkg">makepkg</a></li>
-<li><a href="/Usage/Configuration/D/Pacman.html" title="Pacman">pacman</a></li>
-<li><a href="/Usage/Configuration/D/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a></li>
+<li><a href="/Usage/Configuration/T/TOS_Build_System.html" title="TOS Build System">TOS Build System</a></li>
+<li><a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a></li>
+<li><a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a></li>
+<li><a href="/Usage/Configuration/T/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a></li>
 </ul>
 </div>
 <p>Before downgrading a single or multiple packages, consider why you wish to do so. If it is due to a bug, search the <a rel="nofollow"  href="https://bugs.archlinux.org/">bug tracker</a> for existing tasks. If there is none, add a new task; it is better to correct bugs, or at least warn other users of possible issues.
@@ -38,9 +38,9 @@
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> 
 <ul>
-<li>Downgrading one package may require that its dependencies be downgraded as well. When the number of packages to downgrade is large, consider using a snapshot. See <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html#How_to_restore_all_packages_to_a_specific_date" title="TOS Linux TOSive">TOS Linux TOSive#How to restore all packages to a specific date</a>.</li>
+<li>Downgrading one package may require that its dependencies be downgraded as well. When the number of packages to downgrade is large, consider using a snapshot. See <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html#How_to_restore_all_packages_to_a_specific_date" title="TOS Linux TOSive">TOS Linux TOSive#How to restore all packages to a specific date</a>.</li>
 <li>Be careful with changes to configuration files and scripts. For now pacman will handle this for us, as long as we do not bypass its safeguards.</li>
-<li>If the downgrading involve a soname change, all dependency may need downgrading or <a href="/Usage/Configuration/D/Frequently_asked_questions.html#What_if_I_run_a_full_system_upgrade_and_there_will_be_an_update_for_a_shared_library,_but_not_for_the_apps_that_depend_on_it?" title="Frequently asked questions">rebuild</a> too.</li>
+<li>If the downgrading involve a soname change, all dependency may need downgrading or <a href="/Usage/Configuration/F/Frequently_asked_questions.html#What_if_I_run_a_full_system_upgrade_and_there_will_be_an_update_for_a_shared_library,_but_not_for_the_apps_that_depend_on_it?" title="Frequently asked questions">rebuild</a> too.</li>
 </ul>
 </div>
 <div id="toc" >
@@ -65,13 +65,13 @@
 
 <h2><span class="mw-headline" id="Return_to_an_earlier_package_version">Return to an earlier package version</span></h2>
 <h3><span class="mw-headline" id="Using_the_pacman_cache">Using the pacman cache</span></h3>
-<p>If a package was installed at an earlier stage, and the <a href="/Usage/Configuration/D/Pacman.html#Cleaning_the_package_cache" title="Pacman">pacman cache</a> was not cleaned, install an earlier version from <code>/var/cache/pacman/pkg/</code>.
+<p>If a package was installed at an earlier stage, and the <a href="/Usage/Configuration/P/Pacman.html#Cleaning_the_package_cache" title="Pacman">pacman cache</a> was not cleaned, install an earlier version from <code>/var/cache/pacman/pkg/</code>.
 </p>
-<p>This process will remove the current package and install the older version. Dependency changes will be handled, but <a href="/Usage/Configuration/D/Pacman.html" title="Pacman">pacman</a> will not handle version conflicts. If a library or other package needs to be downgraded with the packages, please be aware that you will have to downgrade this package yourself as well.
+<p>This process will remove the current package and install the older version. Dependency changes will be handled, but <a href="/Usage/Configuration/P/Pacman.html" title="Pacman">pacman</a> will not handle version conflicts. If a library or other package needs to be downgraded with the packages, please be aware that you will have to downgrade this package yourself as well.
 </p>
 <pre># pacman -U /var/cache/pacman/pkg/<i>package</i>-<i>old_version</i>.pkg.tar.xz
 </pre>
-<p>Once the package is reverted, temporarily add it to the <a href="/Usage/Configuration/D/Pacman.html#Skip_package_from_being_upgraded" title="Pacman">IgnorePkg section</a> of <code>pacman.conf</code>, until the difficulty with the updated package is resolved.
+<p>Once the package is reverted, temporarily add it to the <a href="/Usage/Configuration/P/Pacman.html#Skip_package_from_being_upgraded" title="Pacman">IgnorePkg section</a> of <code>pacman.conf</code>, until the difficulty with the updated package is resolved.
 </p>
 <h3><span class="mw-headline" id="Downgrading_the_kernel">Downgrading the kernel</span></h3>
 <p>In case of issue with a new kernel, the Linux packages can be downgraded to the last working ones <a href="#Using_the_pacman_cache">#Using the pacman cache</a>. Go into the directory <code>/var/cache/pacman/pkg</code> and downgrade at least <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux">linux</a></span>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-headers">linux-headers</a></span> and any kernel modules. For example:
@@ -79,34 +79,34 @@
 <pre># pacman -U linux-4.15.8-1-x86_64.pkg.tar.xz linux-headers-4.15.8-1-x86_64.pkg.tar.xz virtualbox-host-modules-arch-5.2.8-4-x86_64.pkg.tar.xz
 </pre>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> If you are unable to boot after a kernel update, you can downgrade the kernel <a href="/Usage/Configuration/D/Chroot.html" class="mw-redirect" title="Change root">chrooting</a> into the system. Boot using an TOS Linux <a href="/Usage/Configuration/D/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a> and mount the partition where your system is installed to <code>/mnt</code>. If you have <code>/boot</code> or <code>/var</code> on separate partitions, also mount them to <code>/mnt</code> (e.g. <code>mount /dev/sdc3 /mnt/boot</code>). Then <i>chroot</i> into the system using: <pre># arch-chroot /mnt /bin/bash</pre>
+<strong>Tip:</strong> If you are unable to boot after a kernel update, you can downgrade the kernel <a href="/Usage/Configuration/C/Chroot.html" class="mw-redirect" title="Change root">chrooting</a> into the system. Boot using an TOS Linux <a href="/Usage/Configuration/U/USB_flash_installation_media.html" title="USB flash installation media">USB flash installation media</a> and mount the partition where your system is installed to <code>/mnt</code>. If you have <code>/boot</code> or <code>/var</code> on separate partitions, also mount them to <code>/mnt</code> (e.g. <code>mount /dev/sdc3 /mnt/boot</code>). Then <i>chroot</i> into the system using: <pre># arch-chroot /mnt /bin/bash</pre>
 Now you can go into the <i>pacman</i> cache directory and downgrade the Linux packages using the command indicated above. Once done, exit the chroot (with <code>exit</code>) and reboot.</div>
 <h3><span class="mw-headline" id="TOS_Linux_TOSive">TOS Linux TOSive</span></h3>
-<p>The <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a> is a daily snapshot of the <a href="/Usage/Configuration/D/Official_repositories.html" title="Official repositories">official repositories</a>. It can be used to <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html#How_to_downgrade_one_package" title="TOS Linux TOSive">install a previous package version</a>, or <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html#How_to_restore_all_packages_to_a_specific_date" title="TOS Linux TOSive">restore the system to an earlier date</a>.
+<p>The <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a> is a daily snapshot of the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>. It can be used to <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html#How_to_downgrade_one_package" title="TOS Linux TOSive">install a previous package version</a>, or <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html#How_to_restore_all_packages_to_a_specific_date" title="TOS Linux TOSive">restore the system to an earlier date</a>.
 </p>
 <h3><span class="mw-headline" id="Rebuild_the_package">Rebuild the package</span></h3>
-<p>If the package is unavailable, find the correct <a href="/Usage/Configuration/D/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> and rebuild it with <a href="/Usage/Configuration/D/Makepkg.html" title="Makepkg">makepkg</a>.
+<p>If the package is unavailable, find the correct <a href="/Usage/Configuration/P/PKGBUILD.html" title="PKGBUILD">PKGBUILD</a> and rebuild it with <a href="/Usage/Configuration/M/Makepkg.html" title="Makepkg">makepkg</a>.
 </p>
-<p>For packages from the <a href="/Usage/Configuration/D/Official_repositories.html" title="Official repositories">official repositories</a>, retrieve the PKGBUILD with <a href="/Usage/Configuration/D/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and change the software version. Alternatively, find the package on the <a rel="nofollow"  href="https://www.archlinux.org/packages">Packages</a> website, click "View Changes", and navigate to the desired version. The files are available through a <code>.tar.gz</code> snapshot, and via the <i>Tree</i> view.
+<p>For packages from the <a href="/Usage/Configuration/O/Official_repositories.html" title="Official repositories">official repositories</a>, retrieve the PKGBUILD with <a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> and change the software version. Alternatively, find the package on the <a rel="nofollow"  href="https://www.archlinux.org/packages">Packages</a> website, click "View Changes", and navigate to the desired version. The files are available through a <code>.tar.gz</code> snapshot, and via the <i>Tree</i> view.
 </p>
-<p>See also <a href="/Usage/Configuration/D/TOS_Build_System.html#Checkout_an_older_version_of_a_package" title="TOS Build System">TOS Build System#Checkout an older version of a package</a>.
+<p>See also <a href="/Usage/Configuration/T/TOS_Build_System.html#Checkout_an_older_version_of_a_package" title="TOS Build System">TOS Build System#Checkout an older version of a package</a>.
 </p>
-<p>Old AUR packages can be built by checking out an old commit in the AUR package Git repository. For pre-2015 AUR3 PKGBUILDs, see <a href="/Usage/Configuration/D/TOS_User_Repository.html#Git_repositories_for_AUR3_packages" title="TOS User Repository">TOS User Repository#Git repositories for AUR3 packages</a>.
+<p>Old AUR packages can be built by checking out an old commit in the AUR package Git repository. For pre-2015 AUR3 PKGBUILDs, see <a href="/Usage/Configuration/T/TOS_User_Repository.html#Git_repositories_for_AUR3_packages" title="TOS User Repository">TOS User Repository#Git repositories for AUR3 packages</a>.
 </p>
 <h3><span class="mw-headline" id="Automation">Automation</span></h3>
-<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/downgrader-git/">downgrader-git</a></span><sup><small>AUR</small></sup> is a tool which works with libalpm, supports the pacman log and downgrading packages using <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>, local cache and <a rel="nofollow"  href="http://repo-arm.archlinuxcn.org">ARM</a>.
+<p><span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/downgrader-git/">downgrader-git</a></span><sup><small>AUR</small></sup> is a tool which works with libalpm, supports the pacman log and downgrading packages using <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html" title="TOS Linux TOSive">TOS Linux TOSive</a>, local cache and <a rel="nofollow"  href="http://repo-arm.archlinuxcn.org">ARM</a>.
 </p>
-<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/downgrade/">downgrade</a></span><sup><small>AUR</small></sup> package is a Bash script to downgrade one (or multiple) packages, by using the pacman cache or the <a href="/Usage/Configuration/D/TOS_Linux_TOSive.html" class="mw-redirect" title="TOS Rollback Machine">TOS Rollback Machine</a>. See <code>man downgrade</code> for details.
+<p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/downgrade/">downgrade</a></span><sup><small>AUR</small></sup> package is a Bash script to downgrade one (or multiple) packages, by using the pacman cache or the <a href="/Usage/Configuration/T/TOS_Linux_TOSive.html" class="mw-redirect" title="TOS Rollback Machine">TOS Rollback Machine</a>. See <code>man downgrade</code> for details.
 </p>
 <h2>
 <span id="Return_from_.5Btesting.5D"></span><span class="mw-headline" id="Return_from_[testing]">Return from [testing]</span>
 </h2>
-<p>See <a href="/Usage/Configuration/D/Official_repositories.html#Disabling_testing_repositories" title="Official repositories">Official repositories#Disabling testing repositories</a>.
+<p>See <a href="/Usage/Configuration/O/Official_repositories.html#Disabling_testing_repositories" title="Official repositories">Official repositories#Disabling testing repositories</a>.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/D/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Package_management.html" title="Category:Package management">Package management</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -123,9 +123,9 @@ Now you can go into the <i>pacman</i> cache directory and downgrade the Linux pa
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/D/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/D/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/D/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

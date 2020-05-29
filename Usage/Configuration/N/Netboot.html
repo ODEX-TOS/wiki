@@ -2,7 +2,7 @@
     title: Netboot
     description: Migration of Netboot from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -60,14 +60,14 @@
 <p>To use netboot on a BIOS-based computer, you need either the <code>ipxe.lkrn</code> or <code>ipxe.pxe</code> image.
 </p>
 <h3><span class="mw-headline" id="Using_ipxe.lkrn">Using ipxe.lkrn</span></h3>
-<p>The <code>ipxe.lkrn</code> image can be booted like a Linux kernel. Any Linux <a href="/Usage/Configuration/N/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> (like <a href="/Usage/Configuration/N/GRUB.html" title="GRUB">GRUB</a> or <a href="/Usage/Configuration/N/Syslinux.html" title="Syslinux">Syslinux</a>) can be used to load it from your hard drive, a CD or a USB drive. For example, the Syslinux-toswiki gives instructions to install<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Install">[1]</a> and configure<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Config">[2]</a> Syslinux on a bootable medium.
+<p>The <code>ipxe.lkrn</code> image can be booted like a Linux kernel. Any Linux <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">boot loader</a> (like <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a> or <a href="/Usage/Configuration/S/Syslinux.html" title="Syslinux">Syslinux</a>) can be used to load it from your hard drive, a CD or a USB drive. For example, the Syslinux-toswiki gives instructions to install<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Install">[1]</a> and configure<a rel="nofollow"  href="https://wiki.syslinux.org/wiki/index.php?title=Config">[2]</a> Syslinux on a bootable medium.
 </p>
 <p>You can make flash drive that boots <code>ipxe.lkrn</code> with the following steps:
 </p>
 <ul>
-<li>Find out your device path using <a href="/Usage/Configuration/N/Device_file.html#lsblk" class="mw-redirect" title="Lsblk">lsblk</a>. Let us assume it is <code>/dev/sdc</code>.</li>
+<li>Find out your device path using <a href="/Usage/Configuration/D/Device_file.html#lsblk" class="mw-redirect" title="Lsblk">lsblk</a>. Let us assume it is <code>/dev/sdc</code>.</li>
 <li>Create MBR partition table on the device.</li>
-<li>Create a primary partition with <a href="/Usage/Configuration/N/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> file system and flag it as active.</li>
+<li>Create a primary partition with <a href="/Usage/Configuration/F/FAT.html" class="mw-redirect" title="FAT32">FAT32</a> file system and flag it as active.</li>
 <li>Mount partition, create <code>boot/syslinux</code> directory there and copy <code>ipxe.lkrn</code> to the <code>boot</code> directory.</li>
 </ul>
 <pre># mount /dev/sdc /mnt
@@ -88,7 +88,7 @@ LABEL arch_netboot
 # syslinux-tos--directory /boot/syslinux/ --install /dev/sdc1
 </pre>
 <ul><li>Now you should be able to boot your usb stick with ipxe.lkrn.</li></ul>
-<p>Alternatively, you can also try the image with <a href="/Usage/Configuration/N/QEMU.html" title="QEMU">QEMU</a> by running the following command:
+<p>Alternatively, you can also try the image with <a href="/Usage/Configuration/Q/QEMU.html" title="QEMU">QEMU</a> by running the following command:
 </p>
 <pre>$ qemu-system-x86_64 -enable-kvm -m 2G -kernel ipxe.lkrn
 </pre>
@@ -104,12 +104,12 @@ LABEL arch_netboot
 <p>For this example to work you must have pxechn.c32 copied to the directory where your pxelinux.0 resides.
 </p>
 <h2><span class="mw-headline" id="UEFI">UEFI</span></h2>
-<p>The <code>ipxe.efi</code> image can be used to launch TOS Linux netboot in UEFI mode. Only 64-bit UEFI is supported. The <code>ipxe.efi</code> image can be added as a boot option via <a href="/Usage/Configuration/N/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>, launched from a <a href="/Usage/Configuration/N/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot manager">boot manager</a>, like <a href="/Usage/Configuration/N/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> or <a href="/Usage/Configuration/N/REFInd.html" title="REFInd">rEFInd</a>, or directly from the <a href="/Usage/Configuration/N/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a>.
+<p>The <code>ipxe.efi</code> image can be used to launch TOS Linux netboot in UEFI mode. Only 64-bit UEFI is supported. The <code>ipxe.efi</code> image can be added as a boot option via <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#efibootmgr" class="mw-redirect" title="Efibootmgr">efibootmgr</a>, launched from a <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot manager">boot manager</a>, like <a href="/Usage/Configuration/S/Systemd-boot.html" title="Systemd-boot">systemd-boot</a> or <a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a>, or directly from the <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html#UEFI_Shell" class="mw-redirect" title="UEFI shell">UEFI shell</a>.
 </p>
 <h3><span class="mw-headline" id="Installation_with_efibootmgr">Installation with efibootmgr</span></h3>
 <p>First install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=efibootmgr">efibootmgr</a></span> package, then download the <a rel="nofollow"  href="https://www.archlinux.org/releng/netboot/">UEFI netboot image</a>.
 </p>
-<p>Assuming your <a href="/Usage/Configuration/N/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP) is mounted under <code><i>esp</i></code>, you should move it as follows - let us also give it a more friendly name:
+<p>Assuming your <a href="/Usage/Configuration/E/EFI_system_partition.html" title="EFI system partition">EFI system partition</a> (ESP) is mounted under <code><i>esp</i></code>, you should move it as follows - let us also give it a more friendly name:
 </p>
 <pre># mkdir <i>esp</i>/EFI/arch_netboot
 # mv ipxe.*.efi <i>esp</i>/EFI/arch_netboot/arch_netboot.efi
@@ -136,8 +136,8 @@ LABEL arch_netboot
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/N/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
-<li><a href="/Usage/Configuration/N/Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
+<li><a href="/Usage/Configuration/C/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="/Usage/Configuration/C/Category:TOS_projects.html" title="Category:TOS projects">TOS projects</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -155,9 +155,9 @@ LABEL arch_netboot
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/N/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/N/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/N/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

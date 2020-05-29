@@ -2,7 +2,7 @@
     title: Install_TOS_Linux_via_SSH
     description: Migration of Install_TOS_Linux_via_SSH from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -24,7 +24,7 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This article is intended to show users how to install TOS remotely via an <a href="/Usage/Configuration/I/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> connection. Consider this approach when the host is located remotely or you wish to use the copy/paste ability of an SSH client to do the TOS install.
+<p>This article is intended to show users how to install TOS remotely via an <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> connection. Consider this approach when the host is located remotely or you wish to use the copy/paste ability of an SSH client to do the TOS install.
 </p>
 <h2>
 <span id="On_the_remote_.28target.29_machine"></span><span class="mw-headline" id="On_the_remote_(target)_machine">On the remote (target) machine</span>
@@ -41,7 +41,7 @@
 </pre>
 <p>Now check that <code>PermitRootLogin yes</code> is present (and uncommented) in <code>/etc/ssh/sshd_config</code>. This setting allows root login with password authentication on the SSH server.
 </p>
-<p>Finally, <a href="/Usage/Configuration/I/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the openssh daemon with <code>sshd.service</code>, which is included by default on the live CD.
+<p>Finally, <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the openssh daemon with <code>sshd.service</code>, which is included by default on the live CD.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Unless required, after installation it is recommended to remove <code>PermitRootLogin yes</code> from <code>/etc/ssh/sshd_config</code>.</div>
@@ -55,14 +55,14 @@
 <p>From here one is presented with the live environment's welcome message and is able to administer the target machine as if sitting at the physical keyboard. At this point, if the intent is to simply install TOS from the live media, follow the guide at <a href="/Usage/Configuration/I/Installation_guide.html" title="Installation guide">Installation guide</a>. If the intent is to edit an existing Linux install that got broken, follow the <a href="/Usage/Configuration/I/Install_TOS_Linux_from_existing_Linux.html" class="mw-redirect" title="Install from existing Linux">Install from existing Linux</a> wiki article.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
-<strong>Tip:</strong> Consider installing a <a href="/Usage/Configuration/I/List_of_applications.html#Terminal_multiplexers" title="List of applications">terminal multiplexer</a> on the target machine's live (in memory) system, so that if you are disconnected you can reattach to your multiplexer's session.</div>
+<strong>Tip:</strong> Consider installing a <a href="/Usage/Configuration/L/List_of_applications.html#Terminal_multiplexers" title="List of applications">terminal multiplexer</a> on the target machine's live (in memory) system, so that if you are disconnected you can reattach to your multiplexer's session.</div>
 <h2><span class="mw-headline" id="Installation_on_a_headless_server">Installation on a headless server</span></h2>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> These steps require physical access to the USB port of the headless machine. Somebody has to insert the bootable USB stick and power up the headless server.</div>
 <p>This section describes installation of TOS Linux on a headless server (in my case an Intel NUC box) without a keyboard, mouse or display. It involves three steps:
 </p>
 <ol>
-<li>Create a modified TOS Linux live image using <a href="/Usage/Configuration/I/TOSiso.html" title="TOSiso">TOSiso</a>. The modification is designed to do three things:
+<li>Create a modified TOS Linux live image using <a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a>. The modification is designed to do three things:
 <ol>
 <li>Automatically connect to the (possibly password protected) WiFi network at boot time.</li>
 <li>Run the SSH daemon at boot time</li>
@@ -76,7 +76,7 @@
 <strong>Note:</strong> To belabor the obvious, all the WiFi and SSH configuration that was carried out in the boot image needs to be done again in the actual TOS Linux installation to allow WiFi SSH access to the headless machine after installation.</div>
 <p>The rest of this section describes the first step of creating a modified live image. All of this done on a machine with an existing TOS Linux installation which will typically also be the machine from which you plan to SSH into the headless machine.
 </p>
-<ul><li>Install <a href="/Usage/Configuration/I/TOSiso.html" title="TOSiso">TOSiso</a> and then as explained in <a href="/Usage/Configuration/I/TOSiso.html#Setup" title="TOSiso">TOSiso#Setup</a> copy the <i>releng</i> profile to a suitable folder:</li></ul>
+<ul><li>Install <a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a> and then as explained in <a href="/Usage/Configuration/T/TOSiso.html#Setup" title="TOSiso">TOSiso#Setup</a> copy the <i>releng</i> profile to a suitable folder:</li></ul>
 <pre>cp -r /usr/share/archiso/configs/releng/ /root/archlive
 </pre>
 <ul><li>Create a file defining your network SSID, password and public key file. This can be merged into the script file described below, but I prefer to keep some separation between code and data.</li></ul>
@@ -86,16 +86,16 @@ PASSWORD=your_wifi_network_password
 PUBLIC_KEY=/path/to/your/public/key</pre>
 <ul><li>Create a customized build script that installs requisite packages, enables desired services and copies the public key file to the boot image. This script does several modifications in the boot image:
 <ul>
-<li>It copies the public key into root's <code>.ssh/authorized_keys</code>. As explained in <a href="/Usage/Configuration/I/TOSiso.html#Adding_files_to_image" title="TOSiso">TOSiso#Adding files to image</a>, this has to be done by creating a <code>skel</code> directory within <code>airootfs/</code> and copy the files there. SSH is very particular about file permissions and we must set these permissions as well.</li>
-<li>It sets up the boot image to connect to the WiFi network at boot using <a href="/Usage/Configuration/I/NetworkManager.html" title="NetworkManager">NetworkManager</a> and its command line interface <a href="/Usage/Configuration/I/NetworkManager.html#nmcli_examples" title="NetworkManager">nmcli</a>. There are several steps involved in this:
+<li>It copies the public key into root's <code>.ssh/authorized_keys</code>. As explained in <a href="/Usage/Configuration/T/TOSiso.html#Adding_files_to_image" title="TOSiso">TOSiso#Adding files to image</a>, this has to be done by creating a <code>skel</code> directory within <code>airootfs/</code> and copy the files there. SSH is very particular about file permissions and we must set these permissions as well.</li>
+<li>It sets up the boot image to connect to the WiFi network at boot using <a href="/Usage/Configuration/N/NetworkManager.html" title="NetworkManager">NetworkManager</a> and its command line interface <a href="/Usage/Configuration/N/NetworkManager.html#nmcli_examples" title="NetworkManager">nmcli</a>. There are several steps involved in this:
 <ul>
-<li>Install <a href="/Usage/Configuration/I/NetworkManager.html" title="NetworkManager">NetworkManager</a> as well as the <a href="/Usage/Configuration/I/Network_configuration/Wireless.html#Troubleshooting_drivers_and_firmware" class="mw-redirect" title="Wireless">Wireless drivers and firmware</a> which in my case is <a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a>. As explained in <a href="/Usage/Configuration/I/TOSiso.html#Installing_packages" title="TOSiso">TOSiso#Installing packages</a>, installation of additional packages is accomplished by adding these packages to the lists of packages in <code>packages.x86_64</code>.</li>
-<li>Start the <code>NetworkManager.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="/Usage/Configuration/I/TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
+<li>Install <a href="/Usage/Configuration/N/NetworkManager.html" title="NetworkManager">NetworkManager</a> as well as the <a href="/Usage/Configuration/N/Network_configuration/Wireless.html#Troubleshooting_drivers_and_firmware" class="mw-redirect" title="Wireless">Wireless drivers and firmware</a> which in my case is <a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-firmware">linux-firmware</a>. As explained in <a href="/Usage/Configuration/T/TOSiso.html#Installing_packages" title="TOSiso">TOSiso#Installing packages</a>, installation of additional packages is accomplished by adding these packages to the lists of packages in <code>packages.x86_64</code>.</li>
+<li>Start the <code>NetworkManager.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="/Usage/Configuration/T/TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
 </li>
 <li>Ensure that the requisite <code>nmcli dev wifi connect</code> command is executed automatically on booting. The boot image is by default set up to auto login to root at boot. When root (or any other user logs in), the scripts in <code>/etc/profile.d</code> are executed. So all that we need to do is to create an executable script in <code>/etc/profile.d</code> with the requisite <code>nmcli dev wifi connect</code> command. In the script below, the password is enclosed in an arcane set of quotes; this quoting is necessary only if the password is actually a passphrase (with embedded spaces).</li>
 </ul>
 </li>
-<li>Start the <code>sshd.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="/Usage/Configuration/I/TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
+<li>Start the <code>sshd.service</code> at boot by adding the requisite <code>systemctl enable</code> command to <code>customize_airootfs.sh</code> as explained in <a href="/Usage/Configuration/T/TOSiso.html#Configure_the_live_medium" title="TOSiso">TOSiso#Configure the live medium</a>
 </li>
 <li>Finally, the customized build script must run the original build script (<code>./build.sh</code>) to create the boot image.</li>
 </ul>
@@ -139,8 +139,8 @@ chmod +x my-build.sh
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/I/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
-<li><a href="/Usage/Configuration/I/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
+<li><a href="/Usage/Configuration/C/Category:Installation_process.html" title="Category:Installation process">Installation process</a></li>
+<li><a href="/Usage/Configuration/C/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -158,9 +158,9 @@ chmod +x my-build.sh
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/I/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/I/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/I/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

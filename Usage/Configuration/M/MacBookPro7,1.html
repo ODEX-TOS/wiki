@@ -2,7 +2,7 @@
     title: MacBookPro7,1
     description: Migration of MacBookPro7,1 from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -34,9 +34,9 @@
 </ul>
 </div>
 <div class="noprint archwiki-template-message">
-<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/M/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
+<p><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a><b>This article or section needs language, wiki syntax or style improvements. See <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> for reference.</b><a href="../File:Tango-edit-clear.png" ><img alt="Tango-edit-clear.png" src="../File:Tango-edit-clear.png" decoding="async" width="48" height="48"></a></p>
 <div>
-<b>Reason:</b> Multiple <a href="/Usage/Configuration/M/Help:Style.html" title="Help:Style">Help:Style</a> violations, wall of text duplicating other articles (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:MacBookPro7,1">Talk:MacBookPro7,1#</a>)</div>
+<b>Reason:</b> Multiple <a href="/Usage/Configuration/H/Help:Style.html" title="Help:Style">Help:Style</a> violations, wall of text duplicating other articles (Discuss in <a rel="nofollow"  href="https://wiki.archlinux.org/index.php/Talk:MacBookPro7,1">Talk:MacBookPro7,1#</a>)</div>
 </div>
 <p>This page contains tips on installing TOS Linux on a Mid 2010 13" MacBook Pro alongside a pre-existing OSX operating system.
 </p>
@@ -98,7 +98,7 @@
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>To install an x86_64 system, follow the <a href="/Usage/Configuration/M/Mac.html" title="Mac">Mac</a> EFI installation instructions.
-It is recommended to read the <a href="/Usage/Configuration/M/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="/Usage/Configuration/M/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> and <a href="/Usage/Configuration/M/TOS_boot_process.html#Boot_loader" title="TOS boot process">TOS boot process#Boot loader</a> pages before trying any of this on your machine.
+It is recommended to read the <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>, <a href="/Usage/Configuration/P/Partitioning.html#GUID_Partition_Table" class="mw-redirect" title="GPT">GPT</a> and <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" title="TOS boot process">TOS boot process#Boot loader</a> pages before trying any of this on your machine.
 Also of note, <a rel="nofollow"  href="https://gist.github.com/Apsu/4108795">GIST</a>.
 </p>
 <p>See notes on <b>video support</b> before attempting installation!
@@ -106,7 +106,7 @@ Also of note, <a rel="nofollow"  href="https://gist.github.com/Apsu/4108795">GIS
 <p><i>The following assumes that you have somehow managed to install archlinux-tosto a single partition on your drive, and that you still have your osx installation on a different partition.</i>
 </p>
 <h3><span class="mw-headline" id="Dual_Boot">Dual Boot</span></h3>
-<p>If you want to dualboot osx and linux, the easiest way to do so is to use <a href="/Usage/Configuration/M/REFInd.html" title="REFInd">rEFInd</a>.
+<p>If you want to dualboot osx and linux, the easiest way to do so is to use <a href="/Usage/Configuration/R/REFInd.html" title="REFInd">rEFInd</a>.
 rEFInd is a updated and maintained fork of <a rel="nofollow"  href="http://refit.sourceforge.net/">rEFIt</a> and should be used in its place.
 </p>
 <p>I've found it easiest to install rEFInd from osx. Depending on your setup, you'll either install it to your osx partition, or to the ESP partition (install.sh --esp). See <a rel="nofollow"  href="http://www.rodsbooks.com/refind/installing.html#installsh">here</a> for instructions.
@@ -140,7 +140,7 @@ vmlinuz-linux
 <p>Note that the EFI/BOOT directory is normally named EFI/REFIND and that the bootx64.efi is normally named refind_x64.efi.
 </p>
 <h4><span class="mw-headline" id="EFI-Mode">EFI-Mode</span></h4>
-<p>Consult <a href="/Usage/Configuration/M/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>
+<p>Consult <a href="/Usage/Configuration/U/Unified_Extensible_Firmware_Interface.html" class="mw-redirect" title="UEFI">UEFI</a>
 </p>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> efibootmgr may brick your Mac firmware.</div>
@@ -222,14 +222,14 @@ I needed to include modules in the initramfs file. In /etc/mkinitcpio.conf:
 </p>
 <p>Once you reboot, rEFInd should now present you with three options, two linux-tosentries and one for osx. One linux entry will boot the kernel via efistub in <b>efi-mode</b>, the other will call syslinux(or your chosen bootloader) which then should boot the system in <b>csm-mode</b>. Do the latter from now on!
 </p>
-<p>The easiest way to see if you were successful, is to install the <a href="/Usage/Configuration/M/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver and start X.
+<p>The easiest way to see if you were successful, is to install the <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> driver and start X.
 </p>
 <h2><span class="mw-headline" id="Network">Network</span></h2>
-<p><a href="/Usage/Configuration/M/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless Setup">Wireless Setup</a> provides instructions on how to identify your card, but if your MacBook Pro 7,1 is like mine then you'll head to <a href="/Usage/Configuration/M/Broadcom_wireless.html" title="Broadcom wireless">Broadcom Wireless</a> and use this command.
+<p><a href="/Usage/Configuration/N/Network_configuration/Wireless.html" class="mw-redirect" title="Wireless Setup">Wireless Setup</a> provides instructions on how to identify your card, but if your MacBook Pro 7,1 is like mine then you'll head to <a href="/Usage/Configuration/B/Broadcom_wireless.html" title="Broadcom wireless">Broadcom Wireless</a> and use this command.
 </p>
 <pre>$ lspci -vnn -d 14e4:
 </pre>
-<p>If from this you discover that your full PCI-ID is <code>[14e4:432b]</code>, then the following advice applies to you: Don't waste time on the <code>b43</code> driver. I've been fiddling with it for weeks, and switching to <code>broadcom-wl</code> made all the problems go away. <code>broadcom-wl</code> might make your device names funky, but that's easily fixed with the udev rule documented on <a href="/Usage/Configuration/M/Broadcom_wireless.html" title="Broadcom wireless">Broadcom Wireless</a>.
+<p>If from this you discover that your full PCI-ID is <code>[14e4:432b]</code>, then the following advice applies to you: Don't waste time on the <code>b43</code> driver. I've been fiddling with it for weeks, and switching to <code>broadcom-wl</code> made all the problems go away. <code>broadcom-wl</code> might make your device names funky, but that's easily fixed with the udev rule documented on <a href="/Usage/Configuration/B/Broadcom_wireless.html" title="Broadcom wireless">Broadcom Wireless</a>.
 </p>
 <p>I also recommend <code>netctl</code>.
 </p>
@@ -256,11 +256,11 @@ blacklist brcm80211
 <p>According to the <a rel="nofollow"  href="https://support.apple.com/kb/SP583?locale=en_US">Apple Product Technical Specifications</a> the MacBook Pro 7,1 has an <a rel="nofollow"  href="http://www.geforce.com/hardware/desktop-gpus/geforce-GT-320-OEM">NVIDIA GeForce GT 320M</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-30 ⓘ]</sup> in it.
 </p>
 <h3><span class="mw-headline" id="Nouveau">Nouveau</span></h3>
-<p>Consult <a href="/Usage/Configuration/M/Nouveau.html" title="Nouveau">Nouveau</a> for general info on the driver. Works out of the box, performance however is not that great and your system will get quite <i>hot</i> when running nouveau.
+<p>Consult <a href="/Usage/Configuration/N/Nouveau.html" title="Nouveau">Nouveau</a> for general info on the driver. Works out of the box, performance however is not that great and your system will get quite <i>hot</i> when running nouveau.
 Will cause issues in electron based applications! Fix by adding --disable-gpu to the .shortcut!
 </p>
 <h3><span class="mw-headline" id="Nvidia">Nvidia</span></h3>
-<p>Consult <a href="/Usage/Configuration/M/NVIDIA.html" title="NVIDIA">NVIDIA</a> for general info on the driver. The drivers work out of the box when booting the mac in csm- or legacy-mode.
+<p>Consult <a href="/Usage/Configuration/N/NVIDIA.html" title="NVIDIA">NVIDIA</a> for general info on the driver. The drivers work out of the box when booting the mac in csm- or legacy-mode.
 See <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=162289">here</a> for some discussion on the topic.
 </p>
 <p>Running the drivers in <b>efi-mode</b> requires setting some PCI registers before the kernel modules get loaded, preferably using a udev hook or GRUB script. You can also use a efi shell script in REFind as stated <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1833995#p1833995">here</a>. Otherwise, the screen just remains black when X starts. Follow these <a rel="nofollow"  href="http://askubuntu.com/questions/264247/proprietary-nvidia-drivers-with-efi-on-mac-to-prevent-overheating/613573#613573">instructions</a> in order to find the appropriate PCI device IDs for which to set the registers. This approach has been confirmed to work and is still being actively discussed inside the above mentioned <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?pid=1522950#p1522950">thread</a>. The latest NVIDIA drivers are no longer supported for this MacBook's GPU you will instead need to use these ones <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/nvidia-340xx-dkms/">nvidia-340xx-dkms</a></span><sup><small>AUR</small></sup>! Once installed create a config by running the command:
@@ -287,7 +287,7 @@ See <a rel="nofollow"  href="https://bbs.archlinux.org/viewtopic.php?id=162289">
 </pre>
 <h2><span class="mw-headline" id="Audio">Audio</span></h2>
 <p><del>In Linux kernel 5.1 (or was it 5.2?) the MacBook Pro 7,1 started having audio issues. I have yet to find a fix even though I've been looking for months. If anyone has a fix please edit this section with your fix in it. For now the temporary fix is just rolling back the kernel to Linux 4.19. To do that we need the Linux-LTS package:
-<del>:<a href="/Usage/Configuration/M/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the packages <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-headers">linux-lts-headers</a></span>.</del>
+<del>:<a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the packages <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts">linux-lts</a></span> and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=linux-lts-headers">linux-lts-headers</a></span>.</del>
 If you are using grub you need to regenerate your grub config, otherwise reconfigure your bootloader to point to /boot/vmlinuz-linux-lts.</del> Fixed since 5.4.6!
 </p>
 <h2><span class="mw-headline" id="Additional_Notes">Additional Notes</span></h2>
@@ -307,11 +307,11 @@ If you are using grub you need to regenerate your grub config, otherwise reconfi
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/M/Category:Apple.html" title="Category:Apple">Apple</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Apple.html" title="Category:Apple">Apple</a></li></ul>
 </div>
 <div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul>
-<li><a href="/Usage/Configuration/M/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
-<li><a href="/Usage/Configuration/M/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_or_sections_flagged_with_Template:Style.html" title="Category:Pages or sections flagged with Template:Style">Pages or sections flagged with Template:Style</a></li>
+<li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li>
 </ul>
 </div>
 </div>
@@ -330,9 +330,9 @@ If you are using grub you need to regenerate your grub config, otherwise reconfi
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/M/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/M/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/M/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

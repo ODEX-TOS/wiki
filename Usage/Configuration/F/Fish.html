@@ -2,7 +2,7 @@
     title: Fish
     description: Migration of Fish from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -29,10 +29,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/F/Command-line_shell.html" title="Command-line shell">Command-line shell</a></li>
+<li><a href="/Usage/Configuration/C/Command-line_shell.html" title="Command-line shell">Command-line shell</a></li>
 </ul>
 </div>
-<p><a rel="nofollow"  href="https://fishshell.com">fish</a>, the <i><b>f</b>riendly <b>i</b>nteractive <b>sh</b>ell</i>, is a <a href="/Usage/Configuration/F/Command-line_shell.html" title="Command-line shell">commandline shell</a> intended to be interactive and user-friendly.
+<p><a rel="nofollow"  href="https://fishshell.com">fish</a>, the <i><b>f</b>riendly <b>i</b>nteractive <b>sh</b>ell</i>, is a <a href="/Usage/Configuration/C/Command-line_shell.html" title="Command-line shell">commandline shell</a> intended to be interactive and user-friendly.
 </p>
 <p><i>fish</i> is intentionally not fully <a href="https://en.wikipedia.org/wiki/POSIX"  title="wikipedia:POSIX">POSIX</a> compliant, it aims at addressing POSIX inconsistencies (as perceived by the creators) with a simplified or a different syntax. This means that even simple POSIX compliant scripts may require some significant adaptation or even full rewriting to run with fish.
 </p>
@@ -86,19 +86,19 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/F/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fish">fish</a></span> package. For the development version, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fish-git/">fish-git</a></span><sup><small>AUR</small></sup> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fish">fish</a></span> package. For the development version, install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fish-git/">fish-git</a></span><sup><small>AUR</small></sup> package.
 </p>
 <p>Once installed, simply type <code>fish</code> to drop into the fish shell.
 </p>
 <p>Documentation can be found by typing <code>help</code> from fish; it will be opened in a web browser. It is recommended to read at least the "Syntax overview" section, since fish's syntax is different from many other shells.
 </p>
 <h2><span class="mw-headline" id="System_integration">System integration</span></h2>
-<p>One must decide whether fish is going to be the default user's shell, which means that the user falls directly in fish at login, or whether it is used in interactive terminal mode as a child process of the current default shell, here we will assume the latter is <a href="/Usage/Configuration/F/Bash.html" title="Bash">Bash</a>. To elaborate on these two setups:
+<p>One must decide whether fish is going to be the default user's shell, which means that the user falls directly in fish at login, or whether it is used in interactive terminal mode as a child process of the current default shell, here we will assume the latter is <a href="/Usage/Configuration/B/Bash.html" title="Bash">Bash</a>. To elaborate on these two setups:
 </p>
 <ul><li>fish used as the <b>default shell</b>: this mode requires some basic understanding of the fish functioning and its scripting language. The user's current initialization scripts and environment variables need to be migrated to the new fish environment. To configure the system in this mode, follow <a href="#Setting_fish_as_default_shell">#Setting fish as default shell</a>.</li></ul>
 <ul><li>fish used as an <b>interactive shell only</b>: this is the less disruptive mode, all the Bash initialization scripts are run as usual and fish runs on top of Bash in interactive mode connected to a terminal. To setup fish in this mode, follow <a href="#Setting_fish_as_interactive_shell_only">#Setting fish as interactive shell only</a>.</li></ul>
 <h3><span class="mw-headline" id="Setting_fish_as_default_shell">Setting fish as default shell</span></h3>
-<p>If you decide to set fish as the default user shell, the first step is to set the shell of this particular user to <code>/usr/bin/fish</code>. This can be done by following the instructions in <a href="/Usage/Configuration/F/Command-line_shell.html#Changing_your_default_shell" title="Command-line shell">Command-line shell#Changing your default shell</a>.
+<p>If you decide to set fish as the default user shell, the first step is to set the shell of this particular user to <code>/usr/bin/fish</code>. This can be done by following the instructions in <a href="/Usage/Configuration/C/Command-line_shell.html#Changing_your_default_shell" title="Command-line shell">Command-line shell#Changing your default shell</a>.
 </p>
 <p>The next step is to port the current needed actions and configuration performed in the various Bash initialization scripts, namely <code>/etc/profile</code>, <code>~/.bash_profile</code>, <code>/etc/bash.bashrc</code> and <code>~/.bashrc</code>, into the fish framework.
 </p>
@@ -113,7 +113,7 @@ The recommended way of adding permanently additional locations to the path is by
 <p>Not setting fish as system wide or user default allows the current Bash scripts to run on startup. It ensures the current user's environment variables are unchanged and are exported to fish which then runs as a Bash child. Below are several ways of running fish in interactive mode without setting it as the default shell.
 </p>
 <h4><span class="mw-headline" id="Modify_.bashrc_to_drop_into_fish">Modify .bashrc to drop into fish</span></h4>
-<p>Keep the default shell as Bash and simply add the line <code>exec fish</code> to the appropriate <a href="/Usage/Configuration/F/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a>, such as <code>.bashrc</code>. This will allow Bash to properly source <code>/etc/profile</code> and all files in <code>/etc/profile.d</code>. Because fish replaces the Bash process, exiting fish will also exit the terminal. Compared to the following options, this is the most universal solution, since it works both on a local machine and on a SSH server.
+<p>Keep the default shell as Bash and simply add the line <code>exec fish</code> to the appropriate <a href="/Usage/Configuration/B/Bash.html#Configuration_files" title="Bash">Bash#Configuration files</a>, such as <code>.bashrc</code>. This will allow Bash to properly source <code>/etc/profile</code> and all files in <code>/etc/profile.d</code>. Because fish replaces the Bash process, exiting fish will also exit the terminal. Compared to the following options, this is the most universal solution, since it works both on a local machine and on a SSH server.
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong> 
@@ -139,7 +139,7 @@ fi</pre>
 <p>Also, depending on the terminal, you may be able to set fish as the default shell in either the terminal configuration or the terminal profile.
 </p>
 <h4><span class="mw-headline" id="Use_terminal_multiplexer_options">Use terminal multiplexer options</span></h4>
-<p>To set fish as the shell started in <a href="/Usage/Configuration/F/Tmux.html" title="Tmux">tmux</a>, put this into your <code>~/.tmux.conf</code>:
+<p>To set fish as the shell started in <a href="/Usage/Configuration/T/Tmux.html" title="Tmux">tmux</a>, put this into your <code>~/.tmux.conf</code>:
 </p>
 <pre>set-option -g default-shell "/usr/bin/fish"
 </pre>
@@ -155,7 +155,7 @@ fi</pre>
 </p>
 <pre>fish_config
 </pre>
-<p>It may fail to start if IPv6 has been disabled. See <a rel="nofollow"  href="https://github.com/fish-shell/fish-shell/issues/3857#issuecomment-281631629">[1]</a> and <a href="/Usage/Configuration/F/IPv6.html#Disable_IPv6" title="IPv6">IPv6#Disable IPv6</a>.
+<p>It may fail to start if IPv6 has been disabled. See <a rel="nofollow"  href="https://github.com/fish-shell/fish-shell/issues/3857#issuecomment-281631629">[1]</a> and <a href="/Usage/Configuration/I/IPv6.html#Disable_IPv6" title="IPv6">IPv6#Disable IPv6</a>.
 </p>
 <h3><span class="mw-headline" id="Command_completion">Command completion</span></h3>
 <p>fish can generate autocompletions from man pages. Completions are written to <code>~/.local/share/fish/generated_completions/</code> and can be generated by calling:
@@ -263,7 +263,7 @@ end
 <h3>
 <span id="The_.22command_not_found.22_hook"></span><span class="mw-headline" id='The_"command_not_found"_hook'>The "command not found" hook</span>
 </h3>
-<p><a href="/Usage/Configuration/F/Pkgfile.html" title="Pkgfile">pkgfile</a> includes a "command not found" hook that will automatically search the official repositories, when entering an unrecognized command. This hook will be run by default if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pkgfile">pkgfile</a></span> is installed.
+<p><a href="/Usage/Configuration/P/Pkgfile.html" title="Pkgfile">pkgfile</a> includes a "command not found" hook that will automatically search the official repositories, when entering an unrecognized command. This hook will be run by default if <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=pkgfile">pkgfile</a></span> is installed.
 </p>
 <h3><span class="mw-headline" id="Remove_a_process_from_the_list_of_jobs">Remove a process from the list of jobs</span></h3>
 <p><i>fish</i> terminates any jobs put into the background when fish terminates. To keep a job running after fish terminates, first use the <code>disown</code> builtin. For example, the following starts <code>firefox</code> in the background and then disowns it:
@@ -307,7 +307,7 @@ end
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/F/Category:Command_shells.html" title="Category:Command shells">Command shells</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Command_shells.html" title="Category:Command shells">Command shells</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -324,9 +324,9 @@ end
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/F/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/F/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/F/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

@@ -2,7 +2,7 @@
     title: E4rat
     description: Migration of E4rat from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,9 +27,9 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/E/Improving_performance/Boot_process.html" class="mw-redirect" title="Improve boot performance">Improve boot performance</a></li>
-<li><a href="/Usage/Configuration/E/Preload.html" title="Preload">Preload</a></li>
-<li><a href="/Usage/Configuration/E/Improving_performance/Boot_process.html" class="mw-redirect" title="Ureadahead">Ureadahead</a></li>
+<li><a href="/Usage/Configuration/I/Improving_performance/Boot_process.html" class="mw-redirect" title="Improve boot performance">Improve boot performance</a></li>
+<li><a href="/Usage/Configuration/P/Preload.html" title="Preload">Preload</a></li>
+<li><a href="/Usage/Configuration/I/Improving_performance/Boot_process.html" class="mw-redirect" title="Ureadahead">Ureadahead</a></li>
 <li><a href="/Usage/Configuration/E/Ext4.html" title="Ext4">Ext4</a></li>
 </ul>
 </div>
@@ -86,7 +86,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Process">Process</span></h2>
-<p>If you look at a classical <a href="/Usage/Configuration/E/Bootchart.html" title="Bootchart">bootchart</a> you will notice that neither disk nor CPU are utilized fully during the boot process. e4rat changes this to make full use of both disk and CPU during boot process and thus reduce boot time drastically. Its usage consists of three stages:
+<p>If you look at a classical <a href="/Usage/Configuration/B/Bootchart.html" title="Bootchart">bootchart</a> you will notice that neither disk nor CPU are utilized fully during the boot process. e4rat changes this to make full use of both disk and CPU during boot process and thus reduce boot time drastically. Its usage consists of three stages:
 </p>
 <ul>
 <li>
@@ -99,20 +99,20 @@
 <h3>
 <span id="Who_benefits.2C_who_does_not"></span><span class="mw-headline" id="Who_benefits,_who_does_not">Who benefits, who does not</span>
 </h3>
-<p>e4rat has proven to be extremely effective for typical single user set-ups which boot straight into X, perhaps even with a number of programs open. If you have a server set-up and boot only into the CLI your boot time decrease may not be as drastic. Users of SSD drives do not benefit because there are no moving parts and thus (almost) no disk latency - <a href="/Usage/Configuration/E/Improving_performance/Boot_process.html" class="mw-redirect" title="Ureadahead">Ureadahead</a> might be worth looking at.
+<p>e4rat has proven to be extremely effective for typical single user set-ups which boot straight into X, perhaps even with a number of programs open. If you have a server set-up and boot only into the CLI your boot time decrease may not be as drastic. Users of SSD drives do not benefit because there are no moving parts and thus (almost) no disk latency - <a href="/Usage/Configuration/I/Improving_performance/Boot_process.html" class="mw-redirect" title="Ureadahead">Ureadahead</a> might be worth looking at.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> <b>(to ureadahead users)</b> The <a rel="nofollow"  href="http://e4rat.sourceforge.net/wiki/index.php/Main_Page#Ubuntu_and_ureadahead">official e4rat manual</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-03-29 ⓘ]</sup> states that ureadahead conflicts with e4rat. This may be true for Ubuntu but using e4rat in conjunction with ureadahead does work on TOS Linux, although it does not speed up the boot process any further.</div>
 <p>It is always better to be safe than sorry. Just make backup if you cannot afford to lose data on your partition.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/e4rat/">e4rat</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/E/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
+<p>Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/e4rat/">e4rat</a></span><sup><small>AUR</small></sup> from the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a>.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> 
 <ul>
-<li>In order to build it, you must first rebuild <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=audit">audit</a></span> from the <a href="/Usage/Configuration/E/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> with <code>staticlibs</code> option explicitly enabled. Simply installing the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=audit">audit</a></span> package will result in a build error.</li>
-<li>Audit needs these options to be enabled in the kernel configuration (CONFIG_AUDIT) together with support for auditing system calls (CONFIG_AUDITSYSCALL) also see <a href="/Usage/Configuration/E/Kernel/TOS_Build_System.html" class="mw-redirect" title="Kernels/TOS Build System">Kernels/TOS Build System</a>. Probably you will need <code>audit=1</code> to add to your kernel parameters.</li>
+<li>In order to build it, you must first rebuild <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=audit">audit</a></span> from the <a href="/Usage/Configuration/T/TOS_Build_System.html" class="mw-redirect" title="ABS">ABS</a> with <code>staticlibs</code> option explicitly enabled. Simply installing the default <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=audit">audit</a></span> package will result in a build error.</li>
+<li>Audit needs these options to be enabled in the kernel configuration (CONFIG_AUDIT) together with support for auditing system calls (CONFIG_AUDITSYSCALL) also see <a href="/Usage/Configuration/K/Kernel/TOS_Build_System.html" class="mw-redirect" title="Kernels/TOS Build System">Kernels/TOS Build System</a>. Probably you will need <code>audit=1</code> to add to your kernel parameters.</li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-tip">
@@ -126,7 +126,7 @@
 <p>Now for the nitty-gritty:
 </p>
 <h3><span class="mw-headline" id="e4rat-collect">e4rat-collect</span></h3>
-<p>To have e4rat collect a list of files you will need to append <code>init=/sbin/e4rat-collect</code> to your  <a href="/Usage/Configuration/E/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. For example:
+<p>To have e4rat collect a list of files you will need to append <code>init=/sbin/e4rat-collect</code> to your  <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>. For example:
 </p>
 <pre>kernel /vmlinuz-linux-tosroot=/dev/disk/by-label/ARCH init=/sbin/e4rat-collect ro 5
 </pre>
@@ -142,7 +142,7 @@
 </pre>
 <p>Upon successful boot and after having waited the allotted time you should see the file <code>/var/lib/e4rat/startup.log</code>.
 </p>
-<p>Do not forget to remove the e4rat-collect command from your <a href="/Usage/Configuration/E/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">Boot loader</a> configuration file (not necessary if you inserted it on the grub command line).
+<p>Do not forget to remove the e4rat-collect command from your <a href="/Usage/Configuration/T/TOS_boot_process.html#Boot_loader" class="mw-redirect" title="Boot loader">Boot loader</a> configuration file (not necessary if you inserted it on the grub command line).
 </p>
 <h3><span class="mw-headline" id="e4rat-realloc">e4rat-realloc</span></h3>
 <p>Once <i>e4rat-collect</i> has finished to run, log in as root and run:
@@ -150,15 +150,15 @@
 <pre>e4rat-realloc /var/lib/e4rat/startup.log
 </pre>
 <p>This can take a while depending on how many files you have in your startup.log file.
-Switching to rescue mode with <code>systemctl isolate rescue</code> (<a href="/Usage/Configuration/E/Systemd.html#Mapping_between_SysV_runlevels_and_systemd_targets" title="Systemd">Systemd#Mapping between SysV runlevels and systemd targets</a>) may allow for more inodes/blocks to be reallocated as some may not be free while in <i>multiuser.target</i>
+Switching to rescue mode with <code>systemctl isolate rescue</code> (<a href="/Usage/Configuration/S/Systemd.html#Mapping_between_SysV_runlevels_and_systemd_targets" title="Systemd">Systemd#Mapping between SysV runlevels and systemd targets</a>) may allow for more inodes/blocks to be reallocated as some may not be free while in <i>multiuser.target</i>
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> It may be worthwhile to repeat the reallocation step multiple times before exiting or rebooting in order to further reduce the fragmentation count. Simply re-run the command  a few times to see if this is possible on the your setup. If so you'll see the count number reduced after a few runs. This is perfectly safe and shouldn't cause any issues with booting.</div>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Users using SysV-style <a href="/Usage/Configuration/E/Init.html" title="Init">init</a> systems must switch to runlevel 1 using <code>sudo init 1</code> prior to running <code>e4rat-realloc</code>
+<strong>Note:</strong> Users using SysV-style <a href="/Usage/Configuration/I/Init.html" title="Init">init</a> systems must switch to runlevel 1 using <code>sudo init 1</code> prior to running <code>e4rat-realloc</code>
 </div>
 <h3><span class="mw-headline" id="e4rat-preload">e4rat-preload</span></h3>
-<p>Append <code>init=/sbin/e4rat-preload</code> permanently to your <a href="/Usage/Configuration/E/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
+<p>Append <code>init=/sbin/e4rat-preload</code> permanently to your <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a>.
 </p>
 <h2><span class="mw-headline" id="e4rat_and_init_systems">e4rat and init systems</span></h2>
 <p>e4rat-collect defaults to replacing itself with <code>/sbin/init</code> upon completion. With the default <code>systemd</code> installation, this file is a symbolic link to <code>/lib/systemd/systemd</code>. If you need to specify another process with PID 1, such as <code>/usr/bin/busybox</code>, you can change this in <code>/etc/e4rat.conf</code> by setting the <code>init</code> parameter:
@@ -182,7 +182,7 @@ It can be acquired from <span class="plainlinks archwiki-template-pkg"><a rel="n
 </p>
 <pre># e4rat-lite-collect -k
 </pre>
-<p>realloc: <code> /usr/bin/e4rat-lite-realloc</code> - the switch to runlevel 1 is recommended, if you use <a href="/Usage/Configuration/E/Systemd.html" title="Systemd">systemd</a> run this beforehand:
+<p>realloc: <code> /usr/bin/e4rat-lite-realloc</code> - the switch to runlevel 1 is recommended, if you use <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> run this beforehand:
 </p>
 <pre># systemctl isolate rescue.target
 </pre>
@@ -190,18 +190,18 @@ It can be acquired from <span class="plainlinks archwiki-template-pkg"><a rel="n
 </p>
 <p>startup.log: <code> /var/lib/e4rat-lite/startup.log</code>
 </p>
-<p>configuration file: <code> /etc/e4rat-lite.conf</code> - if you use <a href="/Usage/Configuration/E/Systemd.html" title="Systemd">systemd</a> change init_file property to:
+<p>configuration file: <code> /etc/e4rat-lite.conf</code> - if you use <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a> change init_file property to:
 </p>
 <pre>init_file=/usr/lib/systemd/systemd
 </pre>
 <h2><span class="mw-headline" id="Bootchart">Bootchart</span></h2>
-<p><a href="/Usage/Configuration/E/Bootchart.html" title="Bootchart">Bootchart</a> can be used to generate graphs of the system startup. This is useful to get visual representations of the CPU and Disk usages.
+<p><a href="/Usage/Configuration/B/Bootchart.html" title="Bootchart">Bootchart</a> can be used to generate graphs of the system startup. This is useful to get visual representations of the CPU and Disk usages.
 While not required, a before and after comparison of the boot process can be obtained using Bootchart.
 </p>
 <h3><span class="mw-headline" id="bootchart_2">bootchart</span></h3>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> The official bootchart package appears to be deprecated, as it no longer includes the bootchart-render command needed to generate the graph. It is recommended to use bootchart2 as an alternative.</div>
-<p>This version of <a href="/Usage/Configuration/E/Bootchart.html" title="Bootchart">bootchart</a> automatically stops logging as soon as a <a href="/Usage/Configuration/E/Display_manager.html" title="Display manager">display manager</a> comes up. Supposedly the following overrides that and continues logging but it does not work for me:
+<p>This version of <a href="/Usage/Configuration/B/Bootchart.html" title="Bootchart">bootchart</a> automatically stops logging as soon as a <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a> comes up. Supposedly the following overrides that and continues logging but it does not work for me:
 </p>
 <p>To continue logging adjust your <code>/etc/bootchartd.conf</code> as follows:
 </p>
@@ -250,7 +250,7 @@ While not required, a before and after comparison of the boot process can be obt
 <li>Try using e4rat-lite instead of e4rat</li>
 </ul>
 <h3><span class="mw-headline" id="e4rat_erroneously_reports_an_ext2_files_system">e4rat erroneously reports an ext2 files system</span></h3>
-<p>Add <code>rootfstype=ext4</code> to <a href="/Usage/Configuration/E/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> from your bootloader.
+<p>Add <code>rootfstype=ext4</code> to <a href="/Usage/Configuration/K/Kernel_parameters.html" title="Kernel parameters">kernel parameters</a> from your bootloader.
 </p>
 <h3>
 <span id=".2Fvar.2Flib.2Fe4rat.2Fstartup.log_is_not_accessible"></span><span class="mw-headline" id="/var/lib/e4rat/startup.log_is_not_accessible">/var/lib/e4rat/startup.log is not accessible</span>
@@ -271,9 +271,9 @@ While not required, a before and after comparison of the boot process can be obt
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/E/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Boot_process.html" title="Category:Boot process">Boot process</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/E/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -291,9 +291,9 @@ While not required, a before and after comparison of the boot process can be obt
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/E/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/E/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/E/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

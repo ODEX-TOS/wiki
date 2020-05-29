@@ -2,7 +2,7 @@
     title: Sshguard
     description: Migration of Sshguard from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,13 +27,13 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/S/Fail2ban.html" title="Fail2ban">fail2ban</a></li>
+<li><a href="/Usage/Configuration/F/Fail2ban.html" title="Fail2ban">fail2ban</a></li>
 <li><a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="Ssh">ssh</a></li>
 </ul>
 </div>
 <div class="archwiki-template-box archwiki-template-box-warning">
 <strong>Warning:</strong> Using an IP blacklist will stop trivial attacks but it relies on an additional daemon and successful logging (the partition containing /var can become full, especially if an attacker is pounding on the server). Additionally, with the knowledge of your IP address, the attacker can send packets with a spoofed source header and get you locked out of the server. <a href="/Usage/Configuration/S/SSH_keys.html" title="SSH keys">SSH keys</a> provide an elegant solution to brute forcing without these problems.</div>
-<p><a rel="nofollow"  href="http://www.sshguard.net">sshguard</a> is a daemon that protects <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> and other services against brute-force attacks, similar to <a href="/Usage/Configuration/S/Fail2ban.html" title="Fail2ban">fail2ban</a>.
+<p><a rel="nofollow"  href="http://www.sshguard.net">sshguard</a> is a daemon that protects <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a> and other services against brute-force attacks, similar to <a href="/Usage/Configuration/F/Fail2ban.html" title="Fail2ban">fail2ban</a>.
 </p>
 <p>sshguard is different from the latter in that it is written in C, is lighter and simpler to use with fewer features while performing its core function equally well.
 </p>
@@ -87,7 +87,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p><a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sshguard">sshguard</a></span> package.
+<p><a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=sshguard">sshguard</a></span> package.
 </p>
 <h2><span class="mw-headline" id="Setup">Setup</span></h2>
 <p>sshguard works by monitoring <code>/var/log/auth.log</code>, syslog-ng or the <a href="/Usage/Configuration/S/Systemd/Journal.html" class="mw-redirect" title="Systemd journal">systemd journal</a> for failed login attempts. For each failed attempt, the offending host is banned from further communication for a limited amount of time. The default amount of time the offender is banned starts at 120 seconds, and is increases by a factor of 1.5 every time it fails another login. sshguard can be configured to permanently ban a host with too many failed attempts.
@@ -97,7 +97,7 @@
 <p>You must configure one of the following firewalls to be used with sshguard in order for blocking to work. 
 </p>
 <h4><span class="mw-headline" id="firewalld">firewalld</span></h4>
-<p>sshguard can work with <a href="/Usage/Configuration/S/Firewalld.html" title="Firewalld">firewalld</a>. Make sure you have firewalld enabled, configured and setup first. To make sshguard write to your zone of preference, issue the following commands:
+<p>sshguard can work with <a href="/Usage/Configuration/F/Firewalld.html" title="Firewalld">firewalld</a>. Make sure you have firewalld enabled, configured and setup first. To make sshguard write to your zone of preference, issue the following commands:
 </p>
 <pre># firewall-cmd --permanent --zone=public --add-rich-rule="rule source ipset=sshguard4 drop"
 </pre>
@@ -131,7 +131,7 @@ If UFW is installed and enabled, it must be given the ability to pass along DROP
 </p>
 <h4><span class="mw-headline" id="iptables">iptables</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> See <a href="/Usage/Configuration/S/Iptables.html" title="Iptables">iptables</a> and <a href="/Usage/Configuration/S/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> first to set up a firewall.</div>
+<strong>Note:</strong> See <a href="/Usage/Configuration/I/Iptables.html" title="Iptables">iptables</a> and <a href="/Usage/Configuration/S/Simple_stateful_firewall.html" title="Simple stateful firewall">Simple stateful firewall</a> first to set up a firewall.</div>
 <p>The main configuration required is creating a chain named <code>sshguard</code>, where sshguard automatically inserts rules to drop packets coming from bad hosts:
 </p>
 <pre># iptables -N sshguard
@@ -151,7 +151,7 @@ If UFW is installed and enabled, it must be given the ability to pass along DROP
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sshguard.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">BACKEND="/usr/lib/sshguard/sshg-fw-nft-sets"</pre>
-<p>When you <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>sshguard.service</code>, two new tables named <code>sshguard</code> in the <code>ip</code> and <code>ip6</code> address families are added which filter incoming traffic through sshguard's list of IP addresses. The chains in the <code>sshguard</code> table have a priority of -10 and will be processed before other rules of lower priority. See <span class="plainlinks archwiki-template-man" title="$ man 7 sshguard-setup"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sshguard-setup.7">sshguard-setup(7)</a></span> and <a href="/Usage/Configuration/S/Nftables.html" title="Nftables">nftables</a> for more information.
+<p>When you <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start/enable">start/enable</a> the <code>sshguard.service</code>, two new tables named <code>sshguard</code> in the <code>ip</code> and <code>ip6</code> address families are added which filter incoming traffic through sshguard's list of IP addresses. The chains in the <code>sshguard</code> table have a priority of -10 and will be processed before other rules of lower priority. See <span class="plainlinks archwiki-template-man" title="$ man 7 sshguard-setup"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sshguard-setup.7">sshguard-setup(7)</a></span> and <a href="/Usage/Configuration/N/Nftables.html" title="Nftables">nftables</a> for more information.
 </p>
 <h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <h3><span class="mw-headline" id="systemd">systemd</span></h3>
@@ -180,7 +180,7 @@ If UFW is installed and enabled, it must be given the ability to pass along DROP
 <p>A slightly more aggressive banning rule than the default one is proposed here to illustrate various options:
 </p>
 <ul>
-<li>It monitors <a href="/Usage/Configuration/S/OpenSSH.html" class="mw-redirect" title="Sshd">sshd</a> and <a href="/Usage/Configuration/S/Very_Secure_FTP_Daemon.html" class="mw-redirect" title="Vsftpd">vsftpd</a> via logs from the <a href="/Usage/Configuration/S/Systemd/Journal.html" title="Systemd/Journal">systemd/Journal</a>
+<li>It monitors <a href="/Usage/Configuration/O/OpenSSH.html" class="mw-redirect" title="Sshd">sshd</a> and <a href="/Usage/Configuration/V/Very_Secure_FTP_Daemon.html" class="mw-redirect" title="Vsftpd">vsftpd</a> via logs from the <a href="/Usage/Configuration/S/Systemd/Journal.html" title="Systemd/Journal">systemd/Journal</a>
 </li>
 <li>It blocks attackers after 2 attempts (each having a cost of 10, explaining the <code>20</code> value of the <code>THRESHOLD</code> parameter) for 180 seconds with subsequent block time longer by a factor of 1.5. Note that this 1.5 multiplicative delay is internal and not controlled in the settings</li>
 <li>Attackers are permanently blacklisted after 10 attempts (10 attempts having each a cost of 10, explaining the <code>100</code> value in the <code>BLACKLIST_FILE</code> parameter)</li>
@@ -252,8 +252,8 @@ BLACKLIST_FILE=10:/var/db/sshguard/blacklist.db
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/S/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
-<li><a href="/Usage/Configuration/S/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li>
+<li><a href="/Usage/Configuration/C/Category:Secure_Shell.html" title="Category:Secure Shell">Secure Shell</a></li>
+<li><a href="/Usage/Configuration/C/Category:Firewalls.html" title="Category:Firewalls">Firewalls</a></li>
 </ul>
 </div></div>
 		<div ></div>
@@ -271,9 +271,9 @@ BLACKLIST_FILE=10:/var/db/sshguard/blacklist.db
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

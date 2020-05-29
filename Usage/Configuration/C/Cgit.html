@@ -2,7 +2,7 @@
     title: Cgit
     description: Migration of Cgit from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -25,7 +25,7 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <p><span></span>
-<a rel="nofollow"  href="http://git.zx2c4.com/cgit/">Cgit</a> is an attempt to create a fast web interface for the <a href="/Usage/Configuration/C/Git.html" title="Git">git</a> version control system, using a built in cache to decrease pressure on the git server.
+<a rel="nofollow"  href="http://git.zx2c4.com/cgit/">Cgit</a> is an attempt to create a fast web interface for the <a href="/Usage/Configuration/G/Git.html" title="Git">git</a> version control system, using a built in cache to decrease pressure on the git server.
 </p>
 <div id="toc" >
 <input type="checkbox" role="button" id="toctogglecheckbox"  style="display:none"><div  lang="en" dir="ltr">
@@ -89,7 +89,7 @@
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>Install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cgit">cgit</a></span> package.
 </p>
-<p>To use cgit a <a href="/Usage/Configuration/C/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> must be installed and configured on the system.
+<p>To use cgit a <a href="/Usage/Configuration/L/List_of_applications/Internet.html#Web_servers" class="mw-redirect" title="Web server">web server</a> must be installed and configured on the system.
 </p>
 <h2><span class="mw-headline" id="Configuration_of_web_server">Configuration of web server</span></h2>
 <h3><span class="mw-headline" id="Apache">Apache</span></h3>
@@ -164,7 +164,7 @@ $SERVER["socket"] == ":80" {
 <h4><span class="mw-headline" id="Using_fcgiwrap">Using fcgiwrap</span></h4>
 <p>The following configuration uses <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=fcgiwrap">fcgiwrap</a></span> and will serve Cgit on a subdomain like <code>git.example.com</code>.
 </p>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>fcgiwrap.socket</code>. Then, configure Nginx:
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">Start</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">enable</a> <code>fcgiwrap.socket</code>. Then, configure Nginx:
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/nginx/nginx.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">worker_processes          1;
@@ -239,7 +239,7 @@ procname-master = uwsgi cgit
 processes = 1
 threads = 2
 cgi = /usr/lib/cgit/cgit.cgi</pre>
-<p><a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/C/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the corresponding socket <code>uwsgi@cgit.socket</code>.
+<p><a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Enable">Enable</a> and <a href="/Usage/Configuration/S/Systemd.html#Using_units" class="mw-redirect" title="Start">start</a> the corresponding socket <code>uwsgi@cgit.socket</code>.
 </p>
 <h3><span class="mw-headline" id="Caddy">Caddy</span></h3>
 <p>Install <a href="/Usage/Configuration/C/Caddy.html" title="Caddy">Caddy</a> with the <a rel="nofollow"  href="https://jung-kurt.github.io/cgi/">caddy-cgi</a> plugin, for example <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/caddy-with-cgi/">caddy-with-cgi</a></span><sup><small>AUR</small></sup>. The following configuration uses the <code>except</code> subdirective in the latest caddy-cgi plugin.
@@ -359,13 +359,13 @@ You may want to add <code>--inline-css</code> to the options of highlight for a 
 <strong>Note:</strong> Editing <code>/usr/lib/cgit/filters/syntax-highlighting.sh</code> directly would lose all the modifications as soon as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=cgit">cgit</a></span> is updated.</div>
 <h2><span class="mw-headline" id="Integration">Integration</span></h2>
 <h3><span class="mw-headline" id="Gitosis">Gitosis</span></h3>
-<p>If you want to integrate with <a href="/Usage/Configuration/C/Gitosis.html" title="Gitosis">gitosis</a> you will have to run two commands to give apache permission to look though the folder.
+<p>If you want to integrate with <a href="/Usage/Configuration/G/Gitosis.html" title="Gitosis">gitosis</a> you will have to run two commands to give apache permission to look though the folder.
 </p>
 <pre># chgrp http /srv/gitosis
 # chmod a+rx /srv/gitosis
 </pre>
 <h3><span class="mw-headline" id="Gitolite">Gitolite</span></h3>
-<p>If you added repositories managed by <a href="/Usage/Configuration/C/Gitolite.html" title="Gitolite">gitolite</a> you have to change the permissions, so the web server can access the files.
+<p>If you added repositories managed by <a href="/Usage/Configuration/G/Gitolite.html" title="Gitolite">gitolite</a> you have to change the permissions, so the web server can access the files.
 </p>
 <ul>
 <li>Add the <i>http</i> user to the <i>gitolite</i> group:
@@ -430,9 +430,9 @@ scan-path=/path/to/your/repositories
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/C/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/C/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/C/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

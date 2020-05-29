@@ -2,7 +2,7 @@
     title: Recovery_after_failed_update_or_upgrade
     description: Migration of Recovery_after_failed_update_or_upgrade from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -47,7 +47,7 @@
 </div>
 
 <h3><span class="mw-headline" id="GUI_recovery_environment">GUI recovery environment</span></h3>
-<p>If the user performs an upgrade or update that prevents booting into the <a href="/Usage/Configuration/R/Desktop_environment.html" title="Desktop environment">desktop environment</a> or, prevents starting applications while the user is able to see the <a href="/Usage/Configuration/R/Display_manager.html" title="Display manager">display manager</a> then it is good practice to make a separate environment for the user to easily use to try to fix those errors on their own. This especially useful for users that have a limited knowledge of Linux. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openbox">openbox</a></span> or other equivalent window manager that can be used with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/idesk/">idesk</a></span><sup><small>AUR</small></sup>, and create your own buttons for the programs or better scripts that are configured to perform actions, show warnings and show the system administrator's contact information before starting. To prevent any unwanted user from using the "failsafe" environment or some of the recovery tasks you can add the following to the beginning of the script or window manager autostart:
+<p>If the user performs an upgrade or update that prevents booting into the <a href="/Usage/Configuration/D/Desktop_environment.html" title="Desktop environment">desktop environment</a> or, prevents starting applications while the user is able to see the <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a> then it is good practice to make a separate environment for the user to easily use to try to fix those errors on their own. This especially useful for users that have a limited knowledge of Linux. Install <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openbox">openbox</a></span> or other equivalent window manager that can be used with <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/idesk/">idesk</a></span><sup><small>AUR</small></sup>, and create your own buttons for the programs or better scripts that are configured to perform actions, show warnings and show the system administrator's contact information before starting. To prevent any unwanted user from using the "failsafe" environment or some of the recovery tasks you can add the following to the beginning of the script or window manager autostart:
 </p>
 <pre>AllowedUser="JolinTsai";
 if [ "$(whoami)" != " ${AllowedUser,,}" ];then zenity --warning --text="You are not the allowed user!
@@ -106,7 +106,7 @@ fi</pre>
 <li>It also good to have those destinations hidden in a file managers menu.</li>
 <li>The BIOS will need to be configured to boot from SD Card and password protected(password can be name+model of the computer). The SD card need to be permanent attached and sealed(glued).</li>
 </ul>
-<p>You can make your own custom Live CD with <a href="/Usage/Configuration/R/TOSiso.html" title="TOSiso">TOSiso</a> that must have functions:
+<p>You can make your own custom Live CD with <a href="/Usage/Configuration/T/TOSiso.html" title="TOSiso">TOSiso</a> that must have functions:
 </p>
 <ul>
 <li>Health monitoring tools such as <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=smartmontools">smartmontools</a></span> to show errors and instructions what to do if destination storage device is damaged.</li>
@@ -121,17 +121,17 @@ fi</pre>
 <p>On PC the restoration media can be stored inside the box by connecting to USB card with adaptor. Laptops are missing the ability of storing extra storage devices inside that can be used for reparation purposes, but some of them can have place for the addition storage that can be connected to them such as <a href="https://en.wikipedia.org/wiki/Secure_Digital_SD_cards"  title="wikipedia:Secure Digital SD cards">Secure Digital SD cards</a> where can be stored only initial "factory" ISO and optionally also the internal storage device back up image.
 </p>
 <h3><span class="mw-headline" id="Virtualization">Virtualization</span></h3>
-<p>Create a minimal installation of the Linux with a user that will be logged in automatically and start with .<a href="/Usage/Configuration/R/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a> preconfigured virtual machine with scheduled snapshots that can even be stored on a remote storage.
+<p>Create a minimal installation of the Linux with a user that will be logged in automatically and start with .<a href="/Usage/Configuration/X/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc">xinitrc</a> preconfigured virtual machine with scheduled snapshots that can even be stored on a remote storage.
 </p>
 <h3><span class="mw-headline" id="Restore_desired_parts_on_each_boot">Restore desired parts on each boot</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> It is might be useful to be used on computers in Internet Cafe or by children at home. To prevent damage by commands like mv/cp/rm might be useful to rename them and replace with scripts that has checks of which path/files are allowed to be removed.</div>
-<p>By creating bootable ISO image or <a href="https://en.wikipedia.org/wiki/SquashFS"  title="wikipedia:SquashFS">SquashFS</a> that can be started with <a href="/Usage/Configuration/R/GRUB.html" title="GRUB">GRUB</a>. Those can be preconfigured even with minimal needed applications, X server or Wayland and users. After boot you can automatize mount of path to <code>/usr/</code>, <code>/home/</code> or other custom folders that can exist on physical storage or in a file. It is useful for protection of boot and kernel settings from possible damages. Users will be able to updated programs if partition/file is mounted to <code>/var/lib/pacman/</code> and has writeable access to it.
+<p>By creating bootable ISO image or <a href="https://en.wikipedia.org/wiki/SquashFS"  title="wikipedia:SquashFS">SquashFS</a> that can be started with <a href="/Usage/Configuration/G/GRUB.html" title="GRUB">GRUB</a>. Those can be preconfigured even with minimal needed applications, X server or Wayland and users. After boot you can automatize mount of path to <code>/usr/</code>, <code>/home/</code> or other custom folders that can exist on physical storage or in a file. It is useful for protection of boot and kernel settings from possible damages. Users will be able to updated programs if partition/file is mounted to <code>/var/lib/pacman/</code> and has writeable access to it.
 </p>
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:System_recovery.html" title="Category:System recovery">System recovery</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:System_recovery.html" title="Category:System recovery">System recovery</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -148,9 +148,9 @@ fi</pre>
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

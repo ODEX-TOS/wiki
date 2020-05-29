@@ -2,7 +2,7 @@
     title: Synergy
     description: Migration of Synergy from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -92,7 +92,7 @@
 
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="TOS_Linux">TOS Linux</span></h3>
-<p>You can <a href="/Usage/Configuration/S/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=synergy">synergy</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=barrier">barrier</a></span> package.
+<p>You can <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=synergy">synergy</a></span> or <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=barrier">barrier</a></span> package.
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> If you install Barrier, commands and configuration files below are named "barrier" instead of "synergy" - you should use barrierc instead of synergyc, barriers instead of synergys, etc.</div>
@@ -100,7 +100,7 @@
 <p><a rel="nofollow"  href="https://symless.com/synergy/">Download</a> and run the newest Synergy installer from the official website. The official version is paid, although you may compile and run your own builds for free using <a rel="nofollow"  href="https://github.com/symless/synergy-core">sources on GitHub</a>. You can also install <a rel="nofollow"  href="https://github.com/debauchee/barrier/releases">Barrier</a> for free instead.
 </p>
 <h2><span class="mw-headline" id="Pre-configuration">Pre-configuration</span></h2>
-<p>First determine the IP addresses and <a href="/Usage/Configuration/S/Network_configuration.html#Set_the_hostname" title="Network configuration">host names</a> for each machine and make sure each has a correct hosts file. (You may use IP addresses instead of hostnames as well.)
+<p>First determine the IP addresses and <a href="/Usage/Configuration/N/Network_configuration.html#Set_the_hostname" title="Network configuration">host names</a> for each machine and make sure each has a correct hosts file. (You may use IP addresses instead of hostnames as well.)
 </p>
 <ul>
 <li>TOS Linux - <code>/etc/hosts</code>
@@ -299,7 +299,7 @@ $ echo -n | openssl s_client -connect $YOUR_SYNERGY_SERVER:24800 2&gt;/dev/null 
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> In all of the following examples, you always have to substitute <code>server-host-name</code> with the real server host name.</div>
-<ul><li>You can add the next line to your <a href="/Usage/Configuration/S/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc"><code>~/.xinitrc</code></a>:</li></ul>
+<ul><li>You can add the next line to your <a href="/Usage/Configuration/X/Xinit.html#xinitrc" class="mw-redirect" title="Xinitrc"><code>~/.xinitrc</code></a>:</li></ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">~/.xinitrc</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">...
 
@@ -312,7 +312,7 @@ synergyc server-host-name
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">XINIT_CMD='/usr/bin/synergyc -d FATAL -n galileo-fire 10.66.66.2:24800'
 /usr/bin/pgrep -lxf "$XINIT_CMD" || ( ( $XINIT_CMD ) &amp; )
 </pre>
-<ul><li>Otherwise, if you are using a <a href="/Usage/Configuration/S/Display_manager.html" title="Display manager">display manager</a> (<a href="/Usage/Configuration/S/GDM.html" title="GDM">GDM</a>, <a href="/Usage/Configuration/S/SDDM.html" title="SDDM">SDDM</a>, ...), or a stand-alone <a href="/Usage/Configuration/S/Window_manager.html" title="Window manager">window manager</a> (Openbox, ...), you could exploit its start-up script and add the following:</li></ul>
+<ul><li>Otherwise, if you are using a <a href="/Usage/Configuration/D/Display_manager.html" title="Display manager">display manager</a> (<a href="/Usage/Configuration/G/GDM.html" title="GDM">GDM</a>, <a href="/Usage/Configuration/S/SDDM.html" title="SDDM">SDDM</a>, ...), or a stand-alone <a href="/Usage/Configuration/W/Window_manager.html" title="Window manager">window manager</a> (Openbox, ...), you could exploit its start-up script and add the following:</li></ul>
 <pre>synergyc server-host-name
 </pre>
 <ul><li>To start the Synergy client with systemd, create a service file:</li></ul>
@@ -357,7 +357,7 @@ Now append the host name of the server, so that the complete command will look l
 <p>Then press <code>Enter</code>.
 </p>
 <h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
-<p>If TOS is being used as a client in a Synergy installation, the server may not be able to wake the client monitor. There are some workarounds, such as executing the following via <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>, if ACPI is enabled (see: <a href="/Usage/Configuration/S/Display_Power_Management_Signaling.html#Modify_DPMS_and_screensaver_settings_with_a_command" title="Display Power Management Signaling">Display Power Management Signaling#Modify DPMS and screensaver settings with a command</a>):
+<p>If TOS is being used as a client in a Synergy installation, the server may not be able to wake the client monitor. There are some workarounds, such as executing the following via <a href="/Usage/Configuration/S/Secure_Shell.html" class="mw-redirect" title="SSH">SSH</a>, if ACPI is enabled (see: <a href="/Usage/Configuration/D/Display_Power_Management_Signaling.html#Modify_DPMS_and_screensaver_settings_with_a_command" title="Display Power Management Signaling">Display Power Management Signaling#Modify DPMS and screensaver settings with a command</a>):
 </p>
 <pre># xset dpms force on</pre>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
@@ -383,7 +383,7 @@ altgr = shift     #v1.8.3 and higher
 <pre># setxkbmap $(setxkbmap -query | grep "^layout:" | awk -F ": *" '{print $2}')
 </pre>
 <h3><span class="mw-headline" id="No_cursor_in_Gnome">No cursor in Gnome</span></h3>
-<p>When <a href="/Usage/Configuration/S/GNOME.html" title="GNOME">GNOME</a> doesn't detect a mouse, it will default to touchscreen mode and hide the cursor. To enable run:
+<p>When <a href="/Usage/Configuration/G/GNOME.html" title="GNOME">GNOME</a> doesn't detect a mouse, it will default to touchscreen mode and hide the cursor. To enable run:
 </p>
 <pre># dconf write /org/gnome/settings-daemon/plugins/cursor/active false
 </pre>
@@ -419,7 +419,7 @@ altgr = shift     #v1.8.3 and higher
 <pre> $ xmodmap -e 'add mod3 = Scroll_Lock'
  $ "echo "add mod3 = Scroll_Lock" &gt;&gt; ~/.Xmodmap
 </pre>
-<p>See <a href="/Usage/Configuration/S/Xmodmap.html#Activating_the_custom_table" title="Xmodmap">Xmodmap#Activating the custom table</a> to have <code>~/.Xmodmap</code> loaded on login.
+<p>See <a href="/Usage/Configuration/X/Xmodmap.html#Activating_the_custom_table" title="Xmodmap">Xmodmap#Activating the custom table</a> to have <code>~/.Xmodmap</code> loaded on login.
 </p>
 <p>After making this change, test the LED and screen locking. If you find that you need to press Scroll Lock twice to lock screens, enable <code>halfDuplexScrollLock</code> on all screens in <code>section: screens</code>.
 </p>
@@ -458,7 +458,7 @@ altgr = shift     #v1.8.3 and higher
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/S/Category:Input.html" title="Category:Input">Input</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Input.html" title="Category:Input">Input</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -475,9 +475,9 @@ altgr = shift     #v1.8.3 and higher
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/S/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/S/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/S/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

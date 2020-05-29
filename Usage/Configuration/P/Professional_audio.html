@@ -2,7 +2,7 @@
     title: Professional_audio
     description: Migration of Professional_audio from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,10 +27,10 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/P/Sound_system.html" title="Sound system">Sound system</a></li>
-<li><a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a></li>
-<li><a href="/Usage/Configuration/P/Realtime_kernel_patchset.html" class="mw-redirect" title="Realtime kernel">Realtime kernel</a></li>
-<li><a href="/Usage/Configuration/P/Envy24control.html" title="Envy24control">envy24control</a></li>
+<li><a href="/Usage/Configuration/S/Sound_system.html" title="Sound system">Sound system</a></li>
+<li><a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a></li>
+<li><a href="/Usage/Configuration/R/Realtime_kernel_patchset.html" class="mw-redirect" title="Realtime kernel">Realtime kernel</a></li>
+<li><a href="/Usage/Configuration/E/Envy24control.html" title="Envy24control">envy24control</a></li>
 </ul>
 </div>
 <p>Modern Linux systems are more than capable of supporting your (semi-)professional audio needs. Latencies of 5ms down to even as low as 1ms can be achieved with good hardware and proper configuration.
@@ -105,23 +105,23 @@
 </p>
 <div class="archwiki-template-box archwiki-template-box-tip">
 <strong>Tip:</strong>  See <a href="/Usage/Configuration/P/Pacman/Tips_and_tricks.html#Listing_packages" title="Pacman/Tips and tricks">Pacman/Tips and tricks#Listing packages</a> for listing members of and <a href="/Usage/Configuration/P/Pacman.html#Installing_package_groups" title="Pacman">Pacman#Installing package groups</a> for installing package groups.</div>
-<p>Low-latency audio on Linux is achieved using <a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> (all applications in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/pro-audio/">pro-audio</a></span> group are <a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> clients).
+<p>Low-latency audio on Linux is achieved using <a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> (all applications in the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/pro-audio/">pro-audio</a></span> group are <a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> clients).
 </p>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong>  <a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> uses audio backends, such as <a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>, <a rel="nofollow"  href="http://ffado.org">FFADO</a>, <a href="/Usage/Configuration/P/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> or <a rel="nofollow"  href="http://www.portaudio.com/">Portaudio</a>. Depending on your setup, make sure those are configured properly!</div>
+<strong>Note:</strong>  <a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html" class="mw-redirect" title="JACK">JACK</a> uses audio backends, such as <a href="/Usage/Configuration/A/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a>, <a rel="nofollow"  href="http://ffado.org">FFADO</a>, <a href="/Usage/Configuration/O/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a> or <a rel="nofollow"  href="http://www.portaudio.com/">Portaudio</a>. Depending on your setup, make sure those are configured properly!</div>
 <h3><span class="mw-headline" id="System_configuration">System configuration</span></h3>
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong>  The quality of information on best practices and system configuration vary a great deal (and are outdated or sometimes even contradictory in many locations). While for some systems and setups a higher level of optimization is necessary, for most users this will not be the case. Try a standard setup with the vanilla TOS Linux kernel first. Only if you require a setup with lower latency and greater stability, start considering optimizations!</div>
 <p>You may want to consider the following often seen system optimizations:
 </p>
 <ul>
-<li>Setting the <a href="/Usage/Configuration/P/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> governor to <i>performance</i>.</li>
+<li>Setting the <a href="/Usage/Configuration/C/CPU_frequency_scaling.html" title="CPU frequency scaling">CPU frequency scaling</a> governor to <i>performance</i>.</li>
 <li>
-<a href="/Usage/Configuration/P/Realtime_process_management.html#Configuring_PAM" title="Realtime process management">Configuring pam_limits</a> (e.g. by installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=realtime-privileges">realtime-privileges</a></span> and adding your user to the <code>realtime</code> group).</li>
-<li>Using the <code>threadirqs</code> <a href="/Usage/Configuration/P/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> (consult <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html">[1]</a> for reference) - enforced by default by the <a href="/Usage/Configuration/P/Realtime_kernel_patchset.html" title="Realtime kernel patchset">realtime kernel patchset</a>.</li>
-<li>Using the <a href="/Usage/Configuration/P/Realtime_kernel_patchset.html" title="Realtime kernel patchset">realtime kernel patchset</a>.</li>
-<li>Add <code>noatime</code> to <a href="/Usage/Configuration/P/Fstab.html" title="Fstab">fstab</a> (see <a href="/Usage/Configuration/P/Improving_performance.html#Mount_options" title="Improving performance">Improving performance#Mount options</a>).</li>
-<li>Increasing the highest requested RTC interrupt frequency (default is 64 Hz) by <a href="/Usage/Configuration/P/Systemd/FAQ.html#How_can_I_make_a_script_start_during_the_boot_process?" class="mw-redirect" title="Systemd FAQ">running the following at boot</a>:</li>
+<a href="/Usage/Configuration/R/Realtime_process_management.html#Configuring_PAM" title="Realtime process management">Configuring pam_limits</a> (e.g. by installing <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=realtime-privileges">realtime-privileges</a></span> and adding your user to the <code>realtime</code> group).</li>
+<li>Using the <code>threadirqs</code> <a href="/Usage/Configuration/K/Kernel_parameters.html" class="mw-redirect" title="Kernel parameter">kernel parameter</a> (consult <a rel="nofollow"  href="https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html">[1]</a> for reference) - enforced by default by the <a href="/Usage/Configuration/R/Realtime_kernel_patchset.html" title="Realtime kernel patchset">realtime kernel patchset</a>.</li>
+<li>Using the <a href="/Usage/Configuration/R/Realtime_kernel_patchset.html" title="Realtime kernel patchset">realtime kernel patchset</a>.</li>
+<li>Add <code>noatime</code> to <a href="/Usage/Configuration/F/Fstab.html" title="Fstab">fstab</a> (see <a href="/Usage/Configuration/I/Improving_performance.html#Mount_options" title="Improving performance">Improving performance#Mount options</a>).</li>
+<li>Increasing the highest requested RTC interrupt frequency (default is 64 Hz) by <a href="/Usage/Configuration/S/Systemd/FAQ.html#How_can_I_make_a_script_start_during_the_boot_process?" class="mw-redirect" title="Systemd FAQ">running the following at boot</a>:</li>
 </ul>
 <pre># echo 2048 &gt; /sys/class/rtc/rtc0/max_user_freq
 # echo 2048 &gt; /proc/sys/dev/hpet/max-user-freq
@@ -129,7 +129,7 @@
 <ul><li>Reducing <i>swappiness</i> (aka swap frequency, set to <code>60</code> by default) to e.g. <code>10</code> will make the system wait much longer before trying to swap to disk (see <a href="https://en.wikipedia.org/wiki/Paging#Swappiness"  title="wikipedia:Paging">wikipedia:Paging#Swappiness</a>). This can be done on the fly with <code>sysctl vm.swappiness=10</code> (see <span class="plainlinks archwiki-template-man" title="$ man 8 sysctl"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sysctl.8">sysctl(8)</a></span>) or setup permanently, using a configuration file (see <span class="plainlinks archwiki-template-man" title="$ man 5 sysctl.d"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/sysctl.d.5">sysctl.d(5)</a></span>) such as:</li></ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/90-swappiness.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">vm.swappiness = 10</pre>
-<ul><li>Increasing the maximum watches on files (defaults to <code>524288</code>) to e.g. <code>600000</code>, that <i>inotify</i> keeps track of for your user, can help with applications, that require many file handles (such as <a href="/Usage/Configuration/P/List_of_applications.html#Digital_audio_workstations" title="List of applications">DAWs</a>). This again can be done on the fly with <code>sysctl fs.inotify.max_user_watches=600000</code> or in a dedicated configuration file:</li></ul>
+<ul><li>Increasing the maximum watches on files (defaults to <code>524288</code>) to e.g. <code>600000</code>, that <i>inotify</i> keeps track of for your user, can help with applications, that require many file handles (such as <a href="/Usage/Configuration/L/List_of_applications.html#Digital_audio_workstations" title="List of applications">DAWs</a>). This again can be done on the fly with <code>sysctl fs.inotify.max_user_watches=600000</code> or in a dedicated configuration file:</li></ul>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/sysctl.d/90-max_user_watches.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">fs.inotify.max_user_watches = 600000</pre>
 <p>You may also want to maximize the PCI latency timer of the PCI sound card and raise the latency timer of all other PCI peripherals (default is 64).
@@ -148,7 +148,7 @@ $ setpci -v -s <i>$SOUND_CARD_PCI_ID</i> latency_timer=<b>ff</b>
 <h4><span class="mw-headline" id="Checklist">Checklist</span></h4>
 <p>The steps below are mostly to double-check that you have a working multimedia system:
 </p>
-<ul><li>Have I set up sound properly? See <a href="/Usage/Configuration/P/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> or <a href="/Usage/Configuration/P/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a>.</li></ul>
+<ul><li>Have I set up sound properly? See <a href="/Usage/Configuration/A/Advanced_Linux_Sound_TOSitecture.html" class="mw-redirect" title="ALSA">ALSA</a> or <a href="/Usage/Configuration/O/Open_Sound_System.html" class="mw-redirect" title="OSS">OSS</a>.</li></ul>
 <pre>$ speaker-test
 </pre>
 <ul><li>Is PulseAudio, OSS or something else grabbing my device?</li></ul>
@@ -159,7 +159,7 @@ $ setpci -v -s <i>$SOUND_CARD_PCI_ID</i> latency_timer=<b>ff</b>
 <pre>$ fuser -fv /dev/snd/pcm* /dev/dsp*  
 </pre>
 <ul><li>Is PAM-security and realtime working OK?</li></ul>
-<p>See: <a href="/Usage/Configuration/P/Realtime_process_management.html#PAM-enabled_login" class="mw-redirect" title="Realtime for Users">Realtime for Users#PAM-enabled login</a> (Pay special attention especially if you do not run KDM, GDM or Slim.)
+<p>See: <a href="/Usage/Configuration/R/Realtime_process_management.html#PAM-enabled_login" class="mw-redirect" title="Realtime for Users">Realtime for Users#PAM-enabled login</a> (Pay special attention especially if you do not run KDM, GDM or Slim.)
 </p>
 <ul><li>Have I rebooted after having done all that?</li></ul>
 <h3><span class="mw-headline" id="JACK">JACK</span></h3>
@@ -185,7 +185,7 @@ $ setpci -v -s <i>$SOUND_CARD_PCI_ID</i> latency_timer=<b>ff</b>
 </p>
 <h4><span class="mw-headline" id="FireWire">FireWire</span></h4>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> Nothing much is needed to be done as most things have been automated, especially with the introduction of the <a rel="nofollow"  href="https://ieee1394.wiki.kernel.org/articles/j/u/j/Juju_Migration_e8a6.html">new FireWire stack</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-01 ⓘ]</sup>, deprecation of HAL and more focus on <a href="/Usage/Configuration/P/Udev.html" title="Udev">udev</a>. You should not need to edit device permissions, but if you suspect that your device may not be working due to such issues, see <code>/lib/udev/rules.d/60-ffado.rules</code> and if needed, create and put your changes into <code>/etc/udev/rules.d/60-ffado.rules</code>.</div>
+<strong>Note:</strong> Nothing much is needed to be done as most things have been automated, especially with the introduction of the <a rel="nofollow"  href="https://ieee1394.wiki.kernel.org/articles/j/u/j/Juju_Migration_e8a6.html">new FireWire stack</a><sup title="Last check status: 404">[<a href="https://en.wikipedia.org/wiki/Wikipedia:Link_rot"  title="wikipedia:Wikipedia:Link rot">dead link</a> 2020-04-01 ⓘ]</sup>, deprecation of HAL and more focus on <a href="/Usage/Configuration/U/Udev.html" title="Udev">udev</a>. You should not need to edit device permissions, but if you suspect that your device may not be working due to such issues, see <code>/lib/udev/rules.d/60-ffado.rules</code> and if needed, create and put your changes into <code>/etc/udev/rules.d/60-ffado.rules</code>.</div>
 <p>JACK(2) is built against FFADO, you only need to install it with the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=libffado">libffado</a></span> package.
 </p>
 <p>To test whether you have any chances of getting FireWire devices to work:
@@ -207,11 +207,11 @@ you need to disable the "snd_dice" module.</div>
 <h4><span class="mw-headline" id="Jack_Flash">Jack Flash</span></h4>
 <p>If after getting jack setup you will find that Flash has no audio.
 </p>
-<p>In order to get flash to work with jack you will need to <a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libflashsupport-jack/">libflashsupport-jack</a></span><sup><small>AUR</small></sup> package.
+<p>In order to get flash to work with jack you will need to <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/libflashsupport-jack/">libflashsupport-jack</a></span><sup><small>AUR</small></sup> package.
 </p>
 <p>You can also use more flexible method to allow Alsa programs (including Flash) play sound while jack is running:
 </p>
-<p>First you must install the jack plugin for Alsa by <a href="/Usage/Configuration/P/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-plugins">alsa-plugins</a></span> package. Enable it by editing (or creating) <code>/etc/asound.conf</code> (system wide settings) to have these lines:
+<p>First you must install the jack plugin for Alsa by <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">installing</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-plugins">alsa-plugins</a></span> package. Enable it by editing (or creating) <code>/etc/asound.conf</code> (system wide settings) to have these lines:
 </p>
 <pre># convert alsa API over jack API
 # use it with
@@ -258,7 +258,7 @@ perl ./realTimeConfigQuickScan.pl
 <p>In addition to the factors listed under the System Configuration section above as well as the settings checked by realTimeConfigQuickScan.pl, it is also worth noting that desktop environments can cause xruns and hence JACK audio glitches, especially memory/process intensive ones and those desktops that utilize composited desktop effects. It is recommended you disable desktop effects when using JACK. You are likely to get the least xruns and best performance by running a lightweight desktop or just a window manager instead.
 </p>
 <h4><span class="mw-headline" id="A_general_example">A general example</span></h4>
-<p>A general configuration example is <a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html#A_shell-based_example_setup" title="JACK Audio Connection Kit">JACK Audio Connection Kit#A shell-based example setup</a>.
+<p>A general configuration example is <a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html#A_shell-based_example_setup" title="JACK Audio Connection Kit">JACK Audio Connection Kit#A shell-based example setup</a>.
 </p>
 <h2><span class="mw-headline" id="Realtime_kernel">Realtime kernel</span></h2>
 <p>Since a while ago, the stock Linux kernel has proven to be adequate for realtime uses.  The stock kernel (with <code>CONFIG_PREEMPT=y</code>, default in TOS) can operate with a worst case latency of <a rel="nofollow"  href="https://rt.wiki.kernel.org/index.php/Frequently_Asked_Questions#What_are_real-time_capabilities_of_the_stock_2.6_linux_kernel.3F">upto 10ms</a> (time between the moment an interrupt occurs in hardware, and the moment the corresponding interrupt-thread gets running), although some device drivers can introduce latency much worse than that.  So depending on your hardware and driver (and requirement), you might want a kernel with hard realtime capabilities.
@@ -286,7 +286,7 @@ Most audio-specific distro Linux ships with this patch applied. A realtime-preem
 <div class="archwiki-template-box archwiki-template-box-note">
 <strong>Note:</strong> Before you decide to use a patched kernel, see <a rel="nofollow"  href="http://jackaudio.org/faq/realtime_vs_realtime_kernel.html">http://jackaudio.org/faq/realtime_vs_realtime_kernel.html</a>.</div>
 <h3><span class="mw-headline" id="AUR">AUR</span></h3>
-<p>From the <a href="/Usage/Configuration/P/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> itself, you have the following options:
+<p>From the <a href="/Usage/Configuration/T/TOS_User_Repository.html" class="mw-redirect" title="AUR">AUR</a> itself, you have the following options:
 </p>
 <ul>
 <li>
@@ -299,7 +299,7 @@ Most audio-specific distro Linux ships with this patch applied. A realtime-preem
 </p>
 <dl><dd><i>See: <a rel="nofollow"  href="https://rt.wiki.kernel.org/">Real-Time Linux Wiki</a></i></dd></dl>
 <h4><span class="mw-headline" id="Binaries">Binaries</span></h4>
-<p>Some users provide binaries for the AUR packages above in <a href="/Usage/Configuration/P/Unofficial_user_repositories.html" title="Unofficial user repositories">Unofficial user repositories</a>:
+<p>Some users provide binaries for the AUR packages above in <a href="/Usage/Configuration/U/Unofficial_user_repositories.html" title="Unofficial user repositories">Unofficial user repositories</a>:
 </p>
 <ul><li><a rel="nofollow"  href="https://www.suruatoel.xyz/arch">coderkun-aur-audio</a></li></ul>
 <h2><span class="mw-headline" id="MIDI">MIDI</span></h2>
@@ -309,7 +309,7 @@ Most audio-specific distro Linux ships with this patch applied. A realtime-preem
 </p>
 <p>To work with MIDI, it is highly recommended that you install a2j (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=a2jmidid">a2jmidid</a></span>), a bridge between alsa midi and jack midi. It allows you to connect applications that only communicate with alsa midi to applications that only use jack midi. Laditray can also start/stop a2j.
 </p>
-<dl><dd><i>See: <a href="/Usage/Configuration/P/JACK_Audio_Connection_Kit.html#MIDI" class="mw-redirect" title="JACK">JACK#MIDI</a></i></dd></dl>
+<dl><dd><i>See: <a href="/Usage/Configuration/J/JACK_Audio_Connection_Kit.html#MIDI" class="mw-redirect" title="JACK">JACK#MIDI</a></i></dd></dl>
 <h2><span class="mw-headline" id="Environment_variables">Environment variables</span></h2>
 <p>If you install things to non-standard directories, it is often necessary to set environment path variables so that applications know where to look (for plug-ins and other libraries). This usually affects only VST since users might have a Wine or external Windows location.
 </p>
@@ -345,7 +345,7 @@ $ killall -9 $processname
 <h3><span class="mw-headline" id="M-Audio_Delta_1010">M-Audio Delta 1010</span></h3>
 <p>The M-Audio Delta series cards are based on the VIA Ice1712 audio chipset.
 Cards using this chip require that you install the alsa-tools package, because 
-it contains the <a href="/Usage/Configuration/P/Envy24control.html" title="Envy24control">envy24control</a> program. <a href="/Usage/Configuration/P/Envy24control.html" title="Envy24control">Envy24control</a> is a hardware level
+it contains the <a href="/Usage/Configuration/E/Envy24control.html" title="Envy24control">envy24control</a> program. <a href="/Usage/Configuration/E/Envy24control.html" title="Envy24control">Envy24control</a> is a hardware level
 mixer/controller. You <i>can</i> use alsa-mixer but you will save yourself some
 hassle not to try it. Note that this section has no information on MIDI setup or
 usage. 
@@ -354,7 +354,7 @@ usage.
 </p>
 <pre>$ envy24control
 </pre>
-<p>This application can be more than a bit confusing; see <a href="/Usage/Configuration/P/Envy24control.html" title="Envy24control">envy24control</a> for guidance
+<p>This application can be more than a bit confusing; see <a href="/Usage/Configuration/E/Envy24control.html" title="Envy24control">envy24control</a> for guidance
 on its use. That said, here is a very simple working setup for multitracking with Ardour.
 </p>
 <ol>
@@ -537,7 +537,7 @@ The ffadomixer does not work with this card yet, hopefully in the future we can 
 <ol>
 <li>Required packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-tools">alsa-tools</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=alsa-firmware">alsa-firmware</a></span> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/fxload/">fxload</a></span><sup><small>AUR</small></sup>
 </li>
-<li>udev rules: create the following rules file, then reload udev rules, <a href="/Usage/Configuration/P/Udev.html#Loading_new_rules" title="Udev">Udev#Loading new rules</a>
+<li>udev rules: create the following rules file, then reload udev rules, <a href="/Usage/Configuration/U/Udev.html#Loading_new_rules" title="Udev">Udev#Loading new rules</a>
 </li>
 </ol>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/51-tascam-us-122.rules</pre>
@@ -609,11 +609,11 @@ The device should now be working, there are no software mixer controls
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
-<a href="/Usage/Configuration/P/List_of_applications.html#Audio" title="List of applications">Audio</a> A comprehensive list of audio applications on TOS Linux</li>
-<li><a href="/Usage/Configuration/P/Realtime_kernel_patchset.html" class="mw-redirect" title="Realtime kernel">Realtime kernel</a></li>
+<a href="/Usage/Configuration/L/List_of_applications.html#Audio" title="List of applications">Audio</a> A comprehensive list of audio applications on TOS Linux</li>
+<li><a href="/Usage/Configuration/R/Realtime_kernel_patchset.html" class="mw-redirect" title="Realtime kernel">Realtime kernel</a></li>
 <li>AUR meta packages: <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/proaudio-meta/">proaudio-meta</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/soundfonts-aur-meta/">soundfonts-aur-meta</a></span><sup><small>AUR</small></sup>, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://aur.archlinux.org/packages/lv2-plugins-aur-meta/">lv2-plugins-aur-meta</a></span><sup><small>AUR</small></sup>
 </li>
-<li>User repositories: <a href="/Usage/Configuration/P/Unofficial_user_repositories.html#coderkun-aur-audio" title="Unofficial user repositories">coderkun-aur-audio</a> and <a href="/Usage/Configuration/P/Unofficial_user_repositories.html#heftig" title="Unofficial user repositories">heftig</a>
+<li>User repositories: <a href="/Usage/Configuration/U/Unofficial_user_repositories.html#coderkun-aur-audio" title="Unofficial user repositories">coderkun-aur-audio</a> and <a href="/Usage/Configuration/U/Unofficial_user_repositories.html#heftig" title="Unofficial user repositories">heftig</a>
 </li>
 <li>
 <a rel="nofollow"  href="https://github.com/nodiscc/awesome-linuxaudio">awesome-linuxaudio</a> A list of software and resources for professional audio/video/live events production on the Linux platform</li>
@@ -626,9 +626,9 @@ The device should now be working, there are no software mixer controls
 		
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/P/Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Sound.html" title="Category:Sound">Sound</a></li></ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/P/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -646,9 +646,9 @@ The device should now be working, there are no software mixer controls
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/P/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/P/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/P/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

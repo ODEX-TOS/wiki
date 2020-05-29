@@ -2,7 +2,7 @@
     title: Android_tethering
     description: Migration of Android_tethering from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -92,13 +92,13 @@
 <li><i>Settings -&gt; More... -&gt; Tethering &amp; mobile hotspot -&gt; USB tethering</i></li>
 </ul>
 </li>
-<li>Follow <a href="/Usage/Configuration/A/Network_configuration.html" title="Network configuration">Network configuration</a>.</li>
+<li>Follow <a href="/Usage/Configuration/N/Network_configuration.html" title="Network configuration">Network configuration</a>.</li>
 </ul>
 <div class="archwiki-template-box archwiki-template-box-note">
-<strong>Note:</strong> The network interface name may change depending on the USB port you use. You may want to <a href="/Usage/Configuration/A/Network_configuration.html#Change_interface_name" title="Network configuration">change the interface name</a> to create a unique name for your device regardless of the USB port.</div>
+<strong>Note:</strong> The network interface name may change depending on the USB port you use. You may want to <a href="/Usage/Configuration/N/Network_configuration.html#Change_interface_name" title="Network configuration">change the interface name</a> to create a unique name for your device regardless of the USB port.</div>
 <ul><li>If you're using a cellular data plan and you have recently entered a new billing period, you may need to restart your phone.</li></ul>
 <h4><span class="mw-headline" id="Using_systemd-networkd_with_udev">Using systemd-networkd with udev</span></h4>
-<p>Using <a href="/Usage/Configuration/A/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> you can automatically adjust the networking to use the phone as the gateway when plugged in.
+<p>Using <a href="/Usage/Configuration/S/Systemd-networkd.html" title="Systemd-networkd">systemd-networkd</a> you can automatically adjust the networking to use the phone as the gateway when plugged in.
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/udev/rules.d/90-android-tethering.rules</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"># Execute pairing program when appropriate
@@ -121,7 +121,7 @@ DHCP=ipv4
 <p><a rel="nofollow"  href="https://github.com/aziwoqpd/azilink">AziLink</a> is an application that allows USB tethering for Android-based phones, without requiring root access. It is very useful for Android older than version 2.2, when there was no stock USB tethering feature implemented. It also does not require changes to your browser, and all network traffic is transparently handled (except ICMP pings). It may be somewhat CPU intensive on the phone at high usage rates (a 500 kBytes/sec data transfer rate may take more than 50% of phone CPU).
 </p>
 <h3><span class="mw-headline" id="Tools_needed">Tools needed</span></h3>
-<p>For TOS, you need to <a href="/Usage/Configuration/A/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> package. You will also need to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-tools">android-tools</a></span> package for the <i>adb</i> tool and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-udev">android-udev</a></span> which sets up the correct <code>/usr/lib/udev/rules.d/51-android.rules</code> file for your device to be recognized. On the phone, you need the <a rel="nofollow"  href="http://lfx.org/azilink/azilink.apk">azilink.apk</a> (<a rel="nofollow"  href="https://github.com/aziwoqpd/azilink">azilink homepage</a>). The android application acts as a NAT, adb forwards the ports to your phone, and your openvnp setup will connect to it.
+<p>For TOS, you need to <a href="/Usage/Configuration/H/Help:Reading.html#Installation_of_packages" class="mw-redirect" title="Install">install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=openvpn">openvpn</a></span> package. You will also need to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-tools">android-tools</a></span> package for the <i>adb</i> tool and <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=android-udev">android-udev</a></span> which sets up the correct <code>/usr/lib/udev/rules.d/51-android.rules</code> file for your device to be recognized. On the phone, you need the <a rel="nofollow"  href="http://lfx.org/azilink/azilink.apk">azilink.apk</a> (<a rel="nofollow"  href="https://github.com/aziwoqpd/azilink">azilink homepage</a>). The android application acts as a NAT, adb forwards the ports to your phone, and your openvnp setup will connect to it.
 </p>
 <h4><span class="mw-headline" id="Configuring_the_phone_connection_in_TOS_Linux">Configuring the phone connection in TOS Linux</span></h4>
 <p>So that you do not have to run adb as root, we are going to grant your user permissions to your usb device. Make sure you have turned on USB debugging on the phone (usually in <i>Settings -&gt; Applications -&gt; Development -&gt; USB debugging</i>) so that it will be shown as a device, and that it is plugged in to your computer via the USB cable. You should see it with you run the <code>lsusb</code> command. Original azi link instructions are <a rel="nofollow"  href="https://raw.githubusercontent.com/aziwoqpd/azilink/master/HOWTO">here</a>
@@ -161,7 +161,7 @@ socket-flags TCP_NODELAY
 keepalive 10 30
 dhcp-option DNS 192.168.56.1
 </pre>
-<p>You may need to manually update the contents of <a href="/Usage/Configuration/A/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to
+<p>You may need to manually update the contents of <a href="/Usage/Configuration/D/Domain_name_resolution.html" class="mw-redirect" title="Resolv.conf">resolv.conf</a> to
 </p>
 <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/etc/resolv.conf</pre>
 <pre style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">nameserver 192.168.56.1
@@ -182,10 +182,10 @@ dhcp-option DNS 192.168.56.1
 </p>
 <p>NetworkManager can perform this action and handle the network initialisation itself; consult its documentation for more details. 
 </p>
-<p>Alternatively: pair and ensure you can connect your computer and Android device, as described on <a href="/Usage/Configuration/A/Bluetooth.html" title="Bluetooth">Bluetooth</a>, then, substituting the address of the device (here given as <code>AA_BB_CC_DD_EE_FF</code>), do:
+<p>Alternatively: pair and ensure you can connect your computer and Android device, as described on <a href="/Usage/Configuration/B/Bluetooth.html" title="Bluetooth">Bluetooth</a>, then, substituting the address of the device (here given as <code>AA_BB_CC_DD_EE_FF</code>), do:
 </p>
 <pre>$ dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_AA_BB_CC_DD_EE_FF org.bluez.Network1.Connect string:'nap'</pre>
-<p>This will create a network interface <code>bnep0</code>.  Finally, <a href="/Usage/Configuration/A/Network_configuration.html" title="Network configuration">configure a network connection</a> on this interface; Android offers DHCP by default.
+<p>This will create a network interface <code>bnep0</code>.  Finally, <a href="/Usage/Configuration/N/Network_configuration.html" title="Network configuration">configure a network connection</a> on this interface; Android offers DHCP by default.
 </p>
 <h2><span class="mw-headline" id="Tethering_with_SOCKS_proxy">Tethering with SOCKS proxy</span></h2>
 <p>With this method tethering is achieved by port forwarding from the phone to the PC. This is suitable only for browsing. For Firefox, you should set <code>network.proxy.socks_remote_dns</code> to <code>true</code> in <code>about:config</code> ( address bar )
@@ -219,11 +219,11 @@ dhcp-option DNS 192.168.56.1
 		<div id="catlinks"  data-mw="interface">
 <div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/Usage/Configuration/A/Category:Android.html" title="Category:Android">Android</a></li>
-<li><a href="/Usage/Configuration/A/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
+<li><a href="/Usage/Configuration/C/Category:Android.html" title="Category:Android">Android</a></li>
+<li><a href="/Usage/Configuration/C/Category:Network_sharing.html" title="Category:Network sharing">Network sharing</a></li>
 </ul>
 </div>
-<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/A/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
+<div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Usage/Configuration/C/Category:Pages_with_dead_links.html" title="Category:Pages with dead links">Pages with dead links</a></li></ul>
 </div>
 </div>
 		<div ></div>
@@ -241,9 +241,9 @@ dhcp-option DNS 192.168.56.1
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/A/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/A/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/A/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">

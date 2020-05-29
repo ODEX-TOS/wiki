@@ -2,7 +2,7 @@
     title: Realtime_process_management
     description: Migration of Realtime_process_management from the arch Wiki to the TOS Wiki
     published: true
-    date: 2020-05-29T19:25:31.000Z
+    date: 2020-05-29T19:40:39.000Z
     tags: 
     -->>
 
@@ -27,8 +27,8 @@
 <div class="archwiki-template-meta-related-articles-start">
 <p>Related articles</p>
 <ul>
-<li><a href="/Usage/Configuration/R/Cgroups.html" title="Cgroups">cgroups</a></li>
-<li><a href="/Usage/Configuration/R/Improving_performance.html" class="mw-redirect" title="Performance">Performance</a></li>
+<li><a href="/Usage/Configuration/C/Cgroups.html" title="Cgroups">cgroups</a></li>
+<li><a href="/Usage/Configuration/I/Improving_performance.html" class="mw-redirect" title="Performance">Performance</a></li>
 </ul>
 </div>
 <p>This article provides information on prioritizing process threads in real time, as opposed to at startup only. It shows how you can control CPU, memory, and other resource utilization of individual processes, or all processes run by a particular group.
@@ -65,7 +65,7 @@
 </div>
 
 <h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>By default, real-time prioritizing is enabled on TOS. System, group and user wide configuration can be achieved using <a href="/Usage/Configuration/R/PAM.html" title="PAM">PAM</a> and <a href="/Usage/Configuration/R/Systemd.html" title="Systemd">systemd</a>.
+<p>By default, real-time prioritizing is enabled on TOS. System, group and user wide configuration can be achieved using <a href="/Usage/Configuration/P/PAM.html" title="PAM">PAM</a> and <a href="/Usage/Configuration/S/Systemd.html" title="Systemd">systemd</a>.
 </p>
 <p>The <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/groups/x86_64/realtime/">realtime</a></span> package group provides additional tools to modify the realtime scheduling policies of <a href="https://en.wikipedia.org/wiki/Interrupt_request_(PC_architecture)"  title="wikipedia:Interrupt request (PC architecture)">IRQs</a> and processes. 
 </p>
@@ -78,7 +78,7 @@
 <strong>Tip:</strong>  It is advised to externalize the configuration of <code>pam_limits</code> to separate files below <code>/etc/security/limits.d</code> as those take precedence over the main configuration file.</div>
 <p>There are two types of resource limits that <code>pam_limits</code> provides: <b>hard limits</b> and <b>soft limits</b>. Hard limits are set by <code>root</code> and enforced by the kernel, while soft limits may be configured by the user within the range allowed by the hard limits.
 </p>
-<p>Installing the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=realtime-privileges">realtime-privileges</a></span> and adding the user to the <code>realtime</code> group, provides reasonable default values (e.g. relevant for <a href="/Usage/Configuration/R/Professional_audio.html" title="Professional audio">Professional audio</a>).
+<p>Installing the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=realtime-privileges">realtime-privileges</a></span> and adding the user to the <code>realtime</code> group, provides reasonable default values (e.g. relevant for <a href="/Usage/Configuration/P/Professional_audio.html" title="Professional audio">Professional audio</a>).
 </p>
 <h3><span class="mw-headline" id="Configuring_systemd_services">Configuring systemd services</span></h3>
 <p>Processes spawned by systemd system services need to specifically setup equivalents to <code>limits.conf</code>. Further information can be found in the sections <code>CREDENTIALS</code> and <code>PROCESS PROPERTIES</code> in <span class="plainlinks archwiki-template-man" title="$ man 5 systemd.exec"><a rel="nofollow"  href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.exec.5">systemd.exec(5)</a></span>.
@@ -93,13 +93,13 @@ With PAM you can grant realtime priority to a certain user or to a certain user 
 </p>
 <h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
 <h3><span class="mw-headline" id="PAM-enabled_login">PAM-enabled login</span></h3>
-<p>See <a href="/Usage/Configuration/R/Xinit.html#Autostart_X_at_login" class="mw-redirect" title="Start X at login">Start X at login</a>.
+<p>See <a href="/Usage/Configuration/X/Xinit.html#Autostart_X_at_login" class="mw-redirect" title="Start X at login">Start X at login</a>.
 </p>
 <p>For your system to use PAM limits settings you have to use a <code>pam</code>-enabled login method/manager. Nearly all graphical login managers are pam-enabled, and it now appears that the default TOS login is <code>pam</code>-enabled as well. You can confirm this by searching <code>/etc/pam.d</code>:
 </p>
 <pre>$ grep pam_limits.so /etc/pam.d/*
 </pre>
-<p>If you get nothing, you are whacked. But you will, as long as you have a login manager (and now <a href="/Usage/Configuration/R/Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a>). We want an output like this one:
+<p>If you get nothing, you are whacked. But you will, as long as you have a login manager (and now <a href="/Usage/Configuration/P/Polkit.html" class="mw-redirect" title="PolicyKit">PolicyKit</a>). We want an output like this one:
 </p>
 <pre>/etc/pam.d/crond:session   required    pam_limits.so
 /etc/pam.d/login:session		required	pam_limits.so
@@ -112,7 +112,7 @@ With PAM you can grant realtime priority to a certain user or to a certain user 
 <h3>
 <span id="Console.2Fautologin"></span><span class="mw-headline" id="Console/autologin">Console/autologin</span>
 </h3>
-<p>See: <a href="/Usage/Configuration/R/Getty.html#Automatic_login_to_virtual_console" class="mw-redirect" title="Automatically login some user to a virtual console on startup">Automatically login some user to a virtual console on startup</a>
+<p>See: <a href="/Usage/Configuration/G/Getty.html#Automatic_login_to_virtual_console" class="mw-redirect" title="Automatically login some user to a virtual console on startup">Automatically login some user to a virtual console on startup</a>
 </p>
 <p>If you prefer to not have a graphical login, you still have a way. You need to edit the <code>pam</code> stuff for <code>su</code> (from <span class="plainlinks archwiki-template-pkg"><a rel="nofollow"  href="https://www.archlinux.org/packages/?name=coreutils">coreutils</a></span>):
 </p>
@@ -137,7 +137,7 @@ With PAM you can grant realtime priority to a certain user or to a certain user 
 </div></div>
 		
 		<div id="catlinks"  data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/R/Category:Security.html" title="Category:Security">Security</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="/Usage/Configuration/C/Category:Security.html" title="Category:Security">Security</a></li></ul>
 </div></div>
 		<div ></div>
 		
@@ -154,9 +154,9 @@ With PAM you can grant realtime priority to a certain user or to a certain user 
 							<br>
 </ul>
 						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="/Usage/Configuration/R/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="/Usage/Configuration/R/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
-								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/R/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-privacy"><a href="/Usage/Configuration/T/TOS Wiki:Privacy_policy.html" title="TOS Wiki:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="/Usage/Configuration/T/TOS Wiki:About.html" title="TOS Wiki:About">About TOS Wiki</a></li>
+								<li id="footer-places-disclaimer"><a href="/Usage/Configuration/T/TOS Wiki:General_disclaimer.html" title="TOS Wiki:General disclaimer">Disclaimers</a></li>
 							</ul>
 										<ul id="footer-icons" >
 										<li id="footer-copyrightico">
