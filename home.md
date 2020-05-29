@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-05-29T17:53:46.707Z
+date: 2020-05-29T17:54:23.948Z
 tags: home, welcome, wiki
 ---
 
@@ -60,36 +60,36 @@ Below is some information to help you get started!
 
 # End users
 
-- [**Updates** | Updating your system](/user/update)
+- [**Updates** | Updating your system](/Usage/update)
 
-- [**Configuration** | Configure/tweak your system](/user/config)
+- [**Configuration** | Configure/tweak your system](/Usage/config)
 
-- [**Navigation** | Navigate around your system](/user/navigate)
+- [**Navigation** | Navigate around your system](/Usage/navigate)
 
-- [**TOS tool** | Use the TOS tool to make your life easier](/user/tool)
+- [**TOS tool** | Use the TOS tool to make your life easier](/Usage/tool)
 
-- [**Tiling Window Manager** | Explain what a tiling window manager is (referenced thoughout this documentation)](/user/tiling)
+- [**Tiling Window Manager** | Explain what a tiling window manager is (referenced thoughout this documentation)](/Usage/tiling)
 
-- [**Setting Up Wi-Fi** | Quickly describe how to configure wifi in TOS](/user/wifi)
+- [**Setting Up Wi-Fi** | Quickly describe how to configure wifi in TOS](/Usage/wifi)
 
 
 # Development
 
-- [**General** | General development information](/dev/general)
+- [**General** | General development information](/Developer/general)
 
-- [**Repository** | Everything needed to work on the tos repo](/dev/repo)
+- [**Repository** | Everything needed to work on the tos repo](/Developer/repo)
 
-- [**Live iso** | Everything needed to build the live iso](/dev/iso)
+- [**Live iso** | Everything needed to build the live iso](/Developer/iso)
 
-- [**Tos Build System** | Simplyfy your life with tbs](/dev/tbs)
+- [**Tos Build System** | Simplyfy your life with tbs](/Developer/tbs)
 
-- [**Window Manager** | Extend the functionality of AwesomeWM](/dev/awesome)
+- [**Window Manager** | Extend the functionality of AwesomeWM](/Developer/awesome)
 
-- [**Linux** | Extend the Linux kernel](/dev/linux)
+- [**Linux** | Extend the Linux kernel](/Developer/linux)
 
-- [**System Updater** | Automatically mitigate Arch Linux manual interventions](/dev/update)
+- [**System Updater** | Automatically mitigate Arch Linux manual interventions](/Developer/update)
 
-- [**Installer** | Extend the Calamares Installer](/dev/calamares)
+- [**Installer** | Extend the Calamares Installer](/Developer/calamares)
 
 
 Thank for looking into TOS :heart:
