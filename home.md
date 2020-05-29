@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-05-29T17:54:23.948Z
+date: 2020-05-29T17:59:27.677Z
 tags: home, welcome, wiki
 ---
 
@@ -40,11 +40,9 @@ All other default features compare to the default settings of `Arch Linux` with 
 
 You have to know our logo/mascot
 
-<p align="center">
-  <a href="https://github.com/ODEX-TOS">
-    <img src="/branding/tos_logo.png" alt="Logo" width="300" height="400">
-  </a>
-</p>
+<a href="https://github.com/ODEX-TOS">
+  <img src="/branding/tos_logo.png" alt="Logo" width="300" height="400" style="display: block; margin-left: auto; margin-right: auto;">
+</a>
 
 We also call him(or her) `Archion` as a tribute to `Arch GNU/Linux` the Operating System that `TOS` is build on top of.
 
