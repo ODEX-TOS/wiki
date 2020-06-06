@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-06T15:28:37.214Z
+date: 2020-06-06T15:29:56.453Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -415,7 +415,7 @@ If you wish to change this behaviour than you can configure it.
 ### Packages
 
 The config file is located in `/etc/system-updater.conf`
-just add a line `exclude = <YourPackagName>` if you don't want that package installed.
+just add a line `exclude = <YourPackageName>` if you don't want that package installed.
 
 Here is a list of all packages that currently will be installed each time you invoke the `system-updater` command.
 
