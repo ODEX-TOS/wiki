@@ -2,8 +2,8 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-05-01T17:23:39.562Z
-tags: user, tutorial, maintain, config
+date: 2020-06-06T15:28:37.214Z
+tags: tutorial, user, maintain, config
 ---
 
 # Configuration
@@ -25,7 +25,7 @@ In case it doesn't exist yet use the following file
 
 ```bash
 # possible colors for primary accent and background are
-# red pink purple hue_purple indigo blue hue_blue cyan teal green  hue_green
+# red pink purple hue_purple indigo blue hue_blue cyan teal green  hue_green 
 # lime yellow amber orange deep_orange brown grey and blue_grey, light can also be used to show white colors
 primary="purple"
 accent="light"
@@ -62,7 +62,7 @@ background="blue_grey"
 # foreground properties
 foreground_normal="ffffffde"
 foreground_focus="e4e4e4"
-foreground_urgent="CC9393"
+foreground_urgent="CC9393" 
 foreground_critical="232323"
 
 # background properties
@@ -70,7 +70,7 @@ background_focus="5a5a5a"
 background_urgent="3F3F3F"
 # override these for the blurred background properties
 # these are symlinked to background_hue_800 and background_hue_900
-background_800="000000"
+background_800="000000" 
 background_900="000000"
 background_transparent="66"
 
@@ -92,6 +92,76 @@ Each separate item in the file denotes another color of the window manager.
 Play around with it.
 To reload the configuration use `mod4+Ctrl+r`
 
+Here is also an example of a light theme version of tos
+
+```bash
+# possible colors for primary accent and background are
+# red pink purple hue_purple indigo blue hue_blue cyan teal green  hue_green 
+# lime yellow amber orange deep_orange brown grey and blue_grey, light can also be used to show white colors
+primary="purple"
+accent="purple"
+# if the background property is set to light then all icons will be inverted to fit the light theme
+background="light"
+
+#colors work as followed
+#they follow the HTML spec as the following format
+# RRGGBB or RRGGBBAA in hex
+
+#You can override the primary, accent and background color pallets if you want
+#The pallete shown below is the purple pallet. For more information visit material design
+#primary_hue_50='F3E5F5'
+#primary_hue_100='E1BEE7'
+#primary_hue_200='CE93D8'
+#primary_hue_300='BA68C8'
+#primary_hue_400='AB47BC'
+#primary_hue_500='9C27B0'
+#primary_hue_600='8E24AA'
+#primary_hue_700='7B1FA2'
+#primary_hue_800='6A1B9A'
+#primary_hue_900='4A148C'
+#primary_hue_A100='EA80FC'
+#primary_hue_A200='E040FB'
+#primary_hue_A400='D500F9'
+#primary_hue_A700='AA00FF'
+
+#accent_hue_500="F06292"
+# accent_hue_50='000000' to set the accent pallet
+# background_hue_50='000000' to set the background pallet
+
+# replace primary above with accent or background if you wish to alter those pallets
+
+
+# foreground properties eg font colors
+foreground_normal="000000de"
+foreground_focus="343434"
+foreground_urgent="994545" 
+foreground_critical="BEBEBE3"
+
+# background properties
+background_focus="5a5a5a"
+background_urgent="3F3F3F"
+# override these for the blurred background properties
+# these are symlinked to background_hue_800 and background_hue_900
+background_800="ffffff" 
+background_900="ffffff"
+background_transparent="66"
+
+# background effect in of widgets in any panel
+background_modal="ffffff50"
+background_modal_title="ffffff70"
+
+# border properties
+border_marked="CC9393"
+
+# tooltip properties eg notifications
+tooltip_bg="a3a3a3"
+
+# taglist properties (the workspaces)
+taglist_occupied="ffffff"
+```
+
+> By setting the background property to `light` will enable light theme, otherwise dark theme is used by default
+
 ### Icons
 
 The same configuration can be done for icons. What do we mean about icons?
@@ -102,6 +172,11 @@ All you need to do is edit `.config/tos/icons.conf`
 Below is an example file
 
 ```bash
+# Give the path to the icons in this file
+# If the theme is set to light (background="light" in colors.conf)
+# Then we will try to search for icon.dark.svg instead of icon.svg to get the dark variant
+# So be sure to add those variants if you wish to use a light theme instead
+
 # alter tag lists here. The path should be absolute (icons of your workspace)
 browser="/etc/xdg/awesome/theme/icons/themes/tos/firefox.svg"
 code="/etc/xdg/awesome/theme/icons/themes/tos/code.svg"
@@ -199,6 +274,53 @@ screen_7_1 = "Inkscape"
 screen_7_2 = "Gimp"
 ```
 
+### Keybindings
+
+The next file is called `.config/tos/keys.conf`
+It contains most of the keybindinds you need. Each individual action on the window manager can be controlled here.
+To get a full list of active keybindings you can use `mod+F1`
+This cheat sheet also gets altered when editing the config file.
+That is usefull for debugging wrong keybindings
+
+Here is an example config file
+
+```bash
+# Set the super key
+# By default this key is Mod4 (usually the windows key)
+# But it can be overridden to any other key
+# The alt key for example is called Mod1
+# The alphabet is just the name of the letter eg A or B
+# Numbers are number etc
+# Example name of special keys: Return, Escape, Control, space
+
+# The mod key is the key you need to press with all other keybindings 
+mod = "Mod4" 
+alt = "Mod1" 
+
+terminal = "Return" # mod + Return
+window_switch = "f" # mod + f 
+launcher = "d" # mod + d
+browser = "w" # mod + shift + w
+filemanager = "e" # mod + shift + e
+systemmonitor = "Escape" # mod + shift + Escape
+previous_workspace = "w" # mod + w
+next_workspace = "s" # mod + s
+swap_workspace = "Escape" # mod + Escape
+action_center = "e" # mod + e
+toggle_focus = "Tab" # mod + Tab
+lock = "l" # mod + l
+notification_panel = "x" # mod + x
+restart_wm = "r" # mod + Control + r
+quit_wm = "q" # mod + Control + q
+next_layout = "space" # mod + space
+previous_layout = "space" # mod + shift + space
+restore_minimized = "n" # mod + Control + n
+dropdown_terminal = "F12" # F12
+toggle_sound = "t" # mod + t
+previous_song = "k" # mod + shift + k
+next_song = "n" # mod + n 
+```
+
 ### Floating
 
 Last configuration file of the window manager is for floating applications.
@@ -223,6 +345,7 @@ Example content:
 float_1 = "Inkscape"
 float_2 = "Gimp-2.10"
 ```
+
 
 ### Autostart Applications
 The last configuration 'file' is called the autostart.
