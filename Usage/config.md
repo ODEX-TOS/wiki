@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-07T16:38:36.808Z
+date: 2020-06-07T16:41:30.495Z
 tags: tutorial, user, maintain, config
 ---
 
