@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-06T15:29:56.453Z
+date: 2020-06-07T10:35:54.841Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -17,6 +17,28 @@ Each section is described below.
 
 The official window manager used by tos is `awesomeWM` specifically the package `awesome-tos`
 Make sure this package is installed before continuing with this section.
+
+### General
+
+If you wish to edit general settings of the window manager then you need to edit the `.config/tos/general.conf` file.
+In case it doesn't exist yet use the following file
+
+```bash
+# This is the general configuration file for the tos window manager
+
+# Draw mode contains the style of drawing applications
+# There are 3 possibilities
+# none, fast, and full
+# none simply draws the content on screen and takes almost no time to render
+# fast only draws the maximize, minimize and close buttons and barely takes time to render
+# full does everything but can take a lot of time on older hardware
+draw_mode="fast"
+```
+
+The full `draw_mode` looks the best but requires quite a lot of computing power when dragging the windows
+Fast `draw_mode` looks decent without such a overhead of computing power, thus it is the default option.
+None `draw_mode` simply doesn't draw the topbar and requires no extra computing power
+
 
 ### Colors
 
