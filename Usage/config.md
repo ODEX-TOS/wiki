@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-07T10:35:54.841Z
+date: 2020-06-07T16:38:36.808Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -320,13 +320,16 @@ mod = "Mod4"
 alt = "Mod1" 
 
 terminal = "Return" # mod + Return
-window_switch = "f" # mod + f 
+fullscreen = "f" # mod + f
+kill = "q" # mod + q
+floating = "c" # mod + c
+window_switch = "s" # mod + s 
 launcher = "d" # mod + d
 browser = "w" # mod + shift + w
 filemanager = "e" # mod + shift + e
 systemmonitor = "Escape" # mod + shift + Escape
 previous_workspace = "w" # mod + w
-next_workspace = "s" # mod + s
+next_workspace = "a" # mod + a
 swap_workspace = "Escape" # mod + Escape
 action_center = "e" # mod + e
 toggle_focus = "Tab" # mod + Tab
