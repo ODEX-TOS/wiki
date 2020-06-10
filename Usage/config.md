@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-07T16:41:30.495Z
+date: 2020-06-10T16:35:20.004Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -33,6 +33,20 @@ In case it doesn't exist yet use the following file
 # fast only draws the maximize, minimize and close buttons and barely takes time to render
 # full does everything but can take a lot of time on older hardware
 draw_mode="fast"
+
+# Position the tag bar (workspace area) to an anchor on the screen
+# Possible values are bottom, right and left
+tag_bar_anchor="bottom"
+
+# Draw the topbar on different screens or not
+# Possible modes: all main none
+# main means draw the topbar only on the main screen
+# all means draw the topbar on every screen
+# none means don't draw the topbar at all
+top_bar_draw="all"
+
+# Same option but for the tag bar 
+tag_bar_draw="main"
 ```
 
 The full `draw_mode` looks the best but requires quite a lot of computing power when dragging the windows
