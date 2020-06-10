@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-10T18:05:27.424Z
+date: 2020-06-10T18:26:57.937Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -282,6 +282,10 @@ Here is an example config file
 #tag_5=floating
 
 tag_8=floating
+
+# Configure the gap between applications on a per tag basis
+# By default each tag gets 4 pixels of space
+tag_gap_2="4"
 
 # TOS put all the browser on the first tag by default
 screen_1_1 = "firefoxdeveloperedition"
