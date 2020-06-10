@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-10T16:35:20.004Z
+date: 2020-06-10T18:05:27.424Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -276,12 +276,12 @@ Here is an example config file
 # max or 3 = fullscreen layout
 
 # examples
-#screen_1=max
-#screen_2=1
-#screen_3=tile
-#screen_5=floating
+#tag_1=max
+#tag_2=1
+#tag_3=tile
+#tag_5=floating
 
-screen_8=floating
+tag_8=floating
 
 # TOS put all the browser on the first tag by default
 screen_1_1 = "firefoxdeveloperedition"
