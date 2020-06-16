@@ -2,7 +2,7 @@
 title: TOS Home
 description: Welcome to the TOS Wiki!
 published: true
-date: 2020-05-29T17:59:27.677Z
+date: 2020-06-16T22:54:40.318Z
 tags: home, welcome, wiki
 ---
 
@@ -74,6 +74,8 @@ Below is some information to help you get started!
 # Development
 
 - [**General** | General development information](/Developer/general)
+
+- [**Style Guide** | How code should be written](/Developer/style-guide)
 
 - [**Repository** | Everything needed to work on the tos repo](/Developer/repo)
 
