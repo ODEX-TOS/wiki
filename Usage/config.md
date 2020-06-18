@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-10T18:26:57.937Z
+date: 2020-06-18T14:21:24.325Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -17,6 +17,9 @@ Each section is described below.
 
 The official window manager used by tos is `awesomeWM` specifically the package `awesome-tos`
 Make sure this package is installed before continuing with this section.
+
+> NOTE: A settings app is in development. Currently you will have to edit the configuration files yourself
+{.is-info}
 
 ### General
 
