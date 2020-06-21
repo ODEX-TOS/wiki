@@ -2,8 +2,8 @@
 title: Basic Usage
 description: How to work inside of TOS
 published: true
-date: 2020-03-17T15:00:02.492Z
-tags: basics, getting started, tutorial, help, flow
+date: 2020-06-21T11:02:03.247Z
+tags: tutorial, help, getting started, basics, flow
 ---
 
 # Basic Usage
@@ -103,7 +103,7 @@ Try and test them out!
 
 Since `tos` is keyboard driven, we recommend you get familiar with its keyboard layout.
 
-If you want to get a more specific description read the following [link](/user/navigate)
+If you want to get a more specific description read the following [link](/Usage/navigate)
 
 All you need to know for now is that most shortcuts use `mod4`
 
@@ -146,7 +146,7 @@ Finally you have to keep your system up to date.
 {.is-info}
 
 For a detailed describtion to keep your system up to date read
-- [Update and install software](/user/update)
-- [Cleanup and routine maintanance](/start/maintain)
+- [Update and install software](/Usage/update)
+- [Cleanup and routine maintanance](/Intro/maintain)
 
 All you should know to get started is to open a terminal and type `system-updater`
