@@ -2,12 +2,12 @@
 title: Updates
 description: How should you update your system
 published: true
-date: 2020-03-16T19:27:14.673Z
-tags: user, tutorial, maintain, update
+date: 2020-06-21T11:06:39.744Z
+tags: tutorial, update, user, maintain
 ---
 
 # Updates
-In order for you to use your system you need to know how to install software. The basics will be covered here. In case you need to know more you can always look up pacman [wiki](https://wiki.archlinux.org/index.php/Pacman)
+In order for you to use your system you need to know how to install software. The basics will be covered here. In case you need to know more you can always look up pacman [wiki](/Usage/Configuration/P/Pacman)
 (simply replace `pacman` with `tos` as `tos` has an abstraction ontop of `pacman`)
 
 A simple update is as followed
