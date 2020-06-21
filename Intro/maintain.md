@@ -2,8 +2,8 @@
 title: Maintenance
 description: What should you do if you wish to maintain your TOS environment
 published: true
-date: 2020-03-16T19:18:26.611Z
-tags: tos, getting started, tutorial, maintain
+date: 2020-06-21T11:00:55.747Z
+tags: tutorial, tos, getting started, maintain
 ---
 
 # Maintanance
@@ -20,7 +20,7 @@ The backend responsible for managing your software is called `pacman`
 > We don't recommend to use pacman directly as tos has mechanisms on top of it to help you with maintaining your system.
 {.is-warning}
 
-If you wish to know more about updates read [this](/user/update)
+If you wish to know more about updates read more [here](/Usage/update)
 
 ### Cleanup data
 
