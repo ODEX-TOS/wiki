@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-18T14:21:24.325Z
+date: 2020-06-24T12:24:30.094Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -50,6 +50,10 @@ top_bar_draw="all"
 
 # Same option but for the tag bar 
 tag_bar_draw="main"
+
+# Play a pop sound when changing the audio channels
+# Set to 1 to enable or 0 to disable
+audio_change_sound="1"
 ```
 
 The full `draw_mode` looks the best but requires quite a lot of computing power when dragging the windows
