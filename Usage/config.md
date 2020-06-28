@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-24T12:24:30.094Z
+date: 2020-06-28T10:23:14.674Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -13,9 +13,9 @@ Lets talk about configuration your environment.
 Tos has several tools and packages that you can configure independently.
 Each section is described below.
 
-## Window Manager
+## TOS Desktop Environment
 
-The official window manager used by tos is `awesomeWM` specifically the package `awesome-tos`
+The official DE used by tos is `TDE` specifically the package `awesome-tos`
 Make sure this package is installed before continuing with this section.
 
 > NOTE: A settings app is in development. Currently you will have to edit the configuration files yourself
@@ -27,9 +27,9 @@ If you wish to edit general settings of the window manager then you need to edit
 In case it doesn't exist yet use the following file
 
 ```bash
-# This is the general configuration file for the tos window manager
+# this is the general configuration file for the tos window manager
 
-# Draw mode contains the style of drawing applications
+# draw mode contains the style of drawing applications
 # There are 3 possibilities
 # none, fast, and full
 # none simply draws the content on screen and takes almost no time to render
@@ -37,12 +37,12 @@ In case it doesn't exist yet use the following file
 # full does everything but can take a lot of time on older hardware
 draw_mode="fast"
 
-# Position the tag bar (workspace area) to an anchor on the screen
-# Possible values are bottom, right and left
+# position the tag bar (workspace area) to an anchor on the screen
+# possible values are bottom, right and left
 tag_bar_anchor="bottom"
 
 # Draw the topbar on different screens or not
-# Possible modes: all main none
+# possible modes: all main none
 # main means draw the topbar only on the main screen
 # all means draw the topbar on every screen
 # none means don't draw the topbar at all
@@ -54,6 +54,34 @@ tag_bar_draw="main"
 # Play a pop sound when changing the audio channels
 # Set to 1 to enable or 0 to disable
 audio_change_sound="1"
+
+# Opt out of sending package information to the tos developers
+# Set to 0 to opt out
+pkg_opt_out="0"
+
+# Select the window screenshot rendering mode
+# When using the shadow option we superimpose a background with a shadow onto the window for extra eye candy, defaults to shadow
+# When using the none option we simply take a screenshot of the window itself
+window_screen_mode="shadow"
+# use below to disable
+#window_screen_mode="none"
+
+# Activate breaks that force you to take pauzes
+break="0"
+
+# Set the imeout how often the break should trigger in seconds
+break_timeout="3600"
+
+# Set how long a break should take in seconds
+break_time="300"
+
+# Set the start hour of when the break should trigger
+# This is useful if you only want breaks during working hours 
+# The format is in H:M where H is Hours and M is Minutes
+# Both H and M must be numerical values
+break_time_start="08:30"
+break_time_end="17:00"
+
 ```
 
 The full `draw_mode` looks the best but requires quite a lot of computing power when dragging the windows
@@ -72,6 +100,7 @@ In case it doesn't exist yet use the following file
 # lime yellow amber orange deep_orange brown grey and blue_grey, light can also be used to show white colors
 primary="purple"
 accent="light"
+# if the background property is set to light then all icons will be inverted to fit the light theme
 background="blue_grey"
 
 #colors work as followed
@@ -369,6 +398,11 @@ dropdown_terminal = "F12" # F12
 toggle_sound = "t" # mod + t
 previous_song = "k" # mod + shift + k
 next_song = "n" # mod + n 
+screen = "r" # mod + r (change the screen layout)
+printscreen = "Print" # Print (take a snapshot of your entire screen)
+snapshot_area = "Print" # mod + Print (take a snapshot of a part of your screen)
+window_screenshot = "Print" # mod + shift +Print (take a screenshot of a specific window)
+emoji = "m" # mod + e (show a emoji selector screen)
 ```
 
 ### Floating
