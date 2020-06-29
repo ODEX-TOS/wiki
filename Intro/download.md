@@ -2,8 +2,8 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-05-04T16:10:14.766Z
-tags: iso, user, download, tos, live iso, basics, getting started
+date: 2020-06-29T09:39:52.993Z
+tags: tos, getting started, basics, iso, user, download, live iso
 ---
 
 # Download TOS
@@ -79,7 +79,7 @@ If you just want a yes or no as output use the following command
 gpg --verify /path/to/signature/of/iso.gpg /path/to/iso &>/dev/null && echo "Valid" || echo "Invalid"
 ```
 
-If the above is invalid it means someone is messing either our servers or with your network connection/dns.
+If the above is invalid it means someone is messing with either our servers or with your network connection/dns.
 
 > Try downloading the gpg key with wget, firefox/chrome/curl all tamper with the binary data in the gpg file causing a bad signature
 {.is-warning}
