@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-04T20:29:39.858Z
+date: 2020-07-04T20:50:17.641Z
 tags: tde, plugins, lua, code, customization
 ---
 
@@ -130,13 +130,111 @@ svgColor("/home/user/.config/tde/icon-example/icons/globe.svg")
 
 ## notification
 
+Notifications for `TDE` are rather easy. All you have to do is build and notifcation object and it will automatically be shown to the user.
+
+```lua
+-- import the notification library
+local naughty = require("naughty")
+
+-- generate a notification
+naughty.notify({ text = "My First Notification",
+                 icon = icon, -- an optional icon
+                 timeout = 5, -- notification disappears after 5 seconds
+                 screen = mouse.screen
+                 })
+```
+
+You can even do something when the notification is destroyed
+
+```lua
+local function naughty_destroy_callback()
+	print("User destroyed my first notification")
+end
+
+local notification = naughty.notify({ text = "My First Notification",
+                                icon = icon,
+                                timeout = 4,
+                                screen = mouse.screen,
+                                })
+notification:connect_signal("destroyed", naughty_destroy_callback)
+```
+
+Optionally you can set the title
+
+```lua
+-- import the notification library
+local naughty = require("naughty")
+
+-- generate a notification
+naughty.notify({ text = "My First Notification",
+								 title = "My first plugin",
+                 icon = icon, -- an optional icon
+                 timeout = 5, -- notification disappears after 5 seconds
+                 screen = mouse.screen
+                 })
+```
+
 ## General widgets
 
 ## Shell scripts
+Sometimes you need to interface with the system in a more generic way.
+You can execute shell scripts and even read the output in lua
+
+```lua
+-- import the generic api
+local awful = require("awful")
+
+-- run a shell script
+awful.spawn("sh /path/to/my/shell/script.sh")
+
+-- example where you read out the shell output
+awful.spawn.easy_async_with_shell("seq 1 10", function(out)
+	print("Shell script finished with output:")
+  print(out)
+end)
+```
 
 ## timeout
 
+Sometimes you need to do something every x seconds an example would be to get the time and update the clock every second
+Below is such an example
+
+```lua
+-- import the timeout library
+local gears = require("gears")
+
+local timer = gears.timer {
+	-- run this every minute
+  timeout = 60,
+  -- start by itself (otherwise run timer:start() to start and timer:stop() to stop)
+  autostart = true,
+  -- this function get ran every minute
+  callback = function ()
+    print(os.date():sub(9))
+  end
+}
+```
+
 ## signals
+
+Sometimes you want to receive event from one widget or module to another.
+For example when something needs to be updated like when a new screen has been plugged in.
+
+
+```lua
+-- This will be called when the volume slider get updated
+awesome.connect_signal(
+	'widget::volume',
+  function(value)
+    print("Updated volume slider")
+  end
+)
+
+-- this will emit a signal that can be catched by anyone listning
+awesome.emit_signal("widget::volume")
+```
+
+> To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde) 
 
 
 
