@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-06-28T10:23:14.674Z
+date: 2020-07-04T16:35:52.140Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -21,7 +21,7 @@ Make sure this package is installed before continuing with this section.
 > NOTE: A settings app is in development. Currently you will have to edit the configuration files yourself
 {.is-info}
 
-### General
+## General
 
 If you wish to edit general settings of the window manager then you need to edit the `.config/tos/general.conf` file.
 In case it doesn't exist yet use the following file
@@ -89,7 +89,7 @@ Fast `draw_mode` looks decent without such a overhead of computing power, thus i
 None `draw_mode` simply doesn't draw the topbar and requires no extra computing power
 
 
-### Colors
+## Colors
 
 If you wish to edit the colors of the window manager then you need to edit the `.config/tos/colors.conf` file.
 In case it doesn't exist yet use the following file
@@ -234,7 +234,7 @@ taglist_occupied="ffffff"
 
 > By setting the background property to `light` will enable light theme, otherwise dark theme is used by default
 
-### Icons
+## Icons
 
 The same configuration can be done for icons. What do we mean about icons?
 Well you can change the logo, workspace icons, Even icons in the top bar.
@@ -289,7 +289,7 @@ download="/etc/xdg/awesome/theme/icons/download.svg"
 > All paths must be absolute!
 {.is-warning}
 
-### Tags
+## Tags
 
 The next file is called `.config/tos/tags.conf`
 It contains application behaviour such as where should an application launch. And what is the windowing style of a specific window.
@@ -350,7 +350,7 @@ screen_7_1 = "Inkscape"
 screen_7_2 = "Gimp"
 ```
 
-### Keybindings
+## Keybindings
 
 The next file is called `.config/tos/keys.conf`
 It contains most of the keybindinds you need. Each individual action on the window manager can be controlled here.
@@ -405,7 +405,58 @@ window_screenshot = "Print" # mod + shift +Print (take a screenshot of a specifi
 emoji = "m" # mod + e (show a emoji selector screen)
 ```
 
-### Floating
+## Plugins
+
+Plugins can be added to `TDE` the Desktop Environment of `TOS` The example configuration file below `~/.config/tos/plugins.conf` describes which plugins should be loaded and where.
+
+Plugins use the following [api](https://awesomewm.org/apidoc/) and are written in `lua`
+
+It contains four categories.
+
+1. `Notification` These plugins must be a widget (take up space in the GUI) and they will be placed in the notification center under widgets
+2. `Settings` These plugins must be a widget (take up space in the GUI) and they will be placed in the settings menu below the default settings. Useful for custom  settings
+3. `Topbar` These plugins must be a widget (take up space in the GUI) Usually in the form of a button. They will be placed in the topbar at the left side next to all other buttons
+4. `Module` These plugins can be any form of code. They will simply be sourced and ran as background tasks sharing resources with the other widgets. In other words they usually communicate between different widgets as a daemon.
+
+```bash
+# This file is used to enable and add plugin into your TDE build
+# Their are 4 categories
+# notification, module, settings, topbar
+# We will describe each below
+# If you want to enable default widgets you need to prefix those with widget. (including the dot)
+# Plugins can be added in ~/.config/tde/
+# Each plugin must look as followed <dir>/init.lua
+# So each plugin has its own directory and MUST contain a init.lua
+# This file will be ran to generate the widget/module
+# Look in /etc/xdg/.config/tde for example plugins
+
+
+# Notification widget plugins will be added in the notification center
+notification_1="widget.user-profile"
+notification_2="widget.social-media"
+notification_3="widget.weather"
+notification_4="widget.sars-cov-2"
+notification_5="widget.calculator"
+
+# This is a custom widget. The above are defaults
+#notification_6="hello-world-widget"
+
+# The next plugins are modules, modules are not shown to users but instead perform tasks in the background. Usually used as internal deamons 
+#module_1="hello-world"
+
+# There is also a settings widget plugin array
+# Here you list plugins that will be added to the settings page
+#settings_1="hello-world-widget"
+
+# This is the last plugin array used by the topbar
+# It is usually an icon that performs something when clicked
+#topbar_1="icon_button"
+```
+
+> Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
+> Plugins use the following [api](https://awesomewm.org/apidoc/) and are written in lua.
+
+## Floating
 
 Last configuration file of the window manager is for floating applications.
 
@@ -431,7 +482,7 @@ float_2 = "Gimp-2.10"
 ```
 
 
-### Autostart Applications
+## Autostart Applications
 The last configuration 'file' is called the autostart.
 It is basically a directory that you can create. Each shell script that is in there will be executed on start.
 
