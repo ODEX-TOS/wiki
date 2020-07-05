@@ -2,7 +2,7 @@
 title: Tiling Window Managers
 description: Short help page describing how and what tiling window managers are.
 published: true
-date: 2020-07-05T13:23:56.635Z
+date: 2020-07-05T13:24:34.212Z
 tags: help, window manager, user, tiling
 editor: markdown
 ---
@@ -16,13 +16,13 @@ A tiling window manager is a specific way of handling windows. When you for exam
 
 ## Normal Window Manager
 
-Here we show the example of the browser and pdf viewer using a normal window manager
+Here we show the example of the browser and terminal emulator using a normal window manager
 
 ![floating-wm.png](/images/window-manager/floating-wm.png)
 
 
 ## Tiling window manager
-Here we show the example of the browser and pdf viewer using a tiling window manager
+Here we show the example of the browser and terminal emulator using a tiling window manager
 
 ![tiling-wm.png](/images/window-manager/tiling-wm.png)
 
