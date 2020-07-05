@@ -2,7 +2,7 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-07-05T12:56:14.154Z
+date: 2020-07-05T13:28:42.054Z
 tags: tos, getting started, basics, iso, user, download, live iso
 editor: markdown
 ---
@@ -102,6 +102,7 @@ dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb # where sdb is the name of you
 ```
 
 > Note that the above `dd` command can take a long time. If you wish to see progress use the following command
+{.is-info}
 
 ```bash
 dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb status=progress # where sdb is the name of your stick
