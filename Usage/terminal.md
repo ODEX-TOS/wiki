@@ -2,12 +2,18 @@
 title: Terminal
 description: Explain the customization of st the TOS terminal
 published: true
-date: 2020-06-21T10:41:45.197Z
+date: 2020-07-05T13:20:46.336Z
 tags: terminal config
+editor: markdown
 ---
 
 # Terminal
 This document won't cover how terminal emulators or shells work. However it will cover the "things" TOS implemented into their own terminal.
+
+![terminal-emulator.png](/images/terminal/terminal-emulator.png)
+
+> The picture above is an example of how the default `TOS` terminal emulato looks
+{.is-info}
 
 ## Emulator
 
