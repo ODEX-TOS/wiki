@@ -2,8 +2,9 @@
 title: General
 description: General information on how to get started developing
 published: true
-date: 2020-03-14T21:32:20.024Z
-tags: getting started, tutorial, help, dev
+date: 2020-07-05T13:29:07.161Z
+tags: tutorial, help, dev, getting started
+editor: markdown
 ---
 
 # General Info
@@ -32,6 +33,7 @@ In case you don't here is a small list to get you started
 - [GPG Key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
 
 > You should be familiar with all of the above before contributing code
+{.is-info}
 
 Lets quickly cover the flow that is expected of a developer.
 
