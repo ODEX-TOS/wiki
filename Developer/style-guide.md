@@ -2,8 +2,9 @@
 title: Style Guide
 description: A short document describing the style guid
 published: true
-date: 2020-06-16T22:53:25.488Z
+date: 2020-07-05T13:30:56.641Z
 tags: 
+editor: markdown
 ---
 
 # Style Guide
@@ -15,6 +16,7 @@ This guide applies to every new piece of code and every refactor.
 > These issues will slowly converge to the new styling over time.
 > This however doesn't mean you don't have to follow the guid.
 > It means you are free to refactor that piece of code ;)
+{.is-info}
 
 ## General
 
