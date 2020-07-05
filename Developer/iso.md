@@ -2,8 +2,9 @@
 title: Live Iso
 description: Everything needed to build the live iso
 published: true
-date: 2020-03-19T23:28:41.185Z
+date: 2020-07-05T13:29:42.984Z
 tags: tutorial, help, dev
+editor: markdown
 ---
 
 # Live ISO
@@ -74,7 +75,7 @@ sudo ./start.sh -h
 ```
 
 > start.sh needs to be activated in the same folder or your images won't get build. You also need to be on the latest kernel for the build to succeed
-
+{.is-info}
 
 ## Structure
 
@@ -85,6 +86,7 @@ Our project has the following files you need to know about:
 This file contains all packages required for the operating system (for the desktop edition)
 
 > The packages listed here do not work with the aur see repo below for more info
+{.is-info}
 
 #### toslive/packages.x86_64_server
 
@@ -95,6 +97,7 @@ This is the same as above but for the server edition (without a desktop)
 This file is a script that will be executed during build. In this file you "prepare" the operating system for the user
 
 > Do not install packages from the aur here. It won't work
+{.is-info}
 
 #### toslive/packages.x86_64_awesome
 
@@ -102,6 +105,7 @@ This file contains the packages that are going to be installed in the live envir
 You should add an extra line if you want to install an extra package.
 
 > Do not install packages from the aur here. It won't work.
+{.is-info}
 
 #### toslive/version-edit.txt
 
