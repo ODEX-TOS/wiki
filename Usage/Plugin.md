@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-05T13:41:41.935Z
+date: 2020-07-05T13:42:18.067Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 ---
@@ -14,6 +14,10 @@ Each plugin should be inside its own directory.
 `TOS` provides some plugins by default if `skel` is installed.
 You can visit the example plugins under `/etc/skel/.config/tde`
 This file will describe how such plugins work.
+
+> To get an in depth api overview visit the following
+<a href="https://tos.odex.be/docs/index.html">link</a>
+{.is-info}
 
 First you must understand that their are 2 different kind of plugins.
 
@@ -239,7 +243,7 @@ awesome.emit_signal("widget::volume")
 > To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde)
 {.is-info}
 
-> To get an in depth api overview make sure `awesome-tos` is installed and visit the following
+> To get an in depth api overview visit the following
 <a href="https://tos.odex.be/docs/index.html">link</a>
 {.is-info}
 
