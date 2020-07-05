@@ -2,8 +2,9 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-07-05T12:29:18.231Z
+date: 2020-07-05T13:26:22.551Z
 tags: tutorial, user, maintain, config
+editor: markdown
 ---
 
 # Configuration
@@ -455,6 +456,7 @@ notification_5="widget.calculator"
 
 > Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
 > Plugins use the following [link](file:///usr/share/doc/tde/doc/index.html) and are written in lua.
+{.is-info}
 
 > If the above link doesn't work you don't have `tde` installed. Install it with the `awesome-tos` package. Otherwise look at this [api](https://awesomewm.org/apidoc/). Do note that this api is of `awesome` and not of `tde`
 {.is-danger}
@@ -502,6 +504,7 @@ xinput set-prop "ETPS/2 Elantech TrackPoint" "libinput Accel Speed" -0.5
 > All scripts that you want to execute on launch need to have executable permissions
 > All scripts must end with .sh to be executed
 > The rest of the name you can choose by yourself
+{.is-info}
 
 ## TOS Daemon
 
@@ -673,3 +676,4 @@ Here is a list of variables that `tos` takes into consideration.
 
 > The `~/.xprofile` is used since the environment variables must be loaded on the x server level. > This way the variables are set when starting up the window manager.
 > If you want to use variables that are not exposed to the window manager you can override them in the `~/.profile` or other files such as `~/.bashrc or ~/.zshrc`
+{.is-info}
