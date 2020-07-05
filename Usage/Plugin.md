@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-05T13:40:57.295Z
+date: 2020-07-05T13:41:41.935Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 ---
@@ -240,7 +240,7 @@ awesome.emit_signal("widget::volume")
 {.is-info}
 
 > To get an in depth api overview make sure `awesome-tos` is installed and visit the following
-<a href="file:///usr/share/doc/tde/docs/index.html">link</a>
+<a href="https://tos.odex.be/docs/index.html">link</a>
 {.is-info}
 
 
