@@ -2,8 +2,9 @@
 title: Repository
 description: Everythinh needed to work on the tos repo
 published: true
-date: 2020-05-22T14:49:46.228Z
+date: 2020-07-05T13:30:27.384Z
 tags: tutorial, help, dev, repository
+editor: markdown
 ---
 
 # Repository
@@ -16,6 +17,7 @@ To work with the tos repo you need a few things.
 
 > To build the server you should be running an `Arch Linux` based system.
 > We prefer you run everything on `TOS` for the best compatibility.
+{.is-info}
 
 ## Installation
 
@@ -45,6 +47,7 @@ This will use the official repository for tos. If you want to use your own repo 
 When using a server to serve your repository you can use the following
 
 > Change the server to point towards your instance. We have delivered a `docker and docker-compose` file so that you can serve the repository tools
+{.is-info}
 
 Simply launch the `docker-compose` file
 
@@ -216,6 +219,7 @@ gpg --export --armor your@email.address >> tos.gpg
 > This file is used to add keys to gpg on users system
 > This way you don't have to upload keys to a key server
 > The benefit is that the user doesn't require internet access
+{.is-info}
 
 #### tos-revoked
 
