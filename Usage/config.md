@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-07-05T13:26:22.551Z
+date: 2020-07-05T13:44:13.221Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -410,7 +410,9 @@ emoji = "m" # mod + e (show a emoji selector screen)
 
 Plugins can be added to `TDE` the Desktop Environment of `TOS` The example configuration file below `~/.config/tos/plugins.conf` describes which plugins should be loaded and where.
 
-Plugins use the following [api](file:///usr/share/doc/tde/doc/index.html) and are written in `lua`
+
+
+Plugins use the following <a href="https://tos.odex.be/docs/index.html">link</a> and are written in `lua`
 
 It contains four categories.
 
@@ -455,10 +457,10 @@ notification_5="widget.calculator"
 ```
 
 > Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
-> Plugins use the following [link](file:///usr/share/doc/tde/doc/index.html) and are written in lua.
+> Plugins use the following <a href="https://tos.odex.be/docs/index.html">link</a> and are written in lua.
 {.is-info}
 
-> If the above link doesn't work you don't have `tde` installed. Install it with the `awesome-tos` package. Otherwise look at this [api](https://awesomewm.org/apidoc/). Do note that this api is of `awesome` and not of `tde`
+> If the above link doesn't work and you have `tde` installed you can open the local version of the api it can be found in `/usr/share/doc/tde/docs/index.html` you can open the file using `open /usr/share/doc/tde/docs/index.html`
 {.is-danger}
 
 ## Floating
