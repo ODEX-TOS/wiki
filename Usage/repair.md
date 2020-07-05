@@ -2,8 +2,9 @@
 title: System Repair
 description: What to do when your system is utterly broken
 published: true
-date: 2020-05-16T18:21:19.347Z
-tags: user, tutorial, help, repair, fix, broken
+date: 2020-07-05T13:27:45.713Z
+tags: tutorial, help, user, repair, fix, broken
+editor: markdown
 ---
 
 # System Repair
@@ -60,6 +61,7 @@ This section is similar to the password recovery
 ### recovery medium
 
 > This section is in case your kernel is broken as well
+{.is-info}
 
 1. Boot the LiveCD and mount the root partition of your main system.
 2. Use the `arch-chroot <mountpoint>` This will change your root to that of your broken system.
@@ -88,6 +90,7 @@ This section is similar to the password recovery
 ### recovery medium
 
 > This section is recommended if the above doesn't work or you messed with the boot process
+{.is-info}
 
 1. Boot the LiveCD and mount the root partition of your main system.
 2. Use the `arch-chroot <mountpoint>` This will change your root to that of your broken system.
