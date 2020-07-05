@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-07-04T16:35:52.140Z
+date: 2020-07-05T12:29:18.231Z
 tags: tutorial, user, maintain, config
 ---
 
@@ -409,7 +409,7 @@ emoji = "m" # mod + e (show a emoji selector screen)
 
 Plugins can be added to `TDE` the Desktop Environment of `TOS` The example configuration file below `~/.config/tos/plugins.conf` describes which plugins should be loaded and where.
 
-Plugins use the following [api](https://awesomewm.org/apidoc/) and are written in `lua`
+Plugins use the following [api](file:///usr/share/doc/tde/doc/index.html) and are written in `lua`
 
 It contains four categories.
 
@@ -454,7 +454,10 @@ notification_5="widget.calculator"
 ```
 
 > Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
-> Plugins use the following [api](https://awesomewm.org/apidoc/) and are written in lua.
+> Plugins use the following [link](file:///usr/share/doc/tde/doc/index.html) and are written in lua.
+
+> If the above link doesn't work you don't have `tde` installed. Install it with the `awesome-tos` package. Otherwise look at this [api](https://awesomewm.org/apidoc/). Do note that this api is of `awesome` and not of `tde`
+{.is-danger}
 
 ## Floating
 
