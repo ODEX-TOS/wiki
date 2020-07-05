@@ -2,8 +2,9 @@
 title: Tos Build System
 description: Simplify your developer life with the tos build system
 published: true
-date: 2020-03-17T14:02:37.205Z
+date: 2020-07-05T13:32:25.469Z
 tags: tutorial, help, dev, simplify
+editor: markdown
 ---
 
 # Tos Build System
@@ -35,6 +36,7 @@ pacman -Syu tos-build-system
 ```
 
 > Make sure you have enabled to tos repository
+{.is-info}
 
 Lets look at the main help file to understand `tbs`
 
@@ -214,7 +216,7 @@ tbs launcher --kernel # only build the kernel
 ```
 
 > This should only be executed when you start with nothing as this can take up to 3 hours to complete
-
+{.is-info}
 
 ### repo
 
