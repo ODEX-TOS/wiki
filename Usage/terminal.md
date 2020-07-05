@@ -2,7 +2,7 @@
 title: Terminal
 description: Explain the customization of st the TOS terminal
 published: true
-date: 2020-07-05T13:20:46.336Z
+date: 2020-07-05T21:27:18.361Z
 tags: terminal config
 editor: markdown
 ---
@@ -12,7 +12,7 @@ This document won't cover how terminal emulators or shells work. However it will
 
 ![terminal-emulator.png](/images/terminal/terminal-emulator.png)
 
-> The picture above is an example of how the default `TOS` terminal emulato looks
+> The picture above is an example of how the default `TOS` terminal emulator looks
 {.is-info}
 
 ## Emulator
