@@ -2,8 +2,9 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-06-29T09:39:52.993Z
+date: 2020-07-05T12:56:14.154Z
 tags: tos, getting started, basics, iso, user, download, live iso
+editor: markdown
 ---
 
 # Download TOS
@@ -129,5 +130,5 @@ After you feel comfortable you can start the installer using `tos c` or `tos cal
 
 Have fun!
 
-> Visit [here](/user/navigate) if you want to learn more about how you should navigate the environment.
+> Visit [here](/Usage/navigate) if you want to learn more about how you should navigate the environment.
 {.is-info}
