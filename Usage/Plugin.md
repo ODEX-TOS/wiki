@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-05T13:25:21.606Z
+date: 2020-07-05T13:26:55.441Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 ---
@@ -126,6 +126,7 @@ svgColor("/home/user/.config/tde/icon-example/icons/globe.svg")
 
 > Make sure a dark variant of you icon exists otherwise light theming is not supported for your plugin.
 > For example if your normal icon is called `icon.svg` than create a second icon named `icon.dark.svg`
+{.is-info}
 
 {.is-warning}
 
