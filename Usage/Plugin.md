@@ -2,8 +2,9 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-05T12:26:19.604Z
+date: 2020-07-05T13:25:21.606Z
 tags: tde, plugins, lua, code, customization
+editor: markdown
 ---
 
 # Plugins
@@ -234,9 +235,11 @@ awesome.connect_signal(
 awesome.emit_signal("widget::volume")
 ```
 
-> To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde) 
+> To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde)
+{.is-info}
 
 > To get an in depth api overview make sure `awesome-tos` is installed and visit the following [link](file:///usr/share/doc/tde/doc/index.html)
+{.is-info}
 
 
 
