@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-07-05T13:44:13.221Z
+date: 2020-07-10T17:16:53.567Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -286,6 +286,7 @@ plus="/etc/xdg/awesome/theme/icons/plus.svg"
 network="/etc/xdg/awesome/theme/icons/network.svg"
 upload="/etc/xdg/awesome/theme/icons/upload.svg"
 download="/etc/xdg/awesome/theme/icons/download.svg"
+warning="/etc/xdg/awesome/theme/icons/warning.svg"
 ```
 > All paths must be absolute!
 {.is-warning}
