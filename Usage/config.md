@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-07-10T17:16:53.567Z
+date: 2020-09-06T14:46:07.378Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -57,8 +57,13 @@ tag_bar_draw="main"
 audio_change_sound="1"
 
 # Opt out of sending package information to the tos developers
-# Set to 0 to opt out
+# Set to 1 to opt out
 pkg_opt_out="0"
+
+# Opt out of sending stacktrace information to the tos developers
+# It is used to find and fix bugs present in TDE
+# Set to 1 to opt out
+tde_opt_out="1"
 
 # Select the window screenshot rendering mode
 # When using the shadow option we superimpose a background with a shadow onto the window for extra eye candy, defaults to shadow
