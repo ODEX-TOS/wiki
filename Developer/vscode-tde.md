@@ -2,7 +2,7 @@
 title: VSCODE - TDE setup guide
 description: Setup support for debugging and running tde
 published: true
-date: 2020-09-30T13:01:43.646Z
+date: 2020-09-30T13:03:06.557Z
 tags: tutorial, tde, vscode, ide
 editor: markdown
 ---
@@ -42,6 +42,7 @@ Afterwards add the following settings to that file
         "awesome",
         "screen",
         "root",
-        "awful"
+        "awful",
+        "mouse"
     ]
 ```
