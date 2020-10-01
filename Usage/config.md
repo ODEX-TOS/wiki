@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-09-06T14:46:07.378Z
+date: 2020-10-01T19:23:30.021Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -459,7 +459,9 @@ notification_5="widget.calculator"
 
 # This is the last plugin array used by the topbar
 # It is usually an icon that performs something when clicked
-#topbar_1="icon_button"
+#topbar-right_1="icon_button"
+#topbar-center_1="icon_button"
+#topbar-left_1="icon_button"
 ```
 
 > Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
