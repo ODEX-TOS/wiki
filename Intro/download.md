@@ -2,7 +2,7 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-07-05T13:28:42.054Z
+date: 2020-10-08T09:03:27.487Z
 tags: tos, getting started, basics, iso, user, download, live iso
 editor: markdown
 ---
@@ -13,16 +13,18 @@ This page will help you get started with booting into TOS. You'll be up and runn
 ## Prepare Disk
 Download the latest version of TOS GNU/Linux [here](https://tos.odex.be/downloads).
 
-> Note that the image used here is the awesome edition. This edition is the only fully supported version.
+> Note that the image used here is the `awesome` edition. This edition is the only fully supported version.
 {.is-warning}
 
 ### Verify iso
+
+> If you trust the download you can skip this section
+{.is-info}
+
 Download the corresponding gpg/sha256 files to verify if your iso is legit.
 The `sha256` file verifies that no data has gone corrupt during the download.
 However it doesn't protect you against tampering.
 The `gpg` file verifies that the author of the iso is in fact `odex`
-> Try downloading the gpg key with wget, firefox/chrome/curl all tamper with the binary data in the gpg file causing a bad signature
-{.is-warning}
 
 #### Verify the checksum
 
@@ -85,6 +87,8 @@ If the above is invalid it means someone is messing with either our servers or w
 > Try downloading the gpg key with wget, firefox/chrome/curl all tamper with the binary data in the gpg file causing a bad signature
 {.is-warning}
 
+## Linux
+
 ### Find your usb stick
 
 If the above is ok then you can continue with flashing your usb stick (or cd)
@@ -98,15 +102,18 @@ lsblk # the new entry is your usb stick
 ### Burn the iso to your usb stick
 
 ```bash
-dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb # where sdb is the name of your stick
-```
-
-> Note that the above `dd` command can take a long time. If you wish to see progress use the following command
-{.is-info}
-
-```bash
 dd if=~/Downloads/toslive-awesome.iso of=/dev/sdb status=progress # where sdb is the name of your stick
 ```
+
+## macOS and Windows
+Putting the tos-linux image on a usb stick requires installing extra software on both macOS and Windows. In this tutorial we will be using etcher
+
+First download [etcher](https://www.balena.io/etcher/) and install it.
+Lauch the program and from the select image option select the `toslive-awesome.iso`.
+Afterwards select the USB stick to burn/put the iso onto.
+
+> Simply copy and pasting the iso to a usb stick doesn't work
+{.is-danger}
 
 ## Booting into TOS GNU/Linux
 
