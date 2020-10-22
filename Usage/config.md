@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-10-22T20:18:43.088Z
+date: 2020-10-22T20:21:15.508Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -424,12 +424,13 @@ Plugins can be added to `TDE` the Desktop Environment of `TOS` The example confi
 
 Plugins use the following <a href="https://tos.odex.be/docs/index.html">link</a> and are written in `lua`
 
-It contains four categories.
+It contains five categories.
 
 1. `Notification` These plugins must be a widget (take up space in the GUI) and they will be placed in the notification center under widgets
-2. `Settings` These plugins must be a widget (take up space in the GUI) and they will be placed in the settings menu below the default settings. Useful for custom  settings
+2. `Action center` These plugins must be a widget (take up space in the GUI) and they will be placed in the settings menu below the default settings. Useful for custom  settings
 3. `Topbar` These plugins must be a widget (take up space in the GUI) Usually in the form of a button. They will be placed in the topbar at the left side next to all other buttons
 4. `Module` These plugins can be any form of code. They will simply be sourced and ran as background tasks sharing resources with the other widgets. In other words they usually communicate between different widgets as a daemon.
+5. `Settings app` These plugins must be a table containing a `icon` property, and `name` property and a `wibox` property. The icon and name appear as a tab in the settings app and the wibox is the settings menu 
 
 ```bash
 # This file is used to enable and add plugin into your TDE build
