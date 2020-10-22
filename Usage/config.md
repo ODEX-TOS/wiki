@@ -2,7 +2,7 @@
 title: Configuration
 description: Configure/tweak your system
 published: true
-date: 2020-10-01T19:23:30.021Z
+date: 2020-10-22T20:18:43.088Z
 tags: tutorial, user, maintain, config
 editor: markdown
 ---
@@ -292,6 +292,8 @@ network="/etc/xdg/awesome/theme/icons/network.svg"
 upload="/etc/xdg/awesome/theme/icons/upload.svg"
 download="/etc/xdg/awesome/theme/icons/download.svg"
 warning="/etc/xdg/awesome/theme/icons/warning.svg"
+lan="/etc/xdg/awesome/theme/icons/lan.svg"
+calendar="/etc/xdg/awesome/theme/icons/calendar.svg"
 ```
 > All paths must be absolute!
 {.is-warning}
@@ -376,17 +378,17 @@ Here is an example config file
 # Numbers are number etc
 # Example name of special keys: Return, Escape, Control, space
 
-# The mod key is the key you need to press with all other keybindings 
-mod = "Mod4" 
-alt = "Mod1" 
+# The mod key is the key you need to press with all other keybindings
+mod = "Mod4"
+alt = "Mod1"
 
 terminal = "Return" # mod + Return
 fullscreen = "f" # mod + f
 kill = "q" # mod + q
 floating = "c" # mod + c
-window_switch = "s" # mod + s 
+window_switch = "b" # mod + b
 launcher = "d" # mod + d
-browser = "w" # mod + shift + w
+browser = "b" # mod + shift + b
 filemanager = "e" # mod + shift + e
 systemmonitor = "Escape" # mod + shift + Escape
 previous_workspace = "w" # mod + w
@@ -404,12 +406,14 @@ restore_minimized = "n" # mod + Control + n
 dropdown_terminal = "F12" # F12
 toggle_sound = "t" # mod + t
 previous_song = "k" # mod + shift + k
-next_song = "n" # mod + n 
+next_song = "n" # mod + n
 screen = "r" # mod + r (change the screen layout)
 printscreen = "Print" # Print (take a snapshot of your entire screen)
 snapshot_area = "Print" # mod + Print (take a snapshot of a part of your screen)
 window_screenshot = "Print" # mod + shift +Print (take a screenshot of a specific window)
 emoji = "m" # mod + e (show a emoji selector screen)
+clipboard = "p" # mod + p (show clipboard history)
+settings = "s" # mod + s (show settings application)
 ```
 
 ## Plugins
@@ -429,12 +433,12 @@ It contains four categories.
 
 ```bash
 # This file is used to enable and add plugin into your TDE build
-# Their are 4 categories
-# notification, module, settings, topbar
+# Their are 4 cotegories
+# notification, module, settings, topbar and settings app
 # We will describe each below
-# If you want to enable default widgets you need to prefix those with widget. (including the dot)
+# If you want to enable default widgets you need to prefix those with widget.
 # Plugins can be added in ~/.config/tde/
-# Each plugin must look as followed <dir>/init.lua
+# Each plugin must look as followed dir/init.lua
 # So each plugin has its own directory and MUST contain a init.lua
 # This file will be ran to generate the widget/module
 # Look in /etc/xdg/.config/tde for example plugins
@@ -446,11 +450,15 @@ notification_2="widget.social-media"
 notification_3="widget.weather"
 notification_4="widget.sars-cov-2"
 notification_5="widget.calculator"
+#notification_5="error-widget"
+
 
 # This is a custom widget. The above are defaults
 #notification_6="hello-world-widget"
+#notification_6="calendar-widget"
+#notification_7="calendar-bare-widget"
 
-# The next plugins are modules, modules are not shown to users but instead perform tasks in the background. Usually used as internal deamons 
+# The next plugins are modules, modules are not shown to users but instead perform tasks in the background. Usually used as internal deamons
 #module_1="hello-world"
 
 # There is also a settings widget plugin array
@@ -460,8 +468,13 @@ notification_5="widget.calculator"
 # This is the last plugin array used by the topbar
 # It is usually an icon that performs something when clicked
 #topbar-right_1="icon_button"
-#topbar-center_1="icon_button"
-#topbar-left_1="icon_button"
+
+# topbar-left_1="icon_button"
+
+# topbar-center_1="icon_button"
+
+# these plugins appear in the settings application
+#settings_1="settings-app-widget"
 ```
 
 > Plugins should be placed in `~/.config/tde/<plugin_name>/init.lua` where plugin_name is the name of your plugin. `init.lua` is the file that will be called that should contain the plugin code.
