@@ -2,9 +2,10 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-07-05T13:42:18.067Z
+date: 2020-12-07T15:31:23.665Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
+dateCreated: 2020-07-04T16:47:09.291Z
 ---
 
 # Plugins
@@ -207,18 +208,18 @@ Below is such an example
 
 ```lua
 -- import the timeout library
-local gears = require("gears")
+local delayed_timer = require("lib-tde.function.delayed-timer")
 
-local timer = gears.timer {
-	-- run this every minute
-  timeout = 60,
-  -- start by itself (otherwise run timer:start() to start and timer:stop() to stop)
-  autostart = true,
-  -- this function get ran every minute
-  callback = function ()
-    print(os.date():sub(9))
-  end
-}
+local timer = delayed_timer(
+-- run the timeout every 10 seconds
+	10,
+  -- the callback function to execute
+  function()
+  	print(os.date():sub(9))
+  end,
+  -- start the timer after 0 seconds (instantly)
+  0
+)
 ```
 
 ## signals
@@ -228,16 +229,44 @@ For example when something needs to be updated like when a new screen has been p
 
 
 ```lua
+local signal_handle = require("lib-tde.signals")
 -- This will be called when the volume slider get updated
-awesome.connect_signal(
-	'widget::volume',
+signal_handle.connect_volume(
   function(value)
-    print("Updated volume slider")
+    print("The system volume changed to: " .. tostring(value) .. "%")
   end
 )
 
 -- this will emit a signal that can be catched by anyone listning
-awesome.emit_signal("widget::volume")
+-- It tells the listners that the volume is 100%
+signal_handle.emit_volume(100)
+```
+
+## translations
+Translations are a big part of software.
+Every decently sized plugin needs translations to grow.
+TDE provides a built in translation library it is exposed as a global in lua `i18n`
+
+A plugin can supply it's own set of translations using the following constructs
+
+```lua
+-- returns the current language as a string, eg 'en', 'nl', 'fr', 'es' etc
+local language = i18n.getLanguage()
+local translation = {}
+
+if language == "en" then
+ translation["hello"] = "hello"
+ translation["good day"] = "good day"
+ i18n.custom_translations(translation)
+elseif language == "nl" then
+ translation["hello"] = "hallo"
+ translation["good day"] = "goeiedag"
+ i18n.custom_translations(translation)
+end
+
+-- now you can use the translations
+print(i18n.translate("hello"))
+print(i18n.translate("good day"))
 ```
 
 > To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde)
