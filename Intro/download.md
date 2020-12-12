@@ -2,9 +2,10 @@
 title: Download
 description: Easily setup/run TOS
 published: true
-date: 2020-10-08T09:03:27.487Z
+date: 2020-12-12T14:55:00.899Z
 tags: tos, getting started, basics, iso, user, download, live iso
 editor: markdown
+dateCreated: 2020-05-29T12:41:26.048Z
 ---
 
 # Download TOS
@@ -128,10 +129,6 @@ This will start the boot up sequence. After a few seconds/minutes you will be pr
 > Depending on the type of usb port/key the boot up sequence can take longer. Since older usb's are rather slow.
 {.is-info}
 
-When using the awesome edition you will be presented with a tutorial. It is recommended that you follow this tutorial to the letter. For more information about our awesome edition please visit the navigation section.
-
-> Open up a terminal (mod+Enter) and type in tos c. This will start the installer
-{.is-warning}
 
 Feel free to play around in the Live environment.
 After you feel comfortable you can start the installer using `tos c` or `tos calamares` inside of a terminal.
@@ -140,3 +137,34 @@ Have fun!
 
 > Visit [here](/Usage/navigate) if you want to learn more about how you should navigate the environment.
 {.is-info}
+
+## Alternative keybindings
+Some countries use different keybindings then `QWERTY` TOS by default has a boot option for both `QWERTY` and `AZERTY` if you want to boot with a custom keyboard layout you can.
+When presented with the bootloader press `e` for edit or `tab` this will put you into edit more.
+Here you are presented with the command line options that are used by tos.
+
+2 boot parameters are used for changing keybindings.
+- tos.key
+- tos.loadkeys
+
+The tos.loadkeys boot option is used as the keyboard layout for the virtual console (tty)
+The tos.key boot option is used as the keyboard layout of the active x session (graphical environment)
+
+tos.loadkeys will be passed down to the `loadkeys` command and can for example be:
+- us
+- be-latin1
+- fr
+- azerty
+- dvorak
+
+tos.keys will be passed down to the `setxkbmap` command and can for example be:
+- us
+- be
+- fr
+- pl
+- latin
+- il
+- de
+- cz
+- nl
+and many more
