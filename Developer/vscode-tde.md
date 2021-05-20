@@ -2,9 +2,10 @@
 title: VSCODE - TDE setup guide
 description: Setup support for debugging and running tde
 published: true
-date: 2020-09-30T13:03:06.557Z
+date: 2021-05-20T14:05:45.327Z
 tags: tutorial, tde, vscode, ide
 editor: markdown
+dateCreated: 2020-09-30T13:01:43.646Z
 ---
 
 # VSCODE setup guide
@@ -31,8 +32,8 @@ Afterwards add the following settings to that file
     "Lua.runtime.version": "Lua 5.3",
     "Lua.workspace.ignoreSubmodules": false,
     "Lua.workspace.library": {
-        "/usr/share/awesome/lib": true,
-        "/etc/xdg/awesome": true
+        "/usr/share/tde/lib": true,
+        "/etc/xdg/tde": true
     },
     "Lua.diagnostics.disable": [
         "lowercase-global"
