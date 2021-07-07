@@ -2,8 +2,10 @@
 title: Updates
 description: How should you update your system
 published: true
-date: 2020-06-21T11:06:39.744Z
+date: 2021-07-07T18:13:58.368Z
 tags: tutorial, update, user, maintain
+editor: markdown
+dateCreated: 2020-05-29T12:41:40.206Z
 ---
 
 # Updates
@@ -52,7 +54,7 @@ As we can see above the package is named gimp `extra/gimp 2.10.14-1 (18.9 MiB 10
 
 ## Keep your system up to data
 All you need to do is run `tos -Syu` often enough to keep your system up to date.
-If this is not the case tye `system-updater` to perform a version upgrade of tos
+If this is not the case type `system-updater` to perform a version upgrade of tos
 
 > It is important that you update frequently. Since tos is a rolling release distribution you will need to update at least once a week otherwise your updates will become very large.
 {.is-danger}
