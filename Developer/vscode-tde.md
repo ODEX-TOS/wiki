@@ -2,7 +2,7 @@
 title: VSCODE - TDE setup guide
 description: Setup support for debugging and running tde
 published: true
-date: 2021-05-20T14:05:45.327Z
+date: 2021-09-03T16:30:04.190Z
 tags: tutorial, tde, vscode, ide
 editor: markdown
 dateCreated: 2020-09-30T13:01:43.646Z
@@ -21,6 +21,9 @@ tos -Syu visual-studio-code-insiders
 
 Afterward open the quick launcher (Ctrl+P) and type in the following `ext install sumneko.lua`
 This will install the lua linter and autocompletion script
+
+Another recommended but not required plugin is called `tabnine` it gives usefull autocomplete
+You can install it using `ext install tabnine.tabnine-vscode`
 
 ## Configure lua extention
 
