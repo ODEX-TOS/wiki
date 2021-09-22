@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:23:25.463Z
+date: 2021-09-22T10:34:07.179Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -27,6 +27,52 @@ e.g. `~/.config/tde/my-plugin-name/*`
 <a href="https://tos.odex.be/docs/index.html">link</a>
 {.is-info}
 
+## Plugin structure
+
+The directory strucuture must at least look like this:
+```txt
+.config/
+├─ tde/
+│  ├─ Plugin name/
+│  │  ├─ init.lua
+│  │  ├─ metadata.json
+```
+
+- `init.lua` is the code entrypoint of your plugin
+- `metadata.json` contains some extra data about your plugin such as version, icon, description etc
+
+### init.lua
+
+The most basic plugin would be a module that prints to the log file, the `init.lua` would look like this:
+
+```lua
+print("Hello World from my plugin")
+```
+
+### metadata.json
+
+For the init.lua above (Which is a module (see below for more info)) this is the full metadata.json file
+
+```json
+{
+        "type: "module",
+        "icon": "/path/to/your/icon",
+        "version": "v1.0.0",
+        "description": "A simple hello world plugin",
+        "description_en": "A simple hello world plugin",
+}
+```
+
+- `type` - The type of plugin to be loaded (`module`, `notification`, `settings`, `topbar`, `prompt`)
+- `icon` - A path to the icon, can be either absolute or relative
+- `version` - The version of your plugin, using semver
+- `description` - A description of what your plugin does
+- `translation` - By suffixing your description with the languagecode eg `description_en` for english, `description_es` for spanish, `description_fr` for french etc you can translate the description
+
+
+Now go to the settings -> plugins and you should be able to run your plugin.
+
+Before activating open up a terminal and type in `tail -f ~/.cache/tde/stdout.log` in order to see the plugin print
 
 ## Type
 Our plugin system separates plugins into two categories.
