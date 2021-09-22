@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:13:31.296Z
+date: 2021-09-22T10:14:14.638Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -55,7 +55,10 @@ Here are the current widget locations.
 
 ### topbar
 
-Here is an example of the most basic topbar plugin
+Here is an example of the most basic topbar plugin.
+
+> A topbar plugin requires returning a `wibox.widget` instance
+
 
 ```lua
 -- required library
@@ -72,7 +75,9 @@ The `metadata.json` file should look like this:
 ```
 
 ### notification
-Here is an example of the most basic notification plugin
+Here is an example of the most basic notification plugin.
+
+> A notification plugin requires returning a `wibox.widget` instance
 
 ```lua
 -- required library
