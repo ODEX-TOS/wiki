@@ -2,14 +2,22 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2020-12-07T15:31:23.665Z
+date: 2021-09-22T10:03:34.204Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
 ---
 
 # Plugins
-Since version `0.6.0` TDE now includes custom plugins. These can be enabled/disabled using `~/.config/tos/plugins.conf` and are stored in `~/.config/tde/`
+Since version `0.6.0` TDE now includes custom plugins. 
+These can be enabled/disabled using the settings -> plugins (After version `0.9.0`)
+![image.png](/image.png)
+
+> Note: previous version need to edit `~/.config/tos/plugins.conf` 
+
+Plugins can be stored in 2 locations:
+- `~/.config/tde/` - User plugins
+- `/etc/tde/plugins` - System-wide plugins
 Each plugin should be inside its own directory.
 
 `TOS` provides some plugins by default if `skel` is installed.
