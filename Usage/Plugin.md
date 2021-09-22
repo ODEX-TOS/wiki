@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:04:43.237Z
+date: 2021-09-22T10:09:41.758Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -27,17 +27,20 @@ e.g. `~/.config/tde/my-plugin-name/*`
 <a href="https://tos.odex.be/docs/index.html">link</a>
 {.is-info}
 
-First you must understand that their are 2 different kind of plugins.
 
 ## Type
+Our plugin system separates plugins into two categories.
 
 1. `Modules`:
- These plugins are simple scripts written in `lua` that are ran in the background under the same process as widgets (thus they can manipulate widgets and more). Users usually don't see these plugins working. Examples are: low battery notifier, keybindings, settings modifiers, file watchers and many more. You can compair then with daemons.
+ These plugins are simple scripts written in `lua` that are ran in the background under the same process as widgets (thus they can manipulate widgets and other things). Users usually don't see these plugins working. Examples are: low battery notifier, keybindings, settings modifiers, file watchers and many more. You can compair then with unix daemons.
+
 2. `Widgets`: 
  Next you have widgets, These are the plugins you see every day. They are the GUI representation of a certain object. You can see them all over the place. Starting from the clock, package updater, wifi widget, workspaces, settings app and more.
  
 When writting a plugin you must take into consideration which one to use.
-Everything is allowed in a Module, however when writing a Widget you must inherit `wibox` and return such an object to be consumed by `TDE`
+Everything is allowed in a Module, however when writing a Widget you must inherit `wibox.widget` and return such an object to be consumed by `TDE`
+
+> Note: `wibox.widget` is the widgeting system in tde
 
 ## widgets
 
@@ -45,9 +48,12 @@ Plugins widgets can be placed in multiple locations around the user interface.
 In the configuration file you can specify where the widget should be placed.
 Here are the current widget locations.
 
-1. `settings` - The widget will be placed at the bottom of the settings app (left menu)
-2. `topbar` - The widget will be placed in the topbar on the right side next to all the buttons
-3. `notification center` - The widget will be put in the notification center under the widget tab
+1. `topbar` - The widget will be placed in the topbar on the right side next to all the buttons
+2. `notification` - The widget will be put in the notification center under the widget tab
+3. `settings` - The widget will be placed at the bottom of the settings app (left menu)
+4. `prompt` - The widget will provide autocomplete for the prompt (Mod + F2)
+
+### 
 
 # API
 
@@ -59,7 +65,7 @@ Here is a list of useful websites helping you learn the language:
 Since `TDE` is build ontop of `awesomeWM` you can use their [api](https://awesomewm.org/apidoc/)
 A few things you should know about their api is the `wibox` and `wibox.widget` classes (used for widgets).
 You should also need to know `naughty` if you want to use notifications.
-`beautiful` is used as the theming api.
+`beautiful` is used as the theming api and `lib-tde.signals` to communicate to other parts of `TDE`.
 
 Below we will cover a few important subjects to get you started
 
@@ -276,7 +282,7 @@ print(i18n.translate("hello"))
 print(i18n.translate("good day"))
 ```
 
-> To get an example of how plugins work look [here](https://github.com/ODEX-TOS/dotfiles/tree/master/tde)
+> To get an example of how plugins work look [here](https://github.com/ODEX-TOS/tos-desktop-environment/tree/release/plugins)
 {.is-info}
 
 > To get an in depth api overview visit the following
