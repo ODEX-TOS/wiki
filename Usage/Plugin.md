@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:09:41.758Z
+date: 2021-09-22T10:13:11.498Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -53,7 +53,53 @@ Here are the current widget locations.
 3. `settings` - The widget will be placed at the bottom of the settings app (left menu)
 4. `prompt` - The widget will provide autocomplete for the prompt (Mod + F2)
 
-### 
+### topbar
+
+Here is an example of the most basic topbar plugin
+
+```lua
+-- required library
+local wibox = require("wibox")
+
+return wibox.widget.textbox("This is an example topbar plugin")
+```
+
+The `metadata.json` file should look like this:
+```json
+{
+    "type": "topbar",
+}
+```
+
+### notification
+Here is an example of the most basic notification plugin
+
+```lua
+-- required library
+local card = require('lib-widget.card')()
+local wibox = require("wibox")
+
+card.update_body(
+	wibox.widget.textbox("This is an example topbar plugin")
+  )
+
+return card
+```
+
+The `metadata.json` file should look like this:
+```json
+{
+    "type": "topbar",
+}
+```
+
+### settings
+```lua
+```
+
+### prompt
+```lua
+```
 
 # API
 
