@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:45:19.522Z
+date: 2021-09-22T11:05:51.868Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -56,6 +56,7 @@ For the init.lua above (Which is a module (see below for more info)) this is the
 ```json
 {
         "type: "module",
+  			"name": "My TDE Plugin",
         "icon": "/path/to/your/icon",
         "version": "v1.0.0",
         "description": "A simple hello world plugin",
@@ -64,6 +65,7 @@ For the init.lua above (Which is a module (see below for more info)) this is the
 ```
 
 - `type` - The type of plugin to be loaded (`module`, `notification`, `settings`, `topbar`, `prompt`)
+- `name` - A custom name that is overriden instead of using the directory name
 - `icon` - A path to the icon, can be either absolute or relative
 - `version` - The version of your plugin, using semver
 - `description` - A description of what your plugin does
