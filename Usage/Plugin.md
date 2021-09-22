@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:03:34.204Z
+date: 2021-09-22T10:04:43.237Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -19,10 +19,9 @@ Plugins can be stored in 2 locations:
 - `~/.config/tde/` - User plugins
 - `/etc/tde/plugins` - System-wide plugins
 Each plugin should be inside its own directory.
+e.g. `~/.config/tde/my-plugin-name/*`
 
-`TOS` provides some plugins by default if `skel` is installed.
-You can visit the example plugins under `/etc/skel/.config/tde`
-This file will describe how such plugins work.
+`TOS` provides some plugins by default, check `/etc/tde/plugins/*` for example plugins
 
 > To get an in depth api overview visit the following
 <a href="https://tos.odex.be/docs/index.html">link</a>
