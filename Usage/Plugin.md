@@ -2,7 +2,7 @@
 title: Plugins
 description: Plugins that are written for TDE
 published: true
-date: 2021-09-22T10:14:14.638Z
+date: 2021-09-22T10:23:25.463Z
 tags: tde, plugins, lua, code, customization
 editor: markdown
 dateCreated: 2020-07-04T16:47:09.291Z
@@ -85,7 +85,7 @@ local card = require('lib-widget.card')()
 local wibox = require("wibox")
 
 card.update_body(
-	wibox.widget.textbox("This is an example topbar plugin")
+	wibox.widget.textbox("This is an example notification plugin")
   )
 
 return card
@@ -99,11 +99,101 @@ The `metadata.json` file should look like this:
 ```
 
 ### settings
+Here is an example of the most basic topbar plugin.
+
+> A settings plugin requires returning a table in the following format:
+> ```lua
+>{
+>  icon = "/path/to/your/icon",
+>  name = "the name of your settings application",
+>  -- the settings menu expects a wibox
+>  widget = create_widget() -- should return a wibox.widget
+>}
+> ```
+> The `icon` is used in the navigation tab to show your settings (It can be dynamically generated)
+> The `name` is used in the settings tab
+> The `widget` is the setting page element
+
+
 ```lua
+-- required library
+local wibox = require("wibox")
+local icons = require("theme.icons")
+
+return {
+  icon = icons.warning,
+  name = "example settings",
+  -- the settings menu expects a wibox
+  widget = wibox.widget.textbox("This is an example settings plugin")
+}
+```
+
+The `metadata.json` file should look like this:
+```json
+{
+    "type": "settings",
+}
 ```
 
 ### prompt
+Here is an example of the most basic prompt plugin.
+
+> A prompt plugin requires returning a table in the following format:
+> ```lua
+>{
+>  get_completion = function() end,
+>  perform_action = function() end,
+>  name = "The name of this plugin"
+>}
+> ```
+> The `get_completion` function is used to generated the prompt list for the user
+> The `perform_action` function is called when the user selects an option returned from the `get_completion` function
+> The `name` is the name of this specific prompt resolver
+
 ```lua
+-- used to fetch icons
+local icons = require("theme.icons")
+
+-- This function should return a completion list
+-- This list will be displayed in the prompt
+-- The supplied query is the search string the user typed in
+-- The function should return a list of elements with the following properties:
+-- icon -> a string pointing to an image on the filesystem - or a cairo surface
+-- text -> a string showing the text to the end user in the prompt
+-- payload -> a custom object that will be passed to the `perform_action` function when this item is selected
+local function get_completions(query)
+    return {
+        {
+            icon = icons.unknown,
+            text = "Plugin completion for: " .. tostring(query),
+            payload = query,
+            __score = math.huge -- optional argument to override the place in the prompt to appear
+        }
+    }
+end
+
+-- This function will be called when an item from this plugin is selected in the prompt
+-- The payload parameter is the payload you supplied in the `get_completions` function
+-- You can perform the action here that the end user requested, for example open a webpage, login via ssh, open an application etc
+local function perform_action(payload)
+    print("Prompt example plugin got payload: " .. payload)
+end
+
+
+return {
+    get_completion = get_completions,
+    perform_action = perform_action,
+
+    -- Don't forget to change this name to the name of your plugin
+    name = "example plugin"
+}
+```
+
+The `metadata.json` file should look like this:
+```json
+{
+    "type": "prompt",
+}
 ```
 
 # API
